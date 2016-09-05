@@ -78,7 +78,7 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Speak/Edit main counter: Command+f4
 Speak/Edit Sub Counter: Command+f6
 Speak/Edit Nudge value: Command+f7
-Speak Grid Value: Command+f8
+Speak/Edit Grid Value: Command+f8
 Speak/Edit Pre-Roll: Command+f9
 Speak/Edit Post-Roll:	Command+f10
 - Close All Floating Windows: Command+Option+w
@@ -90,8 +90,8 @@ Speak/Edit Post-Roll:	Command+f10
 - Speak Selected Tracks, Deselect All Tracks: Option+Shift+t
 - Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks: Option+Shift+k
 - Beta: Speak Record-Enabled Tracks, Disarm All Record Enabled Tracks: Option+Shift+r
-- Speak Soloed Tracks, Unsolo All Tracks: Option+Shift+s
-- Speak Muted Tracks, Unmute All Tracks: Option+Shift+m
+- Speak Soloed Tracks, UnSolo All Tracks: Option+Shift+s
+- Speak Muted Tracks, UnMute All Tracks: Option+Shift+m
 - Speak Record Safe Tracks: Command+Option+Shift+r
 - Speak Solo Safe Tracks: Command+Option+Shift+s
 - Speak Clipped Tracks: Option+Shift+c
@@ -123,10 +123,10 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Assign Inserts A through J: Command+1 through 0
 - Speak/Open Sends A through J: Control+1 through 0
 - Assign Sends A through J: Command+Control+1 through 0
-- Speak/Select Audio Input: i
-Speak/Select MIDI Input: Option+i
-- Speak/Select Audio Output: o
-Speak/Select MIDI Output: Option+o
+- Speak/Select Track Input: i
+Speak/Select Instrument Input: Option+i
+- Speak/Select Track Output: o
+Speak/Select Instrument Output: Option+o
 - Beta: Speak/Select Automation Mode: a
 - Speak/Select Group: g
 - Speak/Reset Pan: n
@@ -134,9 +134,9 @@ Speak/Select MIDI Output: Option+o
 - Speak/Toggle Record State: r
 - Speak/Toggle Solo: s
 - Speak/Toggle Mute: m
-Speak/Toggle MIDI Mute: Option+m
+Speak/Toggle Instrument Mute: Option+m
 - Speak/Reset Volume Fader: v
-Speak/Reset MIDI Volume Fader: Option+v
+Speak/Reset Instrument Volume Fader: Option+v
 - Speak/Reset Level Meter: l
 - Speak/Reset Peak Meter: p
 - Speak/Reset Gain Reduction Meter: g
