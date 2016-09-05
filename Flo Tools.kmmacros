@@ -1977,8 +1977,13 @@ start = new Date().getTime()
 }
 }
 msg = msg.replace(/ Track\. /g, ". ")
-if (msg=="") msg = msg+"No tracks are armed."
-else msg = "Armed: "+msg
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+recordStatus = edit.groups.byName("Transport View Cluster").groups.byName("Normal Transport Buttons").buttons.whose({name:"Track Record Enabled"})
+if (msg=="" &amp; recordStatus.length == 1) {
+msg = "Some tracks are record enabled."
+} else if (msg=="" &amp; recordStatus.length == 0) {
+msg = "No tracks are record enabled."
+} else msg = "Record enabled: "+msg
 vo.output (msg)
 }
 
@@ -2045,7 +2050,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479415768.360699</real>
 				<key>ModificationDate</key>
-				<real>494786225.59232098</real>
+				<real>494787996.67819703</real>
 				<key>Name</key>
 				<string>Beta: Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks</string>
 				<key>Triggers</key>
