@@ -10011,9 +10011,15 @@ sys = Application("System Events")
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-track = mix.groups.byName(vo.voCursor.textUnderCursor())
+text = vo.voCursor.textUnderCursor()
+track = mix.groups.byName(text)
+if (text.indexOf(" - MIDI Track")&gt;-1) {
+value = ""+track.buttons.whose({name:{_contains:"MIDI Input selector"}}).name()
+value = value.replace("MIDI Input selector", "")
+} else {
 value = ""+track.popUpButtons.whose({name:{_contains:"Input Path"}}).name()
 value = value.replace("Audio Input Path selector", "")
+}
 vo.output(value)
 }
 
@@ -10023,8 +10029,11 @@ sys = Application("System Events")
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-track = mix.groups.byName(vo.voCursor.textUnderCursor())
-track.popUpButtons.whose({name:{_contains:"Input Path"}})[0].click()
+text = vo.voCursor.textUnderCursor()
+track = mix.groups.byName(text)
+if (text.indexOf(" - MIDI Track")&gt;-1) {
+track.buttons.whose({name:{_contains:"MIDI Input selector"}})[0].click()
+} else track.popUpButtons.whose({name:{_contains:"Input Path"}})[0].click()
 }
 
 kme = Application("Keyboard Maestro Engine")
@@ -10059,7 +10068,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>493842481.33545101</real>
 				<key>ModificationDate</key>
-				<real>494235966.01757401</real>
+				<real>494806968.74367702</real>
 				<key>Name</key>
 				<string>Speak/Select Input</string>
 				<key>Triggers</key>
@@ -10366,9 +10375,18 @@ sys = Application("System Events")
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-track = mix.groups.byName(vo.voCursor.textUnderCursor())
+text = vo.voCursor.textUnderCursor()
+track = mix.groups.byName(text)
+if (text.indexOf(" - MIDI Track")&gt;-1) {
+value = ""+track.buttons.whose({name:{_contains:"MIDI Output selector"}}).name()
+value = value.replace("MIDI Output selector", "")
+} else if (text.indexOf(" - Master Track")&gt;-1) {
+value = ""+track.buttons.whose({name:{_contains:"Audio Output Path selector"}}).name()
+value = value.replace("Audio Output Path selector", "")
+} else {
 value = ""+track.popUpButtons.whose({name:{_contains:"Output Path"}}).name()
 value = value.replace("Audio Output Path selector", "")
+}
 vo.output(value)
 }
 
@@ -10378,8 +10396,16 @@ sys = Application("System Events")
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-track = mix.groups.byName(vo.voCursor.textUnderCursor())
-track.popUpButtons.whose({name:{_contains:"Output Path"}})[0].click()
+text = vo.voCursor.textUnderCursor()
+track = mix.groups.byName(text)
+if (text.indexOf(" - MIDI Track")&gt;-1) {
+button = track.buttons.whose({name:{_contains:"MIDI Output selector"}})[0]
+} else if (text.indexOf(" - Master Track")&gt;-1) {
+button = track.buttons.whose({name:{_contains:"Audio Output Path selector"}})[0]
+} else {
+button = track.popUpButtons.whose({name:{_contains:"Output Path"}})[0]
+}
+button.click()
 }
 
 kme = Application("Keyboard Maestro Engine")
@@ -10413,7 +10439,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>493843431.58760601</real>
 				<key>ModificationDate</key>
-				<real>494236071.01945198</real>
+				<real>494806898.51739299</real>
 				<key>Name</key>
 				<string>Speak/Select Output</string>
 				<key>Triggers</key>
