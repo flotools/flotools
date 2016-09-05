@@ -1,6 +1,6 @@
 # Flo Tools
 #Welcome!
-Welcome to Flo Tools! This open source product is a series of UI scripts for VoiceOver designed to enhance the accessibility of Pro Tools for blind and visually-impaired users   by streamlining and automating tasks to dramatically improve the efficiency  of workflows.
+Welcome to Flo Tools! This open source product is a series of UI scripts for VoiceOver designed to enhance the accessibility of Pro Tools for visually-impaired users   by streamlining and automating tasks to dramatically improve workflows.
 
 This Read Me file is divided into headings for easier screen reader navigation. Read on to get started.
 
@@ -72,10 +72,13 @@ Below is a list of Flo Tools commands, and their associated functions, separated
 
 Where two actions are listed, double-tapping the key will perform the second action.
 
-- Speak selection start: Command+f1
-- Speak Selection End: Command+f2
-- Speak Selection Length: Command+f3
-- Speak main counter: Command+f4
+- Speak/Edit selection start: Command+f1
+- Speak/Edit Selection End: Command+f2
+- Speak/Edit Selection Length: Command+f3
+- Speak/Edit main counter: Command+f4
+Speak/Edit Sub Counter: Command+f6
+Speak/Edit Nudge value: Command+f7
+Speak Grid Value: Command+f6
 - Close All Floating Windows: Command+Option+w
 - Zoom/Maximize Window: Command+Option+Shift+z
 - Show All Tracks: Option+f1
@@ -90,13 +93,14 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Speak Record Safe Tracks: Command+Option+Shift+r
 - Speak Solo Safe Tracks: Command+Option+Shift+s
 - Speak Clipped Tracks: Option+Shift+c
+- Command-Click: Command+Control+` (accent)
+- Command+Option-Click: Command+Option+` (accent)
 - Control-Click: Control+` (accent)
 - Control+Option-Click: Control+Option+` (accent), must be passed through
 - Control+Option+Shift-Click: Control+Option+Shift+` (accent), must be passed through
 - Option-Click: Option+` (accent)
+Shift-Click: Shift+` (accent)
 - Option+Shift-Click: Option+Shift+` (accent)
-- Command-Click: Command+Control+` (accent)
-- Command+Option-Click: Command+Option+` (accent)
 
 
 ###Flo Tools Inspector:
