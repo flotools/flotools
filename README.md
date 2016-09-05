@@ -78,7 +78,9 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Speak/Edit main counter: Command+f4
 Speak/Edit Sub Counter: Command+f6
 Speak/Edit Nudge value: Command+f7
-Speak Grid Value: Command+f6
+Speak Grid Value: Command+f8
+Speak/Edit Pre-Roll: Command+f9
+Speak/Edit Post-Roll:	Command+f10
 - Close All Floating Windows: Command+Option+w
 - Zoom/Maximize Window: Command+Option+Shift+z
 - Show All Tracks: Option+f1
@@ -93,6 +95,9 @@ Speak Grid Value: Command+f6
 - Speak Record Safe Tracks: Command+Option+Shift+r
 - Speak Solo Safe Tracks: Command+Option+Shift+s
 - Speak Clipped Tracks: Option+Shift+c
+Speak/Toggle Click: Option+7 on the num pad
+Speak/Toggle Count In:	Option+8 on the num pad
+Speak/Toggle MIDI Merge: Option+9 on the num pad
 - Command-Click: Command+Control+` (accent)
 - Command+Option-Click: Command+Option+` (accent)
 - Control-Click: Control+` (accent)
@@ -118,8 +123,10 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Assign Inserts A through J: Command+1 through 0
 - Speak/Open Sends A through J: Control+1 through 0
 - Assign Sends A through J: Command+Control+1 through 0
-- Speak/Select Input: i
-- Speak/Select Output: o
+- Speak/Select Audio Input: i
+Speak/Select MIDI Input: Option+i
+- Speak/Select Audio Output: o
+Speak/Select MIDI Output: Option+o
 - Beta: Speak/Select Automation Mode: a
 - Speak/Select Group: g
 - Speak/Reset Pan: n
@@ -127,7 +134,9 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Speak/Toggle Record State: r
 - Speak/Toggle Solo: s
 - Speak/Toggle Mute: m
+Speak/Toggle MIDI Mute: Option+m
 - Speak/Reset Volume Fader: v
+Speak/Reset MIDI Volume Fader: Option+v
 - Speak/Reset Level Meter: l
 - Speak/Reset Peak Meter: p
 - Speak/Reset Gain Reduction Meter: g
