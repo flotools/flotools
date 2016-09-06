@@ -96,167 +96,11 @@ kme.setvariable("ftAutomaticInspector", {to:"1"})</string>
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>479078801.99380499</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>ConditionType</key>
-									<string>Variable</string>
-									<key>Variable</key>
-									<string>ftAutomaticInspector</string>
-									<key>VariableConditionType</key>
-									<string>Matches</string>
-									<key>VariableValue</key>
-									<string>1</string>
-								</dict>
-								<dict>
-									<key>ConditionType</key>
-									<string>Macro</string>
-									<key>MacroConditionType</key>
-									<string>IsInactive</string>
-									<key>MacroUID</key>
-									<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Conditions</key>
-								<dict>
-									<key>ConditionList</key>
-									<array>
-										<dict>
-											<key>ConditionType</key>
-											<string>FrontWindow</string>
-											<key>FrontWindowConditionType</key>
-											<string>TitleContains</string>
-											<key>FrontWindowTitle</key>
-											<string>Mix:</string>
-											<key>IsFrontApplication</key>
-											<true/>
-										</dict>
-										<dict>
-											<key>ConditionType</key>
-											<string>FrontWindow</string>
-											<key>FrontWindowConditionType</key>
-											<string>TitleContains</string>
-											<key>FrontWindowTitle</key>
-											<string>Edit:</string>
-											<key>IsFrontApplication</key>
-											<true/>
-										</dict>
-									</array>
-									<key>ConditionListMatch</key>
-									<string>Any</string>
-								</dict>
-								<key>ElseActions</key>
-								<array/>
-								<key>MacroActionType</key>
-								<string>IfThenElse</string>
-								<key>ThenActions</key>
-								<array>
-									<dict>
-										<key>DisplayToggle</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>MacroGroupToggle</string>
-										<key>MacroGroupUID</key>
-										<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-										<key>ToggleMode</key>
-										<string>Activate</string>
-									</dict>
-									<dict>
-										<key>DisplayKind</key>
-										<string>None</string>
-										<key>IncludeStdErr</key>
-										<true/>
-										<key>MacroActionType</key>
-										<string>ExecuteJavaScriptForAutomation</string>
-										<key>Path</key>
-										<string></string>
-										<key>Text</key>
-										<string>vo = Application("VoiceOver")
-vo.output("Inspector On")</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>TrimResults</key>
-										<true/>
-										<key>TrimResultsNew</key>
-										<true/>
-										<key>UseText</key>
-										<true/>
-									</dict>
-								</array>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>493844446.23777997</real>
-				<key>ModificationDate</key>
-				<real>494617150.88069099</real>
-				<key>Name</key>
-				<string>Activate INspector When Window Changes</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>ChangeType</key>
-						<string>FocussedWindowChanges</string>
-						<key>MacroTriggerType</key>
-						<string>FocussedWindow</string>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>0969B316-89E7-4DE9-BC75-B9069420E97D</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
-		<key>UID</key>
-		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -341,6 +185,10 @@ track.groups["Inserts A-E"].buttons[0].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -425,6 +273,10 @@ track.groups["Inserts A-E"].buttons[1].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -509,6 +361,10 @@ track.groups["Inserts A-E"].buttons[2].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -593,6 +449,10 @@ track.groups["Inserts A-E"].buttons[3].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -677,6 +537,10 @@ track.groups["Inserts A-E"].buttons[4].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -761,6 +625,10 @@ track.groups["Inserts F-J"].buttons[0].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -845,6 +713,10 @@ track.groups["Inserts F-J"].buttons[1].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -929,6 +801,10 @@ track.groups["Inserts F-J"].buttons[2].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1013,6 +889,10 @@ track.groups["Inserts F-J"].buttons[3].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1097,6 +977,10 @@ track.groups["Inserts F-J"].buttons[4].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1181,6 +1065,10 @@ track.groups["Sends A-E"].buttons[0].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1265,6 +1153,10 @@ track.groups["Sends A-E"].buttons[2].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1349,6 +1241,10 @@ track.groups["Sends A-E"].buttons[4].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1433,6 +1329,10 @@ track.groups["Sends A-E"].buttons[6].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1517,6 +1417,10 @@ track.groups["Sends A-E"].buttons[8].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1601,6 +1505,10 @@ track.groups["Sends F-J"].buttons[0].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1685,6 +1593,10 @@ track.groups["Sends F-J"].buttons[2].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1769,6 +1681,10 @@ track.groups["Sends F-J"].buttons[4].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1853,6 +1769,10 @@ track.groups["Sends F-J"].buttons[6].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2098,6 +2018,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2217,6 +2141,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2335,6 +2263,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3306,166 +3238,6 @@ kme.setvariable("ftAutomaticInspector", {to:"0"})</string>
 				</array>
 				<key>UID</key>
 				<string>B4170625-F1F6-4E53-B916-A47974BB3772</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
-		<key>UID</key>
-		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>479078801.99380499</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>ConditionType</key>
-									<string>Variable</string>
-									<key>Variable</key>
-									<string>ftAutomaticInspector</string>
-									<key>VariableConditionType</key>
-									<string>Matches</string>
-									<key>VariableValue</key>
-									<string>1</string>
-								</dict>
-								<dict>
-									<key>ConditionType</key>
-									<string>Macro</string>
-									<key>MacroConditionType</key>
-									<string>IsActive</string>
-									<key>MacroUID</key>
-									<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Conditions</key>
-								<dict>
-									<key>ConditionList</key>
-									<array>
-										<dict>
-											<key>ConditionType</key>
-											<string>FrontWindow</string>
-											<key>FrontWindowConditionType</key>
-											<string>TitleDoesNotContain</string>
-											<key>FrontWindowTitle</key>
-											<string>Mix:</string>
-											<key>IsFrontApplication</key>
-											<true/>
-										</dict>
-										<dict>
-											<key>ConditionType</key>
-											<string>FrontWindow</string>
-											<key>FrontWindowConditionType</key>
-											<string>TitleDoesNotContain</string>
-											<key>FrontWindowTitle</key>
-											<string>Edit:</string>
-											<key>IsFrontApplication</key>
-											<true/>
-										</dict>
-									</array>
-									<key>ConditionListMatch</key>
-									<string>All</string>
-								</dict>
-								<key>ElseActions</key>
-								<array/>
-								<key>MacroActionType</key>
-								<string>IfThenElse</string>
-								<key>ThenActions</key>
-								<array>
-									<dict>
-										<key>DisplayToggle</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>MacroGroupToggle</string>
-										<key>MacroGroupUID</key>
-										<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-										<key>ToggleMode</key>
-										<string>Deactivate</string>
-									</dict>
-									<dict>
-										<key>DisplayKind</key>
-										<string>None</string>
-										<key>IncludeStdErr</key>
-										<true/>
-										<key>MacroActionType</key>
-										<string>ExecuteJavaScriptForAutomation</string>
-										<key>Path</key>
-										<string></string>
-										<key>Text</key>
-										<string>vo = Application("VoiceOver")
-vo.output("Inspector Off")</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>TrimResults</key>
-										<true/>
-										<key>TrimResultsNew</key>
-										<true/>
-										<key>UseText</key>
-										<true/>
-									</dict>
-								</array>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>493858646.54649901</real>
-				<key>ModificationDate</key>
-				<real>494617330.28379798</real>
-				<key>Name</key>
-				<string>Deactivate INspector When Window Changes</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>ChangeType</key>
-						<string>FocussedWindowChanges</string>
-						<key>MacroTriggerType</key>
-						<string>FocussedWindow</string>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>98C2C891-0636-44E5-8097-BA760983B0D5</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -5186,6 +4958,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5307,6 +5083,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6642,6 +6422,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6765,6 +6549,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6889,6 +6677,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7012,6 +6804,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7135,6 +6931,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7258,6 +7058,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7381,6 +7185,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7505,6 +7313,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7628,6 +7440,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7751,6 +7567,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7874,6 +7694,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7997,6 +7821,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8121,6 +7949,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8244,6 +8076,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8367,6 +8203,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8490,6 +8330,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8613,6 +8457,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8737,6 +8585,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8860,6 +8712,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8983,6 +8839,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9106,6 +8966,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9231,6 +9095,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9354,6 +9222,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9485,6 +9357,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9617,6 +9493,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9743,6 +9623,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9866,6 +9750,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9988,6 +9876,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10106,6 +9998,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10224,6 +10120,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10343,6 +10243,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10462,6 +10366,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10590,6 +10498,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10847,6 +10759,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10979,6 +10895,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11103,6 +11023,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11472,6 +11396,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11598,6 +11526,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11721,6 +11653,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11847,6 +11783,10 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
 		<key>Macros</key>
 		<array>
 			<dict>
