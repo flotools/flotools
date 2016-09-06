@@ -22,7 +22,7 @@ Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 
 #Download:
 
-You can download the zip file directly from [here](https://github.com/rfiorentino1/Flo-Tools/archive/master.zip)
+You can download the zip file directly from [here.](https://github.com/flotools/flotools/archive/master.zip)
 
 The  zip file referenced in this read me will automatically decompress itself into a folder on Mac OS. Please refer to this downloaded folder, called "Flo Tools Master", when reading this document.
 
@@ -45,13 +45,14 @@ To install Flo Tools, go to the provided zip file, and open the file called "Flo
 
 If successful, Keyboard Maestro should announce, "Successfully imported macros."
 
-For the scripts to run correctly, open Keyboard Maestro Preferences, and under the general tab, check the checkbox that says "start Keyboard Maestro Engine at log-in."
+For the scripts to run correctly, open Keyboard Maestro Preferences, and under the general tab, check the checkbox labeled, "Start Keyboard Maestro Engine at log-in."
+
 
 ##Important Notes about Keyboard Maestro:
 
-Keyboard Maestro contains some default macro groups that conflict with common Mac OS keyboard shortcuts. To disable these, go to the switcher group, and clipboard group, and disable them. This can be done by selecting the group, then selecting the disable group button.
+Keyboard Maestro contains some default macro groups that conflict with common Mac OS keyboard shortcuts. These are found in the switcher group, and clipboard group, and can be disabled by selecting the group, then selecting the "Enable/disable Group" button.
 
-Keyboard Maestro is limited by a 30-day trial period. After this time, you will need to purchase a one-time license to continue using the program, and subsequently, Flo Tools.
+Keyboard Maestro is limited by a 30-day trial period. After this time, you will need to purchase a one-time license to continue using the program, and subsequently, Flo Tools. More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)
 
 
 ###Getting Started
@@ -76,11 +77,11 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Speak/Edit Selection End: Command+f2
 - Speak/Edit Selection Length: Command+f3
 - Speak/Edit main counter: Command+f4
-Speak/Edit Sub Counter: Command+f6
-Speak/Edit Nudge value: Command+f7
-Speak/Edit Grid Value: Command+f8
-Speak/Edit Pre-Roll: Command+f9
-Speak/Edit Post-Roll:	Command+f10
+- Speak/Edit Sub Counter: Command+f6
+- Speak/Edit Nudge value: Command+f7
+- Speak/Edit Grid Value: Command+f8
+- Speak/Edit Pre-Roll: Command+f9
+- Speak/Edit Post-Roll:	Command+f10
 - Close All Floating Windows: Command+Option+w
 - Zoom/Maximize Window: Command+Option+Shift+z
 - Show All Tracks: Option+f1
@@ -95,16 +96,16 @@ Speak/Edit Post-Roll:	Command+f10
 - Speak Record Safe Tracks: Command+Option+Shift+r
 - Speak Solo Safe Tracks: Command+Option+Shift+s
 - Speak Clipped Tracks: Option+Shift+c
-Speak/Toggle Click: Option+7 on the num pad
-Speak/Toggle Count In:	Option+8 on the num pad
-Speak/Toggle MIDI Merge: Option+9 on the num pad
+- Speak/Toggle Click: Option+7 on the num pad
+- Speak/Toggle Count In:	Option+8 on the num pad
+- Speak/Toggle MIDI Merge: Option+9 on the num pad
 - Command-Click: Command+Control+` (accent)
 - Command+Option-Click: Command+Option+` (accent)
 - Control-Click: Control+` (accent)
 - Control+Option-Click: Control+Option+` (accent), must be passed through
 - Control+Option+Shift-Click: Control+Option+Shift+` (accent), must be passed through
 - Option-Click: Option+` (accent)
-Shift-Click: Shift+` (accent)
+- Shift-Click: Shift+` (accent)
 - Option+Shift-Click: Option+Shift+` (accent)
 
 
@@ -124,9 +125,9 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Speak/Open Sends A through J: Control+1 through 0
 - Assign Sends A through J: Command+Control+1 through 0
 - Speak/Select Track Input: i
-Speak/Select Instrument Input: Option+i
+- Speak/Select Instrument Input: Option+i
 - Speak/Select Track Output: o
-Speak/Select Instrument Output: Option+o
+- Speak/Select Instrument Output: Option+o
 - Beta: Speak/Select Automation Mode: a
 - Speak/Select Group: g
 - Speak/Reset Pan: n
@@ -134,9 +135,9 @@ Speak/Select Instrument Output: Option+o
 - Speak/Toggle Record State: r
 - Speak/Toggle Solo: s
 - Speak/Toggle Mute: m
-Speak/Toggle Instrument Mute: Option+m
+- Speak/Toggle Instrument Mute: Option+m
 - Speak/Reset Volume Fader: v
-Speak/Reset Instrument Volume Fader: Option+v
+- Speak/Reset Instrument Volume Fader: Option+v
 - Speak/Reset Level Meter: l
 - Speak/Reset Peak Meter: p
 - Speak/Reset Gain Reduction Meter: g
@@ -180,6 +181,6 @@ When there is an update to Flo Tools, or if you simply want to reinstall it, bot
 
 ####Reporting Issues:
 
-GitHub provides a convenient and reliable way to track and resolve issues. Please click [here](https://github.com/rfiorentino1/Flo-Tools/issues), and search for your issue. If you don't find an open issue relating to your problem with Flo Tools, you can create a new one by clicking on "new issue" and filling out the required fields.
+GitHub provides a convenient and reliable way to track and resolve issues. Please click [here,](https://github.com/flotools/flotools/issues) and search for your issue. If you don't find an open issue relating to your problem with Flo Tools, you can create a new one by clicking on "new issue" and filling out the required fields.
 
-Before reporting an issue, please check that the item being queried by Flo Tools is visible on the screen if Flo Tools is not functioning as expected. For example, if command 1 is pressed to report insert A of a track, and nothing is spoken, make sure that inserts a through e are checked in the view menu before reporting this as a Flo Tools issue.
+Before reporting an issue, please check that the item being queried by Flo Tools is visible on the screen if Flo Tools is not functioning as expected. For example, if 1 is pressed to report insert A of a track, and nothing is spoken, make sure that inserts A through E are checked in the view menu before reporting this as a Flo Tools issue.
