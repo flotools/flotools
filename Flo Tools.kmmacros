@@ -96,6 +96,116 @@ kme.setvariable("ftAutomaticInspector", {to:"1"})</string>
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+kme = Application("Keyboard Maestro Engine")
+if (kme.getvariable("FTPluginMonitor") == "1") {
+vo.output("Plugin monitor is already running.")
+} else {
+pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+try {
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+sliders = window.groups.byName("FXTDMEditView").sliders
+names = sliders.name()
+oldValues = sliders.attributes["AXValueDescription"].value()
+kme.setvariable("FTPluginMonitor", {to:"1"})
+vo.output("Watching "+window.name())
+while (true) {
+if (kme.getvariable("FTPluginMonitor") != "1") {
+vo.output("Deactivate Plugin Monitor")
+break;
+}
+currentValues= sliders.attributes["AXValueDescription"].value()
+for (v in currentValues) {
+if (oldValues[v] != currentValues[v]) {
+vo.output(names[v]+": "+currentValues[v])
+oldValues[v] = currentValues[v]
+}
+}
+}
+} catch(err) {
+vo.output("Plugin monitor off")
+kme.setvariable("FTPluginMonitor", {to:"0"})
+}
+}
+
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>494896601.43852699</real>
+				<key>ModificationDate</key>
+				<real>494905207.60304803</real>
+				<key>Name</key>
+				<string>Activate Plugin Monitor</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>44</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>0EFA386B-488E-4BC6-B13F-C3B43F8ADCBC</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>493839659.76668698</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
@@ -1900,10 +2010,10 @@ msg = msg.replace(/ Track\. /g, ". ")
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 recordStatus = edit.groups.byName("Transport View Cluster").groups.byName("Normal Transport Buttons").buttons.whose({name:"Track Record Enabled"})
 if (msg=="" &amp; recordStatus.length == 1) {
-msg = "Some tracks are record enabled."
+msg = "Some tracks are armed."
 } else if (msg=="" &amp; recordStatus.length == 0) {
-msg = "No tracks are record enabled."
-} else msg = "Record enabled: "+msg
+msg = "No tracks are armed."
+} else msg = tracks.length+" Armed: "+msg
 vo.output (msg)
 }
 
@@ -1922,17 +2032,13 @@ armFilter = {_match:[armSpecifier,""]}
 safeSpecifier = ObjectSpecifier().buttons["Track Record Enable"].value
 safeFilter = {_match:[safeSpecifier,{_contains:"safe"}]}
 inactiveFilter = {_match:[armSpecifier,{_contains:"inactive"}]}
-tracks = mix.groups.whose({_not:[groupFilter, auxFilter, masterFilter, armFilter, safeFilter, inactiveFilter]}).name()
 recordStatus = edit.groups.byName("Transport View Cluster").groups.byName("Normal Transport Buttons").buttons.whose({name:"Track Record Enabled"})
 while (recordStatus.length == 1) {
-for (t in tracks) {
-mix.groups.byName(tracks[t]).buttons["Track Record Enable"].click()
+tracks = mix.groups.whose({_not:[groupFilter, auxFilter, masterFilter, armFilter, safeFilter, inactiveFilter]}).buttons["Track Record Enable"].click()
 if (new Date().getTime()-start &gt; 1000) {
 kme.playSound(Path("/System/Library/Sounds/Pop.aiff"))
 start = new Date().getTime()
 }
-}
-tracks = mix.groups.whose({_not:[groupFilter, auxFilter, masterFilter, armFilter, safeFilter, inactiveFilter]}).name()
 }
 vo.output ("Disarmed all tracks.")
 }
@@ -1970,7 +2076,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479415768.360699</real>
 				<key>ModificationDate</key>
-				<real>494787996.67819703</real>
+				<real>494916664.23635101</real>
 				<key>Name</key>
 				<string>Beta: Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks</string>
 				<key>Triggers</key>
@@ -3283,6 +3389,87 @@ kme.setvariable("ftAutomaticInspector", {to:"0"})</string>
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+kme.setvariable("FTPluginMonitor", {to:"0"})
+vo = Application("VoiceOver")
+vo.output("Deactivate plugin monitor.")
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>494897574.76029098</real>
+				<key>ModificationDate</key>
+				<real>494898576.82783002</real>
+				<key>Name</key>
+				<string>Deactivate Plugin Monitor</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>44</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>EAA504E9-E433-4625-8BE3-66B49B78666F</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
 						<string>start = new Date().getTime()
 kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -4211,7 +4398,7 @@ start = new Date().getTime()
 }
 msg = msg.replace(/ Track\. /g, ". ")
 if (msg == "") msg = "No track has input monitor on"
-else msg = "Input on: "+msg
+else msg = tracks.length+" Input on: "+msg
 vo.output(msg)
 }
 
@@ -4224,9 +4411,9 @@ mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 inputSpecifier = ObjectSpecifier().buttons["TrackInput Monitor"].value
 inputFilter = {_match:[inputSpecifier, "on"]}
 audioFilter = {name:{_contains:" - Audio Track"}}
-tracks = mix.groups.whose({_and:[audioFilter, inputFilter]}).name()
+tracks = mix.groups.whose({_and:[audioFilter, inputFilter]}).buttons["TrackInput Monitor"]()
 for (t in tracks) {
-mix.groups.byName(tracks[t]).buttons["TrackInput Monitor"].click()
+tracks[t].click()
 if (new Date().getTime()-start &gt; 1000) {
 kme.playSound(Path("/System/Library/Sounds/Pop.aiff"))
 start = new Date().getTime()
@@ -4270,7 +4457,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>493846509.576334</real>
 				<key>ModificationDate</key>
-				<real>494705762.35581899</real>
+				<real>494916276.55780602</real>
 				<key>Name</key>
 				<string>Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks</string>
 				<key>Triggers</key>
@@ -4358,7 +4545,7 @@ start = new Date().getTime()
 }
 msg = msg.replace(/ Track\. /g, ". ")
 if (msg=="") msg = "No tracks are muted."
-else msg = "Muted: "+msg
+else msg = tracks.length+" Muted: "+msg
 vo.output(msg)
 }
 
@@ -4374,14 +4561,15 @@ muteSpecifier = ObjectSpecifier().buttons["Mute"].value
 muteFilter = {_match:[muteSpecifier,""]}
 soloFilter = {_match:[muteSpecifier,{_contains:"solo"}]}
 inactiveFilter = {_match:[muteSpecifier,{_contains:"inactive"}]}
-tracks = mix.groups.whose({_not:[groupFilter, masterFilter, muteFilter, soloFilter, inactiveFilter]}).name()
+tracks = mix.groups.whose({_not:[groupFilter, masterFilter, muteFilter, soloFilter, inactiveFilter]}).buttons["Mute"]()
 for (t in tracks) {
-mix.groups.byName(tracks[t]).buttons["Mute"].click()
+tracks[t].click()
 if (new Date().getTime()-start &gt; 1000) {
 kme.playSound(Path("/System/Library/Sounds/Pop.aiff"))
 start = new Date().getTime()
 }
 }
+
 vo.output("unmuted all tracks.")
 }
 
@@ -4418,7 +4606,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479415768.360699</real>
 				<key>ModificationDate</key>
-				<real>494704635.03991002</real>
+				<real>494916115.78930002</real>
 				<key>Name</key>
 				<string>Speak Muted Tracks, Unmute All Tracks</string>
 				<key>Triggers</key>
@@ -4605,7 +4793,7 @@ start = new Date().getTime()
 }
 msg = msg.replace(/ track\. /g, ". ")
 if (msg=="") msg = "No tracks are currently selected."
-else msg = "Selected: "+msg
+else msg = tracks.length+" Selected: "+msg
 vo.output (msg)
 }
 
@@ -4617,7 +4805,7 @@ windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.tables.byName("Track List").rows
 selectValues = tracks.uiElements[1].buttons[0].name()
-for (t in tracks) {
+for (t in selectValues) {
 if (selectValues[t].indexOf("Selected")==0) tracks[t].uiElements[1].buttons[0].click()
 if (new Date().getTime()-start &gt; 1000) {
 kme.playSound(Path("/System/Library/Sounds/Pop.aiff"))
@@ -4660,7 +4848,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>482444177.87291098</real>
 				<key>ModificationDate</key>
-				<real>494705155.17057699</real>
+				<real>494915582.27245599</real>
 				<key>Name</key>
 				<string>Speak Selected Tracks, Deselect All Tracks</string>
 				<key>Triggers</key>
@@ -4851,7 +5039,7 @@ start = new Date().getTime()
 }
 msg = msg.replace(/ Track\. /g, ". ")
 if (msg=="") msg = msg+"No tracks are soloed."
-else msg = "Soloed: "+msg
+else msg = tracks.length+" Soloed: "+msg
 vo.output(msg)
 }
 
@@ -4867,9 +5055,9 @@ soloSpecifier = ObjectSpecifier().buttons["Solo"].value
 soloFilter = {_match:[soloSpecifier,""]}
 safeFilter = {_match:[soloSpecifier,{_contains:"safe"}]}
 inactiveFilter = {_match:[soloSpecifier,{_contains:"inactive"}]}
-tracks = mix.groups.whose({_not:[groupFilter, masterFilter, soloFilter, safeFilter, inactiveFilter]}).name()
+tracks = mix.groups.whose({_not:[groupFilter, masterFilter, soloFilter, safeFilter, inactiveFilter]}).buttons["Solo"]()
 for (t in tracks) {
-mix.groups.byName(tracks[t]).buttons["Solo"].click()
+tracks[t].click()
 if (new Date().getTime()-start &gt; 1000) {
 kme.playSound(Path("/System/Library/Sounds/Pop.aiff"))
 start = new Date().getTime()
@@ -4910,7 +5098,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479415768.360699</real>
 				<key>ModificationDate</key>
-				<real>494705317.84316897</real>
+				<real>494914068.36187601</real>
 				<key>Name</key>
 				<string>Speak Soloed Tracks, Unsolo All Tracks</string>
 				<key>Triggers</key>
