@@ -5303,7 +5303,7 @@ start = new Date().getTime()
 }
 }
 msg = msg.replace(/ Track\. /g, ". ")
-if (msg=="") msg = msg+"No t	racks are disarmed safe."
+if (msg=="") msg = msg+"No tracks are disarmed safe."
 else msg = "Disarmed safe: "+msg
 vo.output (msg)
 </string>
@@ -5320,7 +5320,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>494360196.80965501</real>
 				<key>ModificationDate</key>
-				<real>494704789.96317101</real>
+				<real>495328072.29526103</real>
 				<key>Name</key>
 				<string>Speak Record Safe Tracks</string>
 				<key>Triggers</key>
