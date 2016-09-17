@@ -1982,6 +1982,159 @@ track.groups["Sends F-J"].buttons[8].click()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
+						<string>currentCommand = "csr"
+
+function single() {
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+groupFilter = {name:{_beginsWith:"Group List"}}
+masterFilter = {name:{_endsWith:" - Master Track"}}
+auxFilter = {name:{_endsWith:" - Aux Track"}}
+armSpecifier = ObjectSpecifier().buttons["Track Record Enable"].value
+armFilter = {_match:[armSpecifier,""]}
+safeFilter = {_match:[armSpecifier,{_contains:"safe"}]}
+inactiveFilter = {_match:[armSpecifier,{_contains:"inactive"}]}
+tracks = mix.groups.whose({_not:[groupFilter, auxFilter, masterFilter, armFilter, safeFilter, inactiveFilter]}).name()
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+recordStatus = edit.groups.byName("Transport View Cluster").groups.byName("Normal Transport Buttons").buttons.whose({name:"Track Record Enabled"})
+if (tracks.length==0 &amp; recordStatus.length == 1) vo.output("Some tracks are  armed.")
+else if (recordStatus.length == 0) vo.output("No tracks are  armed.")
+else {
+title = tracks.length+" armed. Choose tracks to disarm."
+selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+for (s in selections) {
+track = mix.groups.byName(selections[s])
+track.buttons.byName("Track Record Enable").click()
+}
+}
+}
+
+function double() {
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+groupFilter = {name:{_beginsWith:"Group List"}}
+masterFilter = {name:{_endsWith:" - Master Track"}}
+auxFilter = {name:{_endsWith:" - Aux Track"}}
+armSpecifier = ObjectSpecifier().buttons["Track Record Enable"].value
+armFilter = {_match:[armSpecifier,"armed"]}
+safeFilter = {_match:[armSpecifier,{_contains:"safe"}]}
+inactiveFilter = {_match:[armSpecifier,{_contains:"inactive"}]}
+tracks = mix.groups.whose({_not:[groupFilter, auxFilter, masterFilter, armFilter, safeFilter, inactiveFilter]}).name()
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+recordStatus = edit.groups.byName("Transport View Cluster").groups.byName("Normal Transport Buttons").buttons.whose({name:"Track Record Enabled"})
+title = tracks.length+" disarmed. Choose tracks to arm."
+selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+for (s in selections) {
+track = mix.groups.byName(selections[s])
+track.buttons.byName("Track Record Enable").click()
+}
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>495773132.668455</real>
+				<key>ModificationDate</key>
+				<real>495817902.63819802</real>
+				<key>Name</key>
+				<string>Beta: List Record Enabled/Disabled Tracks</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>15</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4608</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>D850B802-8552-46CB-9219-4F1196210A70</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
 						<string>currentCommand = "osr"
 
 function single() {
@@ -3785,7 +3938,7 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 				<key>CreationDate</key>
 				<real>495772865.12262797</real>
 				<key>ModificationDate</key>
-				<real>495772922.24061501</real>
+				<real>495820568.94619799</real>
 				<key>Name</key>
 				<string>List Hidden Tracks</string>
 				<key>Triggers</key>
@@ -3848,7 +4001,10 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>vo = Application("VoiceOver")
+						<string>currentCommand = "csk"
+
+function single() {
+vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
@@ -3868,6 +4024,49 @@ track = mix.groups.byName(selections[s])
 track.buttons["TrackInput Monitor"]().click()
 }
 }
+}
+
+function double() {
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+inputSpecifier = ObjectSpecifier().buttons["TrackInput Monitor"].value
+inputFilter = {_match:[inputSpecifier, ""]}
+audioFilter = {name:{_contains:" - Audio Track"}}
+tracks = mix.groups.whose({_and:[audioFilter, inputFilter]}).name()
+if (tracks.length==0) vo.output("No tracks are input monitor disabled.")
+else {
+title = tracks.length+" input monitor disabled. Choose tracks to enable input monitor."
+selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+for (s in selections) {
+track = mix.groups.byName(selections[s])
+track.buttons["TrackInput Monitor"]().click()
+}
+}
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -3882,9 +4081,9 @@ track.buttons["TrackInput Monitor"]().click()
 				<key>CreationDate</key>
 				<real>495774663.43644899</real>
 				<key>ModificationDate</key>
-				<real>495775153.60662001</real>
+				<real>495816675.30795997</real>
 				<key>Name</key>
-				<string>List Input Monitor Enabled  Tracks</string>
+				<string>List Input Monitor Enabled/Disabled  Tracks</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -3945,7 +4144,10 @@ track.buttons["TrackInput Monitor"]().click()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>vo = Application("VoiceOver")
+						<string>currentCommand = "csm"
+
+function single() {
+vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
@@ -3968,6 +4170,52 @@ track = mix.groups.byName(selections[s])
 track.buttons.byName("Mute").click()
 }
 }
+}
+
+function double() {
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+groupFilter = {name:{_beginsWith:"Group List"}}
+masterFilter = {name:{_endsWith:" - Master Track"}}
+muteSpecifier = ObjectSpecifier().buttons["Mute"].value
+muteFilter = {_match:[muteSpecifier,"on state"]}
+soloFilter = {_match:[muteSpecifier,{_contains:"solo"}]}
+inactiveFilter = {_match:[muteSpecifier,{_contains:"inactive"}]}
+tracks = mix.groups.whose({_not:[groupFilter, masterFilter, muteFilter, soloFilter, inactiveFilter]}).name()
+if (tracks.length==0) vo.output("No tracks are unmuted.")
+else {
+title = tracks.length+" unMuted. Choose tracks to mute."
+selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+for (s in selections) {
+track = mix.groups.byName(selections[s])
+track.buttons.byName("Mute").click()
+}
+}
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -3982,9 +4230,9 @@ track.buttons.byName("Mute").click()
 				<key>CreationDate</key>
 				<real>479415768.360699</real>
 				<key>ModificationDate</key>
-				<real>495770869.49915999</real>
+				<real>495817263.45731097</real>
 				<key>Name</key>
-				<string>List Muted Tracks</string>
+				<string>List Muted/Unmuted Tracks</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -4045,111 +4293,10 @@ track.buttons.byName("Mute").click()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>vo = Application("VoiceOver")
-app = Application.currentApplication()
-app.includeStandardAdditions = true
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-groupFilter = {name:{_beginsWith:"Group List"}}
-masterFilter = {name:{_endsWith:" - Master Track"}}
-auxFilter = {name:{_endsWith:" - Aux Track"}}
-armSpecifier = ObjectSpecifier().buttons["Track Record Enable"].value
-armFilter = {_match:[armSpecifier,""]}
-safeFilter = {_match:[armSpecifier,{_contains:"safe"}]}
-inactiveFilter = {_match:[armSpecifier,{_contains:"inactive"}]}
-tracks = mix.groups.whose({_not:[groupFilter, auxFilter, masterFilter, armFilter, safeFilter, inactiveFilter]}).name()
-edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
-recordStatus = edit.groups.byName("Transport View Cluster").groups.byName("Normal Transport Buttons").buttons.whose({name:"Track Record Enabled"})
-if (tracks.length==0 &amp; recordStatus.length == 1) vo.output("Some tracks are  armed.")
-else if (recordStatus.length == 0) vo.output("No tracks are  armed.")
-else {
-title = tracks.length+" armed. Choose tracks to disarm."
-selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
-for (s in selections) {
-track = mix.groups.byName(selections[s])
-track.buttons.byName("Track Record Enable").click()
-}
-}
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>495773132.668455</real>
-				<key>ModificationDate</key>
-				<real>495773576.72336</real>
-				<key>Name</key>
-				<string>List Record Enabled Tracks</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>15</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>4608</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>D850B802-8552-46CB-9219-4F1196210A70</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
-		<key>UID</key>
-		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>479078801.99380499</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>vo = Application("VoiceOver")
+						<string>currentCommand = "cst"
+
+function single() {
+vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
@@ -4171,6 +4318,48 @@ t = allTracks.indexOf("Selected "+selections[s])
 track = mix.tables.byName("Track List").rows[t].uiElements[1].buttons[0].click()
 }
 }
+}
+
+function double() {
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+allTracks = mix.tables.byName("Track List").rows.uiElements[1].buttons[0].name()
+select = ObjectSpecifier().uiElements[1].buttons[0].name
+tracks = mix.tables.byName("Track List").rows.whose({_not:[{_match:[select,{_contains:"Selected"}]}]}).uiElements[1].buttons[0].name()
+if (tracks.length == 0) vo.output("No tracks are unselected.")
+else {
+title = tracks.length+" unselected. Choose tracks to select."
+selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+for (s in selections) {
+t = allTracks.indexOf(selections[s])
+track = mix.tables.byName("Track List").rows[t].uiElements[1].buttons[0].click()
+}
+}
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -4185,9 +4374,9 @@ track = mix.tables.byName("Track List").rows[t].uiElements[1].buttons[0].click()
 				<key>CreationDate</key>
 				<real>482444177.87291098</real>
 				<key>ModificationDate</key>
-				<real>495773029.29971802</real>
+				<real>495818607.07209998</real>
 				<key>Name</key>
-				<string>List Selected Tracks</string>
+				<string>List Selected/Unselected Tracks</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -4281,7 +4470,7 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 				<key>CreationDate</key>
 				<real>495772272.39350301</real>
 				<key>ModificationDate</key>
-				<real>495772749.25371701</real>
+				<real>495820615.554317</real>
 				<key>Name</key>
 				<string>List Shown Tracks</string>
 				<key>Triggers</key>
@@ -4344,7 +4533,10 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>vo = Application("VoiceOver")
+						<string>currentCommand = "css"
+
+function single() {
+vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
@@ -4367,6 +4559,52 @@ track = mix.groups.byName(selections[s])
 track.buttons.byName("Solo").click()
 }
 }
+}
+
+function double() {
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+groupFilter = {name:{_beginsWith:"Group List"}}
+masterFilter = {name:{_endsWith:" - Master Track"}}
+soloSpecifier = ObjectSpecifier().buttons["Solo"].value
+soloFilter = {_match:[soloSpecifier,"Selected"]}
+safeFilter = {_match:[soloSpecifier,{_contains:"safe"}]}
+inactiveFilter = {_match:[soloSpecifier,{_contains:"inactive"}]}
+tracks = mix.groups.whose({_not:[groupFilter, masterFilter, soloFilter, safeFilter, inactiveFilter]}).name()
+if (tracks.length==0) vo.output("No tracks are unsoloed.")
+ else {
+title = tracks.length+" unSoloed. Choose tracks to solo."
+selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+for (s in selections) {
+track = mix.groups.byName(selections[s])
+track.buttons.byName("Solo").click()
+}
+}
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -4381,9 +4619,9 @@ track.buttons.byName("Solo").click()
 				<key>CreationDate</key>
 				<real>495511407.98947698</real>
 				<key>ModificationDate</key>
-				<real>495772984.511832</real>
+				<real>495818061.10078001</real>
 				<key>Name</key>
-				<string>List Soloed Tracks</string>
+				<string>List Soloed/Unsoloed Tracks</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -5295,8 +5533,9 @@ vo.output(msg)
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>start = new Date().getTime()
-kme = Application("Keyboard Maestro Engine")
+						<string>currentCommand = "osh"
+
+function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
 pt = sys.applicationProcesses.byName("Pro Tools")
@@ -5316,6 +5555,34 @@ msg = msg.replace(/ track\. /g, ". ")
 if (msg=="") msg = "No tracks are  hidden."
 else msg = tracks.length+" Hidden: "+msg
 vo.output (msg)
+}
+
+function double() {
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+button = mix.buttons.byName("Track List pop-up").click()
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -5330,9 +5597,9 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>495773812.869277</real>
 				<key>ModificationDate</key>
-				<real>495774110.635571</real>
+				<real>495820708.46007699</real>
 				<key>Name</key>
-				<string>Speak Hidden Tracks</string>
+				<string>Speak Hidden Tracks, Shows Track List Pop-up Menu</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -5928,8 +6195,9 @@ if (runSingle) single()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>start = new Date().getTime()
-kme = Application("Keyboard Maestro Engine")
+						<string>currentCommand = "osw"
+
+function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
 pt = sys.applicationProcesses.byName("Pro Tools")
@@ -5949,6 +6217,34 @@ msg = msg.replace(/ track\. /g, ". ")
 if (msg=="") msg = "No tracks are currently shown."
 else msg = tracks.length+" Shown: "+msg
 vo.output (msg)
+}
+
+function double() {
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+button = mix.buttons.byName("Track List pop-up").click()
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -5963,9 +6259,9 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>495753685.60103703</real>
 				<key>ModificationDate</key>
-				<real>495774061.48183697</real>
+				<real>495820772.98781002</real>
 				<key>Name</key>
-				<string>Speak Shown Tracks</string>
+				<string>Speak Shown Tracks, Show Track List Pop-up Menu</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -13080,87 +13376,6 @@ if (runSingle) single()
 		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
 		<key>UID</key>
 		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>479078801.99380499</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-button = mix.buttons.byName("Track List pop-up").click()</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>495752986.244892</real>
-				<key>ModificationDate</key>
-				<real>495753439.89640999</real>
-				<key>Name</key>
-				<string>Track List Pop-up Menu</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>122</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2048</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>3179F886-E001-4A19-BB41-EE2736D6FFEA</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
-		<key>UID</key>
-		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
