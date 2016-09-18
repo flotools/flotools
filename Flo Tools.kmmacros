@@ -3825,6 +3825,82 @@ kme.setvariable("ftAutomaticInspector", {to:"0"})</string>
 						<string></string>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
+kme.setvariable("FTGRMonitor", {to:"0"})
+kme.setvariable("FTLevelMonitor", {to:"0"})
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>495930556.474666</real>
+				<key>ModificationDate</key>
+				<real>495931544.53257799</real>
+				<key>Name</key>
+				<string>Deactivate Level and Gain Reduction Monitors</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>ChangeType</key>
+						<string>FocussedWindowTitleChanges</string>
+						<key>MacroTriggerType</key>
+						<string>FocussedWindow</string>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>4C259C70-2924-4F17-AA74-C35B6FD8F556</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
 kme.setvariable("FTPluginMonitor", {to:"0"})
 vo = Application("VoiceOver")
 vo.output("Deactivate plugin monitor.")
@@ -5517,6 +5593,171 @@ vo.output(msg)
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>currentCommand = "\;"
+
+function single() {
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.groups
+track = tracks.byName(vo.voCursor.textUnderCursor())
+gainReduction = ""+track.buttons["Gain Reduction"].value()
+vo.output (gainReduction)
+}
+
+function double() {
+vo = Application("VoiceOver")
+kme = Application("Keyboard Maestro Engine")
+if (kme.getvariable("FTGRMonitor") == "1") {
+kme.setvariable("FTGRMonitor", {to:"0"})
+} else {
+pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.groups
+kme.setvariable("FTGRMonitor", {to:"1"})
+vo.output("Watching Gain Reduction Meter")
+while (true) {
+try {
+name = vo.voCursor.textUnderCursor()
+track = tracks.byName(name)
+oldValue =  ""+track.buttons["Gain Reduction"].value()
+max = parseInt(oldValue.replace(" db", "").replace("minus ", "-"))
+kme.setvariable("FTGRMax", {to:""+max})
+while (true) {
+if (kme.getvariable("FTGRMonitor") != "1") {
+break;
+}
+if (name != vo.voCursor.textUnderCursor()) {
+name = vo.voCursor.textUnderCursor()
+track = tracks.byName(name)
+}
+currentValue = ""+track.buttons["Gain Reduction"].value()
+if (oldValue != currentValue) {
+oldValue = currentValue
+currentValue = parseInt(currentValue.replace(" db", "").replace("minus ", "-"))
+max = parseInt(kme.getvariable("FTGRMax"))
+if (currentValue&lt;max) {
+kme.setvariable("FTGRMax", {to:""+currentValue})
+}
+kme.playSound(Path("/System/Library/Sounds/Pop.aiff"))
+}
+
+}
+} catch(err) {
+}
+if (kme.getvariable("FTGRMonitor") != "1") {
+vo.output("Deactivate Gain Reduction monitor")
+break;
+}
+
+}
+}
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
+
+
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>495926385.45699501</real>
+				<key>ModificationDate</key>
+				<real>495930404.627334</real>
+				<key>Name</key>
+				<string>Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>41</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>34DF45E2-F217-4453-9563-210A0BDDF7BE</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Inspector</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
+		<key>UID</key>
+		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>479078801.99380499</real>
 		<key>Macros</key>
 		<array>
@@ -5783,6 +6024,251 @@ if (runSingle) single()
 		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
 		<key>UID</key>
 		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>currentCommand = "l"
+
+function single() {
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.groups
+track = tracks.byName(vo.voCursor.textUnderCursor())
+roleDescription = ObjectSpecifier().roleDescription
+button = track.buttons.whose({_match:[roleDescription,"Level Meter"]})[0]
+meter = ""+button.value()
+if (meter == "") vo.output("No Signal")
+else vo.output (meter)
+}
+
+function double() {
+vo = Application("VoiceOver")
+if (kme.getvariable("FTLevelMonitor") == "1") {
+kme.setvariable("FTLevelMonitor", {to:"0"})
+} else {
+pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.groups
+kme.setvariable("FTLevelMonitor", {to:"1"})
+vo.output("Watching level meter")
+roleDescription = ObjectSpecifier().roleDescription
+while (true) {
+try {
+name = vo.voCursor.textUnderCursor()
+track = tracks.byName(name)
+button = track.buttons.whose({_match:[roleDescription,"Level Meter"]})[0]
+oldValue = ""+button.value()
+while (true) {
+if (kme.getvariable("FTLevelMonitor") != "1") {
+break;
+}
+name = vo.voCursor.textUnderCursor()
+track = tracks.byName(name)
+button = track.buttons.whose({_match:[roleDescription,"Level Meter"]})[0]
+currentValue = ""+button.value()
+if (oldValue != currentValue) {
+if (currentValue=="") vo.output("No Level Meter")
+else vo.output(currentValue)
+oldValue = currentValue
+}
+}
+} catch(err) {
+}
+if (kme.getvariable("FTLevelMonitor") != "1") {
+vo.output("Deactivate level monitor")
+break;
+}
+}
+}
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
+
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>493739047.38486099</real>
+				<key>ModificationDate</key>
+				<real>495931007.87563998</real>
+				<key>Name</key>
+				<string>Speak Level Meter, Toggle Level Meter Monitor</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>37</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>252B218D-D108-456B-9DA4-683D3858BC80</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Inspector</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
+		<key>UID</key>
+		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+kme = Application("Keyboard Maestro Engine")
+max = kme.getvariable("FTGRMax")
+vo.output(max)
+kme.setvariable("FTGRMax", {to:"0"})
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>495930089.99833399</real>
+				<key>ModificationDate</key>
+				<real>495930197.95720702</real>
+				<key>Name</key>
+				<string>Speak Maximum Gain Reduction Meter</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>41</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>7EC8653F-24A2-43FE-B45B-C9D3C5C77044</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Inspector</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
+		<key>UID</key>
+		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -10584,135 +11070,6 @@ if (runSingle) single()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>currentCommand = "\;"
-
-function single() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-tracks = mix.groups
-track = tracks.byName(vo.voCursor.textUnderCursor())
-gainReduction = ""+track.buttons["Gain Reduction"].value()
-vo.output (gainReduction)
-}
-
-function double() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-tracks = mix.groups
-track = tracks.byName(vo.voCursor.textUnderCursor())
-gainReduction = track.buttons.byName("Gain Reduction").click()
-delay(0.1)
-gainReduction = ""+track.buttons["Gain Reduction"].value()
-vo.output (gainReduction)
-}
-
-kme = Application("Keyboard Maestro Engine")
-command = kme.getvariable("command").split(".")
-start = new Date().getTime()
-kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
-double()
-kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
-} else  {
-runSingle = true
-while (new Date().getTime()-start&lt;200) {
-command = kme.getvariable("command").split(".")
-if (currentCommand == command[0] &amp; command[1]&gt;start) {
-runSingle=false
-break;
-}
-}
-if (runSingle) single()
-}
-
-
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>494113431.914226</real>
-				<key>ModificationDate</key>
-				<real>494281665.28422397</real>
-				<key>Name</key>
-				<string>Speak/Reset Gain Reduction Meter</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>41</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>D6EBC0B1-C40A-4270-8944-21E7830E9B17</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Inspector</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
-		<key>UID</key>
-		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>493839659.76668698</real>
-		<key>FocussedWindowConditionType</key>
-		<string>TitleMatches</string>
-		<key>FocussedWindowTitle</key>
-		<string>^(Mix|Edit):</string>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
 						<string>currentCommand = "v"
 
 function single() {
@@ -10791,141 +11148,6 @@ if (runSingle) single()
 				</array>
 				<key>UID</key>
 				<string>72146C65-FD10-4EF8-87E9-AF354AC7C72C</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Inspector</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
-		<key>UID</key>
-		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>493839659.76668698</real>
-		<key>FocussedWindowConditionType</key>
-		<string>TitleMatches</string>
-		<key>FocussedWindowTitle</key>
-		<string>^(Mix|Edit):</string>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>currentCommand = "l"
-
-function single() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-tracks = mix.groups
-track = tracks.byName(vo.voCursor.textUnderCursor())
-roleDescription = ObjectSpecifier().roleDescription
-button = track.buttons.whose({_match:[roleDescription,"Level Meter"]})[0]
-meter = ""+button.value()
-if (meter == "") vo.output("No Signal")
-else vo.output (meter)
-}
-
-function double() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-tracks = mix.groups
-track = tracks.byName(vo.voCursor.textUnderCursor())
-roleDescription = ObjectSpecifier().roleDescription
-button = track.buttons.whose({_match:[roleDescription,"Level Meter"]})[0]
-button.click()
-delay(0.1)
-meter = ""+button.value()
-if (meter == "") vo.output("No Signal")
-else vo.output (meter)
-}
-
-
-kme = Application("Keyboard Maestro Engine")
-command = kme.getvariable("command").split(".")
-start = new Date().getTime()
-kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
-double()
-kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
-} else  {
-runSingle = true
-while (new Date().getTime()-start&lt;200) {
-command = kme.getvariable("command").split(".")
-if (currentCommand == command[0] &amp; command[1]&gt;start) {
-runSingle=false
-break;
-}
-}
-if (runSingle) single()
-}
-
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>493739047.38486099</real>
-				<key>ModificationDate</key>
-				<real>494441890.95103198</real>
-				<key>Name</key>
-				<string>Speak/Reset Level Meter</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>37</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>252B218D-D108-456B-9DA4-683D3858BC80</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -13352,6 +13574,168 @@ if (runSingle) single()
 				</array>
 				<key>UID</key>
 				<string>57957B28-6D66-4BEF-85B9-48406E95FB18</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Inspector</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
+		<key>UID</key>
+		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>currentCommand = "sl"
+
+function single() {
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.groups
+track = tracks.byName(vo.voCursor.textUnderCursor())
+roleDescription = ObjectSpecifier().roleDescription
+button = track.buttons.whose({_match:[roleDescription,"Level Meter"]})[0]
+meter = ""+button.value()
+if (meter == "") vo.output("No Signal")
+else vo.output (meter)
+}
+
+function double() {
+vo = Application("VoiceOver")
+kme = Application("Keyboard Maestro Engine")
+if (kme.getvariable("FTLevelMonitor") == "1") {
+kme.setvariable("FTLevelMonitor", {to:"0"})
+} else {
+pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.groups
+kme.setvariable("FTLevelMonitor", {to:"1"})
+vo.output("Watching level meter")
+roleDescription = ObjectSpecifier().roleDescription
+while (true) {
+try {
+name = vo.voCursor.textUnderCursor()
+track = tracks.byName(name)
+button = track.buttons.whose({_match:[roleDescription,"Level Meter"]})[0]
+oldValue = ""+button.value()
+while (true) {
+if (kme.getvariable("FTLevelMonitor") != "1") {
+vo.output("Deactivate level monitor")
+break;
+}
+name = vo.voCursor.textUnderCursor()
+track = tracks.byName(name)
+button = track.buttons.whose({_match:[roleDescription,"Level Meter"]})[0]
+currentValue = ""+button.value()
+if (oldValue != currentValue) {
+if (currentValue=="") vo.output("No Level Meter")
+else vo.output(currentValue)
+oldValue = currentValue
+}
+}
+} catch(err) {
+}
+if (kme.getvariable("FTLevelMonitor") != "1") {
+vo.output("Deactivate level monitor")
+break;
+}
+
+}
+}
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
+
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>493739047.38486099</real>
+				<key>ModificationDate</key>
+				<real>495758850.39656198</real>
+				<key>Name</key>
+				<string>Toggle Level Monitor</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>37</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>7167B885-BA49-4F24-A515-C874110AF45F</string>
 			</dict>
 		</array>
 		<key>Name</key>
