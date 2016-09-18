@@ -4259,10 +4259,9 @@ mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
 masterFilter = {name:{_endsWith:" - Master Track"}}
 muteSpecifier = ObjectSpecifier().buttons["Mute"].value
-muteFilter = {_match:[muteSpecifier,"on state"]}
-soloFilter = {_match:[muteSpecifier,{_contains:"solo"}]}
+muteFilter = {_match:[muteSpecifier,"on"]}
 inactiveFilter = {_match:[muteSpecifier,{_contains:"inactive"}]}
-tracks = mix.groups.whose({_not:[groupFilter, masterFilter, muteFilter, soloFilter, inactiveFilter]}).name()
+tracks = mix.groups.whose({_not:[groupFilter, masterFilter, muteFilter, inactiveFilter]}).name()
 if (tracks.length==0) vo.output("No tracks are unmuted.")
 else {
 title = tracks.length+" unMuted. Choose tracks to mute."
@@ -4306,7 +4305,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479415768.360699</real>
 				<key>ModificationDate</key>
-				<real>495817263.45731097</real>
+				<real>495933428.79607898</real>
 				<key>Name</key>
 				<string>List Muted/Unmuted Tracks</string>
 				<key>Triggers</key>
