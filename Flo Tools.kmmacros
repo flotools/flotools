@@ -209,8 +209,6 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -299,8 +297,6 @@ track.groups["Inserts A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -389,8 +385,6 @@ track.groups["Inserts A-E"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -479,8 +473,6 @@ track.groups["Inserts A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -569,8 +561,6 @@ track.groups["Inserts A-E"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -659,8 +649,6 @@ track.groups["Inserts A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -749,8 +737,6 @@ track.groups["Inserts F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -839,8 +825,6 @@ track.groups["Inserts F-J"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -929,8 +913,6 @@ track.groups["Inserts F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1019,8 +1001,6 @@ track.groups["Inserts F-J"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1109,8 +1089,6 @@ track.groups["Inserts F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1199,8 +1177,6 @@ track.groups["Sends A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1289,8 +1265,6 @@ track.groups["Sends A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1379,8 +1353,6 @@ track.groups["Sends A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1469,8 +1441,6 @@ track.groups["Sends A-E"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1559,8 +1529,6 @@ track.groups["Sends A-E"].buttons[8].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1649,8 +1617,6 @@ track.groups["Sends F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1739,8 +1705,6 @@ track.groups["Sends F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1829,8 +1793,6 @@ track.groups["Sends F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1919,8 +1881,6 @@ track.groups["Sends F-J"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2319,8 +2279,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2444,8 +2402,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2568,8 +2524,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4035,8 +3989,10 @@ show = ObjectSpecifier().uiElements[0].buttons[0].name
 tracks = mix.tables.byName("Track List").rows.whose({_match:[show,{_contains:"Hidden"}]}).uiElements[1].buttons[0].name()
 if (tracks.length == 0) vo.output("No tracks are  hidden.")
 else {
-title = tracks.length+" hidden. Choose tracks to show."
-selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+title = tracks.length+" hidden"
+prompt = "Choose tracks to show."
+ok = "Show"
+selections = app.chooseFromList(tracks, {withTitle:title, withPrompt:prompt, okButtonName:ok, multipleSelectionsAllowed:true})
 for (s in selections) {
 t = allTracks.indexOf(selections[s])
 track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
@@ -4056,7 +4012,7 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 				<key>CreationDate</key>
 				<real>495772865.12262797</real>
 				<key>ModificationDate</key>
-				<real>495820568.94619799</real>
+				<real>495954073.53279501</real>
 				<key>Name</key>
 				<string>List Hidden Tracks</string>
 				<key>Triggers</key>
@@ -4135,8 +4091,10 @@ audioFilter = {name:{_contains:" - Audio Track"}}
 tracks = mix.groups.whose({_and:[audioFilter, inputFilter]}).name()
 if (tracks.length==0) vo.output("No tracks are input monitor enabled.")
 else {
-title = tracks.length+" input monitor enabled. Choose tracks to disable input monitor."
-selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+title = tracks.length+" Input Monitor Enabled."
+prompt = "Choose tracks to disable input monitor."
+ok = "Disable Input Monitor"
+selections = app.chooseFromList(tracks, {withTitle:title, withPrompt:prompt, okButtonName:ok, multipleSelectionsAllowed:true})
 for (s in selections) {
 track = mix.groups.byName(selections[s])
 track.buttons["TrackInput Monitor"]().click()
@@ -4158,8 +4116,10 @@ audioFilter = {name:{_contains:" - Audio Track"}}
 tracks = mix.groups.whose({_and:[audioFilter, inputFilter]}).name()
 if (tracks.length==0) vo.output("No tracks are input monitor disabled.")
 else {
-title = tracks.length+" input monitor disabled. Choose tracks to enable input monitor."
-selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+title = tracks.length+" input monitor Disabled"
+prompt = "Choose tracks to enable input monitor."
+ok = "Enable Input Monitor"
+selections = app.chooseFromList(tracks, {withTitle:title, withPrompt:prompt, okButtonName:ok, multipleSelectionsAllowed:true})
 for (s in selections) {
 track = mix.groups.byName(selections[s])
 track.buttons["TrackInput Monitor"]().click()
@@ -4199,7 +4159,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>495774663.43644899</real>
 				<key>ModificationDate</key>
-				<real>495816675.30795997</real>
+				<real>495954291.94835901</real>
 				<key>Name</key>
 				<string>List Input Monitor Enabled/Disabled  Tracks</string>
 				<key>Triggers</key>
@@ -4281,8 +4241,10 @@ inactiveFilter = {_match:[muteSpecifier,{_contains:"inactive"}]}
 tracks = mix.groups.whose({_not:[groupFilter, masterFilter, muteFilter, soloFilter, inactiveFilter]}).name()
 if (tracks.length==0) vo.output("No tracks are muted.")
 else {
-title = tracks.length+" Muted. Choose tracks to unmute."
-selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+title = tracks.length+" Muted"
+prompt = "Choose tracks to unmute."
+ok = "Unmute"
+selections = app.chooseFromList(tracks, {withTitle:title, withPrompt:prompt, okButtonName:ok, multipleSelectionsAllowed:true})
 for (s in selections) {
 track = mix.groups.byName(selections[s])
 track.buttons.byName("Mute").click()
@@ -4306,8 +4268,11 @@ inactiveFilter = {_match:[muteSpecifier,{_contains:"inactive"}]}
 tracks = mix.groups.whose({_not:[groupFilter, masterFilter, muteFilter, inactiveFilter]}).name()
 if (tracks.length==0) vo.output("No tracks are unmuted.")
 else {
-title = tracks.length+" unMuted. Choose tracks to mute."
-selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+title = tracks.length+" Unmuted"
+prompt = "Choose tracks to mute."
+ok = "Mute"
+selections = app.chooseFromList(tracks, {withTitle:title, withPrompt:prompt, okButtonName:ok, multipleSelectionsAllowed:true})
+
 for (s in selections) {
 track = mix.groups.byName(selections[s])
 track.buttons.byName("Mute").click()
@@ -4347,7 +4312,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479415768.360699</real>
 				<key>ModificationDate</key>
-				<real>495933428.79607898</real>
+				<real>495954365.05436301</real>
 				<key>Name</key>
 				<string>List Muted/Unmuted Tracks</string>
 				<key>Triggers</key>
@@ -4428,8 +4393,10 @@ else {
 for (t in tracks) {
 tracks[t] = tracks[t].replace(/^Selected /,"")
 }
-title = tracks.length+" selected. Choose tracks to deselect."
-selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+title = tracks.length+" Selected"
+prompt = "Choose tracks to deselect."
+ok = "Deselect"
+selections = app.chooseFromList(tracks, {withTitle:title, withPrompt:prompt, okButtonName:ok, multipleSelectionsAllowed:true})
 for (s in selections) {
 t = allTracks.indexOf("Selected "+selections[s])
 track = mix.tables.byName("Track List").rows[t].uiElements[1].buttons[0].click()
@@ -4450,8 +4417,10 @@ select = ObjectSpecifier().uiElements[1].buttons[0].name
 tracks = mix.tables.byName("Track List").rows.whose({_not:[{_match:[select,{_contains:"Selected"}]}]}).uiElements[1].buttons[0].name()
 if (tracks.length == 0) vo.output("No tracks are unselected.")
 else {
-title = tracks.length+" unselected. Choose tracks to select."
-selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+title = tracks.length+" Unselected"
+prompt = "Choose tracks to select."
+ok = "Select"
+selections = app.chooseFromList(tracks, {withTitle:title, withPrompt:prompt, okButtonName:ok, multipleSelectionsAllowed:true})
 for (s in selections) {
 t = allTracks.indexOf(selections[s])
 track = mix.tables.byName("Track List").rows[t].uiElements[1].buttons[0].click()
@@ -4491,7 +4460,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>482444177.87291098</real>
 				<key>ModificationDate</key>
-				<real>495818607.07209998</real>
+				<real>495954565.23334903</real>
 				<key>Name</key>
 				<string>List Selected/Unselected Tracks</string>
 				<key>Triggers</key>
@@ -4566,8 +4535,10 @@ show = ObjectSpecifier().uiElements[0].buttons[0].name
 tracks = mix.tables.byName("Track List").rows.whose({_match:[show,{_contains:"Shown"}]}).uiElements[1].buttons[0].name()
 if (tracks.length == 0) vo.output("No tracks are currently shown.")
 else {
-title = tracks.length+" shown. Choose tracks to hide."
-selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+title = tracks.length+" Shown"
+prompt = "Choose tracks to hide."
+ok = "Hide"
+selections = app.chooseFromList(tracks, {withTitle:title, withPrompt:prompt, okButtonName:ok, multipleSelectionsAllowed:true})
 for (s in selections) {
 t = allTracks.indexOf(selections[s])
 track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
@@ -4587,7 +4558,7 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 				<key>CreationDate</key>
 				<real>495772272.39350301</real>
 				<key>ModificationDate</key>
-				<real>495820615.554317</real>
+				<real>495954669.74899697</real>
 				<key>Name</key>
 				<string>List Shown Tracks</string>
 				<key>Triggers</key>
@@ -4669,8 +4640,10 @@ inactiveFilter = {_match:[soloSpecifier,{_contains:"inactive"}]}
 tracks = mix.groups.whose({_not:[groupFilter, masterFilter, soloFilter, safeFilter, inactiveFilter]}).name()
 if (tracks.length==0) vo.output("No tracks are soloed.")
  else {
-title = tracks.length+" Soloed. Choose tracks to unsolo."
-selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+title = tracks.length+" Soloed"
+prompt = "Choose tracks to unsolo."
+ok = "Unsolo"
+selections = app.chooseFromList(tracks, {withTitle:title, withPrompt:prompt, okButtonName:ok, multipleSelectionsAllowed:true})
 for (s in selections) {
 track = mix.groups.byName(selections[s])
 track.buttons.byName("Solo").click()
@@ -4695,8 +4668,10 @@ inactiveFilter = {_match:[soloSpecifier,{_contains:"inactive"}]}
 tracks = mix.groups.whose({_not:[groupFilter, masterFilter, soloFilter, safeFilter, inactiveFilter]}).name()
 if (tracks.length==0) vo.output("No tracks are unsoloed.")
  else {
-title = tracks.length+" unSoloed. Choose tracks to solo."
-selections = app.chooseFromList(tracks, {withPrompt:title, multipleSelectionsAllowed:true})
+title = tracks.length+" Unsoloed"
+prompt = "Choose tracks to solo."
+ok = "Solo"
+selections = app.chooseFromList(tracks, {withTitle:title, withPrompt:prompt, okButtonName:ok, multipleSelectionsAllowed:true})
 for (s in selections) {
 track = mix.groups.byName(selections[s])
 track.buttons.byName("Solo").click()
@@ -4736,7 +4711,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>495511407.98947698</real>
 				<key>ModificationDate</key>
-				<real>495818061.10078001</real>
+				<real>495954869.06723499</real>
 				<key>Name</key>
 				<string>List Soloed/Unsoloed Tracks</string>
 				<key>Triggers</key>
@@ -5639,8 +5614,6 @@ vo.output(msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6077,8 +6050,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6238,8 +6209,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7094,8 +7063,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7221,8 +7188,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8562,8 +8527,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8691,8 +8654,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8821,8 +8782,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8950,8 +8909,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9079,8 +9036,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9208,8 +9163,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9337,8 +9290,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9467,8 +9418,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9596,8 +9545,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9725,8 +9672,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9854,8 +9799,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9983,8 +9926,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10113,8 +10054,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10242,8 +10181,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10371,8 +10308,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10500,8 +10435,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10629,8 +10562,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10759,8 +10690,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10888,8 +10817,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11017,8 +10944,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11146,8 +11071,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11275,8 +11198,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11413,8 +11334,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11545,8 +11464,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11674,8 +11591,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11802,8 +11717,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11926,8 +11839,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12050,8 +11961,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12175,8 +12084,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12300,8 +12207,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12434,8 +12339,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12697,8 +12600,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12835,8 +12736,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12965,8 +12864,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13340,8 +13237,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13472,8 +13367,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13601,8 +13494,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13733,8 +13624,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13897,8 +13786,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
