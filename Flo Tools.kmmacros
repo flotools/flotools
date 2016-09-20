@@ -209,6 +209,8 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -297,6 +299,8 @@ track.groups["Inserts A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -385,6 +389,8 @@ track.groups["Inserts A-E"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -473,6 +479,8 @@ track.groups["Inserts A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -561,6 +569,8 @@ track.groups["Inserts A-E"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -649,6 +659,8 @@ track.groups["Inserts A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -737,6 +749,8 @@ track.groups["Inserts F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -825,6 +839,8 @@ track.groups["Inserts F-J"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -913,6 +929,8 @@ track.groups["Inserts F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1001,6 +1019,8 @@ track.groups["Inserts F-J"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1089,6 +1109,8 @@ track.groups["Inserts F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1177,6 +1199,8 @@ track.groups["Sends A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1265,6 +1289,8 @@ track.groups["Sends A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1353,6 +1379,8 @@ track.groups["Sends A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1441,6 +1469,8 @@ track.groups["Sends A-E"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1529,6 +1559,8 @@ track.groups["Sends A-E"].buttons[8].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1617,6 +1649,8 @@ track.groups["Sends F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1705,6 +1739,8 @@ track.groups["Sends F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1793,6 +1829,8 @@ track.groups["Sends F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1881,6 +1919,8 @@ track.groups["Sends F-J"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2070,9 +2110,9 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>495773132.668455</real>
 				<key>ModificationDate</key>
-				<real>495817902.63819802</real>
+				<real>495981681.97095901</real>
 				<key>Name</key>
-				<string>Beta: List Record Enabled/Disabled Tracks</string>
+				<string>Beta: List Record-Enabled Tracks, List Record-Disabled Tracks</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -2227,7 +2267,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479415768.360699</real>
 				<key>ModificationDate</key>
-				<real>494916664.23635101</real>
+				<real>495981735.424532</real>
 				<key>Name</key>
 				<string>Beta: Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks</string>
 				<key>Triggers</key>
@@ -2279,6 +2319,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2402,6 +2444,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2524,6 +2568,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3193,6 +3239,147 @@ y = y+h/2
 if (x&gt;tlx&amp;x&lt;brx&amp;y&gt;tly&amp;y&lt;bry) {
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+vo.output("Command Option Control Click")
+} else {
+vo.output("Object is outside window, "+window.name()+".")
+x=-1
+y=-1
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+}</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>MoveAndClick</string>
+						<key>Button</key>
+						<integer>0</integer>
+						<key>ClickCount</key>
+						<integer>1</integer>
+						<key>DisplayMatches</key>
+						<false/>
+						<key>DragHorizontalPosition</key>
+						<string>0</string>
+						<key>DragVerticalPosition</key>
+						<string>0</string>
+						<key>Fuzz</key>
+						<integer>15</integer>
+						<key>HorizontalPositionExpression</key>
+						<string>x</string>
+						<key>MacroActionType</key>
+						<string>MouseMoveAndClick</string>
+						<key>Modifiers</key>
+						<integer>6400</integer>
+						<key>MouseDrag</key>
+						<string>None</string>
+						<key>Relative</key>
+						<string>Absolute</string>
+						<key>RelativeCorner</key>
+						<string>TopLeft</string>
+						<key>RestoreMouseLocation</key>
+						<false/>
+						<key>VerticalPositionExpression</key>
+						<string>y</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>496082626.52513301</real>
+				<key>ModificationDate</key>
+				<real>496082712.74442202</real>
+				<key>Name</key>
+				<string>Command+Option+Control-Click</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>50</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>6400</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>C5247A16-FA56-4506-839F-0269168A05BE</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>screen = Application("Finder").desktop.window.bounds()
+sw=screen["width"]
+sh=screen["height"]
+kme = Application("Keyboard Maestro Engine")
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+window = pt.windows[0]
+wPosition = window.position()
+wSize = window.size()
+
+tlx = wPosition[0]
+tly = wPosition[1]
+brx=tlx+wSize[0]
+bry=tly+wSize[1]
+bounds = vo.voCursor.bounds()
+x = bounds["x"]
+y = bounds["y"]
+w = bounds["width"]
+h = bounds["height"]
+x = x+w/2
+y = y+h/2
+if (x&gt;tlx&amp;x&lt;brx&amp;y&gt;tly&amp;y&lt;bry) {
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
 vo.output("Command Option Shift Click")
 } else {
 vo.output("Object is outside window, "+window.name()+".")
@@ -3264,6 +3451,147 @@ kme.setvariable("y", {to:""+y})
 				</array>
 				<key>UID</key>
 				<string>7E09C208-63B2-4D47-9BB3-417DE34D9844</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>screen = Application("Finder").desktop.window.bounds()
+sw=screen["width"]
+sh=screen["height"]
+kme = Application("Keyboard Maestro Engine")
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+window = pt.windows[0]
+wPosition = window.position()
+wSize = window.size()
+
+tlx = wPosition[0]
+tly = wPosition[1]
+brx=tlx+wSize[0]
+bry=tly+wSize[1]
+bounds = vo.voCursor.bounds()
+x = bounds["x"]
+y = bounds["y"]
+w = bounds["width"]
+h = bounds["height"]
+x = x+w/2
+y = y+h/2
+if (x&gt;tlx&amp;x&lt;brx&amp;y&gt;tly&amp;y&lt;bry) {
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output("Command Shift Click")
+} else {
+vo.output("Object is outside window, "+window.name()+".")
+x=-1
+y=-1
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+}</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>MoveAndClick</string>
+						<key>Button</key>
+						<integer>0</integer>
+						<key>ClickCount</key>
+						<integer>1</integer>
+						<key>DisplayMatches</key>
+						<false/>
+						<key>DragHorizontalPosition</key>
+						<string>0</string>
+						<key>DragVerticalPosition</key>
+						<string>0</string>
+						<key>Fuzz</key>
+						<integer>15</integer>
+						<key>HorizontalPositionExpression</key>
+						<string>x</string>
+						<key>MacroActionType</key>
+						<string>MouseMoveAndClick</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+						<key>MouseDrag</key>
+						<string>None</string>
+						<key>Relative</key>
+						<string>Absolute</string>
+						<key>RelativeCorner</key>
+						<string>TopLeft</string>
+						<key>RestoreMouseLocation</key>
+						<false/>
+						<key>VerticalPositionExpression</key>
+						<string>y</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>496080983.98299301</real>
+				<key>ModificationDate</key>
+				<real>496081928.69484502</real>
+				<key>Name</key>
+				<string>Command+Shift-Click</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>50</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>0A87CF74-8359-4073-A6F2-FF3DDB0AA6FD</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -3687,6 +4015,147 @@ kme.setvariable("y", {to:""+y})
 				</array>
 				<key>UID</key>
 				<string>43C94C06-9FC4-404F-9300-AA9855949D60</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>screen = Application("Finder").desktop.window.bounds()
+sw=screen["width"]
+sh=screen["height"]
+kme = Application("Keyboard Maestro Engine")
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+window = pt.windows[0]
+wPosition = window.position()
+wSize = window.size()
+
+tlx = wPosition[0]
+tly = wPosition[1]
+brx=tlx+wSize[0]
+bry=tly+wSize[1]
+bounds = vo.voCursor.bounds()
+x = bounds["x"]
+y = bounds["y"]
+w = bounds["width"]
+h = bounds["height"]
+x = x+w/2
+y = y+h/2
+if (x&gt;tlx&amp;x&lt;brx&amp;y&gt;tly&amp;y&lt;bry) {
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output("Control Shift Click")
+} else {
+vo.output("Object is outside window, "+window.name()+".")
+x=-1
+y=-1
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+}</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>MoveAndClick</string>
+						<key>Button</key>
+						<integer>0</integer>
+						<key>ClickCount</key>
+						<integer>1</integer>
+						<key>DisplayMatches</key>
+						<false/>
+						<key>DragHorizontalPosition</key>
+						<string>0</string>
+						<key>DragVerticalPosition</key>
+						<string>0</string>
+						<key>Fuzz</key>
+						<integer>15</integer>
+						<key>HorizontalPositionExpression</key>
+						<string>x</string>
+						<key>MacroActionType</key>
+						<string>MouseMoveAndClick</string>
+						<key>Modifiers</key>
+						<integer>4608</integer>
+						<key>MouseDrag</key>
+						<string>None</string>
+						<key>Relative</key>
+						<string>Absolute</string>
+						<key>RelativeCorner</key>
+						<string>TopLeft</string>
+						<key>RestoreMouseLocation</key>
+						<false/>
+						<key>VerticalPositionExpression</key>
+						<string>y</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>496081957.96864802</real>
+				<key>ModificationDate</key>
+				<real>496082028.96314299</real>
+				<key>Name</key>
+				<string>Control+Shift-Click</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>50</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4608</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>52A9C157-F454-40DB-B476-16459C8821D5</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -4159,9 +4628,9 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>495774663.43644899</real>
 				<key>ModificationDate</key>
-				<real>495954291.94835901</real>
+				<real>495981855.49211299</real>
 				<key>Name</key>
-				<string>List Input Monitor Enabled/Disabled  Tracks</string>
+				<string>List Input Monitor-Enabled Tracks, List Input Monitor-Disabled  Tracks</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -4312,9 +4781,9 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479415768.360699</real>
 				<key>ModificationDate</key>
-				<real>495954365.05436301</real>
+				<real>495981784.13523197</real>
 				<key>Name</key>
-				<string>List Muted/Unmuted Tracks</string>
+				<string>List Muted Tracks, List Unmuted Tracks</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -4460,9 +4929,9 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>482444177.87291098</real>
 				<key>ModificationDate</key>
-				<real>495954565.23334903</real>
+				<real>495980666.106888</real>
 				<key>Name</key>
-				<string>List Selected/Unselected Tracks</string>
+				<string>List Selected Tracks, List Unselected Tracks</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -4711,9 +5180,9 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>495511407.98947698</real>
 				<key>ModificationDate</key>
-				<real>495954869.06723499</real>
+				<real>495980723.408602</real>
 				<key>Name</key>
-				<string>List Soloed/Unsoloed Tracks</string>
+				<string>List Soloed Tracks, List Unsoloed Tracks</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -5614,6 +6083,96 @@ vo.output(msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+kme = Application("Keyboard Maestro Engine")
+max = kme.getvariable("FTGRMax")
+vo.output(max)
+kme.setvariable("FTGRMax", {to:"0"})
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>495930089.99833399</real>
+				<key>ModificationDate</key>
+				<real>495982053.11627799</real>
+				<key>Name</key>
+				<string>Speak Gain Reduction Meter Maximum Value</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>41</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>7EC8653F-24A2-43FE-B45B-C9D3C5C77044</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Inspector</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
+		<key>UID</key>
+		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>493839659.76668698</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5854,9 +6413,9 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>495773812.869277</real>
 				<key>ModificationDate</key>
-				<real>495820708.46007699</real>
+				<real>495980491.20234001</real>
 				<key>Name</key>
-				<string>Speak Hidden Tracks, Shows Track List Pop-up Menu</string>
+				<string>Speak Hidden Tracks, Show Track List Pop-up Menu</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -6050,6 +6609,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6175,92 +6736,6 @@ if (runSingle) single()
 				</array>
 				<key>UID</key>
 				<string>252B218D-D108-456B-9DA4-683D3858BC80</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Inspector</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
-		<key>UID</key>
-		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>493839659.76668698</real>
-		<key>FocussedWindowConditionType</key>
-		<string>TitleMatches</string>
-		<key>FocussedWindowTitle</key>
-		<string>^(Mix|Edit):</string>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>vo = Application("VoiceOver")
-kme = Application("Keyboard Maestro Engine")
-max = kme.getvariable("FTGRMax")
-vo.output(max)
-kme.setvariable("FTGRMax", {to:"0"})
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>495930089.99833399</real>
-				<key>ModificationDate</key>
-				<real>495930197.95720702</real>
-				<key>Name</key>
-				<string>Speak Maximum Gain Reduction Meter</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>41</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>512</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>7EC8653F-24A2-43FE-B45B-C9D3C5C77044</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -7063,6 +7538,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7188,6 +7665,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8527,6 +9006,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8654,6 +9135,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8782,6 +9265,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8909,6 +9394,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9036,6 +9523,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9163,6 +9652,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9290,6 +9781,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9418,6 +9911,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9545,6 +10040,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9672,6 +10169,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9799,6 +10298,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9926,6 +10427,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10054,6 +10557,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10181,6 +10686,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10308,6 +10815,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10435,6 +10944,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10562,6 +11073,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10690,6 +11203,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10817,6 +11332,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10944,6 +11461,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11071,6 +11590,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11198,6 +11719,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11334,6 +11857,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11464,6 +11989,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11591,6 +12118,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11717,6 +12246,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11839,6 +12370,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11961,6 +12494,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12084,6 +12619,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12207,6 +12744,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12339,6 +12878,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12600,6 +13141,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12736,6 +13279,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12864,6 +13409,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13237,6 +13784,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13367,6 +13916,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13494,6 +14045,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13624,6 +14177,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13786,6 +14341,8 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
