@@ -2772,7 +2772,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Command Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -2913,7 +2913,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Command Control Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -3054,7 +3054,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Command Option Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -3195,7 +3195,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Command Option Control Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -3336,7 +3336,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Command Option Shift Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -3477,7 +3477,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Command Shift Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -3618,7 +3618,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Control Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -3759,7 +3759,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Control Option Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -3900,7 +3900,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Control Option Shift Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -4041,7 +4041,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Control Shift Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -5233,7 +5233,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Option Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -5374,7 +5374,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Option Shift Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
@@ -5843,7 +5843,7 @@ kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Shift Click")
 } else {
-vo.output("Object is outside window, "+window.name()+".")
+vo.output("Object is outside the window, "+window.name()+".")
 x=-1
 y=-1
 kme.setvariable("x", {to:""+x})
