@@ -15,8 +15,9 @@ Support is only available through a volunteer based community.
 Flo Tools  
 Copyright (C) 2016 Chi Kim  
 Copyright (C) 2016 Rocco Fiorentino
+Copyright (C) 2016 Slau Halatyn
 
-Flow Tools is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+Flow Tools is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your discretion) any later version.
 
 Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](http://www.gnu.org/licenses/) for more details.
 
@@ -45,7 +46,7 @@ To install Flo Tools, go to the provided zip file, and open the file called "Flo
 
 If successful, Keyboard Maestro should announce, "Successfully imported macros."
 
-For the scripts to run correctly, open Keyboard Maestro Preferences, and under the general tab, check the checkbox labeled, "Start Keyboard Maestro Engine at log-in."
+For the scripts to run correctly, open Keyboard Maestro Preferences, and under the general tab, check the checkbox labeled, "Start Keyboard Maestro Engine at log-in." Note that the Keyboard Maestro window does not need to be open for the scripts to run.
 
 
 ##Important Notes about Keyboard Maestro:
