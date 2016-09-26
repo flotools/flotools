@@ -57,6 +57,15 @@ Keyboard Maestro is limited by a 30-day trial period. After this time, you will 
 
 
 ###Getting Started
+###Optimizing Pro Tools for Flo Tools:
+
+For all functions of Flo Tools to work as expected, we recommend applying the following settings and window configurations  in Pro Tools:
+
+1. The Mix and Edit windows should both be open at all times.
+2. The "Track List Table" in the mix window should always be shown.
+3. Within the Display tab of the Pro Tools Preferences dialog,  the check boxes labeled "function" and "details" under basics, tooltips, should be checked.
+4. Track Height should be set to "medium" for optimal Flo Tools performance.
+
 
 ###Auditory Feedback:
 
