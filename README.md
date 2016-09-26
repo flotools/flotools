@@ -14,12 +14,12 @@ Support is only available through a volunteer based community.
 
 Flo Tools  
 Copyright (C) 2016 Chi Kim  
-Copyright (C) 2016 Rocco Fiorentino
+Copyright (C) 2016 Rocco Fiorentino  
 Copyright (C) 2016 Slau Halatyn
 
-Flow Tools is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your discretion) any later version.
+Flow Tools is free software. You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your discretion) any later version.
 
-Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](http://www.gnu.org/licenses/) for more details.
+Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY, expressed or implied, of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](http://www.gnu.org/licenses/) for more details.
 
 #Download:
 
@@ -32,7 +32,7 @@ The  zip file referenced in this read me will automatically decompress itself in
 Flo Tools supports Mac OS version 10.10 or later, and Pro Tools version 12.3 or later. Earlier versions of Mac OS and Pro Tools may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
 
 #Installation
-Flo Tools relies on a third party program, called Keyboard Maestro. Download instructions are below.
+Flo Tools relies on a third party program called "Keyboard Maestro" to perform it's functions. Download instructions for Keyboard Maestro are below.
 
 ##Keyboard Maestro Installation:
 
@@ -78,36 +78,60 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Speak/Edit Selection End: Command+f2
 - Speak/Edit Selection Length: Command+f3
 - Speak/Edit main counter: Command+f4
-- Speak/Edit Sub Counter: Command+f6
-- Speak/Edit Nudge value: Command+f7
-- Speak/Edit Grid Value: Command+f8
-- Speak/Edit Pre-Roll: Command+f9
-- Speak/Edit Post-Roll:	Command+f10
+- Select main counter:	Command+Option+f4
+- Speak/Edit Sub Counter:	Command+f6
+- Select Sub Counter:	Command+Option+f6
+- Speak/Edit Nudge Value:	Command+f7
+- Select Nudge Value:	Command+Option+f7
+- Speak/Edit Grid Value:	Command+f8
+- Select Grid Value:	Command+Option+f8
+- Speak/Edit Pre-Roll Amount:	Command+f9
+- Speak/Edit Post-Roll Amount:	Command+f10
 - Close All Floating Windows: Command+Option+w
 - Zoom/Maximize Window: Command+Option+Shift+z
-- Show All Tracks: Option+f1
-- Hide All Tracks: Option+f2
-- Show Only Selected Tracks: Option+Shift+f1
-- Hide Selected Tracks: Option+Shift+f2
+- Speak Shown Tracks, Show Track List Pop-up Menu:	Option+Shift+w
+- List Shown Tracks:	Control+Shift+w
+- Speak Hidden Tracks, Show Track List Pop-up Menu:	Option+Shift+h
+- List Hidden Tracks:	Control+Shift+h
 - Speak Selected Tracks, Deselect All Tracks: Option+Shift+t
+- List Selected Tracks, List Unselected Tracks:	Control+Shift+t
 - Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks: Option+Shift+k
+- List Input Monitor-Enabled Tracks, List Input Monitor-Disabled  Tracks:	Control+Shift+k
 - Beta: Speak Record-Enabled Tracks, Disarm All Record Enabled Tracks: Option+Shift+r
+- Beta: List Record-Enabled Tracks, List Record-Disabled Tracks:	Control+Shift+r
 - Speak Soloed Tracks, UnSolo All Tracks: Option+Shift+s
+- List Soloed Tracks, List Unsoloed Tracks:	Control+Shift+s
 - Speak Muted Tracks, UnMute All Tracks: Option+Shift+m
+- List Muted Tracks, List Unmuted Tracks:	Control+Shift+m
+ - Note that this shortcut overrides one of the Pro Tools shortcuts for "Nudge the Selected Clip Gain Back." Use either Control+Shift+minus or Control+Shift+comma instead
 - Speak Record Safe Tracks: Command+Option+Shift+r
 - Speak Solo Safe Tracks: Command+Option+Shift+s
 - Speak Clipped Tracks: Option+Shift+c
-- Speak/Toggle Click: Option+7 on the num pad
-- Speak/Toggle Count In:	Option+8 on the num pad
-- Speak/Toggle MIDI Merge: Option+9 on the num pad
-- Command-Click: Command+Control+` (accent)
-- Command+Option-Click: Command+Option+` (accent)
-- Control-Click: Control+` (accent)
-- Control+Option-Click: Control+Option+` (accent), must be passed through
-- Control+Option+Shift-Click: Control+Option+Shift+` (accent), must be passed through
-- Option-Click: Option+` (accent)
-- Shift-Click: Shift+` (accent)
-- Option+Shift-Click: Option+Shift+` (accent)
+ - Note that this macro overrides the Pro Tools shortcut for "Commit." Use either the track's contextual menu or choose "Commit" from the Tracks menu.
+- Speak/Toggle Metronome:	Option+num pad 7
+- Speak/Toggle Count In:	Option+num pad8
+- Speak/Toggle Midi Merge:	Option+num pad 9
+- Option-Click:	Option+` (accent)
+- Option+Shift-Click:	Option+Shift+` (accent)
+- Command-Click:	Command+` (accent)
+- Shift-Click:	Shift+` (accent)
+- Control-Click:	Control+` (accent)
+- Command+Control-Click:	Command+Control+` (accent)
+- Command+Option-Click:	Command+Option+` (accent)
+- Command+Option+Control-Click:	Command+Option+Control+` (accent) (must be passed through)
+- Command+Shift-Click:	Command+Shift+` (accent)
+- Command+Option+Shift-Click:	Command+Option+Shift+` (accent)
+- Control+Shift-Click:	Control+Shift+` (accent)
+- Control+Option-Click:	Control+Option+` (accent) (must be passed through)
+- Control+Option+Shift-Click:	Control+Option+Shift+` (accent) (must be passed through)
+
+
+###Plugin Monitor:
+
+This is a feature of Flo Tools that is for users of control surfaces with Pro Tools. When controlling a plugin's parameters using a control surface, the plugin monitor will speak the value of the parameter as it changes in real time.
+
+- Activate Plugin Monitor:	Option+/
+- Deactivate Plugin Monitor:	Option+Shift+/
 
 
 ###Flo Tools Inspector:
@@ -120,11 +144,14 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 
 - Activate Inspector: /
 - Deactivate Inspector: Shift+/
+ - Note that this overrides the Pro Tools shortcut for "Link Timeline and Edit Selection." To link and unlink the timeline and edit selection, use the Options menu instead.
 - Speak Track Name, Select Track Pop-Up Menu: t
-- Speak/Open Inserts A through J: 1 through 0
-- Assign Inserts A through J: Command+1 through 0
-- Speak/Open Sends A through J: Control+1 through 0
-- Assign Sends A through J: Command+Control+1 through 0
+- Speak/Open Inserts A through J:	1 through 0 on the numbers row
+- Assign Inserts A through J:	Command+1 through 0 on the numbers row
+ - Note that Command+1 through 7 are shortcuts for selecting Pro Tools edit tools. There are alternative shortcuts located within the F keys. See the Pro Tools Keyboard Shortcuts pdf for details.
+ - Note that, when flo Tools Inspector is active,  the macro for assigning Insert J (Command+0) overrides the Pro Tools shortcut for "Quantize Clip to Nearest Grid." Use the Clip menu or deactivate Flo Tools Inspector with Shift+/ to pass through the shortcut.
+- Speak/Open Sends A through J:	Control+1 through 0 on the numbers row
+- Assign Sends A through J:	Command+Control+1 through 0 on the numbers row
 - Speak/Select Track Input: i
 - Speak/Select Instrument Input: Option+i
 - Speak/Select Track Output: o
@@ -139,9 +166,10 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Speak/Toggle Instrument Mute: Option+m
 - Speak/Reset Volume Fader: v
 - Speak/Reset Instrument Volume Fader: Option+v
-- Speak/Reset Level Meter: l
+- Speak Level Meter, Toggle Level Meter Monitor:	l
 - Speak/Reset Peak Meter: p
-- Speak/Reset Gain Reduction Meter: g
+- Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor:	semicolon
+- Speak Gain Reduction Meter Maximum:	Shift+semicolon
 - Speak/Edit Comments: c
 - Track Options Menu: h
 - Speak/Select Playlist: \
@@ -172,7 +200,7 @@ When there is an update to Flo Tools, or if you simply want to reinstall it, bot
 1. Open Keyboard Maestro and go to the Flo Tools Macro Group.
 2. Press VO space on it, then shift right arrow, to select both the Flo Tools, and Flo Tools inspector groups simultaneously.
 3. Stop interacting with the groups scroll area, and VO right arrow to "delete macro group." VO space to confirm deletion. Note that this cannot be undone once you have pressed delete.
-4. Before opening the macro file again to reinstall Flo Tools, make sure the macro groups are removed from the groups scroll area. If so, the above process was completed successfully.
+4. Before opening the Flo Tools Macro file again, make sure the macro groups are removed from the groups scroll area. If so, the above process was completed successfully.
 
 ####Known Issues
 
