@@ -54,7 +54,7 @@ If successful, Keyboard Maestro should announce, "Successfully imported macros."
 
 For the scripts to run properly, open Keyboard Maestro Preferences, and under the general tab, check the box labeled, "Start Keyboard Maestro Engine at log-in." Note that the Keyboard Maestro window does not need to be open for the scripts to run.
 
-###Optimizing Pro Tools for Flo Tools:
+##Optimizing Pro Tools for Flo Tools:
 
 For all functions of Flo Tools to work as expected, it is recommended to apply the following settings and window configurations  in Pro Tools:
 
