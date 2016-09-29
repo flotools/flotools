@@ -6,7 +6,7 @@ This Read Me file is divided into headings for easier screen reader navigation. 
 
 #Acknowledgements:
 
-Flo Tools was first developed as a concept by Chi Kim and Rocco Fiorentino, in the [Assistive Music Technology Lab](http://berklee.edu/amtlab) at Berklee College of Music. After the initial project at Berklee was completed, Slau Halatyn joined the team, and the group worked together to continue developing the scripts outside of the classroom. Many thanks to Chi Kim for his countless hours of creative scripting, to Rocco Fiorentino for his scripting contributions and providing documentation. And to Slau Halatyn, for his invaluable feedback and expert knowledge in Pro Tools. We sincerely hope Flo Tools will enhance the work flow of Pro Tools users with visual impairments!
+Flo Tools was first developed as a concept by Chi Kim and Rocco Fiorentino, in the [Assistive Music Technology Lab](http://berklee.edu/amtlab) at Berklee College of Music. After the initial project at Berklee was completed, Slau Halatyn joined the team, and the group worked together to continue developing the scripts outside of the classroom. Many thanks to Chi Kim for his countless hours of creative scripting, to Rocco Fiorentino for his scripting contributions and writing of documentation, and to Slau Halatyn, for his invaluable feedback and expert knowledge in Pro Tools. We sincerely hope Flo Tools will enhance the work flow of Pro Tools users with visual impairments!
 
 #Disclaimer and License:
 
@@ -40,11 +40,11 @@ Flo Tools relies on a third party program called "Keyboard Maestro" to perform i
 
 2. Copy the Keyboard Maestro application from the downloads folder to your applications folder. From there, open Keyboard Maestro.
 
-If you are using Keyboard Maestro for the first time, please check the boxes for both Keyboard Maestro and Keyboard Maestro Engine in system preferences, under "Security and Privacy", "Accessibility." These must be enabled for Flo Tools to function.##Important Notes about Keyboard Maestro:
+If you are using Keyboard Maestro for the first time, please check the boxes for both Keyboard Maestro and Keyboard Maestro Engine in system preferences, under "Security and Privacy", "Accessibility." These must be enabled for Flo Tools to function correctly.##Important Notes about Keyboard Maestro:
 
 Keyboard Maestro contains some default macro groups that conflict with common Mac OS keyboard shortcuts. These are found in the switcher group, and clipboard group, and can be disabled by selecting the group, then selecting the "Enable/disable Group" button.
 
-Keyboard Maestro is limited by a 30-day trial period. After this time, you will need to purchase a one-time license to continue using the program, and subsequently, Flo Tools. More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)
+Keyboard Maestro is limited by a 30-day trial period. After this time, a purchase of a one-time license is required to continue using the program, and subsequently, Flo Tools. More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)
 
 
 ##Flo Tools Installation
@@ -52,16 +52,16 @@ To install Flo Tools, go to the provided zip file, and open the file called "Flo
 
 If successful, Keyboard Maestro should announce, "Successfully imported macros."
 
-For the scripts to run correctly, open Keyboard Maestro Preferences, and under the general tab, check the checkbox labeled, "Start Keyboard Maestro Engine at log-in." Note that the Keyboard Maestro window does not need to be open for the scripts to run.
+For the scripts to run properly, open Keyboard Maestro Preferences, and under the general tab, check the box labeled, "Start Keyboard Maestro Engine at log-in." Note that the Keyboard Maestro window does not need to be open for the scripts to run.
 
 ###Optimizing Pro Tools for Flo Tools:
 
-For all functions of Flo Tools to work as expected, we recommend applying the following settings and window configurations  in Pro Tools:
+For all functions of Flo Tools to work as expected, it is recommended to apply the following settings and window configurations  in Pro Tools:
 
 1. The Mix and Edit windows should both be open at all times.
 2. The "Track List Table" in the mix window should always be shown.
 3. Within the Display tab of the Pro Tools Preferences dialog,  the check boxes labeled "function" and "details" under basics, tooltips, should be checked.
-4. Track Height should be set to "medium" for optimal Flo Tools performance.
+4. Track Heights should be set to "medium" for optimal Flo Tools performance.
 5. Both "Transport" and "expanded transport" should be checked in the toolbar menu of the edit window.
 
 Pro Tools includes a Keyboard Focus mode, within which commands are issued through single letter keystrokes. When Keyboard Focus mode is not active, these same commands can be issued by adding the Control key as a modifier. Since certain Flo Tools commands are issued with single letter taps and double-taps, it is recommended that users avoid the Keyboard Focus mode in Pro Tools. Although Flo Tools will function as expected in Keyboard Focus mode, users may inadvertently press a keystroke not used by Flo Tools and pass unwanted commands through to Pro Tools, yielding unexpected results. To allow use of the  Control modifier instead of keyboard focus mode for Pro Tools, and make single letter commands available for Flo Tools, move VoiceOver focus either on the Clips list by pressing Command-Option-2, or the Groups List by pressing Command-Option-3 while in the edit window.
