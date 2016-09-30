@@ -74,7 +74,7 @@ Flo Tools uses 2 distinct sounds to provide auditory feedback. The first is [Thi
 
 The second is [This Sound][sound 2], which tells a user that something has been toggled, such as solo on and off.
 
-[sound 1]: file:///System/Library/Sounds/Pop.aiff
+[sound 1]: File:///System/Library/Sounds/Pop.aiff
 
 [sound 2]: file:///System/Library/Sounds/Tink.aiff
 
