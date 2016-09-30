@@ -70,9 +70,13 @@ Pro Tools includes a Keyboard Focus mode, within which commands are issued throu
 #Getting Started
 ##Auditory Feedback:
 
-Flo Tools uses 2 distinct sounds to provide auditory feedback. The first is [This Sound](file:///System/Library/Sounds/Pop.aiff "waiting sound"), which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
+Flo Tools uses 2 distinct sounds to provide auditory feedback. The first is [This Sound][sound 1], which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
 
-The second is [This Sound](File:///System/Library/Sounds/Tink.aiff "Toggle Sound"), which tells a user that something has been toggled, such as solo on and off.
+The second is [This Sound][sound 2], which tells a user that something has been toggled, such as solo on and off.
+
+[sound 1]: file:///System/Library/Sounds/Pop.aiff
+[sound 2]: file:///System/Library/Sounds/Tink.aiff
+
 
 ##Commands:
 
