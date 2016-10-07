@@ -58,21 +58,24 @@ For the scripts to run properly, open Keyboard Maestro Preferences, and under th
 
 For all functions of Flo Tools to work as expected, it is recommended to apply the following settings and window configurations  in Pro Tools:
 
-1. The Mix and Edit windows should both be open at all times.
-2. The "Track List Table" in the mix window should always be shown.
-3. Within the Display tab of the Pro Tools Preferences dialog,  the check boxes labeled "function" and "details" under basics, tooltips, should be checked.
-4. Track Heights should be set to "medium" for optimal Flo Tools performance.
-5. Both "Transport" and "expanded transport" should be checked in the toolbar menu of the edit window.
+1. The checkbox labeled "Allow VoiceOver to be controlled with AppleScript" in the General pane of VoiceOver Utility should be checked.
+2. The Mix and Edit windows should both be open at all times.
+3. The "Track List Table" in the mix window should always be shown.
+4. Within the Display tab of the Pro Tools Preferences dialog,  the check boxes labeled "function" and "details" under basics, tooltips, should be checked.
+5. Track Heights should be set to "medium" for optimal Flo Tools performance.
+6. Both "Transport" and "expanded transport" should be checked in the toolbar menu of the edit window.
 
 Pro Tools includes a Keyboard Focus mode, within which commands are issued through single letter keystrokes. When Keyboard Focus mode is not active, these same commands can be issued by adding the Control key as a modifier. Since certain Flo Tools commands are issued with single letter taps and double-taps, it is recommended that users avoid the Keyboard Focus mode in Pro Tools. Although Flo Tools will function as expected in Keyboard Focus mode, users may inadvertently press a keystroke not used by Flo Tools and pass unwanted commands through to Pro Tools, yielding unexpected results. To allow use of the  Control modifier instead of keyboard focus mode for Pro Tools, and make single letter commands available for Flo Tools, move VoiceOver focus either on the Clips list by pressing Command-Option-2, or the Groups List by pressing Command-Option-3 while in the edit window.
+
+If the default keyboard is not set to US English in System Preferences, Keyboards, please add the US English Keyboard, and switch to it when using Flo Tools.
 
 
 #Getting Started
 ##Auditory Feedback:
 
-Flo Tools uses 2 distinct sounds to provide auditory feedback. The first is [This Sound](file:///System/Library/Sounds/Pop.aiff), which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
+Flo Tools uses 2 distinct sounds to provide auditory feedback. The first is [This Sound](https://raw.githubusercontent.com/flotools/flotools/development/Pop.aiff), which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
 
-The second is [This Sound](file:///System/Library/Sounds/Tink.aiff), which tells a user that something has been toggled, such as solo on and off.
+The second is [This Sound](https://raw.githubusercontent.com/flotools/flotools/development/Tink.aiff), which tells a user that something has been toggled, such as solo on and off.
 
 
 
