@@ -23,9 +23,9 @@ Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 
 #Download:
 
-You can download the zip file directly from [here.](https://github.com/flotools/flotools/archive/master.zip)
+The zip file for Flo Tools can be downloaded directly from [here.](https://github.com/flotools/flotools/archive/master.zip)
 
-The  zip file referenced in this read me will automatically decompress itself into a folder on Mac OS. Please refer to this downloaded folder, called "Flo Tools Master", when reading this document.
+This  zip file, referenced in this read me, will automatically decompress itself into a folder on Mac OS. Please refer to this downloaded folder, called "Flo Tools Master", when reading this document.
 
 #System Requirements:
 
@@ -38,9 +38,9 @@ Flo Tools relies on a third party program called "Keyboard Maestro" to perform i
 
 1. Go to the Keyboard Maestro homepage by clicking [here](https://www.keyboardmaestro.com/) and download the Keyboard Maestro application from the website.
 
-2. Copy the Keyboard Maestro application from the downloads folder to your applications folder. From there, open Keyboard Maestro.
+2. Copy the Keyboard Maestro application from the downloads folder to the applications folder. From there, open Keyboard Maestro.
 
-If you are using Keyboard Maestro for the first time, please check the boxes for both Keyboard Maestro and Keyboard Maestro Engine in system preferences, under "Security and Privacy", "Accessibility." These must be enabled for Flo Tools to function correctly.##Important Notes about Keyboard Maestro:
+If using Keyboard Maestro for the first time, please check the boxes for both Keyboard Maestro and Keyboard Maestro Engine in system preferences, under "Security and Privacy", "Accessibility." These must be enabled for Flo Tools to function correctly.##Important Notes about Keyboard Maestro:
 
 Keyboard Maestro contains some default macro groups that conflict with common Mac OS keyboard shortcuts. These are found in the switcher group, and clipboard group, and can be disabled by selecting the group, then selecting the "Enable/disable Group" button.
 
@@ -48,7 +48,7 @@ Keyboard Maestro is limited by a 30-day trial period. After this time, a purchas
 
 
 ##Flo Tools Installation
-To install Flo Tools, go to the provided zip file, and open the file called "Flo Tools.kmmacros"
+To install Flo Tools, go to the provided zip file, and open the file called "Flo Tools.KMMACROS"
 
 If successful, Keyboard Maestro should announce, "Successfully imported macros."
 
@@ -143,7 +143,7 @@ Where two actions are listed, double-tapping the key will perform the second act
 
 ##Plugin Monitor:
 
-This is a feature of Flo Tools that is for users of control surfaces with Pro Tools. When controlling a plugin's parameters using a control surface, the plugin monitor will speak the value of the parameter as it changes in real time.
+This  feature of Flo Tools is for  control surface users with Pro Tools. When controlling a plugin's parameters using a control surface, the plugin monitor will speak the value of the parameter as it changes in real time.
 
 - Activate Plugin Monitor:	Option+/
 - Deactivate Plugin Monitor:	Option+Shift+/
@@ -151,7 +151,7 @@ This is a feature of Flo Tools that is for users of control surfaces with Pro To
 
 ##Flo Tools Inspector:
 
-The following commands apply to the track on which VoiceOver is currently focused . This means the track must be under the VoiceOver cursor, and the user should not be interacting with anything inside the track.
+The following commands apply to the track on which VoiceOver is currently focused . This means the track name must be under the VoiceOver cursor, and the user should not be interacting with anything inside the track.
 
 Note: The inspector must be disabled to use first-letter navigation in pop-up menus in Pro Tools.
 
@@ -159,12 +159,12 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 
 - Activate Inspector: /
 - Deactivate Inspector: Shift+/
- - Note that this overrides the Pro Tools shortcut for "Link Timeline and Edit Selection." To link and unlink the timeline and edit selection, use the Options menu instead.
+ - Note that this overrides the Pro Tools shortcut for "Link Timeline and Edit Selection." To link or unlink the timeline and edit selection, use the Options menu instead.
 - Speak Track Name, Select Track Pop-Up Menu: t
 - Speak/Open Inserts A through J:	1 through 0 on the numbers row
 - Assign Inserts A through J:	Command+1 through 0 on the numbers row
  - Note that Command+1 through 7 are shortcuts for selecting Pro Tools edit tools. There are alternative shortcuts located within the F keys. See the Pro Tools Keyboard Shortcuts pdf for details.
- - Note that, when flo Tools Inspector is active,  the macro for assigning Insert J (Command+0) overrides the Pro Tools shortcut for "Quantize Clip to Nearest Grid." Use the Clip menu or deactivate Flo Tools Inspector with Shift+/ to pass through the shortcut.
+ - Note that, when Flo Tools Inspector is active,  the macro for assigning Insert J (Command+0) overrides the Pro Tools shortcut for "Quantize Clip to Nearest Grid." Use the Clip menu or deactivate Flo Tools Inspector with Shift+/ to pass through the shortcut.
 - Speak/Open Sends A through J:	Control+1 through 0 on the numbers row
 - Assign Sends A through J:	Command+Control+1 through 0 on the numbers row
 - Speak/Select Track Input: i
@@ -197,21 +197,21 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 
 ##Changing Shortcuts
 
-The shortcuts outlined above are the default assignments for Flo Tools. They can be changed based on personal preference, however, when Flo Tools is updated, the shortcuts will revert back to their default assignments. If you feel that you want to change a shortcut, open Keyboard Maestro and do the following:
+The shortcuts outlined above are the default assignments for Flo Tools. They may be changed based on personal preference, however, when Flo Tools is updated, the shortcuts will revert back to their default assignments. To  change a shortcut, open Keyboard Maestro and do the following:
 
 1. Go to the view menu, and select "start editing macros."
 2. Find the Macro Groups scroll area and interact with it. Inside, find and select the appropriate Flo Tools macro group by pressing VO space on it.
 3. Stop interacting with this area and move to the right to the macros scroll area.
 
-  - Interact, and find the script with the shortcut you want to change. Press VO space to select it, and press tab.
+  - Interact, and find the script with the desired shortcut  to change. Press VO space to select it, and press tab.
 
-This should move you inside the edit screen of the macro. VO right arrow, and you should see a button, labeled with the current shortcut for the script.
+This should move the VoiceOver Cursor  inside the edit screen of the macro. VO right arrow to the  button labeled with the current shortcut for the script.
 
-To change it, simply type your new desired shortcut and then stop interacting with the edit area. Be careful not to press command tab here, as this will assign it self as a new shortcut.
+To change it, simply type the new desired shortcut and then stop interacting with the edit area. Be careful not to press command tab here, as this will assign it self as a new shortcut.
 
 ##Updating or reinstalling Flo Tools:
 
-When there is an update to Flo Tools, or if you simply want to reinstall it, both macro groups in Keyboard Maestro must be deleted. This can be done by doing the following:
+When there is an update to Flo Tools, or to simply reinstall it, both macro groups in Keyboard Maestro must be deleted. This can be done by doing the following:
 
 1. Open Keyboard Maestro and go to the Flo Tools Macro Group.
 2. Press VO space on it, then shift right arrow, to select both the Flo Tools, and Flo Tools inspector groups simultaneously.
