@@ -73,10 +73,9 @@ If the default keyboard is not set to "US" in System Preferences, Keyboards, inp
 #Getting Started
 ##Auditory Feedback:
 
-Flo Tools uses 2 distinct sounds to provide auditory feedback. The first is [This Sound](https://dl.dropboxusercontent.com/u/27635324/Flo%20Tools/pop.aiff), which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
+Flo Tools uses 2 distinct sounds to provide auditory feedback when it is performing a task. The first is [This Sound](https://dl.dropboxusercontent.com/u/27635324/Flo%20Tools/tink.aiff), which tells a user that something has been toggled, such as solo on and off.
 
-The second is [This Sound](https://dl.dropboxusercontent.com/u/27635324/Flo%20Tools/tink.aiff), which tells a user that something has been toggled, such as solo on and off.
-
+The second is [This Sound](https://dl.dropboxusercontent.com/u/27635324/Flo%20Tools/pop.aiff), which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
 
 
 ##Commands:
