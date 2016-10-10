@@ -63,11 +63,11 @@ For all functions of Flo Tools to work as expected, it is recommended to apply t
 3. The "Track List Table" in the mix window should always be shown.
 4. Within the Display tab of the Pro Tools Preferences dialog,  the check boxes labeled "function" and "details" under basics, tooltips, should be checked.
 5. Track Heights should be set to "medium" for optimal Flo Tools performance.
-6. Both "Transport" and "expanded transport" should be checked in the toolbar menu of the edit window.
+6. In the toolbar menu of the edit window, the "Transport", "midi Controls", and "expanded transport" settings should be checked 
 
 Pro Tools includes a Keyboard Focus mode, within which commands are issued through single letter keystrokes. When Keyboard Focus mode is not active, these same commands can be issued by adding the Control key as a modifier. Since certain Flo Tools commands are issued with single letter taps and double-taps, it is recommended that users avoid the Keyboard Focus mode in Pro Tools. Although Flo Tools will function as expected in Keyboard Focus mode, users may inadvertently press a keystroke not used by Flo Tools and pass unwanted commands through to Pro Tools, yielding unexpected results. To allow use of the  Control modifier instead of keyboard focus mode for Pro Tools, and make single letter commands available for Flo Tools, move VoiceOver focus either on the Clips list by pressing Command-Option-2, or the Groups List by pressing Command-Option-3 while in the edit window.
 
-If the default keyboard is not set to US English in System Preferences, Keyboards, please add the US English Keyboard, and switch to it when using Flo Tools.
+If the default keyboard is not set to "US" in System Preferences, Keyboards, input sources, please add it to the list of input sources, and switch to it when using Flo Tools.
 
 
 #Getting Started
