@@ -8580,7 +8580,13 @@ msg = ""
 length = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Length").value()
 if (length.indexOf("|")&gt;-1) {
 mbt = length.split(/\| /)
-msg = msg+"bar "+mbt[0]+", beat"+mbt[1]+", tick"+mbt[2]
+if (mbt[0] == 1) mbt[0] += " bar"
+else mbt[0] += " bars"
+if (mbt[1] == 1) mbt[1] += " beat"
+else mbt[1] += " beats"
+if (mbt[2] == 1) mbt[2] += " tick"
+else mbt[2] += " ticks"
+msg = mbt[0]+", "+mbt[1]+", "+mbt[2]
 } else if (length.indexOf(".")&gt;-1) {
 ms = length.split(/:/)
 if (ms[0]==1) ms[0] = ms[0]+" minute"
@@ -8639,7 +8645,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479078801.99380499</real>
 				<key>ModificationDate</key>
-				<real>494784447.16667801</real>
+				<real>498014062.972736</real>
 				<key>Name</key>
 				<string>Speak/Edit Selection Length</string>
 				<key>Triggers</key>
