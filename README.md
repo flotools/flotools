@@ -70,7 +70,7 @@ Pro Tools includes a Keyboard Focus mode, within which commands are issued throu
 If the default keyboard is not set to "US" in System Preferences, Keyboards, input sources, please add it to the list of input sources, and switch to it when using Flo Tools.
 
 
-#Getting Started
+#Using Flo Tools:
 ##Auditory Feedback:
 
 Flo Tools uses 2 distinct sounds to provide auditory feedback when it is performing a task. The first is [This Sound](https://dl.dropboxusercontent.com/u/27635324/Flo%20Tools/tink.aiff), which tells a user that something has been toggled, such as solo on and off.
