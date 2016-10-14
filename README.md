@@ -1,14 +1,14 @@
 # Flo Tools
-#Welcome!
+# Welcome!
 Welcome to Flo Tools! This open source product is a series of UI scripts for VoiceOver designed to enhance the accessibility of Pro Tools for visually-impaired users   by streamlining and automating tasks to dramatically improve workflows.
 
 This Read Me file is divided into headings for easier screen reader navigation. Read on to get started.
 
-#Acknowledgements:
+# Acknowledgements:
 
 Flo Tools was first developed as a concept by Chi Kim and Rocco Fiorentino, in the [Assistive Music Technology Lab](http://berklee.edu/amtlab) at Berklee College of Music. After the initial project at Berklee was completed, Slau Halatyn joined the team, and the group worked together to continue developing the scripts outside of the classroom. Many thanks to Chi Kim for his countless hours of creative scripting, to Rocco Fiorentino for his scripting contributions and writing of documentation, and to Slau Halatyn, for his invaluable feedback and expert knowledge in Pro Tools. We sincerely hope Flo Tools will enhance the work flow of Pro Tools users with visual impairments!
 
-#Disclaimer and License:
+# Disclaimer and License:
 
 Support is only available through a volunteer based community.
 
@@ -21,40 +21,43 @@ Flow Tools is free software. You can redistribute it and/or modify it under the 
 
 Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY, expressed or implied, of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](http://www.gnu.org/licenses/) for more details.
 
-#Download:
+# Download:
 
 The zip file for Flo Tools can be downloaded directly from [here.](https://github.com/flotools/flotools/archive/master.zip)
 
 This  zip file, referenced in this read me, will automatically decompress itself into a folder on Mac OS. Please refer to this downloaded folder, called "Flo Tools Master", when reading this document.
 
-#System Requirements:
+# System Requirements:
 
 Flo Tools supports Mac OS version 10.10 or later, and Pro Tools version 12.3 or later. Earlier versions of Mac OS and Pro Tools may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
 
-#Installation
+# Installation
 Flo Tools relies on a third party program called "Keyboard Maestro" to perform it's functions. Download instructions for Keyboard Maestro are below.
 
-##Keyboard Maestro Installation:
+## Keyboard Maestro Installation:
 
 1. Go to the Keyboard Maestro homepage by clicking [here](https://www.keyboardmaestro.com/) and download the Keyboard Maestro application from the website.
 
 2. Copy the Keyboard Maestro application from the downloads folder to the applications folder. From there, open Keyboard Maestro.
 
-If using Keyboard Maestro for the first time, please check the boxes for both Keyboard Maestro and Keyboard Maestro Engine in system preferences, under "Security and Privacy", "Accessibility." These must be enabled for Flo Tools to function correctly.##Important Notes about Keyboard Maestro:
+If using Keyboard Maestro for the first time, please check the boxes for both Keyboard Maestro and Keyboard Maestro Engine in system preferences, under "Security and Privacy", "Accessibility." These must be enabled for Flo Tools to function correctly.
+
+
+## Important Notes about Keyboard Maestro:
 
 Keyboard Maestro contains some default macro groups that conflict with common Mac OS keyboard shortcuts. These are found in the switcher group, and clipboard group, and can be disabled by selecting the group, then selecting the "Enable/disable Group" button.
 
 Keyboard Maestro is limited by a 30-day trial period. After this time, a purchase of a one-time license is required to continue using the program, and subsequently, Flo Tools. More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)
 
 
-##Flo Tools Installation
+## Flo Tools Installation
 To install Flo Tools, go to the provided zip file, and open the file called "Flo Tools.KMMACROS"
 
 If successful, Keyboard Maestro should announce, "Successfully imported macros."
 
 For the scripts to run properly, open Keyboard Maestro Preferences, and under the general tab, check the box labeled, "Start Keyboard Maestro Engine at log-in." Note that the Keyboard Maestro window does not need to be open for the scripts to run.
 
-##Optimizing Pro Tools for Flo Tools:
+## Optimizing Pro Tools for Flo Tools:
 
 For all functions of Flo Tools to work as expected, it is recommended to apply the following settings and window configurations  in Pro Tools:
 
@@ -70,21 +73,22 @@ Pro Tools includes a Keyboard Focus mode, within which commands are issued throu
 If the default keyboard is not set to "US" in System Preferences, Keyboards, input sources, please add it to the list of input sources, and switch to it when using Flo Tools.
 
 
-#Using Flo Tools:
-##Auditory Feedback:
+# Using Flo Tools:
+
+## Auditory Feedback:
 
 Flo Tools uses 2 distinct sounds to provide auditory feedback when it is performing a task. The first is [This Sound](https://dl.dropboxusercontent.com/u/27635324/Flo%20Tools/tink.aiff), which tells a user that something has been toggled, such as solo on and off.
 
 The second is [This Sound](https://dl.dropboxusercontent.com/u/27635324/Flo%20Tools/pop.aiff), which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
 
 
-##Commands:
+## Commands:
 
 Flo Tools has two groups of commands. The first, called "Flo Tools", is always active, and applies to the entire session. The second group, called "Flo Tools Inspector", is active by default, but can be toggled on and off. The inspector only applies to an individual track.
 
 Below is a list of Flo Tools commands, and their associated functions, separated by their respective groups.
 
-##Flo Tools:
+## Flo Tools:
 
 Where two actions are listed, double-tapping the key will perform the second action.
 
@@ -140,7 +144,7 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Control+Option+Shift-Click:	Control+Option+Shift+` (accent) (must be passed through)
 
 
-##Plugin Monitor:
+## Plugin Monitor:
 
 This  feature of Flo Tools is for  control surface users with Pro Tools. When controlling a plugin's parameters using a control surface, the plugin monitor will speak the value of the parameter as it changes in real time.
 
@@ -148,7 +152,7 @@ This  feature of Flo Tools is for  control surface users with Pro Tools. When co
 - Deactivate Plugin Monitor:	Option+Shift+/
 
 
-##Flo Tools Inspector:
+## Flo Tools Inspector:
 
 The following commands apply to the track on which VoiceOver is currently focused . This means the track name must be under the VoiceOver cursor, and the user should not be interacting with anything inside the track.
 
@@ -192,9 +196,11 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Speak/Select Timebase: b
 - Beta: Speak/Select Elastic Audio Plugin: e
 
-#Misc:
 
-##Changing Shortcuts
+
+# Misc:
+
+## Changing Shortcuts
 
 The shortcuts outlined above are the default assignments for Flo Tools. They may be changed based on personal preference, however, when Flo Tools is updated, the shortcuts will revert back to their default assignments. To  change a shortcut, open Keyboard Maestro and do the following:
 
@@ -208,7 +214,7 @@ This should move the VoiceOver Cursor  inside the edit screen of the macro. VO r
 
 To change it, simply type the new desired shortcut and then stop interacting with the edit area. Be careful not to press command tab here, as this will assign it self as a new shortcut.
 
-##Updating or reinstalling Flo Tools:
+## Updating or reinstalling Flo Tools:
 
 When there is an update to Flo Tools, or to simply reinstall it, both macro groups in Keyboard Maestro must be deleted. This can be done by doing the following:
 
@@ -217,13 +223,13 @@ When there is an update to Flo Tools, or to simply reinstall it, both macro grou
 3. Stop interacting with the groups scroll area, and VO right arrow to "delete macro group." VO space to confirm deletion. Note that this cannot be undone once you have pressed delete.
 4. Before opening the Flo Tools Macro file again, make sure the macro groups are removed from the groups scroll area. If so, the above process was completed successfully.
 
-##Known Issues
+## Known Issues
 
 * Items marked as "Beta" may not function as expected, and should not be used regularly until they are no longer in the beta stage.
 * Checking the arm state of tracks does not report consistently. This is due to the way that Pro Tools indicates whether a track is record enabled. To work around this, check the arm state multiple times.
 
 
-##Reporting Issues:
+## Reporting Issues:
 
 GitHub provides a convenient and reliable way to track and resolve issues. Please click [here,](https://github.com/flotools/flotools/issues) and search for your issue. If you don't find an open issue relating to your problem with Flo Tools, you can create a new one by clicking on "new issue" and filling out the required fields.
 
