@@ -241,10 +241,10 @@ Before reporting an issue, please check that the item being queried by Flo Tools
 When troubleshooting a problem, it might occasionally be necessary to have Keyboard Maestro generate a report when a script fails. By default, Flo Tools will ignore errors but, for diagnostic purposes, it might be necessary to provide those results to the Flo Tools team. Follow these steps to generate the error message:
 
 1. In Keyboard Maestro, navigate to the macro that appears to be malfunctioning and click once on the macro.
-2. Press Tab once and you’ll be placed in the Macro Edit Detail Scroll Area. Use VoiceOver to navigate over to the Execute Java script for Automation Action Group.
-3. Interact with the action group and navigate over to the pop-up menu that says, “Ignore Results” and change this option to “Display Results in a Window.”
-4. Return to Pro Tools and try launching the macro again. If there’s an error with the script, Keyboard Maestro will open a new window with the error result. It might look something like this:
-> /var/folders/lf/hwjp9syx5ll56brrkhgr818w0000gn/T/Keyboard-Maestro-Script-7640162F-37E6-49B9-AF85-02762D598028:243:339: execution error: Error on line 10: Error: Can't get object. (-1728)
+2. Press Tab once and you'll be placed in the Macro Edit Detail Scroll Area. Use VoiceOver to navigate over to the Execute Java script for Automation Action Group.
+3. Interact with the action group and navigate over to the pop-up menu that says, "Ignore Results" and change this option to "Display Results in a Window."
+4. Return to Pro Tools and try launching the macro again. If there's an error with the script, Keyboard Maestro will open a new window with the error result. It might look something like this:  
+/var/folders/lf/hwjp9syx5ll56brrkhgr818w0000gn/T/Keyboard-Maestro-Script-7640162F-37E6-49B9-AF85-02762D598028:243:339: execution error: Error on line 10: Error: Can't get object. (-1728)
 5. With the error message open, press Command-a to select the message and press Command-c to copy it. 
 
-The Flo Tools team will use this information to determine what the problem and solution might be. You might be asked to make a change to your system or session file to troubleshoot further. Once the issue is identified and/or resolved, you can change the results preference in the action group back to “Ignore Results.”
+The Flo Tools team will use this information to determine what the problem and solution might be. You might be asked to make a change to your system or session file to troubleshoot further. Once the issue is identified and/or resolved, you can change the results preference in the action group back to "Ignore Results."
