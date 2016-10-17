@@ -1993,11 +1993,12 @@ mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
 masterFilter = {name:{_endsWith:" - Master Track"}}
 auxFilter = {name:{_endsWith:" - Aux Track"}}
+auxiliaryFilter = {name:{_endsWith:" - Auxiliary Track"}}
 armSpecifier = ObjectSpecifier().buttons["Track Record Enable"].value
 armFilter = {_match:[armSpecifier,""]}
 safeFilter = {_match:[armSpecifier,{_contains:"safe"}]}
 inactiveFilter = {_match:[armSpecifier,{_contains:"inactive"}]}
-tracks = mix.groups.whose({_not:[groupFilter, auxFilter, masterFilter, armFilter, safeFilter, inactiveFilter]}).name()
+tracks = mix.groups.whose({_not:[groupFilter, auxFilter, auxiliaryFilter, masterFilter, armFilter, safeFilter, inactiveFilter]}).name()
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 recordStatus = edit.groups.byName("Transport View Cluster").groups.byName("Normal Transport Buttons").buttons.whose({name:"Track Record Enabled"})
 if (tracks.length==0 &amp; recordStatus.length == 1) vo.output("Some tracks are  armed.")
@@ -2023,11 +2024,12 @@ mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
 masterFilter = {name:{_endsWith:" - Master Track"}}
 auxFilter = {name:{_endsWith:" - Aux Track"}}
+auxiliaryFilter = {name:{_endsWith:" - Auxiliary Track"}}
 armSpecifier = ObjectSpecifier().buttons["Track Record Enable"].value
 armFilter = {_match:[armSpecifier,"armed"]}
 safeFilter = {_match:[armSpecifier,{_contains:"safe"}]}
 inactiveFilter = {_match:[armSpecifier,{_contains:"inactive"}]}
-tracks = mix.groups.whose({_not:[groupFilter, auxFilter, masterFilter, armFilter, safeFilter, inactiveFilter]}).name()
+tracks = mix.groups.whose({_not:[groupFilter, auxFilter, auxiliaryFilter, masterFilter, armFilter, safeFilter, inactiveFilter]}).name()
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 recordStatus = edit.groups.byName("Transport View Cluster").groups.byName("Normal Transport Buttons").buttons.whose({name:"Track Record Enabled"})
 title = tracks.length+" disarmed. Choose tracks to arm."
@@ -2070,7 +2072,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>495773132.668455</real>
 				<key>ModificationDate</key>
-				<real>495981681.97095901</real>
+				<real>498423906.24014801</real>
 				<key>Name</key>
 				<string>Beta: List Record-Enabled Tracks, List Record-Disabled Tracks</string>
 				<key>Triggers</key>
