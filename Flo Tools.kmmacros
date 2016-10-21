@@ -2829,9 +2829,18 @@ fileName = home+"/pluginmaps/"+pluginName+".txt"
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 parameters = json["parameters"]
-name = parameters[index][0]
-x=parameters[index][1]
-y=parameters[index][2]
+r = index.split(/,/)[0]
+c = index.split(/,/)[1]
+
+if (r&lt;0) r=0
+else if (r&gt;parameters.length-1) r=parameters.length-1
+row = parameters[r]
+if (c&lt;0) c=0
+else if (c&gt;row.length-1) c = row.length-1
+
+name = row[c][0]
+x=row[c][1]
+y=row[c][2]
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output("Type "+name+" value.")
@@ -2882,7 +2891,7 @@ vo.output("Type "+name+" value.")
 				<key>CreationDate</key>
 				<real>498707004.55904102</real>
 				<key>ModificationDate</key>
-				<real>498707825.18584901</real>
+				<real>498714314.56313199</real>
 				<key>Name</key>
 				<string>Click Parameter</string>
 				<key>Triggers</key>
@@ -2891,11 +2900,11 @@ vo.output("Type "+name+" value.")
 						<key>FireType</key>
 						<string>Pressed</string>
 						<key>KeyCode</key>
-						<integer>125</integer>
+						<integer>36</integer>
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>4096</integer>
+						<integer>256</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -6362,13 +6371,20 @@ fileName = home+"/pluginmaps/"+pluginName+".txt"
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 parameters = json["parameters"]
-lastIndex = parameters.length-1
-index++
-if (index&gt;lastIndex) index = lastIndex
-name = parameters[index][0]
-x = parameters[index][1]
-y = parameters[index][2]
-kme.setvariable("FTPluginControlIndex", {to:""+index})
+r = index.split(/,/)[0]
+c = index.split(/,/)[1]
+
+if (r&lt;0) r=0
+else if (r&gt;parameters.length-1) r=parameters.length-1
+row = parameters[r]
+c++
+if (c&lt;0) c=0
+else if (c&gt;row.length-1) c = row.length-1
+
+name = row[c][0]
+x = row[c][1]
+y = row[c][2]
+kme.setvariable("FTPluginControlIndex", {to:r+","+c})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output(name)</string>
@@ -6385,9 +6401,9 @@ vo.output(name)</string>
 				<key>CreationDate</key>
 				<real>498706260.55011398</real>
 				<key>ModificationDate</key>
-				<real>498706888.198322</real>
+				<real>498712687.95284897</real>
 				<key>Name</key>
-				<string>Next Parameter</string>
+				<string>Next Column Parameter</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -6490,6 +6506,118 @@ vo.output("Next")
 				</array>
 				<key>UID</key>
 				<string>C6FD72CC-0CBB-467D-BB95-7EE74CE69965</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>Window</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+index = kme.getvariable("FTPluginControlIndex")
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+pluginName = window.name().replace("Plug-in: ","")
+fileName = home+"/pluginmaps/"+pluginName+".txt"
+str = app.read(Path(fileName))
+json = JSON.parse(str)
+parameters = json["parameters"]
+r = index.split(/,/)[0]
+c = index.split(/,/)[1]
+
+r++
+if (r&lt;0) r=0
+else if (r&gt;parameters.length-1) r=parameters.length-1
+row = parameters[r]
+if (c&lt;0) c=0
+else if (c&gt;row.length-1) c = row.length-1
+
+name = row[c][0]
+x = row[c][1]
+y = row[c][2]
+kme.setvariable("FTPluginControlIndex", {to:r+","+c})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(name)</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>498712365.44179398</real>
+				<key>ModificationDate</key>
+				<real>498712799.93646699</real>
+				<key>Name</key>
+				<string>Next Row Parameter</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>125</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>8FD5FC78-AEF7-4BED-82AF-E178124E8996</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -6836,12 +6964,23 @@ fileName = home+"/pluginmaps/"+pluginName+".txt"
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 parameters = json["parameters"]
-index--
-if (index&lt;0) index = 0
-name = parameters[index][0]
-x = parameters[index][1]
-y = parameters[index][2]
-kme.setvariable("FTPluginControlIndex", {to:""+index})
+r = index.split(/,/)[0]
+c = index.split(/,/)[1]
+
+if (r&lt;0) r=0
+else if (r&gt;parameters.length-1) r=parameters.length-1
+row = parameters[r]
+c--
+if (c&lt;0) c=0
+else if (c&gt;row.length-1) c = row.length-1
+
+
+
+
+name = row[c][0]
+x = row[c][1]
+y = row[c][2]
+kme.setvariable("FTPluginControlIndex", {to:r+","+c})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 vo.output(name)</string>
@@ -6856,11 +6995,11 @@ vo.output(name)</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>498706895.758192</real>
+				<real>498712275.76650399</real>
 				<key>ModificationDate</key>
-				<real>498706961.93119401</real>
+				<real>498712882.85005802</real>
 				<key>Name</key>
-				<string>Previous Parameter</string>
+				<string>Previous Column Parameter</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -6875,7 +7014,7 @@ vo.output(name)</string>
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>AD1199D4-7BE5-4727-A708-B2A2F9091D64</string>
+				<string>7554D587-CC96-4A94-AA1F-ADBDFA396543</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -7004,6 +7143,118 @@ vo.output("Previous")
 				<array>
 					<dict>
 						<key>DisplayKind</key>
+						<string>Window</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+index = kme.getvariable("FTPluginControlIndex")
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+pluginName = window.name().replace("Plug-in: ","")
+fileName = home+"/pluginmaps/"+pluginName+".txt"
+str = app.read(Path(fileName))
+json = JSON.parse(str)
+parameters = json["parameters"]
+r = index.split(/,/)[0]
+c = index.split(/,/)[1]
+
+r--
+if (r&lt;0) r=0
+else if (r&gt;parameters.length-1) r=parameters.length-1
+row = parameters[r]
+if (c&lt;0) c=0
+else if (c&gt;row.length-1) c = row.length-1
+
+name = row[c][0]
+x = row[c][1]
+y = row[c][2]
+kme.setvariable("FTPluginControlIndex", {to:r+","+c})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(name)</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>498712748.36642897</real>
+				<key>ModificationDate</key>
+				<real>498712787.91004997</real>
+				<key>Name</key>
+				<string>Previous Row Parameter</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>126</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>8812AC4E-CAF6-45DA-8D19-A9684713E028</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
 						<string>None</string>
 						<key>IncludeStdErr</key>
 						<true/>
@@ -7013,7 +7264,7 @@ vo.output("Previous")
 						<string></string>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
-kme.setvariable("FTPluginControlIndex", {to:"-1"})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7028,7 +7279,7 @@ kme.setvariable("FTPluginControlIndex", {to:"-1"})
 				<key>CreationDate</key>
 				<real>498707336.94646001</real>
 				<key>ModificationDate</key>
-				<real>498707748.11091399</real>
+				<real>498712842.451994</real>
 				<key>Name</key>
 				<string>Reset Parameter Index</string>
 				<key>Triggers</key>
