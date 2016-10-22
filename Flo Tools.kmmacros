@@ -2669,17 +2669,12 @@ if (runSingle) single()
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 index = kme.getvariable("FTPluginControlIndex")
+str = kme.getvariable("FTPluginControlParameters")
 vo = Application("VoiceOver")
-app = Application.currentApplication()
-app.includeStandardAdditions = true
 sys = Application('System Events')
-home = sys.currentUser.homeDirectory()
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
-pluginName = window.name().replace("Plug-in: ","")
-fileName = home+"/pluginmaps/"+pluginName+".txt"
-str = app.read(Path(fileName))
 json = JSON.parse(str)
 parameters = json["parameters"]
 r = index.split(/,/)[0]
@@ -2743,7 +2738,7 @@ vo.output("Type "+name+" value.")
 				<key>CreationDate</key>
 				<real>498707004.55904102</real>
 				<key>ModificationDate</key>
-				<real>498795294.31775701</real>
+				<real>498864217.04292798</real>
 				<key>Name</key>
 				<string>Click Parameter</string>
 				<key>Triggers</key>
@@ -4940,7 +4935,7 @@ window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 msg = window.name().replace("Plug-in: ","")+"\n"
 sliders = window.groups.byName("FXTDMEditView").sliders
 names = sliders.name()
-msg+="{\"parameters\":[\n[\n"
+msg+="{\"view\":\"Default\", \"click\":[-1,-1], \"parameters\":[\n[\n"
 for (n in names) {
 if (names[n] == null) continue
 msg+="[\""+names[n]+"\",0,0],\n"
@@ -4962,7 +4957,7 @@ console.log(msg)
 				<key>CreationDate</key>
 				<real>498614945.35480499</real>
 				<key>ModificationDate</key>
-				<real>498789772.26899201</real>
+				<real>498867705.09435898</real>
 				<key>Name</key>
 				<string>Display Template</string>
 				<key>Triggers</key>
@@ -4971,11 +4966,11 @@ console.log(msg)
 						<key>FireType</key>
 						<string>Pressed</string>
 						<key>KeyCode</key>
-						<integer>13</integer>
+						<integer>17</integer>
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>0</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -6219,7 +6214,6 @@ if (runSingle) single()
 						<string></string>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
-index = kme.getvariable("FTPluginControlIndex")
 vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
@@ -6231,6 +6225,334 @@ window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","")
 fileName = home+"/pluginmaps/"+pluginName+".txt"
 str = app.read(Path(fileName))
+json = JSON.parse(str)
+view = json["view"]
+x = json["click"][0]
+y = json["click"][1]
+kme.setvariable("FTPluginControlParameters", {to:str})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(view+" view. ")
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>x</string>
+									<key>VariableConditionType</key>
+									<string>IsNot</string>
+									<key>VariableValue</key>
+									<string>-1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>MoveAndClick</string>
+								<key>Button</key>
+								<integer>0</integer>
+								<key>ClickCount</key>
+								<integer>1</integer>
+								<key>DisplayMatches</key>
+								<false/>
+								<key>DragHorizontalPosition</key>
+								<string>0</string>
+								<key>DragVerticalPosition</key>
+								<string>0</string>
+								<key>Fuzz</key>
+								<integer>15</integer>
+								<key>HorizontalPositionExpression</key>
+								<string>x</string>
+								<key>MacroActionType</key>
+								<string>MouseMoveAndClick</string>
+								<key>Modifiers</key>
+								<integer>0</integer>
+								<key>MouseDrag</key>
+								<string>None</string>
+								<key>Relative</key>
+								<string>Window</string>
+								<key>RelativeCorner</key>
+								<string>TopLeft</string>
+								<key>RestoreMouseLocation</key>
+								<false/>
+								<key>VerticalPositionExpression</key>
+								<string>y</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>498707336.94646001</real>
+				<key>ModificationDate</key>
+				<real>498867541.12777001</real>
+				<key>Name</key>
+				<string>Load Plugin Parameters for Default View</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>ChangeType</key>
+						<string>FocussedWindowTitleChanges</string>
+						<key>MacroTriggerType</key>
+						<string>FocussedWindow</string>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>29</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>703E2B8E-556F-4BBF-95B5-C447F55F1968</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+pluginName = window.name().replace("Plug-in: ","")
+fileName = home+"/pluginmaps/"+pluginName+"-1.txt"
+str = app.read(Path(fileName))
+json = JSON.parse(str)
+view = json["view"]
+x = json["click"][0]
+y = json["click"][1]
+kme.setvariable("FTPluginControlParameters", {to:str})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(view+" view.")
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>x</string>
+									<key>VariableConditionType</key>
+									<string>IsNot</string>
+									<key>VariableValue</key>
+									<string>-1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>MoveAndClick</string>
+								<key>Button</key>
+								<integer>0</integer>
+								<key>ClickCount</key>
+								<integer>1</integer>
+								<key>DisplayMatches</key>
+								<false/>
+								<key>DragHorizontalPosition</key>
+								<string>0</string>
+								<key>DragVerticalPosition</key>
+								<string>0</string>
+								<key>Fuzz</key>
+								<integer>15</integer>
+								<key>HorizontalPositionExpression</key>
+								<string>x</string>
+								<key>MacroActionType</key>
+								<string>MouseMoveAndClick</string>
+								<key>Modifiers</key>
+								<integer>0</integer>
+								<key>MouseDrag</key>
+								<string>None</string>
+								<key>Relative</key>
+								<string>Window</string>
+								<key>RelativeCorner</key>
+								<string>TopLeft</string>
+								<key>RestoreMouseLocation</key>
+								<false/>
+								<key>VerticalPositionExpression</key>
+								<string>y</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>498867447.65581</real>
+				<key>ModificationDate</key>
+				<real>498868002.16941798</real>
+				<key>Name</key>
+				<string>Load Plugin Parameters for View 1</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>18</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>35D488DB-5ED0-4138-B757-39893A412779</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+index = kme.getvariable("FTPluginControlIndex")
+str = kme.getvariable("FTPluginControlParameters")
+vo = Application("VoiceOver")
+sys = Application('System Events')
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 json = JSON.parse(str)
 parameters = json["parameters"]
 r = index.split(/,/)[0]
@@ -6249,8 +6571,13 @@ y = row[c][2]
 kme.setvariable("FTPluginControlIndex", {to:r+","+c})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+try {
 value = window.groups.byName("FXTDMEditView").sliders.byName(name).attributes["AXValueDescription"].value()
-vo.output(name+": "+value)</string>
+vo.output(name+": "+value)
+} catch(err) {
+vo.output(name)
+}
+</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -6296,7 +6623,7 @@ vo.output(name+": "+value)</string>
 				<key>CreationDate</key>
 				<real>498706260.55011398</real>
 				<key>ModificationDate</key>
-				<real>498795009.28433299</real>
+				<real>498864986.15290397</real>
 				<key>Name</key>
 				<string>Next Column Parameter</string>
 				<key>Triggers</key>
@@ -6452,17 +6779,12 @@ vo.output("Next")
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 index = kme.getvariable("FTPluginControlIndex")
-vo = Application("VoiceOver")
-app = Application.currentApplication()
-app.includeStandardAdditions = true
+str = kme.getvariable("FTPluginControlParameters")
 sys = Application('System Events')
-home = sys.currentUser.homeDirectory()
+vo = Application("VoiceOver")
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
-pluginName = window.name().replace("Plug-in: ","")
-fileName = home+"/pluginmaps/"+pluginName+".txt"
-str = app.read(Path(fileName))
 json = JSON.parse(str)
 parameters = json["parameters"]
 r = index.split(/,/)[0]
@@ -6481,8 +6803,13 @@ y = row[c][2]
 kme.setvariable("FTPluginControlIndex", {to:r+","+c})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+try {
 value = window.groups.byName("FXTDMEditView").sliders.byName(name).attributes["AXValueDescription"].value()
-vo.output(name+": "+value)</string>
+vo.output(name+": "+value)
+} catch(err) {
+vo.output(name)
+}
+</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -6528,7 +6855,7 @@ vo.output(name+": "+value)</string>
 				<key>CreationDate</key>
 				<real>498712365.44179398</real>
 				<key>ModificationDate</key>
-				<real>498795125.86156201</real>
+				<real>498864934.81604898</real>
 				<key>Name</key>
 				<string>Next Row Parameter</string>
 				<key>Triggers</key>
@@ -6879,17 +7206,12 @@ kme.setvariable("y", {to:""+y})
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 index = kme.getvariable("FTPluginControlIndex")
+str = kme.getvariable("FTPluginControlParameters")
 vo = Application("VoiceOver")
-app = Application.currentApplication()
-app.includeStandardAdditions = true
 sys = Application('System Events')
-home = sys.currentUser.homeDirectory()
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
-pluginName = window.name().replace("Plug-in: ","")
-fileName = home+"/pluginmaps/"+pluginName+".txt"
-str = app.read(Path(fileName))
 json = JSON.parse(str)
 parameters = json["parameters"]
 r = index.split(/,/)[0]
@@ -6911,8 +7233,13 @@ y = row[c][2]
 kme.setvariable("FTPluginControlIndex", {to:r+","+c})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+try {
 value = window.groups.byName("FXTDMEditView").sliders.byName(name).attributes["AXValueDescription"].value()
-vo.output(name+": "+value)</string>
+vo.output(name+": "+value)
+} catch(err) {
+vo.output(name)
+}
+</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -6958,7 +7285,7 @@ vo.output(name+": "+value)</string>
 				<key>CreationDate</key>
 				<real>498712275.76650399</real>
 				<key>ModificationDate</key>
-				<real>498795164.246508</real>
+				<real>498864948.23789901</real>
 				<key>Name</key>
 				<string>Previous Column Parameter</string>
 				<key>Triggers</key>
@@ -7114,17 +7441,12 @@ vo.output("Previous")
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 index = kme.getvariable("FTPluginControlIndex")
+str = kme.getvariable("FTPluginControlParameters")
 vo = Application("VoiceOver")
-app = Application.currentApplication()
-app.includeStandardAdditions = true
 sys = Application('System Events')
-home = sys.currentUser.homeDirectory()
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
-pluginName = window.name().replace("Plug-in: ","")
-fileName = home+"/pluginmaps/"+pluginName+".txt"
-str = app.read(Path(fileName))
 json = JSON.parse(str)
 parameters = json["parameters"]
 r = index.split(/,/)[0]
@@ -7143,8 +7465,13 @@ y = row[c][2]
 kme.setvariable("FTPluginControlIndex", {to:r+","+c})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+try {
 value = window.groups.byName("FXTDMEditView").sliders.byName(name).attributes["AXValueDescription"].value()
-vo.output(name+": "+value)</string>
+vo.output(name+": "+value)
+} catch(err) {
+vo.output(name)
+}
+</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -7190,7 +7517,7 @@ vo.output(name+": "+value)</string>
 				<key>CreationDate</key>
 				<real>498712748.36642897</real>
 				<key>ModificationDate</key>
-				<real>498795189.35665703</real>
+				<real>498864963.72941101</real>
 				<key>Name</key>
 				<string>Previous Row Parameter</string>
 				<key>Triggers</key>
@@ -7208,85 +7535,6 @@ vo.output(name+": "+value)</string>
 				</array>
 				<key>UID</key>
 				<string>8812AC4E-CAF6-45DA-8D19-A9684713E028</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Plugin</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
-		<key>UID</key>
-		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>498359144.78846598</real>
-		<key>FocussedWindowConditionType</key>
-		<string>TitleMatches</string>
-		<key>FocussedWindowTitle</key>
-		<string>^Plug-in:</string>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>kme = Application("Keyboard Maestro Engine")
-kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>498707336.94646001</real>
-				<key>ModificationDate</key>
-				<real>498712842.451994</real>
-				<key>Name</key>
-				<string>Reset Parameter Index</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>ChangeType</key>
-						<string>FocussedWindowTitleChanges</string>
-						<key>MacroTriggerType</key>
-						<string>FocussedWindow</string>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>703E2B8E-556F-4BBF-95B5-C447F55F1968</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -9531,7 +9779,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>498434276.60383397</real>
 				<key>ModificationDate</key>
-				<real>498436909.51219702</real>
+				<real>498861227.76282501</real>
 				<key>Name</key>
 				<string>Speak/Choose Preset</string>
 				<key>Triggers</key>
@@ -9544,7 +9792,7 @@ if (runSingle) single()
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>0</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -14952,7 +15200,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>498433857.12846398</real>
 				<key>ModificationDate</key>
-				<real>498434208.65237999</real>
+				<real>498861236.62809098</real>
 				<key>Name</key>
 				<string>Speak/Toggle Bypass</string>
 				<key>Triggers</key>
@@ -14965,7 +15213,7 @@ if (runSingle) single()
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>0</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
