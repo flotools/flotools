@@ -23,7 +23,7 @@ Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 
 # Download:
 
-The zip file for Flo Tools can be downloaded directly from [here.](https://github.com/flotools/flotools/archive/master.zip)
+You can download The Flo Tools from the [Flo Tools website.](https://flotools.github.io)
 
 This  zip file, referenced in this read me, will automatically decompress itself into a folder on Mac OS. Please refer to this downloaded folder, called "Flo Tools Master", when reading this document.
 
