@@ -5085,12 +5085,17 @@ vo.output(value)
 						<string>pt = Application("System Events").applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
-console.log(window.name().replace("Plug-in: ",""))
+msg = window.name().replace("Plug-in: ","")+"\n"
 sliders = window.groups.byName("FXTDMEditView").sliders
 names = sliders.name()
+msg+="{\"parameters\":[\n[\n"
 for (n in names) {
-console.log("[\""+names[n]+"\",0,0],")
+if (names[n] == null) continue
+msg+="[\""+names[n]+"\",0,0],\n"
 }
+msg = msg.substring(0,msg.length-2)+"\n"
+msg+="]\n]}"
+console.log(msg)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -5105,9 +5110,9 @@ console.log("[\""+names[n]+"\",0,0],")
 				<key>CreationDate</key>
 				<real>498614945.35480499</real>
 				<key>ModificationDate</key>
-				<real>498786317.50930101</real>
+				<real>498789772.26899201</real>
 				<key>Name</key>
-				<string>Display Plugin Window Name</string>
+				<string>Display Template</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
