@@ -2353,8 +2353,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
-value = ""+track.popUpButtons.whose({name:{_contains:"Automation Mode Selector"}})[0].help()
-value = value.replace("Automation Mode selector", "")
+value = ""+track.popUpButtons.whose({name:{_contains:"Automation Mode Selector"}})[0].name()
 vo.output(value)
 }
 
@@ -2400,7 +2399,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>493843837.55308402</real>
 				<key>ModificationDate</key>
-				<real>494357405.56404102</real>
+				<real>498966628.81307399</real>
 				<key>Name</key>
 				<string>Beta: Speak/Select Automation Mode</string>
 				<key>Triggers</key>
@@ -4211,10 +4210,25 @@ kme.setvariable("y", {to:""+y})
 kme = Application("Keyboard Maestro Engine")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
-x = kme.calculate("MOUSEX()-WINDOW(1,Left)")
-y = kme.calculate("MOUSEY()-WINDOW(1,top)")
-app.setTheClipboardTo(x+","+y)
-vo.output(x+", "+y)
+sys = Application("System Events")
+process = sys.processes.whose({frontmost:true})[0]
+window = process.windows[0]
+wPosition = window.position()
+
+//left = kme.calculate("WINDOW(1,Left)")
+//top = kme.calculate("WINDOW(1,top)")
+
+left = wPosition[0]
+top = wPosition[1]
+
+x = kme.calculate("MOUSEX()")
+y = kme.calculate("MOUSEY()")
+
+wx = x-left
+wy = y-top
+
+app.setTheClipboardTo(left+", "+x+", "+top+", "+y+", "+wx+", "+wy)
+vo.output(wx+", "+wy)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -4229,7 +4243,7 @@ vo.output(x+", "+y)
 				<key>CreationDate</key>
 				<real>498884601.37480599</real>
 				<key>ModificationDate</key>
-				<real>498927472.63740498</real>
+				<real>499268512.55627698</real>
 				<key>Name</key>
 				<string>Copy And Say Mouse Coordinates Relative to Front Window</string>
 				<key>Triggers</key>
@@ -15074,7 +15088,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>493842382.64579898</real>
 				<key>ModificationDate</key>
-				<real>494235895.88897997</real>
+				<real>498966772.354478</real>
 				<key>Name</key>
 				<string>Speak/Reset Volume Fader</string>
 				<key>Triggers</key>
