@@ -2907,8 +2907,6 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3036,8 +3034,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3165,8 +3161,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3294,8 +3288,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3423,8 +3415,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3552,8 +3542,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3681,8 +3669,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3810,8 +3796,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3939,8 +3923,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4068,8 +4050,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4197,8 +4177,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6531,8 +6509,6 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6571,22 +6547,30 @@ vo.output(view+" view for "+pluginName)
 						<string>10</string>
 					</dict>
 					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
 						<key>MacroActionType</key>
-						<string>SpeakText</string>
-						<key>Rate</key>
-						<string>Default</string>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
 						<key>Text</key>
-						<string>down</string>
+						<string>Application("VoiceOver").output("Down")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
-						<key>Voice</key>
-						<string></string>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
 					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>459288125.05353701</real>
 				<key>ModificationDate</key>
-				<real>500668118.25050002</real>
+				<real>500669144.56484199</real>
 				<key>Name</key>
 				<string>move mouse down</string>
 				<key>Triggers</key>
@@ -6618,8 +6602,6 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6660,23 +6642,30 @@ vo.output(view+" view for "+pluginName)
 						<string>0</string>
 					</dict>
 					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
 						<key>MacroActionType</key>
-						<string>SpeakText</string>
-						<key>Rate</key>
-						<string>Default</string>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
 						<key>Text</key>
-						<string>left
-</string>
+						<string>Application("VoiceOver").output("Left")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
-						<key>Voice</key>
-						<string></string>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
 					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>459288125.05353701</real>
 				<key>ModificationDate</key>
-				<real>500668123.37423903</real>
+				<real>500669279.18755299</real>
 				<key>Name</key>
 				<string>move mouse left</string>
 				<key>Triggers</key>
@@ -6708,8 +6697,6 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6750,23 +6737,30 @@ vo.output(view+" view for "+pluginName)
 						<string>0</string>
 					</dict>
 					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
 						<key>MacroActionType</key>
-						<string>SpeakText</string>
-						<key>Rate</key>
-						<string>Default</string>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
 						<key>Text</key>
-						<string>right
-</string>
+						<string>Application("VoiceOver").output("Right")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
-						<key>Voice</key>
-						<string></string>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
 					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>459288125.05353701</real>
 				<key>ModificationDate</key>
-				<real>500668129.87599403</real>
+				<real>500669307.47370398</real>
 				<key>Name</key>
 				<string>move mouse right</string>
 				<key>Triggers</key>
@@ -6798,8 +6792,6 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6889,8 +6881,6 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7002,8 +6992,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7044,23 +7032,30 @@ kme.setvariable("y", {to:""+y})
 						<string>-10</string>
 					</dict>
 					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
 						<key>MacroActionType</key>
-						<string>SpeakText</string>
-						<key>Rate</key>
-						<string>Default</string>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
 						<key>Text</key>
-						<string>up
-</string>
+						<string>Application("VoiceOver").output("Up")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
-						<key>Voice</key>
-						<string></string>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
 					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>459288125.05353701</real>
 				<key>ModificationDate</key>
-				<real>500668140.92577797</real>
+				<real>500669342.93184298</real>
 				<key>Name</key>
 				<string>move mouse up</string>
 				<key>Triggers</key>
@@ -7469,8 +7464,6 @@ vo.output(name)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7679,8 +7672,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7808,8 +7799,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8645,8 +8634,6 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17663,8 +17650,6 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
