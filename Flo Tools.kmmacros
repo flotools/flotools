@@ -13,6 +13,69 @@
 				<key>Actions</key>
 				<array>
 					<dict>
+						<key>MacroActionType</key>
+						<string>SpeakText</string>
+						<key>Rate</key>
+						<string>Fast</string>
+						<key>Text</key>
+						<string>Flo Tools 2.0</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>Voice</key>
+						<string></string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500680483.19485301</real>
+				<key>ModificationDate</key>
+				<real>500680810.68499303</real>
+				<key>Name</key>
+				<string>2.0</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>MacroTriggerType</key>
+						<string>StatusMenu</string>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>58057E51-0E33-4A81-A3AC-CA95530D62CE</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
 						<key>Action</key>
 						<string>Enable</string>
 						<key>MacroActionType</key>
@@ -6845,15 +6908,11 @@ vo.output(view+" view for "+pluginName)
 				<key>CreationDate</key>
 				<real>459288125.05353701</real>
 				<key>ModificationDate</key>
-				<real>494209378.56246197</real>
+				<real>500680631.61641002</real>
 				<key>Name</key>
 				<string>Move Mouse to Center of Current Window</string>
 				<key>Triggers</key>
 				<array>
-					<dict>
-						<key>MacroTriggerType</key>
-						<string>StatusMenu</string>
-					</dict>
 					<dict>
 						<key>FireType</key>
 						<string>Pressed</string>
