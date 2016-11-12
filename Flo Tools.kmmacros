@@ -4745,7 +4745,7 @@ vo.output(value)
 						<string>pt = Application("System Events").applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
-msg = window.name().replace("Plug-in: ","")+"\n"
+msg = window.name().replace("Plug-in: ","").replace("/"," ")+"\n"
 sliders = window.groups.byName("FXTDMEditView").sliders
 names = sliders.name()
 msg+="{\"view\":\"Default\", \"click\":[-1,-1], \"parameters\":[\n[\n"
@@ -4770,7 +4770,7 @@ console.log(msg)
 				<key>CreationDate</key>
 				<real>498614945.35480499</real>
 				<key>ModificationDate</key>
-				<real>498867705.09435898</real>
+				<real>500617673.51449001</real>
 				<key>Name</key>
 				<string>Display Template</string>
 				<key>Triggers</key>
@@ -6035,8 +6035,8 @@ home = sys.currentUser.homeDirectory()
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
-pluginName = window.name().replace("Plug-in: ","")
-fileName = home+"/pluginmaps/"+pluginName+".txt"
+pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+".txt"
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
@@ -6046,7 +6046,7 @@ kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view. ")
+vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -6122,7 +6122,7 @@ vo.output(view+" view. ")
 				<key>CreationDate</key>
 				<real>498707336.94646001</real>
 				<key>ModificationDate</key>
-				<real>498867541.12777001</real>
+				<real>500618478.36758399</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for Default View</string>
 				<key>Triggers</key>
@@ -6204,8 +6204,8 @@ home = sys.currentUser.homeDirectory()
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
-pluginName = window.name().replace("Plug-in: ","")
-fileName = home+"/pluginmaps/"+pluginName+"-1.txt"
+pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-1.txt"
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
@@ -6215,7 +6215,7 @@ kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view.")
+vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -6291,7 +6291,7 @@ vo.output(view+" view.")
 				<key>CreationDate</key>
 				<real>498867447.65581</real>
 				<key>ModificationDate</key>
-				<real>498868002.16941798</real>
+				<real>500618626.041987</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 1</string>
 				<key>Triggers</key>
