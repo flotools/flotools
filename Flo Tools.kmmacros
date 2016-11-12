@@ -1968,6 +1968,176 @@ track.groups["Sends F-J"].buttons[8].click()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>496203599.31667697</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.apple.VoiceOver</string>
+										<key>Name</key>
+										<string>VoiceOver</string>
+										<key>NewFile</key>
+										<string>/System/Library/CoreServices/VoiceOver.app</string>
+									</dict>
+									<key>ApplicationConditionType</key>
+									<string>NotRunning</string>
+									<key>ConditionType</key>
+									<string>Application</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+							</dict>
+						</array>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>IsDisclosed</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500601912.798648</real>
+				<key>ModificationDate</key>
+				<real>500667357.63294297</real>
+				<key>Name</key>
+				<string>Auto Toggle Flo Tools</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>Application</key>
+						<dict>
+							<key>BundleIdentifier</key>
+							<string>com.apple.VoiceOver</string>
+							<key>Name</key>
+							<string>VoiceOver</string>
+							<key>NewFile</key>
+							<string>/System/Library/CoreServices/VoiceOver.app</string>
+						</dict>
+						<key>FireType2</key>
+						<string>Quit</string>
+						<key>MacroTriggerType</key>
+						<string>Application</string>
+						<key>RepeatTime</key>
+						<integer>60</integer>
+						<key>Target</key>
+						<string>Specific</string>
+					</dict>
+					<dict>
+						<key>Application</key>
+						<dict>
+							<key>BundleIdentifier</key>
+							<string>com.apple.VoiceOver</string>
+							<key>Name</key>
+							<string>VoiceOver</string>
+							<key>NewFile</key>
+							<string>/System/Library/CoreServices/VoiceOver.app</string>
+						</dict>
+						<key>FireType2</key>
+						<string>Launch</string>
+						<key>MacroTriggerType</key>
+						<string>Application</string>
+						<key>RepeatTime</key>
+						<integer>60</integer>
+						<key>Target</key>
+						<string>Specific</string>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>025B4AFD-5340-492B-A7DF-6F526BE1252E</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Global Macro Group</string>
+		<key>ToggleMacroUID</key>
+		<string>855B86C7-483D-451C-8086-1A8910108AB5</string>
+		<key>UID</key>
+		<string>2527A74C-B86A-4462-A8A3-D7FD6490C59E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>479078801.99380499</real>
 		<key>Macros</key>
 		<array>
@@ -2737,6 +2907,8 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2864,6 +3036,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2991,6 +3165,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3118,6 +3294,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3245,6 +3423,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3372,6 +3552,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3499,6 +3681,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3626,6 +3810,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3753,6 +3939,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3880,6 +4068,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4007,6 +4197,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6339,6 +6531,8 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6392,7 +6586,7 @@ vo.output(view+" view for "+pluginName)
 				<key>CreationDate</key>
 				<real>459288125.05353701</real>
 				<key>ModificationDate</key>
-				<real>498860007.93919802</real>
+				<real>500668118.25050002</real>
 				<key>Name</key>
 				<string>move mouse down</string>
 				<key>Triggers</key>
@@ -6405,7 +6599,7 @@ vo.output(view+" view for "+pluginName)
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>4864</integer>
+						<integer>2816</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -6424,6 +6618,8 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6480,7 +6676,7 @@ vo.output(view+" view for "+pluginName)
 				<key>CreationDate</key>
 				<real>459288125.05353701</real>
 				<key>ModificationDate</key>
-				<real>433744931.709149</real>
+				<real>500668123.37423903</real>
 				<key>Name</key>
 				<string>move mouse left</string>
 				<key>Triggers</key>
@@ -6493,7 +6689,7 @@ vo.output(view+" view for "+pluginName)
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>4864</integer>
+						<integer>2816</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -6512,6 +6708,8 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6568,7 +6766,7 @@ vo.output(view+" view for "+pluginName)
 				<key>CreationDate</key>
 				<real>459288125.05353701</real>
 				<key>ModificationDate</key>
-				<real>433744983.28348702</real>
+				<real>500668129.87599403</real>
 				<key>Name</key>
 				<string>move mouse right</string>
 				<key>Triggers</key>
@@ -6581,7 +6779,7 @@ vo.output(view+" view for "+pluginName)
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>4864</integer>
+						<integer>2816</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -6600,6 +6798,8 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6689,6 +6889,8 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6800,6 +7002,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6856,7 +7060,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>459288125.05353701</real>
 				<key>ModificationDate</key>
-				<real>433745049.48839903</real>
+				<real>500668140.92577797</real>
 				<key>Name</key>
 				<string>move mouse up</string>
 				<key>Triggers</key>
@@ -6869,7 +7073,7 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>4864</integer>
+						<integer>2816</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -7265,6 +7469,8 @@ vo.output(name)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7441,7 +7647,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>494431491.72162199</real>
 				<key>ModificationDate</key>
-				<real>498929355.64766097</real>
+				<real>500661235.181557</real>
 				<key>Name</key>
 				<string>Option Mouse Down/Release</string>
 				<key>Triggers</key>
@@ -7473,6 +7679,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7600,6 +7808,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8435,6 +8645,8 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17039,6 +17251,131 @@ if (runSingle) single()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>496203599.31667697</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Macro</string>
+									<key>MacroConditionType</key>
+									<string>IsEnabled</string>
+									<key>MacroUID</key>
+									<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>Path</key>
+								<string></string>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Flo Tools Mouse On")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>Path</key>
+								<string></string>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Flo Tools Mouse Off")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500667533.44200301</real>
+				<key>ModificationDate</key>
+				<real>500668006.46633899</real>
+				<key>Name</key>
+				<string>Toggle Flo Tools Mouse</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>50</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>6912</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>0D1179E6-67B7-4B3F-AF22-8220E83AABA1</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Global Macro Group</string>
+		<key>ToggleMacroUID</key>
+		<string>855B86C7-483D-451C-8086-1A8910108AB5</string>
+		<key>UID</key>
+		<string>2527A74C-B86A-4462-A8A3-D7FD6490C59E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>493839659.76668698</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
@@ -17326,6 +17663,8 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
