@@ -6270,6 +6270,7 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+".txt"
+try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
@@ -6277,9 +6278,13 @@ x = json["click"][0]
 y = json["click"][1]
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+vo.output(view+" view for "+pluginName)
+} catch (err) {
+x = "-1"
+y = "-1"
+}
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -6355,7 +6360,7 @@ vo.output(view+" view for "+pluginName)
 				<key>CreationDate</key>
 				<real>498707336.94646001</real>
 				<key>ModificationDate</key>
-				<real>500618478.36758399</real>
+				<real>500760026.20463502</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for Default View</string>
 				<key>Triggers</key>
