@@ -6419,6 +6419,14 @@ vo.output(view+" view for "+pluginName)
 				<key>Actions</key>
 				<array>
 					<dict>
+						<key>MacroActionType</key>
+						<string>SetVariableToText</string>
+						<key>Text</key>
+						<string>%ExecutingThisMacro%</string>
+						<key>Variable</key>
+						<string>command</string>
+					</dict>
+					<dict>
 						<key>DisplayKind</key>
 						<string>None</string>
 						<key>IncludeStdErr</key>
@@ -6429,6 +6437,9 @@ vo.output(view+" view for "+pluginName)
 						<string></string>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command")
+command = command.substring(command.length-1)
+
 vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
@@ -6438,7 +6449,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
-fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-1.txt"
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
@@ -6524,7 +6535,7 @@ vo.output(view+" view for "+pluginName)
 				<key>CreationDate</key>
 				<real>498867447.65581</real>
 				<key>ModificationDate</key>
-				<real>500618626.041987</real>
+				<real>500702775.545578</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 1</string>
 				<key>Triggers</key>
@@ -6542,6 +6553,1398 @@ vo.output(view+" view for "+pluginName)
 				</array>
 				<key>UID</key>
 				<string>35D488DB-5ED0-4138-B757-39893A412779</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>MacroActionType</key>
+						<string>SetVariableToText</string>
+						<key>Text</key>
+						<string>%ExecutingThisMacro%</string>
+						<key>Variable</key>
+						<string>command</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command")
+command = command.substring(command.length-1)
+
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+str = app.read(Path(fileName))
+json = JSON.parse(str)
+view = json["view"]
+x = json["click"][0]
+y = json["click"][1]
+kme.setvariable("FTPluginControlParameters", {to:str})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>x</string>
+									<key>VariableConditionType</key>
+									<string>IsNot</string>
+									<key>VariableValue</key>
+									<string>-1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>MoveAndClick</string>
+								<key>Button</key>
+								<integer>0</integer>
+								<key>ClickCount</key>
+								<integer>1</integer>
+								<key>DisplayMatches</key>
+								<false/>
+								<key>DragHorizontalPosition</key>
+								<string>0</string>
+								<key>DragVerticalPosition</key>
+								<string>0</string>
+								<key>Fuzz</key>
+								<integer>15</integer>
+								<key>HorizontalPositionExpression</key>
+								<string>x</string>
+								<key>MacroActionType</key>
+								<string>MouseMoveAndClick</string>
+								<key>Modifiers</key>
+								<integer>0</integer>
+								<key>MouseDrag</key>
+								<string>None</string>
+								<key>Relative</key>
+								<string>Window</string>
+								<key>RelativeCorner</key>
+								<string>TopLeft</string>
+								<key>RestoreMouseLocation</key>
+								<false/>
+								<key>VerticalPositionExpression</key>
+								<string>y</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500702785.42891699</real>
+				<key>ModificationDate</key>
+				<real>500702794.43910098</real>
+				<key>Name</key>
+				<string>Load Plugin Parameters for View 2</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>19</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>8C4584C0-E437-4784-9F3F-C3B17F108663</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>MacroActionType</key>
+						<string>SetVariableToText</string>
+						<key>Text</key>
+						<string>%ExecutingThisMacro%</string>
+						<key>Variable</key>
+						<string>command</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command")
+command = command.substring(command.length-1)
+
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+str = app.read(Path(fileName))
+json = JSON.parse(str)
+view = json["view"]
+x = json["click"][0]
+y = json["click"][1]
+kme.setvariable("FTPluginControlParameters", {to:str})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>x</string>
+									<key>VariableConditionType</key>
+									<string>IsNot</string>
+									<key>VariableValue</key>
+									<string>-1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>MoveAndClick</string>
+								<key>Button</key>
+								<integer>0</integer>
+								<key>ClickCount</key>
+								<integer>1</integer>
+								<key>DisplayMatches</key>
+								<false/>
+								<key>DragHorizontalPosition</key>
+								<string>0</string>
+								<key>DragVerticalPosition</key>
+								<string>0</string>
+								<key>Fuzz</key>
+								<integer>15</integer>
+								<key>HorizontalPositionExpression</key>
+								<string>x</string>
+								<key>MacroActionType</key>
+								<string>MouseMoveAndClick</string>
+								<key>Modifiers</key>
+								<integer>0</integer>
+								<key>MouseDrag</key>
+								<string>None</string>
+								<key>Relative</key>
+								<string>Window</string>
+								<key>RelativeCorner</key>
+								<string>TopLeft</string>
+								<key>RestoreMouseLocation</key>
+								<false/>
+								<key>VerticalPositionExpression</key>
+								<string>y</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500702797.323973</real>
+				<key>ModificationDate</key>
+				<real>500702811.96231198</real>
+				<key>Name</key>
+				<string>Load Plugin Parameters for View 3</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>20</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>FCFE54A8-184F-4F66-8CBE-B1EDE116CE54</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>MacroActionType</key>
+						<string>SetVariableToText</string>
+						<key>Text</key>
+						<string>%ExecutingThisMacro%</string>
+						<key>Variable</key>
+						<string>command</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command")
+command = command.substring(command.length-1)
+
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+str = app.read(Path(fileName))
+json = JSON.parse(str)
+view = json["view"]
+x = json["click"][0]
+y = json["click"][1]
+kme.setvariable("FTPluginControlParameters", {to:str})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>x</string>
+									<key>VariableConditionType</key>
+									<string>IsNot</string>
+									<key>VariableValue</key>
+									<string>-1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>MoveAndClick</string>
+								<key>Button</key>
+								<integer>0</integer>
+								<key>ClickCount</key>
+								<integer>1</integer>
+								<key>DisplayMatches</key>
+								<false/>
+								<key>DragHorizontalPosition</key>
+								<string>0</string>
+								<key>DragVerticalPosition</key>
+								<string>0</string>
+								<key>Fuzz</key>
+								<integer>15</integer>
+								<key>HorizontalPositionExpression</key>
+								<string>x</string>
+								<key>MacroActionType</key>
+								<string>MouseMoveAndClick</string>
+								<key>Modifiers</key>
+								<integer>0</integer>
+								<key>MouseDrag</key>
+								<string>None</string>
+								<key>Relative</key>
+								<string>Window</string>
+								<key>RelativeCorner</key>
+								<string>TopLeft</string>
+								<key>RestoreMouseLocation</key>
+								<false/>
+								<key>VerticalPositionExpression</key>
+								<string>y</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500702814.66219902</real>
+				<key>ModificationDate</key>
+				<real>500702825.60801101</real>
+				<key>Name</key>
+				<string>Load Plugin Parameters for View 4</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>21</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>70EBEB15-706F-449F-A023-AB168F6EB718</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>MacroActionType</key>
+						<string>SetVariableToText</string>
+						<key>Text</key>
+						<string>%ExecutingThisMacro%</string>
+						<key>Variable</key>
+						<string>command</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command")
+command = command.substring(command.length-1)
+
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+str = app.read(Path(fileName))
+json = JSON.parse(str)
+view = json["view"]
+x = json["click"][0]
+y = json["click"][1]
+kme.setvariable("FTPluginControlParameters", {to:str})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>x</string>
+									<key>VariableConditionType</key>
+									<string>IsNot</string>
+									<key>VariableValue</key>
+									<string>-1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>MoveAndClick</string>
+								<key>Button</key>
+								<integer>0</integer>
+								<key>ClickCount</key>
+								<integer>1</integer>
+								<key>DisplayMatches</key>
+								<false/>
+								<key>DragHorizontalPosition</key>
+								<string>0</string>
+								<key>DragVerticalPosition</key>
+								<string>0</string>
+								<key>Fuzz</key>
+								<integer>15</integer>
+								<key>HorizontalPositionExpression</key>
+								<string>x</string>
+								<key>MacroActionType</key>
+								<string>MouseMoveAndClick</string>
+								<key>Modifiers</key>
+								<integer>0</integer>
+								<key>MouseDrag</key>
+								<string>None</string>
+								<key>Relative</key>
+								<string>Window</string>
+								<key>RelativeCorner</key>
+								<string>TopLeft</string>
+								<key>RestoreMouseLocation</key>
+								<false/>
+								<key>VerticalPositionExpression</key>
+								<string>y</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500702828.38724297</real>
+				<key>ModificationDate</key>
+				<real>500702836.90067101</real>
+				<key>Name</key>
+				<string>Load Plugin Parameters for View 5</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>23</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>499BEE76-6553-479D-9CDF-0AB658A0E71F</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>MacroActionType</key>
+						<string>SetVariableToText</string>
+						<key>Text</key>
+						<string>%ExecutingThisMacro%</string>
+						<key>Variable</key>
+						<string>command</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command")
+command = command.substring(command.length-1)
+
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+str = app.read(Path(fileName))
+json = JSON.parse(str)
+view = json["view"]
+x = json["click"][0]
+y = json["click"][1]
+kme.setvariable("FTPluginControlParameters", {to:str})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>x</string>
+									<key>VariableConditionType</key>
+									<string>IsNot</string>
+									<key>VariableValue</key>
+									<string>-1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>MoveAndClick</string>
+								<key>Button</key>
+								<integer>0</integer>
+								<key>ClickCount</key>
+								<integer>1</integer>
+								<key>DisplayMatches</key>
+								<false/>
+								<key>DragHorizontalPosition</key>
+								<string>0</string>
+								<key>DragVerticalPosition</key>
+								<string>0</string>
+								<key>Fuzz</key>
+								<integer>15</integer>
+								<key>HorizontalPositionExpression</key>
+								<string>x</string>
+								<key>MacroActionType</key>
+								<string>MouseMoveAndClick</string>
+								<key>Modifiers</key>
+								<integer>0</integer>
+								<key>MouseDrag</key>
+								<string>None</string>
+								<key>Relative</key>
+								<string>Window</string>
+								<key>RelativeCorner</key>
+								<string>TopLeft</string>
+								<key>RestoreMouseLocation</key>
+								<false/>
+								<key>VerticalPositionExpression</key>
+								<string>y</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500702841.17186499</real>
+				<key>ModificationDate</key>
+				<real>500702849.21831399</real>
+				<key>Name</key>
+				<string>Load Plugin Parameters for View 6</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>22</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>364AE01F-3DDE-43EC-A0F6-0883EBD64D99</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>MacroActionType</key>
+						<string>SetVariableToText</string>
+						<key>Text</key>
+						<string>%ExecutingThisMacro%</string>
+						<key>Variable</key>
+						<string>command</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command")
+command = command.substring(command.length-1)
+
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+str = app.read(Path(fileName))
+json = JSON.parse(str)
+view = json["view"]
+x = json["click"][0]
+y = json["click"][1]
+kme.setvariable("FTPluginControlParameters", {to:str})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>x</string>
+									<key>VariableConditionType</key>
+									<string>IsNot</string>
+									<key>VariableValue</key>
+									<string>-1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>MoveAndClick</string>
+								<key>Button</key>
+								<integer>0</integer>
+								<key>ClickCount</key>
+								<integer>1</integer>
+								<key>DisplayMatches</key>
+								<false/>
+								<key>DragHorizontalPosition</key>
+								<string>0</string>
+								<key>DragVerticalPosition</key>
+								<string>0</string>
+								<key>Fuzz</key>
+								<integer>15</integer>
+								<key>HorizontalPositionExpression</key>
+								<string>x</string>
+								<key>MacroActionType</key>
+								<string>MouseMoveAndClick</string>
+								<key>Modifiers</key>
+								<integer>0</integer>
+								<key>MouseDrag</key>
+								<string>None</string>
+								<key>Relative</key>
+								<string>Window</string>
+								<key>RelativeCorner</key>
+								<string>TopLeft</string>
+								<key>RestoreMouseLocation</key>
+								<false/>
+								<key>VerticalPositionExpression</key>
+								<string>y</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500702851.21976</real>
+				<key>ModificationDate</key>
+				<real>500702859.56942397</real>
+				<key>Name</key>
+				<string>Load Plugin Parameters for View 7</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>26</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>2FD6B7F3-50EC-4CD4-8D1C-3306E097727F</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>MacroActionType</key>
+						<string>SetVariableToText</string>
+						<key>Text</key>
+						<string>%ExecutingThisMacro%</string>
+						<key>Variable</key>
+						<string>command</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command")
+command = command.substring(command.length-1)
+
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+str = app.read(Path(fileName))
+json = JSON.parse(str)
+view = json["view"]
+x = json["click"][0]
+y = json["click"][1]
+kme.setvariable("FTPluginControlParameters", {to:str})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>x</string>
+									<key>VariableConditionType</key>
+									<string>IsNot</string>
+									<key>VariableValue</key>
+									<string>-1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>MoveAndClick</string>
+								<key>Button</key>
+								<integer>0</integer>
+								<key>ClickCount</key>
+								<integer>1</integer>
+								<key>DisplayMatches</key>
+								<false/>
+								<key>DragHorizontalPosition</key>
+								<string>0</string>
+								<key>DragVerticalPosition</key>
+								<string>0</string>
+								<key>Fuzz</key>
+								<integer>15</integer>
+								<key>HorizontalPositionExpression</key>
+								<string>x</string>
+								<key>MacroActionType</key>
+								<string>MouseMoveAndClick</string>
+								<key>Modifiers</key>
+								<integer>0</integer>
+								<key>MouseDrag</key>
+								<string>None</string>
+								<key>Relative</key>
+								<string>Window</string>
+								<key>RelativeCorner</key>
+								<string>TopLeft</string>
+								<key>RestoreMouseLocation</key>
+								<false/>
+								<key>VerticalPositionExpression</key>
+								<string>y</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500702861.55990797</real>
+				<key>ModificationDate</key>
+				<real>500702871.460765</real>
+				<key>Name</key>
+				<string>Load Plugin Parameters for View 8</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>28</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>B8A4B713-4AB5-4FD8-8186-B3FA5892AF1A</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>MacroActionType</key>
+						<string>SetVariableToText</string>
+						<key>Text</key>
+						<string>%ExecutingThisMacro%</string>
+						<key>Variable</key>
+						<string>command</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command")
+command = command.substring(command.length-1)
+
+vo = Application("VoiceOver")
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+str = app.read(Path(fileName))
+json = JSON.parse(str)
+view = json["view"]
+x = json["click"][0]
+y = json["click"][1]
+kme.setvariable("FTPluginControlParameters", {to:str})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+kme.setvariable("x", {to:""+x})
+kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>x</string>
+									<key>VariableConditionType</key>
+									<string>IsNot</string>
+									<key>VariableValue</key>
+									<string>-1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>MoveAndClick</string>
+								<key>Button</key>
+								<integer>0</integer>
+								<key>ClickCount</key>
+								<integer>1</integer>
+								<key>DisplayMatches</key>
+								<false/>
+								<key>DragHorizontalPosition</key>
+								<string>0</string>
+								<key>DragVerticalPosition</key>
+								<string>0</string>
+								<key>Fuzz</key>
+								<integer>15</integer>
+								<key>HorizontalPositionExpression</key>
+								<string>x</string>
+								<key>MacroActionType</key>
+								<string>MouseMoveAndClick</string>
+								<key>Modifiers</key>
+								<integer>0</integer>
+								<key>MouseDrag</key>
+								<string>None</string>
+								<key>Relative</key>
+								<string>Window</string>
+								<key>RelativeCorner</key>
+								<string>TopLeft</string>
+								<key>RestoreMouseLocation</key>
+								<false/>
+								<key>VerticalPositionExpression</key>
+								<string>y</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500702873.54111397</real>
+				<key>ModificationDate</key>
+				<real>500702882.35037702</real>
+				<key>Name</key>
+				<string>Load Plugin Parameters for View 9</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>25</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>881E9BB6-597F-4157-91E5-84F25FD1E6A1</string>
 			</dict>
 		</array>
 		<key>Name</key>
