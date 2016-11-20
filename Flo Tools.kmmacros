@@ -11831,7 +11831,7 @@ start = new Date().getTime()
 }
 }
 msg = msg.replace(/ Track\. /g, ". ")
-if (msg=="") msg = "No tracks are clipped"
+if (msg=="") msg = "No track reched 0db level."
 else msg = "0db on: "+msg
 vo.output(msg)
 </string>
@@ -11848,7 +11848,7 @@ vo.output(msg)
 				<key>CreationDate</key>
 				<real>501318670.409334</real>
 				<key>ModificationDate</key>
-				<real>501364869.67760497</real>
+				<real>501371242.62333399</real>
 				<key>Name</key>
 				<string>Speak Tracks With 0DB Level</string>
 				<key>Triggers</key>
