@@ -2527,7 +2527,7 @@ if (runSingle) single()
 				<array>
 					<dict>
 						<key>DisplayKind</key>
-						<string>Window</string>
+						<string>None</string>
 						<key>IncludeStdErr</key>
 						<true/>
 						<key>MacroActionType</key>
@@ -2544,7 +2544,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
-value = ""+track.popUpButtons.whose({name:{_contains:"Automation Mode Selector"}})[0].attributes["AXShownMenu"].value()
+value = ""+track.popUpButtons.whose({name:{_contains:"Automation Mode Selector"}})[0].name()
 vo.output(value)
 }
 
@@ -2590,7 +2590,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>493843837.55308402</real>
 				<key>ModificationDate</key>
-				<real>501324261.20185399</real>
+				<real>498966628.81307399</real>
 				<key>Name</key>
 				<string>Beta: Speak/Select Automation Mode</string>
 				<key>Triggers</key>
@@ -10221,6 +10221,106 @@ kme.setvariable("y", {to:""+y})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>start = new Date().getTime()
+kme = Application("Keyboard Maestro Engine")
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+groupFilter = {name:{_beginsWith:"Group List"}}
+midiFilter = {name:{_endsWith:" - MIDI Track"}}
+values = mix.groups.whose({_not:[groupFilter, midiFilter]}).sliders["Peak"].attributes[2].value()
+tracks = mix.groups.whose({_not:[groupFilter, midiFilter]}).name()
+msg = ""
+for (t in values) {
+if (values[t].replace("minus ","-")&gt;=0) msg += tracks[t]+". "
+if (new Date().getTime()-start &gt; 1000) {
+kme.playSound(Path("/System/Library/Sounds/Pop.aiff"))
+start = new Date().getTime()
+}
+}
+msg = msg.replace(/ Track\. /g, ". ")
+if (msg=="") msg = "No tracks are clipped"
+else msg = "Clipped: "+msg
+vo.output(msg)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>493820126.83139598</real>
+				<key>ModificationDate</key>
+				<real>494723111.885207</real>
+				<key>Name</key>
+				<string>Speak Clipped Tracks</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>8</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>825A38F3-5BA2-43EF-AA37-ABB6DA450F3C</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>493839659.76668698</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
@@ -11092,7 +11192,7 @@ start = new Date().getTime()
 }
 msg = msg.replace(/ Track\. /g, ". ")
 if (msg=="") msg = msg+"No tracks are disarmed safe."
-else msg = "Disarmed safe: "+msg
+else msg = tracks.length+" Disarmed safe: "+msg
 vo.output (msg)
 </string>
 						<key>TimeOutAbortsMacro</key>
@@ -11108,7 +11208,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>494360196.80965501</real>
 				<key>ModificationDate</key>
-				<real>495328072.29526103</real>
+				<real>501969999.545093</real>
 				<key>Name</key>
 				<string>Speak Record Safe Tracks</string>
 				<key>Triggers</key>
@@ -11460,7 +11560,7 @@ start = new Date().getTime()
 }
 msg = msg.replace(/ Track\. /g, ". ")
 if (msg=="") msg = msg+"No tracks are solo safe."
-else msg = "Solo safe: "+msg
+else msg = tracks.length+" Solo safe: "+msg
 vo.output(msg)
 </string>
 						<key>TimeOutAbortsMacro</key>
@@ -11476,7 +11576,7 @@ vo.output(msg)
 				<key>CreationDate</key>
 				<real>494359188.31976402</real>
 				<key>ModificationDate</key>
-				<real>500609706.59872502</real>
+				<real>501970026.66231102</real>
 				<key>Name</key>
 				<string>Speak Solo Safe Tracks</string>
 				<key>Triggers</key>
@@ -11790,106 +11890,6 @@ if (runSingle) single()
 		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
 		<key>UID</key>
 		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>479078801.99380499</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>start = new Date().getTime()
-kme = Application("Keyboard Maestro Engine")
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-groupFilter = {name:{_beginsWith:"Group List"}}
-midiFilter = {name:{_endsWith:" - MIDI Track"}}
-values = mix.groups.whose({_not:[groupFilter, midiFilter]}).sliders["Peak"].attributes[2].value()
-tracks = mix.groups.whose({_not:[groupFilter, midiFilter]}).name()
-msg = ""
-for (t in values) {
-if (values[t].replace("minus ","-")&gt;=0) msg += tracks[t]+". "
-if (new Date().getTime()-start &gt; 1000) {
-kme.playSound(Path("/System/Library/Sounds/Pop.aiff"))
-start = new Date().getTime()
-}
-}
-msg = msg.replace(/ Track\. /g, ". ")
-if (msg=="") msg = "No track reched 0db level."
-else msg = "0db on: "+msg
-vo.output(msg)
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>501318670.409334</real>
-				<key>ModificationDate</key>
-				<real>501371242.62333399</real>
-				<key>Name</key>
-				<string>Speak Tracks With 0DB Level</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>29</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2560</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>7053D5DD-60A3-444A-AB18-A54AA32DF625</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
-		<key>UID</key>
-		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
