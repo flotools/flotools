@@ -4276,7 +4276,7 @@ y = kme.calculate("MOUSEY()")
 wx = x-left
 wy = y-top
 
-app.setTheClipboardTo(left+", "+x+", "+top+", "+y+", "+wx+", "+wy)
+app.setTheClipboardTo(wx+","+wy)
 vo.output(wx+", "+wy)
 </string>
 						<key>TimeOutAbortsMacro</key>
@@ -4292,9 +4292,9 @@ vo.output(wx+", "+wy)
 				<key>CreationDate</key>
 				<real>498884601.37480599</real>
 				<key>ModificationDate</key>
-				<real>499268512.55627698</real>
+				<real>501982168.46311998</real>
 				<key>Name</key>
-				<string>Copy And Say Mouse Coordinates Relative to Front Window</string>
+				<string>Copy And Speak Mouse Coordinates Relative to Front Window</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -8361,10 +8361,16 @@ vo.output(view+" view for "+pluginName)
 kme = Application("Keyboard Maestro Engine")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
-coordinates = app.displayDialog("Coordinates to move:", {defaultAnswer:""})
+sys = Application("System Events")
+process = sys.processes.whose({frontmost:true})[0]
+window = process.windows[0]
+wPosition = window.position()
+left = wPosition[0]
+top = wPosition[1]
+coordinates = app.displayDialog("Enter coordinates from top left separated by a comma.", {defaultAnswer:"0,0"})
 coordinates = coordinates["textReturned"].split(/,/)
-x = parseInt(coordinates[0])+parseInt(kme.calculate("WINDOW(1,Left)"))
-y = parseInt(coordinates[1])+parseInt(kme.calculate("WINDOW(1,top)"))
+x = parseInt(coordinates[0])+left
+y = parseInt(coordinates[1])+top
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 </string>
@@ -8421,7 +8427,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>498927121.538629</real>
 				<key>ModificationDate</key>
-				<real>498929003.460536</real>
+				<real>501983014.821482</real>
 				<key>Name</key>
 				<string>Move Mouse to Coordinates Relative  to Current Window</string>
 				<key>Triggers</key>
