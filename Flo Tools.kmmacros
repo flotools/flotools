@@ -2970,6 +2970,8 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3097,6 +3099,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3224,6 +3228,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3351,6 +3357,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3478,6 +3486,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3605,6 +3615,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3732,6 +3744,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3859,6 +3873,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3986,6 +4002,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4113,6 +4131,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4240,6 +4260,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6270,13 +6292,14 @@ json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
-kme.setvariable("FTPluginControlParameters", {to:str})
-kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 vo.output(view+" view for "+pluginName)
 } catch (err) {
 x = "-1"
 y = "-1"
+str=""
 }
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
+kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 </string>
@@ -6354,7 +6377,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>498707336.94646001</real>
 				<key>ModificationDate</key>
-				<real>500760026.20463502</real>
+				<real>502072300.52949703</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for Default View</string>
 				<key>Triggers</key>
@@ -6449,16 +6472,22 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
+vo.output(view+" view for "+pluginName)
+} catch(err) {
+x = "-1"
+y = "-1"
+str=""
+}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -6534,7 +6563,7 @@ vo.output(view+" view for "+pluginName)
 				<key>CreationDate</key>
 				<real>498867447.65581</real>
 				<key>ModificationDate</key>
-				<real>500702775.545578</real>
+				<real>502072587.26178998</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 1</string>
 				<key>Triggers</key>
@@ -6623,16 +6652,22 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
+vo.output(view+" view for "+pluginName)
+} catch(err) {
+x = "-1"
+y = "-1"
+str=""
+}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -6706,9 +6741,9 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>500702785.42891699</real>
+				<real>502072624.71525502</real>
 				<key>ModificationDate</key>
-				<real>500702794.43910098</real>
+				<real>502072634.29419798</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 2</string>
 				<key>Triggers</key>
@@ -6725,7 +6760,7 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>8C4584C0-E437-4784-9F3F-C3B17F108663</string>
+				<string>D6D55397-4DAE-415C-8A91-F5405351158C</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -6797,16 +6832,22 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
+vo.output(view+" view for "+pluginName)
+} catch(err) {
+x = "-1"
+y = "-1"
+str=""
+}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -6880,9 +6921,9 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>500702797.323973</real>
+				<real>502072655.71995902</real>
 				<key>ModificationDate</key>
-				<real>500702811.96231198</real>
+				<real>502072664.90318298</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 3</string>
 				<key>Triggers</key>
@@ -6899,7 +6940,7 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>FCFE54A8-184F-4F66-8CBE-B1EDE116CE54</string>
+				<string>099FBE47-5B80-41E9-9A9B-2FCF33B4F736</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -6971,16 +7012,22 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
+vo.output(view+" view for "+pluginName)
+} catch(err) {
+x = "-1"
+y = "-1"
+str=""
+}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7054,9 +7101,9 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>500702814.66219902</real>
+				<real>502072667.86025</real>
 				<key>ModificationDate</key>
-				<real>500702825.60801101</real>
+				<real>502072677.445813</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 4</string>
 				<key>Triggers</key>
@@ -7073,7 +7120,7 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>70EBEB15-706F-449F-A023-AB168F6EB718</string>
+				<string>872C14C3-F081-4FDA-AA1A-D1FBA60040E3</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -7145,16 +7192,22 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
+vo.output(view+" view for "+pluginName)
+} catch(err) {
+x = "-1"
+y = "-1"
+str=""
+}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7228,9 +7281,9 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>500702828.38724297</real>
+				<real>502072679.86721301</real>
 				<key>ModificationDate</key>
-				<real>500702836.90067101</real>
+				<real>502072688.29528397</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 5</string>
 				<key>Triggers</key>
@@ -7247,7 +7300,7 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>499BEE76-6553-479D-9CDF-0AB658A0E71F</string>
+				<string>B591491E-9701-4636-AED7-B2A10B7A517D</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -7319,16 +7372,22 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
+vo.output(view+" view for "+pluginName)
+} catch(err) {
+x = "-1"
+y = "-1"
+str=""
+}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7402,9 +7461,9 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>500702841.17186499</real>
+				<real>502072696.81930101</real>
 				<key>ModificationDate</key>
-				<real>500702849.21831399</real>
+				<real>502072707.01393902</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 6</string>
 				<key>Triggers</key>
@@ -7421,7 +7480,7 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>364AE01F-3DDE-43EC-A0F6-0883EBD64D99</string>
+				<string>1C58FD08-0448-4BDD-A954-33167EDF5EF1</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -7493,16 +7552,22 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
+vo.output(view+" view for "+pluginName)
+} catch(err) {
+x = "-1"
+y = "-1"
+str=""
+}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7576,9 +7641,9 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>500702851.21976</real>
+				<real>502072709.39392298</real>
 				<key>ModificationDate</key>
-				<real>500702859.56942397</real>
+				<real>502072718.55561697</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 7</string>
 				<key>Triggers</key>
@@ -7595,7 +7660,7 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>2FD6B7F3-50EC-4CD4-8D1C-3306E097727F</string>
+				<string>109C3740-24AD-483D-9131-BD09A53E06B3</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -7667,16 +7732,22 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
+vo.output(view+" view for "+pluginName)
+} catch(err) {
+x = "-1"
+y = "-1"
+str=""
+}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7750,9 +7821,9 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>500702861.55990797</real>
+				<real>502072737.66110498</real>
 				<key>ModificationDate</key>
-				<real>500702871.460765</real>
+				<real>502072746.81180102</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 8</string>
 				<key>Triggers</key>
@@ -7769,7 +7840,7 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>B8A4B713-4AB5-4FD8-8186-B3FA5892AF1A</string>
+				<string>B0F90725-AE5E-42A3-A3C9-EF9A5FE9D8E2</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -7841,16 +7912,22 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
+vo.output(view+" view for "+pluginName)
+} catch(err) {
+x = "-1"
+y = "-1"
+str=""
+}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
-vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7924,9 +8001,9 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>500702873.54111397</real>
+				<real>502072748.80396998</real>
 				<key>ModificationDate</key>
-				<real>500702882.35037702</real>
+				<real>502072757.68389201</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 9</string>
 				<key>Triggers</key>
@@ -7943,7 +8020,7 @@ vo.output(view+" view for "+pluginName)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>881E9BB6-597F-4157-91E5-84F25FD1E6A1</string>
+				<string>7FC536D0-79A7-4E2B-822B-385D76B9B38A</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -7974,6 +8051,8 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8067,6 +8146,8 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8162,6 +8243,8 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8257,6 +8340,8 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8342,6 +8427,8 @@ vo.output(view+" view for "+pluginName)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8459,6 +8546,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8931,6 +9020,8 @@ vo.output(name)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9139,6 +9230,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9266,6 +9359,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10101,6 +10196,8 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -19117,6 +19214,8 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
