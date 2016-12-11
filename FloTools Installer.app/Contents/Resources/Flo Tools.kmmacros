@@ -69,165 +69,6 @@
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>89</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192050.61619997</real>
-				<key>ModificationDate</key>
-				<real>503192068.067146</real>
-				<key>Name</key>
-				<string>7 to 7</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>26</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>4678846F-DA78-4D00-A9A6-E27499271DC8</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>91</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192071.97284102</real>
-				<key>ModificationDate</key>
-				<real>503192089.26000899</real>
-				<key>Name</key>
-				<string>8 to 8</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>28</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>CA3807D2-D4E6-4FFF-9D14-D00984AF5DAB</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>92</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192095.00388199</real>
-				<key>ModificationDate</key>
-				<real>503192105.77833098</real>
-				<key>Name</key>
-				<string>9 to 9</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>25</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>07B37D92-C83E-498C-B85C-E2351FB36FBB</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>479078801.99380499</real>
 		<key>Macros</key>
 		<array>
@@ -430,66 +271,11 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>75</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192438.29695803</real>
-				<key>ModificationDate</key>
-				<real>503192470.12453502</real>
-				<key>Name</key>
-				<string>apostrophe to slash</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>39</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>785C5407-E04A-453C-92DC-AD6237CCCC7F</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>493839659.76668698</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -578,8 +364,6 @@ track.groups["Inserts A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -668,8 +452,6 @@ track.groups["Inserts A-E"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -758,8 +540,6 @@ track.groups["Inserts A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -848,8 +628,6 @@ track.groups["Inserts A-E"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -938,8 +716,6 @@ track.groups["Inserts A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1028,8 +804,6 @@ track.groups["Inserts F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1118,8 +892,6 @@ track.groups["Inserts F-J"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1208,8 +980,6 @@ track.groups["Inserts F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1298,8 +1068,6 @@ track.groups["Inserts F-J"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1388,8 +1156,6 @@ track.groups["Inserts F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1478,8 +1244,6 @@ track.groups["Sends A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1568,8 +1332,6 @@ track.groups["Sends A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1658,8 +1420,6 @@ track.groups["Sends A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1748,8 +1508,6 @@ track.groups["Sends A-E"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1838,8 +1596,6 @@ track.groups["Sends A-E"].buttons[8].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1928,8 +1684,6 @@ track.groups["Sends F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2018,8 +1772,6 @@ track.groups["Sends F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2108,8 +1860,6 @@ track.groups["Sends F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2198,8 +1948,6 @@ track.groups["Sends F-J"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2772,8 +2520,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2896,8 +2642,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3020,8 +2764,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3227,62 +2969,7 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>81</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192517.22127301</real>
-				<key>ModificationDate</key>
-				<real>503192531.73636502</real>
-				<key>Name</key>
-				<string>comma to equal</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>43</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>A1AF5360-931C-4E6A-827D-FDC67118A855</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3410,8 +3097,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3539,8 +3224,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3668,8 +3351,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3797,8 +3478,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3926,8 +3605,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4055,8 +3732,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4184,8 +3859,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4313,8 +3986,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4442,8 +4113,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4571,8 +4240,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4609,7 +4276,7 @@ y = kme.calculate("MOUSEY()")
 wx = x-left
 wy = y-top
 
-app.setTheClipboardTo(wx+","+wy)
+app.setTheClipboardTo(left+", "+x+", "+top+", "+y+", "+wx+", "+wy)
 vo.output(wx+", "+wy)
 </string>
 						<key>TimeOutAbortsMacro</key>
@@ -4625,9 +4292,9 @@ vo.output(wx+", "+wy)
 				<key>CreationDate</key>
 				<real>498884601.37480599</real>
 				<key>ModificationDate</key>
-				<real>501982168.46311998</real>
+				<real>499268512.55627698</real>
 				<key>Name</key>
-				<string>Copy And Speak Mouse Coordinates Relative to Front Window</string>
+				<string>Copy And Say Mouse Coordinates Relative to Front Window</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -4651,59 +4318,6 @@ vo.output(wx+", "+wy)
 		<string>321CC976-8593-4ABD-8444-CCDD1A6704F5</string>
 		<key>UID</key>
 		<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>78</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192306.00072497</real>
-				<key>ModificationDate</key>
-				<real>503192332.389566</real>
-				<key>Name</key>
-				<string>dash to minus</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>27</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>067121FB-56CD-46E9-86F2-CCCF2130BAF9</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -4963,8 +4577,6 @@ vo.output("Deactivate plugin monitor.")
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5057,8 +4669,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5259,8 +4869,6 @@ vo.output(""+slider.attributes["AXValueDescription"].value())
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5436,119 +5044,11 @@ console.log(msg)
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>69</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192192.41765702</real>
-				<key>ModificationDate</key>
-				<real>503192301.46798003</real>
-				<key>Name</key>
-				<string>equal to plus</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>24</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>58905FAA-9317-4E57-9204-EE05A67B1D28</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>87</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192013.29870498</real>
-				<key>ModificationDate</key>
-				<real>503192024.13453799</real>
-				<key>Name</key>
-				<string>i to 5</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>34</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>24E165D1-85A7-4F3E-AEE3-6DC429412E61</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>493839659.76668698</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5641,8 +5141,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5843,8 +5341,6 @@ vo.output(""+slider.attributes["AXValueDescription"].value())
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5926,165 +5422,6 @@ vo.output(value)
 		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
 		<key>UID</key>
 		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>83</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>502929781.550668</real>
-				<key>ModificationDate</key>
-				<real>503191945.32245302</real>
-				<key>Name</key>
-				<string>j to 1</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>38</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>EE5D585E-A0DB-4E6F-86E2-FBAD60191DE0</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>84</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>502929313.29053801</real>
-				<key>ModificationDate</key>
-				<real>503191965.68369597</real>
-				<key>Name</key>
-				<string>k to 2</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>40</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>7D15B804-18EA-4829-9F55-C9E4D0105EC5</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>85</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503191972.82063198</real>
-				<key>ModificationDate</key>
-				<real>503191988.80479503</real>
-				<key>Name</key>
-				<string>l to 3</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>37</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>F7ADA5A0-16B6-4383-A419-57967E4C92DA</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -6933,14 +6270,13 @@ json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
+kme.setvariable("FTPluginControlParameters", {to:str})
+kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 vo.output(view+" view for "+pluginName)
 } catch (err) {
 x = "-1"
 y = "-1"
-str=""
 }
-kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
-kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 </string>
@@ -7018,7 +6354,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>498707336.94646001</real>
 				<key>ModificationDate</key>
-				<real>503191136.47443098</real>
+				<real>500760026.20463502</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for Default View</string>
 				<key>Triggers</key>
@@ -7037,7 +6373,7 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>256</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -7113,22 +6449,16 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
-try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
-vo.output(view+" view for "+pluginName)
-} catch(err) {
-x = "-1"
-y = "-1"
-str=""
-}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7204,7 +6534,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>498867447.65581</real>
 				<key>ModificationDate</key>
-				<real>503191142.74031001</real>
+				<real>500702775.545578</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 1</string>
 				<key>Triggers</key>
@@ -7217,7 +6547,7 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>256</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -7293,22 +6623,16 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
-try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
-vo.output(view+" view for "+pluginName)
-} catch(err) {
-x = "-1"
-y = "-1"
-str=""
-}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7382,9 +6706,9 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>502072624.71525502</real>
+				<real>500702785.42891699</real>
 				<key>ModificationDate</key>
-				<real>503191147.941203</real>
+				<real>500702794.43910098</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 2</string>
 				<key>Triggers</key>
@@ -7397,11 +6721,11 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>256</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>D6D55397-4DAE-415C-8A91-F5405351158C</string>
+				<string>8C4584C0-E437-4784-9F3F-C3B17F108663</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -7473,22 +6797,16 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
-try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
-vo.output(view+" view for "+pluginName)
-} catch(err) {
-x = "-1"
-y = "-1"
-str=""
-}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7562,9 +6880,9 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>502072655.71995902</real>
+				<real>500702797.323973</real>
 				<key>ModificationDate</key>
-				<real>503191152.74027002</real>
+				<real>500702811.96231198</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 3</string>
 				<key>Triggers</key>
@@ -7577,11 +6895,11 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>256</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>099FBE47-5B80-41E9-9A9B-2FCF33B4F736</string>
+				<string>FCFE54A8-184F-4F66-8CBE-B1EDE116CE54</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -7653,22 +6971,16 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
-try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
-vo.output(view+" view for "+pluginName)
-} catch(err) {
-x = "-1"
-y = "-1"
-str=""
-}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7742,9 +7054,9 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>502072667.86025</real>
+				<real>500702814.66219902</real>
 				<key>ModificationDate</key>
-				<real>503191158.06409001</real>
+				<real>500702825.60801101</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 4</string>
 				<key>Triggers</key>
@@ -7757,11 +7069,11 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>256</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>872C14C3-F081-4FDA-AA1A-D1FBA60040E3</string>
+				<string>70EBEB15-706F-449F-A023-AB168F6EB718</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -7833,22 +7145,16 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
-try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
-vo.output(view+" view for "+pluginName)
-} catch(err) {
-x = "-1"
-y = "-1"
-str=""
-}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -7922,9 +7228,9 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>502072679.86721301</real>
+				<real>500702828.38724297</real>
 				<key>ModificationDate</key>
-				<real>503191163.93691099</real>
+				<real>500702836.90067101</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 5</string>
 				<key>Triggers</key>
@@ -7937,11 +7243,11 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>256</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>B591491E-9701-4636-AED7-B2A10B7A517D</string>
+				<string>499BEE76-6553-479D-9CDF-0AB658A0E71F</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -8013,22 +7319,16 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
-try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
-vo.output(view+" view for "+pluginName)
-} catch(err) {
-x = "-1"
-y = "-1"
-str=""
-}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -8102,9 +7402,9 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>502072696.81930101</real>
+				<real>500702841.17186499</real>
 				<key>ModificationDate</key>
-				<real>503191169.14592898</real>
+				<real>500702849.21831399</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 6</string>
 				<key>Triggers</key>
@@ -8117,11 +7417,11 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>256</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>1C58FD08-0448-4BDD-A954-33167EDF5EF1</string>
+				<string>364AE01F-3DDE-43EC-A0F6-0883EBD64D99</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -8193,22 +7493,16 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
-try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
-vo.output(view+" view for "+pluginName)
-} catch(err) {
-x = "-1"
-y = "-1"
-str=""
-}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -8282,9 +7576,9 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>502072709.39392298</real>
+				<real>500702851.21976</real>
 				<key>ModificationDate</key>
-				<real>503191174.63461602</real>
+				<real>500702859.56942397</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 7</string>
 				<key>Triggers</key>
@@ -8297,11 +7591,11 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>256</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>109C3740-24AD-483D-9131-BD09A53E06B3</string>
+				<string>2FD6B7F3-50EC-4CD4-8D1C-3306E097727F</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -8373,22 +7667,16 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
-try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
-vo.output(view+" view for "+pluginName)
-} catch(err) {
-x = "-1"
-y = "-1"
-str=""
-}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -8462,9 +7750,9 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>502072737.66110498</real>
+				<real>500702861.55990797</real>
 				<key>ModificationDate</key>
-				<real>503191180.86873001</real>
+				<real>500702871.460765</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 8</string>
 				<key>Triggers</key>
@@ -8477,11 +7765,11 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>256</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>B0F90725-AE5E-42A3-A3C9-EF9A5FE9D8E2</string>
+				<string>B8A4B713-4AB5-4FD8-8186-B3FA5892AF1A</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -8553,22 +7841,16 @@ windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
 fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
-try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
 view = json["view"]
 x = json["click"][0]
 y = json["click"][1]
-vo.output(view+" view for "+pluginName)
-} catch(err) {
-x = "-1"
-y = "-1"
-str=""
-}
 kme.setvariable("FTPluginControlParameters", {to:str})
 kme.setvariable("FTPluginControlIndex", {to:"-1,-1"})
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
+vo.output(view+" view for "+pluginName)
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -8642,9 +7924,9 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>502072748.80396998</real>
+				<real>500702873.54111397</real>
 				<key>ModificationDate</key>
-				<real>503191185.88147599</real>
+				<real>500702882.35037702</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 9</string>
 				<key>Triggers</key>
@@ -8657,11 +7939,11 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>256</integer>
+						<integer>4096</integer>
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>7FC536D0-79A7-4E2B-822B-385D76B9B38A</string>
+				<string>881E9BB6-597F-4157-91E5-84F25FD1E6A1</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -8691,62 +7973,7 @@ kme.setvariable("y", {to:""+y})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>82</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192113.58443397</real>
-				<key>ModificationDate</key>
-				<real>503192125.57946098</real>
-				<key>Name</key>
-				<string>m to 0</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>46</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>A83478F8-893D-417B-8EEE-C5C9F12C5A34</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8840,8 +8067,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8937,8 +8162,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9034,8 +8257,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9121,8 +8342,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9142,16 +8361,10 @@ kme.setvariable("y", {to:""+y})
 kme = Application("Keyboard Maestro Engine")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
-sys = Application("System Events")
-process = sys.processes.whose({frontmost:true})[0]
-window = process.windows[0]
-wPosition = window.position()
-left = wPosition[0]
-top = wPosition[1]
-coordinates = app.displayDialog("Enter coordinates from top left separated by a comma.", {defaultAnswer:"0,0"})
+coordinates = app.displayDialog("Coordinates to move:", {defaultAnswer:""})
 coordinates = coordinates["textReturned"].split(/,/)
-x = parseInt(coordinates[0])+left
-y = parseInt(coordinates[1])+top
+x = parseInt(coordinates[0])+parseInt(kme.calculate("WINDOW(1,Left)"))
+y = parseInt(coordinates[1])+parseInt(kme.calculate("WINDOW(1,top)"))
 kme.setvariable("x", {to:""+x})
 kme.setvariable("y", {to:""+y})
 </string>
@@ -9208,7 +8421,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>498927121.538629</real>
 				<key>ModificationDate</key>
-				<real>501983014.821482</real>
+				<real>498929003.460536</real>
 				<key>Name</key>
 				<string>Move Mouse to Coordinates Relative  to Current Window</string>
 				<key>Triggers</key>
@@ -9240,8 +8453,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9713,62 +8924,7 @@ vo.output(name)
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>88</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192028.89953399</real>
-				<key>ModificationDate</key>
-				<real>503192045.88739401</real>
-				<key>Name</key>
-				<string>o to 6</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>31</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>A5E0DF51-9740-40AD-9854-181D88E34BC4</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9977,8 +9133,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10106,8 +9260,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10229,59 +9381,6 @@ kme.setvariable("y", {to:""+y})
 		<string>321CC976-8593-4ABD-8444-CCDD1A6704F5</string>
 		<key>UID</key>
 		<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>65</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192129.85984898</real>
-				<key>ModificationDate</key>
-				<real>503192158.62135202</real>
-				<key>Name</key>
-				<string>period to point</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>47</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>01F7DB52-68EF-4840-A16F-4010164FF541</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -10995,62 +10094,7 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>67</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192341.30933601</real>
-				<key>ModificationDate</key>
-				<real>503192433.99437201</real>
-				<key>Name</key>
-				<string>semicolon to star</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>41</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>32AB568A-508D-41E8-8E3C-8DE409D8B0D3</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11177,13 +10221,111 @@ kme.setvariable("y", {to:""+y})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>start = new Date().getTime()
+kme = Application("Keyboard Maestro Engine")
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+groupFilter = {name:{_beginsWith:"Group List"}}
+midiFilter = {name:{_endsWith:" - MIDI Track"}}
+values = mix.groups.whose({_not:[groupFilter, midiFilter]}).sliders["Peak"].attributes[2].value()
+tracks = mix.groups.whose({_not:[groupFilter, midiFilter]}).name()
+msg = ""
+for (t in values) {
+if (values[t].replace("minus ","-")&gt;=0) msg += tracks[t]+". "
+if (new Date().getTime()-start &gt; 1000) {
+kme.playSound(Path("/System/Library/Sounds/Pop.aiff"))
+start = new Date().getTime()
+}
+}
+msg = msg.replace(/ Track\. /g, ". ")
+if (msg=="") msg = "No tracks are clipped"
+else msg = "Clipped: "+msg
+vo.output(msg)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>493820126.83139598</real>
+				<key>ModificationDate</key>
+				<real>494723111.885207</real>
+				<key>Name</key>
+				<string>Speak Clipped Tracks</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>8</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>FB201C2D-D357-4E12-8B9B-12EDF824C07B</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>493839659.76668698</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11270,8 +10412,6 @@ kme.setvariable("FTGRMax", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11708,8 +10848,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12054,7 +11192,7 @@ start = new Date().getTime()
 }
 msg = msg.replace(/ Track\. /g, ". ")
 if (msg=="") msg = msg+"No tracks are disarmed safe."
-else msg = tracks.length+" Disarmed safe: "+msg
+else msg = "Disarmed safe: "+msg
 vo.output (msg)
 </string>
 						<key>TimeOutAbortsMacro</key>
@@ -12070,7 +11208,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>494360196.80965501</real>
 				<key>ModificationDate</key>
-				<real>501969999.545093</real>
+				<real>495328072.29526103</real>
 				<key>Name</key>
 				<string>Speak Record Safe Tracks</string>
 				<key>Triggers</key>
@@ -12422,7 +11560,7 @@ start = new Date().getTime()
 }
 msg = msg.replace(/ Track\. /g, ". ")
 if (msg=="") msg = msg+"No tracks are solo safe."
-else msg = tracks.length+" Solo safe: "+msg
+else msg = "Solo safe: "+msg
 vo.output(msg)
 </string>
 						<key>TimeOutAbortsMacro</key>
@@ -12438,7 +11576,7 @@ vo.output(msg)
 				<key>CreationDate</key>
 				<real>494359188.31976402</real>
 				<key>ModificationDate</key>
-				<real>501970026.66231102</real>
+				<real>500609706.59872502</real>
 				<key>Name</key>
 				<string>Speak Solo Safe Tracks</string>
 				<key>Triggers</key>
@@ -12637,8 +11775,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12754,106 +11890,6 @@ if (runSingle) single()
 		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
 		<key>UID</key>
 		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>479078801.99380499</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>start = new Date().getTime()
-kme = Application("Keyboard Maestro Engine")
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-groupFilter = {name:{_beginsWith:"Group List"}}
-midiFilter = {name:{_endsWith:" - MIDI Track"}}
-values = mix.groups.whose({_not:[groupFilter, midiFilter]}).sliders["Peak"].attributes[2].value()
-tracks = mix.groups.whose({_not:[groupFilter, midiFilter]}).name()
-msg = ""
-for (t in values) {
-if (values[t].replace("minus ","-")&gt;=0) msg += tracks[t]+". "
-if (new Date().getTime()-start &gt; 1000) {
-kme.playSound(Path("/System/Library/Sounds/Pop.aiff"))
-start = new Date().getTime()
-}
-}
-msg = msg.replace(/ Track\. /g, ". ")
-if (msg=="") msg = "No track reched 0db level."
-else msg = "0db on: "+msg
-vo.output(msg)
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>501318670.409334</real>
-				<key>ModificationDate</key>
-				<real>501371242.62333399</real>
-				<key>Name</key>
-				<string>Speak Tracks With 0DB Level</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>29</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2560</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>7053D5DD-60A3-444A-AB18-A54AA32DF625</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
-		<key>UID</key>
-		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -12983,8 +12019,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -14448,8 +13482,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -14577,8 +13609,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -14707,8 +13737,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -14836,8 +13864,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -14965,8 +13991,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -15094,8 +14118,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -15223,8 +14245,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -15353,8 +14373,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -15482,8 +14500,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -15611,8 +14627,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -15740,8 +14754,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -15869,8 +14881,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -15999,8 +15009,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16128,8 +15136,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16257,8 +15263,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16386,8 +15390,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16515,8 +15517,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16645,8 +15645,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16774,8 +15772,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16903,8 +15899,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17032,8 +16026,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17161,8 +16153,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17299,8 +16289,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17431,8 +16419,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17560,8 +16546,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17688,8 +16672,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17812,8 +16794,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17936,8 +16916,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18061,8 +17039,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18186,8 +17162,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18320,8 +17294,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18708,8 +17680,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18846,8 +17816,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18976,8 +17944,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -19351,8 +18317,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -19483,8 +18447,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -19612,8 +18574,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -19864,138 +18824,11 @@ if (runSingle) single()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>500760463.49967402</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>ConditionType</key>
-									<string>Macro</string>
-									<key>MacroConditionType</key>
-									<string>IsEnabled</string>
-									<key>MacroUID</key>
-									<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>Path</key>
-								<string></string>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Flo Tools Numpad On")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Disable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>Path</key>
-								<string></string>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Flo Tools Numpad Off")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503191698.386913</real>
-				<key>ModificationDate</key>
-				<real>503191781.22109997</real>
-				<key>Name</key>
-				<string>Toggle Flo Tools Numpad</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>44</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>4096</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>F0163D11-CBF1-4068-B228-270A0A12F248</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Global</string>
-		<key>ToggleMacroUID</key>
-		<string>461221CF-A568-4719-9C3F-3D41C05A5B09</string>
-		<key>UID</key>
-		<string>FEA49FEF-1551-453B-9E90-02A376C079B6</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>493839659.76668698</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20158,8 +18991,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20279,62 +19110,7 @@ if (runSingle) single()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>86</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503191993.55518198</real>
-				<key>ModificationDate</key>
-				<real>503192007.35031402</real>
-				<key>Name</key>
-				<string>u to 4</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>32</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>F39BCB2F-09F4-4D35-B13B-33BDE4A6685A</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
