@@ -91,7 +91,7 @@
 				<key>CreationDate</key>
 				<real>503192050.61619997</real>
 				<key>ModificationDate</key>
-				<real>503192068.067146</real>
+				<real>503198116.87693799</real>
 				<key>Name</key>
 				<string>7 to 7</string>
 				<key>Triggers</key>
@@ -268,8 +268,10 @@ kme.setvariable("ftAutomaticInspector", {to:"1"})</string>
 				</array>
 				<key>CreationDate</key>
 				<real>494579480.78613901</real>
+				<key>IsActive</key>
+				<false/>
 				<key>ModificationDate</key>
-				<real>495938555.82053399</real>
+				<real>503284395.11521697</real>
 				<key>Name</key>
 				<string>Activate INspector</string>
 				<key>Triggers</key>
@@ -382,8 +384,10 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 				</array>
 				<key>CreationDate</key>
 				<real>494896601.43852699</real>
+				<key>IsActive</key>
+				<false/>
 				<key>ModificationDate</key>
-				<real>494977097.494721</real>
+				<real>503284779.74738097</real>
 				<key>Name</key>
 				<string>Activate Plugin Monitor</string>
 				<key>Triggers</key>
@@ -4749,8 +4753,10 @@ kme.setvariable("ftAutomaticInspector", {to:"0"})</string>
 				</array>
 				<key>CreationDate</key>
 				<real>494579416.618402</real>
+				<key>IsActive</key>
+				<false/>
 				<key>ModificationDate</key>
-				<real>495938433.35078102</real>
+				<real>503284409.17255902</real>
 				<key>Name</key>
 				<string>Deactivate INspector</string>
 				<key>Triggers</key>
@@ -4910,8 +4916,10 @@ vo.output("Deactivate plugin monitor.")
 				</array>
 				<key>CreationDate</key>
 				<real>494897574.76029098</real>
+				<key>IsActive</key>
+				<false/>
 				<key>ModificationDate</key>
-				<real>494898576.82783002</real>
+				<real>503284784.25971198</real>
 				<key>Name</key>
 				<string>Deactivate Plugin Monitor</string>
 				<key>Triggers</key>
@@ -5953,7 +5961,7 @@ vo.output(value)
 				<key>CreationDate</key>
 				<real>502929781.550668</real>
 				<key>ModificationDate</key>
-				<real>503191945.32245302</real>
+				<real>503198178.42569202</real>
 				<key>Name</key>
 				<string>j to 1</string>
 				<key>Triggers</key>
@@ -11448,6 +11456,142 @@ if (runSingle) single()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
+						<string>currentCommand = "cf8"
+
+function single() {
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+msg = ""
+current = edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").textFields.byName("Grid Value").value()
+if (current.indexOf("|")&gt;-1) {
+mbt = current.split(/\| /)
+msg = msg+"bar "+mbt[0]+", beat"+mbt[1]+", tick"+mbt[2]
+}
+else if (current.indexOf(".")&gt;-1) {
+ms = current.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+" minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = current
+msg += ". grid."
+vo.output (msg)
+}
+
+function double() {
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+msg = ""
+current = edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").textFields.byName("Grid Value").click()
+vo.output("Type grid value.")
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>494732945.85137701</real>
+				<key>ModificationDate</key>
+				<real>503284473.92445803</real>
+				<key>Name</key>
+				<string>Speak Grid Value</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>100</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>48DEE0DA-19B2-4029-BCAA-AD7D5C14340E</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
 						<string>currentCommand = "osh"
 
 function single() {
@@ -13101,142 +13245,6 @@ if (runSingle) single()
 		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
 		<key>UID</key>
 		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>479078801.99380499</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>currentCommand = "cf8"
-
-function single() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
-msg = ""
-current = edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").textFields.byName("Grid Value").value()
-if (current.indexOf("|")&gt;-1) {
-mbt = current.split(/\| /)
-msg = msg+"bar "+mbt[0]+", beat"+mbt[1]+", tick"+mbt[2]
-}
-else if (current.indexOf(".")&gt;-1) {
-ms = current.split(/:/)
-if (ms[0]==1) ms[0] = ms[0]+" minute"
-else ms[0] = ms[0]+" minutes"
-second = ms[1].split(/\./)
-if (second[0]==1) second[0] = second[0]+" second"
-else second[0] = second[0]+" seconds"
-if (second[1]==1) second[1] = second[1]+" millisecond"
-else second[1] = second[1]+" milliseconds"
-msg = msg+ms[0]+", "+second[0]
- + ", " + second[1]
-} else msg = current
-msg += ". grid."
-vo.output (msg)
-}
-
-function double() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
-msg = ""
-current = edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").textFields.byName("Grid Value").click()
-vo.output("Type grid value.")
-}
-
-kme = Application("Keyboard Maestro Engine")
-command = kme.getvariable("command").split(".")
-start = new Date().getTime()
-kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
-kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
-double()
-} else  {
-runSingle = true
-while (new Date().getTime()-start&lt;200) {
-command = kme.getvariable("command").split(".")
-if (currentCommand == command[0] &amp; command[1]&gt;start) {
-runSingle=false
-break;
-}
-}
-if (runSingle) single()
-}
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>494732945.85137701</real>
-				<key>ModificationDate</key>
-				<real>494784613.86950099</real>
-				<key>Name</key>
-				<string>Speak/Edit Grid Value</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>100</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>256</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>48DEE0DA-19B2-4029-BCAA-AD7D5C14340E</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
-		<key>UID</key>
-		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -19782,7 +19790,7 @@ if (runSingle) single()
 								<key>Path</key>
 								<string></string>
 								<key>Text</key>
-								<string>Application("VoiceOver").output("Flo Tools Mouse On")</string>
+								<string>Application("VoiceOver").output("Mouse On")</string>
 								<key>TimeOutAbortsMacro</key>
 								<true/>
 								<key>TrimResults</key>
@@ -19815,7 +19823,7 @@ if (runSingle) single()
 								<key>Path</key>
 								<string></string>
 								<key>Text</key>
-								<string>Application("VoiceOver").output("Flo Tools Mouse Off")</string>
+								<string>Application("VoiceOver").output("Mouse Off")</string>
 								<key>TimeOutAbortsMacro</key>
 								<true/>
 								<key>TrimResults</key>
@@ -19833,7 +19841,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>500667533.44200301</real>
 				<key>ModificationDate</key>
-				<real>500668006.46633899</real>
+				<real>503285254.90028101</real>
 				<key>Name</key>
 				<string>Toggle Flo Tools Mouse</string>
 				<key>Triggers</key>
@@ -19842,11 +19850,11 @@ if (runSingle) single()
 						<key>FireType</key>
 						<string>Pressed</string>
 						<key>KeyCode</key>
-						<integer>50</integer>
+						<integer>44</integer>
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>6912</integer>
+						<integer>512</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -19907,7 +19915,7 @@ if (runSingle) single()
 								<key>Path</key>
 								<string></string>
 								<key>Text</key>
-								<string>Application("VoiceOver").output("Flo Tools Numpad On")</string>
+								<string>Application("VoiceOver").output("Numpad On")</string>
 								<key>TimeOutAbortsMacro</key>
 								<true/>
 								<key>TrimResults</key>
@@ -19940,7 +19948,7 @@ if (runSingle) single()
 								<key>Path</key>
 								<string></string>
 								<key>Text</key>
-								<string>Application("VoiceOver").output("Flo Tools Numpad Off")</string>
+								<string>Application("VoiceOver").output("Numpad Off")</string>
 								<key>TimeOutAbortsMacro</key>
 								<true/>
 								<key>TrimResults</key>
@@ -19958,7 +19966,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>503191698.386913</real>
 				<key>ModificationDate</key>
-				<real>503191781.22109997</real>
+				<real>503285288.68249398</real>
 				<key>Name</key>
 				<string>Toggle Flo Tools Numpad</string>
 				<key>Triggers</key>
@@ -19984,6 +19992,147 @@ if (runSingle) single()
 		<string>461221CF-A568-4719-9C3F-3D41C05A5B09</string>
 		<key>UID</key>
 		<string>FEA49FEF-1551-453B-9E90-02A376C079B6</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Macro</string>
+									<key>MacroConditionType</key>
+									<string>IsEnabled</string>
+									<key>MacroUID</key>
+									<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>Path</key>
+								<string></string>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Inspector On")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>Path</key>
+								<string></string>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Inspector Off")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503191698.386913</real>
+				<key>ModificationDate</key>
+				<real>503284375.275949</real>
+				<key>Name</key>
+				<string>Toggle Inspector</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>44</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>8F157FEB-069E-465B-9AA5-92C4A59D23C4</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -20148,6 +20297,121 @@ if (runSingle) single()
 		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
 		<key>UID</key>
 		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498359144.78846598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>Window</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+kme = Application("Keyboard Maestro Engine")
+if (kme.getvariable("FTPluginMonitor") == "1") {
+kme.setvariable("FTPluginMonitor", {to:"0"})
+vo.output("Deactivate plugin monitor.")
+} else {
+pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+try {
+window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
+sliders = window.groups.byName("FXTDMEditView").sliders
+names = sliders.name()
+oldValues = sliders.attributes["AXValueDescription"].value()
+kme.setvariable("FTPluginMonitor", {to:"1"})
+vo.output("Watching "+window.name())
+while (true) {
+if (kme.getvariable("FTPluginMonitor") != "1") {
+vo.output("Deactivate Plugin Monitor")
+break;
+}
+currentValues= sliders.attributes["AXValueDescription"].value()
+for (v in currentValues) {
+if (oldValues[v] != currentValues[v]) {
+vo.output(currentValues[v]+": "+names[v])
+oldValues[v] = currentValues[v]
+}
+}
+}
+} catch(err) {
+vo.output("Plugin monitor off")
+kme.setvariable("FTPluginMonitor", {to:"0"})
+}
+}
+
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503191698.386913</real>
+				<key>ModificationDate</key>
+				<real>503284766.100959</real>
+				<key>Name</key>
+				<string>Toggle Plugin Monitor</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>44</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>B54D31B8-DFAE-41A0-BD25-837A879C40D0</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Plugin</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
+		<key>UID</key>
+		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
