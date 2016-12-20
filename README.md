@@ -82,11 +82,11 @@ The second is [This Sound](https://dl.dropboxusercontent.com/u/27635324/Flo%20To
 
 ## Commands:
 
-Flo Tools has two groups of commands. The first, called "Flo Tools", is always active, and applies to the entire session. The second group, called "Flo Tools Inspector", is active by default, but can be toggled on and off. The inspector only applies to an individual track.
-
-Below is a list of Flo Tools commands, and their associated functions, separated by their respective groups.
+Flo Tools is organized into 6 macro groups inside of Keyboard Maestro. Below is a list of Flo Tools commands, and their associated functions, separated by their respective groups.
 
 ## Flo Tools:
+
+The Flo Tools group of commands is always active while Pro Tools is the application in focus, and applies to the entire session.
 
 Where two actions are listed, double-tapping the key will perform the second action.
 
@@ -103,8 +103,8 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Select Grid Value:	Command+Option+f8
 - Speak/Edit Pre-Roll Amount:	Command+f9
 - Speak/Edit Post-Roll Amount:	Command+f10
+- Speak/Edit Tempo:	Command+f11
 - Close All Floating Windows: Command+Option+w
-- Zoom/Maximize Window: Command+Option+Shift+z
 - Speak Shown Tracks, Show Track List Pop-up Menu:	Option+Shift+w
 - List Shown Tracks:	Control+Shift+w
 - Speak Hidden Tracks, Show Track List Pop-up Menu:	Option+Shift+h
@@ -122,50 +122,25 @@ Where two actions are listed, double-tapping the key will perform the second act
  - Note that this shortcut overrides one of the Pro Tools shortcuts for "Nudge the Selected Clip Gain Back." Use either Control+Shift+minus or Control+Shift+comma instead
 - Speak Record Safe Tracks: Command+Option+Shift+r
 - Speak Solo Safe Tracks: Command+Option+Shift+s
-- Speak Clipped Tracks: Option+Shift+c
- - Note that this macro overrides the Pro Tools shortcut for "Commit." Use either the track's contextual menu or choose "Commit" from the Tracks menu.
+- Speak tracks who’s level is greater then or equal to 0DB: Option+Shift+0
 - Speak/Toggle Metronome:	Option+num pad 7
 - Speak/Toggle Count In:	Option+num pad8
 - Speak/Toggle Midi Merge:	Option+num pad 9
-- Option-Click:	Option+` (accent)
-- Option+Shift-Click:	Option+Shift+` (accent)
-- Command-Click:	Command+` (accent)
-- Shift-Click:	Shift+` (accent)
-- Control-Click:	Control+` (accent)
-- Command+Control-Click:	Command+Control+` (accent)
-- Command+Option-Click:	Command+Option+` (accent)
-- Command+Option+Control-Click:	Command+Option+Control+` (accent) (must be passed through)
-- Command+Shift-Click:	Command+Shift+` (accent)
-- Command+Option+Shift-Click:	Command+Option+Shift+` (accent)
-- Control+Shift-Click:	Control+Shift+` (accent)
-- Control+Option-Click:	Control+Option+` (accent) (must be passed through)
-- Control+Option+Shift-Click:	Control+Option+Shift+` (accent) (must be passed through)
-
-
-## Plugin Monitor:
-
-This  feature of Flo Tools is for  control surface users with Pro Tools. When controlling a plugin's parameters using a control surface, the plugin monitor will speak the value of the parameter as it changes in real time.
-
-- Activate Plugin Monitor:	Option+/
-- Deactivate Plugin Monitor:	Option+Shift+/
-
-
+
 ## Flo Tools Inspector:
 
-The following commands apply to the track on which VoiceOver is currently focused . This means the track name must be under the VoiceOver cursor, and the user should not be interacting with anything inside the track.
+The Flo Tools Inspector group of commands is active by default, but can be toggled on and off. Inspector commands only apply to the track on which VoiceOver is currently focused . This means the track name must be under the VoiceOver cursor, and the user should not be interacting with anything inside the track.
 
 Note: The inspector must be disabled to use first-letter navigation in pop-up menus in Pro Tools.
 
 Where 2 actions are listed, double tapping the key will perform the second action.
 
-- Activate Inspector: /
-- Deactivate Inspector: Shift+/
- - Note that this overrides the Pro Tools shortcut for "Link Timeline and Edit Selection." To link or unlink the timeline and edit selection, use the Options menu instead.
+- toggle Inspector on or off: /
 - Speak Track Name, Select Track Pop-Up Menu: t
 - Speak/Open Inserts A through J:	1 through 0 on the numbers row
 - Assign Inserts A through J:	Command+1 through 0 on the numbers row
  - Note that Command+1 through 7 are shortcuts for selecting Pro Tools edit tools. There are alternative shortcuts located within the F keys. See the Pro Tools Keyboard Shortcuts pdf for details.
- - Note that, when Flo Tools Inspector is active,  the macro for assigning Insert J (Command+0) overrides the Pro Tools shortcut for "Quantize Clip to Nearest Grid." Use the Clip menu or deactivate Flo Tools Inspector with Shift+/ to pass through the shortcut.
+ - Note that, when the Flo Tools Inspector is on,  the macro for assigning Insert J (Command+0) overrides the Pro Tools shortcut for "Quantize Clip to Nearest Grid." Use the Clip menu or turn off the Flo Tools Inspector to pass through the shortcut.
 - Speak/Open Sends A through J:	Control+1 through 0 on the numbers row
 - Assign Sends A through J:	Command+Control+1 through 0 on the numbers row
 - Speak/Select Track Input: i
@@ -175,6 +150,8 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Beta: Speak/Select Automation Mode: a
 - Speak/Select Group: g
 - Speak/Reset Pan: n
+- adjust pan value for mono track: Command+Control+left-or-right-arrows
+- Adjust pan value for stereo Track: Command+Control+left-or-right-arrows for left pan, add shift to adjust right pan
 - Speak/Toggle Input Monitor: k
 - Speak/Toggle Record State: r
 - Speak/Toggle Solo: s
@@ -182,6 +159,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Speak/Toggle Instrument Mute: Option+m
 - Speak/Reset Volume Fader: v
 - Speak/Reset Instrument Volume Fader: Option+v
+- adjust Volume Fader: Command+Control+up-or-down-arrows
 - Speak Level Meter, Toggle Level Meter Monitor:	l
 - Speak/Reset Peak Meter: p
 - Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor:	semicolon
@@ -194,6 +172,51 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Speak/Select Timebase: b
 - Beta: Speak/Select Elastic Audio Plugin: e
 
+## Flo Tools Mouse:
+
+The Flo Tools Mouse group is global, so these commands will work system-wide when the group is turned on.
+
+- activate Flo Tools Mouse: Command+Slash
+- Option-Click:	Option+` (accent)
+- Option Mouse Down/Release: Command+Control+Shift+` (accent)
+- Option+Shift-Click:	Option+Shift+` (accent)
+- Command-Click:	Command+` (accent)
+- Shift-Click:	Shift+` (accent)
+- Control-Click:	Control+` (accent)
+- Command+Control-Click:	Command+Control+` (accent)
+- Command+Option-Click:	Command+Option+` (accent)
+- Command+Option+Control-Click:	Command+Option+Control+` (accent) (must be passed through)
+- Command+Shift-Click:	Command+Shift+` (accent)
+- Command+Option+Shift-Click:	Command+Option+Shift+` (accent)
+- Control+Shift-Click:	Control+Shift+` (accent)
+- Control+Option-Click:	Control+Option+` (accent) (must be passed through)
+- Control+Option+Shift-Click:	Control+Option+Shift+` (accent) (must be passed through)
+- Copy/Speak Mouse Coordinates Relative to Front Window: Command+Option+Shift+c
+- move mouse up: Command+Option+Shift+up-arrow
+- move mouse down: Command+Option+Shift+down-arrow
+- move mouse left: Command+Option+Shift+left-arrow
+- move mouse right: Command+Option+Shift+right-arrow
+- Move Mouse to Center of Current Window: Command+Control+Shift+C
+- Zoom/Maximize Window: Command+Option+Shift+z
+
+
+
+##Flo Tools Plugin:
+These Flo Tools commands are used inside of Pro Tools plugins.
+
+Where 2 actions are listed, double tapping the key will perform the second action.
+
+- speak/select preset: Option+P
+- move to previous preset: left bracket
+- move to next preset: right bracket
+- speak/toggle bypass: Option+B
+- Plugin Monitor:
+ - This  feature of Flo Tools is for  control surface users with Pro Tools. When controlling a plugin's parameters using a control surface, the plugin monitor will speak the value of the parameter as it changes in real time.
+ - Activate Plugin Monitor:	Option+/
+ - Deactivate Plugin Monitor:	Option+Shift+/
+- Plugin Views:
+ - Flo Tools provides an alternative means of browsing parameters in the Plug-In window, allowing inaccessible plugin parameters to be manipulated and controlled. The script relies on user-generated text files to provide Flo Tools with a template for navigating parameters,  with the option to move the mouse pointer to specific coordinates within the Plug-In window.
+ - for more information about plugin views, and how to create them, click here.
 
 
 # Misc:
@@ -212,14 +235,14 @@ This should move the VoiceOver Cursor  inside the edit screen of the macro. VO r
 
 To change it, simply type the new desired shortcut and then stop interacting with the edit area. Be careful not to press command tab here, as this will assign it self as a new shortcut.
 
-## Updating or reinstalling Flo Tools:
+## Uninstalling or reinstalling Flo Tools:
 
-When there is an update to Flo Tools, or to simply reinstall it, both macro groups in Keyboard Maestro must be deleted. This can be done by doing the following:
+The provided zip file contains both an installer and uninstaller for Flo Tools. If you need to reinstall Flo Tools for any reason, first run the uninstaller, and then run the installer. To uninstall the Flo Tools scripts and associated plugin views, run the uninstaller application and follow the on-screen prompts to remove Flo Tools.
 
-1. Open Keyboard Maestro and go to the Flo Tools Macro Group.
-2. Press VO space on it, then shift right arrow, to select both the Flo Tools, and Flo Tools inspector groups simultaneously.
-3. Stop interacting with the groups scroll area, and VO right arrow to "delete macro group." VO space to confirm deletion. Note that this cannot be undone once you have pressed delete.
-4. Before opening the Flo Tools Macro file again, make sure the macro groups are removed from the groups scroll area. If so, the above process was completed successfully.
+Please backup any text files in the Plugin Views folder that you’d like to keep, as these will be permanently deleted during Flo Tools removal.
+
+Note that if you wish to uninstall Keyboard Maestro, it must be removed manually. Instructions for uninstalling Keyboard Maestro can be found on the Keyboard Maestro website.
+
 
 ## Known Issues
 
@@ -246,3 +269,6 @@ When troubleshooting a problem, it might occasionally be necessary to have Keybo
 5. With the error message open, press Command-a to select the message and press Command-c to copy it. 
 
 The Flo Tools team will use this information to determine what the problem and solution might be. You might be asked to make a change to your system or session file to troubleshoot further. Once the issue is identified and/or resolved, you can change the results preference in the action group back to "Ignore Results."
+
+# Changelog:
+
