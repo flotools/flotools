@@ -75,9 +75,9 @@ If the default keyboard is not set to "US" in System Preferences, Keyboards, inp
 
 ## Auditory Feedback:
 
-Flo Tools uses 2 distinct sounds to provide auditory feedback when it is performing a task. The first is [This Sound](https://dl.dropboxusercontent.com/u/27635324/Flo%20Tools/tink.aiff), which tells a user that something has been toggled, such as solo on and off.
+Flo Tools uses 2 distinct sounds to provide auditory feedback when it is performing a task. The first is [This Sound](https://flotools.github.io/Tink.aiff), which tells a user that something has been toggled, such as solo on and off.
 
-The second is [This Sound](https://dl.dropboxusercontent.com/u/27635324/Flo%20Tools/pop.aiff), which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
+The second is [This Sound](https://flotools.github.io/Pop.aiff), which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
 
 
 ## Commands:
@@ -126,7 +126,13 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Speak/Toggle Metronome:	Option+num pad 7
 - Speak/Toggle Count In:	Option+num pad8
 - Speak/Toggle Midi Merge:	Option+num pad 9
-
+
+
+##Flo Tools Global:
+
+The flo tools global group is mentioned here only for reference purposes, and only needs to be modified if you desire to change shortcuts to toggle the Flo Tools Mouse or Flo Tools Numpad groups.
+
+This group also contains a macro that only allows Flo Tools to run while the VoiceOver screenreader is active. This is to avoid possible conflicts with other sighted users of the computer.
 ## Flo Tools Inspector:
 
 The Flo Tools Inspector group of commands is active by default, but can be toggled on and off. Inspector commands only apply to the track on which VoiceOver is currently focused . This means the track name must be under the VoiceOver cursor, and the user should not be interacting with anything inside the track.
@@ -200,6 +206,30 @@ The Flo Tools Mouse group is global, so these commands will work system-wide whe
 - Zoom/Maximize Window: Command+Option+Shift+z
 
 
+##Flo Tools Numpad:
+
+Flo Tools provides a key remapping using the keyboard as a standard numpad. This numpad group of remappings can be used system-wide, and can be toggled on and off by pressing Control+/.
+
+Note that the inspector and numpad groups cannot be active at the same time. If the inspector is turned on, the numpad group is automatically turned off, and vise versa.
+
+Below is the list of remapped keyboard keys when using the numpad group.
+
+
+- m: 0
+- j: 1
+- k: 2
+- l: 3
+- u: 4
+- i: 5
+- o: 6
+- 7, 8, 9, and the period key on the qwerty keyboard are mapped to numpad 7, 8, 9 and period.
+- semicolon: *
+- apostrophe: /
+- dash: minus
+- equals: +
+- comma: equals
+
+
 
 ##Flo Tools Plugin:
 These Flo Tools commands are used inside of Pro Tools plugins.
@@ -215,7 +245,9 @@ Where 2 actions are listed, double tapping the key will perform the second actio
  - Activate Plugin Monitor:	Option+/
  - Deactivate Plugin Monitor:	Option+Shift+/
 - Plugin Views:
- - Flo Tools provides an alternative means of browsing parameters in the Plug-In window, allowing inaccessible plugin parameters to be manipulated and controlled. The script relies on user-generated text files to provide Flo Tools with a template for navigating parameters,  with the option to move the mouse pointer to specific coordinates within the Plug-In window.
+ - Flo Tools provides an alternative means of browsing parameters in the Plug-In window, allowing some inaccessible plugin parameters to be manipulated and controlled. The script relies on user-generated text files to provide Flo Tools with a template for navigating parameters,  with the option to move the mouse pointer to specific coordinates within the Plug-In window.
+ - load default view: Command+0
+ - Load Views 1 through 9: Command+1 through 9
  - for more information about plugin views, and how to create them, click here.
 
 
@@ -237,7 +269,9 @@ To change it, simply type the new desired shortcut and then stop interacting wit
 
 ## Uninstalling or reinstalling Flo Tools:
 
-The provided zip file contains both an installer and uninstaller for Flo Tools. If you need to reinstall Flo Tools for any reason, first run the uninstaller, and then run the installer. To uninstall the Flo Tools scripts and associated plugin views, run the uninstaller application and follow the on-screen prompts to remove Flo Tools.
+The provided zip file contains both an installer and uninstaller for Flo Tools. If  Flo Tools needs to be reinstalled for any reason, simply run the installer and follow the prompts to be guided through installation. All Flo Tools related macros will be automatically replaced with the ones within the installer. Be sure you have the latest version of the installer by downloading it from the Flo Tools website.
+
+To uninstall the Flo Tools scripts and associated plugin views, run the uninstaller application and follow the on-screen prompts to remove Flo Tools.
 
 Please backup any text files in the Plugin Views folder that you’d like to keep, as these will be permanently deleted during Flo Tools removal.
 
@@ -272,3 +306,22 @@ The Flo Tools team will use this information to determine what the problem and s
 
 # Changelog:
 
+- changed "activate inspector" command to toggle. pressing / once will toggle the inspector on and off.
+- Added speak/edit tempo. Press Command+f11 to speak the current tempo. Double tap Command+f11 to edit the tempo value.
+- added increase/decrease volume/pan.
+ - When the Inspector is on, pressing Command+Control+up/down arrows adjusts the track volume fader.
+ - Pressing Command+Control+left/right arrows adjusts the track pan for mono tracks or the left channel pan for stereo tracks. Add the Shift modifier to adjust the right channel pan.
+- created "Flo Tools Global" group. This is used to store commands to trigger the Flo Tools Mouse and numpad groups, and allows Flo Tools to be deactivated when VoiceOver is not running.
+- Created "Flo Tools Plugin" group.
+ - Added preset, next, previous, bypass for plugins.
+ - Press Option+p to speak the current preset (beta).
+ - Double tap Option+p to open the Preset pop-up menu.
+ - Press ] (right bracket) for next preset and [ (left bracket) for previous preset.
+ - Press Option+b to speak the bypass status. Double-tap Option+b to toggle the bypass state.
+- Added plugin views feature. See the "Flo Tools Plugin" group of commands for details.
+- Created Flo Tools Mouse group, and added mouse movement shortcuts.
+ - This group is now global, and works system-wide when enabled.
+ - Press Command+/ to toggle on and off. See the  "Flo Tools Mouse Group" of commands for details.
+- Added version indicator. Go to the Keyboard Maestro Engine menu extra to see the version number.
+- added numpad group. enable with control+/. See the Numpad Group of commands for details.
+- changed clipped tracks to speak tracks with 0DB, option shift 0
