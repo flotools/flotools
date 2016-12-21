@@ -17,13 +17,13 @@ Copyright (C) 2016 Chi Kim
 Copyright (C) 2016 Rocco Fiorentino  
 Copyright (C) 2016 Slau Halatyn
 
-Flow Tools is free software. You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your discretion) any later version.
+Flo Tools is free software. You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your discretion) any later version.
 
 Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY, expressed or implied, of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](http://www.gnu.org/licenses/) for more details.
 
 # Download:
 
-You can download The Flo Tools from the [Flo Tools website.](https://flotools.github.io)
+You can download Flo Tools from [here.](https://flotools.github.io/download)
 
 This  zip file, referenced in this read me, will automatically decompress itself into a folder on Mac OS. Please refer to this downloaded folder, called "Flo Tools Master", when reading this document.
 
@@ -32,7 +32,7 @@ This  zip file, referenced in this read me, will automatically decompress itself
 Flo Tools supports Mac OS version 10.10 or later, and Pro Tools version 12.3 or later. Earlier versions of Mac OS and Pro Tools may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
 
 # Installation
-Flo Tools relies on a third party program called "Keyboard Maestro" to perform it's functions. Download instructions for Keyboard Maestro are below.
+Flo Tools relies on a third party program called Keyboard Maestro to perform it's functions. Download instructions for Keyboard Maestro are below.
 
 ## Keyboard Maestro Installation:
 
@@ -47,7 +47,9 @@ If using Keyboard Maestro for the first time, please check the boxes for both Ke
 
 Keyboard Maestro contains some default macro groups that conflict with common Mac OS keyboard shortcuts. These are found in the switcher group, and clipboard group, which are disabled by default after installing FloTools. If you choose to reenable them, you can do so by selecting each group and pressing the enable button.
 
-Keyboard Maestro is limited by a 30-day trial period. After this time, a purchase of a one-time license is required to continue using the program, and subsequently, Flo Tools. More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)
+Keyboard Maestro is limited by a 30-day trial period. After this time, a purchase of a one-time license is required to continue using the program, and subsequently, Flo Tools.
+
+More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)
 
 
 ## Flo Tools Installation
@@ -75,7 +77,7 @@ If the default keyboard is not set to "US" in System Preferences, Keyboards, inp
 
 ## Auditory Feedback:
 
-Flo Tools uses 2 distinct sounds to provide auditory feedback when it is performing a task. The first is [This Sound](https://flotools.github.io/Tink.aiff), which tells a user that something has been toggled, such as solo on and off.
+Flo Tools uses 2 distinct sounds to provide auditory feedback when it is performing a task. The first is [This Sound](https://flotools.github.io/Tink.aiff), which tells a user that something has been toggled, such as solo on or off.
 
 The second is [This Sound](https://flotools.github.io/Pop.aiff), which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
 
@@ -99,7 +101,7 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Select Sub Counter:	Command+Option+f6
 - Speak/Edit Nudge Value:	Command+f7
 - Select Nudge Value:	Command+Option+f7
-- Speak/Edit Grid Value:	Command+f8
+- Speak Grid Value:	Command+f8
 - Select Grid Value:	Command+Option+f8
 - Speak/Edit Pre-Roll Amount:	Command+f9
 - Speak/Edit Post-Roll Amount:	Command+f10
@@ -128,9 +130,9 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Speak/Toggle Midi Merge:	Option+num pad 9
 
 
-##Flo Tools Global:
+## Flo Tools Global:
 
-The flo tools global group is mentioned here only for reference purposes, and only needs to be modified if you desire to change shortcuts to toggle the Flo Tools Mouse or Flo Tools Numpad groups.
+The Flo Tools Global group is mentioned here only for reference purposes, and only needs to be modified if you desire to change shortcuts to toggle the Flo Tools Mouse or Flo Tools numpad groups.
 
 This group also contains a macro that only allows Flo Tools to run while the VoiceOver screenreader is active. This is to avoid possible conflicts with other sighted users of the computer.
 ## Flo Tools Inspector:
@@ -141,7 +143,7 @@ Note: The inspector must be disabled to use first-letter navigation in pop-up me
 
 Where 2 actions are listed, double tapping the key will perform the second action.
 
-- toggle Inspector on or off: /
+- Toggle Inspector on or off: /
 - Speak Track Name, Select Track Pop-Up Menu: t
 - Speak/Open Inserts A through J:	1 through 0 on the numbers row
 - Assign Inserts A through J:	Command+1 through 0 on the numbers row
@@ -156,7 +158,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Beta: Speak/Select Automation Mode: a
 - Speak/Select Group: g
 - Speak/Reset Pan: n
-- adjust pan value for mono track: Command+Control+left-or-right-arrows
+- Adjust pan value for mono track: Command+Control+left-or-right-arrows
 - Adjust pan value for stereo Track: Command+Control+left-or-right-arrows for left pan, add shift to adjust right pan
 - Speak/Toggle Input Monitor: k
 - Speak/Toggle Record State: r
@@ -165,7 +167,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Speak/Toggle Instrument Mute: Option+m
 - Speak/Reset Volume Fader: v
 - Speak/Reset Instrument Volume Fader: Option+v
-- adjust Volume Fader: Command+Control+up-or-down-arrows
+- Adjust Volume Fader: Command+Control+up-or-down-arrows
 - Speak Level Meter, Toggle Level Meter Monitor:	l
 - Speak/Reset Peak Meter: p
 - Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor:	semicolon
@@ -182,7 +184,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 
 The Flo Tools Mouse group is global, so these commands will work system-wide when the group is turned on.
 
-- activate Flo Tools Mouse: Command+Slash
+- Activate Flo Tools Mouse: Command+Slash
 - Option-Click:	Option+` (accent)
 - Option Mouse Down/Release: Command+Control+Shift+` (accent)
 - Option+Shift-Click:	Option+Shift+` (accent)
@@ -198,15 +200,15 @@ The Flo Tools Mouse group is global, so these commands will work system-wide whe
 - Control+Option-Click:	Control+Option+` (accent) (must be passed through)
 - Control+Option+Shift-Click:	Control+Option+Shift+` (accent) (must be passed through)
 - Copy/Speak Mouse Coordinates Relative to Front Window: Command+Option+Shift+c
-- move mouse up: Command+Option+Shift+up-arrow
-- move mouse down: Command+Option+Shift+down-arrow
-- move mouse left: Command+Option+Shift+left-arrow
-- move mouse right: Command+Option+Shift+right-arrow
+- Move mouse up: Command+Option+Shift+up-arrow
+- Move mouse down: Command+Option+Shift+down-arrow
+- Move mouse left: Command+Option+Shift+left-arrow
+- Move mouse right: Command+Option+Shift+right-arrow
 - Move Mouse to Center of Current Window: Command+Control+Shift+C
 - Zoom/Maximize Window: Command+Option+Shift+z
 
 
-##Flo Tools Numpad:
+## Flo Tools Numpad:
 
 Flo Tools provides a key remapping using the keyboard as a standard numpad. This numpad group of remappings can be used system-wide, and can be toggled on and off by pressing Control+/.
 
@@ -223,23 +225,23 @@ Below is the list of remapped keyboard keys when using the numpad group.
 - i: 5
 - o: 6
 - 7, 8, 9, and the period key on the qwerty keyboard are mapped to numpad 7, 8, 9 and period.
-- semicolon: *
+- Semicolon: *
 - apostrophe: /
-- dash: minus
-- equals: +
+- Left bracket: minus
+- Right Bracket: +
 - comma: equals
 
 
 
-##Flo Tools Plugin:
+## Flo Tools Plugin:
 These Flo Tools commands are used inside of Pro Tools plugins.
 
 Where 2 actions are listed, double tapping the key will perform the second action.
 
-- speak/select preset: Option+P
-- move to previous preset: left bracket
-- move to next preset: right bracket
-- speak/toggle bypass: Option+B
+- Speak/select preset: Option+P
+- Move to previous preset: left bracket
+- Move to next preset: right bracket
+- Speak/toggle bypass: Option+B
 - Plugin Monitor:
  - This  feature of Flo Tools is for  control surface users with Pro Tools. When controlling a plugin's parameters using a control surface, the plugin monitor will speak the value of the parameter as it changes in real time.
  - Activate Plugin Monitor:	Option+/
@@ -270,6 +272,8 @@ To change it, simply type the new desired shortcut and then stop interacting wit
 ## Uninstalling or reinstalling Flo Tools:
 
 The provided zip file contains both an installer and uninstaller for Flo Tools. If  Flo Tools needs to be reinstalled for any reason, simply run the installer and follow the prompts to be guided through installation. All Flo Tools related macros will be automatically replaced with the ones within the installer. Be sure you have the latest version of the installer by downloading it from the Flo Tools website.
+
+The current version of Flo Tools is 2.0. You can check the version you’re running by opening Pro Tools, and then navigating to the Keyboard Maestro Menu Extra and arrowing through the options until you hear "Flo Tools". Arrow down to hear the version number.
 
 To uninstall the Flo Tools scripts and associated plugin views, run the uninstaller application and follow the on-screen prompts to remove Flo Tools.
 
@@ -306,12 +310,14 @@ The Flo Tools team will use this information to determine what the problem and s
 
 # Changelog:
 
-- changed "activate inspector" command to toggle. pressing / once will toggle the inspector on and off.
+##Flo Tools 2.0:
+
+- Changed "activate inspector" command to toggle. pressing / once will toggle the inspector on and off.
 - Added speak/edit tempo. Press Command+f11 to speak the current tempo. Double tap Command+f11 to edit the tempo value.
-- added increase/decrease volume/pan.
+- Added increase/decrease volume/pan.
  - When the Inspector is on, pressing Command+Control+up/down arrows adjusts the track volume fader.
  - Pressing Command+Control+left/right arrows adjusts the track pan for mono tracks or the left channel pan for stereo tracks. Add the Shift modifier to adjust the right channel pan.
-- created "Flo Tools Global" group. This is used to store commands to trigger the Flo Tools Mouse and numpad groups, and allows Flo Tools to be deactivated when VoiceOver is not running.
+- Created "Flo Tools Global" group. This is used to store commands to trigger the Flo Tools Mouse and numpad groups, and allows Flo Tools to be deactivated when VoiceOver is not running.
 - Created "Flo Tools Plugin" group.
  - Added preset, next, previous, bypass for plugins.
  - Press Option+p to speak the current preset (beta).
@@ -323,5 +329,5 @@ The Flo Tools team will use this information to determine what the problem and s
  - This group is now global, and works system-wide when enabled.
  - Press Command+/ to toggle on and off. See the  "Flo Tools Mouse Group" of commands for details.
 - Added version indicator. Go to the Keyboard Maestro Engine menu extra to see the version number.
-- added numpad group. enable with control+/. See the Numpad Group of commands for details.
-- changed clipped tracks to speak tracks with 0DB, option shift 0
+- Added numpad group. enable with control+/. See the Numpad Group of commands for details.
+- Changed clipped tracks to speak tracks with 0DB, option shift 0
