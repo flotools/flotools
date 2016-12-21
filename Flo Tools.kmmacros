@@ -14110,10 +14110,7 @@ if (runSingle) single()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>currentCommand = "cf8"
-
-function single() {
-vo = Application("VoiceOver")
+						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
@@ -14138,37 +14135,6 @@ msg = msg+ms[0]+", "+second[0]
 } else msg = current
 msg += ". grid."
 vo.output (msg)
-}
-
-function double() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
-msg = ""
-current = edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").textFields.byName("Grid Value").click()
-vo.output("Type grid value.")
-}
-
-kme = Application("Keyboard Maestro Engine")
-command = kme.getvariable("command").split(".")
-start = new Date().getTime()
-kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
-kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
-double()
-} else  {
-runSingle = true
-while (new Date().getTime()-start&lt;200) {
-command = kme.getvariable("command").split(".")
-if (currentCommand == command[0] &amp; command[1]&gt;start) {
-runSingle=false
-break;
-}
-}
-if (runSingle) single()
-}
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -14183,7 +14149,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>494732945.85137701</real>
 				<key>ModificationDate</key>
-				<real>503284473.92445803</real>
+				<real>504033647.32003897</real>
 				<key>Name</key>
 				<string>Speak Grid Value</string>
 				<key>Triggers</key>
