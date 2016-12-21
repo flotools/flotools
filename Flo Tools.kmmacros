@@ -91,9 +91,9 @@
 				<key>CreationDate</key>
 				<real>503192050.61619997</real>
 				<key>ModificationDate</key>
-				<real>503198116.87693799</real>
+				<real>503970419.51784998</real>
 				<key>Name</key>
-				<string>7 to 7</string>
+				<string>7 to NumPad 7</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -144,9 +144,9 @@
 				<key>CreationDate</key>
 				<real>503192071.97284102</real>
 				<key>ModificationDate</key>
-				<real>503192089.26000899</real>
+				<real>503970413.49347699</real>
 				<key>Name</key>
-				<string>8 to 8</string>
+				<string>8 to NumPad 8</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -197,9 +197,9 @@
 				<key>CreationDate</key>
 				<real>503192095.00388199</real>
 				<key>ModificationDate</key>
-				<real>503192105.77833098</real>
+				<real>503970406.11655402</real>
 				<key>Name</key>
-				<string>9 to 9</string>
+				<string>9 to NumPad 9</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -250,9 +250,9 @@
 				<key>CreationDate</key>
 				<real>503192438.29695803</real>
 				<key>ModificationDate</key>
-				<real>503192470.12453502</real>
+				<real>503974471.58988899</real>
 				<key>Name</key>
-				<string>apostrophe to slash</string>
+				<string>apostrophe to NumPad slash</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -3063,9 +3063,9 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 				<key>CreationDate</key>
 				<real>503192517.22127301</real>
 				<key>ModificationDate</key>
-				<real>503192531.73636502</real>
+				<real>503970432.85464799</real>
 				<key>Name</key>
-				<string>comma to equal</string>
+				<string>comma to NumPad equal</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -3223,6 +3223,165 @@ kme.setvariable("y", {to:""+y})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>89</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969619.05389202</real>
+				<key>ModificationDate</key>
+				<real>503970445.19969302</real>
+				<key>Name</key>
+				<string>command+7 to command+NumPad 7</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>26</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>09C777FB-7AC9-4A9A-A6F4-A34D0A2E8B6E</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>91</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969700.43490899</real>
+				<key>ModificationDate</key>
+				<real>503974128.791049</real>
+				<key>Name</key>
+				<string>command+8 to command+NumPad 8</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>28</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>3320B7EA-3724-423B-B5FE-2E40A79773E3</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>92</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969720.10800701</real>
+				<key>ModificationDate</key>
+				<real>503974120.95841801</real>
+				<key>Name</key>
+				<string>command+9 to command+NumPad 9</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>25</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>736B0E78-EC46-4BD4-AC17-309A0A6725F8</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>498884132.43654799</real>
 		<key>IsActive</key>
 		<false/>
@@ -3347,6 +3506,377 @@ kme.setvariable("y", {to:""+y})
 		<string>321CC976-8593-4ABD-8444-CCDD1A6704F5</string>
 		<key>UID</key>
 		<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>87</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969570.740789</real>
+				<key>ModificationDate</key>
+				<real>503970461.78506601</real>
+				<key>Name</key>
+				<string>command+i to command+NumPad 5</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>34</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>4B8CF4FA-6100-4859-8FE6-60240AC7C493</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>83</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969336.35788399</real>
+				<key>ModificationDate</key>
+				<real>503970467.43991703</real>
+				<key>Name</key>
+				<string>command+j to command+NumPad 1</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>38</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>1720118D-8403-4634-91CE-6A0D113E4379</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>84</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969432.482059</real>
+				<key>ModificationDate</key>
+				<real>503970471.80066001</real>
+				<key>Name</key>
+				<string>command+k to command+NumPad 2</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>40</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>E759F028-5F75-473E-8AA2-89198553A0E0</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>85</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969525.83332002</real>
+				<key>ModificationDate</key>
+				<real>503970481.41567498</real>
+				<key>Name</key>
+				<string>command+l to command+NumPad 3</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>37</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>8ADA6431-3A90-4456-AF87-303547061D6B</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>78</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503972515.45355999</real>
+				<key>ModificationDate</key>
+				<real>503972553.14099002</real>
+				<key>Name</key>
+				<string>command+left bracket to command+NumPad minus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>33</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>1776442C-0196-418B-94F1-2B3D37FB326E</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>82</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970114.24699199</real>
+				<key>ModificationDate</key>
+				<real>503970485.777628</real>
+				<key>Name</key>
+				<string>command+m to command+NumPad 0</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>46</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>7F8DA80C-0291-4D47-B52A-28B8DD497A06</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>88</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969594.38203698</real>
+				<key>ModificationDate</key>
+				<real>503970490.20074803</real>
+				<key>Name</key>
+				<string>command+o to command+NumPad 6</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>31</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>1C7DDAA1-279B-456C-8CA0-B9D264299B01</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -3610,6 +4140,112 @@ kme.setvariable("y", {to:""+y})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>78</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2304</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503973274.872859</real>
+				<key>ModificationDate</key>
+				<real>503973323.80058903</real>
+				<key>Name</key>
+				<string>command+option+left bracket to command+option+NumPad minus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>33</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2304</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>1D8CEE1D-F1DD-4519-A8A9-11972C37943A</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>69</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2304</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503973484.75396901</real>
+				<key>ModificationDate</key>
+				<real>503973530.50191897</real>
+				<key>Name</key>
+				<string>command+option+right bracket to command+option+NumPad plus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>30</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2304</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>8B43DCE2-3CA1-4C50-8E0F-48BF74330336</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>498884132.43654799</real>
 		<key>IsActive</key>
 		<false/>
@@ -3734,6 +4370,59 @@ kme.setvariable("y", {to:""+y})
 		<string>321CC976-8593-4ABD-8444-CCDD1A6704F5</string>
 		<key>UID</key>
 		<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>69</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503971554.06621099</real>
+				<key>ModificationDate</key>
+				<real>503972505.93918103</real>
+				<key>Name</key>
+				<string>command+right bracket to command+NumPad Plus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>30</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>AF325FFA-0E41-4EDC-8DE6-E1177682BD30</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -3868,6 +4557,324 @@ kme.setvariable("y", {to:""+y})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>83</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503971166.88858497</real>
+				<key>ModificationDate</key>
+				<real>503971246.66740203</real>
+				<key>Name</key>
+				<string>command+shift+j to command+shift+NumPad 1</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>38</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>C8BF5967-DCEC-4C75-A8C7-5C01D0E98E21</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>84</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503971213.226574</real>
+				<key>ModificationDate</key>
+				<real>503971238.51315701</real>
+				<key>Name</key>
+				<string>command+shift+k to command+shift+NumPad 2</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>40</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>4B359ACE-BAFA-4B8B-8727-93A9D1BBB53D</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>85</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503971250.171166</real>
+				<key>ModificationDate</key>
+				<real>503971265.586725</real>
+				<key>Name</key>
+				<string>command+shift+l to command+shift+NumPad 3</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>37</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>D28CE5FE-0E4A-4CD4-8E1C-AEAD3413BB0A</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>78</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503973034.13370001</real>
+				<key>ModificationDate</key>
+				<real>503973069.628699</real>
+				<key>Name</key>
+				<string>command+shift+left bracket to command+shift+NumPad minus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>33</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>12FEE4EC-8ED9-43B2-995A-680881B212B4</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>69</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503973085.88857597</real>
+				<key>ModificationDate</key>
+				<real>503973120.99924302</real>
+				<key>Name</key>
+				<string>command+shift+right bracket to command+shift+NumPad Plus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>30</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>639AA237-AECD-4533-B08A-044702E20BF6</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>86</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969549.36381799</real>
+				<key>ModificationDate</key>
+				<real>503970494.34531498</real>
+				<key>Name</key>
+				<string>command+u to command+NumPad 4</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>32</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>6E9D8289-1E2F-459B-8385-E590E084073E</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>498884132.43654799</real>
 		<key>IsActive</key>
 		<false/>
@@ -3992,6 +4999,536 @@ kme.setvariable("y", {to:""+y})
 		<string>321CC976-8593-4ABD-8444-CCDD1A6704F5</string>
 		<key>UID</key>
 		<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>89</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970748.30718899</real>
+				<key>ModificationDate</key>
+				<real>503970762.763237</real>
+				<key>Name</key>
+				<string>control+7 to control+NumPad 7</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>26</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>B67EC067-897D-448E-AA05-DED9AC96BE45</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>91</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970767.21368903</real>
+				<key>ModificationDate</key>
+				<real>503970781.05218297</real>
+				<key>Name</key>
+				<string>control+8 to control+NumPad 8</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>28</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>FCCD7C2C-D5BB-476A-975B-CCB3EA347979</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>92</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970785.24641597</real>
+				<key>ModificationDate</key>
+				<real>503970800.01308602</real>
+				<key>Name</key>
+				<string>control+9 to control+NumPad 9</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>25</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>D12AE814-66DC-4398-967D-AF35F3C39283</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>87</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970709.03499001</real>
+				<key>ModificationDate</key>
+				<real>503970725.67358702</real>
+				<key>Name</key>
+				<string>control+i to control+NumPad 5</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>34</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>A714BD83-776B-418D-8412-28AD614AF777</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>83</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970194.85871601</real>
+				<key>ModificationDate</key>
+				<real>503970500.962457</real>
+				<key>Name</key>
+				<string>control+j to control+NumPad 1</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>38</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>552EE3FF-42B9-4481-9ADD-AD197F662B87</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>84</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970646.374466</real>
+				<key>ModificationDate</key>
+				<real>503970663.92690003</real>
+				<key>Name</key>
+				<string>control+k to control+NumPad 2</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>40</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>28D93B1D-3F0B-4334-B1EB-68B638841136</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>85</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970667.58478999</real>
+				<key>ModificationDate</key>
+				<real>503970685.22370797</real>
+				<key>Name</key>
+				<string>control+l to control+NumPad 3</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>37</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>3EFE40B2-06EC-41F6-B57C-875FFD698015</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>78</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503972793.97847497</real>
+				<key>ModificationDate</key>
+				<real>503972819.849186</real>
+				<key>Name</key>
+				<string>control+left bracket to control+NumPad Minus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>33</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>1D5E1F94-4057-449F-A22B-0B560B099E1D</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>82</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970161.42491603</real>
+				<key>ModificationDate</key>
+				<real>503970507.47477603</real>
+				<key>Name</key>
+				<string>control+m to control+NumPad 0</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>46</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>5195BEE6-3368-4450-A153-B1CF671854A1</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>88</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970729.73155302</real>
+				<key>ModificationDate</key>
+				<real>503970744.15435302</real>
+				<key>Name</key>
+				<string>control+o to control+NumPad 6</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>31</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>CD2A99D1-E384-47AA-8FFE-C9A35ED680E8</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -4126,6 +5663,112 @@ kme.setvariable("y", {to:""+y})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>78</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503973343.338597</real>
+				<key>ModificationDate</key>
+				<real>503974334.73211402</real>
+				<key>Name</key>
+				<string>control+option+left bracket to control+option+NumPad minus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>33</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>1A3A58B5-9435-4A00-8773-4D2C44E830E8</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>69</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503973533.95236802</real>
+				<key>ModificationDate</key>
+				<real>503973567.547548</real>
+				<key>Name</key>
+				<string>control+option+right bracket to control+option+NumPad plus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>30</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>7D9C89E0-A150-4EDC-8E59-9D1231223169</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>498884132.43654799</real>
 		<key>IsActive</key>
 		<false/>
@@ -4250,6 +5893,59 @@ kme.setvariable("y", {to:""+y})
 		<string>321CC976-8593-4ABD-8444-CCDD1A6704F5</string>
 		<key>UID</key>
 		<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>69</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503972675.22929001</real>
+				<key>ModificationDate</key>
+				<real>503972708.87613201</real>
+				<key>Name</key>
+				<string>control+right bracket to control+NumPad Plus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>30</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>95FEB02D-C71D-4450-ACA8-C16418D47D64</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -4384,6 +6080,59 @@ kme.setvariable("y", {to:""+y})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>86</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970688.881863</real>
+				<key>ModificationDate</key>
+				<real>503970705.78482699</real>
+				<key>Name</key>
+				<string>control+u to control+NumPad 4</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>32</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>15D3B0AC-9D25-44B6-924B-349D2BE0BD1F</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>498884132.43654799</real>
 		<key>IsActive</key>
 		<false/>
@@ -4465,59 +6214,6 @@ vo.output(wx+", "+wy)
 		<string>321CC976-8593-4ABD-8444-CCDD1A6704F5</string>
 		<key>UID</key>
 		<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
-						<integer>78</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192306.00072497</real>
-				<key>ModificationDate</key>
-				<real>503192332.389566</real>
-				<key>Name</key>
-				<string>dash to minus</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>27</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>067121FB-56CD-46E9-86F2-CCCF2130BAF9</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -4930,9 +6626,9 @@ console.log(msg)
 				<key>CreationDate</key>
 				<real>498614945.35480499</real>
 				<key>ModificationDate</key>
-				<real>500763912.32322401</real>
+				<real>503886604.51171398</real>
 				<key>Name</key>
-				<string>Display Template</string>
+				<string>Display Plugin View Template</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -4981,59 +6677,6 @@ console.log(msg)
 				<array>
 					<dict>
 						<key>KeyCode</key>
-						<integer>69</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>503192192.41765702</real>
-				<key>ModificationDate</key>
-				<real>503192301.46798003</real>
-				<key>Name</key>
-				<string>equal to plus</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>24</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>58905FAA-9317-4E57-9204-EE05A67B1D28</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Numpad</string>
-		<key>ToggleMacroUID</key>
-		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
-		<key>UID</key>
-		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>502929691.60448301</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>KeyCode</key>
 						<integer>87</integer>
 						<key>MacroActionType</key>
 						<string>SimulateKeystroke</string>
@@ -5046,9 +6689,9 @@ console.log(msg)
 				<key>CreationDate</key>
 				<real>503192013.29870498</real>
 				<key>ModificationDate</key>
-				<real>503192024.13453799</real>
+				<real>503970526.26600099</real>
 				<key>Name</key>
-				<string>i to 5</string>
+				<string>i to NumPad 5</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -5382,9 +7025,9 @@ vo.output(value)
 				<key>CreationDate</key>
 				<real>502929781.550668</real>
 				<key>ModificationDate</key>
-				<real>503198178.42569202</real>
+				<real>503970529.87591302</real>
 				<key>Name</key>
-				<string>j to 1</string>
+				<string>j to NumPad 1</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -5435,9 +7078,9 @@ vo.output(value)
 				<key>CreationDate</key>
 				<real>502929313.29053801</real>
 				<key>ModificationDate</key>
-				<real>503191965.68369597</real>
+				<real>503970533.24411398</real>
 				<key>Name</key>
-				<string>k to 2</string>
+				<string>k to NumPad 2</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -5488,9 +7131,9 @@ vo.output(value)
 				<key>CreationDate</key>
 				<real>503191972.82063198</real>
 				<key>ModificationDate</key>
-				<real>503191988.80479503</real>
+				<real>503970537.46814001</real>
 				<key>Name</key>
-				<string>l to 3</string>
+				<string>l to NumPad 3</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -5506,6 +7149,59 @@ vo.output(value)
 				</array>
 				<key>UID</key>
 				<string>F7ADA5A0-16B6-4383-A419-57967E4C92DA</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>78</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503192306.00072497</real>
+				<key>ModificationDate</key>
+				<real>503973675.33212799</real>
+				<key>Name</key>
+				<string>left bracket to NumPad minus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>33</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>067121FB-56CD-46E9-86F2-CCCF2130BAF9</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -6355,7 +8051,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
-fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+".txt"
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Views/"+pluginName+".txt"
 try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
@@ -6447,7 +8143,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>498707336.94646001</real>
 				<key>ModificationDate</key>
-				<real>503191136.47443098</real>
+				<real>503886667.94590801</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for Default View</string>
 				<key>Triggers</key>
@@ -6541,7 +8237,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
-fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Views/"+pluginName+"-"+command+".txt"
 try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
@@ -6633,7 +8329,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>498867447.65581</real>
 				<key>ModificationDate</key>
-				<real>503191142.74031001</real>
+				<real>503886699.20302403</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 1</string>
 				<key>Triggers</key>
@@ -6721,7 +8417,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
-fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Views/"+pluginName+"-"+command+".txt"
 try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
@@ -6813,7 +8509,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>502072624.71525502</real>
 				<key>ModificationDate</key>
-				<real>503191147.941203</real>
+				<real>503886743.78549302</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 2</string>
 				<key>Triggers</key>
@@ -6901,7 +8597,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
-fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Views/"+pluginName+"-"+command+".txt"
 try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
@@ -6993,7 +8689,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>502072655.71995902</real>
 				<key>ModificationDate</key>
-				<real>503191152.74027002</real>
+				<real>503886760.63308901</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 3</string>
 				<key>Triggers</key>
@@ -7081,7 +8777,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
-fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Views/"+pluginName+"-"+command+".txt"
 try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
@@ -7173,7 +8869,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>502072667.86025</real>
 				<key>ModificationDate</key>
-				<real>503191158.06409001</real>
+				<real>503886774.99543399</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 4</string>
 				<key>Triggers</key>
@@ -7261,7 +8957,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
-fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Views/"+pluginName+"-"+command+".txt"
 try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
@@ -7353,7 +9049,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>502072679.86721301</real>
 				<key>ModificationDate</key>
-				<real>503191163.93691099</real>
+				<real>503886783.44169801</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 5</string>
 				<key>Triggers</key>
@@ -7441,7 +9137,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
-fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Views/"+pluginName+"-"+command+".txt"
 try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
@@ -7533,7 +9229,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>502072696.81930101</real>
 				<key>ModificationDate</key>
-				<real>503191169.14592898</real>
+				<real>503886793.51353002</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 6</string>
 				<key>Triggers</key>
@@ -7621,7 +9317,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
-fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Views/"+pluginName+"-"+command+".txt"
 try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
@@ -7713,7 +9409,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>502072709.39392298</real>
 				<key>ModificationDate</key>
-				<real>503191174.63461602</real>
+				<real>503886800.71391797</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 7</string>
 				<key>Triggers</key>
@@ -7801,7 +9497,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
-fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Views/"+pluginName+"-"+command+".txt"
 try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
@@ -7893,7 +9589,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>502072737.66110498</real>
 				<key>ModificationDate</key>
-				<real>503191180.86873001</real>
+				<real>503886808.17396402</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 8</string>
 				<key>Triggers</key>
@@ -7981,7 +9677,7 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
-fileName = home+"/Library/Application Support/Flo Tools/Plug-In Templates/"+pluginName+"-"+command+".txt"
+fileName = home+"/Library/Application Support/Flo Tools/Plug-In Views/"+pluginName+"-"+command+".txt"
 try {
 str = app.read(Path(fileName))
 json = JSON.parse(str)
@@ -8073,7 +9769,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>502072748.80396998</real>
 				<key>ModificationDate</key>
-				<real>503191185.88147599</real>
+				<real>503886816.872697</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 9</string>
 				<key>Triggers</key>
@@ -8142,9 +9838,9 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>503192113.58443397</real>
 				<key>ModificationDate</key>
-				<real>503192125.57946098</real>
+				<real>503970540.43458098</real>
 				<key>Name</key>
-				<string>m to 0</string>
+				<string>m to NumPad 0</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -9164,9 +10860,9 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>503192028.89953399</real>
 				<key>ModificationDate</key>
-				<real>503192045.88739401</real>
+				<real>503970543.93278599</real>
 				<key>Name</key>
-				<string>o to 6</string>
+				<string>o to NumPad 6</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -9534,6 +11230,589 @@ kme.setvariable("y", {to:""+y})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>89</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969997.297396</real>
+				<key>ModificationDate</key>
+				<real>503970548.14885801</real>
+				<key>Name</key>
+				<string>option+7 to option+NumPad 7</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>26</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>1A66397E-F787-4D5B-A13C-1D35E5B904C3</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>91</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970026.89063197</real>
+				<key>ModificationDate</key>
+				<real>503970552.74079901</real>
+				<key>Name</key>
+				<string>option+8 to option+NumPad 8</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>28</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>359F3CD5-E438-4A8F-9A46-112E1DBC65C4</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>92</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970059.54784799</real>
+				<key>ModificationDate</key>
+				<real>503970556.74905503</real>
+				<key>Name</key>
+				<string>option+9 to option+NumPad 9</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>25</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>668FBC8C-DB2F-491E-B484-8D1D71613C55</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>87</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969938.85481501</real>
+				<key>ModificationDate</key>
+				<real>503970561.42124099</real>
+				<key>Name</key>
+				<string>option+i to option+NumPad 5</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>34</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>0C46B0F1-0A61-45C7-ADEB-25D8A98FE726</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>83</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969794.27974898</real>
+				<key>ModificationDate</key>
+				<real>503970565.32548898</real>
+				<key>Name</key>
+				<string>option+j to option+NumPad 1</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>38</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>0FEF19D1-EAE0-43F7-84DE-17B5A323F421</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>84</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969844.72051299</real>
+				<key>ModificationDate</key>
+				<real>503970573.14204901</real>
+				<key>Name</key>
+				<string>option+k to option+NumPad 2</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>40</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>8C869BDB-7F19-4BD7-A62B-88C2AA7CE8A3</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>85</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969864.60311902</real>
+				<key>ModificationDate</key>
+				<real>503970577.28629702</real>
+				<key>Name</key>
+				<string>option+l to option+NumPad 3</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>37</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>CE426FA7-EC72-4767-963F-4449C394DD46</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>78</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503972575.609047</real>
+				<key>ModificationDate</key>
+				<real>503972602.99125099</real>
+				<key>Name</key>
+				<string>option+left bracket to option+NumPad minus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>33</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>5DCAE415-77B3-4D52-BDFB-7545A52A36BD</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>82</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970078.45192301</real>
+				<key>ModificationDate</key>
+				<real>503970582.81419301</real>
+				<key>Name</key>
+				<string>option+m to option+NumPad 0</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>46</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>6B5D9498-2635-445F-BF21-DA49A283D595</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>88</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969979.55277997</real>
+				<key>ModificationDate</key>
+				<real>503970587.102386</real>
+				<key>Name</key>
+				<string>option+o to option+NumPad 6</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>31</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>F7528E1E-48BF-4BC1-9429-B97D40F8083B</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>69</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503972628.30382901</real>
+				<key>ModificationDate</key>
+				<real>503972657.21018797</real>
+				<key>Name</key>
+				<string>option+right bracket to option+NumPad Plus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>30</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>6DF509EA-171A-4488-BF50-474D2C27A6FD</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>498884132.43654799</real>
 		<key>IsActive</key>
 		<false/>
@@ -9673,6 +11952,271 @@ kme.setvariable("y", {to:""+y})
 				<array>
 					<dict>
 						<key>KeyCode</key>
+						<integer>87</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503971309.92668599</real>
+				<key>ModificationDate</key>
+				<real>503971368.38331902</real>
+				<key>Name</key>
+				<string>option+shift+i to option+shift+NumPad 5</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>34</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>A860449C-0E11-4439-BFD7-CBE38E8589F1</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>78</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503973191.54092097</real>
+				<key>ModificationDate</key>
+				<real>503973225.25208402</real>
+				<key>Name</key>
+				<string>option+shift+left bracket to option+shift+NumPad minus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>33</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>B006EAD2-1A17-4BD0-94C9-ED90FB70453F</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>88</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503971374.27378303</real>
+				<key>ModificationDate</key>
+				<real>503971390.359698</real>
+				<key>Name</key>
+				<string>option+shift+o to option+shift+NumPad 6</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>31</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>2EE0B1E9-3E00-4704-992F-0F0ABC927431</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>69</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503973145.498905</real>
+				<key>ModificationDate</key>
+				<real>503973171.59331501</real>
+				<key>Name</key>
+				<string>option+shift+right bracket to option+shift+NumPad Plus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>30</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>D8103424-17F8-4AA8-99C3-12BC903EF1E3</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>86</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503969889.908418</real>
+				<key>ModificationDate</key>
+				<real>503970596.09444302</real>
+				<key>Name</key>
+				<string>option+u to option+NumPad 4</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>32</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>00829C61-7643-43A1-845B-6FEAFA34D952</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
 						<integer>65</integer>
 						<key>MacroActionType</key>
 						<string>SimulateKeystroke</string>
@@ -9685,9 +12229,9 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>503192129.85984898</real>
 				<key>ModificationDate</key>
-				<real>503192158.62135202</real>
+				<real>503970604.887712</real>
 				<key>Name</key>
-				<string>period to point</string>
+				<string>period to NumPad point</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -10096,6 +12640,59 @@ vo.output(name)
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>69</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503192192.41765702</real>
+				<key>ModificationDate</key>
+				<real>503973750.66348302</real>
+				<key>Name</key>
+				<string>right bracket to NumPad plus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>30</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>58905FAA-9317-4E57-9204-EE05A67B1D28</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>479078801.99380499</real>
 		<key>Macros</key>
 		<array>
@@ -10446,9 +13043,9 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 				<key>CreationDate</key>
 				<real>503192341.30933601</real>
 				<key>ModificationDate</key>
-				<real>503192433.99437201</real>
+				<real>503970611.22387701</real>
 				<key>Name</key>
-				<string>semicolon to star</string>
+				<string>semicolon to NumPad star</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -10601,6 +13198,642 @@ kme.setvariable("y", {to:""+y})
 		<string>321CC976-8593-4ABD-8444-CCDD1A6704F5</string>
 		<key>UID</key>
 		<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>89</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503971046.57057899</real>
+				<key>ModificationDate</key>
+				<real>503971059.04096198</real>
+				<key>Name</key>
+				<string>shift+7 to shift+NumPad 7</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>26</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>2F9819AC-93F7-4488-BA3A-37D9ECF01D02</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>91</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503971065.41128802</real>
+				<key>ModificationDate</key>
+				<real>503971078.713741</real>
+				<key>Name</key>
+				<string>shift+8 to shift+NumPad 8</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>28</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>768CCBE7-A1EC-47E7-A71F-5AE503EB16E3</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>92</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503971081.955948</real>
+				<key>ModificationDate</key>
+				<real>503971095.10609001</real>
+				<key>Name</key>
+				<string>shift+9 to shift+NumPad 9</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>25</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>98CCA116-CD6D-4F18-94D0-090BFAE2538E</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>87</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503971004.72834003</real>
+				<key>ModificationDate</key>
+				<real>503971022.45542198</real>
+				<key>Name</key>
+				<string>shift+i to shift+NumPad 5</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>34</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>B7F09945-EED6-4051-8E52-CC55D146D192</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>83</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970929.48371702</real>
+				<key>ModificationDate</key>
+				<real>503970942.995821</real>
+				<key>Name</key>
+				<string>shift+j to shift+NumPad 1</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>38</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>F550D13D-6349-49F6-9FF6-A156E902DBB0</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>84</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970946.36600798</real>
+				<key>ModificationDate</key>
+				<real>503970961.33244801</real>
+				<key>Name</key>
+				<string>shift+k to shift+NumPad 2</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>40</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>CAD78059-4D0F-4AF3-991E-400222A83365</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>85</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970967.110865</real>
+				<key>ModificationDate</key>
+				<real>503970982.89342099</real>
+				<key>Name</key>
+				<string>shift+l to shift+NumPad 3</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>37</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>55C9FB69-24ED-4078-8889-8559F5700973</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>78</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503972883.29463601</real>
+				<key>ModificationDate</key>
+				<real>503972911.82957101</real>
+				<key>Name</key>
+				<string>shift+left bracket to shift+NumPad minus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>33</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>2A1D86AD-08E0-47B0-95E9-D1E22AC2859B</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>82</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970877.02684402</real>
+				<key>ModificationDate</key>
+				<real>503970916.37816501</real>
+				<key>Name</key>
+				<string>shift+m to shift+NumPad 0</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>46</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>F5277669-A055-4DB2-B70A-E657E92B6175</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>88</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503971026.00163901</real>
+				<key>ModificationDate</key>
+				<real>503971043.368379</real>
+				<key>Name</key>
+				<string>shift+o to shift+NumPad 6</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>31</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>8B60272A-F695-49CF-B8FE-082900E12D04</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>69</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503972930.313191</real>
+				<key>ModificationDate</key>
+				<real>503972955.79176599</real>
+				<key>Name</key>
+				<string>shift+right bracket to shift+NumPad Plus</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>30</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>765A1FA9-ECF4-4947-BC53-30D4A53FA233</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>502929691.60448301</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>86</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503970986.399454</real>
+				<key>ModificationDate</key>
+				<real>503971001.82258701</real>
+				<key>Name</key>
+				<string>shift+u to shift+NumPad 4</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>32</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>CCF86440-0EAB-41B5-8241-966220D0E5CE</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Numpad</string>
+		<key>ToggleMacroUID</key>
+		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
+		<key>UID</key>
+		<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -19327,6 +22560,14 @@ if (runSingle) single()
 								<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
 							</dict>
 							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+							</dict>
+							<dict>
 								<key>DisplayKind</key>
 								<string>None</string>
 								<key>IncludeStdErr</key>
@@ -19387,7 +22628,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>503191698.386913</real>
 				<key>ModificationDate</key>
-				<real>503285288.68249398</real>
+				<real>503974839.48501998</real>
 				<key>Name</key>
 				<string>Toggle Flo Tools Numpad</string>
 				<key>Triggers</key>
@@ -19452,6 +22693,14 @@ if (runSingle) single()
 								<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
 							</dict>
 							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+							</dict>
+							<dict>
 								<key>DisplayKind</key>
 								<string>None</string>
 								<key>IncludeStdErr</key>
@@ -19512,7 +22761,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>503191698.386913</real>
 				<key>ModificationDate</key>
-				<real>503284375.275949</real>
+				<real>503974788.38730103</real>
 				<key>Name</key>
 				<string>Toggle Inspector</string>
 				<key>Triggers</key>
@@ -19986,9 +23235,9 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>503191993.55518198</real>
 				<key>ModificationDate</key>
-				<real>503192007.35031402</real>
+				<real>503970622.18417698</real>
 				<key>Name</key>
-				<string>u to 4</string>
+				<string>u to NumPad 4</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
