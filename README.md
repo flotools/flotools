@@ -21,6 +21,12 @@ Flo Tools is free software. You can redistribute it and/or modify it under the t
 
 Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY, expressed or implied, of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](http://www.gnu.org/licenses/) for more details.
 
+
+# Flo Tools 2.0:
+
+Flo Tools 2.0 is here! See the What’s New section to learn about the new features and improvements in version 2.0.
+
+
 # Download:
 
 You can download Flo Tools from [here.](https://flotools.github.io/download)
@@ -134,12 +140,12 @@ Where two actions are listed, double-tapping the key will perform the second act
 
 The Flo Tools Global group is mentioned here only for reference purposes, and only needs to be modified if you desire to change shortcuts to toggle the Flo Tools Mouse or Flo Tools numpad groups.
 
-This group also contains a macro that only allows Flo Tools to run while the VoiceOver screenreader is active. This is to avoid possible conflicts with other sighted users of the computer.
+This group also contains a macro that allows Flo Tools to run only while the VoiceOver screenreader is active. This is to avoid possible conflicts with other sighted users of the computer.
 ## Flo Tools Inspector:
 
-The Flo Tools Inspector group of commands is active by default, but can be toggled on and off. Inspector commands only apply to the track on which VoiceOver is currently focused . This means the track name must be under the VoiceOver cursor, and the user should not be interacting with anything inside the track.
+The Flo Tools Inspector group of commands is inactive by default, but can be toggled on and off. Inspector commands only apply to the track on which VoiceOver is currently focused . This means the track name must be under the VoiceOver cursor, and the user should not be interacting with anything inside the track.
 
-Note: The inspector must be disabled to use first-letter navigation in pop-up menus in Pro Tools.
+Note: The inspector must be disabled to use first-letter navigation in any pop-up menus, menu bars, or the doc while Pro Tools is running.
 
 Where 2 actions are listed, double tapping the key will perform the second action.
 
@@ -211,7 +217,7 @@ The Flo Tools Mouse group is global, so these commands will work system-wide whe
 
 Flo Tools provides a key remapping using the keyboard as a standard numpad. This numpad group of remappings can be used system-wide, and can be toggled on and off by pressing Control+/.
 
-Note that the inspector and numpad groups cannot be active at the same time. If the inspector is turned on, the numpad group is automatically turned off, and vise versa.
+Note that the inspector and numpad groups cannot be active at the same time. If the inspector is turned on, the numpad group is automatically turned off, and If the numpad group is turned on, the inspector is automatically turned off.
 
 Below is the list of remapped keyboard keys when using the numpad group.
 
@@ -238,8 +244,8 @@ Below is the list of remapped keyboard keys when using the numpad group.
 Where 2 actions are listed, double tapping the key will perform the second action.
 
 - Speak/select preset: Option+P
-- Move to previous preset: left bracket
-- Move to next preset: right bracket
+- Load previous preset: left bracket
+- Load next preset: right bracket
 - Speak/toggle bypass: Option+B
 - Plugin Monitor:
  - This  feature of Flo Tools is for  control surface users with Pro Tools. When controlling a plugin's parameters using a control surface, the plugin monitor will speak the value of the parameter as it changes in real time.
@@ -272,7 +278,7 @@ To change it, simply type the new desired shortcut and then stop interacting wit
 
 The provided zip file contains both an installer and uninstaller for Flo Tools. If  Flo Tools needs to be reinstalled for any reason, simply run the installer and follow the prompts to be guided through installation. All Flo Tools related macros will be automatically replaced with the ones within the installer. Be sure you have the latest version of the installer by downloading it from the Flo Tools website.
 
-The current version of Flo Tools is 2.0. You can check the version you’re running by opening Pro Tools, and then navigating to the Keyboard Maestro Menu Extra and arrowing through the options until you hear "Flo Tools". Arrow down to hear the version number.
+The current version of Flo Tools is 2.0. You can check the version you’re running by opening Pro Tools, and then navigating to the "Keyboard Maestro Engine" Menu Extra and arrowing through the options until you hear "Flo Tools". Arrow down to hear the version number.
 
 To uninstall the Flo Tools scripts and associated plugin views, run the uninstaller application and follow the on-screen prompts to remove Flo Tools.
 
