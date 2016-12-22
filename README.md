@@ -186,7 +186,6 @@ The Flo Tools Mouse group is global, so these commands will work system-wide whe
 
 - Activate Flo Tools Mouse: Command+Slash
 - Option-Click:	Option+` (accent)
-- Option Mouse Down/Release: Command+Control+Shift+` (accent)
 - Option+Shift-Click:	Option+Shift+` (accent)
 - Command-Click:	Command+` (accent)
 - Shift-Click:	Shift+` (accent)
