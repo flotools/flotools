@@ -29,7 +29,7 @@ Flo Tools 2.0 is here! See the What’s New section to learn about the new featu
 
 # Download:
 
-You can download Flo Tools from [here.](https://flotools.github.io/download)
+You can download Flo Tools from [here.](/download/)
 
 This  zip file, referenced in this read me, will automatically decompress itself into a folder on Mac OS. Please refer to this downloaded folder, called "Flo Tools Master", when reading this document.
 
@@ -38,7 +38,7 @@ This  zip file, referenced in this read me, will automatically decompress itself
 Flo Tools supports Mac OS version 10.10 or later, and Pro Tools version 12.3 or later. Earlier versions of Mac OS and Pro Tools may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
 
 # Installation
-Flo Tools relies on a third party program called Keyboard Maestro to perform it's functions. Download instructions for Keyboard Maestro are below.
+Flo Tools relies on a third party program called Keyboard Maestro to perform its functions. Download instructions for Keyboard Maestro are below.
 
 ## Keyboard Maestro Installation:
 
@@ -139,7 +139,7 @@ Where two actions are listed, double-tapping the key will perform the second act
 
 ## Flo Tools Global:
 
-The Flo Tools Global group is mentioned here only for reference purposes, and only needs to be modified if you desire to change shortcuts to toggle the Flo Tools Mouse or Flo Tools numpad groups.
+The Flo Tools Global group is mentioned here only for reference purposes, and only needs to be modified if you desire to change shortcuts to toggle the Flo Tools Mouse or Flo Tools num pad groups.
 
 This group also contains a macro that allows Flo Tools to run only while the VoiceOver screenreader is active. This is to avoid possible conflicts with other sighted users of the computer.
 
@@ -215,13 +215,13 @@ The Flo Tools Mouse group is global, so these commands will work system-wide whe
 - Zoom/Maximize Window: Command+Option+Shift+z
 
 
-## Flo Tools Numpad:
+## Flo Tools Num Pad:
 
-Flo Tools provides a key remapping using the keyboard as a standard numpad. This numpad group of remappings can be used system-wide, and can be toggled on and off by pressing Control+/.
+Flo Tools provides a key remapping using the keyboard as a standard num pad. This num pad group of remappings can be used system-wide, and can be toggled on and off by pressing Control+/.
 
-Note that the inspector and numpad groups cannot be active at the same time. If the inspector is turned on, the numpad group is automatically turned off, and If the numpad group is turned on, the inspector is automatically turned off.
+Note that the inspector and num pad groups cannot be active at the same time. If the inspector is turned on, the num pad group is automatically turned off, and If the num pad group is turned on, the inspector is automatically turned off.
 
-Below is the list of remapped keyboard keys when using the numpad group.
+Below is the list of remapped keyboard keys when using the num pad group.
 
 
 - m: 0
@@ -231,7 +231,7 @@ Below is the list of remapped keyboard keys when using the numpad group.
 - u: 4
 - i: 5
 - o: 6
-- 7, 8, 9, and the period key on the qwerty keyboard are mapped to numpad 7, 8, 9 and period.
+- 7, 8, 9, and the period key on the qwerty keyboard are mapped to num pad 7, 8, 9 and period.
 - Semicolon: *
 - apostrophe: /
 - Left bracket: minus
@@ -259,7 +259,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
  - Flo Tools provides an alternative means of browsing parameters in the Plug-In window, allowing some inaccessible plugin parameters to be manipulated and controlled. The script relies on user-generated text files to provide Flo Tools with a template for navigating parameters,  with the option to move the mouse pointer to specific coordinates within the Plug-In window.
  - load default view: Command+0
  - Load Views 1 through 9: Command+1 through 9
- - for more information about plugin views, and how to create them, click here.
+ - for more information about plugin views, and how to create them, click [here.](/Plug-In Views/)
 
 
 # Misc:
@@ -326,7 +326,7 @@ The Flo Tools team will use this information to determine what the problem and s
 - Added increase/decrease volume/pan.
  - When the Inspector is on, pressing Command+Control+up/down arrows adjusts the track volume fader.
  - Pressing Command+Control+left/right arrows adjusts the track pan for mono tracks or the left channel pan for stereo tracks. Add the Shift modifier to adjust the right channel pan.
-- Created "Flo Tools Global" group. This is used to store commands to trigger the Flo Tools Mouse and numpad groups, and allows Flo Tools to be deactivated when VoiceOver is not running.
+- Created "Flo Tools Global" group. This is used to store commands to trigger the Flo Tools Mouse and num pad groups, and allows Flo Tools to be deactivated when VoiceOver is not running.
 - Created "Flo Tools Plugin" group.
  - Added preset, next, previous, bypass for plugins.
  - Press Option+p to speak the current preset (beta).
@@ -338,5 +338,5 @@ The Flo Tools team will use this information to determine what the problem and s
  - This group is now global, and works system-wide when enabled.
  - Press Command+/ to toggle on and off. See the  "Flo Tools Mouse Group" of commands for details.
 - Added version indicator. Go to the Keyboard Maestro Engine menu extra to see the version number.
-- Added numpad group. enable with control+/. See the Numpad Group of commands for details.
+- Added num pad group. enable with control+/. See the Num Pad Group of commands for details.
 - Changed clipped tracks to speak tracks with 0DB, option shift 0

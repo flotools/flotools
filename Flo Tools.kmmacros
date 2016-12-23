@@ -108,11 +108,11 @@
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>4678846F-DA78-4D00-A9A6-E27499271DC8</string>
+				<string>8F88922F-F05D-4A7D-A76C-FDA9C620A241</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -161,11 +161,11 @@
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>CA3807D2-D4E6-4FFF-9D14-D00984AF5DAB</string>
+				<string>7925038B-4349-44CB-BE9E-5C510FD3C1B9</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -214,11 +214,11 @@
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>07B37D92-C83E-498C-B85C-E2351FB36FBB</string>
+				<string>BCDCACA4-AF76-4CAE-942B-118EC8DC5577</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -267,11 +267,11 @@
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>785C5407-E04A-453C-92DC-AD6237CCCC7F</string>
+				<string>6CCC9FDA-A635-4ECD-BEED-1C2A860994AF</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3080,11 +3080,11 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>A1AF5360-931C-4E6A-827D-FDC67118A855</string>
+				<string>089EF8AE-3616-4C50-A4CC-9C6EE877B698</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3095,8 +3095,6 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3262,11 +3260,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>09C777FB-7AC9-4A9A-A6F4-A34D0A2E8B6E</string>
+				<string>AA449C14-CD4C-40E6-94E4-F7E39E48F2CC</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3315,11 +3313,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>3320B7EA-3724-423B-B5FE-2E40A79773E3</string>
+				<string>9F6A2F91-A3C1-48E3-A58C-67C1EB285686</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3368,11 +3366,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>736B0E78-EC46-4BD4-AC17-309A0A6725F8</string>
+				<string>7B318C1A-64F0-471E-88C9-9D1E41E75056</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3383,8 +3381,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3550,11 +3546,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>4B8CF4FA-6100-4859-8FE6-60240AC7C493</string>
+				<string>8416AA65-2522-4193-877C-AD8F25E9B8E2</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3603,11 +3599,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>1720118D-8403-4634-91CE-6A0D113E4379</string>
+				<string>7D6F2494-35AE-45C0-8C32-DECDF2E74855</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3656,11 +3652,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>E759F028-5F75-473E-8AA2-89198553A0E0</string>
+				<string>4CCC72CC-1F2B-4A35-9C4C-6E74CC48665C</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3709,11 +3705,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>8ADA6431-3A90-4456-AF87-303547061D6B</string>
+				<string>03F3D60D-BF29-47E0-AC25-A5C990DFA51C</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3762,11 +3758,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>1776442C-0196-418B-94F1-2B3D37FB326E</string>
+				<string>B8317D26-EA46-47B2-93F3-A234C5C883BB</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3815,11 +3811,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>7F8DA80C-0291-4D47-B52A-28B8DD497A06</string>
+				<string>1258631B-B99F-4541-912F-C0CB4F558B66</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3868,11 +3864,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>1C7DDAA1-279B-456C-8CA0-B9D264299B01</string>
+				<string>8D6B0201-0A74-421C-B8E7-1AE9DFC52B08</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -3883,8 +3879,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4012,8 +4006,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4179,11 +4171,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>1D8CEE1D-F1DD-4519-A8A9-11972C37943A</string>
+				<string>F2CD0581-8851-467C-AB1A-51122E9DC18A</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -4232,11 +4224,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>8B43DCE2-3CA1-4C50-8E0F-48BF74330336</string>
+				<string>9703A335-8EFB-465D-9606-F57A336E6E65</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -4247,8 +4239,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4414,11 +4404,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>AF325FFA-0E41-4EDC-8DE6-E1177682BD30</string>
+				<string>40BA031E-73BE-4EEC-B4F2-EFA9B9CC799D</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -4429,8 +4419,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4596,11 +4584,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>C8BF5967-DCEC-4C75-A8C7-5C01D0E98E21</string>
+				<string>2EA6F7BC-1BF3-4376-80A2-FECBED9F7414</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -4649,11 +4637,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>4B359ACE-BAFA-4B8B-8727-93A9D1BBB53D</string>
+				<string>432CF48B-C8A0-41BC-B574-EB3983B4B70C</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -4702,11 +4690,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>D28CE5FE-0E4A-4CD4-8E1C-AEAD3413BB0A</string>
+				<string>0FAFD862-8F7D-4271-8E1C-AF272DF386DD</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -4755,11 +4743,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>12FEE4EC-8ED9-43B2-995A-680881B212B4</string>
+				<string>7DFBADB7-977A-4649-9CE9-3F68A77DD596</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -4808,11 +4796,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>639AA237-AECD-4533-B08A-044702E20BF6</string>
+				<string>FEF8E390-1697-45DF-AAE3-C5BAC8CA9277</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -4861,11 +4849,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>6E9D8289-1E2F-459B-8385-E590E084073E</string>
+				<string>25B6C0CD-B408-447C-968F-BE1D7D399975</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -4876,8 +4864,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5043,11 +5029,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>B67EC067-897D-448E-AA05-DED9AC96BE45</string>
+				<string>CA00BA9D-D3E1-4143-A308-1660AAAE52BE</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5096,11 +5082,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>FCCD7C2C-D5BB-476A-975B-CCB3EA347979</string>
+				<string>58F26C97-5E3B-43F2-B81C-9E2261F1DDAD</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5149,11 +5135,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>D12AE814-66DC-4398-967D-AF35F3C39283</string>
+				<string>F331C428-75DD-4AC7-BA8D-7D77945EDC54</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5202,11 +5188,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>A714BD83-776B-418D-8412-28AD614AF777</string>
+				<string>150CD6FD-27CD-4FB5-92AA-010B6C96457A</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5255,11 +5241,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>552EE3FF-42B9-4481-9ADD-AD197F662B87</string>
+				<string>ACD9498D-B9F3-4646-B03B-97A2D6551968</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5308,11 +5294,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>28D93B1D-3F0B-4334-B1EB-68B638841136</string>
+				<string>6D7CBD95-AE74-4FD6-9688-B0BDF618F871</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5361,11 +5347,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>3EFE40B2-06EC-41F6-B57C-875FFD698015</string>
+				<string>9DB6D7AF-A90B-402C-871B-689909DCF22F</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5414,11 +5400,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>1D5E1F94-4057-449F-A22B-0B560B099E1D</string>
+				<string>544BEBCF-3767-4441-8ECE-A4C9B321141A</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5467,11 +5453,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>5195BEE6-3368-4450-A153-B1CF671854A1</string>
+				<string>1AC35AA5-5CB4-4876-8867-4EDBC520D6E5</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5520,11 +5506,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>CD2A99D1-E384-47AA-8FFE-C9A35ED680E8</string>
+				<string>C22826A5-7016-42EC-84DC-4A76413A4BBB</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5535,8 +5521,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5702,11 +5686,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>1A3A58B5-9435-4A00-8773-4D2C44E830E8</string>
+				<string>F8FD9AD3-9380-483A-813B-645399902041</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5755,11 +5739,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>7D9C89E0-A150-4EDC-8E59-9D1231223169</string>
+				<string>516332DC-6282-489F-8BF0-EA7856A44D44</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5770,8 +5754,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5937,11 +5919,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>95FEB02D-C71D-4450-ACA8-C16418D47D64</string>
+				<string>24AD4E31-A431-482B-9069-85A5D40039B2</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -5952,8 +5934,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6119,11 +6099,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>15D3B0AC-9D25-44B6-924B-349D2BE0BD1F</string>
+				<string>85E2AD7D-9626-4F56-B32E-2F8B8BF70AE9</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -6134,8 +6114,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6706,11 +6684,11 @@ console.log(msg)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>24E165D1-85A7-4F3E-AEE3-6DC429412E61</string>
+				<string>0A90E581-F1CB-4A1E-8CEE-89BF70687639</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -7042,11 +7020,11 @@ vo.output(value)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>EE5D585E-A0DB-4E6F-86E2-FBAD60191DE0</string>
+				<string>219440A4-67E2-4126-84B5-83986B4FBD26</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -7095,11 +7073,11 @@ vo.output(value)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>7D15B804-18EA-4829-9F55-C9E4D0105EC5</string>
+				<string>C0DC9123-CCD5-4B28-B0FD-162890539DB9</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -7148,11 +7126,11 @@ vo.output(value)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>F7ADA5A0-16B6-4383-A419-57967E4C92DA</string>
+				<string>3C28C82A-2D22-4CD2-B30B-65EA63735673</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -7201,11 +7179,11 @@ vo.output(value)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>067121FB-56CD-46E9-86F2-CCCF2130BAF9</string>
+				<string>DD323F03-C862-4A46-83AC-EB9B97573F44</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -9855,11 +9833,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>A83478F8-893D-417B-8EEE-C5C9F12C5A34</string>
+				<string>ECFD2AD3-DA62-4167-89D5-7A11E98C9E8A</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -9870,8 +9848,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -9965,8 +9941,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10062,8 +10036,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10159,8 +10131,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10254,8 +10224,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10373,8 +10341,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10885,11 +10851,11 @@ vo.output(name)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>A5E0DF51-9740-40AD-9854-181D88E34BC4</string>
+				<string>78A121B9-C778-4B1C-9980-2DDE006C5DC4</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -10900,8 +10866,6 @@ vo.output(name)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11067,11 +11031,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>1A66397E-F787-4D5B-A13C-1D35E5B904C3</string>
+				<string>FEF8F78E-7725-421C-8626-74D143A895AC</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11120,11 +11084,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>359F3CD5-E438-4A8F-9A46-112E1DBC65C4</string>
+				<string>1D6BE51D-F8C4-49AA-AB63-597608CA2CB3</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11173,11 +11137,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>668FBC8C-DB2F-491E-B484-8D1D71613C55</string>
+				<string>CB33B3B3-2F6F-4819-8359-2CC9887C9397</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11226,11 +11190,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>0C46B0F1-0A61-45C7-ADEB-25D8A98FE726</string>
+				<string>9949DB78-9ABC-4C20-9F8A-D1E108787277</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11279,11 +11243,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>0FEF19D1-EAE0-43F7-84DE-17B5A323F421</string>
+				<string>481E9A27-3EE2-43BC-966A-E103FF835E95</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11332,11 +11296,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>8C869BDB-7F19-4BD7-A62B-88C2AA7CE8A3</string>
+				<string>EEE92EA6-F798-44C5-9EA6-0908CE4C46E7</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11385,11 +11349,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>CE426FA7-EC72-4767-963F-4449C394DD46</string>
+				<string>2453DA8B-2BEC-409A-843F-68E23456F136</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11438,11 +11402,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>5DCAE415-77B3-4D52-BDFB-7545A52A36BD</string>
+				<string>59148A18-B812-49DD-B7E7-DF29EFF0147D</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11491,11 +11455,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>6B5D9498-2635-445F-BF21-DA49A283D595</string>
+				<string>47F0FA80-ED24-4FD4-834B-68DDA3B52909</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11544,11 +11508,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>F7528E1E-48BF-4BC1-9429-B97D40F8083B</string>
+				<string>7574BD46-4FCD-4026-8FA7-B273027C1456</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11597,11 +11561,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>6DF509EA-171A-4488-BF50-474D2C27A6FD</string>
+				<string>4AEBB615-1F8B-46A1-BF53-533D1820FF6F</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11612,8 +11576,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -11779,11 +11741,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>A860449C-0E11-4439-BFD7-CBE38E8589F1</string>
+				<string>B2F21982-69CE-4F49-8F29-82E545ECF82B</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11832,11 +11794,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>B006EAD2-1A17-4BD0-94C9-ED90FB70453F</string>
+				<string>214A2C42-58D9-4CED-846F-819C08918728</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11885,11 +11847,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>2EE0B1E9-3E00-4704-992F-0F0ABC927431</string>
+				<string>4DD9729B-7A9A-40B4-AF64-D1274BEA876F</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11938,11 +11900,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>D8103424-17F8-4AA8-99C3-12BC903EF1E3</string>
+				<string>37F8CB54-16D4-46BB-854F-DF181CE99A49</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -11991,11 +11953,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>00829C61-7643-43A1-845B-6FEAFA34D952</string>
+				<string>28581CEE-0875-4C8B-9776-FF3D27E3696B</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -12044,11 +12006,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>01F7DB52-68EF-4840-A16F-4010164FF541</string>
+				<string>F2F3444B-CC64-4E75-939D-3967E9DD3323</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -12477,11 +12439,11 @@ vo.output(name)
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>58905FAA-9317-4E57-9204-EE05A67B1D28</string>
+				<string>A9DC53D4-ED5C-4027-8117-C5661CCFE57E</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -12858,11 +12820,11 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>32AB568A-508D-41E8-8E3C-8DE409D8B0D3</string>
+				<string>F88FC959-CBDF-4A22-A353-C95D2584254A</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -12873,8 +12835,6 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13040,11 +13000,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>2F9819AC-93F7-4488-BA3A-37D9ECF01D02</string>
+				<string>D67B3974-123B-48A1-B2EB-4A6013DB4710</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -13093,11 +13053,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>768CCBE7-A1EC-47E7-A71F-5AE503EB16E3</string>
+				<string>D808BAF8-8818-4DE4-93F3-3CFE6ED89FF8</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -13146,11 +13106,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>98CCA116-CD6D-4F18-94D0-090BFAE2538E</string>
+				<string>A0C865E1-CE7E-4BAE-AC23-A57FAE8708DE</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -13199,11 +13159,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>B7F09945-EED6-4051-8E52-CC55D146D192</string>
+				<string>1CFB27B6-91CC-428F-9DD3-B3F9A6B16750</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -13252,11 +13212,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>F550D13D-6349-49F6-9FF6-A156E902DBB0</string>
+				<string>B751EAE2-1419-48EB-B992-036A2B9F101F</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -13305,11 +13265,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>CAD78059-4D0F-4AF3-991E-400222A83365</string>
+				<string>85C0D61D-926B-4B63-959D-E2B26FCD3A66</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -13358,11 +13318,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>55C9FB69-24ED-4078-8889-8559F5700973</string>
+				<string>308DEDC1-A828-4944-BAB3-998AE2FAF0F9</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -13411,11 +13371,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>2A1D86AD-08E0-47B0-95E9-D1E22AC2859B</string>
+				<string>A38280B8-5C60-44D1-836D-1CB9B17D4599</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -13464,11 +13424,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>F5277669-A055-4DB2-B70A-E657E92B6175</string>
+				<string>AE0126FB-767E-47A5-8DFB-A5FF221A8EF7</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -13517,11 +13477,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>8B60272A-F695-49CF-B8FE-082900E12D04</string>
+				<string>12D89BAA-10D2-476D-9D61-B013B8EFC9AB</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -13570,11 +13530,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>765A1FA9-ECF4-4947-BC53-30D4A53FA233</string>
+				<string>E9314F6E-5035-4524-9F69-1B53D1951DB0</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -13623,11 +13583,11 @@ kme.setvariable("y", {to:""+y})
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>CCF86440-0EAB-41B5-8241-966220D0E5CE</string>
+				<string>D5CA329F-AB9A-438C-96BA-A4AD42D5A52D</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -22516,9 +22476,9 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>503191698.386913</real>
 				<key>ModificationDate</key>
-				<real>503974839.48501998</real>
+				<real>504229814.42023998</real>
 				<key>Name</key>
-				<string>Toggle Flo Tools Numpad</string>
+				<string>Toggle Flo Tools Num Pad</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -23140,11 +23100,11 @@ if (runSingle) single()
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>F39BCB2F-09F4-4D35-B13B-33BDE4A6685A</string>
+				<string>91C11CD5-7170-4B12-8EC2-7112E236459A</string>
 			</dict>
 		</array>
 		<key>Name</key>
-		<string>Flo Tools Numpad</string>
+		<string>Flo Tools Num Pad</string>
 		<key>ToggleMacroUID</key>
 		<string>625C94F2-0ECA-4595-B624-FB4B4B97BCCC</string>
 		<key>UID</key>
@@ -23155,8 +23115,6 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
