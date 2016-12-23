@@ -141,7 +141,8 @@ Where two actions are listed, double-tapping the key will perform the second act
 
 The Flo Tools Global group is mentioned here only for reference purposes, and only needs to be modified if you desire to change shortcuts to toggle the Flo Tools Mouse or Flo Tools numpad groups.
 
-This group also contains a macro that allows Flo Tools to run only while the VoiceOver screenreader is active. This is to avoid possible conflicts with other sighted users of the computer.
+This group also contains a macro that allows Flo Tools to run only while the VoiceOver screenreader is active. This is to avoid possible conflicts with other sighted users of the computer.
+
 ## Flo Tools Inspector:
 
 The Flo Tools Inspector group of commands is inactive by default, but can be toggled on and off. Inspector commands only apply to the track on which VoiceOver is currently focused . This means the track name must be under the VoiceOver cursor, and the user should not be interacting with anything inside the track.
@@ -240,7 +241,9 @@ Below is the list of remapped keyboard keys when using the numpad group.
 
 
 ## Flo Tools Plugin:
-These Flo Tools commands are used inside of Pro Tools plugins.
+
+
+These Flo Tools commands are used inside of Pro Tools plugins.
 
 Where 2 actions are listed, double tapping the key will perform the second action.
 
@@ -316,7 +319,7 @@ The Flo Tools team will use this information to determine what the problem and s
 
 # Changelog:
 
-##Flo Tools 2.0:
+## Flo Tools 2.0:
 
 - Changed "activate inspector" command to toggle. pressing / once will toggle the inspector on and off.
 - Added speak/edit tempo. Press Command+f11 to speak the current tempo. Double tap Command+f11 to edit the tempo value.
