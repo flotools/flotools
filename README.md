@@ -304,7 +304,7 @@ GitHub provides a convenient and reliable way to track and resolve issues. Pleas
 Before reporting an issue, please check that the item being queried by Flo Tools is visible on the screen if Flo Tools is not functioning as expected. For example, if 1 is pressed to report insert A of a track, and nothing is spoken, make sure that inserts A through E are checked in the view menu before reporting this as a Flo Tools issue.
 
 
-## Generating Report
+## Generating A Report
 
 When troubleshooting a problem, it might occasionally be necessary to have Keyboard Maestro generate a report when a script fails. By default, Flo Tools will ignore errors but, for diagnostic purposes, it might be necessary to provide those results to the Flo Tools team. Follow these steps to generate the error message:
 
@@ -317,11 +317,11 @@ When troubleshooting a problem, it might occasionally be necessary to have Keybo
 
 The Flo Tools team will use this information to determine what the problem and solution might be. You might be asked to make a change to your system or session file to troubleshoot further. Once the issue is identified and/or resolved, you can change the results preference in the action group back to "Ignore Results."
 
-# Changelog:
+# ChangeLog:
 
 ## Flo Tools 2.0:
 
-- Changed "activate inspector" command to toggle. pressing / once will toggle the inspector on and off.
+- Changed "activate inspector" command to toggle. pressing / once will toggle the inspector on and off. Shift+/ is now used for "Speak/Toggle Link Timeline and Edit Selection."
 - Added speak/edit tempo. Press Command+f11 to speak the current tempo. Double tap Command+f11 to edit the tempo value.
 - Added increase/decrease volume/pan.
  - When the Inspector is on, pressing Command+Control+up/down arrows adjusts the track volume fader.
