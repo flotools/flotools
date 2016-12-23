@@ -134,6 +134,7 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Speak/Toggle Metronome:	Option+num pad 7
 - Speak/Toggle Count In:	Option+num pad8
 - Speak/Toggle Midi Merge:	Option+num pad 9
+- Speak/Toggle Link Timeline and Edit Selection: Shift+/
 
 
 ## Flo Tools Global:
