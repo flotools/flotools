@@ -14601,11 +14601,12 @@ mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
 masterFilter = {name:{_endsWith:" - Master Track"}}
 auxFilter = {name:{_endsWith:" - Aux Track"}}
+auxiliaryFilter = {name:{_endsWith:" - Auxiliary Track"}}
 armSpecifier = ObjectSpecifier().buttons["Track Record Enable"].value
 armFilter = {_match:[armSpecifier,""]}
 safeFilter = {_match:[armSpecifier,{_contains:"safe"}]}
 inactiveFilter = {_match:[armSpecifier,{_contains:"inactive"}]}
-tracks = mix.groups.whose({_and:[{_not:[groupFilter, auxFilter, masterFilter, armFilter, inactiveFilter]}, safeFilter]}).name()
+tracks = mix.groups.whose({_and:[{_not:[groupFilter, auxFilter, auxiliaryFilter, masterFilter, armFilter, inactiveFilter]}, safeFilter]}).name()
 msg = ""
 for (t in tracks) {
 msg += tracks[t]+". "
@@ -14632,7 +14633,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>494360196.80965501</real>
 				<key>ModificationDate</key>
-				<real>501969999.545093</real>
+				<real>504219429.04386598</real>
 				<key>Name</key>
 				<string>Speak Record Safe Tracks</string>
 				<key>Triggers</key>
@@ -21545,6 +21546,128 @@ if (runSingle) single()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
+						<string>currentCommand = "s/"
+
+function single() {
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+value = edit.groups.byName("Cursor Tool Cluster").buttons.byName("Link Timeline and Edit Selection").value()
+if (value == "Selected") vo.output ("Timeline and Edit Selection Linked")
+else vo.output("Timeline and Edit Selection Unlinked")
+}
+
+function double() {
+vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+button = edit.groups.byName("Cursor Tool Cluster").buttons.byName("Link Timeline and Edit Selection")
+button.click()
+delay(0.1)
+value = button.value()
+if (value == "Selected") vo.output ("Timeline and Edit Selection Linked")
+else vo.output("Timeline and Edit Selection Unlinked")
+}
+
+kme = Application("Keyboard Maestro Engine")
+command = kme.getvariable("command").split(".")
+start = new Date().getTime()
+kme.setvariable("command", {to:currentCommand+"."+start})
+if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
+double()
+} else  {
+runSingle = true
+while (new Date().getTime()-start&lt;200) {
+command = kme.getvariable("command").split(".")
+if (currentCommand == command[0] &amp; command[1]&gt;start) {
+runSingle=false
+break;
+}
+}
+if (runSingle) single()
+}
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>504213774.90926999</real>
+				<key>ModificationDate</key>
+				<real>504220321.02196002</real>
+				<key>Name</key>
+				<string>Speak/Toggle Link Timeline And Edit Selection</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>44</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>6EF50BCB-FACB-4B57-807F-17138E576EBC</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
 						<string>currentCommand = "on7"
 
 function single() {
@@ -21679,6 +21802,7 @@ merge = edit.groups.byName("MIDI Control Cluster").buttons.byName("MIDI Merge").
 if (merge == "Selected") vo.output ("Midi merge On")
 else vo.output("Midi merge off")
 }
+
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -21725,7 +21849,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>494795854.63419902</real>
 				<key>ModificationDate</key>
-				<real>494800474.72656798</real>
+				<real>504214568.52021003</real>
 				<key>Name</key>
 				<string>Speak/Toggle Midi Merge</string>
 				<key>Triggers</key>
