@@ -12,7 +12,7 @@ What’s new in Flo Tools 2.0, you ask? Well, sit back and let us tell you!
 
 Keep in mind that you’ll first need to either press delete or the decimal key to make sure you’re entering the value in front of the decimal.
 
-• Remember how handy it was the first time you had the Inspector speak the volume and pan settings of a track without the need to interact? Well, Flo Tools now takes it a step further by allowing you to change those values as well, all without the need to interact.
+• Remember how awesome it was the first time you had the Inspector speak the volume and pan settings of a track without the need to interact? Well, Flo Tools now takes it a step further by allowing you to change those values as well, all without the need to interact.
 
 Pressing Command+Control+up/down arrows adjusts the track volume while Command+Control+left/right arrows adjusts the pan. For stereo tracks, Command+Control+left/right arrows adjusts the left channel while adding the Shift modifier adjusts the right channel.
 
@@ -20,7 +20,9 @@ Let’s see how long it takes you to remember that you don’t have to interact 
 
 • The modified mouse clicks in Flo Tools were so popular that we decided to make them available outside of Pro Tools, but we needed a way to toggle them on and off easily so we split the commands off into their own macro group that can be enabled/disabled by pressing Command+/. We’ve also added new navigation commands for moving the mouse pointer with the keyboard.
 
-Press Command+Option+Shift+up/down/left/right arrows to move the mouse pointer up, down, left and right respectively by increments of 10 points at a time (about an eighth of an inch). There are several commands for navigating plug-in parameters in the new Plug-In Views feature which you can read about [here.](/Plug-In Views/) In addition, there are a couple of shortcuts that make it possible to speak mouse pointer coordinates relative to the top left corner of the current window , and copy them to the clipboard at the same time. It’s also possible to move the mouse pointer to specific coordinates within a window by typing or pasting a value into an edit field. Now that’s something that even Apple hasn’t thought of yet, but, hey, Flo Tools can handle that.
+Press Command+Option+Shift+up/down/left/right arrows to move the mouse pointer up, down, left and right respectively by increments of 10 points at a time (about an eighth of an inch).
+
+•There are several commands for navigating plug-in parameters in the new Plug-In Views feature which you can read about [here.](/Plug-In Views/) In addition, there are a couple of shortcuts that make it possible to speak mouse pointer coordinates relative to the top left corner of the current window , and copy them to the clipboard at the same time. It’s also possible to move the mouse pointer to specific coordinates within a window by typing or pasting a value into an edit field. Now that’s something that even Apple hasn’t thought of yet, but, hey, Flo Tools can handle that.
 
 • Remember the Plug-In Monitor? well it moved but it left a forwarding address. It now resides in the new Flo Tools Plug-In macro group.
 
