@@ -22,7 +22,7 @@ Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 
 # Flo Tools 2.0:
 
-Flo Tools 2.0 is here! See the What’s New section to learn about the new features and improvements in version 2.0.
+Flo Tools 2.0 is here! See the [What’s New section](/Flo-Tools-2.0-release/) to learn about the new features and improvements in version 2.0.
 
 
 # Download:
@@ -81,9 +81,9 @@ If the default keyboard is not set to "US" in System Preferences, Keyboards, inp
 
 ## Auditory Feedback:
 
-Flo Tools uses 2 distinct sounds to provide auditory feedback when it is performing a task. The first is [This Sound](https://flotools.github.io/Tink.aiff), which tells a user that something has been toggled, such as solo on or off.
+Flo Tools uses 2 distinct sounds to provide auditory feedback when it is performing a task. The first is [This Sound](Tink.aiff), which tells a user that something has been toggled, such as solo on or off.
 
-The second is [This Sound](https://flotools.github.io/Pop.aiff), which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
+The second is [This Sound](Pop.aiff), which signals that something is in process and the user needs to wait for Flo Tools to complete a task. An example of this would be deselecting all tracks in a large session.
 
 
 ## Commands:
@@ -209,7 +209,8 @@ The Flo Tools Mouse group is global, so these commands will work system-wide whe
 - Move mouse down: Command+Option+Shift+down-arrow
 - Move mouse left: Command+Option+Shift+left-arrow
 - Move mouse right: Command+Option+Shift+right-arrow
-- Move Mouse to Center of Current Window: Command+Control+Shift+C
+- Move Mouse to middle of Current Window: Command+Option+Shift+M
+- Move Mouse to Coordinates Relative  to Current Window: Command+Option+Shift+W
 - Zoom/Maximize Window: Command+Option+Shift+z
 
 
