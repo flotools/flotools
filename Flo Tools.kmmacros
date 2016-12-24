@@ -10137,99 +10137,6 @@ kme.setvariable("y", {to:""+y})
 				<key>Actions</key>
 				<array>
 					<dict>
-						<key>Action</key>
-						<string>Move</string>
-						<key>Button</key>
-						<integer>0</integer>
-						<key>ClickCount</key>
-						<integer>0</integer>
-						<key>DisplayMatches</key>
-						<false/>
-						<key>DragHorizontalPosition</key>
-						<string>0</string>
-						<key>DragVerticalPosition</key>
-						<string>0</string>
-						<key>Fuzz</key>
-						<integer>15</integer>
-						<key>HorizontalPositionExpression</key>
-						<string>0</string>
-						<key>MacroActionType</key>
-						<string>MouseMoveAndClick</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>MouseDrag</key>
-						<string>To</string>
-						<key>Relative</key>
-						<string>Window</string>
-						<key>RelativeCorner</key>
-						<string>Center</string>
-						<key>RestoreMouseLocation</key>
-						<false/>
-						<key>VerticalPositionExpression</key>
-						<string>0</string>
-					</dict>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>Application("VoiceOver").output("Mouse moved to center of current window.")</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>459288125.05353701</real>
-				<key>ModificationDate</key>
-				<real>504053372.33247399</real>
-				<key>Name</key>
-				<string>Move Mouse to Center of Current Window</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>8</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>4864</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>C5D8D15D-1E1C-4989-8661-30C6EF54C50F</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Mouse</string>
-		<key>ToggleMacroUID</key>
-		<string>321CC976-8593-4ABD-8444-CCDD1A6704F5</string>
-		<key>UID</key>
-		<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>498884132.43654799</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
 						<key>DisplayKind</key>
 						<string>None</string>
 						<key>IncludeStdErr</key>
@@ -10309,7 +10216,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>498927121.538629</real>
 				<key>ModificationDate</key>
-				<real>501983014.821482</real>
+				<real>504288615.57393003</real>
 				<key>Name</key>
 				<string>Move Mouse to Coordinates Relative  to Current Window</string>
 				<key>Triggers</key>
@@ -10322,11 +10229,104 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>4864</integer>
+						<integer>2816</integer>
 					</dict>
 				</array>
 				<key>UID</key>
 				<string>60C7D611-EC9D-446B-B8D3-E6893E179AD1</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Mouse</string>
+		<key>ToggleMacroUID</key>
+		<string>321CC976-8593-4ABD-8444-CCDD1A6704F5</string>
+		<key>UID</key>
+		<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>498884132.43654799</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Move</string>
+						<key>Button</key>
+						<integer>0</integer>
+						<key>ClickCount</key>
+						<integer>0</integer>
+						<key>DisplayMatches</key>
+						<false/>
+						<key>DragHorizontalPosition</key>
+						<string>0</string>
+						<key>DragVerticalPosition</key>
+						<string>0</string>
+						<key>Fuzz</key>
+						<integer>15</integer>
+						<key>HorizontalPositionExpression</key>
+						<string>0</string>
+						<key>MacroActionType</key>
+						<string>MouseMoveAndClick</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+						<key>MouseDrag</key>
+						<string>To</string>
+						<key>Relative</key>
+						<string>Window</string>
+						<key>RelativeCorner</key>
+						<string>Center</string>
+						<key>RestoreMouseLocation</key>
+						<false/>
+						<key>VerticalPositionExpression</key>
+						<string>0</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Mouse moved to center of current window.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>459288125.05353701</real>
+				<key>ModificationDate</key>
+				<real>504289252.676525</real>
+				<key>Name</key>
+				<string>Move Mouse to middle of Current Window</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>46</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2816</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>C5D8D15D-1E1C-4989-8661-30C6EF54C50F</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -22651,170 +22651,6 @@ if (runSingle) single()
 		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
 		<key>UID</key>
 		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>493839659.76668698</real>
-		<key>FocussedWindowConditionType</key>
-		<string>TitleMatches</string>
-		<key>FocussedWindowTitle</key>
-		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>currentCommand = "sl"
-
-function single() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-tracks = mix.groups
-track = tracks.byName(vo.voCursor.textUnderCursor())
-roleDescription = ObjectSpecifier().roleDescription
-button = track.buttons.whose({_match:[roleDescription,"Level Meter"]})[0]
-meter = ""+button.value()
-if (meter == "") vo.output("No Signal")
-else vo.output (meter)
-}
-
-function double() {
-vo = Application("VoiceOver")
-kme = Application("Keyboard Maestro Engine")
-if (kme.getvariable("FTLevelMonitor") == "1") {
-kme.setvariable("FTLevelMonitor", {to:"0"})
-} else {
-pt = Application("System Events").applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
-tracks = mix.groups
-kme.setvariable("FTLevelMonitor", {to:"1"})
-vo.output("Watching level meter")
-roleDescription = ObjectSpecifier().roleDescription
-while (true) {
-try {
-name = vo.voCursor.textUnderCursor()
-track = tracks.byName(name)
-button = track.buttons.whose({_match:[roleDescription,"Level Meter"]})[0]
-oldValue = ""+button.value()
-while (true) {
-if (kme.getvariable("FTLevelMonitor") != "1") {
-vo.output("Deactivate level monitor")
-break;
-}
-name = vo.voCursor.textUnderCursor()
-track = tracks.byName(name)
-button = track.buttons.whose({_match:[roleDescription,"Level Meter"]})[0]
-currentValue = ""+button.value()
-if (oldValue != currentValue) {
-if (currentValue=="") vo.output("No Level Meter")
-else vo.output(currentValue)
-oldValue = currentValue
-}
-}
-} catch(err) {
-}
-if (kme.getvariable("FTLevelMonitor") != "1") {
-vo.output("Deactivate level monitor")
-break;
-}
-
-}
-}
-}
-
-kme = Application("Keyboard Maestro Engine")
-command = kme.getvariable("command").split(".")
-start = new Date().getTime()
-kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
-kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
-double()
-} else  {
-runSingle = true
-while (new Date().getTime()-start&lt;200) {
-command = kme.getvariable("command").split(".")
-if (currentCommand == command[0] &amp; command[1]&gt;start) {
-runSingle=false
-break;
-}
-}
-if (runSingle) single()
-}
-
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>493739047.38486099</real>
-				<key>ModificationDate</key>
-				<real>495758850.39656198</real>
-				<key>Name</key>
-				<string>Toggle Level Monitor</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>37</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>512</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>7167B885-BA49-4F24-A515-C874110AF45F</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Inspector</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
-		<key>UID</key>
-		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
