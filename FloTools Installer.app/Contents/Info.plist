@@ -22,8 +22,6 @@
 	<string>2.0</string>
 	<key>CFBundleSignature</key>
 	<string>aplt</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>LSMinimumSystemVersionByArchitecture</key>
 	<dict>
 		<key>x86_64</key>

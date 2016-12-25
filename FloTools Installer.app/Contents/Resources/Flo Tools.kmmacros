@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- Flow Tools
- Copyright (C) 2016 Chi Kim, Rocco Fiorentino, Slau Halatyn
- Flow Tools is free software. You can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your discretion) any later version.
- Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY, expressed or implied, of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](http://www.gnu.org/licenses/) for more details.
- -->
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
@@ -2143,22 +2137,6 @@ track.groups["Sends F-J"].buttons[8].click()
 								<key>MacroUID</key>
 								<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
 							</dict>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
-							</dict>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-							</dict>
 						</array>
 						<key>MacroActionType</key>
 						<string>IfThenElse</string>
@@ -2214,7 +2192,7 @@ track.groups["Sends F-J"].buttons[8].click()
 				<key>CreationDate</key>
 				<real>500601912.798648</real>
 				<key>ModificationDate</key>
-				<real>503796306.13217503</real>
+				<real>504327331.12518603</real>
 				<key>Name</key>
 				<string>Auto Toggle Flo Tools</string>
 				<key>Triggers</key>
