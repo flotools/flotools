@@ -6,23 +6,11 @@
 	<dict>
 		<key>Resources/Flo Tools.kmmacros</key>
 		<data>
-		BxrpI0yN1MQ5iEyZGhJTIqDfo+8=
-		</data>
-		<key>Resources/Flo Tools/Plug-In Views/Dyn3 Compressor Limiter.txt</key>
-		<data>
-		C8NUhZsbUhCHMJkMap+nnQ2vpkM=
-		</data>
-		<key>Resources/Flo Tools/Plug-In Views/EQ3 7-Band-1.txt</key>
-		<data>
-		9tUE49jj7BA5lTvfsREgFTGgkIw=
-		</data>
-		<key>Resources/Flo Tools/Plug-In Views/EQ3 7-Band.txt</key>
-		<data>
-		nt11GGx/Sf2A6PxA7JIKs8SCJiM=
+		E0v59VGQ59aWdkDxNmYKfdQu6yo=
 		</data>
 		<key>Resources/Scripts/main.scpt</key>
 		<data>
-		pv6fsyE2GWlK+tPEFF2HokWUwYE=
+		bERQHuWHKz2eZqx3hsCZEXdFruc=
 		</data>
 		<key>Resources/applet.icns</key>
 		<data>
@@ -30,7 +18,7 @@
 		</data>
 		<key>Resources/applet.rsrc</key>
 		<data>
-		IQphz5nWODTyuOH8gByVF+z8oig=
+		ZZsX3v837r39uv1v+/+2zqMfm1o=
 		</data>
 		<key>Resources/description.rtfd/TXT.rtf</key>
 		<data>
@@ -43,55 +31,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			BxrpI0yN1MQ5iEyZGhJTIqDfo+8=
+			E0v59VGQ59aWdkDxNmYKfdQu6yo=
 			</data>
 			<key>hash2</key>
 			<data>
-			hYVP/nQxyM+NA9S4aYrviz7zlI0TFlV1y+i1PT7vRAQ=
-			</data>
-		</dict>
-		<key>Resources/Flo Tools/Plug-In Views/Dyn3 Compressor Limiter.txt</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			C8NUhZsbUhCHMJkMap+nnQ2vpkM=
-			</data>
-			<key>hash2</key>
-			<data>
-			Ex0qVvzYhMILRDFP1wzZKxIjeRRHoPtFxdQXwyE9Pdo=
-			</data>
-		</dict>
-		<key>Resources/Flo Tools/Plug-In Views/EQ3 7-Band-1.txt</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			9tUE49jj7BA5lTvfsREgFTGgkIw=
-			</data>
-			<key>hash2</key>
-			<data>
-			y3vIlR4rZ9UdnAKyj3bZoEgYjRO46GZVj7rW/8TSGvY=
-			</data>
-		</dict>
-		<key>Resources/Flo Tools/Plug-In Views/EQ3 7-Band.txt</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			nt11GGx/Sf2A6PxA7JIKs8SCJiM=
-			</data>
-			<key>hash2</key>
-			<data>
-			5cqpzvTpdvMCpu29EfDmFV53fU5d0QlZdtJd6eWP7gQ=
+			/14KPwpnivOd+8jJCHra8rLa0GREj+IWbXXKIX87fPE=
 			</data>
 		</dict>
 		<key>Resources/Scripts/main.scpt</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			pv6fsyE2GWlK+tPEFF2HokWUwYE=
+			bERQHuWHKz2eZqx3hsCZEXdFruc=
 			</data>
 			<key>hash2</key>
 			<data>
-			Jy+F18D+kaeTzXAZh1njRPuY3SZlOobf9kAn2lzAfxo=
+			Ut00Ka1sbAT5GDL7TUKp14TmxCaXSWF0bQQiHSLNPRE=
 			</data>
 		</dict>
 		<key>Resources/applet.icns</key>
@@ -109,11 +64,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			IQphz5nWODTyuOH8gByVF+z8oig=
+			ZZsX3v837r39uv1v+/+2zqMfm1o=
 			</data>
 			<key>hash2</key>
 			<data>
-			A4FW2IC60UBqVsstW/kP/fn3mFGq1iEtVAoDMROfg6A=
+			W6fVRNE9ukZ3XDKHvAmPyt4vzkpPlLo1VhJH3j1CQ4s=
 			</data>
 		</dict>
 		<key>Resources/description.rtfd/TXT.rtf</key>
