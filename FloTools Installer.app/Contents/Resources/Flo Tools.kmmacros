@@ -46,7 +46,7 @@ skip = kme.getvariable("FTSkip")
 if (current == latest) {
 prompt=""
 } else if (skip != latest) {
-prompt = "You're running "+current+", and the latest is &lt;a href='"+url+"' onClick='go(this.href)'&gt;"+latest+"&lt;/a&gt;. &lt;a href='' onClick='skip("+latest+")'&gt;Skip This Version&lt;/a&gt;, &lt;a href='' onClick='remind()'&gt;Remind Me Later&lt;/a&gt;"
+prompt = "You're running Flo Tools "+current+", and the latest is &lt;a href='"+url+"' onClick='go(this.href)'&gt;"+latest+"&lt;/a&gt;. &lt;a href='' onClick='skip("+latest+")'&gt;Skip This Version&lt;/a&gt;, &lt;a href='' onClick='remind()'&gt;Remind Me Later&lt;/a&gt;"
 } else prompt = ""
 } catch(err) {
 prompt=""
@@ -167,7 +167,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>504592409.105874</real>
+				<real>504594118.282242</real>
 				<key>Name</key>
 				<string>2.0</string>
 				<key>Triggers</key>
@@ -245,9 +245,9 @@ latest = json.version
 url = json.url
 skip = kme.getvariable("FTSkip")
 if (current == latest) {
-prompt = "You're running the latest version "+latest+"."
+prompt = "You're running the latest Flo Tools version "+latest+"."
 } else if (skip != latest) {
-prompt = "You're running "+current+", and the latest is &lt;a href='"+url+"' onClick='go(this.href)'&gt;"+latest+"&lt;/a&gt;. &lt;a href='' onClick='skip("+latest+")'&gt;Skip This Version&lt;/a&gt;, &lt;a href='' onClick='remind()'&gt;Remind Me Later&lt;/a&gt;"
+prompt = "You're running Flo Tools "+current+", and the latest is &lt;a href='"+url+"' onClick='go(this.href)'&gt;"+latest+"&lt;/a&gt;. &lt;a href='' onClick='skip("+latest+")'&gt;Skip This Version&lt;/a&gt;, &lt;a href='' onClick='remind()'&gt;Remind Me Later&lt;/a&gt;"
 } else prompt = ""
 } catch(err) {
 prompt=""
@@ -368,7 +368,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>504591878.65197802</real>
+				<real>504594069.678294</real>
 				<key>Name</key>
 				<string>2.0</string>
 				<key>Triggers</key>
