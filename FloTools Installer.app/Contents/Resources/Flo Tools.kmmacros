@@ -22,7 +22,7 @@
 					</dict>
 					<dict>
 						<key>DisplayKind</key>
-						<string>Window</string>
+						<string>None</string>
 						<key>IncludeStdErr</key>
 						<true/>
 						<key>MacroActionType</key>
@@ -30,12 +30,12 @@
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>url = "https://flotools.github.io/update.json"
+						<string>vo = Application("VoiceOver")
+url = "http://flotools.org/update.json"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
-vo = Application("VoiceOver")
 try {
 cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'"'
 data = app.doShellScript(cmd)
@@ -43,6 +43,8 @@ json = JSON.parse(data)
 latest = json.version
 url = json.url
 skip = kme.getvariable("FTSkip")
+
+vo.output("Current: "+current+", Latest: "+latest+", Skip: "+skip)
 if (current == latest) {
 prompt=""
 } else if (skip != latest) {
@@ -167,7 +169,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>504594118.282242</real>
+				<real>504826808.01499403</real>
 				<key>Name</key>
 				<string>2.0</string>
 				<key>Triggers</key>
@@ -223,7 +225,7 @@ window.KeyboardMaestro.Cancel()
 					</dict>
 					<dict>
 						<key>DisplayKind</key>
-						<string>Window</string>
+						<string>None</string>
 						<key>IncludeStdErr</key>
 						<true/>
 						<key>MacroActionType</key>
@@ -231,7 +233,7 @@ window.KeyboardMaestro.Cancel()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>url = "https://flotools.github.io/update.json"
+						<string>url = "http://flotools.org/update.json"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
 app = Application.currentApplication()
@@ -368,7 +370,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>504594069.678294</real>
+				<real>504826777.26616597</real>
 				<key>Name</key>
 				<string>2.0</string>
 				<key>Triggers</key>
