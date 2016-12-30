@@ -30,10 +30,12 @@
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>vo = Application("VoiceOver")
-url = "http://flotools.org/update.json"
+						<string>url = "http://flotools.org/update.json"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
+var regex = /(\d+\.\d+)/;
+var match = regex.exec(current);
+current = match[1];
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 try {
@@ -43,8 +45,6 @@ json = JSON.parse(data)
 latest = json.version
 url = json.url
 skip = kme.getvariable("FTSkip")
-
-vo.output("Current: "+current+", Latest: "+latest+", Skip: "+skip)
 if (current == latest) {
 prompt=""
 } else if (skip != latest) {
@@ -169,9 +169,9 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>504826808.01499403</real>
+				<real>504832419.07402498</real>
 				<key>Name</key>
-				<string>2.0</string>
+				<string>2.01</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -204,208 +204,6 @@ window.KeyboardMaestro.Cancel()
 		<string>461221CF-A568-4719-9C3F-3D41C05A5B09</string>
 		<key>UID</key>
 		<string>FEA49FEF-1551-453B-9E90-02A376C079B6</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>479078801.99380499</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>MacroActionType</key>
-						<string>SetVariableToText</string>
-						<key>Text</key>
-						<string>%ExecutingThisMacro%</string>
-						<key>Variable</key>
-						<string>command</string>
-					</dict>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>url = "http://flotools.org/update.json"
-kme = Application("Keyboard Maestro Engine")
-current = kme.getvariable("command")
-app = Application.currentApplication()
-app.includeStandardAdditions = true
-vo = Application("VoiceOver")
-try {
-cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'"'
-data = app.doShellScript(cmd)
-json = JSON.parse(data)
-latest = json.version
-url = json.url
-skip = kme.getvariable("FTSkip")
-if (current == latest) {
-prompt = "You're running the latest Flo Tools version "+latest+"."
-} else if (skip != latest) {
-prompt = "You're running Flo Tools "+current+", and the latest is &lt;a href='"+url+"' onClick='go(this.href)'&gt;"+latest+"&lt;/a&gt;. &lt;a href='' onClick='skip("+latest+")'&gt;Skip This Version&lt;/a&gt;, &lt;a href='' onClick='remind()'&gt;Remind Me Later&lt;/a&gt;"
-} else prompt = ""
-} catch(err) {
-prompt=""
-}
-kme.setvariable("FTUrl", {to:""})
-kme.setvariable("FTPrompt", {to:prompt})
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>ConditionType</key>
-									<string>Variable</string>
-									<key>Variable</key>
-									<string>FTPrompt</string>
-									<key>VariableConditionType</key>
-									<string>IsNotEmpty</string>
-									<key>VariableValue</key>
-									<string>value</string>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>MacroActionType</key>
-								<string>CustomPrompt</string>
-								<key>Text</key>
-								<string>&lt;script&gt;
-function KMInit() {
-prompt = window.KeyboardMaestro.GetVariable('FTPrompt')
-window.document.getElementById("prompt").innerHTML = prompt
-}
-function go(url) {
-window.KeyboardMaestro.SetVariable( 'FTUrl', url)
-window.KeyboardMaestro.Cancel()
-}
-
-function skip(v) {
-window.KeyboardMaestro.SetVariable( 'FTUrl', "")
-window.KeyboardMaestro.SetVariable( 'FTSkip', ""+v)
-window.KeyboardMaestro.Cancel()
-}
-
-function remind() {
-window.KeyboardMaestro.SetVariable( 'FTUrl', "")
-window.KeyboardMaestro.Cancel()
-}
-
-&lt;/script&gt;
-&lt;div id='prompt'&gt;&lt;/div&gt;</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-							<dict>
-								<key>Conditions</key>
-								<dict>
-									<key>ConditionList</key>
-									<array>
-										<dict>
-											<key>ConditionType</key>
-											<string>Variable</string>
-											<key>Variable</key>
-											<string>FTUrl</string>
-											<key>VariableConditionType</key>
-											<string>IsNotEmpty</string>
-											<key>VariableValue</key>
-											<string>value</string>
-										</dict>
-									</array>
-									<key>ConditionListMatch</key>
-									<string>All</string>
-								</dict>
-								<key>ElseActions</key>
-								<array/>
-								<key>MacroActionType</key>
-								<string>IfThenElse</string>
-								<key>ThenActions</key>
-								<array>
-									<dict>
-										<key>IsDefaultApplication</key>
-										<true/>
-										<key>MacroActionType</key>
-										<string>OpenURL</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>URL</key>
-										<string>%Variable%FTUrl%</string>
-									</dict>
-								</array>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>500680483.19485301</real>
-				<key>ModificationDate</key>
-				<real>504826777.26616597</real>
-				<key>Name</key>
-				<string>2.0</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>MacroTriggerType</key>
-						<string>StatusMenu</string>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>81FAF053-36E0-44EF-B9B9-F3EA638A0F44</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
-		<key>UID</key>
-		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -6936,6 +6734,210 @@ console.log(msg)
 		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
 		<key>UID</key>
 		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>MacroActionType</key>
+						<string>SetVariableToText</string>
+						<key>Text</key>
+						<string>%ExecutingThisMacro%</string>
+						<key>Variable</key>
+						<string>command</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>url = "http://flotools.org/update.json"
+kme = Application("Keyboard Maestro Engine")
+current = kme.getvariable("command")
+var regex = /(\d+\.\d+)/;
+var match = regex.exec(current);
+current = match[1];
+app = Application.currentApplication()
+app.includeStandardAdditions = true
+try {
+cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'"'
+data = app.doShellScript(cmd)
+json = JSON.parse(data)
+latest = json.version
+url = json.url
+skip = kme.getvariable("FTSkip")
+if (current == latest) {
+prompt = "You're running the latest Flo Tools version "+latest+"."
+} else if (current != latest) {
+prompt = "You're running Flo Tools "+current+", and the latest is &lt;a href='"+url+"' onClick='go(this.href)'&gt;"+latest+"&lt;/a&gt;. &lt;a href='' onClick='skip("+latest+")'&gt;Skip This Version&lt;/a&gt;, &lt;a href='' onClick='remind()'&gt;Remind Me Later&lt;/a&gt;"
+} else prompt = ""
+} catch(err) {
+prompt=""
+}
+kme.setvariable("FTUrl", {to:""})
+kme.setvariable("FTPrompt", {to:prompt})
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>FTPrompt</string>
+									<key>VariableConditionType</key>
+									<string>IsNotEmpty</string>
+									<key>VariableValue</key>
+									<string>value</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>MacroActionType</key>
+								<string>CustomPrompt</string>
+								<key>Text</key>
+								<string>&lt;script&gt;
+function KMInit() {
+prompt = window.KeyboardMaestro.GetVariable('FTPrompt')
+window.document.getElementById("prompt").innerHTML = prompt
+}
+function go(url) {
+window.KeyboardMaestro.SetVariable( 'FTUrl', url)
+window.KeyboardMaestro.Cancel()
+}
+
+function skip(v) {
+window.KeyboardMaestro.SetVariable( 'FTUrl', "")
+window.KeyboardMaestro.SetVariable( 'FTSkip', ""+v)
+window.KeyboardMaestro.Cancel()
+}
+
+function remind() {
+window.KeyboardMaestro.SetVariable( 'FTUrl', "")
+window.KeyboardMaestro.Cancel()
+}
+
+&lt;/script&gt;
+&lt;div id='prompt'&gt;&lt;/div&gt;</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+							<dict>
+								<key>Conditions</key>
+								<dict>
+									<key>ConditionList</key>
+									<array>
+										<dict>
+											<key>ConditionType</key>
+											<string>Variable</string>
+											<key>Variable</key>
+											<string>FTUrl</string>
+											<key>VariableConditionType</key>
+											<string>IsNotEmpty</string>
+											<key>VariableValue</key>
+											<string>value</string>
+										</dict>
+									</array>
+									<key>ConditionListMatch</key>
+									<string>All</string>
+								</dict>
+								<key>ElseActions</key>
+								<array/>
+								<key>MacroActionType</key>
+								<string>IfThenElse</string>
+								<key>ThenActions</key>
+								<array>
+									<dict>
+										<key>IsDefaultApplication</key>
+										<true/>
+										<key>MacroActionType</key>
+										<string>OpenURL</string>
+										<key>TimeOutAbortsMacro</key>
+										<true/>
+										<key>URL</key>
+										<string>%Variable%FTUrl%</string>
+									</dict>
+								</array>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500680483.19485301</real>
+				<key>ModificationDate</key>
+				<real>504833596.36031902</real>
+				<key>Name</key>
+				<string>Flo Tools 2.01. Check for Update</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>MacroTriggerType</key>
+						<string>StatusMenu</string>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>81FAF053-36E0-44EF-B9B9-F3EA638A0F44</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
