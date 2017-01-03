@@ -259,7 +259,9 @@ Where 2 actions are listed, double tapping the key will perform the second actio
  - load default view: Command+0
  - Load Views 1 through 9: Command+1 through 9
  - for more information about plugin views, and how to create them, click [here.](/Plug-In Views/)
+#### Flo Tools Selected Tab:
 
+This group allows Flo Tools to announce the currently selected tab in Pro Tools dialogs, such as preferences and peripherals. Pressing Command+1, Command+2, etc. will trigger this feature.
 
 ## Misc:
 
@@ -277,13 +279,15 @@ This should move the VoiceOver Cursor  inside the edit screen of the macro. VO r
 
 To change it, simply type the new desired shortcut and then stop interacting with the edit area. Be careful not to press command tab here, as this will assign it self as a new shortcut.
 
-### Uninstalling or reinstalling Flo Tools:
+### Reinstalling Flo Tools:
 
 The provided zip file contains both an installer and uninstaller for Flo Tools. If  Flo Tools needs to be reinstalled for any reason, simply run the installer and follow the prompts to be guided through installation. All Flo Tools related macros will be automatically replaced with the ones within the installer. Be sure you have the latest version of the installer by downloading it from the Flo Tools website.
 
-The current version of Flo Tools is 2.0. You can check the version you’re running by opening Pro Tools, and then navigating to the "Keyboard Maestro Engine" Menu Extra and arrowing through the options until you hear "Flo Tools". Arrow down to hear the version number.
+The current version of Flo Tools is 2.01. You can check the version you’re running, and check for updates by opening Pro Tools, and then navigating to the "Keyboard Maestro Engine" Menu Extra and arrowing through the options until you hear "Flo Tools". Arrow down to hear the version number and the option to check for updates.
 
-To uninstall the Flo Tools scripts and associated plugin views, run the uninstaller application and follow the on-screen prompts to remove Flo Tools.
+### Uninstalling Flo Tools:
+
+The uninstaller is only required if you wish to completely remove Flo Tools and its associated files and folders from your computer. To uninstall the Flo Tools scripts and associated plugin views, run the uninstaller application and follow the on-screen prompts to remove Flo Tools.
 
 Please backup any text files in the Plugin Views folder that you’d like to keep, as these will be permanently deleted during Flo Tools removal.
 
@@ -339,3 +343,11 @@ The Flo Tools team will use this information to determine what the problem and s
 - Added version indicator. Go to the Keyboard Maestro Engine menu extra to see the version number.
 - Added num pad group. enable with control+/. See the Num Pad Group of commands for details.
 - Changed clipped tracks to speak tracks with 0DB, option shift 0
+
+###Flo Tools 2.01
+
+- added Flo Tools Update notification. When Pro Tools is opened, Flo Tools will automatically check for updates, and present a dialog if an update is necessary.
+
+###Flo Tools 3.0
+
+- added Flo Tools Selected Tab group. This allows Flo Tools to speak tab names in dialogs such as pro tools preferences or peripherals. Press Command+1, Command+2, etc. to trigger this feature.
