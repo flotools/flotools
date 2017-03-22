@@ -11092,8 +11092,11 @@ else second[1] = second[1]+" milliseconds"
 msg = msg+ms[0]+", "+second[0]
  + ", " + second[1]
 } else msg = start
-}else if (c==1) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
-else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
+}else if (c==1) {
+msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
+msg = msg.replace("#", " Sharp ")
+msg = msg.replace("b", " Flat ")
+} else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
 else if (c==3) {
 length = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Length").value()
 if (length.indexOf("|")&gt;-1) {
@@ -11150,7 +11153,7 @@ Application("VoiceOver").output(msg)</string>
 				<key>CreationDate</key>
 				<real>511908616.39100701</real>
 				<key>ModificationDate</key>
-				<real>511911752.52677298</real>
+				<real>511912227.21874601</real>
 				<key>Name</key>
 				<string>Next Column</string>
 				<key>Triggers</key>
@@ -11486,8 +11489,11 @@ else second[1] = second[1]+" milliseconds"
 msg = msg+ms[0]+", "+second[0]
  + ", " + second[1]
 } else msg = start
-}else if (c==1) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
-else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
+}else if (c==1) {
+msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
+msg = msg.replace("#", " Sharp ")
+msg = msg.replace("b", " Flat ")
+} else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
 else if (c==3) {
 length = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Length").value()
 if (length.indexOf("|")&gt;-1) {
@@ -11544,7 +11550,7 @@ Application("VoiceOver").output(msg)</string>
 				<key>CreationDate</key>
 				<real>511906164.93155497</real>
 				<key>ModificationDate</key>
-				<real>511911747.09088802</real>
+				<real>511912425.60917997</real>
 				<key>Name</key>
 				<string>Next Row</string>
 				<key>Triggers</key>
@@ -12996,8 +13002,11 @@ else second[1] = second[1]+" milliseconds"
 msg = msg+ms[0]+", "+second[0]
  + ", " + second[1]
 } else msg = start
-}else if (c==1) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
-else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
+}else if (c==1) {
+msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
+msg = msg.replace("#", " Sharp ")
+msg = msg.replace("b", " Flat ")
+} else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
 else if (c==3) {
 length = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Length").value()
 if (length.indexOf("|")&gt;-1) {
@@ -13054,7 +13063,7 @@ Application("VoiceOver").output(msg)</string>
 				<key>CreationDate</key>
 				<real>511910722.48384899</real>
 				<key>ModificationDate</key>
-				<real>511911739.73316097</real>
+				<real>511912447.32214701</real>
 				<key>Name</key>
 				<string>Previous Column</string>
 				<key>Triggers</key>
@@ -13393,8 +13402,11 @@ else second[1] = second[1]+" milliseconds"
 msg = msg+ms[0]+", "+second[0]
  + ", " + second[1]
 } else msg = start
-}else if (c==1) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
-else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
+}else if (c==1) {
+msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
+msg = msg.replace("#", " Sharp ")
+msg = msg.replace("b", " Flat ")
+} else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
 else if (c==3) {
 length = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Length").value()
 if (length.indexOf("|")&gt;-1) {
@@ -13451,7 +13463,7 @@ Application("VoiceOver").output(msg)</string>
 				<key>CreationDate</key>
 				<real>511908398.26953202</real>
 				<key>ModificationDate</key>
-				<real>511911731.64410597</real>
+				<real>511912455.75975299</real>
 				<key>Name</key>
 				<string>Previous Row</string>
 				<key>Triggers</key>
