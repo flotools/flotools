@@ -6846,6 +6846,113 @@ console.log(msg)
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>511830181.31949598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleContains</string>
+		<key>FocussedWindowTitle</key>
+		<string>MIDI Event List</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+c = kme.getvariable("FTEventIndex")
+if (c&lt;0) c=0
+else if (c&gt;4) c=4
+kme.setvariable("FTEventIndex", {to:""+c})
+sys = Application('System Events')
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+msg = ""
+if (c==0) {
+edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Start").click()
+msg="Type start value."
+}else if (c==1) {
+edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").click()
+msg="Type pitch value."
+}else if (c==2) {
+edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").click()
+msg="Type velocity value."
+} else if (c==3) {
+length = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Length").click()
+msg="Type length value."
+} else if (c==4) {
+edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection End").click()
+msg="Type end value."
+}
+Application("VoiceOver").output(msg)</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>511911145.30710799</real>
+				<key>ModificationDate</key>
+				<real>511911395.32457399</real>
+				<key>Name</key>
+				<string>Edit Event</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>36</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>6B2C8A77-36CA-4D32-A7B8-D89029E54C4D</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools MIDI Event List</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>51FA4386-6396-4AD7-8A25-D928E83BAE0C</string>
+		<key>UID</key>
+		<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>479078801.99380499</real>
 		<key>Macros</key>
 		<array>
@@ -10937,6 +11044,159 @@ kme.setvariable("y", {to:""+y})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>511830181.31949598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleContains</string>
+		<key>FocussedWindowTitle</key>
+		<string>MIDI Event List</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+c = kme.getvariable("FTEventIndex")
+c++
+if (c&lt;0) c=0
+else if (c&gt;4) c=4
+kme.setvariable("FTEventIndex", {to:""+c})
+sys = Application('System Events')
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+msg = ""
+if (c==0) {
+start = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Start").value()
+if (start.indexOf("|")&gt;-1) {
+mbt = start.split(/\| /)
+msg = msg+"bar "+mbt[0]+", beat"+mbt[1]+", tick"+mbt[2]
+} else if (start.indexOf(".")&gt;-1) {
+ms = start.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = start
+}else if (c==1) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
+else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
+else if (c==3) {
+length = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Length").value()
+if (length.indexOf("|")&gt;-1) {
+mbt = length.split(/\| /)
+if (mbt[0] == 1) mbt[0] += " bar"
+else mbt[0] += " bars"
+if (mbt[1] == 1) mbt[1] += " beat"
+else mbt[1] += " beats"
+if (mbt[2] == 1) mbt[2] += " tick"
+else mbt[2] += " ticks"
+msg = mbt[0]+", "+mbt[1]+", "+mbt[2]
+} else if (length.indexOf(".")&gt;-1) {
+ms = length.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = length
+} else if (c==4) {
+end = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection End").value()
+if (end.indexOf("|")&gt;-1) {
+mbt = end.split(/\| /)
+msg = msg+"bar "+mbt[0]+", beat"+mbt[1]+", tick"+mbt[2]
+}
+else if (end.indexOf(".")&gt;-1) {
+ms = end.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = end
+}
+Application("VoiceOver").output(msg)</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>511908616.39100701</real>
+				<key>ModificationDate</key>
+				<real>511911752.52677298</real>
+				<key>Name</key>
+				<string>Next Column</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>124</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>4E7AA54C-2563-4808-8EAE-D6F248D4B077</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools MIDI Event List</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>51FA4386-6396-4AD7-8A25-D928E83BAE0C</string>
+		<key>UID</key>
+		<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>498359144.78846598</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
@@ -11164,6 +11424,168 @@ vo.output("Next")
 		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
 		<key>UID</key>
 		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>511830181.31949598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleContains</string>
+		<key>FocussedWindowTitle</key>
+		<string>MIDI Event List</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>125</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+c = kme.getvariable("FTEventIndex")
+if (c&lt;0) c=0
+else if (c&gt;4) c=4
+kme.setvariable("FTEventIndex", {to:""+c})
+sys = Application('System Events')
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+msg = ""
+if (c==0) {
+start = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Start").value()
+if (start.indexOf("|")&gt;-1) {
+mbt = start.split(/\| /)
+msg = msg+"bar "+mbt[0]+", beat"+mbt[1]+", tick"+mbt[2]
+} else if (start.indexOf(".")&gt;-1) {
+ms = start.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = start
+}else if (c==1) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
+else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
+else if (c==3) {
+length = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Length").value()
+if (length.indexOf("|")&gt;-1) {
+mbt = length.split(/\| /)
+if (mbt[0] == 1) mbt[0] += " bar"
+else mbt[0] += " bars"
+if (mbt[1] == 1) mbt[1] += " beat"
+else mbt[1] += " beats"
+if (mbt[2] == 1) mbt[2] += " tick"
+else mbt[2] += " ticks"
+msg = mbt[0]+", "+mbt[1]+", "+mbt[2]
+} else if (length.indexOf(".")&gt;-1) {
+ms = length.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = length
+} else if (c==4) {
+end = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection End").value()
+if (end.indexOf("|")&gt;-1) {
+mbt = end.split(/\| /)
+msg = msg+"bar "+mbt[0]+", beat"+mbt[1]+", tick"+mbt[2]
+}
+else if (end.indexOf(".")&gt;-1) {
+ms = end.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = end
+}
+Application("VoiceOver").output(msg)</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>511906164.93155497</real>
+				<key>ModificationDate</key>
+				<real>511911747.09088802</real>
+				<key>Name</key>
+				<string>Next Row</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>125</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>2390930B-A2A2-4FDD-BDF3-7185EAC927D2</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools MIDI Event List</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>51FA4386-6396-4AD7-8A25-D928E83BAE0C</string>
+		<key>UID</key>
+		<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -12526,6 +12948,159 @@ kme.setvariable("y", {to:""+y})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>511830181.31949598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleContains</string>
+		<key>FocussedWindowTitle</key>
+		<string>MIDI Event List</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+c = kme.getvariable("FTEventIndex")
+c--
+if (c&lt;0) c=0
+else if (c&gt;4) c=4
+kme.setvariable("FTEventIndex", {to:""+c})
+sys = Application('System Events')
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+msg = ""
+if (c==0) {
+start = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Start").value()
+if (start.indexOf("|")&gt;-1) {
+mbt = start.split(/\| /)
+msg = msg+"bar "+mbt[0]+", beat"+mbt[1]+", tick"+mbt[2]
+} else if (start.indexOf(".")&gt;-1) {
+ms = start.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = start
+}else if (c==1) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
+else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
+else if (c==3) {
+length = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Length").value()
+if (length.indexOf("|")&gt;-1) {
+mbt = length.split(/\| /)
+if (mbt[0] == 1) mbt[0] += " bar"
+else mbt[0] += " bars"
+if (mbt[1] == 1) mbt[1] += " beat"
+else mbt[1] += " beats"
+if (mbt[2] == 1) mbt[2] += " tick"
+else mbt[2] += " ticks"
+msg = mbt[0]+", "+mbt[1]+", "+mbt[2]
+} else if (length.indexOf(".")&gt;-1) {
+ms = length.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = length
+} else if (c==4) {
+end = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection End").value()
+if (end.indexOf("|")&gt;-1) {
+mbt = end.split(/\| /)
+msg = msg+"bar "+mbt[0]+", beat"+mbt[1]+", tick"+mbt[2]
+}
+else if (end.indexOf(".")&gt;-1) {
+ms = end.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = end
+}
+Application("VoiceOver").output(msg)</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>511910722.48384899</real>
+				<key>ModificationDate</key>
+				<real>511911739.73316097</real>
+				<key>Name</key>
+				<string>Previous Column</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>123</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>9A2488C5-8CEF-424F-BC88-BA88936901AC</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools MIDI Event List</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>51FA4386-6396-4AD7-8A25-D928E83BAE0C</string>
+		<key>UID</key>
+		<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>498359144.78846598</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
@@ -12756,6 +13331,168 @@ vo.output("Previous")
 		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
 		<key>UID</key>
 		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>511830181.31949598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleContains</string>
+		<key>FocussedWindowTitle</key>
+		<string>MIDI Event List</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>126</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+c = kme.getvariable("FTEventIndex")
+if (c&lt;0) c=0
+else if (c&gt;4) c=4
+kme.setvariable("FTEventIndex", {to:""+c})
+sys = Application('System Events')
+pt = sys.applicationProcesses.byName("Pro Tools")
+windows = pt.windows
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+msg = ""
+if (c==0) {
+start = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Start").value()
+if (start.indexOf("|")&gt;-1) {
+mbt = start.split(/\| /)
+msg = msg+"bar "+mbt[0]+", beat"+mbt[1]+", tick"+mbt[2]
+} else if (start.indexOf(".")&gt;-1) {
+ms = start.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = start
+}else if (c==1) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
+else if (c==2) msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
+else if (c==3) {
+length = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Length").value()
+if (length.indexOf("|")&gt;-1) {
+mbt = length.split(/\| /)
+if (mbt[0] == 1) mbt[0] += " bar"
+else mbt[0] += " bars"
+if (mbt[1] == 1) mbt[1] += " beat"
+else mbt[1] += " beats"
+if (mbt[2] == 1) mbt[2] += " tick"
+else mbt[2] += " ticks"
+msg = mbt[0]+", "+mbt[1]+", "+mbt[2]
+} else if (length.indexOf(".")&gt;-1) {
+ms = length.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = length
+} else if (c==4) {
+end = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection End").value()
+if (end.indexOf("|")&gt;-1) {
+mbt = end.split(/\| /)
+msg = msg+"bar "+mbt[0]+", beat"+mbt[1]+", tick"+mbt[2]
+}
+else if (end.indexOf(".")&gt;-1) {
+ms = end.split(/:/)
+if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = msg+ms[0]+", "+second[0]
+ + ", " + second[1]
+} else msg = end
+}
+Application("VoiceOver").output(msg)</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>511908398.26953202</real>
+				<key>ModificationDate</key>
+				<real>511911731.64410597</real>
+				<key>Name</key>
+				<string>Previous Row</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>126</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>036BAE85-86A2-45B5-AEE6-7AB9F9488073</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools MIDI Event List</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>51FA4386-6396-4AD7-8A25-D928E83BAE0C</string>
+		<key>UID</key>
+		<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -16809,127 +17546,6 @@ if (runSingle) single()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>currentCommand = "op"
-
-function single() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
-msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
-vo.output (msg)
-}
-
-function double() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
-edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").click()
-vo.output("Type note pitch")
-}
-
-kme = Application("Keyboard Maestro Engine")
-command = kme.getvariable("command").split(".")
-start = new Date().getTime()
-kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
-kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
-double()
-} else  {
-runSingle = true
-while (new Date().getTime()-start&lt;200) {
-command = kme.getvariable("command").split(".")
-if (currentCommand == command[0] &amp; command[1]&gt;start) {
-runSingle=false
-break;
-}
-}
-if (runSingle) single()
-}
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>479078801.99380499</real>
-				<key>ModificationDate</key>
-				<real>511830661.42083901</real>
-				<key>Name</key>
-				<string>Speak/Edit Selected Note Pitch</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>35</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2048</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>C9FE8E62-2C0C-43CC-B2E8-779F9CC5CB41</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools MIDI Event List</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>51FA4386-6396-4AD7-8A25-D928E83BAE0C</string>
-		<key>UID</key>
-		<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>511830181.31949598</real>
-		<key>FocussedWindowConditionType</key>
-		<string>TitleContains</string>
-		<key>FocussedWindowTitle</key>
-		<string>MIDI Event List</string>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
 						<string>currentCommand = "ov"
 
 function single() {
@@ -17002,127 +17618,6 @@ if (runSingle) single()
 				</array>
 				<key>UID</key>
 				<string>A09642E3-1015-4049-8788-0D827A6565FB</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools MIDI Event List</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>51FA4386-6396-4AD7-8A25-D928E83BAE0C</string>
-		<key>UID</key>
-		<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>511830181.31949598</real>
-		<key>FocussedWindowConditionType</key>
-		<string>TitleContains</string>
-		<key>FocussedWindowTitle</key>
-		<string>MIDI Event List</string>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>Path</key>
-						<string></string>
-						<key>Text</key>
-						<string>currentCommand = "ov"
-
-function single() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
-msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()
-vo.output (msg)
-}
-
-function double() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
-windows = pt.windows
-edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
-edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").click()
-vo.output("Type note velocity")
-}
-
-kme = Application("Keyboard Maestro Engine")
-command = kme.getvariable("command").split(".")
-start = new Date().getTime()
-kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
-kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
-double()
-} else  {
-runSingle = true
-while (new Date().getTime()-start&lt;200) {
-command = kme.getvariable("command").split(".")
-if (currentCommand == command[0] &amp; command[1]&gt;start) {
-runSingle=false
-break;
-}
-}
-if (runSingle) single()
-}
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>511830739.68700898</real>
-				<key>ModificationDate</key>
-				<real>511835648.54678202</real>
-				<key>Name</key>
-				<string>Speak/Edit Selected Note Velocity</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>9</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2048</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>8B19E8BB-581E-4F72-A620-7E351F530C35</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -17512,7 +18007,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479078801.99380499</real>
 				<key>ModificationDate</key>
-				<real>494784285.02383</real>
+				<real>511910172.05860603</real>
 				<key>Name</key>
 				<string>speak/Edit selection start</string>
 				<key>Triggers</key>
