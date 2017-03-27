@@ -6960,7 +6960,7 @@ Application("VoiceOver").output(msg)</string>
 				<key>CreationDate</key>
 				<real>511911145.30710799</real>
 				<key>ModificationDate</key>
-				<real>511911395.32457399</real>
+				<real>512270514.42136502</real>
 				<key>Name</key>
 				<string>Edit Event</string>
 				<key>Triggers</key>
@@ -6973,7 +6973,7 @@ Application("VoiceOver").output(msg)</string>
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>4096</integer>
+						<integer>4352</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -18446,6 +18446,8 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 tempo = edit.groups.byName("MIDI Control Cluster").textFields.byName("Tempo value").click()
+delay(0.1)
+sys.keystroke(".")
 vo.output("Type Tempo.")
 }
 
@@ -18477,21 +18479,11 @@ if (runSingle) single()
 						<key>UseText</key>
 						<true/>
 					</dict>
-					<dict>
-						<key>KeyCode</key>
-						<integer>47</integer>
-						<key>MacroActionType</key>
-						<string>SimulateKeystroke</string>
-						<key>Modifiers</key>
-						<integer>0</integer>
-						<key>ReleaseAll</key>
-						<false/>
-					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>498356372.31517202</real>
 				<key>ModificationDate</key>
-				<real>511914612.471237</real>
+				<real>512268338.36799097</real>
 				<key>Name</key>
 				<string>Speak/Edit Tempo</string>
 				<key>Triggers</key>
