@@ -17345,6 +17345,8 @@ pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
+msg = msg.replace("#", " Sharp ")
+msg = msg.replace("b", " Flat ")
 vo.output (msg)
 }
 
@@ -17390,7 +17392,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479078801.99380499</real>
 				<key>ModificationDate</key>
-				<real>511982661.46012598</real>
+				<real>514833365.84281898</real>
 				<key>Name</key>
 				<string>Speak/Edit Pitch for Selected Note</string>
 				<key>Triggers</key>
@@ -18405,11 +18407,22 @@ sys = Application("System Events")
 pt = sys.applicationProcesses.byName("Pro Tools")
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
-tempo = edit.groups.byName("MIDI Control Cluster").textFields.byName("Tempo value").click()
+tempo = edit.groups.byName("MIDI Control Cluster").textFields.byName("Tempo value")
+w = tempo.size()[0]
+h = tempo.size()[1]
+x = tempo.position()[0]
+y = tempo.position()[1]
+x = x+Math.ceil(w/2)-10
+y = y+Math.ceil(h/2)
+kme.setvariable("x", {to:x})
+kme.setvariable("y", {to:y})
 vo.output("Type Tempo.")
+/*
+tempo.click()
 delay(0.3)
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 sys.keystroke(".")
+*/
 }
 
 kme = Application("Keyboard Maestro Engine")
@@ -18440,11 +18453,43 @@ if (runSingle) single()
 						<key>UseText</key>
 						<true/>
 					</dict>
+					<dict>
+						<key>Action</key>
+						<string>MoveAndClick</string>
+						<key>Button</key>
+						<integer>0</integer>
+						<key>ClickCount</key>
+						<integer>1</integer>
+						<key>DisplayMatches</key>
+						<false/>
+						<key>DragHorizontalPosition</key>
+						<string>0</string>
+						<key>DragVerticalPosition</key>
+						<string>0</string>
+						<key>Fuzz</key>
+						<integer>15</integer>
+						<key>HorizontalPositionExpression</key>
+						<string>x</string>
+						<key>MacroActionType</key>
+						<string>MouseMoveAndClick</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+						<key>MouseDrag</key>
+						<string>None</string>
+						<key>Relative</key>
+						<string>Screen</string>
+						<key>RelativeCorner</key>
+						<string>TopLeft</string>
+						<key>RestoreMouseLocation</key>
+						<false/>
+						<key>VerticalPositionExpression</key>
+						<string>y</string>
+					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>498356372.31517202</real>
 				<key>ModificationDate</key>
-				<real>514827319.32255</real>
+				<real>514832729.75734103</real>
 				<key>Name</key>
 				<string>Speak/Edit Tempo</string>
 				<key>Triggers</key>
