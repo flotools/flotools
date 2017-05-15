@@ -636,8 +636,6 @@ window.KeyboardMaestro.Cancel()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -726,8 +724,6 @@ track.groups["Inserts A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -816,8 +812,6 @@ track.groups["Inserts A-E"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -906,8 +900,6 @@ track.groups["Inserts A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -996,8 +988,6 @@ track.groups["Inserts A-E"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1086,8 +1076,6 @@ track.groups["Inserts A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1176,8 +1164,6 @@ track.groups["Inserts F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1266,8 +1252,6 @@ track.groups["Inserts F-J"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1356,8 +1340,6 @@ track.groups["Inserts F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1446,8 +1428,6 @@ track.groups["Inserts F-J"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1536,8 +1516,6 @@ track.groups["Inserts F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1626,8 +1604,6 @@ track.groups["Sends A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1716,8 +1692,6 @@ track.groups["Sends A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1806,8 +1780,6 @@ track.groups["Sends A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1896,8 +1868,6 @@ track.groups["Sends A-E"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1986,8 +1956,6 @@ track.groups["Sends A-E"].buttons[8].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2076,8 +2044,6 @@ track.groups["Sends F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2166,8 +2132,6 @@ track.groups["Sends F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2256,8 +2220,6 @@ track.groups["Sends F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2346,8 +2308,6 @@ track.groups["Sends F-J"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3315,8 +3275,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3439,8 +3397,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3563,8 +3519,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7100,8 +7054,6 @@ kme.setvariable("FTLevelMonitor", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7193,8 +7145,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7287,8 +7237,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7383,8 +7331,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7728,8 +7674,6 @@ Application("VoiceOver").output(msg)</string>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7821,8 +7765,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7915,8 +7857,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8011,8 +7951,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12265,9 +12203,12 @@ kme.setvariable("y", {to:""+y})
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 c = kme.getvariable("FTEventIndex")
+if (c!=5) {
 c++
 if (c&gt;5) c=5
 kme.setvariable("FTEventIndex", {to:""+c})
+kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
+} else Application("VoiceOver").output("End")
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -12278,156 +12219,11 @@ kme.setvariable("FTEventIndex", {to:""+c})
 						<key>UseText</key>
 						<true/>
 					</dict>
-					<dict>
-						<key>CaseEntries</key>
-						<array>
-							<dict>
-								<key>Actions</key>
-								<array/>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>-1</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>01E81CD7-D2A8-4D63-8B45-4367740B50E1</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>0</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>64AD6935-BC5A-4A2C-A7EC-6CF57B3DDE74</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>1</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>D7EE1801-A2E8-4FFF-B4BD-A4C8305CE671</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>2</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>6416169E-740D-416B-811A-68DBBB80B9B9</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>3</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>3452EDAF-2EA5-4546-A6DF-69C56207EB3C</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>4</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>2ED91EBB-3D9D-47A8-AB4A-58681E8CAC9B</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>5</string>
-							</dict>
-						</array>
-						<key>MacroActionType</key>
-						<string>Switch</string>
-						<key>Source</key>
-						<string>Variable</string>
-						<key>Variable</key>
-						<string>FTEventIndex</string>
-					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>511908616.39100701</real>
 				<key>ModificationDate</key>
-				<real>516518749.44581199</real>
+				<real>516551898.89875799</real>
 				<key>Name</key>
 				<string>Next Column</string>
 				<key>Triggers</key>
@@ -14085,10 +13881,13 @@ kme.setvariable("y", {to:""+y})
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 c = kme.getvariable("FTEventIndex")
+if (c!=-1) {
 c--
-if (c&lt;-1) c=-1
+if (c&lt;-1) c = -1
 kme.setvariable("FTEventIndex", {to:""+c})
-if (c==-1) Application("VoiceOver").output("No report")
+if (c== -1) Application("VoiceOver").output("No report")
+else kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
+} else Application("VoiceOver").output("No report")
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -14099,156 +13898,11 @@ if (c==-1) Application("VoiceOver").output("No report")
 						<key>UseText</key>
 						<true/>
 					</dict>
-					<dict>
-						<key>CaseEntries</key>
-						<array>
-							<dict>
-								<key>Actions</key>
-								<array/>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>-1</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>01E81CD7-D2A8-4D63-8B45-4367740B50E1</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>0</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>64AD6935-BC5A-4A2C-A7EC-6CF57B3DDE74</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>1</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>D7EE1801-A2E8-4FFF-B4BD-A4C8305CE671</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>2</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>6416169E-740D-416B-811A-68DBBB80B9B9</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>3</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>3452EDAF-2EA5-4546-A6DF-69C56207EB3C</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>4</string>
-							</dict>
-							<dict>
-								<key>Actions</key>
-								<array>
-									<dict>
-										<key>Asynchronously</key>
-										<false/>
-										<key>MacroActionType</key>
-										<string>ExecuteMacro</string>
-										<key>MacroUID</key>
-										<string>2ED91EBB-3D9D-47A8-AB4A-58681E8CAC9B</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>UseParameter</key>
-										<false/>
-									</dict>
-								</array>
-								<key>ConditionType</key>
-								<string>Contains</string>
-								<key>TestValue</key>
-								<string>5</string>
-							</dict>
-						</array>
-						<key>MacroActionType</key>
-						<string>Switch</string>
-						<key>Source</key>
-						<string>Variable</string>
-						<key>Variable</key>
-						<string>FTEventIndex</string>
-					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>511910722.48384899</real>
 				<key>ModificationDate</key>
-				<real>516518293.90240502</real>
+				<real>516552307.12946802</real>
 				<key>Name</key>
 				<string>Previous Column</string>
 				<key>Triggers</key>
@@ -14670,6 +14324,193 @@ vo.output(name)
 		<string>263478D3-F5DF-49C9-ADDC-9374F9B299CE</string>
 		<key>UID</key>
 		<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>511830181.31949598</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^(Mix:|Edit:|MIDI Event List)</string>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>CaseEntries</key>
+						<array>
+							<dict>
+								<key>Actions</key>
+								<array>
+									<dict>
+										<key>Asynchronously</key>
+										<false/>
+										<key>MacroActionType</key>
+										<string>ExecuteMacro</string>
+										<key>MacroUID</key>
+										<string>01E81CD7-D2A8-4D63-8B45-4367740B50E1</string>
+										<key>TimeOutAbortsMacro</key>
+										<true/>
+										<key>UseParameter</key>
+										<false/>
+									</dict>
+								</array>
+								<key>ConditionType</key>
+								<string>Contains</string>
+								<key>TestValue</key>
+								<string>0</string>
+							</dict>
+							<dict>
+								<key>Actions</key>
+								<array>
+									<dict>
+										<key>Asynchronously</key>
+										<false/>
+										<key>MacroActionType</key>
+										<string>ExecuteMacro</string>
+										<key>MacroUID</key>
+										<string>64AD6935-BC5A-4A2C-A7EC-6CF57B3DDE74</string>
+										<key>TimeOutAbortsMacro</key>
+										<true/>
+										<key>UseParameter</key>
+										<false/>
+									</dict>
+								</array>
+								<key>ConditionType</key>
+								<string>Contains</string>
+								<key>TestValue</key>
+								<string>1</string>
+							</dict>
+							<dict>
+								<key>Actions</key>
+								<array>
+									<dict>
+										<key>Asynchronously</key>
+										<false/>
+										<key>MacroActionType</key>
+										<string>ExecuteMacro</string>
+										<key>MacroUID</key>
+										<string>D7EE1801-A2E8-4FFF-B4BD-A4C8305CE671</string>
+										<key>TimeOutAbortsMacro</key>
+										<true/>
+										<key>UseParameter</key>
+										<false/>
+									</dict>
+								</array>
+								<key>ConditionType</key>
+								<string>Contains</string>
+								<key>TestValue</key>
+								<string>2</string>
+							</dict>
+							<dict>
+								<key>Actions</key>
+								<array>
+									<dict>
+										<key>Asynchronously</key>
+										<false/>
+										<key>MacroActionType</key>
+										<string>ExecuteMacro</string>
+										<key>MacroUID</key>
+										<string>6416169E-740D-416B-811A-68DBBB80B9B9</string>
+										<key>TimeOutAbortsMacro</key>
+										<true/>
+										<key>UseParameter</key>
+										<false/>
+									</dict>
+								</array>
+								<key>ConditionType</key>
+								<string>Contains</string>
+								<key>TestValue</key>
+								<string>3</string>
+							</dict>
+							<dict>
+								<key>Actions</key>
+								<array>
+									<dict>
+										<key>Asynchronously</key>
+										<false/>
+										<key>MacroActionType</key>
+										<string>ExecuteMacro</string>
+										<key>MacroUID</key>
+										<string>3452EDAF-2EA5-4546-A6DF-69C56207EB3C</string>
+										<key>TimeOutAbortsMacro</key>
+										<true/>
+										<key>UseParameter</key>
+										<false/>
+									</dict>
+								</array>
+								<key>ConditionType</key>
+								<string>Contains</string>
+								<key>TestValue</key>
+								<string>4</string>
+							</dict>
+							<dict>
+								<key>Actions</key>
+								<array>
+									<dict>
+										<key>Asynchronously</key>
+										<false/>
+										<key>MacroActionType</key>
+										<string>ExecuteMacro</string>
+										<key>MacroUID</key>
+										<string>2ED91EBB-3D9D-47A8-AB4A-58681E8CAC9B</string>
+										<key>TimeOutAbortsMacro</key>
+										<true/>
+										<key>UseParameter</key>
+										<false/>
+									</dict>
+								</array>
+								<key>ConditionType</key>
+								<string>Contains</string>
+								<key>TestValue</key>
+								<string>5</string>
+							</dict>
+						</array>
+						<key>MacroActionType</key>
+						<string>Switch</string>
+						<key>Source</key>
+						<string>Variable</string>
+						<key>Variable</key>
+						<string>FTEventIndex</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>516549833.16678602</real>
+				<key>ModificationDate</key>
+				<real>516552015.45280099</real>
+				<key>Name</key>
+				<string>Report</string>
+				<key>Triggers</key>
+				<array/>
+				<key>UID</key>
+				<string>0FCAC0B8-1482-4A8F-A388-280908A39AE6</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools MIDI Event List</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>51FA4386-6396-4AD7-8A25-D928E83BAE0C</string>
+		<key>UID</key>
+		<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -16133,8 +15974,6 @@ kme.setvariable("y", {to:""+y})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16221,8 +16060,6 @@ kme.setvariable("FTGRMax", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16777,8 +16614,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17799,8 +17634,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18266,8 +18099,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -19946,8 +19777,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20075,8 +19904,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20205,8 +20032,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20334,8 +20159,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20463,8 +20286,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20592,8 +20413,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20721,8 +20540,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20851,8 +20668,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20980,8 +20795,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21109,8 +20922,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21238,8 +21049,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21367,8 +21176,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21497,8 +21304,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21626,8 +21431,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21755,8 +21558,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21884,8 +21685,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22013,8 +21812,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22143,8 +21940,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22272,8 +22067,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22401,8 +22194,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22530,8 +22321,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22659,8 +22448,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22797,8 +22584,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22929,8 +22714,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23058,8 +22841,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23186,8 +22967,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23310,8 +23089,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23434,8 +23211,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23925,8 +23700,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24050,8 +23823,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24184,8 +23955,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24572,8 +24341,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24837,8 +24604,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -25089,8 +24854,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -25815,8 +25578,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26061,8 +25822,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26190,8 +25949,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -27821,8 +27578,6 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
