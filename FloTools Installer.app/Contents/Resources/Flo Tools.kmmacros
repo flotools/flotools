@@ -7338,7 +7338,7 @@ vo.output(value)
 				<array>
 					<dict>
 						<key>DisplayKind</key>
-						<string>Window</string>
+						<string>None</string>
 						<key>IncludeStdErr</key>
 						<true/>
 						<key>MacroActionType</key>
@@ -7370,7 +7370,7 @@ vo.output(value)
 				<key>CreationDate</key>
 				<real>498398697.465262</real>
 				<key>ModificationDate</key>
-				<real>498398719.054968</real>
+				<real>516832209.72184801</real>
 				<key>Name</key>
 				<string>Decrease Volume</string>
 				<key>Triggers</key>
