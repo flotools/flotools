@@ -26314,7 +26314,7 @@ if (runSingle) single()
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
-		<string>I/O Setup|Peripherals|Preferences</string>
+		<string>I/O Setup|Peripherals|Preferences|Dashboard</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26409,7 +26409,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
-		<string>I/O Setup|Peripherals|Preferences</string>
+		<string>I/O Setup|Peripherals|Preferences|Dashboard</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26504,7 +26504,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
-		<string>I/O Setup|Peripherals|Preferences</string>
+		<string>I/O Setup|Peripherals|Preferences|Dashboard</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26599,7 +26599,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
-		<string>I/O Setup|Peripherals|Preferences</string>
+		<string>I/O Setup|Peripherals|Preferences|Dashboard</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26694,7 +26694,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
-		<string>I/O Setup|Peripherals|Preferences</string>
+		<string>I/O Setup|Peripherals|Preferences|Dashboard</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26789,7 +26789,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
-		<string>I/O Setup|Peripherals|Preferences</string>
+		<string>I/O Setup|Peripherals|Preferences|Dashboard</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26884,7 +26884,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
-		<string>I/O Setup|Peripherals|Preferences</string>
+		<string>I/O Setup|Peripherals|Preferences|Dashboard</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26979,7 +26979,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
-		<string>I/O Setup|Peripherals|Preferences</string>
+		<string>I/O Setup|Peripherals|Preferences|Dashboard</string>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -27074,7 +27074,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
-		<string>I/O Setup|Peripherals|Preferences</string>
+		<string>I/O Setup|Peripherals|Preferences|Dashboard</string>
 		<key>Macros</key>
 		<array>
 			<dict>
