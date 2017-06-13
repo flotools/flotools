@@ -30,7 +30,7 @@
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>url = "http://update.flotools.org"
+						<string>url = "http://update.flotools.org/flotools.php"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
 var regex = /(\d+\.\d+)/;
@@ -41,6 +41,9 @@ app.includeStandardAdditions = true
 token = current+","
 token += kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
 try {
+cmd = "echo "+token+" | base64"
+token = app.doShellScript(cmd)
+token = token.split("").reverse().join("")
 cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+token+'"'
 data = app.doShellScript(cmd)
 json = JSON.parse(data)
@@ -171,9 +174,9 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>516388123.84381199</real>
+				<real>519089985.26542902</real>
 				<key>Name</key>
-				<string>* Flo Tools 2.01. Check for Update</string>
+				<string>* Flo Tools 2.2. Check for Update</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -247,6 +250,9 @@ token = current+","
 token += kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
 
 try {
+cmd = "echo "+token+" | base64"
+token = app.doShellScript(cmd)
+token = token.split("").reverse().join("")
 cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+token+'"'
 data = app.doShellScript(cmd)
 json = JSON.parse(data)
@@ -378,9 +384,9 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>516388149.59692198</real>
+				<real>519090089.80637503</real>
 				<key>Name</key>
-				<string>* Flo Tools 2.01. Check for Update</string>
+				<string>* Flo Tools 2.2. Check for Update</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
