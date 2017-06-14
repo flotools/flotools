@@ -20,16 +20,16 @@ Flo Tools is free software. You can redistribute it and/or modify it under the t
 Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY, expressed or implied, of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](http://www.gnu.org/licenses/) for more details.
 
 
-## Flo Tools 2.0:
+## Flo Tools 2.2:
 
-Flo Tools 2.0 is here! See the [What’s New section](/Flo-Tools-2.0-release/) to learn about the new features and improvements in version 2.0.
+Flo Tools 2.2 is now available! See the [What’s New Section](/Flo-Tools-2.2-release/) to learn about the new features and improvements in version 2.2.
 
 
 ## Download:
 
-You can download Flo Tools from [here.](/download/)
+You can download Flo Tools by clicking [here.](https://github.com/flotools/flotools/archive/master.zip)
 
-This  zip file, referenced in this read me, will automatically decompress itself into a folder on Mac OS. Please refer to this downloaded folder, called "Flo Tools Master", when reading this document.
+Once downloaded, this  zip file, referenced in this read me, will automatically decompress itself into a folder on Mac OS. Please refer to this downloaded folder, called "Flo Tools Master", when reading this document.
 
 ## System Requirements:
 
@@ -133,6 +133,21 @@ Where two actions are listed, double-tapping the key will perform the second act
 - Speak/Toggle Count In:	Option+num pad8
 - Speak/Toggle Midi Merge:	Option+num pad 9
 - Speak/Toggle Link Timeline and Edit Selection: Shift+/
+- Speak/Toggle Tab to Transients:	Command+Option+Tab
+- Speak/Toggle Insertion Follows Playback:	Control+n
+- Speak/select shufflemode:	f1
+- Speak/Select Slip Mode:	f2
+- Speak/Select Spot Mode:	f3
+- Speak/Select Grid Mode (and Toggle Absolute/Relative Grid Mode):	f4
+- Speak/toggle quickpunch:	Command+Shift+p
+- Speak/Toggle loop playback:	Command+Shift+l
+- Speak/Toggle Loop Record:	Option+l
+- Speak/Toggle Pre/Post-Roll:	Command+k
+- Mark clip to drag:	Command+Option+Shift+, (comma)
+- Drag clip:	Command+Option+Shift+. (period)
+- Resize track list Table:	Command+Control+Shift+t
+- Resize clip list table:	Command+Control+Shift+c
+- Speak Selected Clips:	Option+Shift+p
 
 
 #### Flo Tools Global:
@@ -174,6 +189,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 - Speak/Reset Volume Fader: v
 - Speak/Reset Instrument Volume Fader: Option+v
 - Adjust Volume Fader: Command+Control+up-or-down-arrows
+- Adjust Instrument Volume Fader: Command+Option+up-or-down-arrows
 - Speak Level Meter, Toggle Level Meter Monitor:	l
 - Speak/Reset Peak Meter: p
 - Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor:	semicolon
@@ -205,6 +221,7 @@ The Flo Tools Mouse group is global, so these commands will work system-wide whe
 - Control+Option-Click:	Control+Option+` (accent) (must be passed through)
 - Control+Option+Shift-Click:	Control+Option+Shift+` (accent) (must be passed through)
 - Copy/Speak Mouse Coordinates Relative to Front Window: Command+Option+Shift+c
+- Copy/speak mouse coordinates relative to screen:	Command+Option+Shift+a
 - Move mouse up: Command+Option+Shift+up-arrow
 - Move mouse down: Command+Option+Shift+down-arrow
 - Move mouse left: Command+Option+Shift+left-arrow
@@ -212,6 +229,17 @@ The Flo Tools Mouse group is global, so these commands will work system-wide whe
 - Move Mouse to middle of Current Window: Command+Option+Shift+M
 - Move Mouse to Coordinates Relative  to Current Window: Command+Option+Shift+W
 - Zoom/Maximize Window: Command+Option+Shift+z
+
+#### Flo Tools Midi Event List:
+
+This macro group allows easier navigation and editing of the Midi Event List using Flo Tools, and contains the following commands:
+
+- Speak/Edit Pitch for Selected Note:	Option+p
+- Speak/Edit Attack Velocity for Selected Note:	Option+a
+- Speak/Edit Release Velocity for Selected Note:	Option+r
+- Move to next Column:	Control+right arrow
+- Move to previous Column:	Control+left arrow
+- Edit Event:	Control+Command+Return
 
 
 #### Flo Tools Num Pad:
@@ -348,6 +376,32 @@ The Flo Tools team will use this information to determine what the problem and s
 
 - added Flo Tools Update notification. When Pro Tools is opened, Flo Tools will automatically check for updates, and present a dialog if an update is necessary.
 
-###Flo Tools 3.0
+###Flo Tools 2.2
 
+- Speak/Toggle Tab to Transients:	Command+Option+Tab
+- Speak/Toggle Insertion Follows Playback:	Control+n
+- Speak/select shufflemode:	f1
+- Speak/Select Slip Mode:	f2
+- Speak/Select Spot Mode:	f3
+- Speak/Select Grid Mode (and Toggle Absolute/Relative Grid Mode):	f4
+- Speak/toggle quickpunch:	Command+Shift+p
+- Speak/Toggle loop playback:	Command+Shift+l
+- Speak/Toggle Loop Record:	Option+l
+- Speak/Toggle Pre/Post-Roll:	Command+k
+- Mark clip to drag:	Command+Option+Shift+, (comma)
+- Drag clip:	Command+Option+Shift+. (period)
+- Resize track list Table:	Command+Control+Shift+t
+- Resize clip list table:	Command+Control+Shift+c
+- Speak Selected Clips:	Option+Shift+p
+- Speak/copy mouse coordinates relative to screen: Command+Option+Shift+a
+- Increase/Decrease  Instrument Volume:	Command+Option+up/down arrow
 - added Flo Tools Selected Tab group. This allows Flo Tools to speak tab names in dialogs such as pro tools preferences or peripherals. Press Command+1, Command+2, etc. to trigger this feature.
+- created Flo Tools MIDI Event List macro group, which contains the following commands:
+ - Speak/Edit Pitch for Selected Note:	Option+p
+ - Speak/Edit Attack Velocity for Selected Note:	Option+a
+ - Speak/Edit Release Velocity for Selected Note:	Option+r
+ - Move to next Column:	Control+right arrow
+ - Move to previous Column:	Control+left arrow
+ - Edit Event:	Control+Command+Return
+
+- For more detailed information about new features and improvements in version 2.2, click [Here.](/Flo-Tools-2.2-release/)
