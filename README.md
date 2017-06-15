@@ -24,7 +24,7 @@ Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 ## Table of Contents
 
 * [Download](#download)
-* [System REquirement](#systemrequirement)
+* [System REquirements](#systemrequirements)
 * [Installation](#installation)
 * [Using Flo Tools](#usingflotools)
 * [Misc](#misc)
@@ -37,7 +37,7 @@ You can download Flo Tools by clicking [here.](https://github.com/flotools/floto
 
 Once downloaded, this  zip file, referenced in this read me, will automatically decompress itself into a folder on Mac OS. Please refer to this downloaded folder, called "Flo Tools Master", when reading this document.
 
-<div id='systemrequirement'/>
+<div id='systemrequirements'/>
 ## System Requirements
 
 Flo Tools supports Mac OS version 10.10 or later, and Pro Tools version 12.3 or later. Earlier versions of Mac OS and Pro Tools may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
