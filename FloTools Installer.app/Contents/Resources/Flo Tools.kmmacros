@@ -38,13 +38,8 @@ var match = regex.exec(current);
 current = match[1];
 app = Application.currentApplication()
 app.includeStandardAdditions = true
-token = current+","
-token += kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
 try {
-cmd = "echo "+token+" | base64"
-token = app.doShellScript(cmd)
-token = token.split("").reverse().join("")
-cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+token+'"'
+cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+current+'"'
 data = app.doShellScript(cmd)
 json = JSON.parse(data)
 latest = json.version
@@ -174,7 +169,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>519089985.26542902</real>
+				<real>519199596.54135501</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.2. Check for Update</string>
 				<key>Triggers</key>
@@ -246,14 +241,9 @@ var match = regex.exec(current);
 current = match[1];
 app = Application.currentApplication()
 app.includeStandardAdditions = true
-token = current+","
-token += kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
 
 try {
-cmd = "echo "+token+" | base64"
-token = app.doShellScript(cmd)
-token = token.split("").reverse().join("")
-cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+token+'"'
+cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+current+'"'
 data = app.doShellScript(cmd)
 json = JSON.parse(data)
 latest = json.version
@@ -384,7 +374,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>519090089.80637503</real>
+				<real>519199545.78377002</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.2. Check for Update</string>
 				<key>Triggers</key>
@@ -7964,7 +7954,7 @@ vo.output(value)
 				<array>
 					<dict>
 						<key>DisplayKind</key>
-						<string>Window</string>
+						<string>None</string>
 						<key>IncludeStdErr</key>
 						<true/>
 						<key>MacroActionType</key>
@@ -7996,7 +7986,7 @@ vo.output(value)
 				<key>CreationDate</key>
 				<real>493842382.64579898</real>
 				<key>ModificationDate</key>
-				<real>498398526.21518898</real>
+				<real>519196532.39865202</real>
 				<key>Name</key>
 				<string>Increase Volume</string>
 				<key>Triggers</key>
