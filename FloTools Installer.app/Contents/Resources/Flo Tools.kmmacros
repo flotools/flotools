@@ -404,6 +404,14 @@ window.KeyboardMaestro.Cancel()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -632,8 +640,6 @@ window.KeyboardMaestro.Cancel()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -651,7 +657,7 @@ window.KeyboardMaestro.Cancel()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -706,6 +712,14 @@ track.groups["Inserts A-E"].buttons[0].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -722,8 +736,6 @@ track.groups["Inserts A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -741,7 +753,7 @@ track.groups["Inserts A-E"].buttons[0].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -796,6 +808,14 @@ track.groups["Inserts A-E"].buttons[1].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -812,8 +832,6 @@ track.groups["Inserts A-E"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -831,7 +849,7 @@ track.groups["Inserts A-E"].buttons[1].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -886,6 +904,14 @@ track.groups["Inserts A-E"].buttons[2].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -902,8 +928,6 @@ track.groups["Inserts A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -921,7 +945,7 @@ track.groups["Inserts A-E"].buttons[2].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -976,6 +1000,14 @@ track.groups["Inserts A-E"].buttons[3].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -992,8 +1024,6 @@ track.groups["Inserts A-E"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1011,7 +1041,7 @@ track.groups["Inserts A-E"].buttons[3].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -1066,6 +1096,14 @@ track.groups["Inserts A-E"].buttons[4].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -1082,8 +1120,6 @@ track.groups["Inserts A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1101,7 +1137,7 @@ track.groups["Inserts A-E"].buttons[4].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -1156,6 +1192,14 @@ track.groups["Inserts F-J"].buttons[0].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -1172,8 +1216,6 @@ track.groups["Inserts F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1191,7 +1233,7 @@ track.groups["Inserts F-J"].buttons[0].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -1246,6 +1288,14 @@ track.groups["Inserts F-J"].buttons[1].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -1262,8 +1312,6 @@ track.groups["Inserts F-J"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1281,7 +1329,7 @@ track.groups["Inserts F-J"].buttons[1].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -1336,6 +1384,14 @@ track.groups["Inserts F-J"].buttons[2].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -1352,8 +1408,6 @@ track.groups["Inserts F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1371,7 +1425,7 @@ track.groups["Inserts F-J"].buttons[2].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -1426,6 +1480,14 @@ track.groups["Inserts F-J"].buttons[3].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -1442,8 +1504,6 @@ track.groups["Inserts F-J"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1461,7 +1521,7 @@ track.groups["Inserts F-J"].buttons[3].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -1516,6 +1576,14 @@ track.groups["Inserts F-J"].buttons[4].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -1532,8 +1600,6 @@ track.groups["Inserts F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1551,7 +1617,7 @@ track.groups["Inserts F-J"].buttons[4].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -1606,6 +1672,14 @@ track.groups["Sends A-E"].buttons[0].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -1622,8 +1696,6 @@ track.groups["Sends A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1641,7 +1713,7 @@ track.groups["Sends A-E"].buttons[0].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -1696,6 +1768,14 @@ track.groups["Sends A-E"].buttons[2].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -1712,8 +1792,6 @@ track.groups["Sends A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1731,7 +1809,7 @@ track.groups["Sends A-E"].buttons[2].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -1786,6 +1864,14 @@ track.groups["Sends A-E"].buttons[4].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -1802,8 +1888,6 @@ track.groups["Sends A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1821,7 +1905,7 @@ track.groups["Sends A-E"].buttons[4].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -1876,6 +1960,14 @@ track.groups["Sends A-E"].buttons[6].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -1892,8 +1984,6 @@ track.groups["Sends A-E"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1911,7 +2001,7 @@ track.groups["Sends A-E"].buttons[6].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -1966,6 +2056,14 @@ track.groups["Sends A-E"].buttons[8].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -1982,8 +2080,6 @@ track.groups["Sends A-E"].buttons[8].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2001,7 +2097,7 @@ track.groups["Sends A-E"].buttons[8].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -2056,6 +2152,14 @@ track.groups["Sends F-J"].buttons[0].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -2072,8 +2176,6 @@ track.groups["Sends F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2091,7 +2193,7 @@ track.groups["Sends F-J"].buttons[0].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -2146,6 +2248,14 @@ track.groups["Sends F-J"].buttons[2].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -2162,8 +2272,6 @@ track.groups["Sends F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2181,7 +2289,7 @@ track.groups["Sends F-J"].buttons[2].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -2236,6 +2344,14 @@ track.groups["Sends F-J"].buttons[4].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -2252,8 +2368,6 @@ track.groups["Sends F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2271,7 +2385,7 @@ track.groups["Sends F-J"].buttons[4].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -2326,6 +2440,14 @@ track.groups["Sends F-J"].buttons[6].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -2342,8 +2464,6 @@ track.groups["Sends F-J"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2361,7 +2481,7 @@ track.groups["Sends F-J"].buttons[6].click()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -2415,6 +2535,14 @@ track.groups["Sends F-J"].buttons[8].click()
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -2655,7 +2783,7 @@ track.groups["Sends F-J"].buttons[8].click()
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = edit.groups.byName(vo.voCursor.textUnderCursor())
@@ -2752,7 +2880,7 @@ kme.setvariable("point2", {to:x+","+y+","+w+","+h})
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 start = edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Start").value()
@@ -2809,6 +2937,14 @@ else vo.output("Finished dragging")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -2843,7 +2979,7 @@ vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -2874,7 +3010,7 @@ vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -2963,6 +3099,14 @@ if (runSingle) single()
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -3136,6 +3280,14 @@ Application("VoiceOver").output("Marked for drag.")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -3168,7 +3320,7 @@ Application("VoiceOver").output("Marked for drag.")
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -3202,7 +3354,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
@@ -3295,6 +3447,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -3311,8 +3471,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3333,7 +3491,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -3344,7 +3502,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -3419,6 +3577,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -3435,8 +3601,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3457,7 +3621,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
@@ -3469,7 +3633,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
@@ -3543,6 +3707,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -3559,8 +3731,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3581,7 +3751,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
@@ -3593,7 +3763,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
@@ -3669,6 +3839,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -3698,7 +3876,7 @@ if (runSingle) single()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 editFilter = {name:{_contains:"Edit:"}}
 mixFilter = {name:{_contains:"Mix:"}}
 windows = pt.windows.whose({_not:[mixFilter, editFilter]})()
@@ -3754,6 +3932,14 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -7080,6 +7266,14 @@ kme.setvariable("FTLevelMonitor", {to:"0"})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -7096,8 +7290,6 @@ kme.setvariable("FTLevelMonitor", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7115,7 +7307,7 @@ kme.setvariable("FTLevelMonitor", {to:"0"})
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -7173,6 +7365,14 @@ vo.output(value)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -7223,7 +7423,7 @@ vo.output(value)
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -7267,7 +7467,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -7351,6 +7551,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -7367,8 +7575,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7386,7 +7592,7 @@ if (runSingle) single()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -7445,6 +7651,14 @@ vo.output(value)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -7461,8 +7675,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7480,7 +7692,7 @@ vo.output(value)
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -7541,6 +7753,14 @@ vo.output(value)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -7557,8 +7777,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7576,7 +7794,7 @@ vo.output(value)
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -7634,6 +7852,14 @@ vo.output(value)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -7665,7 +7891,7 @@ vo.output(value)
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+						<string>pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 msg = window.name().replace("Plug-in: ","").replace("/"," ")+"\n"
@@ -7723,6 +7949,14 @@ console.log(msg)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -7760,7 +7994,7 @@ if (c&lt;-1) c=-1
 else if (c&gt;5) c=5
 kme.setvariable("FTEventIndex", {to:""+c})
 sys = Application('System Events')
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -7833,6 +8067,14 @@ Application("VoiceOver").output(msg)</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -7902,8 +8144,6 @@ Application("VoiceOver").output(msg)</string>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7921,7 +8161,7 @@ Application("VoiceOver").output(msg)</string>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -7979,6 +8219,14 @@ vo.output(value)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -8029,7 +8277,7 @@ vo.output(value)
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -8073,7 +8321,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -8157,6 +8405,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -8173,8 +8429,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8192,7 +8446,7 @@ if (runSingle) single()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -8251,6 +8505,14 @@ vo.output(value)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -8267,8 +8529,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8286,7 +8546,7 @@ vo.output(value)
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -8347,6 +8607,14 @@ vo.output(value)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -8363,8 +8631,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8382,7 +8648,7 @@ vo.output(value)
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -8439,6 +8705,14 @@ vo.output(value)
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -8683,7 +8957,7 @@ vo.output(value)
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 allTracks = mix.tables.byName("Track List").rows.uiElements[1].buttons[0].name()
@@ -8753,6 +9027,14 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -8787,7 +9069,7 @@ vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 inputSpecifier = ObjectSpecifier().buttons["TrackInput Monitor"].value
@@ -8812,7 +9094,7 @@ vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 inputSpecifier = ObjectSpecifier().buttons["TrackInput Monitor"].value
@@ -8900,6 +9182,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -8934,7 +9224,7 @@ vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -8962,7 +9252,7 @@ vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -9053,6 +9343,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -9087,7 +9385,7 @@ vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 allTracks = mix.tables.byName("Track List").rows.uiElements[1].buttons[0].name()
@@ -9117,7 +9415,7 @@ vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 allTracks = mix.tables.byName("Track List").rows.uiElements[1].buttons[0].name()
@@ -9204,6 +9502,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -9235,7 +9541,7 @@ if (runSingle) single()
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 allTracks = mix.tables.byName("Track List").rows.uiElements[1].buttons[0].name()
@@ -9305,6 +9611,14 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -9339,7 +9653,7 @@ vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -9367,7 +9681,7 @@ vo = Application("VoiceOver")
 app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -9458,6 +9772,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -9495,7 +9817,7 @@ app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application('System Events')
 home = sys.currentUser.homeDirectory()
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
@@ -9633,6 +9955,14 @@ kme.setvariable("y", {to:""+y})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -9681,7 +10011,7 @@ app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application('System Events')
 home = sys.currentUser.homeDirectory()
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
@@ -9813,6 +10143,14 @@ kme.setvariable("y", {to:""+y})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -9861,7 +10199,7 @@ app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application('System Events')
 home = sys.currentUser.homeDirectory()
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
@@ -9993,6 +10331,14 @@ kme.setvariable("y", {to:""+y})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -10041,7 +10387,7 @@ app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application('System Events')
 home = sys.currentUser.homeDirectory()
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
@@ -10173,6 +10519,14 @@ kme.setvariable("y", {to:""+y})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -10221,7 +10575,7 @@ app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application('System Events')
 home = sys.currentUser.homeDirectory()
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
@@ -10353,6 +10707,14 @@ kme.setvariable("y", {to:""+y})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -10401,7 +10763,7 @@ app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application('System Events')
 home = sys.currentUser.homeDirectory()
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
@@ -10533,6 +10895,14 @@ kme.setvariable("y", {to:""+y})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -10581,7 +10951,7 @@ app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application('System Events')
 home = sys.currentUser.homeDirectory()
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
@@ -10713,6 +11083,14 @@ kme.setvariable("y", {to:""+y})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -10761,7 +11139,7 @@ app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application('System Events')
 home = sys.currentUser.homeDirectory()
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
@@ -10893,6 +11271,14 @@ kme.setvariable("y", {to:""+y})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -10941,7 +11327,7 @@ app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application('System Events')
 home = sys.currentUser.homeDirectory()
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
@@ -11073,6 +11459,14 @@ kme.setvariable("y", {to:""+y})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -11121,7 +11515,7 @@ app = Application.currentApplication()
 app.includeStandardAdditions = true
 sys = Application('System Events')
 home = sys.currentUser.homeDirectory()
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 pluginName = window.name().replace("Plug-in: ","").replace("/"," ")
@@ -11253,6 +11647,14 @@ kme.setvariable("y", {to:""+y})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -11346,7 +11748,7 @@ vo.output(msg)
 kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 last = ""
@@ -11403,6 +11805,14 @@ read(current)
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -11470,7 +11880,7 @@ kme = Application("Keyboard Maestro Engine")
 c = kme.getvariable("FTEventIndex")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 last = ""
@@ -11527,6 +11937,14 @@ read(current)
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -11600,7 +12018,7 @@ kme = Application("Keyboard Maestro Engine")
 c = kme.getvariable("FTEventIndex")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 last = ""
@@ -11658,6 +12076,14 @@ read(current)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -11703,7 +12129,7 @@ kme = Application("Keyboard Maestro Engine")
 c = kme.getvariable("FTEventIndex")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 last = ""
@@ -11761,6 +12187,14 @@ read(current)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -11802,7 +12236,7 @@ kme = Application("Keyboard Maestro Engine")
 c = kme.getvariable("FTEventIndex")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 last = ""
@@ -11859,6 +12293,14 @@ read(current)
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -11926,7 +12368,7 @@ kme = Application("Keyboard Maestro Engine")
 c = kme.getvariable("FTEventIndex")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 last = ""
@@ -11983,6 +12425,14 @@ read(current)
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -12673,6 +13123,14 @@ kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -12709,7 +13167,7 @@ index = kme.getvariable("FTPluginControlIndex")
 str = kme.getvariable("FTPluginControlParameters")
 vo = Application("VoiceOver")
 sys = Application('System Events')
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 json = JSON.parse(str)
@@ -12818,6 +13276,14 @@ vo.output(name)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -12850,7 +13316,7 @@ vo.output(name)
 						<string></string>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
-pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 window.buttons.byName("Next setting").click()
@@ -12905,6 +13371,14 @@ vo.output("Next")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -12941,7 +13415,7 @@ index = kme.getvariable("FTPluginControlIndex")
 str = kme.getvariable("FTPluginControlParameters")
 sys = Application('System Events')
 vo = Application("VoiceOver")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 json = JSON.parse(str)
@@ -13049,6 +13523,14 @@ vo.output(name)
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -14352,6 +14834,14 @@ else kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -14388,7 +14878,7 @@ index = kme.getvariable("FTPluginControlIndex")
 str = kme.getvariable("FTPluginControlParameters")
 vo = Application("VoiceOver")
 sys = Application('System Events')
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 json = JSON.parse(str)
@@ -14500,6 +14990,14 @@ vo.output(name)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -14532,7 +15030,7 @@ vo.output(name)
 						<string></string>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
-pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 window.buttons.byName("Previous setting").click()
@@ -14587,6 +15085,14 @@ vo.output("Previous")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -14623,7 +15129,7 @@ index = kme.getvariable("FTPluginControlIndex")
 str = kme.getvariable("FTPluginControlParameters")
 vo = Application("VoiceOver")
 sys = Application('System Events')
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 json = JSON.parse(str)
@@ -14731,6 +15237,14 @@ vo.output(name)
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -14919,6 +15433,14 @@ vo.output(name)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -14949,7 +15471,7 @@ vo.output(name)
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 table = edit.tables.byName("Clips")
@@ -15046,6 +15568,14 @@ vo.output("Clips table is "+w+" points wide. Click and drag to resize.")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -15076,7 +15606,7 @@ vo.output("Clips table is "+w+" points wide. Click and drag to resize.")
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows[0]
 table = window.tables.byName("Track List")
@@ -15173,6 +15703,14 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -15254,7 +15792,7 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 						<string></string>
 						<key>Text</key>
 						<string>sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").click()
@@ -15308,6 +15846,14 @@ edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").click()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -15336,7 +15882,7 @@ edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").click()
 						<string></string>
 						<key>Text</key>
 						<string>sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Counter Display Cluster").buttons.byName("Main Counter selector").click()
@@ -15390,6 +15936,14 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Main Counter selec
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -15418,7 +15972,7 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Main Counter selec
 						<string></string>
 						<key>Text</key>
 						<string>sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Nudge Controls").click()
@@ -15472,6 +16026,14 @@ edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Nudge Controls").click(
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -15500,7 +16062,7 @@ edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Nudge Controls").click(
 						<string></string>
 						<key>Text</key>
 						<string>sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter selector").click()
@@ -15553,6 +16115,14 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -16388,8 +16958,6 @@ kme.setvariable("y", {to:""+y})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16460,6 +17028,14 @@ kme.setvariable("FTGRMax", {to:"0"})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -16476,8 +17052,6 @@ kme.setvariable("FTGRMax", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16498,7 +17072,7 @@ kme.setvariable("FTGRMax", {to:"0"})
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.groups
@@ -16513,7 +17087,7 @@ kme = Application("Keyboard Maestro Engine")
 if (kme.getvariable("FTGRMonitor") == "1") {
 kme.setvariable("FTGRMonitor", {to:"0"})
 } else {
-pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.groups
@@ -16627,6 +17201,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -16656,7 +17238,7 @@ if (runSingle) single()
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -16745,6 +17327,14 @@ vo.output (msg)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -16777,7 +17367,7 @@ vo.output (msg)
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 shown = ObjectSpecifier().uiElements[0].buttons[0].name
@@ -16798,7 +17388,7 @@ vo.output (msg)
 
 function double() {
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 button = mix.buttons.byName("Track List pop-up").click()
@@ -16872,6 +17462,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -16904,7 +17502,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 inputSpecifier = ObjectSpecifier().buttons["TrackInput Monitor"].value
@@ -16928,7 +17526,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 inputSpecifier = ObjectSpecifier().buttons["TrackInput Monitor"].value
@@ -17016,6 +17614,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -17032,8 +17638,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17054,7 +17658,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.groups
@@ -17071,7 +17675,7 @@ vo = Application("VoiceOver")
 if (kme.getvariable("FTLevelMonitor") == "1") {
 kme.setvariable("FTLevelMonitor", {to:"0"})
 } else {
-pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.groups
@@ -17177,6 +17781,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -17209,7 +17821,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -17236,7 +17848,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -17326,6 +17938,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -17357,7 +17977,7 @@ if (runSingle) single()
 kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -17431,6 +18051,14 @@ vo.output (msg)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -17461,7 +18089,7 @@ vo.output (msg)
 						<string>vo = Application("VoiceOver")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 clips = edit.tables.byName("Clips").rows.whose({selected:true}).uiElements[1].buttons[0].name()
@@ -17524,6 +18152,14 @@ vo.output (msg)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -17556,7 +18192,7 @@ vo.output (msg)
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.tables.byName("Track List").rows.whose({selected:true}).uiElements[1].buttons[0].name()
@@ -17577,7 +18213,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.tables.byName("Track List").rows
@@ -17661,6 +18297,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -17693,7 +18337,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 shown = ObjectSpecifier().uiElements[0].buttons[0].name
@@ -17714,7 +18358,7 @@ vo.output (msg)
 
 function double() {
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 button = mix.buttons.byName("Track List pop-up").click()
@@ -17788,6 +18432,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -17819,7 +18471,7 @@ if (runSingle) single()
 kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -17891,6 +18543,14 @@ vo.output(msg)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -17923,7 +18583,7 @@ vo.output(msg)
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -17950,7 +18610,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -18038,6 +18698,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -18054,8 +18722,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18076,7 +18742,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -18089,7 +18755,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -18165,6 +18831,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -18196,7 +18870,7 @@ if (runSingle) single()
 kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 groupFilter = {name:{_beginsWith:"Group List"}}
@@ -18265,6 +18939,14 @@ vo.output(msg)
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -18300,7 +18982,7 @@ vo.output(msg)
 
 function single() {
 vo = Application("VoiceOver")
-pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 value = window.popUpButtons.byName("Librarian menu").name()
@@ -18308,7 +18990,7 @@ vo.output(value)
 }
 
 function double() {
-pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 window.popUpButtons.byName("Librarian menu").click()
@@ -18384,6 +19066,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -18420,7 +19110,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").value()+". Attack"
@@ -18430,7 +19120,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Attack Velocity").click()
@@ -18505,6 +19195,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -18521,8 +19219,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18543,7 +19239,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -18556,7 +19252,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -18633,6 +19329,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -18665,7 +19369,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -18704,7 +19408,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Counter Display Cluster").textFields.byName("Main Counter").click()
@@ -18743,7 +19447,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479078801.99380499</real>
 				<key>ModificationDate</key>
-				<real>516507647.43966502</real>
+				<real>520437945.47051001</real>
 				<key>Name</key>
 				<string>Speak/Edit main counter</string>
 				<key>Triggers</key>
@@ -18779,6 +19483,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -18811,7 +19523,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -18855,7 +19567,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -18931,6 +19643,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -18967,7 +19687,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").value()
@@ -18983,7 +19703,7 @@ console.log(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Pitch").click()
@@ -19058,6 +19778,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -19090,7 +19818,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -19134,7 +19862,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Transport View Cluster").groups.byName("Transport Display").textFields.byName("Post-roll Amount").click()
@@ -19209,6 +19937,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -19241,7 +19977,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -19285,7 +20021,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Transport View Cluster").groups.byName("Transport Display").textFields.byName("Pre-roll Amount").click()
@@ -19360,6 +20096,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -19396,7 +20140,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Release Velocity").value()+". Release"
@@ -19406,7 +20150,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Counter Display Cluster").textFields.byName("MIDI Note Release Velocity").click()
@@ -19481,6 +20225,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -19513,7 +20265,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -19552,7 +20304,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection End").click()
@@ -19626,6 +20378,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -19658,7 +20418,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -19702,7 +20462,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Length").click()
@@ -19777,6 +20537,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -19809,7 +20577,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -19847,7 +20615,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Counter Display Cluster").textFields.byName("Edit Selection Start").click()
@@ -19922,6 +20690,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -19954,7 +20730,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -19992,7 +20768,7 @@ vo.output (msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("Counter Display Cluster").textFields.byName("Sub Counter").click()
@@ -20067,6 +20843,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -20099,7 +20883,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
@@ -20110,7 +20894,7 @@ vo.output (tempo+": Tempo")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 edit.groups.byName("MIDI Control Cluster").textFields.byName("Tempo value").click()
@@ -20185,6 +20969,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -20201,8 +20993,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20223,7 +21013,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20238,7 +21028,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20314,6 +21104,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -20330,8 +21128,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20352,7 +21148,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20368,7 +21164,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20444,6 +21240,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -20460,8 +21264,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20482,7 +21284,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20497,7 +21299,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20573,6 +21375,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -20589,8 +21399,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20611,7 +21419,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20626,7 +21434,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20702,6 +21510,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -20718,8 +21534,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20740,7 +21554,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20755,7 +21569,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20831,6 +21645,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -20847,8 +21669,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20869,7 +21689,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20884,7 +21704,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -20960,6 +21780,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -20976,8 +21804,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20998,7 +21824,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21014,7 +21840,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21090,6 +21916,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -21106,8 +21940,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21128,7 +21960,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21143,7 +21975,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21219,6 +22051,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -21235,8 +22075,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21257,7 +22095,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21272,7 +22110,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21348,6 +22186,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -21364,8 +22210,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21386,7 +22230,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21401,7 +22245,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21477,6 +22321,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -21493,8 +22345,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21515,7 +22365,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21530,7 +22380,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21606,6 +22456,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -21622,8 +22480,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21644,7 +22500,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21660,7 +22516,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21736,6 +22592,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -21752,8 +22616,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21774,7 +22636,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21789,7 +22651,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21865,6 +22727,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -21881,8 +22751,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21903,7 +22771,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21918,7 +22786,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -21994,6 +22862,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -22010,8 +22886,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22032,7 +22906,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22047,7 +22921,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22123,6 +22997,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -22139,8 +23021,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22161,7 +23041,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22176,7 +23056,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22252,6 +23132,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -22268,8 +23156,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22290,7 +23176,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22306,7 +23192,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22382,6 +23268,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -22398,8 +23292,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22420,7 +23312,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22435,7 +23327,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22511,6 +23403,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -22527,8 +23427,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22549,7 +23447,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22564,7 +23462,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22640,6 +23538,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -22656,8 +23562,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22678,7 +23582,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22693,7 +23597,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22769,6 +23673,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -22785,8 +23697,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22807,7 +23717,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22818,7 +23728,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22898,6 +23808,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -22914,8 +23832,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22936,7 +23852,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -22953,7 +23869,7 @@ vo.output(msg)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -23036,6 +23952,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -23052,8 +23976,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23074,7 +23996,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.groups
@@ -23087,7 +24009,7 @@ vo.output (meter)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.groups
@@ -23168,6 +24090,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -23184,8 +24114,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23206,7 +24134,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -23217,7 +24145,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -23297,6 +24225,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -23313,8 +24249,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23335,7 +24269,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -23349,7 +24283,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -23425,6 +24359,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -23441,8 +24383,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23463,7 +24403,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -23475,7 +24415,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -23549,6 +24489,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -23565,8 +24513,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23587,7 +24533,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -23599,7 +24545,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -23673,6 +24619,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -23689,8 +24643,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23711,7 +24663,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 window = pt.windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
 button = track.popUpButtons.whose({title:{_contains:"Track name"}})[0]
@@ -23723,7 +24675,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 window = pt.windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
 button = track.popUpButtons.whose({title:{_contains:"Playlist Selector"}})[0]
@@ -23798,6 +24750,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -23830,7 +24790,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 value = edit.groups.byName("Edit Mode Cluster").buttons.byName("EditModeShuffle").value()
@@ -23841,7 +24801,7 @@ else vo.output("Shuffle Mode, Off")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 button = edit.groups.byName("Edit Mode Cluster").buttons.byName("EditModeShuffle")
@@ -23920,6 +24880,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -23952,7 +24920,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 value = edit.groups.byName("Edit Mode Cluster").buttons.byName("EditModeSlip").value()
@@ -23963,7 +24931,7 @@ else vo.output("Slip Mode, Off")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 button = edit.groups.byName("Edit Mode Cluster").buttons.byName("EditModeSlip")
@@ -24042,6 +25010,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -24074,7 +25050,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 value = edit.groups.byName("Edit Mode Cluster").buttons.byName("EditModeSpot").value()
@@ -24085,7 +25061,7 @@ else vo.output("Spot Mode, Off")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 button = edit.groups.byName("Edit Mode Cluster").buttons.byName("EditModeSpot")
@@ -24164,6 +25140,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -24180,8 +25164,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24202,7 +25184,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
@@ -24214,7 +25196,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
@@ -24289,6 +25271,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -24305,8 +25295,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24327,7 +25315,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 text = vo.voCursor.textUnderCursor()
@@ -24345,7 +25333,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 text = vo.voCursor.textUnderCursor()
@@ -24423,6 +25411,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -24439,8 +25435,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24461,7 +25455,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 text = vo.voCursor.textUnderCursor()
@@ -24482,7 +25476,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 text = vo.voCursor.textUnderCursor()
@@ -24564,6 +25558,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -24599,7 +25601,7 @@ if (runSingle) single()
 
 function single() {
 vo = Application("VoiceOver")
-pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 if (window.buttons.byName("Effect Bypass").value() == "") value = "Off"
@@ -24609,7 +25611,7 @@ vo.output(value)
 
 function double() {
 vo = Application("VoiceOver")
-pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 window.buttons.byName("Effect Bypass").click()
@@ -24689,6 +25691,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -24721,7 +25731,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 count = edit.groups.byName("MIDI Control Cluster").buttons.byName("Count in toggle").value()
@@ -24732,7 +25742,7 @@ else vo.output("Countin off")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 button = edit.groups.byName("MIDI Control Cluster").buttons.byName("Count in toggle")
@@ -24811,6 +25821,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -24827,8 +25845,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24849,7 +25865,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
@@ -24861,7 +25877,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
@@ -24949,6 +25965,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -24981,7 +26005,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 button = edit.groups.byName("Edit Mode Cluster").buttons.whose({name:{_contains:"Grid"}})
@@ -24995,7 +26019,7 @@ else vo.output("Grid mode, off")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 button = edit.groups.byName("Edit Mode Cluster").buttons.whose({name:{_contains:"Grid"}})[0]
@@ -25076,6 +26100,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -25092,8 +26124,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -25114,7 +26144,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -25126,7 +26156,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -25206,6 +26236,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -25238,7 +26276,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 value = edit.groups.byName("Cursor Tool Cluster").buttons.byName("Insertion Follows Playback").value()
@@ -25249,7 +26287,7 @@ else vo.output("Insertion Follows Playback, Off")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 button = edit.groups.byName("Cursor Tool Cluster").buttons.byName("Insertion Follows Playback")
@@ -25328,6 +26366,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -25344,8 +26390,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -25366,7 +26410,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -25379,7 +26423,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -25460,6 +26504,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -25492,7 +26544,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 value = edit.groups.byName("Cursor Tool Cluster").buttons.byName("Link Timeline and Edit Selection").value()
@@ -25503,7 +26555,7 @@ else vo.output("Timeline and Edit Selection Unlinked")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 button = edit.groups.byName("Cursor Tool Cluster").buttons.byName("Link Timeline and Edit Selection")
@@ -25582,6 +26634,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -25614,7 +26674,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 value = pt.menuBars[0].menuBarItems.byName("Options").menus.byName("Options").menuItems.byName("Loop Playback").attributes["AXMenuItemMarkChar"].value()
 if (value == null) vo.output ("Loop Playback")
 else vo.output("Loop Playback , Checked")
@@ -25623,7 +26683,7 @@ else vo.output("Loop Playback , Checked")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 item = pt.menuBars[0].menuBarItems.byName("Options").menus.byName("Options").menuItems.byName("Loop Playback")
 item.click()
 }
@@ -25696,6 +26756,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -25728,7 +26796,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 value = pt.menuBars[0].menuBarItems.byName("Options").menus.byName("Options").menuItems.byName("Loop Record").attributes["AXMenuItemMarkChar"].value()
 if (value == null) vo.output ("Loop Record")
 else vo.output("Loop Record , Checked")
@@ -25737,7 +26805,7 @@ else vo.output("Loop Record , Checked")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 item = pt.menuBars[0].menuBarItems.byName("Options").menus.byName("Options").menuItems.byName("Loop Record")
 item.click()
 }
@@ -25810,6 +26878,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -25842,7 +26918,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 value = edit.groups.byName("MIDI Control Cluster").buttons.byName("Metronome").value()
@@ -25853,7 +26929,7 @@ else vo.output("Metronome off")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 button = edit.groups.byName("MIDI Control Cluster").buttons.byName("Metronome")
@@ -25932,6 +27008,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -25964,7 +27048,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 merge = edit.groups.byName("MIDI Control Cluster").buttons.byName("MIDI Merge").value()
@@ -25975,7 +27059,7 @@ else vo.output("Midi merge off")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 button = edit.groups.byName("MIDI Control Cluster").buttons.byName("MIDI Merge")
@@ -26054,6 +27138,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -26070,8 +27162,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26092,7 +27182,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -26105,7 +27195,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -26186,6 +27276,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -26218,7 +27316,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 value = pt.menuBars[0].menuBarItems.byName("Options").menus.byName("Options").menuItems.byName("Pre/Post-Roll").attributes["AXMenuItemMarkChar"].value()
 if (value == null) vo.output ("Pre/Post Roll")
 else vo.output("Pre/Post Roll, Checked")
@@ -26227,7 +27325,7 @@ else vo.output("Pre/Post Roll, Checked")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 item = pt.menuBars[0].menuBarItems.byName("Options").menus.byName("Options").menuItems.byName("Pre/Post-Roll")
 item.click()
 }
@@ -26300,6 +27398,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -26332,7 +27438,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 value = pt.menuBars[0].menuBarItems.byName("Options").menus.byName("Options").menuItems.byName("QuickPunch").attributes["AXMenuItemMarkChar"].value()
 if (value == null) vo.output ("Quick Punch")
 else vo.output("Quick Punch, Checked")
@@ -26341,7 +27447,7 @@ else vo.output("Quick Punch, Checked")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 item = pt.menuBars[0].menuBarItems.byName("Options").menus.byName("Options").menuItems.byName("QuickPunch")
 item.click()
 }
@@ -26414,6 +27520,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -26430,8 +27544,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26452,7 +27564,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -26464,7 +27576,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -26543,6 +27655,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -26559,8 +27679,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26581,7 +27699,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -26594,7 +27712,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 track = mix.groups.byName(vo.voCursor.textUnderCursor())
@@ -26675,6 +27793,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -26707,7 +27833,7 @@ if (runSingle) single()
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 value = edit.groups.byName("Cursor Tool Cluster").buttons.byName("Tab to Transients").value()
@@ -26718,7 +27844,7 @@ else vo.output("Tab to Transients, Off")
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 button = edit.groups.byName("Cursor Tool Cluster").buttons.byName("Tab to Transients")
@@ -26797,6 +27923,14 @@ if (runSingle) single()
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -26838,7 +27972,7 @@ if (runSingle) single()
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.byName("Pro Tools").windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -26892,6 +28026,14 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -26933,7 +28075,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.byName("Pro Tools").windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -26987,6 +28129,14 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -27028,7 +28178,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.byName("Pro Tools").windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -27082,6 +28232,14 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -27123,7 +28281,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.byName("Pro Tools").windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -27177,6 +28335,14 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -27218,7 +28384,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.byName("Pro Tools").windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -27272,6 +28438,14 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -27313,7 +28487,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.byName("Pro Tools").windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -27367,6 +28541,14 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -27408,7 +28590,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.byName("Pro Tools").windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -27462,6 +28644,14 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -27503,7 +28693,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.byName("Pro Tools").windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -27557,6 +28747,14 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -27598,7 +28796,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.byName("Pro Tools").windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -27651,6 +28849,14 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -28059,6 +29265,14 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -28096,7 +29310,7 @@ if (kme.getvariable("FTPluginMonitor") == "1") {
 kme.setvariable("FTPluginMonitor", {to:"0"})
 vo.output("Deactivate plugin monitor.")
 } else {
-pt = Application("System Events").applicationProcesses.byName("Pro Tools")
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 try {
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
@@ -28174,6 +29388,14 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
 				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
+				</dict>
 			</array>
 		</dict>
 		<key>ToggleMacroUID</key>
@@ -28190,8 +29412,6 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -28212,7 +29432,7 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 function single() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
@@ -28224,7 +29444,7 @@ vo.output(value)
 function double() {
 vo = Application("VoiceOver")
 sys = Application("System Events")
-pt = sys.applicationProcesses.byName("Pro Tools")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
@@ -28299,6 +29519,14 @@ if (runSingle) single()
 					<string>Pro Tools</string>
 					<key>NewFile</key>
 					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
