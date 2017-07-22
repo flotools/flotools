@@ -3948,8 +3948,6 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4236,8 +4234,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4736,8 +4732,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4865,8 +4859,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5100,8 +5092,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5282,8 +5272,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5729,8 +5717,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6388,8 +6374,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6623,8 +6607,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6805,8 +6787,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6987,8 +6967,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7058,8 +7036,6 @@ vo.output(x+", "+y)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12318,8 +12294,6 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12413,8 +12387,6 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12510,8 +12482,6 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12607,8 +12577,6 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12726,8 +12694,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12821,8 +12787,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13461,8 +13425,6 @@ vo.output(name)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -14173,8 +14135,6 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16031,8 +15991,6 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16807,6 +16765,248 @@ kme.setvariable("y", {to:""+y})
 						<key>MacroActionType</key>
 						<string>SetMacroEnable</string>
 						<key>MacroUID</key>
+						<string>D666107B-FB00-483D-89D1-E4E477C1EBD0</string>
+					</dict>
+					<dict>
+						<key>KeyCode</key>
+						<integer>41</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4608</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>D666107B-FB00-483D-89D1-E4E477C1EBD0</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.tables.byName("Track List").rows.whose({selected:true}).uiElements[1].buttons[0].name()
+msg = ""
+length = tracks.length
+if (length &gt; 0) {
+msg = length+tracks[length-1].replace(/^Selected /,"").replace(/ track\. /, "")
+} else msg = "No tracks are selected."
+vo.output (msg)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>522403288.190413</real>
+				<key>ModificationDate</key>
+				<real>522403534.96920502</real>
+				<key>Name</key>
+				<string>Speak And Add Next Track to Selection</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>41</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4608</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>D666107B-FB00-483D-89D1-E4E477C1EBD0</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>E1CED2EA-8818-49D2-95F1-A26B87E14B55</string>
+					</dict>
+					<dict>
+						<key>KeyCode</key>
+						<integer>35</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>4608</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>E1CED2EA-8818-49D2-95F1-A26B87E14B55</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.tables.byName("Track List").rows.whose({selected:true}).uiElements[1].buttons[0].name()
+msg = ""
+length = tracks.length
+if (length &gt; 0) {
+msg = length+tracks[0].replace(/^Selected /,"").replace(/ track\. /, "")
+} else msg = "No tracks are selected."
+vo.output (msg)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>522403562.96376199</real>
+				<key>ModificationDate</key>
+				<real>522403601.244008</real>
+				<key>Name</key>
+				<string>Speak And Add Previous Track to Selection</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>35</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4608</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>E1CED2EA-8818-49D2-95F1-A26B87E14B55</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
 						<string>DA7A9731-3D78-4380-903A-99E6ED823B7E</string>
 					</dict>
 					<dict>
@@ -16844,11 +17044,9 @@ windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.tables.byName("Track List").rows.whose({selected:true}).uiElements[1].buttons[0].name()
 msg = ""
-for (t in tracks) {
-msg += tracks[t].replace(/^Selected /,"")+". "
-}
-msg = msg.replace(/ track\. /g, ". ")
-if (msg=="") msg = "No tracks are selected."
+if (tracks.length &gt; 0) {
+msg = tracks[0].replace(/^Selected /,"").replace(/ track\. /, "")
+} else msg = "No tracks are selected."
 vo.output (msg)
 </string>
 						<key>TimeOutAbortsMacro</key>
@@ -16864,7 +17062,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>522357421.78547698</real>
 				<key>ModificationDate</key>
-				<real>522357939.57831299</real>
+				<real>522403258.96571201</real>
 				<key>Name</key>
 				<string>Speak And Select Next Track</string>
 				<key>Triggers</key>
@@ -16966,11 +17164,9 @@ windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.tables.byName("Track List").rows.whose({selected:true}).uiElements[1].buttons[0].name()
 msg = ""
-for (t in tracks) {
-msg += tracks[t].replace(/^Selected /,"")+". "
-}
-msg = msg.replace(/ track\. /g, ". ")
-if (msg=="") msg = "No tracks are selected."
+if (tracks.length &gt; 0) {
+msg = tracks[0].replace(/^Selected /,"").replace(/ track\. /, "")
+} else msg = "No tracks are selected."
 vo.output (msg)
 </string>
 						<key>TimeOutAbortsMacro</key>
@@ -16986,7 +17182,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>522357779.06875598</real>
 				<key>ModificationDate</key>
-				<real>522357925.88293302</real>
+				<real>522403240.441315</real>
 				<key>Name</key>
 				<string>Speak And Select Previous Track</string>
 				<key>Triggers</key>
@@ -29493,8 +29689,6 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
