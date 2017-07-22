@@ -30,7 +30,7 @@
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>url = "http://update.flotools.org/flotools.php"
+						<string>url = "http://update.flotools.org/ftupdate.php"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
 var regex = /(\d+\.\d+)/;
@@ -38,8 +38,15 @@ var match = regex.exec(current);
 current = match[1];
 app = Application.currentApplication()
 app.includeStandardAdditions = true
+token = kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
 try {
-cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+current+'"'
+cmd = "echo -n '"+token+"' | shasum -a 256 -t"
+token = app.doShellScript(cmd)
+regex = /(\w+)/
+match = regex.exec(token);
+token = current+","+match[1]
+//token = token.split("").reverse().join("")
+cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+token+'"'
 data = app.doShellScript(cmd)
 json = JSON.parse(data)
 latest = json.version
@@ -169,7 +176,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>519199596.54135501</real>
+				<real>522450444.75112599</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.2. Check for Update</string>
 				<key>Triggers</key>
@@ -233,7 +240,7 @@ window.KeyboardMaestro.Cancel()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>url = "http://update.flotools.org"
+						<string>url = "http://update.flotools.org/ftupdate.php"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
 var regex = /(\d+\.\d+)/;
@@ -241,9 +248,14 @@ var match = regex.exec(current);
 current = match[1];
 app = Application.currentApplication()
 app.includeStandardAdditions = true
-
+token = kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
 try {
-cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+current+'"'
+cmd = "echo -n '"+token+"' | shasum -a 256 -t"
+token = app.doShellScript(cmd)
+regex = /(\w+)/
+match = regex.exec(token);
+token = current+","+match[1]
+cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+token+'"'
 data = app.doShellScript(cmd)
 json = JSON.parse(data)
 latest = json.version
@@ -374,7 +386,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>519199545.78377002</real>
+				<real>522450410.785151</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.2. Check for Update</string>
 				<key>Triggers</key>
@@ -16821,7 +16833,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>522403288.190413</real>
 				<key>ModificationDate</key>
-				<real>522403534.96920502</real>
+				<real>522404102.15646601</real>
 				<key>Name</key>
 				<string>Speak And Add Next Track to Selection</string>
 				<key>Triggers</key>
@@ -17007,6 +17019,128 @@ vo.output (msg)
 						<key>MacroActionType</key>
 						<string>SetMacroEnable</string>
 						<key>MacroUID</key>
+						<string>2B84BD4D-351A-43DA-90AC-189C8BC7B7B9</string>
+					</dict>
+					<dict>
+						<key>KeyCode</key>
+						<integer>125</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>2B84BD4D-351A-43DA-90AC-189C8BC7B7B9</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.tables.byName("Track List").rows.whose({selected:true}).uiElements[1].buttons[0].name()
+msg = ""
+for (t in tracks) {
+msg += tracks[t].replace(/^Selected /,"")+". "
+}
+msg = msg.replace(/ track\. /g, ". ")
+if (msg=="") msg = "No tracks are selected."
+vo.output (msg)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>522404166.69127703</real>
+				<key>ModificationDate</key>
+				<real>522404407.18980598</real>
+				<key>Name</key>
+				<string>Speak And Select Next Playlist</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>125</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>2B84BD4D-351A-43DA-90AC-189C8BC7B7B9</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
 						<string>DA7A9731-3D78-4380-903A-99E6ED823B7E</string>
 					</dict>
 					<dict>
@@ -17080,6 +17214,128 @@ vo.output (msg)
 				</array>
 				<key>UID</key>
 				<string>DA7A9731-3D78-4380-903A-99E6ED823B7E</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>B1D8EF63-1F31-4C68-B619-394E6A3C718C</string>
+					</dict>
+					<dict>
+						<key>KeyCode</key>
+						<integer>126</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>B1D8EF63-1F31-4C68-B619-394E6A3C718C</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.tables.byName("Track List").rows.whose({selected:true}).uiElements[1].buttons[0].name()
+msg = ""
+for (t in tracks) {
+msg += tracks[t].replace(/^Selected /,"")+". "
+}
+msg = msg.replace(/ track\. /g, ". ")
+if (msg=="") msg = "No tracks are selected."
+vo.output (msg)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>522404416.14477801</real>
+				<key>ModificationDate</key>
+				<real>522404433.93397802</real>
+				<key>Name</key>
+				<string>Speak And Select Previous Playlist</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>126</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>B1D8EF63-1F31-4C68-B619-394E6A3C718C</string>
 			</dict>
 		</array>
 		<key>Name</key>
