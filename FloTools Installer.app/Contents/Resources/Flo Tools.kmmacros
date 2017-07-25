@@ -30,7 +30,7 @@
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>url = "http://update.flotools.org/ftupdate.php"
+						<string>url = "http://update.flotools.org/flotools.php"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
 var regex = /(\d+\.\d+)/;
@@ -38,15 +38,8 @@ var match = regex.exec(current);
 current = match[1];
 app = Application.currentApplication()
 app.includeStandardAdditions = true
-token = kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
 try {
-cmd = "echo -n '"+token+"' | shasum -a 256 -t"
-token = app.doShellScript(cmd)
-regex = /(\w+)/
-match = regex.exec(token);
-token = current+","+match[1]
-//token = token.split("").reverse().join("")
-cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+token+'"'
+cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+current+'"'
 data = app.doShellScript(cmd)
 json = JSON.parse(data)
 latest = json.version
@@ -176,7 +169,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>522450444.75112599</real>
+				<real>519199596.54135501</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.2. Check for Update</string>
 				<key>Triggers</key>
@@ -240,7 +233,7 @@ window.KeyboardMaestro.Cancel()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>url = "http://update.flotools.org/ftupdate.php"
+						<string>url = "http://update.flotools.org"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
 var regex = /(\d+\.\d+)/;
@@ -248,14 +241,9 @@ var match = regex.exec(current);
 current = match[1];
 app = Application.currentApplication()
 app.includeStandardAdditions = true
-token = kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
+
 try {
-cmd = "echo -n '"+token+"' | shasum -a 256 -t"
-token = app.doShellScript(cmd)
-regex = /(\w+)/
-match = regex.exec(token);
-token = current+","+match[1]
-cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+token+'"'
+cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+current+'"'
 data = app.doShellScript(cmd)
 json = JSON.parse(data)
 latest = json.version
@@ -386,7 +374,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>522450410.785151</real>
+				<real>519199545.78377002</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.2. Check for Update</string>
 				<key>Triggers</key>
@@ -3960,6 +3948,8 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4246,6 +4236,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4744,6 +4736,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4871,6 +4865,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5104,6 +5100,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5284,6 +5282,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5729,6 +5729,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6386,6 +6388,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6619,6 +6623,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6799,6 +6805,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6979,6 +6987,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7048,6 +7058,8 @@ vo.output(x+", "+y)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7809,7 +7821,7 @@ vo.output(value)
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
+						<string>pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 msg = window.name().replace("Plug-in: ","").replace("/"," ")+"\n"
@@ -12306,6 +12318,8 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12399,6 +12413,8 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12494,6 +12510,8 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12589,6 +12607,8 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12706,6 +12726,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12799,6 +12821,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13160,7 +13184,7 @@ vo.output(name)
 						<string></string>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
-pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 window.buttons.byName("Next setting").click()
@@ -13437,6 +13461,8 @@ vo.output(name)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -14147,6 +14173,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -14862,7 +14890,7 @@ vo.output(name)
 						<string></string>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
-pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 window.buttons.byName("Previous setting").click()
@@ -16003,6 +16031,8 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17019,6 +17049,268 @@ vo.output (msg)
 						<key>MacroActionType</key>
 						<string>SetMacroEnable</string>
 						<key>MacroUID</key>
+						<string>FF927334-3815-47E8-BB37-2225B5770FE3</string>
+					</dict>
+					<dict>
+						<key>KeyCode</key>
+						<integer>48</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>KeyCode</key>
+						<integer>41</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>FF927334-3815-47E8-BB37-2225B5770FE3</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.tables.byName("Track List").rows.whose({selected:true}).uiElements[1].buttons[0].name()
+msg = ""
+length = tracks.length
+if (length &gt; 0) {
+msg = length+tracks[length-1].replace(/^Selected /,"").replace(/ track\. /, "")
+} else msg = "No tracks are selected."
+vo.output (msg)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>522708126.47177601</real>
+				<key>ModificationDate</key>
+				<real>522709182.37563002</real>
+				<key>Name</key>
+				<string>Speak And Retract Selection From Bottom Track</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>41</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>FF927334-3815-47E8-BB37-2225B5770FE3</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>81A59AE1-F9C2-4504-AB51-08A123CDF96C</string>
+					</dict>
+					<dict>
+						<key>KeyCode</key>
+						<integer>48</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>KeyCode</key>
+						<integer>35</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+						<key>ReleaseAll</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>81A59AE1-F9C2-4504-AB51-08A123CDF96C</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
+windows = pt.windows
+mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
+tracks = mix.tables.byName("Track List").rows.whose({selected:true}).uiElements[1].buttons[0].name()
+msg = ""
+length = tracks.length
+if (length &gt; 0) {
+msg = length+tracks[0].replace(/^Selected /,"").replace(/ track\. /, "")
+} else msg = "No tracks are selected."
+vo.output (msg)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>522707798.86158699</real>
+				<key>ModificationDate</key>
+				<real>522709652.49358702</real>
+				<key>Name</key>
+				<string>Speak And Retract Selection From Top Track</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>35</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>81A59AE1-F9C2-4504-AB51-08A123CDF96C</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
 						<string>2B84BD4D-351A-43DA-90AC-189C8BC7B7B9</string>
 					</dict>
 					<dict>
@@ -17623,7 +17915,7 @@ kme = Application("Keyboard Maestro Engine")
 if (kme.getvariable("FTGRMonitor") == "1") {
 kme.setvariable("FTGRMonitor", {to:"0"})
 } else {
-pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.groups
@@ -18203,7 +18495,7 @@ vo = Application("VoiceOver")
 if (kme.getvariable("FTLevelMonitor") == "1") {
 kme.setvariable("FTLevelMonitor", {to:"0"})
 } else {
-pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.groups
@@ -19490,7 +19782,7 @@ vo.output(msg)
 
 function single() {
 vo = Application("VoiceOver")
-pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 value = window.popUpButtons.byName("Librarian menu").name()
@@ -19498,7 +19790,7 @@ vo.output(value)
 }
 
 function double() {
-pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 window.popUpButtons.byName("Librarian menu").click()
@@ -26013,7 +26305,7 @@ if (runSingle) single()
 
 function single() {
 vo = Application("VoiceOver")
-pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 if (window.buttons.byName("Effect Bypass").value() == "") value = "Off"
@@ -26023,7 +26315,7 @@ vo.output(value)
 
 function double() {
 vo = Application("VoiceOver")
-pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
 window.buttons.byName("Effect Bypass").click()
@@ -28348,7 +28640,7 @@ if (runSingle) single()
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0].windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -28449,7 +28741,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0].windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -28550,7 +28842,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0].windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -28651,7 +28943,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0].windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -28752,7 +29044,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0].windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -28853,7 +29145,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0].windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -28954,7 +29246,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0].windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -29055,7 +29347,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0].windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -29156,7 +29448,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
-window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}}).windows[0]
+window = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0].windows[0]
 obj = window.radioButtons[command-1]
 obj.click()
 Application("VoiceOver").output(obj.name()+" selected")
@@ -29666,7 +29958,7 @@ if (kme.getvariable("FTPluginMonitor") == "1") {
 kme.setvariable("FTPluginMonitor", {to:"0"})
 vo.output("Deactivate plugin monitor.")
 } else {
-pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})
+pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 try {
 window = windows.whose({name:{_beginsWith:"Plug-in:"}})[0]
@@ -29945,6 +30237,8 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
