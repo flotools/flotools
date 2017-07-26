@@ -30,7 +30,7 @@
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>url = "http://update.flotools.org/flotools.php"
+						<string>url = "http://update.flotools.org/ftupdate.php"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
 var regex = /(\d+\.\d+)/;
@@ -38,8 +38,15 @@ var match = regex.exec(current);
 current = match[1];
 app = Application.currentApplication()
 app.includeStandardAdditions = true
+token = kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
 try {
-cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+current+'"'
+cmd = "echo -n '"+token+"' | shasum -a 256 -t"
+token = app.doShellScript(cmd)
+regex = /(\w+)/
+match = regex.exec(token);
+token = current+","+match[1]
+//token = token.split("").reverse().join("")
+cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+token+'"'
 data = app.doShellScript(cmd)
 json = JSON.parse(data)
 latest = json.version
@@ -169,7 +176,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>519199596.54135501</real>
+				<real>522720841.61542398</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.2. Check for Update</string>
 				<key>Triggers</key>
@@ -233,7 +240,7 @@ window.KeyboardMaestro.Cancel()
 						<key>Path</key>
 						<string></string>
 						<key>Text</key>
-						<string>url = "http://update.flotools.org"
+						<string>url = "http://update.flotools.org/ftupdate.php"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
 var regex = /(\d+\.\d+)/;
@@ -241,10 +248,17 @@ var match = regex.exec(current);
 current = match[1];
 app = Application.currentApplication()
 app.includeStandardAdditions = true
-
+token = kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
 try {
-cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+current+'"'
+cmd = "echo -n '"+token+"' | shasum -a 256 -t"
+token = app.doShellScript(cmd)
+regex = /(\w+)/
+match = regex.exec(token);
+token = current+","+match[1]
+//token = token.split("").reverse().join("")
+cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" --data-urlencode "token='+token+'"'
 data = app.doShellScript(cmd)
+console.log(data)
 json = JSON.parse(data)
 latest = json.version
 url = json.url
@@ -374,7 +388,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>519199545.78377002</real>
+				<real>522721019.32157499</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.2. Check for Update</string>
 				<key>Triggers</key>
@@ -17348,10 +17362,10 @@ windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.tables.byName("Track List").rows.whose({selected:true}).uiElements[1].buttons[0].name()
 msg = ""
+regex = /^Selected (.*?)  \w+ track$/
 for (t in tracks) {
-msg += tracks[t].replace(/^Selected /,"")+". "
+msg += regex.exec(tracks[t])[1]+". "
 }
-msg = msg.replace(/ track\. /g, ". ")
 if (msg=="") msg = "No tracks are selected."
 vo.output (msg)
 </string>
@@ -17368,7 +17382,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>522404166.69127703</real>
 				<key>ModificationDate</key>
-				<real>522404407.18980598</real>
+				<real>522712322.57231402</real>
 				<key>Name</key>
 				<string>Speak And Select Next Playlist</string>
 				<key>Triggers</key>
@@ -17590,10 +17604,10 @@ windows = pt.windows
 mix = windows.whose({name:{_beginsWith:"Mix:"}})[0]
 tracks = mix.tables.byName("Track List").rows.whose({selected:true}).uiElements[1].buttons[0].name()
 msg = ""
+regex = /^Selected (.*?)  \w+ track$/
 for (t in tracks) {
-msg += tracks[t].replace(/^Selected /,"")+". "
+msg += regex.exec(tracks[t])[1]+". "
 }
-msg = msg.replace(/ track\. /g, ". ")
 if (msg=="") msg = "No tracks are selected."
 vo.output (msg)
 </string>
@@ -17610,7 +17624,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>522404416.14477801</real>
 				<key>ModificationDate</key>
-				<real>522404433.93397802</real>
+				<real>522712341.93382198</real>
 				<key>Name</key>
 				<string>Speak And Select Previous Playlist</string>
 				<key>Triggers</key>
