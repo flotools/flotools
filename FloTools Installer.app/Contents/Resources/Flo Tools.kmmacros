@@ -27,17 +27,28 @@
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
-						<string>url = "http://update.flotools.org/ftupdate.php"
+						<string>app = Application.currentApplication()
+app.includeStandardAdditions = true
+try {
+vo = Application("VoiceOver")
+vo.output("")
+} catch (err) {
+cmd = "say Alert! Flo Tools cannot control VoiceOver. Please allow VoiceOver to be controlled with AppleScript in Voiceover Utility."
+app.doShellScript(cmd)
+}
+url = "http://update.flotools.org/ftupdate.php"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
 var regex = /(\d+\.\d+)/;
 var match = regex.exec(current);
 current = match[1];
-app = Application.currentApplication()
-app.includeStandardAdditions = true
 token = kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
 try {
 cmd = "echo -n '"+token+"' | shasum -a 256 -t"
@@ -98,6 +109,8 @@ kme.setvariable("FTPrompt", {to:prompt})
 						<key>ThenActions</key>
 						<array>
 							<dict>
+								<key>Floating</key>
+								<true/>
 								<key>MacroActionType</key>
 								<string>CustomPrompt</string>
 								<key>Text</key>
@@ -176,7 +189,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>522720841.61542398</real>
+				<real>529581696.04489303</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.2. Check for Update</string>
 				<key>Triggers</key>
@@ -237,8 +250,12 @@ window.KeyboardMaestro.Cancel()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>url = "http://update.flotools.org/ftupdate.php"
 kme = Application("Keyboard Maestro Engine")
@@ -309,6 +326,8 @@ kme.setvariable("FTPrompt", {to:prompt})
 						<key>ThenActions</key>
 						<array>
 							<dict>
+								<key>Floating</key>
+								<true/>
 								<key>MacroActionType</key>
 								<string>CustomPrompt</string>
 								<key>Text</key>
@@ -452,6 +471,10 @@ window.KeyboardMaestro.Cancel()
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -505,6 +528,10 @@ window.KeyboardMaestro.Cancel()
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -558,6 +585,10 @@ window.KeyboardMaestro.Cancel()
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -611,6 +642,10 @@ window.KeyboardMaestro.Cancel()
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -652,8 +687,6 @@ window.KeyboardMaestro.Cancel()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -666,8 +699,12 @@ window.KeyboardMaestro.Cancel()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -748,8 +785,6 @@ track.groups["Inserts A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -762,8 +797,12 @@ track.groups["Inserts A-E"].buttons[0].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -844,8 +883,6 @@ track.groups["Inserts A-E"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -858,8 +895,12 @@ track.groups["Inserts A-E"].buttons[1].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -940,8 +981,6 @@ track.groups["Inserts A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -954,8 +993,12 @@ track.groups["Inserts A-E"].buttons[2].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -1036,8 +1079,6 @@ track.groups["Inserts A-E"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1050,8 +1091,12 @@ track.groups["Inserts A-E"].buttons[3].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -1132,8 +1177,6 @@ track.groups["Inserts A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1146,8 +1189,12 @@ track.groups["Inserts A-E"].buttons[4].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -1228,8 +1275,6 @@ track.groups["Inserts F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1242,8 +1287,12 @@ track.groups["Inserts F-J"].buttons[0].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -1324,8 +1373,6 @@ track.groups["Inserts F-J"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1338,8 +1385,12 @@ track.groups["Inserts F-J"].buttons[1].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -1420,8 +1471,6 @@ track.groups["Inserts F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1434,8 +1483,12 @@ track.groups["Inserts F-J"].buttons[2].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -1516,8 +1569,6 @@ track.groups["Inserts F-J"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1530,8 +1581,12 @@ track.groups["Inserts F-J"].buttons[3].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -1612,8 +1667,6 @@ track.groups["Inserts F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1626,8 +1679,12 @@ track.groups["Inserts F-J"].buttons[4].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -1708,8 +1765,6 @@ track.groups["Sends A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1722,8 +1777,12 @@ track.groups["Sends A-E"].buttons[0].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -1804,8 +1863,6 @@ track.groups["Sends A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1818,8 +1875,12 @@ track.groups["Sends A-E"].buttons[2].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -1900,8 +1961,6 @@ track.groups["Sends A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1914,8 +1973,12 @@ track.groups["Sends A-E"].buttons[4].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -1996,8 +2059,6 @@ track.groups["Sends A-E"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2010,8 +2071,12 @@ track.groups["Sends A-E"].buttons[6].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -2092,8 +2157,6 @@ track.groups["Sends A-E"].buttons[8].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2106,8 +2169,12 @@ track.groups["Sends A-E"].buttons[8].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -2188,8 +2255,6 @@ track.groups["Sends F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2202,8 +2267,12 @@ track.groups["Sends F-J"].buttons[0].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -2284,8 +2353,6 @@ track.groups["Sends F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2298,8 +2365,12 @@ track.groups["Sends F-J"].buttons[2].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -2380,8 +2451,6 @@ track.groups["Sends F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2394,8 +2463,12 @@ track.groups["Sends F-J"].buttons[4].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -2476,8 +2549,6 @@ track.groups["Sends F-J"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2490,8 +2561,12 @@ track.groups["Sends F-J"].buttons[6].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -2788,8 +2863,12 @@ track.groups["Sends F-J"].buttons[8].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
@@ -2887,8 +2966,12 @@ kme.setvariable("point2", {to:x+","+y+","+w+","+h})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -2979,8 +3062,12 @@ else vo.output("Finished dragging")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "csr"
 
@@ -3140,8 +3227,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -3318,8 +3409,12 @@ Application("VoiceOver").output("Marked for drag.")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "osr"
 
@@ -3475,8 +3570,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3489,8 +3582,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "a"
 
@@ -3532,7 +3629,6 @@ break;
 }
 if (runSingle) single()
 }
-
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -3547,7 +3643,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>493843837.55308402</real>
 				<key>ModificationDate</key>
-				<real>498966628.81307399</real>
+				<real>523140880.31805497</real>
 				<key>Name</key>
 				<string>Beta: Speak/Select Automation Mode</string>
 				<key>Triggers</key>
@@ -3605,8 +3701,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3619,8 +3713,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "e"
 
@@ -3735,8 +3833,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3749,8 +3845,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "w"
 
@@ -3862,6 +3962,62 @@ if (runSingle) single()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>500760463.49967402</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>CancelAllMacros</string>
+						<key>MacroActionType</key>
+						<string>Cancel</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>527057417.16288197</real>
+				<key>ModificationDate</key>
+				<real>527057583.81411201</real>
+				<key>Name</key>
+				<string>Cancel Macros</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>Application</key>
+						<dict>
+							<key>BundleIdentifier</key>
+							<string>com.avid.ProTools</string>
+							<key>Name</key>
+							<string>Pro Tools</string>
+							<key>NewFile</key>
+							<string>/Applications/Pro Tools.app</string>
+						</dict>
+						<key>FireType2</key>
+						<string>Quit</string>
+						<key>MacroTriggerType</key>
+						<string>Application</string>
+						<key>RepeatTime</key>
+						<integer>60</integer>
+						<key>Target</key>
+						<string>Specific</string>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>0FCEBE52-50EF-45D0-9FC6-6FBFBA3DD447</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Global</string>
+		<key>ToggleMacroUID</key>
+		<string>461221CF-A568-4719-9C3F-3D41C05A5B09</string>
+		<key>UID</key>
+		<string>FEA49FEF-1551-453B-9E90-02A376C079B6</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>479078801.99380499</real>
 		<key>Macros</key>
 		<array>
@@ -3875,8 +4031,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -3971,6 +4131,10 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -4008,6 +4172,8 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4028,8 +4194,12 @@ windows = pt.windows.whose({_not:[mixFilter, editFilter]}).buttons[0].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -4151,6 +4321,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -4204,6 +4378,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -4257,6 +4435,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -4294,6 +4476,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4314,8 +4498,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -4437,6 +4625,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -4490,6 +4682,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -4543,6 +4739,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -4596,6 +4796,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -4649,6 +4853,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -4702,6 +4910,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -4755,6 +4967,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -4792,6 +5008,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4812,8 +5030,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -4919,6 +5141,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4939,8 +5163,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -5062,6 +5290,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2304</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -5115,6 +5347,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2304</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -5152,6 +5388,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5172,8 +5410,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -5295,6 +5537,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -5332,6 +5578,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5352,8 +5600,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -5475,6 +5727,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>768</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -5528,6 +5784,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>768</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -5581,6 +5841,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>768</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -5634,6 +5898,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>768</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -5687,6 +5955,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>768</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -5740,6 +6012,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>256</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -5777,6 +6053,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5797,8 +6075,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -5920,6 +6202,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -5973,6 +6259,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6026,6 +6316,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6079,6 +6373,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6132,6 +6430,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6185,6 +6487,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6238,6 +6544,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6291,6 +6601,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6344,6 +6658,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6397,6 +6715,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6434,6 +6756,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6454,8 +6778,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -6577,6 +6905,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>6144</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6630,6 +6962,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>6144</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6667,6 +7003,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6687,8 +7025,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -6810,6 +7152,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -6847,6 +7193,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6867,8 +7215,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -6990,6 +7342,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -7027,6 +7383,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7039,8 +7397,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 kme = Application("Keyboard Maestro Engine")
@@ -7096,6 +7458,8 @@ vo.output(x+", "+y)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7108,8 +7472,12 @@ vo.output(x+", "+y)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 kme = Application("Keyboard Maestro Engine")
@@ -7192,8 +7560,12 @@ vo.output(wx+", "+wy)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 kme.setvariable("FTGRMonitor", {to:"0"})
@@ -7266,8 +7638,6 @@ kme.setvariable("FTLevelMonitor", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7280,8 +7650,12 @@ kme.setvariable("FTLevelMonitor", {to:"0"})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -7383,6 +7757,10 @@ vo.output(value)
 						<integer>2304</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>DisplayKind</key>
@@ -7391,8 +7769,12 @@ vo.output(value)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "gs"
 
@@ -7549,8 +7931,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7563,8 +7943,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -7649,8 +8033,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7663,8 +8045,12 @@ vo.output(value)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -7751,8 +8137,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -7765,8 +8149,12 @@ vo.output(value)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -7862,8 +8250,12 @@ vo.output(value)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
@@ -7957,8 +8349,12 @@ console.log(msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 c = kme.getvariable("FTEventIndex")
@@ -8073,6 +8469,10 @@ Application("VoiceOver").output(msg)</string>
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -8114,8 +8514,6 @@ Application("VoiceOver").output(msg)</string>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8128,8 +8526,12 @@ Application("VoiceOver").output(msg)</string>
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -8231,6 +8633,10 @@ vo.output(value)
 						<integer>2304</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>DisplayKind</key>
@@ -8239,8 +8645,12 @@ vo.output(value)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "gs"
 
@@ -8397,8 +8807,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8411,8 +8819,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -8497,8 +8909,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8511,8 +8921,12 @@ vo.output(value)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -8599,8 +9013,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -8613,8 +9025,12 @@ vo.output(value)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -8710,6 +9126,10 @@ vo.output(value)
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -8763,6 +9183,10 @@ vo.output(value)
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -8816,6 +9240,10 @@ vo.output(value)
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -8869,6 +9297,10 @@ vo.output(value)
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -8918,8 +9350,12 @@ vo.output(value)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 app = Application.currentApplication()
@@ -9025,8 +9461,12 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "csk"
 
@@ -9178,8 +9618,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "csm"
 
@@ -9337,8 +9781,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "cst"
 
@@ -9494,8 +9942,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 app = Application.currentApplication()
@@ -9601,8 +10053,12 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "css"
 
@@ -9764,8 +10220,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -9953,8 +10413,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command")
@@ -10139,8 +10603,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command")
@@ -10325,8 +10793,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command")
@@ -10511,8 +10983,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command")
@@ -10697,8 +11173,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command")
@@ -10883,8 +11363,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command")
@@ -11069,8 +11553,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command")
@@ -11255,8 +11743,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command")
@@ -11441,8 +11933,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command")
@@ -11619,6 +12115,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -11672,8 +12172,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>function read(msg) {
 if (msg == "") msg = "no"
@@ -11776,8 +12280,12 @@ read(current)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>function read(current) {
 if (current.indexOf("|")&gt;-1) {
@@ -11906,8 +12414,12 @@ read(current)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>function read(current) {
 if (current.indexOf("|")&gt;-1) {
@@ -12042,8 +12554,12 @@ read(current)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>function read(msg) {
 msg = msg.replace("x", "-DOUBLE Sharp")
@@ -12151,8 +12667,12 @@ read(current)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>function read(msg) {
 if (msg == "") msg = "No"
@@ -12256,8 +12776,12 @@ read(current)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>function read(current) {
 if (current.indexOf("|")&gt;-1) {
@@ -12370,6 +12894,8 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12414,8 +12940,12 @@ read(current)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>Application("VoiceOver").output("Down")</string>
 						<key>TimeOutAbortsMacro</key>
@@ -12463,6 +12993,8 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12509,8 +13041,12 @@ read(current)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>Application("VoiceOver").output("Left")</string>
 						<key>TimeOutAbortsMacro</key>
@@ -12558,6 +13094,8 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12604,8 +13142,12 @@ read(current)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>Application("VoiceOver").output("Right")</string>
 						<key>TimeOutAbortsMacro</key>
@@ -12653,6 +13195,8 @@ read(current)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12665,8 +13209,12 @@ read(current)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 kme = Application("Keyboard Maestro Engine")
@@ -12770,6 +13318,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12814,8 +13364,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>Application("VoiceOver").output("Mouse moved to center of current window.")</string>
 						<key>TimeOutAbortsMacro</key>
@@ -12863,6 +13417,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -12909,8 +13465,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>Application("VoiceOver").output("Up")</string>
 						<key>TimeOutAbortsMacro</key>
@@ -12974,8 +13534,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 c = kme.getvariable("FTEventIndex")
@@ -13069,8 +13633,12 @@ kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 index = kme.getvariable("FTPluginControlIndex")
@@ -13220,8 +13788,12 @@ vo.output(name)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
@@ -13313,8 +13885,12 @@ vo.output("Next")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 index = kme.getvariable("FTPluginControlIndex")
@@ -13464,6 +14040,10 @@ vo.output(name)
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -13501,6 +14081,8 @@ vo.output(name)
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -13521,8 +14103,12 @@ vo.output(name)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -13644,6 +14230,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -13697,6 +14287,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -13750,6 +14344,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -13803,6 +14401,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -13856,6 +14458,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -13909,6 +14515,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -13962,6 +14572,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -14015,6 +14629,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -14068,6 +14686,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -14121,6 +14743,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -14174,6 +14800,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -14211,6 +14841,8 @@ kme.setvariable("y", {to:""+y})
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -14231,8 +14863,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -14354,6 +14990,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2560</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -14407,6 +15047,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2560</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -14460,6 +15104,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2560</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -14513,6 +15161,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2560</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -14566,6 +15218,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>2048</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -14619,6 +15275,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -14672,8 +15332,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 c = kme.getvariable("FTEventIndex")
@@ -14768,8 +15432,12 @@ else kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 index = kme.getvariable("FTPluginControlIndex")
@@ -14922,8 +15590,12 @@ vo.output(name)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 pt = Application("System Events").applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
@@ -15015,8 +15687,12 @@ vo.output("Previous")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 index = kme.getvariable("FTPluginControlIndex")
@@ -15355,8 +16031,12 @@ vo.output(name)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -15488,8 +16168,12 @@ vo.output("Clips table is "+w+" points wide. Click and drag to resize.")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -15555,7 +16239,7 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 				<key>CreationDate</key>
 				<real>515362130.36304301</real>
 				<key>ModificationDate</key>
-				<real>515378009.05394</real>
+				<real>526091795.35521901</real>
 				<key>Name</key>
 				<string>Resize Track LIst Table</string>
 				<key>Triggers</key>
@@ -15625,6 +16309,10 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -15709,6 +16397,10 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 								<integer>2304</integer>
 								<key>ReleaseAll</key>
 								<false/>
+								<key>TargetApplication</key>
+								<dict/>
+								<key>TargetingType</key>
+								<string>Front</string>
 							</dict>
 							<dict>
 								<key>Action</key>
@@ -15725,8 +16417,12 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 								<true/>
 								<key>MacroActionType</key>
 								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
 								<key>Path</key>
 								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
 								<key>Text</key>
 								<string>Application("VoiceOver").output("Clip Keyboard Focus")
 </string>
@@ -15813,8 +16509,12 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>sys = Application("System Events")
 pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
@@ -15936,6 +16636,10 @@ edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").click()
 								<integer>2304</integer>
 								<key>ReleaseAll</key>
 								<false/>
+								<key>TargetApplication</key>
+								<dict/>
+								<key>TargetingType</key>
+								<string>Front</string>
 							</dict>
 							<dict>
 								<key>Action</key>
@@ -15952,8 +16656,12 @@ edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").click()
 								<true/>
 								<key>MacroActionType</key>
 								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
 								<key>Path</key>
 								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
 								<key>Text</key>
 								<string>Application("VoiceOver").output("Group Keyboard Focus")
 </string>
@@ -16040,8 +16748,12 @@ edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").click()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>sys = Application("System Events")
 pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
@@ -16128,8 +16840,12 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Main Counter selec
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>sys = Application("System Events")
 pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
@@ -16216,8 +16932,12 @@ edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Nudge Controls").click(
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>sys = Application("System Events")
 pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
@@ -16339,6 +17059,10 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 								<integer>2304</integer>
 								<key>ReleaseAll</key>
 								<false/>
+								<key>TargetApplication</key>
+								<dict/>
+								<key>TargetingType</key>
+								<string>Front</string>
 							</dict>
 							<dict>
 								<key>Action</key>
@@ -16355,8 +17079,12 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 								<true/>
 								<key>MacroActionType</key>
 								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
 								<key>Path</key>
 								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
 								<key>Text</key>
 								<string>Application("VoiceOver").output("Timeline Keyboard Focus")
 </string>
@@ -16447,6 +17175,10 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -16484,6 +17216,8 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16504,8 +17238,12 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 vo = Application("VoiceOver")
@@ -16627,6 +17365,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -16680,6 +17422,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -16733,6 +17479,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -16786,6 +17536,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -16839,6 +17593,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -16892,6 +17650,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -16945,6 +17707,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -16998,6 +17764,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -17051,6 +17821,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -17104,6 +17878,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -17157,6 +17935,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -17210,6 +17992,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -17269,6 +18055,10 @@ kme.setvariable("y", {to:""+y})
 						<integer>4608</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>Action</key>
@@ -17285,8 +18075,12 @@ kme.setvariable("y", {to:""+y})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -17390,6 +18184,10 @@ vo.output (msg)
 						<integer>4608</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>Action</key>
@@ -17406,8 +18204,12 @@ vo.output (msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -17511,6 +18313,10 @@ vo.output (msg)
 						<integer>6144</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>KeyCode</key>
@@ -17521,6 +18327,10 @@ vo.output (msg)
 						<integer>6144</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>Action</key>
@@ -17537,8 +18347,12 @@ vo.output (msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -17642,6 +18456,10 @@ vo.output (msg)
 						<integer>6144</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>KeyCode</key>
@@ -17652,6 +18470,10 @@ vo.output (msg)
 						<integer>6144</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>Action</key>
@@ -17668,8 +18490,12 @@ vo.output (msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -17773,6 +18599,10 @@ vo.output (msg)
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>Action</key>
@@ -17789,8 +18619,12 @@ vo.output (msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -17895,6 +18729,10 @@ vo.output (msg)
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>Action</key>
@@ -17911,8 +18749,12 @@ vo.output (msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -18015,6 +18857,10 @@ vo.output (msg)
 						<integer>512</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>Action</key>
@@ -18031,8 +18877,12 @@ vo.output (msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -18137,6 +18987,10 @@ vo.output (msg)
 						<integer>4096</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 					<dict>
 						<key>Action</key>
@@ -18153,8 +19007,12 @@ vo.output (msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -18239,8 +19097,6 @@ vo.output (msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18253,8 +19109,12 @@ vo.output (msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 kme = Application("Keyboard Maestro Engine")
@@ -18333,8 +19193,6 @@ kme.setvariable("FTGRMax", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18347,8 +19205,12 @@ kme.setvariable("FTGRMax", {to:"0"})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "\;"
 
@@ -18514,8 +19376,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -18638,8 +19504,12 @@ vo.output (msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "osh"
 
@@ -18771,8 +19641,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "gk"
 
@@ -18913,8 +19787,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -18927,8 +19799,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "l"
 
@@ -19088,8 +19964,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "gm"
 
@@ -19243,8 +20123,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>start = new Date().getTime()
 kme = Application("Keyboard Maestro Engine")
@@ -19354,8 +20238,12 @@ vo.output (msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 vo = Application("VoiceOver")
@@ -19453,8 +20341,12 @@ vo.output (msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "gt"
 
@@ -19596,8 +20488,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "osw"
 
@@ -19729,8 +20625,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>start = new Date().getTime()
 kme = Application("Keyboard Maestro Engine")
@@ -19838,8 +20738,12 @@ vo.output(msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "gs"
 
@@ -19983,8 +20887,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -19997,8 +20899,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "e"
 
@@ -20124,8 +21030,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>start = new Date().getTime()
 kme = Application("Keyboard Maestro Engine")
@@ -20234,8 +21144,12 @@ vo.output(msg)
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "b"
 
@@ -20359,8 +21273,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "ov"
 
@@ -20474,8 +21392,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20488,8 +21404,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "c"
 
@@ -20616,8 +21536,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "cf4"
 
@@ -20768,8 +21692,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "gs"
 
@@ -20930,8 +21858,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "op"
 
@@ -21059,8 +21991,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "cf10"
 
@@ -21216,8 +22152,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "cf9"
 
@@ -21377,8 +22317,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "ov"
 
@@ -21500,8 +22444,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "cf2"
 
@@ -21651,8 +22599,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "cf3"
 
@@ -21808,8 +22760,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "cf1"
 
@@ -21959,8 +22915,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "cf6"
 
@@ -22110,8 +23070,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "cf11"
 
@@ -22226,8 +23190,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22240,8 +23202,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "1"
 
@@ -22361,8 +23327,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22375,8 +23339,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "2"
 
@@ -22497,8 +23465,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22511,8 +23477,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "3"
 
@@ -22632,8 +23602,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22646,8 +23614,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "4"
 
@@ -22767,8 +23739,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22781,8 +23751,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "5"
 
@@ -22902,8 +23876,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -22916,8 +23888,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "6"
 
@@ -23037,8 +24013,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23051,8 +24025,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "7"
 
@@ -23173,8 +24151,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23187,8 +24163,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "8"
 
@@ -23308,8 +24288,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23322,8 +24300,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "9"
 
@@ -23443,8 +24425,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23457,8 +24437,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "0"
 
@@ -23578,8 +24562,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23592,8 +24574,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "s1"
 
@@ -23713,8 +24699,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23727,8 +24711,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "2"
 
@@ -23849,8 +24837,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23863,8 +24849,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "3"
 
@@ -23984,8 +24974,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -23998,8 +24986,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "4"
 
@@ -24119,8 +25111,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24133,8 +25123,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "5"
 
@@ -24254,8 +25248,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24268,8 +25260,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "6"
 
@@ -24389,8 +25385,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24403,8 +25397,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "7"
 
@@ -24525,8 +25523,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24539,8 +25535,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "8"
 
@@ -24660,8 +25660,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24674,8 +25672,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "9"
 
@@ -24795,8 +25797,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24809,8 +25809,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "0"
 
@@ -24930,8 +25934,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24944,8 +25946,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "v"
 
@@ -25065,8 +26071,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -25079,8 +26083,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "n"
 
@@ -25209,8 +26217,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -25223,8 +26229,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "p"
 
@@ -25347,8 +26357,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -25361,8 +26369,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "v"
 
@@ -25482,8 +26494,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -25496,8 +26506,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "g"
 
@@ -25616,8 +26630,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -25630,8 +26642,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "oo"
 
@@ -25746,8 +26762,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -25760,8 +26774,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "oo"
 
@@ -25876,8 +26894,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -25890,8 +26906,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "sp"
 
@@ -26015,8 +27035,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "f1"
 
@@ -26143,8 +27167,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "f2"
 
@@ -26271,8 +27299,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "f3"
 
@@ -26391,8 +27423,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26405,8 +27435,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "b"
 
@@ -26522,8 +27556,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26536,8 +27568,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "i"
 
@@ -26662,8 +27698,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -26676,8 +27710,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "o"
 
@@ -26821,8 +27859,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "b"
 
@@ -26948,8 +27990,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "on8"
 
@@ -27068,8 +28114,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -27082,8 +28126,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "h"
 
@@ -27220,8 +28268,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "f3"
 
@@ -27345,8 +28397,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -27359,8 +28409,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "k"
 
@@ -27489,8 +28543,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "Ctrln"
 
@@ -27609,8 +28667,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -27623,8 +28679,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "om"
 
@@ -27755,8 +28815,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "s/"
 
@@ -27883,8 +28947,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "csl"
 
@@ -28003,8 +29071,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "ol"
 
@@ -28056,6 +29128,8 @@ if (runSingle) single()
 				</array>
 				<key>CreationDate</key>
 				<real>515336961.72523302</real>
+				<key>IsActive</key>
+				<false/>
 				<key>ModificationDate</key>
 				<real>515337283.92502302</real>
 				<key>Name</key>
@@ -28123,8 +29197,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "on7"
 
@@ -28251,8 +29329,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "on9"
 
@@ -28371,8 +29453,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -28385,8 +29465,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "m"
 
@@ -28517,8 +29601,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "ck"
 
@@ -28637,8 +29725,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "csp"
 
@@ -28749,8 +29841,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -28763,8 +29853,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "r"
 
@@ -28826,7 +29920,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>493841347.92451298</real>
 				<key>ModificationDate</key>
-				<real>494236100.94893199</real>
+				<real>523140313.77168202</real>
 				<key>Name</key>
 				<string>Speak/Toggle Record State</string>
 				<key>Triggers</key>
@@ -28884,8 +29978,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -28898,8 +29990,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "s"
 
@@ -29030,8 +30126,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "COTab"
 
@@ -29170,8 +30270,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
@@ -29271,8 +30375,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
@@ -29372,8 +30480,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
@@ -29473,8 +30585,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
@@ -29574,8 +30690,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
@@ -29675,8 +30795,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
@@ -29776,8 +30900,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
@@ -29877,8 +31005,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
@@ -29978,8 +31110,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>command = Application("Keyboard Maestro Engine").getvariable("command")
 command = parseInt(command.substring(command.length-1))
@@ -30094,8 +31230,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 								<true/>
 								<key>MacroActionType</key>
 								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
 								<key>Path</key>
 								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
 								<key>Text</key>
 								<string>Application("VoiceOver").output("Mouse On")</string>
 								<key>TimeOutAbortsMacro</key>
@@ -30127,8 +31267,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 								<true/>
 								<key>MacroActionType</key>
 								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
 								<key>Path</key>
 								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
 								<key>Text</key>
 								<string>Application("VoiceOver").output("Mouse Off")</string>
 								<key>TimeOutAbortsMacro</key>
@@ -30148,7 +31292,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 				<key>CreationDate</key>
 				<real>500667533.44200301</real>
 				<key>ModificationDate</key>
-				<real>503427193.64248103</real>
+				<real>527225833.76254702</real>
 				<key>Name</key>
 				<string>Toggle Flo Tools Mouse</string>
 				<key>Triggers</key>
@@ -30243,8 +31387,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 								<true/>
 								<key>MacroActionType</key>
 								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
 								<key>Path</key>
 								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
 								<key>Text</key>
 								<string>Application("VoiceOver").output("Numpad On")</string>
 								<key>TimeOutAbortsMacro</key>
@@ -30292,8 +31440,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 								<true/>
 								<key>MacroActionType</key>
 								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
 								<key>Path</key>
 								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
 								<key>Text</key>
 								<string>Application("VoiceOver").output("Numpad Off")</string>
 								<key>TimeOutAbortsMacro</key>
@@ -30357,8 +31509,12 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
@@ -30381,6 +31537,8 @@ else vo.output("Auto Input")
 				</array>
 				<key>CreationDate</key>
 				<real>522974822.09080797</real>
+				<key>IsActive</key>
+				<false/>
 				<key>ModificationDate</key>
 				<real>522975925.95723897</real>
 				<key>Name</key>
@@ -30483,8 +31641,12 @@ else vo.output("Auto Input")
 								<true/>
 								<key>MacroActionType</key>
 								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
 								<key>Path</key>
 								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
 								<key>Text</key>
 								<string>Application("VoiceOver").output("Inspector On")</string>
 								<key>TimeOutAbortsMacro</key>
@@ -30516,8 +31678,12 @@ else vo.output("Auto Input")
 								<true/>
 								<key>MacroActionType</key>
 								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
 								<key>Path</key>
 								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
 								<key>Text</key>
 								<string>Application("VoiceOver").output("Inspector Off")</string>
 								<key>TimeOutAbortsMacro</key>
@@ -30607,8 +31773,12 @@ else vo.output("Auto Input")
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 kme = Application("Keyboard Maestro Engine")
@@ -30716,8 +31886,6 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -30730,8 +31898,12 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>currentCommand = "h"
 
@@ -30860,6 +32032,10 @@ if (runSingle) single()
 						<integer>0</integer>
 						<key>ReleaseAll</key>
 						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
 					</dict>
 				</array>
 				<key>CreationDate</key>
@@ -30897,6 +32073,8 @@ if (runSingle) single()
 		<string>Normal</string>
 		<key>CreationDate</key>
 		<real>498884132.43654799</real>
+		<key>IsActive</key>
+		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -30909,8 +32087,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>vo = Application("VoiceOver")
 finder = Application("Finder")
