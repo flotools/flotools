@@ -15622,6 +15622,164 @@ kme.setvariable("FTLevelMonitor", {to:"0"})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>E95D0D70-5746-453A-8A28-AA5BA23CD9E8</string>
+					</dict>
+					<dict>
+						<key>KeyCode</key>
+						<integer>27</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
+windows = pt.windows
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+msg = ""
+current = edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").textFields.byName("Grid Value").value()
+if (current.indexOf("|")&gt;-1) {
+mbt = current.split(/\| /)
+if (mbt[0] == 0) mbt[0] = ""
+else if (mbt[0] == 1) mbt[0] = mbt[0]+" bar, "
+else mbt[0] = mbt[0]+" bars, "
+if (mbt[1] == 0) mbt[1] = ""
+else if (mbt[1] == 1) mbt[1] = mbt[1]+" beat, "
+else mbt[1] = mbt[1]+" beats, "
+mbt[2] = mbt[2].replace(/^0+/, "")
+if (mbt[2] == 0) mbt[2] = ""
+else if (mbt[2] == 1) mbt[2] = mbt[2]+" tick"
+else mbt[2] = mbt[2]+" ticks"
+msg = mbt[0]+mbt[1]+mbt[2]
+if (msg == "") msg = "0 ticks"
+} else if (current.indexOf(".")&gt;-1) {
+ms = current.split(/:/)
+ms[0] = ms[0].replace(/^0+/, "")
+if (ms[0]==0) ms[0] = ""
+else if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+second[0] = second[0].replace(/^0+/, "")
+if (second[0]==0) second[0] = ""
+else if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+second[1] = second[1].replace(/^0+/, "")
+if (second[1]==0) second[1] = ""
+else if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = ms[0]+second[0]+second[1]
+if (msg == "") msg = "0 seconds"
+} else msg = current
+msg += ". Grid."
+vo.output (msg)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>E95D0D70-5746-453A-8A28-AA5BA23CD9E8</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>530402753.33837199</real>
+				<key>ModificationDate</key>
+				<real>530483806.55718499</real>
+				<key>Name</key>
+				<string>Decrease Grid Value</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>27</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>E95D0D70-5746-453A-8A28-AA5BA23CD9E8</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>499012071.76373202</real>
 		<key>IsActive</key>
 		<false/>
@@ -15931,10 +16089,7 @@ vo.output(value)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>currentCommand = "gs"
-
-function single() {
-vo = Application("VoiceOver")
+						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
 pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
@@ -15975,37 +16130,6 @@ if (msg == "") msg = "0 seconds"
 } else msg = current
 msg += ". Nudge."
 vo.output (msg)
-}
-
-function double() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
-windows = pt.windows
-edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
-msg = ""
-current = edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Nudge Controls").textFields.byName("Nudge Value").click()
-vo.output("Type nudge value.")
-}
-
-kme = Application("Keyboard Maestro Engine")
-command = kme.getvariable("command").split(".")
-start = new Date().getTime()
-kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
-kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
-double()
-} else  {
-runSingle = true
-while (new Date().getTime()-start&lt;200) {
-command = kme.getvariable("command").split(".")
-if (currentCommand == command[0] &amp; command[1]&gt;start) {
-runSingle=false
-break;
-}
-}
-if (runSingle) single()
-}
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -16028,7 +16152,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>519230788.673464</real>
 				<key>ModificationDate</key>
-				<real>519230817.889539</real>
+				<real>530483366.00233799</real>
 				<key>Name</key>
 				<string>Decrease Nudge Value</string>
 				<key>Triggers</key>
@@ -16042,6 +16166,16 @@ if (runSingle) single()
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>2304</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>27</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -27370,6 +27504,164 @@ Application("VoiceOver").output(msg)</string>
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>9B41F36F-DD1A-4F6F-A584-E0FD15EE1280</string>
+					</dict>
+					<dict>
+						<key>KeyCode</key>
+						<integer>24</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+						<key>ReleaseAll</key>
+						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>vo = Application("VoiceOver")
+sys = Application("System Events")
+pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
+windows = pt.windows
+edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
+msg = ""
+current = edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").textFields.byName("Grid Value").value()
+if (current.indexOf("|")&gt;-1) {
+mbt = current.split(/\| /)
+if (mbt[0] == 0) mbt[0] = ""
+else if (mbt[0] == 1) mbt[0] = mbt[0]+" bar, "
+else mbt[0] = mbt[0]+" bars, "
+if (mbt[1] == 0) mbt[1] = ""
+else if (mbt[1] == 1) mbt[1] = mbt[1]+" beat, "
+else mbt[1] = mbt[1]+" beats, "
+mbt[2] = mbt[2].replace(/^0+/, "")
+if (mbt[2] == 0) mbt[2] = ""
+else if (mbt[2] == 1) mbt[2] = mbt[2]+" tick"
+else mbt[2] = mbt[2]+" ticks"
+msg = mbt[0]+mbt[1]+mbt[2]
+if (msg == "") msg = "0 ticks"
+} else if (current.indexOf(".")&gt;-1) {
+ms = current.split(/:/)
+ms[0] = ms[0].replace(/^0+/, "")
+if (ms[0]==0) ms[0] = ""
+else if (ms[0]==1) ms[0] = ms[0]+" minute"
+else ms[0] = ms[0]+"minutes"
+second = ms[1].split(/\./)
+second[0] = second[0].replace(/^0+/, "")
+if (second[0]==0) second[0] = ""
+else if (second[0]==1) second[0] = second[0]+" second"
+else second[0] = second[0]+" seconds"
+second[1] = second[1].replace(/^0+/, "")
+if (second[1]==0) second[1] = ""
+else if (second[1]==1) second[1] = second[1]+" millisecond"
+else second[1] = second[1]+" milliseconds"
+msg = ms[0]+second[0]+second[1]
+if (msg == "") msg = "0 seconds"
+} else msg = current
+msg += ". Grid."
+vo.output (msg)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>9B41F36F-DD1A-4F6F-A584-E0FD15EE1280</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>530403269.95223802</real>
+				<key>ModificationDate</key>
+				<real>530483784.73185003</real>
+				<key>Name</key>
+				<string>Increase Grid Value</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>24</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>9B41F36F-DD1A-4F6F-A584-E0FD15EE1280</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>499012071.76373202</real>
 		<key>IsActive</key>
 		<false/>
@@ -27679,10 +27971,7 @@ vo.output(value)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>currentCommand = "gs"
-
-function single() {
-vo = Application("VoiceOver")
+						<string>vo = Application("VoiceOver")
 sys = Application("System Events")
 pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
@@ -27723,37 +28012,6 @@ if (msg == "") msg = "0 seconds"
 } else msg = current
 msg += ". Nudge."
 vo.output (msg)
-}
-
-function double() {
-vo = Application("VoiceOver")
-sys = Application("System Events")
-pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
-windows = pt.windows
-edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
-msg = ""
-current = edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Nudge Controls").textFields.byName("Nudge Value").click()
-vo.output("Type nudge value.")
-}
-
-kme = Application("Keyboard Maestro Engine")
-command = kme.getvariable("command").split(".")
-start = new Date().getTime()
-kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
-kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
-double()
-} else  {
-runSingle = true
-while (new Date().getTime()-start&lt;200) {
-command = kme.getvariable("command").split(".")
-if (currentCommand == command[0] &amp; command[1]&gt;start) {
-runSingle=false
-break;
-}
-}
-if (runSingle) single()
-}
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -27776,7 +28034,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>519230593.29134703</real>
 				<key>ModificationDate</key>
-				<real>519230769.26120198</real>
+				<real>530483767.03201997</real>
 				<key>Name</key>
 				<string>Increase Nudge Value</string>
 				<key>Triggers</key>
@@ -27790,6 +28048,16 @@ if (runSingle) single()
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>2304</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>24</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
 					</dict>
 				</array>
 				<key>UID</key>
