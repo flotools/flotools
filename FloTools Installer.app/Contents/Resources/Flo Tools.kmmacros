@@ -8668,7 +8668,7 @@ if (runSingle) single()
 				<array>
 					<dict>
 						<key>DisplayKind</key>
-						<string>None</string>
+						<string>Window</string>
 						<key>IncludeStdErr</key>
 						<true/>
 						<key>MacroActionType</key>
@@ -8703,7 +8703,7 @@ close.click()
 				<key>CreationDate</key>
 				<real>479078801.99380499</real>
 				<key>ModificationDate</key>
-				<real>530546908.82008499</real>
+				<real>530550503.35887003</real>
 				<key>Name</key>
 				<string>Close All Floating Windows</string>
 				<key>Triggers</key>
@@ -15797,6 +15797,7 @@ kme.setvariable("FTLevelMonitor", {to:"0"})
 sys = Application("System Events")
 pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
+if (windows[0].attributes["AXCloseButton"].value() != null) {
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
 current = edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").textFields.byName("Grid Value").value()
@@ -15834,7 +15835,7 @@ if (msg == "") msg = "0 seconds"
 } else msg = current
 msg += ". Grid."
 vo.output (msg)
-</string>
+}</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -15856,7 +15857,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>530402753.33837199</real>
 				<key>ModificationDate</key>
-				<real>530483806.55718499</real>
+				<real>530550585.59808898</real>
 				<key>Name</key>
 				<string>Decrease Grid Value</string>
 				<key>Triggers</key>
@@ -27885,6 +27886,7 @@ Application("VoiceOver").output(msg)</string>
 sys = Application("System Events")
 pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
+if (windows[0].attributes["AXCloseButton"].value() != null) {
 edit = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 msg = ""
 current = edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").textFields.byName("Grid Value").value()
@@ -27922,7 +27924,7 @@ if (msg == "") msg = "0 seconds"
 } else msg = current
 msg += ". Grid."
 vo.output (msg)
-</string>
+}</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -27944,7 +27946,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>530403269.95223802</real>
 				<key>ModificationDate</key>
-				<real>530483784.73185003</real>
+				<real>530550601.33742702</real>
 				<key>Name</key>
 				<string>Increase Grid Value</string>
 				<key>Triggers</key>
