@@ -63,8 +63,9 @@ cmd = "plutil -convert json -r ~/Library/Application\\ Support/Keyboard\\ Maestr
 app.doShellScript(cmd)
 cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" -F "token='+token+'" -F "stat=@/tmp/'+sha+'.json"'
 prompt = app.doShellScript(cmd)
+console.log(prompt)
 skip = kme.getvariable("FTSkip")
-regex = /latest version (\d+\.\d+)/
+regex = /content='(\d+\.\d+)'/
 match = regex.exec(prompt);
 latest = match[1]
 if (current == latest | skip == latest) {
@@ -193,7 +194,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>530899546.647268</real>
+				<real>530918866.79522997</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.2. Check for Automatic Update</string>
 				<key>Triggers</key>
