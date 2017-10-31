@@ -582,7 +582,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>529116559.14866799</real>
 				<key>ModificationDate</key>
-				<real>529795122.30920899</real>
+				<real>531109793.31728297</real>
 				<key>Name</key>
 				<string>Add a new Bounce Source row, ⌘⇧Down Arrow</string>
 				<key>Triggers</key>
@@ -596,6 +596,16 @@ window.KeyboardMaestro.Cancel()
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>768</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -669,7 +679,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>529794989.28087097</real>
 				<key>ModificationDate</key>
-				<real>529795093.33513802</real>
+				<real>531109836.31590301</real>
 				<key>Name</key>
 				<string>Add a new Bounce Source row, ⌘⇧Num Pad Plus </string>
 				<key>Triggers</key>
@@ -683,6 +693,16 @@ window.KeyboardMaestro.Cancel()
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>768</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -19181,7 +19201,7 @@ Application("VoiceOver").output(msg)</string>
 				<key>CreationDate</key>
 				<real>511911145.30710799</real>
 				<key>ModificationDate</key>
-				<real>531027625.36259001</real>
+				<real>531110302.530065</real>
 				<key>Name</key>
 				<string>Edit MIDI Event, ⌘⌃Return</string>
 				<key>Triggers</key>
@@ -19195,6 +19215,16 @@ Application("VoiceOver").output(msg)</string>
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>4352</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -31658,7 +31688,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>498707336.94646001</real>
 				<key>ModificationDate</key>
-				<real>529811114.52890003</real>
+				<real>531091461.67406797</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for Default View, ⌘0</string>
 				<key>Triggers</key>
@@ -31678,6 +31708,16 @@ kme.setvariable("y", {to:""+y})
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>256</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -31949,7 +31989,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>498867447.65581</real>
 				<key>ModificationDate</key>
-				<real>529811151.43970799</real>
+				<real>531091492.46592802</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 1, ⌘1</string>
 				<key>Triggers</key>
@@ -31963,6 +32003,16 @@ kme.setvariable("y", {to:""+y})
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>256</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -32234,7 +32284,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>529682460.96931899</real>
 				<key>ModificationDate</key>
-				<real>529811169.44659001</real>
+				<real>531091511.82586002</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 2, ⌘2</string>
 				<key>Triggers</key>
@@ -32248,6 +32298,16 @@ kme.setvariable("y", {to:""+y})
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>256</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -32519,7 +32579,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>529682500.50267601</real>
 				<key>ModificationDate</key>
-				<real>529811186.566046</real>
+				<real>531091533.457901</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 3, ⌘3</string>
 				<key>Triggers</key>
@@ -32533,6 +32593,16 @@ kme.setvariable("y", {to:""+y})
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>256</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -32804,7 +32874,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>529682530.53464401</real>
 				<key>ModificationDate</key>
-				<real>529811207.06871998</real>
+				<real>531091549.73012298</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 4, ⌘4</string>
 				<key>Triggers</key>
@@ -32818,6 +32888,16 @@ kme.setvariable("y", {to:""+y})
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>256</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -33089,7 +33169,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>529682561.88418001</real>
 				<key>ModificationDate</key>
-				<real>529811234.14010698</real>
+				<real>531091566.89003301</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 5, ⌘5</string>
 				<key>Triggers</key>
@@ -33103,6 +33183,16 @@ kme.setvariable("y", {to:""+y})
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>256</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -33374,7 +33464,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>529682593.45194298</real>
 				<key>ModificationDate</key>
-				<real>529811252.10734999</real>
+				<real>531091594.27372199</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 6, ⌘6</string>
 				<key>Triggers</key>
@@ -33388,6 +33478,16 @@ kme.setvariable("y", {to:""+y})
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>256</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -33659,7 +33759,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>529682627.057769</real>
 				<key>ModificationDate</key>
-				<real>529811269.60253602</real>
+				<real>531091611.30590898</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 7, ⌘7</string>
 				<key>Triggers</key>
@@ -33673,6 +33773,16 @@ kme.setvariable("y", {to:""+y})
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>256</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -33944,7 +34054,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>529682656.13682902</real>
 				<key>ModificationDate</key>
-				<real>529811292.40032399</real>
+				<real>531091632.72974598</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 8, ⌘8</string>
 				<key>Triggers</key>
@@ -33958,6 +34068,16 @@ kme.setvariable("y", {to:""+y})
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>256</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -34229,7 +34349,7 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>529682684.86447501</real>
 				<key>ModificationDate</key>
-				<real>529811311.51875597</real>
+				<real>531091651.82560301</real>
 				<key>Name</key>
 				<string>Load Plugin Parameters for View 9, ⌘9</string>
 				<key>Triggers</key>
@@ -34243,6 +34363,16 @@ kme.setvariable("y", {to:""+y})
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>256</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -38601,7 +38731,7 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>498706260.55011398</real>
 				<key>ModificationDate</key>
-				<real>529811039.33185601</real>
+				<real>531091677.09779501</real>
 				<key>Name</key>
 				<string>Next Column Parameter, ⌃Right Arrow</string>
 				<key>Triggers</key>
@@ -38615,6 +38745,16 @@ vo.output(name)
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>4096</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -38688,7 +38828,7 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>511908616.39100701</real>
 				<key>ModificationDate</key>
-				<real>529811587.46954203</real>
+				<real>531110278.51529402</real>
 				<key>Name</key>
 				<string>Next Column, ⌃Right Arrow</string>
 				<key>Triggers</key>
@@ -38702,6 +38842,16 @@ vo.output(name)
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>4096</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -38955,7 +39105,7 @@ vo.output("Next")
 				<key>CreationDate</key>
 				<real>498436940.61530101</real>
 				<key>ModificationDate</key>
-				<real>529810954.84697998</real>
+				<real>531091694.19354701</real>
 				<key>Name</key>
 				<string>Next Preset, Right Bracket</string>
 				<key>Triggers</key>
@@ -38969,6 +39119,16 @@ vo.output("Next")
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>0</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -39197,7 +39357,7 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>498712365.44179398</real>
 				<key>ModificationDate</key>
-				<real>529811088.810202</real>
+				<real>531091881.09707302</real>
 				<key>Name</key>
 				<string>Next Row Parameter, ⌃Down Arrow</string>
 				<key>Triggers</key>
@@ -39211,6 +39371,16 @@ vo.output(name)
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>4096</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -44384,7 +44554,7 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>498712275.76650399</real>
 				<key>ModificationDate</key>
-				<real>529811017.74920201</real>
+				<real>531091846.80922198</real>
 				<key>Name</key>
 				<string>Previous Column Parameter, ⌃Left Arrow</string>
 				<key>Triggers</key>
@@ -44398,6 +44568,16 @@ vo.output(name)
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>4096</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -44471,7 +44651,7 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>511910722.48384899</real>
 				<key>ModificationDate</key>
-				<real>529811570.79052901</real>
+				<real>531110253.67588198</real>
 				<key>Name</key>
 				<string>Previous Column, ⌃Left Arrow</string>
 				<key>Triggers</key>
@@ -44485,6 +44665,16 @@ vo.output(name)
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>4096</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -44738,7 +44928,7 @@ vo.output("Previous")
 				<key>CreationDate</key>
 				<real>498437014.22531098</real>
 				<key>ModificationDate</key>
-				<real>529810940.447236</real>
+				<real>531091815.76929897</real>
 				<key>Name</key>
 				<string>Previous Preset, Left Bracket</string>
 				<key>Triggers</key>
@@ -44752,6 +44942,16 @@ vo.output("Previous")
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>0</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -44980,7 +45180,7 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>498712748.36642897</real>
 				<key>ModificationDate</key>
-				<real>529811062.71504098</real>
+				<real>531091783.96142399</real>
 				<key>Name</key>
 				<string>Previous Row Parameter, ⌃Up Arrow</string>
 				<key>Triggers</key>
@@ -44994,6 +45194,16 @@ vo.output(name)
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>4096</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -49581,7 +49791,7 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>529795164.70716101</real>
 				<key>ModificationDate</key>
-				<real>529795210.28239799</real>
+				<real>531109820.73246598</real>
 				<key>Name</key>
 				<string>Remove bottom Bounce Source row, ⌘⇧Num Pad Minus</string>
 				<key>Triggers</key>
@@ -49595,6 +49805,16 @@ vo.output(name)
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>768</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -49668,7 +49888,7 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>529117242.03132099</real>
 				<key>ModificationDate</key>
-				<real>529795151.23613298</real>
+				<real>531109759.90231299</real>
 				<key>Name</key>
 				<string>Remove bottom Bounce Source row, ⌘⇧Up Arrow</string>
 				<key>Triggers</key>
@@ -49682,6 +49902,16 @@ vo.output(name)
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>768</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -62164,7 +62394,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>498434276.60383397</real>
 				<key>ModificationDate</key>
-				<real>529811379.974374</real>
+				<real>531091754.50546998</real>
 				<key>Name</key>
 				<string>Speak/Choose Preset, ⌥P</string>
 				<key>Triggers</key>
@@ -62178,6 +62408,16 @@ if (runSingle) single()
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>2048</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -62382,7 +62622,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>511830739.68700898</real>
 				<key>ModificationDate</key>
-				<real>529811719.88915801</real>
+				<real>531110126.57691002</real>
 				<key>Name</key>
 				<string>Speak/Edit Attack Velocity for Selected Note,⌥A</string>
 				<key>Triggers</key>
@@ -62396,6 +62636,16 @@ if (runSingle) single()
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>2048</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -63311,7 +63561,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>479078801.99380499</real>
 				<key>ModificationDate</key>
-				<real>529811764.38348901</real>
+				<real>531110061.96348298</real>
 				<key>Name</key>
 				<string>Speak/Edit Pitch for Selected Note, ⌥P</string>
 				<key>Triggers</key>
@@ -63325,6 +63575,16 @@ if (runSingle) single()
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>2048</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -64017,7 +64277,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>511982668.59261203</real>
 				<key>ModificationDate</key>
-				<real>529811785.72657198</real>
+				<real>531110035.41227198</real>
 				<key>Name</key>
 				<string>Speak/Edit Release Velocity for Selected Note, ⌥R</string>
 				<key>Triggers</key>
@@ -64031,6 +64291,16 @@ if (runSingle) single()
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>2048</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -71865,7 +72135,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>498433857.12846398</real>
 				<key>ModificationDate</key>
-				<real>529811338.29556102</real>
+				<real>531091724.32942498</real>
 				<key>Name</key>
 				<string>Speak/Toggle Bypass, ⌥B</string>
 				<key>Triggers</key>
@@ -71879,6 +72149,16 @@ if (runSingle) single()
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>2048</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -73318,6 +73598,8 @@ if (runSingle) single()
 				</array>
 				<key>CreationDate</key>
 				<real>515336961.72523302</real>
+				<key>IsActive</key>
+				<false/>
 				<key>ModificationDate</key>
 				<real>515337283.92502302</real>
 				<key>Name</key>
@@ -78248,6 +78530,8 @@ else vo.output("Auto Input")
 				</array>
 				<key>CreationDate</key>
 				<real>522974822.09080797</real>
+				<key>IsActive</key>
+				<false/>
 				<key>ModificationDate</key>
 				<real>522975925.95723897</real>
 				<key>Name</key>
@@ -78962,7 +79246,7 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 				<key>CreationDate</key>
 				<real>503191698.386913</real>
 				<key>ModificationDate</key>
-				<real>529810982.03814</real>
+				<real>531091709.95409602</real>
 				<key>Name</key>
 				<string>Toggle Plugin Monitor, ⌥Forward Slash</string>
 				<key>Triggers</key>
@@ -78976,6 +79260,16 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 						<string>HotKey</string>
 						<key>Modifiers</key>
 						<integer>2048</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>4</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4864</integer>
 					</dict>
 				</array>
 				<key>UID</key>
