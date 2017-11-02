@@ -40,7 +40,7 @@ Once downloaded, this  zip file, referenced in this read me, will automatically 
 <div id='systemrequirements'/>
 ## System Requirements
 
-Flo Tools supports Mac OS version 10.10 or later, and Pro Tools version 12.3 or later. Earlier versions of Mac OS and Pro Tools may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
+Flo Tools supports Mac OS version 10.10 or later, and Pro Tools version 12.3 or later. Pro Tools First has limited support at this time from version 12.8.2 or higher. Earlier versions of Mac OS, Pro Tools, and Pro Tools First may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
 
 <div id='installation'/>
 ## Installation
@@ -137,6 +137,14 @@ Where two actions are listed, double-tapping the key will perform the second act
 * Speak Record Safe Tracks: Command+Option+Shift+r
 * Speak Solo Safe Tracks: Command+Option+Shift+s
 * Speak tracks who’s level is greater then or equal to 0DB: Option+Shift+0
+* Speak/select Previous Playlist: Shift + Up Arrow
+* Speak/select Next Playlist: Shift+Down Arrow
+* Speak/Select Previous Track: Control+P
+* Speak/select Next Track: Control+; (semicolon)
+* Speak/add Previous Track to Selection: Control+Shift+P
+* Speak/add Next Track to Selection: Control+Shift+;(semicolon)
+* Speak/retract Selection from Top Track: Control+Option+P (must be passed through)
+*Speak/retract Selection from Bottom Track: Control+Option+; (semicolon) (must be passed through)
 * Speak/Toggle Metronome:	Option+num pad 7
 * Speak/Toggle Count In:	Option+num pad8
 * Speak/Toggle Midi Merge:	Option+num pad 9
@@ -150,7 +158,11 @@ Where two actions are listed, double-tapping the key will perform the second act
 * Speak/toggle quickpunch:	Command+Shift+p
 * Speak/Toggle loop playback:	Command+Shift+l
 * Speak/Toggle Loop Record:	Option+l
-* Speak/Toggle Pre/Post-Roll:	Command+k
+* Speak/Toggle Pre/Post-Roll:	Command+K
+* Select Clip Keyboard Focus: Command+Option+2
+* Select Group Keyboard Focus: Command+Option+3
+* Select Timeline Keyboard Focus: Command+Option+1
+* Toggle Input Monitor: Option+K
 * Mark clip to drag:	Command+Option+Shift+, (comma)
 * Drag clip:	Command+Option+Shift+. (period)
 * Resize track list Table:	Command+Control+Shift+t
@@ -212,7 +224,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 
 #### Flo Tools Mouse
 
-The Flo Tools Mouse group is global, so these commands will work system-wide when the group is turned on.
+The Flo Tools Mouse group is global, so these commands will work system-wide when the group is turned on. Note that both the Flo Tools Mouse and Flo Tools Num Pad Macro Groups are no longer installed with Flo Tools, and must be download separately.
 
 * Activate Flo Tools Mouse: Command+Slash
 * Option-Click:	Option+` (accent)
@@ -297,7 +309,16 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 #### Flo Tools Selected Tab
 
 This group allows Flo Tools to announce the currently selected tab in Pro Tools dialogs, such as preferences and peripherals. Pressing Command+1, Command+2, etc. will trigger this feature.
+#### Flo Tools Shortcuts Helper
 
+Flo Tools provides a convenient way to find any Pro Tools Shortcut, called the Shortcuts Helper. While Pro Tools is running, Press Control Shift Command K to launch the Shortcuts Helper. Press keys to hear their functions.
+
+When you're in the Mix or Edit windows, you'll hear the main shortcuts that are available in most windows. When you're in a window or dialog that has its own shortcuts, you'll hear only those shortcuts that are specific to that environment.
+
+For example, Command+f brings up the Fades dialog in the Mix or Edit windows but it brings up the View filter while the MIDI Event List is in focus. Flo Tools Shortcuts Helper recognizes the context and offers the appropriate shortcuts.
+
+Rather than randomly pressing keys to hear their functions, you can also press Control Shift Command H to bring up a palette of all of the available shortcuts. You can even narrow down the list by bringing up the Item Chooser and use first letter navigation to narrow the list to make it easier to find the shortcut you're trying to remember. You can either trigger the macro, which will speak the function as if you had pressed the key combination or you can press the very first button in the palette (which happens to be unlabelled and that will close the palette. To exit Shortcuts Helper, simply press Escape.
+
 <div id='misc'/>
 ## Misc
 
@@ -413,3 +434,22 @@ The Flo Tools team will use this information to determine what the problem and s
  * Move to previous Column:	Control+left arrow
  * Edit Event:	Control+Command+Return
 * For more detailed information about new features and improvements in version 2.2, click [Here.](/Flo-Tools-2.2-release/)
+
+### Flo Tools 2.3:
+
+* Select Clip Keyboard Focus: Command+Option+2
+* Select Group Keyboard Focus: Command+Option+3
+* Select Timeline Keyboard Focus: Command+Option+1
+* Speak/select Previous Playlist: Shift + Up Arrow
+* Speak/select Next Playlist: Shift+Down Arrow
+* Speak/Select Previous Track: Control+P
+* Speak/select Next Track: Control+; (semicolon)
+* Speak/add Previous Track to Selection: Control+Shift+P
+* Speak/add Next Track to Selection: Control+Shift+;(semicolon)
+* Speak/retract Selection from Top Track: Control+Option+P (must be passed through)
+* Speak/retract Selection from Bottom Track: Control+Option+; (semicolon) (must be passed through)
+* Toggle Input Monitor: Option+K
+* Added Shortcuts Helper:
+ * Command+Control+Shift+K: Start Shortcuts Helper
+ * escape: Stop Shortcuts Helper
+ * Command+Control+Shift+H: List all shortcuts for the current dialog or window
