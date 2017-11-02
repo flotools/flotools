@@ -935,8 +935,6 @@ window.KeyboardMaestro.Cancel()
 		<string>TitleIs</string>
 		<key>FocussedWindowTitle</key>
 		<string>Open</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1032,8 +1030,6 @@ window.KeyboardMaestro.Cancel()
 		<string>TitleIs</string>
 		<key>FocussedWindowTitle</key>
 		<string>Open</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1489,8 +1485,6 @@ window.KeyboardMaestro.Cancel()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1589,8 +1583,6 @@ track.groups["Inserts A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1689,8 +1681,6 @@ track.groups["Inserts A-E"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1789,8 +1779,6 @@ track.groups["Inserts A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1889,8 +1877,6 @@ track.groups["Inserts A-E"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1989,8 +1975,6 @@ track.groups["Inserts A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2172,8 +2156,6 @@ track.groups["Inserts F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2355,8 +2337,6 @@ track.groups["Inserts F-J"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2538,8 +2518,6 @@ track.groups["Inserts F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2721,8 +2699,6 @@ track.groups["Inserts F-J"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2821,8 +2797,6 @@ track.groups["Inserts F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2921,8 +2895,6 @@ track.groups["Sends A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3021,8 +2993,6 @@ track.groups["Sends A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3121,8 +3091,6 @@ track.groups["Sends A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3221,8 +3189,6 @@ track.groups["Sends A-E"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3321,8 +3287,6 @@ track.groups["Sends A-E"].buttons[8].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3504,8 +3468,6 @@ track.groups["Sends F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3687,8 +3649,6 @@ track.groups["Sends F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3870,8 +3830,6 @@ track.groups["Sends F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4053,8 +4011,6 @@ track.groups["Sends F-J"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4735,36 +4691,16 @@ track.groups["Sends F-J"].buttons[8].click()
 						<key>ElseActions</key>
 						<array>
 							<dict>
-								<key>Action</key>
-								<string>Enable</string>
+								<key>Asynchronously</key>
+								<false/>
 								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
+								<string>ExecuteMacro</string>
 								<key>MacroUID</key>
-								<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
-							</dict>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-							</dict>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
-							</dict>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
+								<string>CDB03324-1E21-47E2-A96F-316AB5E737A3</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
 							</dict>
 						</array>
 						<key>MacroActionType</key>
@@ -4772,54 +4708,16 @@ track.groups["Sends F-J"].buttons[8].click()
 						<key>ThenActions</key>
 						<array>
 							<dict>
-								<key>Action</key>
-								<string>Disable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
-							</dict>
-							<dict>
-								<key>Action</key>
-								<string>Disable</string>
-								<key>IsDisclosed</key>
+								<key>Asynchronously</key>
 								<false/>
 								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
+								<string>ExecuteMacro</string>
 								<key>MacroUID</key>
-								<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
-							</dict>
-							<dict>
-								<key>Action</key>
-								<string>Disable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
-							</dict>
-							<dict>
-								<key>Action</key>
-								<string>Disable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
-							</dict>
-							<dict>
-								<key>Action</key>
-								<string>Disable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
-							</dict>
-							<dict>
-								<key>Action</key>
-								<string>Disable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
+								<string>C4A644CE-1DF7-4925-B364-679E00AB9E63</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
 							</dict>
 						</array>
 						<key>TimeOutAbortsMacro</key>
@@ -4829,7 +4727,7 @@ track.groups["Sends F-J"].buttons[8].click()
 				<key>CreationDate</key>
 				<real>500601912.798648</real>
 				<key>ModificationDate</key>
-				<real>511836253.23564303</real>
+				<real>531348744.92422301</real>
 				<key>Name</key>
 				<string>Auto Toggle Flo Tools</string>
 				<key>Triggers</key>
@@ -5976,8 +5874,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6051,7 +5947,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>493843837.55308402</real>
 				<key>ModificationDate</key>
-				<real>523140880.31805497</real>
+				<real>531273436.96789998</real>
 				<key>Name</key>
 				<string>Beta: Speak/Select Automation Mode</string>
 				<key>Triggers</key>
@@ -6192,8 +6088,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6409,8 +6303,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6960,8 +6852,6 @@ if (runSingle) single()
 		<string>TitleIs</string>
 		<key>FocussedWindowTitle</key>
 		<string>Open</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10114,8 +10004,6 @@ close.click()
 		<string>TitleIs</string>
 		<key>FocussedWindowTitle</key>
 		<string>Open</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -10211,8 +10099,6 @@ close.click()
 		<string>TitleIs</string>
 		<key>FocussedWindowTitle</key>
 		<string>Open</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16189,8 +16075,6 @@ vo.output (msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16709,8 +16593,6 @@ vo.output (msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -16813,8 +16695,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17085,8 +16965,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -17543,6 +17421,252 @@ vo.output(value)
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>500760463.49967402</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>0D1179E6-67B7-4B3F-AF22-8220E83AABA1</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>F0163D11-CBF1-4068-B228-270A0A12F248</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>FFEBF9D7-1F2C-409B-9E63-7C52B04B8EBF</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>0FCEBE52-50EF-45D0-9FC6-6FBFBA3DD447</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>88C41276-86DC-4A29-AA13-EF7B6B8B0FE1</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>E6302F84-A094-470D-8041-189525EBD50D</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>27D4214E-5185-412C-938B-BABB3130D5DD</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>76BD9668-5CFC-4D56-8361-DA2ED0927410</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>B23DEED1-15DF-41B1-8D17-FAD47B497C68</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>A3377A84-6142-49DD-9158-CEAAF073D8B0</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>6D510D4B-7E1F-41B5-8A29-86A387B331E4</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>2D7AE417-A363-4FAC-A6FE-236042836611</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>36D77FCE-97C4-48B6-90D3-6310A30398F1</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>A8738630-BD0A-47B6-931E-E458402B7BE2</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>7241EB0C-1EC5-41B7-9079-777A8BC4CB5D</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>A7B8174A-43BE-4FC3-B143-C22E75BAAECB</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>6D424D93-3D12-4DF8-B843-9951194B4A88</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>DC35CDA2-0361-4B54-A5E0-752492B0BB28</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>D13BE3BC-35B1-4E71-A131-E17D41214F3D</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>15A122DC-BECF-4662-8169-AD33A26DA65B</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>530228720.61120403</real>
+				<key>ModificationDate</key>
+				<real>531348178.24922103</real>
+				<key>Name</key>
+				<string>Disable Flo Tools</string>
+				<key>Triggers</key>
+				<array/>
+				<key>UID</key>
+				<string>C4A644CE-1DF7-4925-B364-679E00AB9E63</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Global</string>
+		<key>ToggleMacroUID</key>
+		<string>461221CF-A568-4719-9C3F-3D41C05A5B09</string>
+		<key>UID</key>
+		<string>FEA49FEF-1551-453B-9E90-02A376C079B6</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>515190685.55744398</real>
 		<key>Macros</key>
 		<array>
@@ -17629,11 +17753,19 @@ vo.output(value)
 						<key>MacroUID</key>
 						<string>F0163D11-CBF1-4068-B228-270A0A12F248</string>
 					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>CB646764-60F9-4FD2-BD65-A193DD774B74</string>
+					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>530228720.61120403</real>
 				<key>ModificationDate</key>
-				<real>530551969.46883702</real>
+				<real>531346432.91830701</real>
 				<key>Name</key>
 				<string>Disable Flo Tools Groups</string>
 				<key>Triggers</key>
@@ -17795,13 +17927,21 @@ vo.output(value)
 						<key>MacroUID</key>
 						<string>15A122DC-BECF-4662-8169-AD33A26DA65B</string>
 					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>CB646764-60F9-4FD2-BD65-A193DD774B74</string>
+					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>530232781.16722101</real>
 				<key>ModificationDate</key>
-				<real>530233356.62240899</real>
+				<real>531346396.63047701</real>
 				<key>Name</key>
-				<string>Disable Pro Tools Shortcuts Helper Groups</string>
+				<string>Disable Pro Tools Shortcuts Helper</string>
 				<key>Triggers</key>
 				<array/>
 				<key>UID</key>
@@ -18105,8 +18245,6 @@ console.log(msg)
 		<string>TitleIs</string>
 		<key>FocussedWindowTitle</key>
 		<string>Open</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -19687,6 +19825,228 @@ Application("VoiceOver").output(msg)</string>
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>500760463.49967402</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>0D1179E6-67B7-4B3F-AF22-8220E83AABA1</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>F0163D11-CBF1-4068-B228-270A0A12F248</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>FFEBF9D7-1F2C-409B-9E63-7C52B04B8EBF</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>0FCEBE52-50EF-45D0-9FC6-6FBFBA3DD447</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>0253756E-75BD-4957-8756-3AEE9A2854D8</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>88C41276-86DC-4A29-AA13-EF7B6B8B0FE1</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>E6302F84-A094-470D-8041-189525EBD50D</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>27D4214E-5185-412C-938B-BABB3130D5DD</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>76BD9668-5CFC-4D56-8361-DA2ED0927410</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>B23DEED1-15DF-41B1-8D17-FAD47B497C68</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>A3377A84-6142-49DD-9158-CEAAF073D8B0</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>6D510D4B-7E1F-41B5-8A29-86A387B331E4</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>2D7AE417-A363-4FAC-A6FE-236042836611</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>36D77FCE-97C4-48B6-90D3-6310A30398F1</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>A8738630-BD0A-47B6-931E-E458402B7BE2</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>7241EB0C-1EC5-41B7-9079-777A8BC4CB5D</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>A7B8174A-43BE-4FC3-B143-C22E75BAAECB</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>6D424D93-3D12-4DF8-B843-9951194B4A88</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>DC35CDA2-0361-4B54-A5E0-752492B0BB28</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>D13BE3BC-35B1-4E71-A131-E17D41214F3D</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Disable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
+						<string>15A122DC-BECF-4662-8169-AD33A26DA65B</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>530228720.61120403</real>
+				<key>ModificationDate</key>
+				<real>531348541.57511699</real>
+				<key>Name</key>
+				<string>Enable Flo Tools</string>
+				<key>Triggers</key>
+				<array/>
+				<key>UID</key>
+				<string>CDB03324-1E21-47E2-A96F-316AB5E737A3</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Global</string>
+		<key>ToggleMacroUID</key>
+		<string>461221CF-A568-4719-9C3F-3D41C05A5B09</string>
+		<key>UID</key>
+		<string>FEA49FEF-1551-453B-9E90-02A376C079B6</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>515190685.55744398</real>
 		<key>Macros</key>
 		<array>
@@ -20156,50 +20516,1193 @@ Application("VoiceOver").output(msg)</string>
 				<key>Actions</key>
 				<array>
 					<dict>
-						<key>Asynchronously</key>
-						<false/>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>Batch Fades</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
 						<key>MacroActionType</key>
-						<string>ExecuteMacro</string>
-						<key>MacroUID</key>
-						<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>27D4214E-5185-412C-938B-BABB3130D5DD</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting Batch Fades Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Batch Fades Dialog. . Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
-						<key>UseParameter</key>
-						<false/>
 					</dict>
 					<dict>
-						<key>Action</key>
-						<string>Enable</string>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>Bounce</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
 						<key>MacroActionType</key>
-						<string>SetMacroEnable</string>
-						<key>MacroUID</key>
-						<string>CB646764-60F9-4FD2-BD65-A193DD774B74</string>
-					</dict>
-					<dict>
-						<key>Action</key>
-						<string>Enable</string>
-						<key>MacroActionType</key>
-						<string>SetMacroEnable</string>
-						<key>MacroUID</key>
-						<string>EBE20962-FAED-456C-9B2C-BCFC571A6D8E</string>
-					</dict>
-					<dict>
-						<key>Asynchronously</key>
-						<false/>
-						<key>MacroActionType</key>
-						<string>ExecuteMacro</string>
-						<key>MacroUID</key>
-						<string>EBE20962-FAED-456C-9B2C-BCFC571A6D8E</string>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>76BD9668-5CFC-4D56-8361-DA2ED0927410</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting Bounce Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Bounce Dialog. . Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
-						<key>UseParameter</key>
-						<false/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>Dashboard</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>6D510D4B-7E1F-41B5-8A29-86A387B331E4</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting Dashboard Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the dashboard. . Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>Create Group</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>B23DEED1-15DF-41B1-8D17-FAD47B497C68</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting Create Group Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Create Groups Dialog. . Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>Crossfade</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>A3377A84-6142-49DD-9158-CEAAF073D8B0</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting Crossfade Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Crossfade Dialog. . Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>Fade In</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>2D7AE417-A363-4FAC-A6FE-236042836611</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting Fade In Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Fade In Dialog. . Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>Open</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>try {
+Application("System Events").applicationProcesses.byName("Pro Tools").windows.byName("Open").staticTexts.byName("Import Audio").name()
+Application("VoiceOver").output("Starting Import Audio Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Import Audio Dialog. . Press Escape to exit Shortcuts Helper.")
+Application("Keyboard Maestro").setmacroenable("Flo Tools Shortcuts Helper, PT Import Audio Dialog", {enable:true})
+Application("Keyboard Maestro Engine").doScript("1AC2CC6C-1658-43F9-B57C-346277CDCE4E")
+} catch (err) {
+}
+</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>MIDI Event List</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>7241EB0C-1EC5-41B7-9079-777A8BC4CB5D</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting MIDI Event List Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the MIDI Event List Window. . Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>Missing Files</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>A7B8174A-43BE-4FC3-B143-C22E75BAAECB</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting Missing Files Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Missing Files Dialog. . Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>Modify Groups</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>6D424D93-3D12-4DF8-B843-9951194B4A88</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting Modify Groups Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Modify Groups Dialog. . Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>New Tracks</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>DC35CDA2-0361-4B54-A5E0-752492B0BB28</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting New Tracks Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the New Tracks Dialog. . Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleMatches</string>
+									<key>FrontWindowTitle</key>
+									<string>^Plug-in:</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>D13BE3BC-35B1-4E71-A131-E17D41214F3D</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting Plug-in Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Plug-in Window. . Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleIs</string>
+									<key>FrontWindowTitle</key>
+									<string>Event Operations</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>try {
+Application("System Events").applicationProcesses.byName("Pro Tools").windows.byName("Event Operations").popUpButtons.byName("Step Input").name()
+Application("VoiceOver").output("Starting Step Input Shortcuts Helper. These shortcuts are available when Enable Numeric Key Pad Shortcuts is enabled in the Step Input Window. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Step Input Window. . Press Escape to exit Shortcuts Helper.")
+Application("Keyboard Maestro").setmacroenable("Flo Tools Shortcuts Helper, PT Step Input Window", {enable:true})
+Application("Keyboard Maestro Engine").doScript("1AC2CC6C-1658-43F9-B57C-346277CDCE4E")
+} catch (err) {
+}</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleMatches</string>
+									<key>FrontWindowTitle</key>
+									<string>^Mix:|Edit:</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+							</dict>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<false/>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Starting Shortcuts Helper for mix and edit windows. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Mix and Edit windows. Press Escape to exit Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>ExistsButTitleDoesNotMatch</string>
+									<key>FrontWindowTitle</key>
+									<string>Batch Fades|Bounce|Create Group|Crossfade|Dashboard|Event Operations|Fade In|Fade Out|MIDI Event List|Missing Files|Modify Groups|New Tracks|Open|^Plug-in:|^Mix:|^Edit:</string>
+									<key>IsFrontApplication</key>
+									<false/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array/>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Pro Tools Shortcuts Helper doesn't exist for This window. Press Escape to exit Pro Tools Shortcuts Helper.")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
 					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>499129101.29441798</real>
 				<key>ModificationDate</key>
-				<real>530389492.742405</real>
+				<real>531346595.64639097</real>
 				<key>Name</key>
 				<string>Enable Pro Tools Shortcuts Helper</string>
 				<key>Triggers</key>
@@ -20324,1113 +21827,6 @@ Application("VoiceOver").output(msg)</string>
 		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
 		<key>UID</key>
 		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>515190685.55744398</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>Asynchronously</key>
-						<false/>
-						<key>MacroActionType</key>
-						<string>ExecuteMacro</string>
-						<key>MacroUID</key>
-						<string>1AC2CC6C-1658-43F9-B57C-346277CDCE4E</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>UseParameter</key>
-						<false/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>Batch Fades</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>27D4214E-5185-412C-938B-BABB3130D5DD</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting Batch Fades Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Batch Fades Dialog. . Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>Bounce</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>76BD9668-5CFC-4D56-8361-DA2ED0927410</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting Bounce Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Bounce Dialog. . Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>Dashboard</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>6D510D4B-7E1F-41B5-8A29-86A387B331E4</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting Dashboard Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the dashboard. . Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>Create Group</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>B23DEED1-15DF-41B1-8D17-FAD47B497C68</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting Create Group Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Create Groups Dialog. . Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>Crossfade</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>A3377A84-6142-49DD-9158-CEAAF073D8B0</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting Crossfade Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Crossfade Dialog. . Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>Fade In</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>2D7AE417-A363-4FAC-A6FE-236042836611</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting Fade In Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Fade In Dialog. . Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>Open</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>try {
-Application("System Events").applicationProcesses.byName("Pro Tools").windows.byName("Open").staticTexts.byName("Import Audio").name()
-Application("VoiceOver").output("Starting Import Audio Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Import Audio Dialog. . Press Escape to exit Shortcuts Helper.")
-km = Application("Keyboard Maestro")
-km.setmacroenable("Flo Tools Shortcuts Helper, PT Import Audio Dialog", {enable:true})
-} catch (err) {
-}
-</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>MIDI Event List</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>7241EB0C-1EC5-41B7-9079-777A8BC4CB5D</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting MIDI Event List Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the MIDI Event List Window. . Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>Missing Files</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>A7B8174A-43BE-4FC3-B143-C22E75BAAECB</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting Missing Files Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Missing Files Dialog. . Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>Modify Groups</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>6D424D93-3D12-4DF8-B843-9951194B4A88</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting Modify Groups Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Modify Groups Dialog. . Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>New Tracks</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>DC35CDA2-0361-4B54-A5E0-752492B0BB28</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting New Tracks Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the New Tracks Dialog. . Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleMatches</string>
-									<key>FrontWindowTitle</key>
-									<string>^Plug-in:</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>D13BE3BC-35B1-4E71-A131-E17D41214F3D</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting Plug-in Shortcuts Helper. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Plug-in Window. . Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleIs</string>
-									<key>FrontWindowTitle</key>
-									<string>Event Operations</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>try {
-Application("System Events").applicationProcesses.byName("Pro Tools").windows.byName("Event Operations").popUpButtons.byName("Step Input").name()
-Application("VoiceOver").output("Starting Step Input Shortcuts Helper. These shortcuts are available when Enable Numeric Key Pad Shortcuts is enabled in the Step Input Window. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Step Input Window. . Press Escape to exit Shortcuts Helper.")
-km = Application("Keyboard Maestro")
-km.setmacroenable("Flo Tools Shortcuts Helper, PT Step Input Window", {enable:true})
-
-} catch (err) {
-}</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>TitleMatches</string>
-									<key>FrontWindowTitle</key>
-									<string>^Mix:|Edit:</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Enable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Starting Shortcuts Helper for mix and edit windows. Type keys to hear their functions or press Command Control Shift H to bring up a palette of all available keyboard shortcuts for the Mix and Edit windows. Press Escape to exit Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>Application</key>
-									<dict>
-										<key>BundleIdentifier</key>
-										<string>com.avid.ProTools</string>
-										<key>Name</key>
-										<string>Pro Tools</string>
-										<key>NewFile</key>
-										<string>/Applications/Pro Tools.app</string>
-									</dict>
-									<key>ConditionType</key>
-									<string>FrontWindow</string>
-									<key>FrontWindowConditionType</key>
-									<string>ExistsButTitleDoesNotMatch</string>
-									<key>FrontWindowTitle</key>
-									<string>Batch Fades|Bounce|Create Group|Crossfade|Dashboard|Event Operations|Fade In|Fade Out|MIDI Event List|Missing Files|Modify Groups|New Tracks|Open|^Plug-in:|^Mix:|^Edit:</string>
-									<key>IsFrontApplication</key>
-									<false/>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array/>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("Pro Tools Shortcuts Helper doesn't exist for This window. Press Escape to exit Pro Tools Shortcuts Helper.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>530229092.90205503</real>
-				<key>IsActive</key>
-				<false/>
-				<key>ModificationDate</key>
-				<real>531272914.45253402</real>
-				<key>Name</key>
-				<string>Enable Window Helper</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>ChangeType</key>
-						<string>FocussedWindowTitleChanges</string>
-						<key>MacroTriggerType</key>
-						<string>FocussedWindow</string>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>EBE20962-FAED-456C-9B2C-BCFC571A6D8E</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Shortcuts Helper</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>9C22BEE7-C76D-4848-A94E-F439B0DED1AE</string>
-		<key>UID</key>
-		<string>E6302F84-A094-470D-8041-189525EBD50D</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -21789,22 +22185,6 @@ km.setmacroenable("Flo Tools Shortcuts Helper, PT Step Input Window", {enable:tr
 				<key>Actions</key>
 				<array>
 					<dict>
-						<key>Action</key>
-						<string>Disable</string>
-						<key>MacroActionType</key>
-						<string>SetMacroEnable</string>
-						<key>MacroUID</key>
-						<string>CB646764-60F9-4FD2-BD65-A193DD774B74</string>
-					</dict>
-					<dict>
-						<key>Action</key>
-						<string>Disable</string>
-						<key>MacroActionType</key>
-						<string>SetMacroEnable</string>
-						<key>MacroUID</key>
-						<string>EBE20962-FAED-456C-9B2C-BCFC571A6D8E</string>
-					</dict>
-					<dict>
 						<key>Asynchronously</key>
 						<false/>
 						<key>MacroActionType</key>
@@ -21858,7 +22238,7 @@ km.setmacroenable("Flo Tools Shortcuts Helper, PT Step Input Window", {enable:tr
 				<key>IsActive</key>
 				<false/>
 				<key>ModificationDate</key>
-				<real>530234215.85822499</real>
+				<real>531346331.39023602</real>
 				<key>Name</key>
 				<string>Exit Pro Tools Shortcuts Helper, Escape</string>
 				<key>Triggers</key>
@@ -26579,8 +26959,6 @@ vo.output (msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -27016,8 +27394,6 @@ vo.output (msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -27120,8 +27496,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -27475,8 +27849,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -34284,8 +34656,6 @@ read(current)
 		<string>TitleIs</string>
 		<key>FocussedWindowTitle</key>
 		<string>Open</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -47784,8 +48154,6 @@ vo.output(name)
 		<string>TitleIs</string>
 		<key>FocussedWindowTitle</key>
 		<string>Open</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -48075,8 +48443,6 @@ vo.output(name)
 		<string>TitleIs</string>
 		<key>FocussedWindowTitle</key>
 		<string>Open</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -57150,8 +57516,6 @@ vo.output (msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -57331,8 +57695,6 @@ kme.setvariable("FTGRMax", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -58259,8 +58621,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -59942,8 +60302,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -60809,8 +61167,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -63633,8 +63989,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -63855,8 +64209,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -64078,8 +64430,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -64300,8 +64650,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -64522,8 +64870,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -64744,8 +65090,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -64966,8 +65310,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -65189,8 +65531,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -65411,8 +65751,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -65633,8 +65971,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -65855,8 +66191,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -65994,8 +66328,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -66134,8 +66466,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -66273,8 +66603,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -66412,8 +66740,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -66551,8 +66877,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -66690,8 +67014,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -66830,8 +67152,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -66969,8 +67289,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -67108,8 +67426,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -67330,8 +67646,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -67552,8 +67866,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -67783,8 +68095,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -68008,8 +68318,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -68230,8 +68538,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -68451,8 +68757,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -68668,8 +68972,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -68802,8 +69104,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -69416,8 +69716,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -69634,8 +69932,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -69861,8 +70157,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -70537,8 +70831,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -70905,8 +71197,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -71260,8 +71550,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -71723,8 +72011,6 @@ if (runSingle) single()
 				</array>
 				<key>CreationDate</key>
 				<real>515336961.72523302</real>
-				<key>IsActive</key>
-				<false/>
 				<key>ModificationDate</key>
 				<real>515337283.92502302</real>
 				<key>Name</key>
@@ -72214,8 +72500,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -72687,8 +72971,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -72909,8 +73191,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -73681,8 +73961,6 @@ if (runSingle) single()
 		<string>TitleIs</string>
 		<key>FocussedWindowTitle</key>
 		<string>Open</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -73778,8 +74056,6 @@ if (runSingle) single()
 		<string>TitleIs</string>
 		<key>FocussedWindowTitle</key>
 		<string>Open</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -76640,9 +76916,12 @@ pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 obj = pt.menuBars[0].menuBarItems.byName("Track").menus.byName("Track").menuItems.whose({name:{_contains:"Set Record Tracks to"}})[0]
 obj.click()
 value = obj.name()
+if (obj.enabled() == false) {
+vo.output("Set Record Tracks to is Dimmed")
+} else {
 if (value.indexOf("Auto Input") &gt; -1) vo.output("Input Only")
 else vo.output("Auto Input")
-</string>
+}</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -76655,10 +76934,8 @@ else vo.output("Auto Input")
 				</array>
 				<key>CreationDate</key>
 				<real>522974822.09080797</real>
-				<key>IsActive</key>
-				<false/>
 				<key>ModificationDate</key>
-				<real>522975925.95723897</real>
+				<real>531347430.49449199</real>
 				<key>Name</key>
 				<string>Toggle Input Monitor</string>
 				<key>Triggers</key>
@@ -78181,8 +78458,6 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
