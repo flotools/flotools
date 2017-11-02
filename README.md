@@ -61,10 +61,10 @@ Keyboard Maestro contains some default macro groups that conflict with common Ma
 
 Keyboard Maestro is limited by a 30-day trial period. After this time, a purchase of a one-time license is required to continue using the program, and subsequently, Flo Tools.
 
-More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)
-
-
+More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)Keyboard Maestro occasionally provides spoken notifications to alert you to tasks it's performing in the background. If these become bothersome, you can turn them off by going to system preferences, notifications, and choosing Keyboard Maestro Engine from the table. Then select "none" under Alert Style.
+
 ### Flo Tools Installation
+
 To install Flo Tools, go to the provided zip file, and open the application called "Flo Tools Installer". Follow the on-screen prompts to guide you through installation.
 
 For the scripts to run properly, open Keyboard Maestro Preferences, and under the general tab, check the box labeled, "Start Keyboard Maestro Engine at log-in." Note that the Keyboard Maestro window does not need to be open for the scripts to run.
