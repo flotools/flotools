@@ -41,13 +41,12 @@ try {
 vo = Application("VoiceOver")
 vo.output("")
 } catch (err) {
-cmd = "say Alert! Flo Tools cannot control VoiceOver. Please allow VoiceOver to be controlled with AppleScript in Voiceover Utility."
-app.doShellScript(cmd)
+app.say("Alert! Flo Tools cannot control VoiceOver. Please allow VoiceOver to be controlled with AppleScript in Voiceover Utility.")
 }
 
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
-var regex = /(\d+\.\d+)/;
+var regex = /(\d+\.\d+\.\d+)/;
 var match = regex.exec(current);
 current = match[1];
 token = kme.processTokens("%MacUUID%,%MacName%,%UserLoginID%,%UserName%")
@@ -72,11 +71,11 @@ match = regex.exec(prompt);
 latest = match[1]
 if (current == latest | skip == latest) {
 prompt=""
-} else if (latest&gt;current) {
+} else {
 regex = /name='message' content='(.*?)'/
 match = regex.exec(prompt);
 msg = match[1]
-app.say(msg,{speakingRate:300})
+app.say(msg,{speakingRate:220})
 }
 } catch(err) {
 prompt=""
@@ -200,9 +199,9 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>530979303.81486899</real>
+				<real>532028477.41405499</real>
 				<key>Name</key>
-				<string>* Flo Tools 2.2. Check for Automatic Update</string>
+				<string>* Flo Tools 2.3.0. Check for Automatic Update</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -271,7 +270,7 @@ window.KeyboardMaestro.Cancel()
 						<string>url = "http://update.flotools.org/ftupdate.php"
 kme = Application("Keyboard Maestro Engine")
 current = kme.getvariable("command")
-var regex = /(\d+\.\d+)/;
+var regex = /(\d+\.\d+\.\d+)/;
 var match = regex.exec(current);
 current = match[1];
 app = Application.currentApplication()
@@ -412,9 +411,9 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>530899521.35734099</real>
+				<real>532028589.62302399</real>
 				<key>Name</key>
-				<string>* Flo Tools 2.2. Check for Manual Update</string>
+				<string>* Flo Tools 2.3.0. Check for Manual Update</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
