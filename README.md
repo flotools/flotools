@@ -33,14 +33,14 @@ Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 <div id='download'/>
 ## Download
 
-You can download Flo Tools by clicking [here.](https://github.com/flotools/flotools/archive/master.zip)
+You can [download Flo Tools](http://flotools.org/download/) from flotools.org.
 
 Once downloaded, this  zip file, referenced in this read me, will automatically decompress itself into a folder on Mac OS. Please refer to this downloaded folder, called "Flo Tools Master", when reading this document.
 
 <div id='systemrequirements'/>
 ## System Requirements
 
-Flo Tools supports Mac OS version 10.10 or later, and Pro Tools version 12.3 or later. Earlier versions of Mac OS and Pro Tools may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
+Flo Tools supports Mac OS version 10.10 or later, and Pro Tools version 12.3 or later. Pro Tools First has limited support at this time from version 12.8.2 or higher. Earlier versions of Mac OS, Pro Tools, and Pro Tools First may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
 
 <div id='installation'/>
 ## Installation
@@ -61,10 +61,10 @@ Keyboard Maestro contains some default macro groups that conflict with common Ma
 
 Keyboard Maestro is limited by a 30-day trial period. After this time, a purchase of a one-time license is required to continue using the program, and subsequently, Flo Tools.
 
-More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)
-
-
+More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)Keyboard Maestro occasionally provides spoken notifications to alert you to tasks it's performing in the background. If these become bothersome, you can turn them off by going to system preferences, notifications, and choosing Keyboard Maestro Engine from the table. Then select "none" under Alert Style.
+
 ### Flo Tools Installation
+
 To install Flo Tools, go to the provided zip file, and open the application called "Flo Tools Installer". Follow the on-screen prompts to guide you through installation.
 
 For the scripts to run properly, open Keyboard Maestro Preferences, and under the general tab, check the box labeled, "Start Keyboard Maestro Engine at log-in." Note that the Keyboard Maestro window does not need to be open for the scripts to run.
@@ -78,11 +78,12 @@ For all functions of Flo Tools to work as expected, it is recommended to apply t
 3. The "Track List Table" in the mix window should always be shown.
 4. Within the Display tab of the Pro Tools Preferences dialog,  the check boxes labeled "function" and "details" under basics, tooltips, should be checked.
 5. Track Heights should be set to "medium" for optimal Flo Tools performance.
-6. In the toolbar menu of the edit window, the "Transport", "midi Controls", and "expanded transport" settings should be checked 
+6. In the toolbar menu of the edit window, the "Transport", "midi Controls", and "expanded transport" settings should be checked.
+7. If the default keyboard is not set to "US" in System Preferences, Keyboards, input sources, please add it to the list of input sources, and switch to it when using Flo Tools.
+
 
 Pro Tools includes a Keyboard Focus mode, within which commands are issued through single letter keystrokes. When Keyboard Focus mode is not active, these same commands can be issued by adding the Control key as a modifier. Since certain Flo Tools commands are issued with single letter taps and double-taps, it is recommended that users avoid the Keyboard Focus mode in Pro Tools. Although Flo Tools will function as expected in Keyboard Focus mode, users may inadvertently press a keystroke not used by Flo Tools and pass unwanted commands through to Pro Tools, yielding unexpected results. To allow use of the  Control modifier instead of keyboard focus mode for Pro Tools, and make single letter commands available for Flo Tools, move VoiceOver focus either on the Clips list by pressing Command-Option-2, or the Groups List by pressing Command-Option-3 while in the edit window.
 
-If the default keyboard is not set to "US" in System Preferences, Keyboards, input sources, please add it to the list of input sources, and switch to it when using Flo Tools.
 
 <div id='usingflotools'/>
 ## Using Flo Tools
@@ -96,7 +97,7 @@ The second is [This Sound](Pop.aiff), which signals that something is in process
 
 ### Commands
 
-Flo Tools is organized into 6 macro groups inside of Keyboard Maestro. Below is a list of Flo Tools commands, and their associated functions, separated by their respective groups.
+Flo Tools is organized into 22 macro groups inside of Keyboard Maestro. Below is a list of Flo Tools commands, and their associated functions, separated by their respective groups.
 
 #### Flo Tools
 
@@ -137,6 +138,14 @@ Where two actions are listed, double-tapping the key will perform the second act
 * Speak Record Safe Tracks: Command+Option+Shift+r
 * Speak Solo Safe Tracks: Command+Option+Shift+s
 * Speak tracks who’s level is greater then or equal to 0DB: Option+Shift+0
+* Speak and select Previous Playlist: Shift + Up Arrow
+* Speak and select Next Playlist: Shift+Down Arrow
+* Speak and Select Previous Track: Control+P
+* Speak and select Next Track: Control+; (semicolon)
+* Speak and add Previous Track to Selection: Control+Shift+P
+* Speak and add Next Track to Selection: Control+Shift+;(semicolon)
+* Speak and retract Selection from Top Track: Control+Option+P (must be passed through)
+*Speak and retract Selection from Bottom Track: Control+Option+; (semicolon) (must be passed through)
 * Speak/Toggle Metronome:	Option+num pad 7
 * Speak/Toggle Count In:	Option+num pad8
 * Speak/Toggle Midi Merge:	Option+num pad 9
@@ -150,7 +159,11 @@ Where two actions are listed, double-tapping the key will perform the second act
 * Speak/toggle quickpunch:	Command+Shift+p
 * Speak/Toggle loop playback:	Command+Shift+l
 * Speak/Toggle Loop Record:	Option+l
-* Speak/Toggle Pre/Post-Roll:	Command+k
+* Speak/Toggle Pre/Post-Roll:	Command+K
+* Select Clip Keyboard Focus: Command+Option+2
+* Select Group Keyboard Focus: Command+Option+3
+* Select Timeline Keyboard Focus: Command+Option+1
+* Toggle Input Monitor: Option+K
 * Mark clip to drag:	Command+Option+Shift+, (comma)
 * Drag clip:	Command+Option+Shift+. (period)
 * Resize track list Table:	Command+Control+Shift+t
@@ -160,7 +173,7 @@ Where two actions are listed, double-tapping the key will perform the second act
 
 #### Flo Tools Global
 
-The Flo Tools Global group is mentioned here only for reference purposes, and only needs to be modified if you desire to change shortcuts to toggle the Flo Tools Mouse or Flo Tools num pad groups.
+The Flo Tools Global group is mentioned here only for reference purposes, and contains various macros for Flo Tools to function correctly.
 
 This group also contains a macro that allows Flo Tools to run only while the VoiceOver screenreader is active. This is to avoid possible conflicts with other sighted users of the computer.
 
@@ -176,7 +189,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 * Speak Track Name, Select Track Pop-Up Menu: t
 * Speak/Open Inserts A through J:	1 through 0 on the numbers row
 * Assign Inserts A through J:	Command+1 through 0 on the numbers row
- * Note that Command+1 through 7 are shortcuts for selecting Pro Tools edit tools. There are alternative shortcuts located within the F keys. See the Pro Tools Keyboard Shortcuts pdf for details.
+ * Note that Command+1 through 5 are also shortcuts for selecting Pro Tools presets. Turn off the inspector to access these shortcuts. See the Pro Tools Keyboard Shortcuts pdf for more details.
  * Note that, when the Flo Tools Inspector is on,  the macro for assigning Insert J (Command+0) overrides the Pro Tools shortcut for "Quantize Clip to Nearest Grid." Use the Clip menu or turn off the Flo Tools Inspector to pass through the shortcut.
 * Speak/Open Sends A through J:	Control+1 through 0 on the numbers row
 * Assign Sends A through J:	Command+Control+1 through 0 on the numbers row
@@ -210,11 +223,11 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 * Speak/Select Timebase: b
 * Beta: Speak/Select Elastic Audio Plugin: e
 
-#### Flo Tools Mouse
+#### Flo Mouse
 
-The Flo Tools Mouse group is global, so these commands will work system-wide when the group is turned on.
+The Flo Mouse group is global, so these commands will work system-wide when the group is turned on. Note that both the Flo Mouse and Flo Num Pad Macro Groups are no longer automatically installed with Flo Tools, and must be downloaded separately.
 
-* Activate Flo Tools Mouse: Command+Slash
+* Activate Flo Mouse: Command+Slash
 * Option-Click:	Option+` (accent)
 * Option+Shift-Click:	Option+Shift+` (accent)
 * Command-Click:	Command+` (accent)
@@ -228,6 +241,7 @@ The Flo Tools Mouse group is global, so these commands will work system-wide whe
 * Control+Shift-Click:	Control+Shift+` (accent)
 * Control+Option-Click:	Control+Option+` (accent) (must be passed through)
 * Control+Option+Shift-Click:	Control+Option+Shift+` (accent) (must be passed through)
+* Control+Option+Command+Shift-Click:	Control+Option+Command+Shift+` (accent) (must be passed through)* Command+Control+Shift-Click:	Command+Control+Shift+` (accent) (must be passed through)
 * Copy/Speak Mouse Coordinates Relative to Front Window: Command+Option+Shift+c
 * Copy/speak mouse coordinates relative to screen:	Command+Option+Shift+a
 * Move mouse up: Command+Option+Shift+up-arrow
@@ -250,7 +264,7 @@ This macro group allows easier navigation and editing of the Midi Event List usi
 * Edit Event:	Control+Command+Return
 
 
-#### Flo Tools Num Pad
+#### Flo Num Pad
 
 Flo Tools provides a key remapping using the keyboard as a standard num pad. This num pad group of remappings can be used system-wide, and can be toggled on and off by pressing Control+/.
 
@@ -297,7 +311,16 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 #### Flo Tools Selected Tab
 
 This group allows Flo Tools to announce the currently selected tab in Pro Tools dialogs, such as preferences and peripherals. Pressing Command+1, Command+2, etc. will trigger this feature.
+#### Flo Tools Shortcuts Helper
 
+Flo Tools provides a convenient way to find any Pro Tools Shortcut, called the Shortcuts Helper. While Pro Tools is running, Press Control Shift Command K to launch the Shortcuts Helper. Press keys to hear their functions.
+
+When you're in the Mix or Edit windows, you'll hear the main shortcuts that are available in most windows. When you're in a window or dialog that has its own shortcuts, you'll hear only those shortcuts that are specific to that environment.
+
+For example, Command+f brings up the Fades dialog in the Mix or Edit windows but it brings up the View filter while the MIDI Event List is in focus. Flo Tools Shortcuts Helper recognizes the context and offers the appropriate shortcuts.
+
+Rather than randomly pressing keys to hear their functions, you can also press Control Shift Command H to bring up a palette of all of the available shortcuts. You can even narrow down the list by bringing up the Item Chooser and use first letter navigation to narrow the list to make it easier to find the shortcut you're trying to remember. You can either trigger the macro, which will speak the function as if you had pressed the key combination or you can press the very first button in the palette (which happens to be unlabelled and that will close the palette. To exit Shortcuts Helper, simply press Escape.
+
 <div id='misc'/>
 ## Misc
 
@@ -413,3 +436,22 @@ The Flo Tools team will use this information to determine what the problem and s
  * Move to previous Column:	Control+left arrow
  * Edit Event:	Control+Command+Return
 * For more detailed information about new features and improvements in version 2.2, click [Here.](/Flo-Tools-2.2-release/)
+
+### Flo Tools 2.3:
+
+* Select Clip Keyboard Focus: Command+Option+2
+* Select Group Keyboard Focus: Command+Option+3
+* Select Timeline Keyboard Focus: Command+Option+1
+* Speak and select Previous Playlist: Shift + Up Arrow
+* Speak and select Next Playlist: Shift+Down Arrow
+* Speak and Select Previous Track: Control+P
+* Speak and select Next Track: Control+; (semicolon)
+* Speak and add Previous Track to Selection: Control+Shift+P
+* Speak and add Next Track to Selection: Control+Shift+;(semicolon)
+* Speak and retract Selection from Top Track: Control+Option+P (must be passed through)
+* Speak and retract Selection from Bottom Track: Control+Option+; (semicolon) (must be passed through)
+* Toggle Input Monitor: Option+K
+* Added Shortcuts Helper:
+ * Command+Control+Shift+K: Start Shortcuts Helper
+ * escape: Stop Shortcuts Helper
+ * Command+Control+Shift+H: List all shortcuts for the current dialog or window
