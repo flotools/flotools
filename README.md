@@ -435,7 +435,7 @@ The Flo Tools team will use this information to determine what the problem and s
  * Move to next Column:	Control+right arrow
  * Move to previous Column:	Control+left arrow
  * Edit Event:	Control+Command+Return
-* For more detailed information about new features and improvements in version 2.2, click [Here.](/Flo-Tools-2.2-release/)
+* For more detailed information about new features and improvements in version 2.2, click [Here.](/Flo-Tools-2.2/)
 
 ### Flo Tools 2.3:
 
