@@ -6380,7 +6380,7 @@ pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
-button = track.popUpButtons.whose({title:{_contains:"Track View Selector"}})[0]
+button = track.uiElements.whose({title:{_contains:"Track View Selector"}})[0]
 value = button.name()
 vo.output(value)
 }
@@ -6392,7 +6392,7 @@ pt = sys.applicationProcesses.whose({name:{_contains:"Pro Tools"}})[0]
 windows = pt.windows
 window = windows.whose({name:{_beginsWith:"Edit:"}})[0]
 track = window.groups.byName(vo.voCursor.textUnderCursor())
-button = track.popUpButtons.whose({title:{_contains:"Track View Selector"}})[0]
+button = track.uiElements.whose({title:{_contains:"Track View Selector"}})[0]
 button.click()
 }
 
@@ -6428,7 +6428,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>494273438.39537001</real>
 				<key>ModificationDate</key>
-				<real>494706922.63242</real>
+				<real>532222178.63050997</real>
 				<key>Name</key>
 				<string>Beta: Speak/Select Track View</string>
 				<key>Triggers</key>
@@ -22416,6 +22416,8 @@ Application("Keyboard Maestro Engine").doScript("1AC2CC6C-1658-43F9-B57C-346277C
 				</array>
 				<key>CreationDate</key>
 				<real>527903496.24523503</real>
+				<key>IsActive</key>
+				<false/>
 				<key>ModificationDate</key>
 				<real>531346331.39023602</real>
 				<key>Name</key>
