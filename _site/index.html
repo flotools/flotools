@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flo Tools – Enhanced Workflow for Pro Tools Users With Visual Impairments</title>
+
+<script>
+var trackLink = function(category, action, url) {
+   ga('send', 'event', category, action, url, {
+     'transport': 'beacon',
+     'hitCallback': function(){document.location = url;}
+   });
+}
+</script> 
+  
+ 
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="Enhanced Workflow for Pro Tools Users With Visual Impairments">
+    <meta property="og:description" content="Enhanced Workflow for Pro Tools Users With Visual Impairments" />
+    
+    <meta name="author" content="Flo Tools" />
+
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="Flo Tools - Enhanced Workflow for Pro Tools Users With Visual Impairments" href="/feed.xml" />
+
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <div class="site-info">
+            <p class="site-name"><a href="/">Flo Tools</a></p>
+            <p class="site-description">Enhanced Workflow for Pro Tools Users With Visual Impairments</p>
+          </div>
+
+          <nav>
+            <a href="/Flo Tools">Getting Started</a>
+            <a href="/download">Download</a>
+            <a href="/support">Support</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <div class="posts">
+  
+    <article class="post">
+
+      <h1><a href="/Flo-Tools-1.0/">Flo Tools</a></h1>
+
+      <div class="entry">
+        <div id="youTubePlayer"></div>
+
+<script>
+    var label = 'Flo Tools 1.0 Video';
+    var videoId = '-Hu_gTnXMzI';
+
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('youTubePlayer', {
+            videoId: videoId,
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    function onPlayerReady(event) {
+        //event.target.playVideo();
+    }
+
+    function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING) {
+         if (cleanTime() == 0) {
+            ga('send', 'event', 'Videos', 'Play', label);
+         } else {
+            ga('send', 'event', 'Videos', 'Play', label+' @ ' + cleanTime());
+         }
+        }
+
+        if (event.data == YT.PlayerState.PAUSED) {
+            if (player.getDuration() - player.getCurrentTime() != 0) {
+            ga('send', 'event', 'Videos', 'Pause', label+' @ ' + cleanTime());
+           }
+        }
+
+        if (event.data == YT.PlayerState.ENDED) {
+            ga('send', 'event', 'Videos', 'Finished', label);
+        }
+    }
+
+function cleanTime() {
+    return player.getCurrentTime()
+}
+
+</script>
+
+
+      </div>
+      
+    </article>
+<hr/>
+
+    <article class="post">
+
+      <h1><a href="/Flo-Tools-2.3.0/">Flo Tools 2.3.0</a></h1>
+
+      <div class="entry">
+        <p>As always, the Flo Tools Team has been thinking of ways to make your use of Pro Tools easier and more efficient. Often, these are simple things that make a huge difference. Flo Tools 2.3.0 introduces a few such features. In fact, they’re so simple that besides  foregoing the mp3 demonstration, we even considered releasing the new version without a “What’s New” and have our users discover the new features by surprise but then where’s the fun in that?</p>
+
+<p>OK, so if you’d rather be surprised by the new features, feel free to skip the rest of these scintillating paragraphs and stumble across things on your own but, if you want a heads up on what to expect, read on.</p>
+
+
+      </div>
+      
+      <a href="/Flo-Tools-2.3.0/" class="read-more">Read More</a>
+      
+    </article>
+<hr/>
+
+    <article class="post">
+
+      <h1><a href="/Flo-Tools-2.2/">Flo Tools 2.2</a></h1>
+
+      <div class="entry">
+        <p>Isn’t it about time for a Flo Tools update? We sure think so. We’ve added a few shortcuts to help report things like edit modes and playback status. Dragging clips to the timeline used to be tedious or even impossible. Guess what? Not anymore.</p>
+
+<p>Perhaps most exciting is the new facility for MIDI editing. We think you’ll love it.</p>
+
+
+      </div>
+      
+      <a href="/Flo-Tools-2.2/" class="read-more">Read More</a>
+      
+    </article>
+<hr/>
+
+    <article class="post">
+
+      <h1><a href="/Flo-Tools-2.01/">Flo Tools 2.01</a></h1>
+
+      <div class="entry">
+        <p>It’s true, there’s a new version of Flo Tools out today, version 2.01. There are a minor fixes for the installer, and a new feature to automatically check for updates.</p>
+
+
+      </div>
+      
+      <a href="/Flo-Tools-2.01/" class="read-more">Read More</a>
+      
+    </article>
+<hr/>
+
+    <article class="post">
+
+      <h1><a href="/Flo-Tools-2.0/">Flo Tools 2.0 is Here!</a></h1>
+
+      <div class="entry">
+        <p>What’s new in Flo Tools 2.0, you ask? Well, sit back and let us tell you!</p>
+
+<p>New major features include Plug-In Views, Flo Tools Num Pad, and Flo Tools Mouse.</p>
+
+
+      </div>
+      
+      <a href="/Flo-Tools-2.0/" class="read-more">Read More</a>
+      
+    </article>
+<hr/>
+
+</div>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+  
+          
+
+
+
+<a href="https://github.com/flotools/flotools"><i class="svg-icon github"></i></a>
+
+
+
+
+<a href="https://www.twitter.com/amtlab"><i class="svg-icon twitter"></i></a>
+
+
+
+        </footer>
+      </div>
+    </div>
+
+    
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-85737926-1', 'auto');
+		ga('send', 'pageview', {
+		  'page': '/',
+		  'title': ''
+		});
+	</script>
+	<!-- End Google Analytics -->
+
+
+  </body>
+</html>
