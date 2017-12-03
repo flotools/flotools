@@ -462,3 +462,4 @@ The Flo Tools team will use this information to determine what the problem and s
 * Fixed shift+up/down to work in only certain windows.
 * Fixed unmute/unsolo all tracks to work properly when there are active groups.
 * Fixed track view selector to work properly for aux track.
+* Made increase/decrease nudge value into 4 macros to accommodate both numpad and qwerty.
