@@ -437,7 +437,7 @@ The Flo Tools team will use this information to determine what the problem and s
  * Edit Event:	Control+Command+Return
 * For more detailed information about new features and improvements in version 2.2, click [Here.](/Flo-Tools-2.2/)
 
-### Flo Tools 2.3:
+### Flo Tools 2.3.0:
 
 * Select Clip Keyboard Focus: Command+Option+2
 * Select Group Keyboard Focus: Command+Option+3
@@ -455,3 +455,10 @@ The Flo Tools team will use this information to determine what the problem and s
  * Command+Control+Shift+K: Start Shortcuts Helper
  * escape: Stop Shortcuts Helper
  * Command+Control+Shift+H: List all shortcuts for the current dialog or window
+
+### Flo Tools 2.3.1:
+
+* Fixed increase/decrease nudge/grid value, so they work i only windows not dialogs.
+* Fixed shift+up/down to work in only certain windows.
+* Fixed unmute/unsolo all tracks to work properly when there are active groups.
+* Fixed track view selector to work properly for aux track.
