@@ -458,8 +458,9 @@ The Flo Tools team will use this information to determine what the problem and s
 
 ### Flo Tools 2.3.1:
 
-* Fixed increase/decrease nudge/grid value, so they work i only windows not dialogs.
-* Fixed shift+up/down to work in only certain windows.
+* Fixed Speak/Toggle Link Timeline And Edit Selection, increase/decrease nudge/grid value, and toggle inspector, so they report only in certain windows.
+* Fixed shift+up arrow/down arrow to report the switching of playlists  only in windows where playlists can be switched.
 * Fixed unmute/unsolo all tracks to work properly when there are active groups.
-* Fixed track view selector to work properly for aux track.
-* Made increase/decrease nudge value into 4 macros to accommodate both numpad and qwerty.
+* Fixed Speak/Select track view to work properly for aux tracks.
+* Split increase/decrease nudge value into 4 macros to accommodate both numpad and qwerty input.
+* Fixed prompts for several Shortcut Helper macros for Mix/Edit windows.
