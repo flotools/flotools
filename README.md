@@ -435,9 +435,9 @@ The Flo Tools team will use this information to determine what the problem and s
  * Move to next Column:	Control+right arrow
  * Move to previous Column:	Control+left arrow
  * Edit Event:	Control+Command+Return
-* For more detailed information about new features and improvements in version 2.2, click [Here.](/Flo-Tools-2.2-release/)
+* For more detailed information about new features and improvements in version 2.2, click [Here.](/Flo-Tools-2.2/)
 
-### Flo Tools 2.3:
+### Flo Tools 2.3.0:
 
 * Select Clip Keyboard Focus: Command+Option+2
 * Select Group Keyboard Focus: Command+Option+3
@@ -455,3 +455,12 @@ The Flo Tools team will use this information to determine what the problem and s
  * Command+Control+Shift+K: Start Shortcuts Helper
  * escape: Stop Shortcuts Helper
  * Command+Control+Shift+H: List all shortcuts for the current dialog or window
+
+### Flo Tools 2.3.1:
+
+* Fixed Speak/Toggle Link Timeline And Edit Selection, increase/decrease nudge/grid value, and toggle inspector, so they report only in certain windows.
+* Fixed shift+up arrow/down arrow to report the switching of playlists  only in windows where playlists can be switched.
+* Fixed unmute/unsolo all tracks to work properly when there are active groups.
+* Fixed Speak/Select track view to work properly for aux tracks.
+* Split increase/decrease nudge value into 4 macros to accommodate both numpad and qwerty input.
+* Fixed prompts for several Shortcut Helper macros for Mix/Edit windows.
