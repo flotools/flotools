@@ -62,6 +62,31 @@ console.log(token)
 //token = token.split("").reverse().join("")
 cmd = "plutil -convert json -r ~/Library/Application\\ Support/Keyboard\\ Maestro/Keyboard\\ Maestro\\ Macro\\ Stats.plist -o /tmp/"+sha+".json"
 app.doShellScript(cmd)
+stats = JSON.parse(app.read(Path("/tmp/"+sha+".json")))
+specs = {}
+try {
+specs["Pro Tools"] = Application("Pro Tools").version();
+} catch (err) {
+}
+try {
+specs["Pro Tools First"] = Application("Pro Tools First").version();
+} catch (err) {
+}
+specs["Flo Tools"] = current;
+specs["VoiceOver"] = Application("VoiceOver").version();
+specs["Keyboard Maestro"] = Application("Keyboard Maestro").version();
+specs["macOS"] = app.systemInfo().systemVersion;
+specs["AppleScript"] = app.systemInfo().applescriptVersion;
+specs["AppleScript Studio"] = app.systemInfo().applescriptStudioVersion;
+specs["User Locale"] = app.systemInfo().userLocale;
+specs["CPU Type"] = app.systemInfo().cpuType;
+specs["CPU Speed"] = app.systemInfo().cpuSpeed;
+specs["Physical Memory"] = app.systemInfo().physicalMemory;
+stats["Specs"] = specs;
+file = app.openForAccess(Path("/tmp/"+sha+".json"), {writePermission:true})
+app.setEof(file, {to:0})
+app.write(JSON.stringify(stats), {to:file, as:"text"})
+app.closeAccess(file)
 cmd = 'curl -v -H "Cache-Control: no-cache" --url "'+url+'" -F "token='+token+'" -F "stat=@/tmp/'+sha+'.json"'
 prompt = app.doShellScript(cmd)
 console.log(prompt)
@@ -199,7 +224,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>534464550.70442098</real>
+				<real>536442506.50130302</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.3.1. Check for Automatic Update</string>
 				<key>Triggers</key>
@@ -446,6 +471,8 @@ window.KeyboardMaestro.Cancel()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -1571,6 +1598,8 @@ track.groups["Inserts A-E"].buttons[0].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -1671,6 +1700,8 @@ track.groups["Inserts A-E"].buttons[1].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -1771,6 +1802,8 @@ track.groups["Inserts A-E"].buttons[2].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -1871,6 +1904,8 @@ track.groups["Inserts A-E"].buttons[3].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -1971,6 +2006,8 @@ track.groups["Inserts A-E"].buttons[4].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -2071,6 +2108,8 @@ track.groups["Inserts F-J"].buttons[0].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -2254,6 +2293,8 @@ track.groups["Inserts F-J"].buttons[1].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -2437,6 +2478,8 @@ track.groups["Inserts F-J"].buttons[2].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -2620,6 +2663,8 @@ track.groups["Inserts F-J"].buttons[3].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -2803,6 +2848,8 @@ track.groups["Inserts F-J"].buttons[4].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -2903,6 +2950,8 @@ track.groups["Sends A-E"].buttons[0].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -3003,6 +3052,8 @@ track.groups["Sends A-E"].buttons[2].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -3103,6 +3154,8 @@ track.groups["Sends A-E"].buttons[4].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -3203,6 +3256,8 @@ track.groups["Sends A-E"].buttons[6].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -3303,6 +3358,8 @@ track.groups["Sends A-E"].buttons[8].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -3403,6 +3460,8 @@ track.groups["Sends F-J"].buttons[0].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -3586,6 +3645,8 @@ track.groups["Sends F-J"].buttons[2].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -3769,6 +3830,8 @@ track.groups["Sends F-J"].buttons[4].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -3952,6 +4015,8 @@ track.groups["Sends F-J"].buttons[6].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -4135,6 +4200,8 @@ track.groups["Sends F-J"].buttons[8].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -5218,6 +5285,8 @@ else vo.output("Finished dragging")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -5383,6 +5452,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -5648,6 +5719,8 @@ Application("VoiceOver").output("Marked for drag.")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -5817,6 +5890,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -6033,6 +6108,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -6250,6 +6327,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -6469,6 +6548,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -8710,6 +8791,8 @@ close.click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -15788,6 +15871,8 @@ kme.setvariable("FTLevelMonitor", {to:"0"})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -15976,6 +16061,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -16245,6 +16332,8 @@ vo.output(value)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -16486,6 +16575,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -16675,6 +16766,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -16945,6 +17038,8 @@ vo.output(value)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -17051,6 +17146,8 @@ vo.output(value)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -17320,6 +17417,8 @@ vo.output(value)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -18333,6 +18432,8 @@ console.log(msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -19477,6 +19578,8 @@ Application("VoiceOver").output(msg)</string>
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -27194,6 +27297,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -27546,6 +27651,8 @@ vo.output(value)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -27704,6 +27811,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -27892,6 +28001,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -28162,6 +28273,8 @@ vo.output(value)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -28268,6 +28381,8 @@ vo.output(value)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -28620,6 +28735,8 @@ vo.output(value)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -29548,6 +29665,8 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -29871,6 +29990,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -30034,6 +30155,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -30195,6 +30318,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -30306,6 +30431,8 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -30552,6 +30679,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -30820,6 +30949,8 @@ kme.setvariable("y", {to:""+y})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -31113,6 +31244,8 @@ kme.setvariable("y", {to:""+y})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -31408,6 +31541,8 @@ kme.setvariable("y", {to:""+y})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -31703,6 +31838,8 @@ kme.setvariable("y", {to:""+y})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -31998,6 +32135,8 @@ kme.setvariable("y", {to:""+y})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -32293,6 +32432,8 @@ kme.setvariable("y", {to:""+y})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -32588,6 +32729,8 @@ kme.setvariable("y", {to:""+y})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -32883,6 +33026,8 @@ kme.setvariable("y", {to:""+y})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -33178,6 +33323,8 @@ kme.setvariable("y", {to:""+y})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -33473,6 +33620,8 @@ kme.setvariable("y", {to:""+y})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -34696,6 +34845,8 @@ read(current)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -34830,6 +34981,8 @@ read(current)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -34970,6 +35123,8 @@ read(current)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -35083,6 +35238,8 @@ read(current)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -35192,6 +35349,8 @@ read(current)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -35326,6 +35485,8 @@ read(current)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -37708,6 +37869,8 @@ kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -37863,6 +38026,8 @@ vo.output(name)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -38237,6 +38402,8 @@ vo.output("Next")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -38489,6 +38656,8 @@ vo.output(name)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -43528,6 +43697,8 @@ else kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -43686,6 +43857,8 @@ vo.output(name)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -44060,6 +44233,8 @@ vo.output("Previous")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -44312,6 +44487,8 @@ vo.output(name)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -50016,6 +50193,8 @@ vo.output(name)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -50153,6 +50332,8 @@ vo.output("Clips table is "+w+" points wide. Click and drag to resize.")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -50373,6 +50554,8 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -51973,6 +52156,8 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -52065,6 +52250,8 @@ edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -52295,6 +52482,8 @@ edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Grid Controls").click()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -52387,6 +52576,8 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Main Counter selec
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -52562,6 +52753,8 @@ edit.groups.byName("Grid/Nudge Cluster").buttons.byName("Nudge Controls").click(
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -52737,6 +52930,8 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -53161,6 +53356,8 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -57510,6 +57707,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -57639,6 +57838,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -57782,6 +57983,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -57925,6 +58128,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -58084,6 +58289,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -58212,6 +58419,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -58371,6 +58580,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -58499,6 +58710,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -58597,6 +58810,8 @@ kme.setvariable("FTGRMax", {to:"0"})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -58857,6 +59072,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -59068,6 +59285,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -59288,6 +59507,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -59525,6 +59746,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -59779,6 +60002,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -60112,6 +60337,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -60227,6 +60454,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -60330,6 +60559,8 @@ vo.output (msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -60560,6 +60791,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -60780,6 +61013,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -60976,6 +61211,8 @@ vo.output(msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -61225,6 +61462,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -61445,6 +61684,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -61638,6 +61879,8 @@ vo.output(msg)
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -61850,6 +62093,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -62078,6 +62323,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -62313,6 +62560,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -62552,6 +62801,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -62797,6 +63048,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -63017,6 +63270,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -63275,6 +63530,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -63519,6 +63776,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -63733,6 +63992,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -63985,6 +64246,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -64229,6 +64492,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -64467,6 +64732,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -64705,6 +64972,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -64916,6 +65185,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -65137,6 +65408,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -65360,6 +65633,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -65582,6 +65857,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -65804,6 +66081,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -66026,6 +66305,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -66248,6 +66529,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -66471,6 +66754,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -66693,6 +66978,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -66915,6 +67202,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -67137,6 +67426,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -67359,6 +67650,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -67499,6 +67792,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -67638,6 +67933,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -67777,6 +68074,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -67916,6 +68215,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -68055,6 +68356,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -68195,6 +68498,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -68334,6 +68639,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -68473,6 +68780,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -68612,6 +68921,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -68834,6 +69145,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -69065,6 +69378,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -69290,6 +69605,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -69512,6 +69829,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -69733,6 +70052,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -69950,6 +70271,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -70167,6 +70490,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -70302,6 +70627,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -70517,6 +70844,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -70649,6 +70978,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -70781,6 +71112,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -70916,6 +71249,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -71143,6 +71478,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -71372,6 +71709,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -71590,6 +71929,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -71902,6 +72243,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -72050,6 +72393,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -72270,6 +72615,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -72410,6 +72757,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -72625,6 +72974,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -72767,6 +73118,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -72959,6 +73312,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -73083,6 +73438,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -73207,6 +73564,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -73422,6 +73781,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -73637,6 +73998,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -73778,6 +74141,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -73985,6 +74350,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -74109,6 +74476,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -74248,6 +74617,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -74473,6 +74844,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -74688,6 +75061,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -75928,6 +76303,8 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -76033,6 +76410,8 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -76138,6 +76517,8 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -76243,6 +76624,8 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -76348,6 +76731,8 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -76453,6 +76838,8 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -76558,6 +76945,8 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -76663,6 +77052,8 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -76768,6 +77159,8 @@ Application("VoiceOver").output(obj.name()+" selected")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -78222,6 +78615,8 @@ else vo.output("Auto Input")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -78528,6 +78923,8 @@ else vo.output("Auto Input")
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -78902,6 +79299,8 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
@@ -79883,6 +80282,8 @@ if (runSingle) single()
 					<string>com.avid.ProToolsFirst</string>
 					<key>Name</key>
 					<string>Pro Tools First</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools First.app</string>
 				</dict>
 			</array>
 		</dict>
