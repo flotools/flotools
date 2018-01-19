@@ -10518,6 +10518,259 @@ close.click()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>529683107.80941999</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Command Shift C. Copy Plug-in Settings.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>536975249.79673004</real>
+				<key>ModificationDate</key>
+				<real>536975279.87630701</real>
+				<key>Name</key>
+				<string>Copy Plug-in Settings, ⌘⇧C</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>8</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>3AEAAB04-101E-4C75-9D4E-0E5AB5FD1729</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Plug-In Window</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>8031D88A-02B3-4FA9-BCCD-0F6DE1E7A213</string>
+		<key>UID</key>
+		<string>D13BE3BC-35B1-4E71-A131-E17D41214F3D</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Control Option V. Copy Selection to Main Playlist in the Edit Window.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537927888.70657301</real>
+				<key>ModificationDate</key>
+				<real>537928061.25302804</real>
+				<key>Name</key>
+				<string>Copy Selection to Main Playlist, ⌃⌥V</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>9</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>FC1E753A-B9BB-4341-B65C-5D85F0BE6F1C</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Option Shift Up Arrow. Copy Selection to Target Playlist on Selected Audio Track in the Edit Window, Duplicate Selected MIDI Note While Transposing Up by Octave.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>536978119.90111995</real>
+				<key>ModificationDate</key>
+				<real>537929782.077353</real>
+				<key>Name</key>
+				<string>Copy Selection to Target Playlist, Duplicate Selected MIDI Note While Transposing Up by Octave, ⌥⇧Up Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>126</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>D79D111E-6B3A-4B91-A287-4F16D3DE6163</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>499012071.76373202</real>
 		<key>IsActive</key>
 		<false/>
@@ -10706,7 +10959,7 @@ close.click()
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Control Shift Left Arrow. Copy the selection to a new playlist in the Edit window.")</string>
+						<string>Application("VoiceOver").output("Control Shift Left Arrow. Copy the selection to a new playlist on Selected Audio Track in the Edit window, Trim Note On earlier by Next Greater Nudge Value.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -10720,9 +10973,9 @@ close.click()
 				<key>CreationDate</key>
 				<real>528937392.86274302</real>
 				<key>ModificationDate</key>
-				<real>528937461.98764801</real>
+				<real>537931042.82045805</real>
 				<key>Name</key>
-				<string>Copy the selection to a new playlist, ⌃⇧Left Arrow</string>
+				<string>Copy the selection to a new playlist in Selected Audio Track, Trim Note On Earlier by Next Greater Nudge Value, ⌃⇧Left Arrow</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -10738,89 +10991,6 @@ close.click()
 				</array>
 				<key>UID</key>
 				<string>1E6C6DD8-C97C-4E91-952C-B2C19BADF362</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
-		<key>UID</key>
-		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>499012071.76373202</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>NotifyOnFailure</key>
-						<false/>
-						<key>Path</key>
-						<string></string>
-						<key>StopOnFailure</key>
-						<false/>
-						<key>Text</key>
-						<string>Application("VoiceOver").output("Control Option v. Copy the selection to the main playlist While in Playlists View in the Edit window.")</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>528936974.54213601</real>
-				<key>ModificationDate</key>
-				<real>528937143.10421801</real>
-				<key>Name</key>
-				<string>Copy the selection to the main playlist, ⌃⌥V</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>9</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>6144</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>6B9241AE-6091-4E6B-AC1C-934AF5B8A054</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -13780,6 +13950,172 @@ close.click()
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
+						<string>Application("VoiceOver").output("Command Shift Down Arrow. Cycle In Audio from Next Playlist. Decrease Velocity by 15.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537058368.798002</real>
+				<key>ModificationDate</key>
+				<real>538005103.61444294</real>
+				<key>Name</key>
+				<string>Cycle In Audio from Next Playlist, Decrease Velocity by 15, ⌘⇧Down Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>125</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>85AD82A9-6BE9-4AE9-A856-40AC26D50C24</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Command Shift Up Arrow. Cycle In Audio from Previous Playlist. Increase Velocity by 15.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537058120.49669099</real>
+				<key>ModificationDate</key>
+				<real>538005047.68915796</real>
+				<key>Name</key>
+				<string>Cycle In Audio from Previous Playlist, Increase Velocity by 15, ⌘⇧Up Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>126</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>743E5027-FDD9-4C89-B766-47B6C90EE77F</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
 						<string>Application("VoiceOver").output("Accent. Cycle through Edit modes.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -13863,7 +14199,7 @@ close.click()
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Shift Down Arrow. Cycle to Next Playlist for Tracks Containing the Edit Cursor.")</string>
+						<string>Application("VoiceOver").output("Shift Down Arrow. Cycle to Next Playlist for Audio Tracks Containing the Edit Cursor, or Transpose MIDI Note Down by an Octave.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -13877,9 +14213,9 @@ close.click()
 				<key>CreationDate</key>
 				<real>528936723.84796298</real>
 				<key>ModificationDate</key>
-				<real>528936836.41290998</real>
+				<real>537059565.40785205</real>
 				<key>Name</key>
-				<string>Cycle to Next Playlist for Tracks Containing the Edit Cursor, ⇧Down Arrow</string>
+				<string>Cycle to Next Playlist for Audio Tracks Containing the Edit Cursor, or Transpose MIDI Note Down by an Octave, ⇧Down Arrow</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -13946,7 +14282,7 @@ close.click()
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Shift Up Arrow. Cycle to Previous Playlist for Tracks Containing the Edit Cursor.")</string>
+						<string>Application("VoiceOver").output("Shift Up Arrow. Cycle to Previous Playlist for Audio Tracks Containing the Edit Cursor, or Transpose MIDI Note Up by an Octave.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -13960,9 +14296,9 @@ close.click()
 				<key>CreationDate</key>
 				<real>528936872.48460102</real>
 				<key>ModificationDate</key>
-				<real>528936912.84192902</real>
+				<real>537059478.02695501</real>
 				<key>Name</key>
-				<string>Cycle to Previous Playlist for Tracks Containing the Edit Cursor, ⇧Up Arrow</string>
+				<string>Cycle to Previous Playlist for Audio Tracks Containing the Edit Cursor, or Transpose MIDI Note Up by an Octave, ⇧Up Arrow</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -17193,7 +17529,7 @@ vo.output(value)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Control Down Arrow. Decrease the height of any lane that contains the Edit cursor or an Edit selection.")</string>
+						<string>Application("VoiceOver").output("Control Down Arrow. Decrease the height of any lane that contains the Edit cursor or an Edit selection, or Transpose MIDI Note down in Key.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -17207,9 +17543,9 @@ vo.output(value)
 				<key>CreationDate</key>
 				<real>528763645.56344402</real>
 				<key>ModificationDate</key>
-				<real>529801012.38559699</real>
+				<real>537059972.46076298</real>
 				<key>Name</key>
-				<string>Decrease the height of any lane that contains the Edit cursor or an Edit selection, ⌃Down Arrow</string>
+				<string>Decrease the height of any lane that contains the Edit cursor or an Edit selection, or Transpose MIDI Note Down in Key, ⌃Down Arrow</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -17688,6 +18024,89 @@ vo.output(value)
 				</array>
 				<key>UID</key>
 				<string>2971107E-8D10-4382-8436-7C5FCE555376</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Command Shift Right Arrow. Designate Current Playlist as Target Playlist.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537926101.30679405</real>
+				<key>ModificationDate</key>
+				<real>537926196.90742099</real>
+				<key>Name</key>
+				<string>Designate Current Playlist as Target Playlist, ⌘⇧Right Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>124</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>DBD55B15-5F8E-4323-84C2-E526197FC695</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -18918,6 +19337,421 @@ console.log(msg)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
+						<string>Application("VoiceOver").output("Option Down Arrow. Duplicate Selected MIDI Note While Transposing Down by Half Step.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537928831.15759206</real>
+				<key>ModificationDate</key>
+				<real>537928867.267892</real>
+				<key>Name</key>
+				<string>Duplicate Selected MIDI Note While Transposing Down by Half Step, ⌥Down Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>125</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>A754CB9B-EE44-48F3-84BE-F8FD0E39A169</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Option Shift Down Arrow. Duplicate Selected MIDI Note While Transposing Down by Octave.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537929047.30168605</real>
+				<key>ModificationDate</key>
+				<real>537929092.74077404</real>
+				<key>Name</key>
+				<string>Duplicate Selected MIDI Note While Transposing Down by Octave, ⌥⇧Down Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>125</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>D48059EB-1F09-46DA-A493-CD6ED93D2662</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Control Option Down Arrow. Duplicate Selected MIDI Note While Transposing Down in Key.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537929304.63000405</real>
+				<key>ModificationDate</key>
+				<real>537929355.46856201</real>
+				<key>Name</key>
+				<string>Duplicate Selected MIDI Note While Transposing Down in Key, ⌃⌥Down Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>125</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>D5C51870-3E69-4773-9F15-A134CFC77236</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Option Up Arrow. Duplicate Selected MIDI Note While Transposing Up by Half Step.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537928610.05061901</real>
+				<key>ModificationDate</key>
+				<real>537928756.76838398</real>
+				<key>Name</key>
+				<string>Duplicate Selected MIDI Note While Transposing Up by Half Step, ⌥Up Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>126</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>6B42F415-8E89-48D9-A2B9-6CDF08AAE41A</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Control Option Up Arrow. Duplicate Selected MIDI Note While Transposing Up in Key.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537929159.01019299</real>
+				<key>ModificationDate</key>
+				<real>537929278.479509</real>
+				<key>Name</key>
+				<string>Duplicate Selected MIDI Note While Transposing Up in Key, ⌃⌥Up Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>126</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>6144</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>A2EF0E22-54ED-4445-8A0D-2FEAD8FFC7F9</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
 						<string>Application("VoiceOver").output("Command D. Duplicate Selection.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -19965,7 +20799,7 @@ Application("VoiceOver").output(msg)</string>
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Control Shift T. Edit Tool Mode Keyboard Lock. List Selected Tracks/List Unselected Tracks with Flo Tools.")</string>
+						<string>Application("VoiceOver").output("Control Shift T. Edit Tool Mode Keyboard Lock.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -19979,7 +20813,7 @@ Application("VoiceOver").output(msg)</string>
 				<key>CreationDate</key>
 				<real>529461234.96776801</real>
 				<key>ModificationDate</key>
-				<real>529792907.51324099</real>
+				<real>537842905.52407205</real>
 				<key>Name</key>
 				<string>Edit Tool Mode Keyboard Lock, ⌃⇧T</string>
 				<key>Triggers</key>
@@ -23219,89 +24053,6 @@ Application("Keyboard Maestro Engine").doScript("1AC2CC6C-1658-43F9-B57C-346277C
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Shift Right Arrow. Extend selection to next MIDI Note.")</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>530393389.44741899</real>
-				<key>ModificationDate</key>
-				<real>530393516.47132897</real>
-				<key>Name</key>
-				<string>Extend selection to next MIDI Note, ⇧Right Arrow</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>124</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>512</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>50375EBB-5BF2-4D3C-AECD-B09FC088742C</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
-		<key>UID</key>
-		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>499012071.76373202</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>NotifyOnFailure</key>
-						<false/>
-						<key>Path</key>
-						<string></string>
-						<key>StopOnFailure</key>
-						<false/>
-						<key>Text</key>
 						<string>Application("VoiceOver").output("Control Shift semicolon. Extend Selection to next track.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -23417,89 +24168,6 @@ Application("Keyboard Maestro Engine").doScript("1AC2CC6C-1658-43F9-B57C-346277C
 				</array>
 				<key>UID</key>
 				<string>68CC4EEA-A4E1-4174-9961-4F83F8C0D0CE</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
-		<key>UID</key>
-		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>499012071.76373202</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>NotifyOnFailure</key>
-						<false/>
-						<key>Path</key>
-						<string></string>
-						<key>StopOnFailure</key>
-						<false/>
-						<key>Text</key>
-						<string>Application("VoiceOver").output("Shift Left Arrow. Extend selection to Previous MIDI Note.")</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>530393537.74291003</real>
-				<key>ModificationDate</key>
-				<real>530393581.087529</real>
-				<key>Name</key>
-				<string>Extend selection to Previous MIDI Note, ⇧Left Arrow</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>123</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>512</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>0EA781E5-89A3-4BCF-9E72-3BAE3E48EC41</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -27397,89 +28065,6 @@ vo.output (msg)
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>499012071.76373202</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>NotifyOnFailure</key>
-						<false/>
-						<key>Path</key>
-						<string></string>
-						<key>StopOnFailure</key>
-						<false/>
-						<key>Text</key>
-						<string>Application("VoiceOver").output("Command Option Up Arrow. Increase Instrument Volume with flo Tools Inspector.")</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>505111036.49112999</real>
-				<key>ModificationDate</key>
-				<real>529696468.64269799</real>
-				<key>Name</key>
-				<string>Increase Instrument Volume</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>126</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2304</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>D5AF8B8F-DDA5-42A8-92E5-F891655B15FA</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
-		<key>UID</key>
-		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>493839659.76668698</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
@@ -27578,6 +28163,89 @@ vo.output(value)
 		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
 		<key>UID</key>
 		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Command Option Up Arrow. Increase Instrument Volume with flo Tools Inspector.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>505111036.49112999</real>
+				<key>ModificationDate</key>
+				<real>529696468.64269799</real>
+				<key>Name</key>
+				<string>Increase Instrument Volume</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>126</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2304</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>D5AF8B8F-DDA5-42A8-92E5-F891655B15FA</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -28410,7 +29078,7 @@ vo.output(value)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Control Up Arrow. Increase the height of any lane that contains the Edit cursor or an Edit selection.")</string>
+						<string>Application("VoiceOver").output("Control Up Arrow. Increase the height of any lane that contains the Edit cursor or an Edit selection, or Transpose MIDI Note Up in Key.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -28424,9 +29092,9 @@ vo.output(value)
 				<key>CreationDate</key>
 				<real>528763454.09002399</real>
 				<key>ModificationDate</key>
-				<real>529800889.73425603</real>
+				<real>537059908.25057197</real>
 				<key>Name</key>
-				<string>Increase the height of any lane that contains the Edit cursor or an Edit selection, ⌃Up Arrow</string>
+				<string>Increase the height of any lane that contains the Edit cursor or an Edit selection, or Transpose MIDI Note Up in Key, ⌃Up Arrow</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -28442,89 +29110,6 @@ vo.output(value)
 				</array>
 				<key>UID</key>
 				<string>7C66F509-8E3C-4CF3-8C35-50F4C275B503</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
-		<key>UID</key>
-		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>499012071.76373202</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>NotifyOnFailure</key>
-						<false/>
-						<key>Path</key>
-						<string></string>
-						<key>StopOnFailure</key>
-						<false/>
-						<key>Text</key>
-						<string>Application("VoiceOver").output("Command Control Up Arrow. Increase Track Volume with Flo Tools Inspector.")</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>493842382.64579898</real>
-				<key>ModificationDate</key>
-				<real>529712885.16133398</real>
-				<key>Name</key>
-				<string>Increase Volume</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>126</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>4352</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>9AFF0185-97FA-434D-B8B5-90DA416B6ECB</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -28652,6 +29237,89 @@ vo.output(value)
 		<string>D80BD2FE-C4A0-4545-A7ED-3F7B17CF9B42</string>
 		<key>UID</key>
 		<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Command Control Up Arrow. Increase Track Volume with Flo Tools Inspector.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>493842382.64579898</real>
+				<key>ModificationDate</key>
+				<real>529712885.16133398</real>
+				<key>Name</key>
+				<string>Increase Volume</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>126</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4352</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>9AFF0185-97FA-434D-B8B5-90DA416B6ECB</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -29668,89 +30336,6 @@ track = mix.tables.byName("Track List").rows[t].uiElements[0].buttons[0].click()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>499012071.76373202</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>NotifyOnFailure</key>
-						<false/>
-						<key>Path</key>
-						<string></string>
-						<key>StopOnFailure</key>
-						<false/>
-						<key>Text</key>
-						<string>Application("VoiceOver").output("Control shift K. List Input Monitor-Enabled Tracks and List Input Monitor-Disabled Tracks with Flo Tools.")</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>529615228.44870198</real>
-				<key>ModificationDate</key>
-				<real>529626642.46536702</real>
-				<key>Name</key>
-				<string>List Input Monitor-Enabled Tracks, List Input Monitor-Disabled  Tracks</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>40</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>4608</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>45DE1149-AB2E-4D62-866E-7250B6E36FFF</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
-		<key>UID</key>
-		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>479078801.99380499</real>
 		<key>Macros</key>
 		<array>
@@ -29903,6 +30488,89 @@ if (runSingle) single()
 		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
 		<key>UID</key>
 		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Control shift K. List Input Monitor-Enabled Tracks and List Input Monitor-Disabled Tracks with Flo Tools.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>529615228.44870198</real>
+				<key>ModificationDate</key>
+				<real>529626642.46536702</real>
+				<key>Name</key>
+				<string>List Input Monitor-Enabled Tracks, List Input Monitor-Disabled  Tracks</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>40</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4608</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>45DE1149-AB2E-4D62-866E-7250B6E36FFF</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -30227,6 +30895,89 @@ if (runSingle) single()
 		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
 		<key>UID</key>
 		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Control Shift L. List Selected Tracks/List Unselected Tracks with flo Tools.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537843012.61890304</real>
+				<key>ModificationDate</key>
+				<real>537843118.38787603</real>
+				<key>Name</key>
+				<string>List Selected Tracks/List Unselected Tracks, ⌃⇧L</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>37</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4608</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>E4CB1E01-4585-4C16-BCDF-D10769EAB4C9</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -34495,9 +35246,9 @@ kme.setvariable("y", {to:""+y})
 				<key>CreationDate</key>
 				<real>529615228.44858301</real>
 				<key>ModificationDate</key>
-				<real>529616641.50852799</real>
+				<real>536957871.78542995</real>
 				<key>Name</key>
-				<string>Mark Clip for Drag/Audition Clip, ⌥⇧⌘Comma</string>
+				<string>Mark Clip for Drag/Audition Clip, ⌘⌥⇧Comma</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -36478,6 +37229,89 @@ read(current)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
+						<string>Application("VoiceOver").output("Option shift T. Move Selection to Target Playlist in Edit Window.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>536978569.51651299</real>
+				<key>ModificationDate</key>
+				<real>536978653.41802096</real>
+				<key>Name</key>
+				<string>Move Selection to Target Playlist in Edit Window, ⌥⇧T</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>17</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>D74E54F0-ECCA-4144-BB2F-B176BB1EF0B0</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
 						<string>Application("VoiceOver").output("Control Option Command L. Move the selection Backward by the selection amount.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -37692,7 +38526,7 @@ kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
 				<key>CreationDate</key>
 				<real>511908616.39100701</real>
 				<key>ModificationDate</key>
-				<real>516551898.89875799</real>
+				<real>537921870.63166702</real>
 				<key>Name</key>
 				<string>Next Column</string>
 				<key>Triggers</key>
@@ -37701,11 +38535,11 @@ kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
 						<key>FireType</key>
 						<string>Pressed</string>
 						<key>KeyCode</key>
-						<integer>124</integer>
+						<integer>30</integer>
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>4096</integer>
+						<integer>2560</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -38116,7 +38950,7 @@ vo.output(name)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Control Right Arrow. Next Column with Flo Tools.")</string>
+						<string>Application("VoiceOver").output("Option Shift Right Bracket. Next Column with Flo Tools.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -38130,20 +38964,20 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>511908616.39100701</real>
 				<key>ModificationDate</key>
-				<real>529811587.46954203</real>
+				<real>537930264.75168598</real>
 				<key>Name</key>
-				<string>Next Column, ⌃Right Arrow</string>
+				<string>Next Column, ⌥⇧Right Bracket</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
 						<key>FireType</key>
 						<string>Pressed</string>
 						<key>KeyCode</key>
-						<integer>124</integer>
+						<integer>30</integer>
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>4096</integer>
+						<integer>2560</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -41639,6 +42473,93 @@ vo.output(name)
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>529683107.80941999</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Command Shift V. Paste Plug-in Settings.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>536958143.14237595</real>
+				<key>ModificationDate</key>
+				<real>536958198.35601795</real>
+				<key>Name</key>
+				<string>Paste Plug-in Settings, ⌘⇧V</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>9</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>ACD837BF-F256-4566-91F3-E063E11C9B3D</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Plug-In Window</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>8031D88A-02B3-4FA9-BCCD-0F6DE1E7A213</string>
+		<key>UID</key>
+		<string>D13BE3BC-35B1-4E71-A131-E17D41214F3D</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>499012071.76373202</real>
 		<key>IsActive</key>
 		<false/>
@@ -42574,7 +43495,7 @@ vo.output(name)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Option Right Arrow. Play by pre-roll value up to selection End or current Cursor location if no selection.")</string>
+						<string>Application("VoiceOver").output("Option Right Arrow. Play by pre-roll value up to selection End or current Cursor location if no selection. Trim Note Off Later by Nudge Value.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -42588,9 +43509,9 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>528674909.27182698</real>
 				<key>ModificationDate</key>
-				<real>528675270.01908201</real>
+				<real>537976793.148682</real>
 				<key>Name</key>
-				<string>Play by pre-roll value up to selection End, ⌥Right Arrow</string>
+				<string>Play by pre-roll value up to selection End, Trim Note Off Later by Nudge Value, ⌥Right Arrow</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -42657,7 +43578,7 @@ vo.output(name)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Option Left Arrow. Play by pre-roll value up to selection start or current Cursor location if no selection.")</string>
+						<string>Application("VoiceOver").output("Option Left Arrow. Play by pre-roll value up to selection start or current Cursor location if no selection. Trim Note Off Earlier by Nudge Value.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -42671,9 +43592,9 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>528674740.30930102</real>
 				<key>ModificationDate</key>
-				<real>528675238.73219001</real>
+				<real>537976991.094648</real>
 				<key>Name</key>
-				<string>Play by pre-roll value up to selection start, ⌥Left Arrow</string>
+				<string>Play by pre-roll value up to selection start, Trim Note Off Earlier by Nudge Value, ⌥Left Arrow</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -43512,7 +44433,7 @@ else kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
 				<key>CreationDate</key>
 				<real>511910722.48384899</real>
 				<key>ModificationDate</key>
-				<real>516552307.12946802</real>
+				<real>537921881.58944499</real>
 				<key>Name</key>
 				<string>Previous Column</string>
 				<key>Triggers</key>
@@ -43521,11 +44442,11 @@ else kme.doScript("0FCAC0B8-1482-4A8F-A388-280908A39AE6")
 						<key>FireType</key>
 						<string>Pressed</string>
 						<key>KeyCode</key>
-						<integer>123</integer>
+						<integer>33</integer>
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>4096</integer>
+						<integer>2560</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -43939,7 +44860,7 @@ vo.output(name)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Control Left Arrow. Previous Column with Flo Tools.")</string>
+						<string>Application("VoiceOver").output("Option Shift Left Bracket. Previous Column with Flo Tools.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -43953,20 +44874,20 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>511910722.48384899</real>
 				<key>ModificationDate</key>
-				<real>529811570.79052901</real>
+				<real>537930161.93100703</real>
 				<key>Name</key>
-				<string>Previous Column, ⌃Left Arrow</string>
+				<string>Previous Column, ⌥⇧Left Bracket</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
 						<key>FireType</key>
 						<string>Pressed</string>
 						<key>KeyCode</key>
-						<integer>123</integer>
+						<integer>33</integer>
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
-						<integer>4096</integer>
+						<integer>2560</integer>
 					</dict>
 				</array>
 				<key>UID</key>
@@ -48442,7 +49363,7 @@ vo.output(name)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Command Down Arrow. Record Enable Next MIDI or Instrument Track.")</string>
+						<string>Application("VoiceOver").output("Command Down Arrow. Record Enable Next MIDI or Instrument Track. Decrease Velocity by 5")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -48456,9 +49377,9 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>533047753.51665801</real>
 				<key>ModificationDate</key>
-				<real>533047788.203731</real>
+				<real>538004787.39668</real>
 				<key>Name</key>
-				<string>Record Enable Next MIDI or Instrument Track, ⌘Down Arrow</string>
+				<string>Record Enable Next MIDI or Instrument Track, Decrease Velocity by 5, ⌘Down Arrow</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -48525,7 +49446,7 @@ vo.output(name)
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Command Up Arrow. Record Enable Previous MIDI or Instrument Track.")</string>
+						<string>Application("VoiceOver").output("Command Up Arrow. Record Enable Previous MIDI or Instrument Track. Increase Velocity by 5.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -48539,9 +49460,9 @@ vo.output(name)
 				<key>CreationDate</key>
 				<real>533047563.75707901</real>
 				<key>ModificationDate</key>
-				<real>533047662.42525399</real>
+				<real>538004913.82284701</real>
 				<key>Name</key>
-				<string>Record Enable Previous MIDI or Instrument Track, ⌘Up Arrow</string>
+				<string>Record Enable Previous MIDI or Instrument Track, Increase Velocity by 5, ⌘Up Arrow</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -51074,6 +51995,93 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>529683107.80941999</real>
+		<key>FocussedWindowConditionType</key>
+		<string>TitleMatches</string>
+		<key>FocussedWindowTitle</key>
+		<string>^Plug-in:</string>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Command Shift S. Save Plug-in Settings.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>536975198.75055003</real>
+				<key>ModificationDate</key>
+				<real>536975235.71764195</real>
+				<key>Name</key>
+				<string>Save Plug-in Settings, ⌘⇧S</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>1</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>768</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>E6F2BD4E-BFF4-4503-B9F7-E844A40B7E7D</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Plug-In Window</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>8031D88A-02B3-4FA9-BCCD-0F6DE1E7A213</string>
+		<key>UID</key>
+		<string>D13BE3BC-35B1-4E71-A131-E17D41214F3D</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>499012071.76373202</real>
 		<key>IsActive</key>
 		<false/>
@@ -51211,6 +52219,89 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 				</array>
 				<key>UID</key>
 				<string>BA7209B3-92BF-4720-8A2C-1EAA824FA462</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Option Shift P. Save Track Preset.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>538005203.55945003</real>
+				<key>ModificationDate</key>
+				<real>538005351.44340301</real>
+				<key>Name</key>
+				<string>Save Track Preset, ⌥⇧P</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>35</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>982B4730-4679-412C-9380-4C1D9DFCE888</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -53981,7 +55072,7 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Up Arrow. Set selection End during playback or Move the insertion to the End of the Edit selection.")</string>
+						<string>Application("VoiceOver").output("Up Arrow. Set selection End during playback or Move the insertion to the End of the Edit selection in an Audio Track, or Transpose MIDI Note Up by a Half Step.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -53995,9 +55086,9 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 				<key>CreationDate</key>
 				<real>528758924.10886902</real>
 				<key>ModificationDate</key>
-				<real>528759004.08259302</real>
+				<real>537059144.91184199</real>
 				<key>Name</key>
-				<string>Set selection end during playback or Move the insertion to the End of the Edit selection, Up Arrow</string>
+				<string>Set selection end during playback or Move the insertion to the End of the Edit selection, or Transpose MIDI Note Up by a Half step, Up Arrow</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -54064,7 +55155,7 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Down Arrow. Set selection start during playback or Move the insertion to the beginning of the Edit selection.")</string>
+						<string>Application("VoiceOver").output("Down Arrow. Set selection start during playback or Move the insertion to the beginning of the Edit selection in an Audio Track, or Transpose MIDI Note Down by a Half Step.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -54078,9 +55169,9 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 				<key>CreationDate</key>
 				<real>528758670.31766099</real>
 				<key>ModificationDate</key>
-				<real>528759050.99323899</real>
+				<real>537059229.19608295</real>
 				<key>Name</key>
-				<string>Set selection start during playback or Move the insertion to the beginning of the Edit selection, Down Arrow</string>
+				<string>Set selection start during playback or Move the insertion to the beginning of the Edit selection, or Transpose MIDI Note Down by a Half Step , Down Arrow</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -54843,6 +55934,89 @@ edit.groups.byName("Counter Display Cluster").buttons.byName("Sub Counter select
 				</array>
 				<key>UID</key>
 				<string>287C4C37-F505-4FC5-95A0-77B63D3A12CE</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Shift Right Arrow. Show Target Playlist in Audio Track, or Extend selection to next MIDI Note.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>530393389.44741899</real>
+				<key>ModificationDate</key>
+				<real>536979529.10572398</real>
+				<key>Name</key>
+				<string>Show Target Playlist in Audio Track, or Extend selection to next MIDI Note, ⇧Right Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>124</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>50375EBB-5BF2-4D3C-AECD-B09FC088742C</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -59899,89 +61073,6 @@ if (runSingle) single()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>499012071.76373202</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>NotifyOnFailure</key>
-						<false/>
-						<key>Path</key>
-						<string></string>
-						<key>StopOnFailure</key>
-						<false/>
-						<key>Text</key>
-						<string>Application("VoiceOver").output("Option shift M. Speak Muted Tracks and UnMute All Tracks with flo Tools.")</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>529615228.44996798</real>
-				<key>ModificationDate</key>
-				<real>529626720.63561398</real>
-				<key>Name</key>
-				<string>Speak Muted Tracks, Unmute All Tracks</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>46</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2560</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>E6213267-93B3-49CA-B4F0-7DC11512CCA1</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
-		<key>UID</key>
-		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>479078801.99380499</real>
 		<key>Macros</key>
 		<array>
@@ -60144,6 +61235,89 @@ if (runSingle) single()
 		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
 		<key>UID</key>
 		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Option shift M. Speak Muted Tracks and UnMute All Tracks with flo Tools.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>529615228.44996798</real>
+				<key>ModificationDate</key>
+				<real>529626720.63561398</real>
+				<key>Name</key>
+				<string>Speak Muted Tracks, Unmute All Tracks</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>46</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>E6213267-93B3-49CA-B4F0-7DC11512CCA1</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -60403,7 +61577,7 @@ vo.output (msg)
 				<key>CreationDate</key>
 				<real>529615228.44999498</real>
 				<key>ModificationDate</key>
-				<real>529789746.18862998</real>
+				<real>537844342.14720595</real>
 				<key>Name</key>
 				<string>Speak Selected Clips, ⌥⇧P</string>
 				<key>Triggers</key>
@@ -60412,7 +61586,7 @@ vo.output (msg)
 						<key>FireType</key>
 						<string>Pressed</string>
 						<key>KeyCode</key>
-						<integer>35</integer>
+						<integer>43</integer>
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
@@ -60619,7 +61793,7 @@ if (runSingle) single()
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Option shift T. Speak Selected Tracks and DeSelect All Tracks with flo Tools.")</string>
+						<string>Application("VoiceOver").output("Option Shift L. Speak Selected Tracks and DeSelect All Tracks with flo Tools.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -60633,16 +61807,16 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>529615228.45000702</real>
 				<key>ModificationDate</key>
-				<real>529792693.680233</real>
+				<real>537842596.21615195</real>
 				<key>Name</key>
-				<string>Speak Selected Tracks, Deselect All Tracks, ⌥⇧T</string>
+				<string>Speak Selected Tracks, Deselect All Tracks, </string>
 				<key>Triggers</key>
 				<array>
 					<dict>
 						<key>FireType</key>
 						<string>Pressed</string>
 						<key>KeyCode</key>
-						<integer>17</integer>
+						<integer>37</integer>
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
@@ -71724,89 +72898,6 @@ if (runSingle) single()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>499012071.76373202</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>NotifyOnFailure</key>
-						<false/>
-						<key>Path</key>
-						<string></string>
-						<key>StopOnFailure</key>
-						<false/>
-						<key>Text</key>
-						<string>Application("VoiceOver").output("Option Num Pad 8. Speak/Toggle Count In with Flo Tools.")</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>529615228.45024103</real>
-				<key>ModificationDate</key>
-				<real>529617120.17842197</real>
-				<key>Name</key>
-				<string>Speak/Toggle Count In</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>91</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2048</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>A58F10F8-7CAE-4801-B3F6-8D2784C26CD6</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
-		<key>UID</key>
-		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>479078801.99380499</real>
 		<key>Macros</key>
 		<array>
@@ -71934,6 +73025,89 @@ if (runSingle) single()
 		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
 		<key>UID</key>
 		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Option Num Pad 8. Speak/Toggle Count In with Flo Tools.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>529615228.45024103</real>
+				<key>ModificationDate</key>
+				<real>529617120.17842197</real>
+				<key>Name</key>
+				<string>Speak/Toggle Count In</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>91</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>A58F10F8-7CAE-4801-B3F6-8D2784C26CD6</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -73244,89 +74418,6 @@ if (runSingle) single()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>499012071.76373202</real>
-		<key>IsActive</key>
-		<false/>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>NotifyOnFailure</key>
-						<false/>
-						<key>Path</key>
-						<string></string>
-						<key>StopOnFailure</key>
-						<false/>
-						<key>Text</key>
-						<string>Application("VoiceOver").output("Option Num Pad 7. Speak/Toggle Metronome with Flo Tools.")</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>529615228.45031297</real>
-				<key>ModificationDate</key>
-				<real>529617060.11666203</real>
-				<key>Name</key>
-				<string>Speak/Toggle Metronome</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>89</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2048</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>124EF84B-52F9-4FF4-9962-D67E6D411394</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
-		<key>Targeting</key>
-		<dict>
-			<key>Targeting</key>
-			<string>Included</string>
-			<key>TargetingApps</key>
-			<array>
-				<dict>
-					<key>BundleIdentifier</key>
-					<string>com.avid.ProTools</string>
-					<key>Name</key>
-					<string>Pro Tools</string>
-					<key>NewFile</key>
-					<string>/Applications/Pro Tools.app</string>
-				</dict>
-			</array>
-		</dict>
-		<key>ToggleMacroUID</key>
-		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
-		<key>UID</key>
-		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>479078801.99380499</real>
 		<key>Macros</key>
 		<array>
@@ -73481,7 +74572,7 @@ if (runSingle) single()
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("Option Num Pad 9. Speak/Toggle MIDI Merge with Flo Tools.")</string>
+						<string>Application("VoiceOver").output("Option Num Pad 7. Speak/Toggle Metronome with Flo Tools.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -73493,18 +74584,18 @@ if (runSingle) single()
 					</dict>
 				</array>
 				<key>CreationDate</key>
-				<real>529615228.45032501</real>
+				<real>529615228.45031297</real>
 				<key>ModificationDate</key>
-				<real>529617169.99301201</real>
+				<real>529617060.11666203</real>
 				<key>Name</key>
-				<string>Speak/Toggle Midi Merge</string>
+				<string>Speak/Toggle Metronome</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
 						<key>FireType</key>
 						<string>Pressed</string>
 						<key>KeyCode</key>
-						<integer>92</integer>
+						<integer>89</integer>
 						<key>MacroTriggerType</key>
 						<string>HotKey</string>
 						<key>Modifiers</key>
@@ -73512,7 +74603,7 @@ if (runSingle) single()
 					</dict>
 				</array>
 				<key>UID</key>
-				<string>05B488EF-1CD3-4644-AF60-49C7D867FBA7</string>
+				<string>124EF84B-52F9-4FF4-9962-D67E6D411394</string>
 			</dict>
 		</array>
 		<key>Name</key>
@@ -73669,6 +74760,89 @@ if (runSingle) single()
 		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
 		<key>UID</key>
 		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Option Num Pad 9. Speak/Toggle MIDI Merge with Flo Tools.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>529615228.45032501</real>
+				<key>ModificationDate</key>
+				<real>529617169.99301201</real>
+				<key>Name</key>
+				<string>Speak/Toggle Midi Merge</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>92</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>05B488EF-1CD3-4644-AF60-49C7D867FBA7</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -77519,7 +78693,7 @@ Application("VoiceOver").output(obj.name()+" selected")
 						<key>StopOnFailure</key>
 						<false/>
 						<key>Text</key>
-						<string>Application("VoiceOver").output("shift C. Toggle Bypass Of all Dynamics plug-ins on selected tracks.")</string>
+						<string>Application("VoiceOver").output("shift C. Toggle Bypass Of all Dynamics plug-ins on selected tracks, or Retrospective MIDI Record.")</string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 						<key>TrimResults</key>
@@ -77533,9 +78707,9 @@ Application("VoiceOver").output(obj.name()+" selected")
 				<key>CreationDate</key>
 				<real>529614434.12634599</real>
 				<key>ModificationDate</key>
-				<real>529614515.21732098</real>
+				<real>537058682.985129</real>
 				<key>Name</key>
-				<string>Toggle Bypass Of all Dynamics plug-ins on selected tracks, ⇧C</string>
+				<string>Toggle Bypass Of all Dynamics plug-ins on selected tracks, or Retrospective MIDI Record, ⇧C</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -79031,6 +80205,89 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 		<string>8031D88A-02B3-4FA9-BCCD-0F6DE1E7A213</string>
 		<key>UID</key>
 		<string>D13BE3BC-35B1-4E71-A131-E17D41214F3D</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Shift Left Arrow. Toggle recent Playlists in Audio Track, or Extend selection to Previous MIDI Note.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>530393537.74291003</real>
+				<key>ModificationDate</key>
+				<real>536979346.08023202</real>
+				<key>Name</key>
+				<string>Toggle Recent Playlists in Audio Track, or Extend selection to Previous MIDI Note, ⇧Left Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>123</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>512</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>0EA781E5-89A3-4BCF-9E72-3BAE3E48EC41</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -81219,6 +82476,421 @@ if (runSingle) single()
 				</array>
 				<key>UID</key>
 				<string>B14F1A63-728C-44A3-86E2-7DD5BD84146E</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Option Shift Left Arrow. Trim Note Off Earlier by Next Greater Nudge Value.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537932232.52988601</real>
+				<key>ModificationDate</key>
+				<real>537932386.44675803</real>
+				<key>Name</key>
+				<string>Trim Note Off Earlier by Next Greater Nudge Value, ⌥⇧Left Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>123</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>8C1AC599-3D07-4176-91E9-C01CE27C811E</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Option Shift Right Arrow. Trim Note Off Later by Next Greater Nudge Value.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537932465.82409704</real>
+				<key>ModificationDate</key>
+				<real>537932539.62514102</real>
+				<key>Name</key>
+				<string>Trim Note Off Later by Next Greater Nudge Value, ⌥⇧Right Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>124</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2560</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>411938BB-672C-4048-AF0B-4610C8F72E89</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Control Left Arrow. Trim Note On Earlier by Nudge Value.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537930510.75439</real>
+				<key>ModificationDate</key>
+				<real>537930628.47489297</real>
+				<key>Name</key>
+				<string>Trim Note On Earlier by Nudge Value, ⌃Left Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>123</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>BACD9BCE-AAA6-4FFE-895C-9E1FFC744676</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Control Shift Right Arrow. Trim Note On Later by Next Greater Nudge Value.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537931214.77984095</real>
+				<key>ModificationDate</key>
+				<real>537931302.59501505</real>
+				<key>Name</key>
+				<string>Trim Note On Later by Next Greater Nudge Value, ⌃⇧Right Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>124</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4608</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>1E55008C-46E6-4D2F-B150-3B7D447582C8</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Shortcuts Helper, PT Mix/Edit Windows</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
+		<key>UID</key>
+		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>499012071.76373202</real>
+		<key>IsActive</key>
+		<false/>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>Application("VoiceOver").output("Control Right Arrow. Trim Note On Later by Nudge Value.")</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>537930679.24820304</real>
+				<key>ModificationDate</key>
+				<real>537930718.58377802</real>
+				<key>Name</key>
+				<string>Trim Note On Later by Nudge Value, ⌃Right Arrow</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>124</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>DC7F6617-054A-4BD5-A800-A170451AFF07</string>
 			</dict>
 		</array>
 		<key>Name</key>
