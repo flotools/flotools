@@ -124,12 +124,12 @@ Where two actions are listed, double-tapping the key will perform the second act
 * List Shown Tracks:	Control+Shift+w
 * Speak Hidden Tracks, Show Track List Pop-up Menu:	Option+Shift+h
 * List Hidden Tracks:	Control+Shift+h
-* Speak Selected Tracks, Deselect All Tracks: Option+Shift+t
-* List Selected Tracks, List Unselected Tracks:	Control+Shift+t
+* Speak Selected Tracks, Deselect All Tracks: Option+Shift+l
+* List Selected Tracks, List Unselected Tracks:	Control+Shift+l
 * Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks: Option+Shift+k
 * List Input Monitor-Enabled Tracks, List Input Monitor-Disabled  Tracks:	Control+Shift+k
-* Beta: Speak Record-Enabled Tracks, Disarm All Record Enabled Tracks: Option+Shift+r
-* Beta: List Record-Enabled Tracks, List Record-Disabled Tracks:	Control+Shift+r
+* Speak Record-Enabled Tracks, Disarm All Record Enabled Tracks: Option+Shift+r
+* List Record-Enabled Tracks, List Record-Disabled Tracks:	Control+Shift+r
 * Speak Soloed Tracks, UnSolo All Tracks: Option+Shift+s
 * List Soloed Tracks, List Unsoloed Tracks:	Control+Shift+s
 * Speak Muted Tracks, UnMute All Tracks: Option+Shift+m
@@ -168,7 +168,7 @@ Where two actions are listed, double-tapping the key will perform the second act
 * Drag clip:	Command+Option+Shift+. (period)
 * Resize track list Table:	Command+Control+Shift+t
 * Resize clip list table:	Command+Control+Shift+c
-* Speak Selected Clips:	Option+Shift+p
+* Speak Selected Clips:	Option+Shift+, (comma)
 
 
 #### Flo Tools Global
@@ -259,8 +259,8 @@ This macro group allows easier navigation and editing of the Midi Event List usi
 * Speak/Edit Pitch for Selected Note:	Option+p
 * Speak/Edit Attack Velocity for Selected Note:	Option+a
 * Speak/Edit Release Velocity for Selected Note:	Option+r
-* Move to next Column:	Control+right arrow
-* Move to previous Column:	Control+left arrow
+* Move to next Column:	Option+Shift+Right Bracket
+* Move to previous Column:	Option+Shift+Left Bracket
 * Edit Event:	Control+Command+Return
 
 
@@ -464,3 +464,11 @@ The Flo Tools team will use this information to determine what the problem and s
 * Fixed Speak/Select track view to work properly for aux tracks.
 * Split increase/decrease nudge value into 4 macros to accommodate both numpad and qwerty input.
 * Fixed prompts for several Shortcut Helper macros for Mix/Edit windows.
+
+### Flo Tools 2.3.2:
+
+* Speak Selected Tracks/DeSelect all tracks: changed to option+Shift+L
+* List Selected Tracks/List Unselected Tracks: changed to Control+Shift+L
+* Speak Selected Clips: changed to Option+Shift+, (comma)
+* Previous/Next column shortcut for Midi Event List Reporting: changed to Option+Shift+Left Bracket or Right Bracket, respectively
+* Speak Record-enabled Tracks/disarm all tracks has been taken out of beta stage, and now works reliably. This is also true for the related command, Control+Shift+r, to List Record-Enabled Tracks/List Record-Disabled Tracks.
