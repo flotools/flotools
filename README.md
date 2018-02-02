@@ -225,7 +225,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 
 #### Flo Mouse
 
-The Flo Mouse group is global, so these commands will work system-wide when the group is turned on. Note that both the Flo Mouse and Flo Num Pad Macro Groups are no longer automatically installed with Flo Tools, and must be downloaded separately.
+The Flo Mouse group is global, so these commands will work system-wide when the group is turned on.
 
 * Activate Flo Mouse: Command+Slash
 * Option-Click:	Option+` (accent)
@@ -271,7 +271,6 @@ Flo Tools provides a key remapping using the keyboard as a standard num pad. Thi
 Note that the inspector and num pad groups cannot be active at the same time. If the inspector is turned on, the num pad group is automatically turned off, and If the num pad group is turned on, the inspector is automatically turned off.
 
 Below is the list of remapped keyboard keys when using the num pad group.
-
 
 * m: 0
 * j: 1
@@ -472,3 +471,4 @@ The Flo Tools team will use this information to determine what the problem and s
 * Speak Selected Clips: changed to Option+Shift+, (comma)
 * Previous/Next column shortcut for Midi Event List Reporting: changed to Option+Shift+Left Bracket or Right Bracket, respectively
 * Speak Record-enabled Tracks/disarm all tracks has been taken out of beta stage, and now works reliably. This is also true for the related command, Control+Shift+r, to List Record-Enabled Tracks/List Record-Disabled Tracks.
+* Flo Tools installs Flo Mouse and Flo Num Pad
