@@ -61,9 +61,11 @@ Keyboard Maestro contains some default macro groups that conflict with common Ma
 
 Keyboard Maestro is limited by a 30-day trial period. After this time, a purchase of a one-time license is required to continue using the program, and subsequently, Flo Tools.
 
-More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)Keyboard Maestro occasionally provides spoken notifications to alert you to tasks it's performing in the background. If these become bothersome, you can turn them off by going to system preferences, notifications, and choosing Keyboard Maestro Engine from the table. Then select "none" under Alert Style.
-
-### Flo Tools Installation
+More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)
+
+Keyboard Maestro occasionally provides spoken notifications to alert you to tasks it's performing in the background. If these become bothersome, you can turn them off by going to system preferences, notifications, and choosing Keyboard Maestro Engine from the table. Then select "none" under Alert Style.
+
+ ### Flo Tools Installation
 
 To install Flo Tools, go to the provided zip file, and open the application called "Flo Tools Installer". Follow the on-screen prompts to guide you through installation.
 
@@ -124,12 +126,12 @@ Where two actions are listed, double-tapping the key will perform the second act
 * List Shown Tracks:	Control+Shift+w
 * Speak Hidden Tracks, Show Track List Pop-up Menu:	Option+Shift+h
 * List Hidden Tracks:	Control+Shift+h
-* Speak Selected Tracks, Deselect All Tracks: Option+Shift+t
-* List Selected Tracks, List Unselected Tracks:	Control+Shift+t
+* Speak Selected Tracks, Deselect All Tracks: Option+Shift+l
+* List Selected Tracks, List Unselected Tracks:	Control+Shift+l
 * Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks: Option+Shift+k
 * List Input Monitor-Enabled Tracks, List Input Monitor-Disabled  Tracks:	Control+Shift+k
-* Beta: Speak Record-Enabled Tracks, Disarm All Record Enabled Tracks: Option+Shift+r
-* Beta: List Record-Enabled Tracks, List Record-Disabled Tracks:	Control+Shift+r
+* Speak Record-Enabled Tracks, Disarm All Record Enabled Tracks: Option+Shift+r
+* List Record-Enabled Tracks, List Record-Disabled Tracks:	Control+Shift+r
 * Speak Soloed Tracks, UnSolo All Tracks: Option+Shift+s
 * List Soloed Tracks, List Unsoloed Tracks:	Control+Shift+s
 * Speak Muted Tracks, UnMute All Tracks: Option+Shift+m
@@ -168,7 +170,7 @@ Where two actions are listed, double-tapping the key will perform the second act
 * Drag clip:	Command+Option+Shift+. (period)
 * Resize track list Table:	Command+Control+Shift+t
 * Resize clip list table:	Command+Control+Shift+c
-* Speak Selected Clips:	Option+Shift+p
+* Speak Selected Clips:	Option+Shift+, (comma)
 
 
 #### Flo Tools Global
@@ -225,7 +227,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 
 #### Flo Mouse
 
-The Flo Mouse group is global, so these commands will work system-wide when the group is turned on. Note that both the Flo Mouse and Flo Num Pad Macro Groups are no longer automatically installed with Flo Tools, and must be downloaded separately.
+The Flo Mouse group is global, so these commands will work system-wide when the group is turned on.
 
 * Activate Flo Mouse: Command+Slash
 * Option-Click:	Option+` (accent)
@@ -241,7 +243,8 @@ The Flo Mouse group is global, so these commands will work system-wide when the 
 * Control+Shift-Click:	Control+Shift+` (accent)
 * Control+Option-Click:	Control+Option+` (accent) (must be passed through)
 * Control+Option+Shift-Click:	Control+Option+Shift+` (accent) (must be passed through)
-* Control+Option+Command+Shift-Click:	Control+Option+Command+Shift+` (accent) (must be passed through)* Command+Control+Shift-Click:	Command+Control+Shift+` (accent) (must be passed through)
+* Control+Option+Command+Shift-Click:	Control+Option+Command+Shift+` (accent) (must be passed through)
+* Command+Control+Shift-Click:	Command+Control+Shift+` (accent) (must be passed through)
 * Copy/Speak Mouse Coordinates Relative to Front Window: Command+Option+Shift+c
 * Copy/speak mouse coordinates relative to screen:	Command+Option+Shift+a
 * Move mouse up: Command+Option+Shift+up-arrow
@@ -256,11 +259,12 @@ The Flo Mouse group is global, so these commands will work system-wide when the 
 
 This macro group allows easier navigation and editing of the Midi Event List using Flo Tools, and contains the following commands:
 
-* Speak/Edit Pitch for Selected Note:	Option+p
+
+* Speak/Edit Pitch for Selected Note:	Option+p
 * Speak/Edit Attack Velocity for Selected Note:	Option+a
 * Speak/Edit Release Velocity for Selected Note:	Option+r
-* Move to next Column:	Control+right arrow
-* Move to previous Column:	Control+left arrow
+* Move to next Column:	Option+Shift+Right Bracket
+* Move to previous Column:	Option+Shift+Left Bracket
 * Edit Event:	Control+Command+Return
 
 
@@ -271,7 +275,6 @@ Flo Tools provides a key remapping using the keyboard as a standard num pad. Thi
 Note that the inspector and num pad groups cannot be active at the same time. If the inspector is turned on, the num pad group is automatically turned off, and If the num pad group is turned on, the inspector is automatically turned off.
 
 Below is the list of remapped keyboard keys when using the num pad group.
-
 
 * m: 0
 * j: 1
@@ -308,10 +311,14 @@ Where 2 actions are listed, double tapping the key will perform the second actio
  * load default view: Command+0
  * Load Views 1 through 9: Command+1 through 9
  * for more information about plugin views, and how to create them, click [here.](/Plug-In Views/)
-#### Flo Tools Selected Tab
+
+
+#### Flo Tools Selected Tab
 
 This group allows Flo Tools to announce the currently selected tab in Pro Tools dialogs, such as preferences and peripherals. Pressing Command+1, Command+2, etc. will trigger this feature.
-#### Flo Tools Shortcuts Helper
+
+
+#### Flo Tools Shortcuts Helper
 
 Flo Tools provides a convenient way to find any Pro Tools Shortcut, called the Shortcuts Helper. While Pro Tools is running, Press Control Shift Command K to launch the Shortcuts Helper. Press keys to hear their functions.
 
@@ -320,8 +327,8 @@ When you're in the Mix or Edit windows, you'll hear the main shortcuts that are 
 For example, Command+f brings up the Fades dialog in the Mix or Edit windows but it brings up the View filter while the MIDI Event List is in focus. Flo Tools Shortcuts Helper recognizes the context and offers the appropriate shortcuts.
 
 Rather than randomly pressing keys to hear their functions, you can also press Control Shift Command H to bring up a palette of all of the available shortcuts. You can even narrow down the list by bringing up the Item Chooser and use first letter navigation to narrow the list to make it easier to find the shortcut you're trying to remember. You can either trigger the macro, which will speak the function as if you had pressed the key combination or you can press the very first button in the palette (which happens to be unlabelled and that will close the palette. To exit Shortcuts Helper, simply press Escape.
-
-<div id='misc'/>
+
+ <div id='misc'/>
 ## Misc
 
 ### Changing Shortcuts
@@ -356,8 +363,7 @@ Note that if you wish to uninstall Keyboard Maestro, it must be removed manually
 ### Known Issues
 
 * Items marked as "Beta" may not function as expected, and should not be used regularly until they are no longer in the beta stage.
-* Checking the arm state of tracks does not report consistently. This is due to the way that Pro Tools indicates whether a track is record enabled. To work around this, check the arm state multiple times.
-
+* In versions of Pro Tools prior to 2018.1, checking the arm state of tracks does not report consistently. To work around this, check the arm state multiple times. However, Avid fixed the Track and Global record buttons to correctly report their status in Pro Tools versions 2018.1, so Flo Tools can now report track record states with complete accuracy.
 
 ### Reporting Issues
 
@@ -464,3 +470,12 @@ The Flo Tools team will use this information to determine what the problem and s
 * Fixed Speak/Select track view to work properly for aux tracks.
 * Split increase/decrease nudge value into 4 macros to accommodate both numpad and qwerty input.
 * Fixed prompts for several Shortcut Helper macros for Mix/Edit windows.
+
+### Flo Tools 2.3.2:
+
+* Speak Selected Tracks/DeSelect all tracks: changed to option+Shift+L
+* List Selected Tracks/List Unselected Tracks: changed to Control+Shift+L
+* Speak Selected Clips: changed to Option+Shift+, (comma)
+* Previous/Next column shortcut for Midi Event List Reporting: changed to Option+Shift+Left Bracket or Right Bracket, respectively
+* Speak Record-enabled Tracks/disarm all tracks has been taken out of beta stage, and now works reliably. This is also true for the related command, Control+Shift+r, to List Record-Enabled Tracks/List Record-Disabled Tracks.
+* Flo Tools installs Flo Mouse and Flo Num Pad
