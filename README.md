@@ -61,9 +61,11 @@ Keyboard Maestro contains some default macro groups that conflict with common Ma
 
 Keyboard Maestro is limited by a 30-day trial period. After this time, a purchase of a one-time license is required to continue using the program, and subsequently, Flo Tools.
 
-More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)Keyboard Maestro occasionally provides spoken notifications to alert you to tasks it's performing in the background. If these become bothersome, you can turn them off by going to system preferences, notifications, and choosing Keyboard Maestro Engine from the table. Then select "none" under Alert Style.
-
-### Flo Tools Installation
+More information about purchasing a license can be found [here.](https://wiki.keyboardmaestro.com/manual/Purchase)
+
+Keyboard Maestro occasionally provides spoken notifications to alert you to tasks it's performing in the background. If these become bothersome, you can turn them off by going to system preferences, notifications, and choosing Keyboard Maestro Engine from the table. Then select "none" under Alert Style.
+
+ ### Flo Tools Installation
 
 To install Flo Tools, go to the provided zip file, and open the application called "Flo Tools Installer". Follow the on-screen prompts to guide you through installation.
 
@@ -241,7 +243,8 @@ The Flo Mouse group is global, so these commands will work system-wide when the 
 * Control+Shift-Click:	Control+Shift+` (accent)
 * Control+Option-Click:	Control+Option+` (accent) (must be passed through)
 * Control+Option+Shift-Click:	Control+Option+Shift+` (accent) (must be passed through)
-* Control+Option+Command+Shift-Click:	Control+Option+Command+Shift+` (accent) (must be passed through)* Command+Control+Shift-Click:	Command+Control+Shift+` (accent) (must be passed through)
+* Control+Option+Command+Shift-Click:	Control+Option+Command+Shift+` (accent) (must be passed through)
+* Command+Control+Shift-Click:	Command+Control+Shift+` (accent) (must be passed through)
 * Copy/Speak Mouse Coordinates Relative to Front Window: Command+Option+Shift+c
 * Copy/speak mouse coordinates relative to screen:	Command+Option+Shift+a
 * Move mouse up: Command+Option+Shift+up-arrow
@@ -256,7 +259,8 @@ The Flo Mouse group is global, so these commands will work system-wide when the 
 
 This macro group allows easier navigation and editing of the Midi Event List using Flo Tools, and contains the following commands:
 
-* Speak/Edit Pitch for Selected Note:	Option+p
+
+* Speak/Edit Pitch for Selected Note:	Option+p
 * Speak/Edit Attack Velocity for Selected Note:	Option+a
 * Speak/Edit Release Velocity for Selected Note:	Option+r
 * Move to next Column:	Option+Shift+Right Bracket
@@ -307,10 +311,14 @@ Where 2 actions are listed, double tapping the key will perform the second actio
  * load default view: Command+0
  * Load Views 1 through 9: Command+1 through 9
  * for more information about plugin views, and how to create them, click [here.](/Plug-In Views/)
-#### Flo Tools Selected Tab
+
+
+#### Flo Tools Selected Tab
 
 This group allows Flo Tools to announce the currently selected tab in Pro Tools dialogs, such as preferences and peripherals. Pressing Command+1, Command+2, etc. will trigger this feature.
-#### Flo Tools Shortcuts Helper
+
+
+#### Flo Tools Shortcuts Helper
 
 Flo Tools provides a convenient way to find any Pro Tools Shortcut, called the Shortcuts Helper. While Pro Tools is running, Press Control Shift Command K to launch the Shortcuts Helper. Press keys to hear their functions.
 
@@ -319,8 +327,8 @@ When you're in the Mix or Edit windows, you'll hear the main shortcuts that are 
 For example, Command+f brings up the Fades dialog in the Mix or Edit windows but it brings up the View filter while the MIDI Event List is in focus. Flo Tools Shortcuts Helper recognizes the context and offers the appropriate shortcuts.
 
 Rather than randomly pressing keys to hear their functions, you can also press Control Shift Command H to bring up a palette of all of the available shortcuts. You can even narrow down the list by bringing up the Item Chooser and use first letter navigation to narrow the list to make it easier to find the shortcut you're trying to remember. You can either trigger the macro, which will speak the function as if you had pressed the key combination or you can press the very first button in the palette (which happens to be unlabelled and that will close the palette. To exit Shortcuts Helper, simply press Escape.
-
-<div id='misc'/>
+
+ <div id='misc'/>
 ## Misc
 
 ### Changing Shortcuts
@@ -355,8 +363,7 @@ Note that if you wish to uninstall Keyboard Maestro, it must be removed manually
 ### Known Issues
 
 * Items marked as "Beta" may not function as expected, and should not be used regularly until they are no longer in the beta stage.
-* Checking the arm state of tracks does not report consistently. This is due to the way that Pro Tools indicates whether a track is record enabled. To work around this, check the arm state multiple times.
-
+* In versions of Pro Tools prior to 2018.1, checking the arm state of tracks does not report consistently. To work around this, check the arm state multiple times. However, Avid fixed the Track and Global record buttons to correctly report their status in Pro Tools versions 2018.1, so Flo Tools can now report track record states with complete accuracy.
 
 ### Reporting Issues
 
