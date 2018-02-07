@@ -479,3 +479,9 @@ The Flo Tools team will use this information to determine what the problem and s
 * Previous/Next column shortcut for Midi Event List Reporting: changed to Option+Shift+Left Bracket or Right Bracket, respectively
 * Speak Record-enabled Tracks/disarm all tracks has been taken out of beta stage, and now works reliably. This is also true for the related command, Control+Shift+r, to List Record-Enabled Tracks/List Record-Disabled Tracks.
 * Flo Tools installs Flo Mouse and Flo Num Pad
+
+### Flo Tools 2.3.3:
+
+* Fixed the initial state of toggle input monitor and loop record.
+* Included the macros to toggle Flo Mouse and Flo Num Pad
+* Fixed Retrospective Midi Record in shortcut helper to reflect the changes in Pro Tools 2018.1
