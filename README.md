@@ -263,8 +263,8 @@ This macro group allows easier navigation and editing of the Midi Event List usi
 * Speak/Edit Pitch for Selected Note:	Option+p
 * Speak/Edit Attack Velocity for Selected Note:	Option+a
 * Speak/Edit Release Velocity for Selected Note:	Option+r
-* Move to next Column:	Option+Shift+Right Bracket
-* Move to previous Column:	Option+Shift+Left Bracket
+* Move to next Column:	Option+Shift+\]
+* Move to previous Column:	Option+Shift+\[
 * Edit Event:	Control+Command+Return
 
 
