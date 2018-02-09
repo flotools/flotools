@@ -34,6 +34,37 @@
 						<key>ThenActions</key>
 						<array>
 							<dict>
+								<key>Conditions</key>
+								<dict>
+									<key>ConditionList</key>
+									<array>
+										<dict>
+											<key>Application</key>
+											<dict>
+												<key>BundleIdentifier</key>
+												<string>com.avid.ProTools</string>
+												<key>Name</key>
+												<string>Pro Tools</string>
+												<key>NewFile</key>
+												<string>/Applications/Pro Tools.app</string>
+											</dict>
+											<key>ConditionType</key>
+											<string>FrontWindow</string>
+											<key>FrontWindowConditionType</key>
+											<string>Exists</string>
+											<key>IsFrontApplication</key>
+											<false/>
+										</dict>
+									</array>
+									<key>ConditionListMatch</key>
+									<string>All</string>
+								</dict>
+								<key>MacroActionType</key>
+								<string>PauseUntil</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+							</dict>
+							<dict>
 								<key>MacroActionType</key>
 								<string>SetVariableToText</string>
 								<key>Text</key>
@@ -204,8 +235,8 @@ window.KeyboardMaestro.Cancel()
 }
 
 function skip(v) {
-window.KeyboardMaestro.SetVariable( 'FTUrl', "")
 window.KeyboardMaestro.SetVariable( 'FTSkip', ""+v)
+window.KeyboardMaestro.SetVariable( 'FTUrl', "")
 window.KeyboardMaestro.Cancel()
 }
 
@@ -272,7 +303,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>539309228.47539401</real>
+				<real>539891652.89295197</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.3.2. Check for Automatic Update</string>
 				<key>Triggers</key>
@@ -541,7 +572,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>539309481.85459495</real>
+				<real>539891131.45919299</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.3.2. Check for Update</string>
 				<key>Triggers</key>
@@ -62922,18 +62953,7 @@ kme.setvariable("y", {to:""+y})
 		<array>
 			<dict>
 				<key>Actions</key>
-				<array>
-					<dict>
-						<key>MacroActionType</key>
-						<string>ShowPaletteOfMacros</string>
-						<key>Macros</key>
-						<array>
-							<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-				</array>
+				<array/>
 				<key>CreationDate</key>
 				<real>529812089.10572302</real>
 				<key>ModificationDate</key>
