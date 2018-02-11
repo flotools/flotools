@@ -299,11 +299,23 @@ window.KeyboardMaestro.Cancel()
 						<key>TimeOutAbortsMacro</key>
 						<true/>
 					</dict>
+					<dict>
+						<key>Asynchronously</key>
+						<false/>
+						<key>MacroActionType</key>
+						<string>ExecuteMacro</string>
+						<key>MacroUID</key>
+						<string>6F1D7002-0C9A-43CE-A540-B01795448B53</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>UseParameter</key>
+						<false/>
+					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>539891652.89295197</real>
+				<real>540017813.61412799</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.3.2. Check for Automatic Update</string>
 				<key>Triggers</key>
@@ -1877,8 +1889,6 @@ window.KeyboardMaestro.Cancel()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -1977,8 +1987,6 @@ track.groups["Inserts A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2077,8 +2085,6 @@ track.groups["Inserts A-E"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2177,8 +2183,6 @@ track.groups["Inserts A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2277,8 +2281,6 @@ track.groups["Inserts A-E"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2377,8 +2379,6 @@ track.groups["Inserts A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2560,8 +2560,6 @@ track.groups["Inserts F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2743,8 +2741,6 @@ track.groups["Inserts F-J"].buttons[1].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -2926,8 +2922,6 @@ track.groups["Inserts F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3109,8 +3103,6 @@ track.groups["Inserts F-J"].buttons[3].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3209,8 +3201,6 @@ track.groups["Inserts F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3309,8 +3299,6 @@ track.groups["Sends A-E"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3409,8 +3397,6 @@ track.groups["Sends A-E"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3509,8 +3495,6 @@ track.groups["Sends A-E"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3609,8 +3593,6 @@ track.groups["Sends A-E"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3709,8 +3691,6 @@ track.groups["Sends A-E"].buttons[8].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -3892,8 +3872,6 @@ track.groups["Sends F-J"].buttons[0].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4075,8 +4053,6 @@ track.groups["Sends F-J"].buttons[2].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4258,8 +4234,6 @@ track.groups["Sends F-J"].buttons[4].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -4441,8 +4415,6 @@ track.groups["Sends F-J"].buttons[6].click()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -5806,8 +5778,6 @@ Application("VoiceOver").output("Marked for drag.")
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6022,8 +5992,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -6239,8 +6207,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20141,8 +20107,6 @@ vo.output (msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20840,8 +20804,6 @@ vo.output (msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -20944,8 +20906,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -21216,8 +21176,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -24688,6 +24646,14 @@ Application("VoiceOver").output(msg)</string>
 						<key>MacroActionType</key>
 						<string>SetMacroEnable</string>
 						<key>MacroUID</key>
+						<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
 						<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
 					</dict>
 					<dict>
@@ -24838,7 +24804,7 @@ Application("VoiceOver").output(msg)</string>
 				<key>CreationDate</key>
 				<real>530228720.61120403</real>
 				<key>ModificationDate</key>
-				<real>531348541.57511699</real>
+				<real>540016955.43554401</real>
 				<key>Name</key>
 				<string>Enable Flo Tools</string>
 				<key>Triggers</key>
@@ -28291,6 +28257,85 @@ Application("Keyboard Maestro Engine").doScript("1AC2CC6C-1658-43F9-B57C-346277C
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>84</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+						<key>ReleaseAll</key>
+						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>539978238.79321098</real>
+				<key>IsActive</key>
+				<false/>
+				<key>ModificationDate</key>
+				<real>539978265.25567496</real>
+				<key>Name</key>
+				<string>Fast Forward with Option+2</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>19</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>9622C542-37BD-4FD7-A943-2FCFC8245CD1</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>499012071.76373202</real>
 		<key>IsActive</key>
 		<false/>
@@ -28784,6 +28829,204 @@ Application("Keyboard Maestro Engine").doScript("1AC2CC6C-1658-43F9-B57C-346277C
 		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
 		<key>UID</key>
 		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Asynchronously</key>
+						<false/>
+						<key>MacroActionType</key>
+						<string>ExecuteMacro</string>
+						<key>MacroUID</key>
+						<string>6F1D7002-0C9A-43CE-A540-B01795448B53</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>UseParameter</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>Floating</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>CustomPrompt</string>
+						<key>Text</key>
+						<string>&lt;script&gt;
+function KMInit() {
+str = window.KeyboardMaestro.GetVariable('FTPreference')
+console.log("Input: "+str)
+window.preference = JSON.parse(str)
+window.setTimeout(set, 10)
+}
+
+function set() {
+for (key in window.preference) {
+value = window.preference[key]
+if (typeof(value) == typeof(true)) {
+selector = "input[name='"+key+"']"
+console.log(selector)
+window.document.querySelector(selector).checked = value
+} else {
+selector = "input[name='"+key+"'][value='"+value+"']"
+console.log(selector)
+window.document.querySelector(selector).checked = true
+}
+}
+}
+
+function change(element) {
+console.log(element.name+": "+element.value)
+if (element.type == "checkbox") {
+window.preference[element.name] = element.checked
+} else if (element.type == "radio") {
+window.preference[element.name] = element.value
+}
+}
+
+function ok() {
+str = JSON.stringify(window.preference)
+console.log("Output: "+str)
+window.KeyboardMaestro.SetVariable( 'FTPreference', str)
+window.KeyboardMaestro.Cancel()
+}
+
+function cancel() {
+window.KeyboardMaestro.Cancel()
+}
+
+&lt;/script&gt;
+
+&lt;div id='preference'&gt;
+&lt;p&gt;
+&lt;input name="temporary inspector" type="checkbox" onchange="change(this)" /&gt;Use temporary inspector&lt;br&gt;
+&lt;input name="option numpad" type="checkbox" onchange="change(this)"&gt;Use option+number row as numpad with no modifier
+&lt;/p&gt;
+
+&lt;!---
+&lt;p&gt;
+Vervosity:&lt;br&gt;
+&lt;input name="vervosity" value="long" type="radio" onchange="change(this)" /&gt;Long&lt;br&gt;
+&lt;input name="vervosity" value="short" type="radio" onchange="change(this)" /&gt;Short&lt;br&gt;
+&lt;/p&gt;
+---&gt;
+
+&lt;p&gt;
+&lt;button onClick="cancel()"&gt;CANCEL&lt;/button&gt;
+&lt;button onClick="ok()"&gt;OK&lt;/button&gt;
+&lt;/p&gt;
+&lt;/div&gt;</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>app = Application.currentApplication()
+app.includeStandardAdditions = true
+kme = Application("Keyboard Maestro Engine")
+sys = Application('System Events')
+str = kme.getvariable("FTPreference")
+console.log(str)
+home = sys.currentUser.homeDirectory()
+fileName = home+"/Library/Application Support/Flo Tools/flotools.json"
+file = app.openForAccess(Path(fileName), {writePermission:true})
+app.setEof(file, {to:0})
+app.write(str, {to:file, as:"text"})
+app.closeAccess(file)
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Asynchronously</key>
+						<false/>
+						<key>MacroActionType</key>
+						<string>ExecuteMacro</string>
+						<key>MacroUID</key>
+						<string>6F1D7002-0C9A-43CE-A540-B01795448B53</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>UseParameter</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>539938778.20202196</real>
+				<key>ModificationDate</key>
+				<real>540018654.26508498</real>
+				<key>Name</key>
+				<string>Flo Tools Preference</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>43</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2304</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>4958F0C0-2806-4D1F-A1DA-C0124F1AD759</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -31889,8 +32132,6 @@ vo.output (msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -32504,8 +32745,6 @@ vo.output (msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -32608,8 +32847,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -32963,8 +33200,6 @@ vo.output(value)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -56057,6 +56292,85 @@ vo.output(name)
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>85</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+						<key>ReleaseAll</key>
+						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>539978269.17470002</real>
+				<key>IsActive</key>
+				<false/>
+				<key>ModificationDate</key>
+				<real>539978290.92753506</real>
+				<key>Name</key>
+				<string>Record with Option+3</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>20</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>BF6205A9-0500-4D95-B28B-1EE4DBC2898D</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>499012071.76373202</real>
 		<key>IsActive</key>
 		<false/>
@@ -56135,6 +56449,116 @@ vo.output(name)
 		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
 		<key>UID</key>
 		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>Window</string>
+						<key>IncludeStdErr</key>
+						<false/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
+						<key>Path</key>
+						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
+						<key>Text</key>
+						<string>app = Application.currentApplication()
+app.includeStandardAdditions = true
+kme = Application("Keyboard Maestro Engine")
+sys = Application('System Events')
+home = sys.currentUser.homeDirectory()
+fileName = home+"/Library/Application Support/Flo Tools/flotools.json"
+try {
+str = app.read(Path(fileName))
+console.log(str)
+} catch(err) {
+str = '{"temporary inspector":false,"option numpad":false,"vervosity":"short"}'
+file = app.openForAccess(Path(fileName), {writePermission:true})
+app.setEof(file, {to:0})
+app.write(str, {to:file, as:"text"})
+app.closeAccess(file)
+}
+kme.setvariable("FTPreference", {to:str})
+preference = JSON.parse(str)
+if (preference["option numpad"] == true) {
+kme.doScript("Toggle Option Num Pad", {withParameter:"1"})
+xml = "&lt;array&gt;	&lt;dict&gt;		&lt;key&gt;Action&lt;/key&gt;		&lt;string&gt;Enable&lt;/string&gt;		&lt;key&gt;MacroActionType&lt;/key&gt;		&lt;string&gt;SetMacroEnable&lt;/string&gt;		&lt;key&gt;MacroUID&lt;/key&gt;		&lt;string&gt;AC4E8A14-A5FD-44A8-B662-CCEE78C2F45C&lt;/string&gt;	&lt;/dict&gt;&lt;/array&gt;"
+kme.doScript(xml)
+} else {
+kme.doScript("Toggle Option Num Pad", {withParameter:"0"})
+xml = "&lt;array&gt;	&lt;dict&gt;		&lt;key&gt;Action&lt;/key&gt;		&lt;string&gt;Disable&lt;/string&gt;		&lt;key&gt;MacroActionType&lt;/key&gt;		&lt;string&gt;SetMacroEnable&lt;/string&gt;		&lt;key&gt;MacroUID&lt;/key&gt;		&lt;string&gt;AC4E8A14-A5FD-44A8-B662-CCEE78C2F45C&lt;/string&gt;	&lt;/dict&gt;&lt;/array&gt;"
+kme.doScript(xml)
+}
+if (preference["temporary inspector"] == true) {
+xml = "&lt;array&gt;	&lt;dict&gt;		&lt;key&gt;Action&lt;/key&gt;		&lt;string&gt;Enable&lt;/string&gt;		&lt;key&gt;MacroActionType&lt;/key&gt;		&lt;string&gt;SetMacroEnable&lt;/string&gt;		&lt;key&gt;MacroUID&lt;/key&gt;		&lt;string&gt;E63048EB-FBD0-41A9-A4C7-8922216F11D3&lt;/string&gt;	&lt;/dict&gt;&lt;/array&gt;"
+kme.doScript(xml)
+} else {
+xml = "&lt;array&gt;	&lt;dict&gt;		&lt;key&gt;Action&lt;/key&gt;		&lt;string&gt;Disable&lt;/string&gt;		&lt;key&gt;MacroActionType&lt;/key&gt;		&lt;string&gt;SetMacroEnable&lt;/string&gt;		&lt;key&gt;MacroUID&lt;/key&gt;		&lt;string&gt;E63048EB-FBD0-41A9-A4C7-8922216F11D3&lt;/string&gt;	&lt;/dict&gt;&lt;/array&gt;"
+kme.doScript(xml)
+}
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>539979531.77549398</real>
+				<key>ModificationDate</key>
+				<real>540018594.473737</real>
+				<key>Name</key>
+				<string>Refresh Preference</string>
+				<key>Triggers</key>
+				<array/>
+				<key>UID</key>
+				<string>6F1D7002-0C9A-43CE-A540-B01795448B53</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -58291,6 +58715,85 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
 		<key>UID</key>
 		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>KeyCode</key>
+						<integer>83</integer>
+						<key>MacroActionType</key>
+						<string>SimulateKeystroke</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+						<key>ReleaseAll</key>
+						<false/>
+						<key>TargetApplication</key>
+						<dict/>
+						<key>TargetingType</key>
+						<string>Front</string>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>539978182.98404598</real>
+				<key>IsActive</key>
+				<false/>
+				<key>ModificationDate</key>
+				<real>539978233.87204194</real>
+				<key>Name</key>
+				<string>Rewind with Option+1</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>18</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>BDC88219-26BB-4682-B9B1-0F4C76CC07B0</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -67268,8 +67771,6 @@ vo.output (msg)
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -67449,8 +67950,6 @@ kme.setvariable("FTGRMax", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -68377,8 +68876,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -70329,8 +70826,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -71196,8 +71691,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -74020,8 +74513,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -74241,8 +74732,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -74464,8 +74953,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -74686,8 +75173,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -74908,8 +75393,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -75130,8 +75613,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -75352,8 +75833,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -75575,8 +76054,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -75797,8 +76274,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -76019,8 +76494,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -76241,8 +76714,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -76380,8 +76851,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -76520,8 +76989,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -76659,8 +77126,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -76798,8 +77263,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -76937,8 +77400,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -77076,8 +77537,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -77216,8 +77675,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -77355,8 +77812,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -77494,8 +77949,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -77716,8 +78169,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -77938,8 +78389,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -78169,8 +78618,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -78394,8 +78841,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -78616,8 +79061,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -78837,8 +79280,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -78971,8 +79412,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -79105,8 +79544,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -79719,8 +80156,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -79937,8 +80372,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -80164,8 +80597,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -80835,13 +81266,88 @@ if (runSingle) single()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Asynchronously</key>
+						<false/>
+						<key>MacroActionType</key>
+						<string>ExecuteMacro</string>
+						<key>MacroUID</key>
+						<string>E9EE3AC3-1BE7-4336-AF97-6146BDFDFDEB</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>UseParameter</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>539978315.54095101</real>
+				<key>IsActive</key>
+				<false/>
+				<key>ModificationDate</key>
+				<real>539978366.43685603</real>
+				<key>Name</key>
+				<string>Speak/Toggle Count in with Option+8</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>28</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>28C678F4-5FF1-4775-8F6B-4009D3B1694C</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>493839659.76668698</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -81208,8 +81714,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -81563,8 +82067,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -82355,6 +82857,83 @@ if (runSingle) single()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Asynchronously</key>
+						<false/>
+						<key>MacroActionType</key>
+						<string>ExecuteMacro</string>
+						<key>MacroUID</key>
+						<string>21C5EE82-9392-4F65-A4CA-D7BA25601DEB</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>UseParameter</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>539971478.71739495</real>
+				<key>IsActive</key>
+				<false/>
+				<key>ModificationDate</key>
+				<real>539978381.91695094</real>
+				<key>Name</key>
+				<string>Speak/Toggle Metronome with Option+7</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>26</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>EBA88116-8082-41E2-945E-490010241CD1</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>499012071.76373202</real>
 		<key>IsActive</key>
 		<false/>
@@ -82570,13 +83149,88 @@ if (runSingle) single()
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Asynchronously</key>
+						<false/>
+						<key>MacroActionType</key>
+						<string>ExecuteMacro</string>
+						<key>MacroUID</key>
+						<string>D97C6D65-2802-4541-81C8-14CBEEE2FAE6</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>UseParameter</key>
+						<false/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>539978404.49239004</real>
+				<key>IsActive</key>
+				<false/>
+				<key>ModificationDate</key>
+				<real>539978450.50690603</real>
+				<key>Name</key>
+				<string>Speak/Toggle Midi Merge with Option+9</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>25</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>2048</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>743811E7-291A-4166-9502-91C8D97ADAA4</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>493839659.76668698</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -83047,8 +83701,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -83269,8 +83921,6 @@ if (runSingle) single()
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -87478,13 +88128,13 @@ else vo.output("Auto Input")
 									<key>FrontWindowConditionType</key>
 									<string>TitleMatches</string>
 									<key>FrontWindowTitle</key>
-									<string>^Dashboard|^Save|Bounce$|^Open|^Get Info|Setup$|^Create Group|^Scroll To Track|^Name|^Metadata Inspector|^New Memory Location|^Workspace|^Artist Chat</string>
+									<string>^Mix:|Edit:</string>
 									<key>IsFrontApplication</key>
 									<true/>
 								</dict>
 							</array>
 							<key>ConditionListMatch</key>
-							<string>None</string>
+							<string>All</string>
 						</dict>
 						<key>ElseActions</key>
 						<array>
@@ -87532,7 +88182,7 @@ else vo.output("Auto Input")
 											<key>ConditionType</key>
 											<string>Macro</string>
 											<key>MacroConditionType</key>
-											<string>IsEnabled</string>
+											<string>IsActive</string>
 											<key>MacroUID</key>
 											<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
 										</dict>
@@ -87543,12 +88193,14 @@ else vo.output("Auto Input")
 								<key>ElseActions</key>
 								<array>
 									<dict>
-										<key>Action</key>
-										<string>Enable</string>
+										<key>DisplayToggle</key>
+										<false/>
 										<key>MacroActionType</key>
-										<string>SetMacroEnable</string>
-										<key>MacroUID</key>
+										<string>MacroGroupToggle</string>
+										<key>MacroGroupUID</key>
 										<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+										<key>ToggleMode</key>
+										<string>Activate</string>
 									</dict>
 									<dict>
 										<key>Action</key>
@@ -87588,12 +88240,14 @@ else vo.output("Auto Input")
 								<key>ThenActions</key>
 								<array>
 									<dict>
-										<key>Action</key>
-										<string>Disable</string>
+										<key>DisplayToggle</key>
+										<false/>
 										<key>MacroActionType</key>
-										<string>SetMacroEnable</string>
-										<key>MacroUID</key>
+										<string>MacroGroupToggle</string>
+										<key>MacroGroupUID</key>
 										<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+										<key>ToggleMode</key>
+										<string>Deactivate</string>
 									</dict>
 									<dict>
 										<key>DisplayKind</key>
@@ -87631,7 +88285,7 @@ else vo.output("Auto Input")
 				<key>CreationDate</key>
 				<real>503191698.386913</real>
 				<key>ModificationDate</key>
-				<real>534224082.51574302</real>
+				<real>539981962.96656597</real>
 				<key>Name</key>
 				<string>Toggle Inspector</string>
 				<key>Triggers</key>
@@ -87845,6 +88499,232 @@ else vo.output("Auto Input")
 		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
 		<key>UID</key>
 		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Text</string>
+									<key>Text</key>
+									<string>%TriggerValue%</string>
+									<key>TextConditionType</key>
+									<string>Contains</string>
+									<key>TextValue</key>
+									<string>1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>BDC88219-26BB-4682-B9B1-0F4C76CC07B0</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>9622C542-37BD-4FD7-A943-2FCFC8245CD1</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>BF6205A9-0500-4D95-B28B-1EE4DBC2898D</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>EBA88116-8082-41E2-945E-490010241CD1</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>28C678F4-5FF1-4775-8F6B-4009D3B1694C</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>743811E7-291A-4166-9502-91C8D97ADAA4</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>FEF8F78E-7725-421C-8626-74D143A895AC</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>1D6BE51D-F8C4-49AA-AB63-597608CA2CB3</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>CB33B3B3-2F6F-4819-8359-2CC9887C9397</string>
+							</dict>
+						</array>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>BDC88219-26BB-4682-B9B1-0F4C76CC07B0</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>9622C542-37BD-4FD7-A943-2FCFC8245CD1</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>BF6205A9-0500-4D95-B28B-1EE4DBC2898D</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>EBA88116-8082-41E2-945E-490010241CD1</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>28C678F4-5FF1-4775-8F6B-4009D3B1694C</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>743811E7-291A-4166-9502-91C8D97ADAA4</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>FEF8F78E-7725-421C-8626-74D143A895AC</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>1D6BE51D-F8C4-49AA-AB63-597608CA2CB3</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>CB33B3B3-2F6F-4819-8359-2CC9887C9397</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>539978813.65358198</real>
+				<key>ModificationDate</key>
+				<real>540016368.31783795</real>
+				<key>Name</key>
+				<string>Toggle Option Num Pad</string>
+				<key>Triggers</key>
+				<array/>
+				<key>UID</key>
+				<string>0C039C1F-3FEA-42E2-AF5F-655A9A28226E</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -88233,6 +89113,189 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
 		<key>UID</key>
 		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>479078801.99380499</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>FrontWindow</string>
+									<key>FrontWindowConditionType</key>
+									<string>TitleMatches</string>
+									<key>FrontWindowTitle</key>
+									<string>^Mix:|Edit:</string>
+									<key>IsFrontApplication</key>
+									<true/>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>E63048EB-FBD0-41A9-A4C7-8922216F11D3</string>
+							</dict>
+							<dict>
+								<key>KeyCode</key>
+								<integer>50</integer>
+								<key>MacroActionType</key>
+								<string>SimulateKeystroke</string>
+								<key>Modifiers</key>
+								<integer>0</integer>
+								<key>ReleaseAll</key>
+								<false/>
+								<key>TargetApplication</key>
+								<dict/>
+								<key>TargetingType</key>
+								<string>Front</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>E63048EB-FBD0-41A9-A4C7-8922216F11D3</string>
+							</dict>
+						</array>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Conditions</key>
+								<dict>
+									<key>ConditionList</key>
+									<array>
+										<dict>
+											<key>ConditionType</key>
+											<string>Key</string>
+											<key>KeyCode</key>
+											<integer>50</integer>
+											<key>KeyConditionType</key>
+											<string>Down</string>
+										</dict>
+									</array>
+									<key>ConditionListMatch</key>
+									<string>All</string>
+								</dict>
+								<key>ElseActions</key>
+								<array>
+									<dict>
+										<key>DisplayToggle</key>
+										<false/>
+										<key>MacroActionType</key>
+										<string>MacroGroupToggle</string>
+										<key>MacroGroupUID</key>
+										<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+										<key>ToggleMode</key>
+										<string>Deactivate</string>
+									</dict>
+								</array>
+								<key>MacroActionType</key>
+								<string>IfThenElse</string>
+								<key>ThenActions</key>
+								<array>
+									<dict>
+										<key>DisplayToggle</key>
+										<false/>
+										<key>MacroActionType</key>
+										<string>MacroGroupToggle</string>
+										<key>MacroGroupUID</key>
+										<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+										<key>ToggleMode</key>
+										<string>Activate</string>
+									</dict>
+								</array>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>533998645.120296</real>
+				<key>IsActive</key>
+				<false/>
+				<key>ModificationDate</key>
+				<real>540016981.96191704</real>
+				<key>Name</key>
+				<string>Toggle Temporary INspector</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>50</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+					</dict>
+					<dict>
+						<key>FireType</key>
+						<string>Released</string>
+						<key>KeyCode</key>
+						<integer>50</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>0</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>E63048EB-FBD0-41A9-A4C7-8922216F11D3</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools</string>
+		<key>Targeting</key>
+		<dict>
+			<key>Targeting</key>
+			<string>Included</string>
+			<key>TargetingApps</key>
+			<array>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProTools</string>
+					<key>Name</key>
+					<string>Pro Tools</string>
+					<key>NewFile</key>
+					<string>/Applications/Pro Tools.app</string>
+				</dict>
+				<dict>
+					<key>BundleIdentifier</key>
+					<string>com.avid.ProToolsFirst</string>
+					<key>Name</key>
+					<string>Pro Tools First</string>
+				</dict>
+			</array>
+		</dict>
+		<key>ToggleMacroUID</key>
+		<string>A33CD6B2-F33B-4026-AAE9-207E16932A6F</string>
+		<key>UID</key>
+		<string>B7E0E6A9-B857-4443-876A-DF90D29C080E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -88991,8 +90054,6 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 		<string>TitleMatches</string>
 		<key>FocussedWindowTitle</key>
 		<string>^(Mix|Edit):</string>
-		<key>IsActive</key>
-		<false/>
 		<key>Macros</key>
 		<array>
 			<dict>
@@ -91927,6 +92988,114 @@ if (runSingle) single()
 		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
 		<key>UID</key>
 		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>500760463.49967402</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>Application</key>
+									<dict>
+										<key>BundleIdentifier</key>
+										<string>com.avid.ProTools</string>
+										<key>Name</key>
+										<string>Pro Tools</string>
+										<key>NewFile</key>
+										<string>/Applications/Pro Tools.app</string>
+									</dict>
+									<key>ApplicationConditionType</key>
+									<string>Active</string>
+									<key>ConditionType</key>
+									<string>Application</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>0C039C1F-3FEA-42E2-AF5F-655A9A28226E</string>
+								<key>Parameter</key>
+								<string>0</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<true/>
+							</dict>
+						</array>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Asynchronously</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>ExecuteMacro</string>
+								<key>MacroUID</key>
+								<string>0C039C1F-3FEA-42E2-AF5F-655A9A28226E</string>
+								<key>Parameter</key>
+								<string>1</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>UseParameter</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>539971138.36162996</real>
+				<key>IsActive</key>
+				<false/>
+				<key>ModificationDate</key>
+				<real>540017151.540892</real>
+				<key>Name</key>
+				<string>When Pro Tools Is Foreground/Background</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>Application</key>
+						<dict/>
+						<key>FireType2</key>
+						<string>Activate</string>
+						<key>MacroTriggerType</key>
+						<string>Application</string>
+						<key>RepeatTime</key>
+						<integer>60</integer>
+						<key>Target</key>
+						<string>Front</string>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>AC4E8A14-A5FD-44A8-B662-CCEE78C2F45C</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Global</string>
+		<key>ToggleMacroUID</key>
+		<string>461221CF-A568-4719-9C3F-3D41C05A5B09</string>
+		<key>UID</key>
+		<string>FEA49FEF-1551-453B-9E90-02A376C079B6</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
