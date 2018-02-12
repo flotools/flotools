@@ -311,11 +311,61 @@ window.KeyboardMaestro.Cancel()
 						<key>UseParameter</key>
 						<false/>
 					</dict>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Variable</string>
+									<key>Variable</key>
+									<string>FTPreference</string>
+									<key>VariableConditionType</key>
+									<string>Contains</string>
+									<key>VariableValue</key>
+									<string>"starts with inspector":true</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array>
+							<dict>
+								<key>DisplayToggle</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>MacroGroupToggle</string>
+								<key>MacroGroupUID</key>
+								<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+								<key>ToggleMode</key>
+								<string>Deactivate</string>
+							</dict>
+						</array>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>DisplayToggle</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>MacroGroupToggle</string>
+								<key>MacroGroupUID</key>
+								<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+								<key>ToggleMode</key>
+								<string>Activate</string>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
 				</array>
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>540017813.61412799</real>
+				<real>540129214.42587602</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.3.2. Check for Automatic Update</string>
 				<key>Triggers</key>
@@ -28881,16 +28931,16 @@ window.document.querySelector(selector).checked = true
 }
 }
 
-function change(element) {
-console.log(element.name+": "+element.value)
+function ok() {
+inputs = window.document.getElementsByTagName("input")
+for (i in inputs) {
+element = inputs[i]
 if (element.type == "checkbox") {
 window.preference[element.name] = element.checked
 } else if (element.type == "radio") {
 window.preference[element.name] = element.value
 }
 }
-
-function ok() {
 str = JSON.stringify(window.preference)
 console.log("Output: "+str)
 window.KeyboardMaestro.SetVariable( 'FTPreference', str)
@@ -28905,8 +28955,9 @@ window.KeyboardMaestro.Cancel()
 
 &lt;div id='preference'&gt;
 &lt;p&gt;
-&lt;input name="temporary inspector" type="checkbox" onchange="change(this)" /&gt;Use temporary inspector&lt;br&gt;
-&lt;input name="option numpad" type="checkbox" onchange="change(this)"&gt;Use option+number row as numpad with no modifier
+&lt;input name="temporary inspector" type="checkbox" /&gt;Use temporary inspector&lt;br&gt;
+&lt;input name="option numpad" type="checkbox" /&gt;Use option+number row as numpad with no modifier
+&lt;input name="starts with inspector" type="checkbox" /&gt;Turn on Flo Tools inspector when Pro Tools starts&lt;br&gt;
 &lt;/p&gt;
 
 &lt;!---
@@ -28979,7 +29030,7 @@ app.closeAccess(file)
 				<key>CreationDate</key>
 				<real>539938778.20202196</real>
 				<key>ModificationDate</key>
-				<real>540018654.26508498</real>
+				<real>540131148.61833596</real>
 				<key>Name</key>
 				<string>Flo Tools Preference</string>
 				<key>Triggers</key>
@@ -56462,9 +56513,9 @@ vo.output(name)
 				<array>
 					<dict>
 						<key>DisplayKind</key>
-						<string>Window</string>
+						<string>None</string>
 						<key>IncludeStdErr</key>
-						<false/>
+						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
 						<key>NotifyOnFailure</key>
@@ -56484,7 +56535,7 @@ try {
 str = app.read(Path(fileName))
 console.log(str)
 } catch(err) {
-str = '{"temporary inspector":false,"option numpad":false,"vervosity":"short"}'
+str = '{"temporary inspector":false,"option numpad":false,"starts with inspector":false}'
 file = app.openForAccess(Path(fileName), {writePermission:true})
 app.setEof(file, {to:0})
 app.write(str, {to:file, as:"text"})
@@ -56522,7 +56573,7 @@ kme.doScript(xml)
 				<key>CreationDate</key>
 				<real>539979531.77549398</real>
 				<key>ModificationDate</key>
-				<real>540018594.473737</real>
+				<real>540130300.53189898</real>
 				<key>Name</key>
 				<string>Refresh Preference</string>
 				<key>Triggers</key>
@@ -89235,8 +89286,6 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 				</array>
 				<key>CreationDate</key>
 				<real>533998645.120296</real>
-				<key>IsActive</key>
-				<false/>
 				<key>ModificationDate</key>
 				<real>540016981.96191704</real>
 				<key>Name</key>
