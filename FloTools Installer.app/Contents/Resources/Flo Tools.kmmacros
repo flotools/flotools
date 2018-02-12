@@ -22109,7 +22109,7 @@ vo.output(value)
 				<key>CreationDate</key>
 				<real>530228720.61120403</real>
 				<key>ModificationDate</key>
-				<real>531346432.91830701</real>
+				<real>540181446.13519394</real>
 				<key>Name</key>
 				<string>Disable Flo Tools Groups</string>
 				<key>Triggers</key>
@@ -24902,6 +24902,14 @@ Application("VoiceOver").output(msg)</string>
 						<key>MacroActionType</key>
 						<string>SetMacroEnable</string>
 						<key>MacroUID</key>
+						<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+					</dict>
+					<dict>
+						<key>Action</key>
+						<string>Enable</string>
+						<key>MacroActionType</key>
+						<string>SetMacroEnable</string>
+						<key>MacroUID</key>
 						<string>61BB4AB1-B70F-4EAE-BBB9-E6989CD9740C</string>
 					</dict>
 					<dict>
@@ -24940,7 +24948,7 @@ Application("VoiceOver").output(msg)</string>
 				<key>CreationDate</key>
 				<real>530233031.88118201</real>
 				<key>ModificationDate</key>
-				<real>530551997.84505397</real>
+				<real>540181470.95814097</real>
 				<key>Name</key>
 				<string>Enable Flo Tools Groups</string>
 				<key>Triggers</key>
@@ -52526,65 +52534,6 @@ vo.output(name)
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>530545184.89642102</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>AddToMacroPalette</key>
-						<false/>
-						<key>AddToStatusMenu</key>
-						<false/>
-						<key>EnableRepeat</key>
-						<true/>
-						<key>IsDisclosed</key>
-						<false/>
-						<key>KeyCode</key>
-						<integer>122</integer>
-						<key>MacroActionType</key>
-						<string>QuickMacro</string>
-						<key>Modifiers</key>
-						<integer>2048</integer>
-						<key>QuickMacroUID</key>
-						<string>3AA8743D-E914-46C8-A34A-C605736EC83A</string>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>474591939.09862</real>
-				<key>ModificationDate</key>
-				<real>493685970.70240903</real>
-				<key>Name</key>
-				<string>Quick Macro for ⌥F1</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>122</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>4096</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>E0015796-7654-4549-A9E0-7B5CFCE49C4D</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>*Global</string>
-		<key>ToggleMacroUID</key>
-		<string>4A6EC5BA-898E-4471-B4B6-6D157300FBA2</string>
-		<key>UID</key>
-		<string>F0B7FBEB-B017-4238-8198-7FED5DF23D8E</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>499012071.76373202</real>
 		<key>IsActive</key>
 		<false/>
@@ -59573,88 +59522,6 @@ vo.output("Track list table is "+w+" points wide. Click and drag to resize.")
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>530545184.89642102</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DisplayKind</key>
-						<string>None</string>
-						<key>IncludeStdErr</key>
-						<true/>
-						<key>MacroActionType</key>
-						<string>ExecuteJavaScriptForAutomation</string>
-						<key>NotifyOnFailure</key>
-						<false/>
-						<key>Path</key>
-						<string></string>
-						<key>StopOnFailure</key>
-						<false/>
-						<key>Text</key>
-						<string>app = Application.currentApplication()
-app.includeStandardAdditions = true
-sys = Application("System Events")
-p = sys.applicationProcesses.whose({frontmost:true})
-win = p.windows[0]
-position = win.position()
-size = win.size()
-cmd = "screencapture -R"+position+","+size+" ~/Screenshot.png"
-app.doShellScript(cmd)
-cmd = 'sips -g pixelWidth ~/Screenshot.png|grep -Eo "(\\d+)"'
-width = app.doShellScript(cmd)
-cmd = 'sips -g pixelHeight ~/Screenshot.png|grep -Eo "(\\d+)"'
-height = app.doShellScript(cmd)
-msg = width+", "+height+"\n"
-console.log(msg)
-cmd = "afplay '/System/Library/Components/CoreAudio.component/Contents/SharedSupport/SystemSounds/system/Shutter.aif'"
-app.doShellScript(cmd)
-</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>TrimResults</key>
-						<true/>
-						<key>TrimResultsNew</key>
-						<true/>
-						<key>UseText</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>459885009.22238803</real>
-				<key>ModificationDate</key>
-				<real>524570274.60619199</real>
-				<key>Name</key>
-				<string>Screenshot Front Window</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>21</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2816</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>80C2B0FD-000B-4926-8ADA-A133FDBB95F7</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>*Global</string>
-		<key>ToggleMacroUID</key>
-		<string>4A6EC5BA-898E-4471-B4B6-6D157300FBA2</string>
-		<key>UID</key>
-		<string>F0B7FBEB-B017-4238-8198-7FED5DF23D8E</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>529370911.95751899</real>
 		<key>FocussedWindowConditionType</key>
 		<string>TitleIs</string>
@@ -60107,59 +59974,6 @@ app.doShellScript(cmd)
 		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
 		<key>UID</key>
 		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>530545184.89642102</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>Default</key>
-						<string></string>
-						<key>IsDisclosed</key>
-						<false/>
-						<key>MacroActionType</key>
-						<string>Search</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-						<key>Title</key>
-						<string>Search the web with Google</string>
-						<key>URL</key>
-						<string>http://www.google.com/search?q=%Search%</string>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>474591939.09862</real>
-				<key>ModificationDate</key>
-				<real>474591939.09862</real>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>5</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>4608</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>D7C21C7D-1037-47DC-B4FA-E0DB8F528D3E</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>*Global</string>
-		<key>ToggleMacroUID</key>
-		<string>4A6EC5BA-898E-4471-B4B6-6D157300FBA2</string>
-		<key>UID</key>
-		<string>F0B7FBEB-B017-4238-8198-7FED5DF23D8E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -66329,51 +66143,6 @@ kme.setvariable("y", {to:""+y})
 		<string>55754C0C-9422-4C4E-9414-4C3CFB26E721</string>
 		<key>UID</key>
 		<string>A7B8174A-43BE-4FC3-B143-C22E75BAAECB</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>530545184.89642102</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DeviceID</key>
-						<string>SOUNDEFFECTS</string>
-						<key>MacroActionType</key>
-						<string>PlaySound</string>
-						<key>Path</key>
-						<string>/System/Library/Sounds/Glass.aiff</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>524846094.84522498</real>
-				<key>ModificationDate</key>
-				<real>524846106.04671001</real>
-				<key>Name</key>
-				<string>Sleep</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>MacroTriggerType</key>
-						<string>Sleep</string>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>597E7FD1-DF18-43D8-AE30-8DE027AA45D5</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>*Global</string>
-		<key>ToggleMacroUID</key>
-		<string>4A6EC5BA-898E-4471-B4B6-6D157300FBA2</string>
-		<key>UID</key>
-		<string>F0B7FBEB-B017-4238-8198-7FED5DF23D8E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -82900,8 +82669,6 @@ if (runSingle) single()
 				</array>
 				<key>CreationDate</key>
 				<real>515336961.72523302</real>
-				<key>IsActive</key>
-				<false/>
 				<key>ModificationDate</key>
 				<real>539584929.33002806</real>
 				<key>Name</key>
@@ -87855,6 +87622,314 @@ Application("VoiceOver").output(obj.name()+" selected")
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
+		<real>474591939.09862</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Macro</string>
+									<key>MacroConditionType</key>
+									<string>IsEnabled</string>
+									<key>MacroUID</key>
+									<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Mouse On")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>82EB8E84-2FE7-4AB2-BB2F-3680048B08C2</string>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Mouse Off")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>500667533.44200301</real>
+				<key>ModificationDate</key>
+				<real>534271441.515733</real>
+				<key>Name</key>
+				<string>Toggle Flo Mouse</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>44</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>256</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>0D1179E6-67B7-4B3F-AF22-8220E83AABA1</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Global Macro Group</string>
+		<key>ToggleMacroUID</key>
+		<string>24AA57C4-B06D-4870-8FA0-6EADE318664D</string>
+		<key>UID</key>
+		<string>09F8C921-9ED5-4D5A-B547-21A8752340AE</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>474591939.09862</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>Conditions</key>
+						<dict>
+							<key>ConditionList</key>
+							<array>
+								<dict>
+									<key>ConditionType</key>
+									<string>Macro</string>
+									<key>MacroConditionType</key>
+									<string>IsEnabled</string>
+									<key>MacroUID</key>
+									<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+								</dict>
+							</array>
+							<key>ConditionListMatch</key>
+							<string>All</string>
+						</dict>
+						<key>ElseActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+							</dict>
+							<dict>
+								<key>DisplayToggle</key>
+								<false/>
+								<key>MacroActionType</key>
+								<string>MacroGroupToggle</string>
+								<key>MacroGroupUID</key>
+								<string>A873DB58-32B1-4730-B0D4-9C89056CB5F7</string>
+								<key>ToggleMode</key>
+								<string>Deactivate</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>17060DFD-4569-4033-92B1-5E3E5D8B22E7</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>336D9616-EFBD-43D1-98C9-94A173E3D9EB</string>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Numpad On")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>MacroActionType</key>
+						<string>IfThenElse</string>
+						<key>ThenActions</key>
+						<array>
+							<dict>
+								<key>Action</key>
+								<string>Disable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>17060DFD-4569-4033-92B1-5E3E5D8B22E7</string>
+							</dict>
+							<dict>
+								<key>Action</key>
+								<string>Enable</string>
+								<key>MacroActionType</key>
+								<string>SetMacroEnable</string>
+								<key>MacroUID</key>
+								<string>336D9616-EFBD-43D1-98C9-94A173E3D9EB</string>
+							</dict>
+							<dict>
+								<key>DisplayKind</key>
+								<string>None</string>
+								<key>IncludeStdErr</key>
+								<true/>
+								<key>MacroActionType</key>
+								<string>ExecuteJavaScriptForAutomation</string>
+								<key>NotifyOnFailure</key>
+								<false/>
+								<key>Path</key>
+								<string></string>
+								<key>StopOnFailure</key>
+								<false/>
+								<key>Text</key>
+								<string>Application("VoiceOver").output("Numpad Off")</string>
+								<key>TimeOutAbortsMacro</key>
+								<true/>
+								<key>TrimResults</key>
+								<true/>
+								<key>TrimResultsNew</key>
+								<true/>
+								<key>UseText</key>
+								<true/>
+							</dict>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>503191698.386913</real>
+				<key>ModificationDate</key>
+				<real>540144875.22156894</real>
+				<key>Name</key>
+				<string>Toggle Flo Num Pad</string>
+				<key>Triggers</key>
+				<array>
+					<dict>
+						<key>FireType</key>
+						<string>Pressed</string>
+						<key>KeyCode</key>
+						<integer>44</integer>
+						<key>MacroTriggerType</key>
+						<string>HotKey</string>
+						<key>Modifiers</key>
+						<integer>4096</integer>
+					</dict>
+				</array>
+				<key>UID</key>
+				<string>F0163D11-CBF1-4068-B228-270A0A12F248</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Global Macro Group</string>
+		<key>ToggleMacroUID</key>
+		<string>24AA57C4-B06D-4870-8FA0-6EADE318664D</string>
+		<key>UID</key>
+		<string>09F8C921-9ED5-4D5A-B547-21A8752340AE</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
 		<real>499012071.76373202</real>
 		<key>IsActive</key>
 		<false/>
@@ -87982,8 +88057,6 @@ else vo.output("Auto Input")
 				</array>
 				<key>CreationDate</key>
 				<real>522974822.09080797</real>
-				<key>IsActive</key>
-				<false/>
 				<key>ModificationDate</key>
 				<real>539584879.27438796</real>
 				<key>Name</key>
@@ -89219,6 +89292,16 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 										<key>ToggleMode</key>
 										<string>Deactivate</string>
 									</dict>
+									<dict>
+										<key>DisplayToggle</key>
+										<false/>
+										<key>MacroActionType</key>
+										<string>MacroGroupToggle</string>
+										<key>MacroGroupUID</key>
+										<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+										<key>ToggleMode</key>
+										<string>Activate</string>
+									</dict>
 								</array>
 								<key>MacroActionType</key>
 								<string>IfThenElse</string>
@@ -89234,6 +89317,16 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 										<key>ToggleMode</key>
 										<string>Activate</string>
 									</dict>
+									<dict>
+										<key>DisplayToggle</key>
+										<false/>
+										<key>MacroActionType</key>
+										<string>MacroGroupToggle</string>
+										<key>MacroGroupUID</key>
+										<string>7329E52D-34AB-4ECC-AD6B-1EC7ED1DEAD1</string>
+										<key>ToggleMode</key>
+										<string>Deactivate</string>
+									</dict>
 								</array>
 								<key>TimeOutAbortsMacro</key>
 								<true/>
@@ -89246,7 +89339,7 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 				<key>CreationDate</key>
 				<real>533998645.120296</real>
 				<key>ModificationDate</key>
-				<real>540016981.96191704</real>
+				<real>540146425.082461</real>
 				<key>Name</key>
 				<string>Toggle Temporary INspector</string>
 				<key>Triggers</key>
@@ -89974,166 +90067,6 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 		<key>Activate</key>
 		<string>Normal</string>
 		<key>CreationDate</key>
-		<real>530545184.89642102</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>Conditions</key>
-						<dict>
-							<key>ConditionList</key>
-							<array>
-								<dict>
-									<key>ConditionType</key>
-									<string>Macro</string>
-									<key>MacroConditionType</key>
-									<string>IsEnabled</string>
-									<key>MacroUID</key>
-									<string>E515A30C-395B-4967-AD64-B519B18764B9</string>
-								</dict>
-							</array>
-							<key>ConditionListMatch</key>
-							<string>All</string>
-						</dict>
-						<key>ElseActions</key>
-						<array>
-							<dict>
-								<key>Conditions</key>
-								<dict>
-									<key>ConditionList</key>
-									<array>
-										<dict>
-											<key>ConditionType</key>
-											<string>Macro</string>
-											<key>MacroConditionType</key>
-											<string>IsDisabled</string>
-											<key>MacroUID</key>
-											<string>E515A30C-395B-4967-AD64-B519B18764B9</string>
-										</dict>
-									</array>
-									<key>ConditionListMatch</key>
-									<string>All</string>
-								</dict>
-								<key>ElseActions</key>
-								<array/>
-								<key>MacroActionType</key>
-								<string>IfThenElse</string>
-								<key>ThenActions</key>
-								<array>
-									<dict>
-										<key>Action</key>
-										<string>Enable</string>
-										<key>MacroActionType</key>
-										<string>SetMacroEnable</string>
-										<key>MacroUID</key>
-										<string>E515A30C-395B-4967-AD64-B519B18764B9</string>
-									</dict>
-									<dict>
-										<key>DisplayKind</key>
-										<string>None</string>
-										<key>IncludeStdErr</key>
-										<true/>
-										<key>MacroActionType</key>
-										<string>ExecuteJavaScriptForAutomation</string>
-										<key>NotifyOnFailure</key>
-										<false/>
-										<key>Path</key>
-										<string></string>
-										<key>StopOnFailure</key>
-										<false/>
-										<key>Text</key>
-										<string>Application("VoiceOver").output("VOCR on.")</string>
-										<key>TimeOutAbortsMacro</key>
-										<true/>
-										<key>TrimResults</key>
-										<true/>
-										<key>TrimResultsNew</key>
-										<true/>
-										<key>UseText</key>
-										<true/>
-									</dict>
-								</array>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-							</dict>
-						</array>
-						<key>MacroActionType</key>
-						<string>IfThenElse</string>
-						<key>ThenActions</key>
-						<array>
-							<dict>
-								<key>Action</key>
-								<string>Disable</string>
-								<key>MacroActionType</key>
-								<string>SetMacroEnable</string>
-								<key>MacroUID</key>
-								<string>E515A30C-395B-4967-AD64-B519B18764B9</string>
-							</dict>
-							<dict>
-								<key>DisplayKind</key>
-								<string>None</string>
-								<key>IncludeStdErr</key>
-								<true/>
-								<key>MacroActionType</key>
-								<string>ExecuteJavaScriptForAutomation</string>
-								<key>NotifyOnFailure</key>
-								<false/>
-								<key>Path</key>
-								<string></string>
-								<key>StopOnFailure</key>
-								<false/>
-								<key>Text</key>
-								<string>Application("VoiceOver").output("VOCR off.")</string>
-								<key>TimeOutAbortsMacro</key>
-								<true/>
-								<key>TrimResults</key>
-								<true/>
-								<key>TrimResultsNew</key>
-								<true/>
-								<key>UseText</key>
-								<true/>
-							</dict>
-						</array>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>526177437.34775001</real>
-				<key>ModificationDate</key>
-				<real>530540234.40283</real>
-				<key>Name</key>
-				<string>Toggle VOCR</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>31</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2816</integer>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>64FDB9DD-C930-4186-922B-3F5DCE4613B6</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>*Global</string>
-		<key>ToggleMacroUID</key>
-		<string>4A6EC5BA-898E-4471-B4B6-6D157300FBA2</string>
-		<key>UID</key>
-		<string>F0B7FBEB-B017-4238-8198-7FED5DF23D8E</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
 		<real>499012071.76373202</real>
 		<key>IsActive</key>
 		<false/>
@@ -90678,55 +90611,6 @@ if (runSingle) single()
 		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
 		<key>UID</key>
 		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>530545184.89642102</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>MacroActionType</key>
-						<string>TriggerByName</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>474591939.09862</real>
-				<key>ModificationDate</key>
-				<real>515365634.69213802</real>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>FireType</key>
-						<string>Pressed</string>
-						<key>KeyCode</key>
-						<integer>45</integer>
-						<key>MacroTriggerType</key>
-						<string>HotKey</string>
-						<key>Modifiers</key>
-						<integer>2816</integer>
-					</dict>
-					<dict>
-						<key>MacroTriggerType</key>
-						<string>StatusMenu</string>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>08B93DE3-E193-445F-B2C7-1414D94BC69D</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>*Global</string>
-		<key>ToggleMacroUID</key>
-		<string>4A6EC5BA-898E-4471-B4B6-6D157300FBA2</string>
-		<key>UID</key>
-		<string>F0B7FBEB-B017-4238-8198-7FED5DF23D8E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -93410,51 +93294,6 @@ if (runSingle) single()
 		<string>1C337983-FAFC-44BA-87B2-FAD248CD50B2</string>
 		<key>UID</key>
 		<string>15A122DC-BECF-4662-8169-AD33A26DA65B</string>
-	</dict>
-	<dict>
-		<key>Activate</key>
-		<string>Normal</string>
-		<key>CreationDate</key>
-		<real>530545184.89642102</real>
-		<key>Macros</key>
-		<array>
-			<dict>
-				<key>Actions</key>
-				<array>
-					<dict>
-						<key>DeviceID</key>
-						<string>SOUNDEFFECTS</string>
-						<key>MacroActionType</key>
-						<string>PlaySound</string>
-						<key>Path</key>
-						<string>/System/Library/Sounds/Glass.aiff</string>
-						<key>TimeOutAbortsMacro</key>
-						<true/>
-					</dict>
-				</array>
-				<key>CreationDate</key>
-				<real>519720773.55464602</real>
-				<key>ModificationDate</key>
-				<real>519720875.66364598</real>
-				<key>Name</key>
-				<string>Woke up</string>
-				<key>Triggers</key>
-				<array>
-					<dict>
-						<key>MacroTriggerType</key>
-						<string>Wake</string>
-					</dict>
-				</array>
-				<key>UID</key>
-				<string>E7B3823E-A99A-4C6B-A180-9886804092C0</string>
-			</dict>
-		</array>
-		<key>Name</key>
-		<string>*Global</string>
-		<key>ToggleMacroUID</key>
-		<string>4A6EC5BA-898E-4471-B4B6-6D157300FBA2</string>
-		<key>UID</key>
-		<string>F0B7FBEB-B017-4238-8198-7FED5DF23D8E</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
