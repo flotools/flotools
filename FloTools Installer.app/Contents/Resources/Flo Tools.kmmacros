@@ -5874,11 +5874,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -6089,11 +6089,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -6305,11 +6305,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -28937,7 +28937,7 @@ for (i in inputs) {
 element = inputs[i]
 if (element.type == "checkbox") {
 window.preference[element.name] = element.checked
-} else if (element.type == "radio") {
+} else if (element.type == "radio" &amp; element.checked == true) {
 window.preference[element.name] = element.value
 }
 }
@@ -28955,18 +28955,18 @@ window.KeyboardMaestro.Cancel()
 
 &lt;div id='preference'&gt;
 &lt;p&gt;
-&lt;input name="temporary inspector" type="checkbox" /&gt;Use temporary inspector&lt;br&gt;
-&lt;input name="option numpad" type="checkbox" /&gt;Use option+number row as numpad with no modifier
-&lt;input name="starts with inspector" type="checkbox" /&gt;Turn on Flo Tools inspector when Pro Tools starts&lt;br&gt;
+Use temporary inspector&lt;input name="temporary inspector" type="checkbox" /&gt;&lt;br/&gt;
+Use option+number row as numpad with no modifier&lt;input name="option numpad" type="checkbox" /&gt;&lt;br/&gt;
+Turn on the inspector when Pro Tools starts&lt;input name="starts with inspector" type="checkbox" /&gt;
 &lt;/p&gt;
 
-&lt;!---
 &lt;p&gt;
-Vervosity:&lt;br&gt;
-&lt;input name="vervosity" value="long" type="radio" onchange="change(this)" /&gt;Long&lt;br&gt;
-&lt;input name="vervosity" value="short" type="radio" onchange="change(this)" /&gt;Short&lt;br&gt;
+Doubletap Timeout:&lt;br&gt;
+&lt;input name="timeout" value="200" type="radio" /&gt;200
+&lt;input name="timeout" value="300" type="radio" /&gt;300
+&lt;input name="timeout" value="400" type="radio" /&gt;400
+&lt;input name="timeout" value="500" type="radio" /&gt;500
 &lt;/p&gt;
----&gt;
 
 &lt;p&gt;
 &lt;button onClick="cancel()"&gt;CANCEL&lt;/button&gt;
@@ -29030,7 +29030,7 @@ app.closeAccess(file)
 				<key>CreationDate</key>
 				<real>539938778.20202196</real>
 				<key>ModificationDate</key>
-				<real>540131148.61833596</real>
+				<real>540135309.87471104</real>
 				<key>Name</key>
 				<string>Flo Tools Preference</string>
 				<key>Triggers</key>
@@ -34745,12 +34745,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -34908,12 +34908,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -35073,12 +35073,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -35317,12 +35317,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -35757,12 +35757,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -56535,7 +56535,7 @@ try {
 str = app.read(Path(fileName))
 console.log(str)
 } catch(err) {
-str = '{"temporary inspector":false,"option numpad":false,"starts with inspector":false}'
+str = '{"temporary inspector":false,"option numpad":false,"starts with inspector":false,"timeout":"200"}'
 file = app.openForAccess(Path(fileName), {writePermission:true})
 app.setEof(file, {to:0})
 app.write(str, {to:file, as:"text"})
@@ -56559,6 +56559,7 @@ kme.doScript(xml)
 xml = "&lt;array&gt;	&lt;dict&gt;		&lt;key&gt;Action&lt;/key&gt;		&lt;string&gt;Disable&lt;/string&gt;		&lt;key&gt;MacroActionType&lt;/key&gt;		&lt;string&gt;SetMacroEnable&lt;/string&gt;		&lt;key&gt;MacroUID&lt;/key&gt;		&lt;string&gt;E63048EB-FBD0-41A9-A4C7-8922216F11D3&lt;/string&gt;	&lt;/dict&gt;&lt;/array&gt;"
 kme.doScript(xml)
 }
+kme.setvariable("FTTimeout", {to:preference["timeout"]})
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -56573,7 +56574,7 @@ kme.doScript(xml)
 				<key>CreationDate</key>
 				<real>539979531.77549398</real>
 				<key>ModificationDate</key>
-				<real>540130300.53189898</real>
+				<real>540135760.07655299</real>
 				<key>Name</key>
 				<string>Refresh Preference</string>
 				<key>Triggers</key>
@@ -68088,12 +68089,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -68521,12 +68522,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -68757,12 +68758,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -69009,12 +69010,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -69342,12 +69343,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -69626,12 +69627,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -70042,12 +70043,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -70263,12 +70264,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -70708,12 +70709,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -70926,11 +70927,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -71329,12 +71330,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -71559,12 +71560,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -71791,12 +71792,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -72031,12 +72032,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -72276,12 +72277,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -72496,12 +72497,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -72754,12 +72755,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -72998,12 +72999,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -73212,12 +73213,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -73464,12 +73465,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -73708,12 +73709,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -73946,12 +73947,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -74184,12 +74185,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -74395,12 +74396,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -74615,11 +74616,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -74835,11 +74836,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -75055,11 +75056,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -75275,11 +75276,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -75495,11 +75496,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -75715,11 +75716,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -75936,11 +75937,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -76156,11 +76157,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -76376,11 +76377,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -76596,11 +76597,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -76816,11 +76817,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -76954,11 +76955,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -77091,11 +77092,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -77228,11 +77229,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -77365,11 +77366,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -77502,11 +77503,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -77640,11 +77641,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -77777,11 +77778,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -77914,11 +77915,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -78051,11 +78052,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -78270,12 +78271,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -78500,12 +78501,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -78722,12 +78723,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -78942,12 +78943,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -79162,11 +79163,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -79378,11 +79379,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -79510,11 +79511,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -79642,11 +79643,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -79857,12 +79858,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -79989,12 +79990,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -80121,12 +80122,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -80254,11 +80255,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -80479,11 +80480,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -80707,11 +80708,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -80922,12 +80923,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -81236,12 +81237,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -81459,11 +81460,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -81679,12 +81680,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -81816,12 +81817,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -82032,12 +82033,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -82171,12 +82172,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -82360,12 +82361,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -82488,12 +82489,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -82612,12 +82613,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -82827,12 +82828,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -83119,12 +83120,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -83335,12 +83336,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -83542,12 +83543,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -83666,12 +83667,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -83802,12 +83803,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -84026,12 +84027,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -84241,12 +84242,12 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 kme.playSound(Path("/System/Library/Sounds/Tink.aiff"))
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
@@ -89286,6 +89287,8 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 				</array>
 				<key>CreationDate</key>
 				<real>533998645.120296</real>
+				<key>IsActive</key>
+				<false/>
 				<key>ModificationDate</key>
 				<real>540016981.96191704</real>
 				<key>Name</key>
@@ -90151,11 +90154,11 @@ kme = Application("Keyboard Maestro Engine")
 command = kme.getvariable("command").split(".")
 start = new Date().getTime()
 kme.setvariable("command", {to:currentCommand+"."+start})
-if (currentCommand == command[0] &amp; start-command[1]&lt;200) {
+if (currentCommand == command[0] &amp; start-command[1]&lt;kme.getvariable("FTTimeout")) {
 double()
 } else  {
 runSingle = true
-while (new Date().getTime()-start&lt;200) {
+while (new Date().getTime()-start&lt;kme.getvariable("FTTimeout")) {
 command = kme.getvariable("command").split(".")
 if (currentCommand == command[0] &amp; command[1]&gt;start) {
 runSingle=false
