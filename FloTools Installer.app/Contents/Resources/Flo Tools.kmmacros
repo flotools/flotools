@@ -13,6 +13,18 @@
 				<key>Actions</key>
 				<array>
 					<dict>
+						<key>Asynchronously</key>
+						<false/>
+						<key>MacroActionType</key>
+						<string>ExecuteMacro</string>
+						<key>MacroUID</key>
+						<string>4285E9A2-24B6-4A7C-B65F-E0295B60D3B9</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>UseParameter</key>
+						<false/>
+					</dict>
+					<dict>
 						<key>Conditions</key>
 						<dict>
 							<key>ConditionList</key>
@@ -365,7 +377,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>540129214.42587602</real>
+				<real>540217332.40785098</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.3.2. Check for Automatic Update</string>
 				<key>Triggers</key>
@@ -6905,6 +6917,18 @@ if (runSingle) single()
 				<key>Actions</key>
 				<array>
 					<dict>
+						<key>Asynchronously</key>
+						<false/>
+						<key>MacroActionType</key>
+						<string>ExecuteMacro</string>
+						<key>MacroUID</key>
+						<string>4285E9A2-24B6-4A7C-B65F-E0295B60D3B9</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>UseParameter</key>
+						<false/>
+					</dict>
+					<dict>
 						<key>Action</key>
 						<string>CancelAllMacros</string>
 						<key>MacroActionType</key>
@@ -6914,7 +6938,7 @@ if (runSingle) single()
 				<key>CreationDate</key>
 				<real>527057417.16288197</real>
 				<key>ModificationDate</key>
-				<real>527057583.81411201</real>
+				<real>540218049.68071902</real>
 				<key>Name</key>
 				<string>Cancel Macros</string>
 				<key>Triggers</key>
@@ -7862,6 +7886,74 @@ if (runSingle) single()
 		<string>23969A9C-900E-4617-8CB8-3F621747F431</string>
 		<key>UID</key>
 		<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+	</dict>
+	<dict>
+		<key>Activate</key>
+		<string>Normal</string>
+		<key>CreationDate</key>
+		<real>500760463.49967402</real>
+		<key>Macros</key>
+		<array>
+			<dict>
+				<key>Actions</key>
+				<array>
+					<dict>
+						<key>DisplayKind</key>
+						<string>None</string>
+						<key>IncludeStdErr</key>
+						<true/>
+						<key>MacroActionType</key>
+						<string>ExecuteJavaScriptForAutomation</string>
+						<key>Path</key>
+						<string></string>
+						<key>Text</key>
+						<string>kme = Application("Keyboard Maestro Engine")
+kme.setvariable("command", {to:"%Delete%"})
+kme.setvariable("FTTimeout", {to:"%Delete%"})
+kme.setvariable("FTSkip", {to:"%Delete%"})
+kme.setvariable("FTUrl", {to:"%Delete%"})
+kme.setvariable("FTPrompt", {to:"%Delete%"})
+kme.setvariable("FTPreference", {to:"%Delete%"})
+kme.setvariable("point2", {to:"%Delete%"})
+kme.setvariable("point1", {to:"%Delete%"})
+kme.setvariable("x", {to:"%Delete%"})
+kme.setvariable("y", {to:"%Delete%"})
+kme.setvariable("FTGRMonitor", {to:"%Delete%"})
+kme.setvariable("FTGRMax", {to:"%Delete%"})
+kme.setvariable("FTLevelMonitor", {to:"%Delete%"})
+kme.setvariable("FTEventIndex", {to:"%Delete%"})
+kme.setvariable("FTPluginMonitor", {to:"%Delete%"})
+kme.setvariable("FTPluginControlIndex", {to:"%Delete%"})
+kme.setvariable("FTPluginControlParameters", {to:"%Delete%"})
+</string>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+						<key>TrimResults</key>
+						<true/>
+						<key>TrimResultsNew</key>
+						<true/>
+						<key>UseText</key>
+						<true/>
+					</dict>
+				</array>
+				<key>CreationDate</key>
+				<real>540217164.26168001</real>
+				<key>ModificationDate</key>
+				<real>540218225.34762895</real>
+				<key>Name</key>
+				<string>Cleanup Variables</string>
+				<key>Triggers</key>
+				<array/>
+				<key>UID</key>
+				<string>4285E9A2-24B6-4A7C-B65F-E0295B60D3B9</string>
+			</dict>
+		</array>
+		<key>Name</key>
+		<string>Flo Tools Global</string>
+		<key>ToggleMacroUID</key>
+		<string>461221CF-A568-4719-9C3F-3D41C05A5B09</string>
+		<key>UID</key>
+		<string>FEA49FEF-1551-453B-9E90-02A376C079B6</string>
 	</dict>
 	<dict>
 		<key>Activate</key>
@@ -19733,8 +19825,8 @@ vo.output(wx+", "+wy)
 						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
-kme.setvariable("FTGRMonitor", {to:"0"})
-kme.setvariable("FTLevelMonitor", {to:"0"})
+kme.setvariable("FTGRMonitor", {to:"%Delete%"})
+kme.setvariable("FTLevelMonitor", {to:"%Delete%"})
 </string>
 						<key>TimeOutAbortsMacro</key>
 						<true/>
@@ -19749,7 +19841,7 @@ kme.setvariable("FTLevelMonitor", {to:"0"})
 				<key>CreationDate</key>
 				<real>495930556.474666</real>
 				<key>ModificationDate</key>
-				<real>495931544.53257799</real>
+				<real>540217947.64927804</real>
 				<key>Name</key>
 				<string>Deactivate Level and Gain Reduction Monitors</string>
 				<key>Triggers</key>
@@ -93166,8 +93258,6 @@ if (runSingle) single()
 				</array>
 				<key>CreationDate</key>
 				<real>539971138.36162996</real>
-				<key>IsActive</key>
-				<false/>
 				<key>ModificationDate</key>
 				<real>540017151.540892</real>
 				<key>Name</key>
