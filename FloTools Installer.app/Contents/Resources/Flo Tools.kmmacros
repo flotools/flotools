@@ -7904,8 +7904,12 @@ if (runSingle) single()
 						<true/>
 						<key>MacroActionType</key>
 						<string>ExecuteJavaScriptForAutomation</string>
+						<key>NotifyOnFailure</key>
+						<false/>
 						<key>Path</key>
 						<string></string>
+						<key>StopOnFailure</key>
+						<false/>
 						<key>Text</key>
 						<string>kme = Application("Keyboard Maestro Engine")
 kme.setvariable("command", {to:"%Delete%"})
@@ -29077,9 +29081,9 @@ window.KeyboardMaestro.Cancel()
 
 &lt;div id='preference'&gt;
 &lt;p&gt;
-Use temporary inspector&lt;input name="temporary inspector" type="checkbox" /&gt;&lt;br/&gt;
-Use option+number row as numpad with no modifier&lt;input name="option numpad" type="checkbox" /&gt;&lt;br/&gt;
-Turn on the inspector when Pro Tools starts&lt;input name="starts with inspector" type="checkbox" /&gt;&lt;br/&gt;
+&lt;input name="temporary inspector" type="checkbox" /&gt;Use temporary inspector&lt;br/&gt;
+&lt;input name="option numpad" type="checkbox" /&gt;Use option+number row as numpad with no modifier&lt;br/&gt;
+&lt;input name="starts with inspector" type="checkbox" /&gt;Turn on the inspector when Pro Tools starts&lt;br/&gt;
 Doubletap Timeout: 
 &lt;select name="timeout"&gt;
 &lt;option value="200"&gt;200&lt;/option&gt;
@@ -29151,7 +29155,7 @@ app.closeAccess(file)
 				<key>CreationDate</key>
 				<real>539938778.20202196</real>
 				<key>ModificationDate</key>
-				<real>540144034.87993896</real>
+				<real>540233587.85278296</real>
 				<key>Name</key>
 				<string>Flo Tools Preference</string>
 				<key>Triggers</key>
