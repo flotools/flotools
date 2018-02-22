@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<data>
-		Y6hU0/Hfe9uAOwF8Cl7TWiY6NZQ=
+		prcadJZ5w+lieXGsOgBagBjRixE=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<data>
@@ -14,11 +14,15 @@
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-B8D-0N-5wS.nib</key>
 		<data>
-		IkMC02+8eI3hTAT8LR+rQBze0fg=
+		kiC2Y6SC7Lr3y5Xx5qjkXhRaINs=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<data>
 		LYQKiXkcwiiUnhsqtS/NFWuq1Ys=
+		</data>
+		<key>Resources/com.chikim.FloNumPad.plist</key>
+		<data>
+		bQDtfVDuxaAlf6qPxVyzt3n4gyA=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -171,7 +175,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			PlK9uzE52vx10wHimCDjARL1XMI3/NeIZwAcabhCXLE=
+			Fm3PWQhWqDeRaa9DNn6ImHDS93NwgiUuGYn0oZDJNVs=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
@@ -185,7 +189,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			we7klhhRtVYN9GjjsICxBqUuw4p3rGKm0XWWwI/SIx0=
+			G3NAoRZYYXU1FlT8u8y7b5g4bILerq/zWbMxzULD7bs=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
@@ -193,6 +197,13 @@
 			<key>hash2</key>
 			<data>
 			vNP1WoTVXUD+Z1KTWH3w4lsKd/WCv9kUxYHWFqPdH6E=
+			</data>
+		</dict>
+		<key>Resources/com.chikim.FloNumPad.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zwtz23BY9YRGE9uadelLhOaKpll1hvlxZganbhr6TKI=
 			</data>
 		</dict>
 	</dict>
