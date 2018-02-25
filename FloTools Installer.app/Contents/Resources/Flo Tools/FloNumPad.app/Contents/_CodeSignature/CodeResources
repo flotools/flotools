@@ -4,17 +4,25 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Resources/AppIcon.icns</key>
+		<data>
+		gWrT3WZLW5a3gNJG1uuW7ku2u6U=
+		</data>
+		<key>Resources/Assets.car</key>
+		<data>
+		vOwEZxTu63CG6SVAf/GMQPuXn8M=
+		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<data>
-		prcadJZ5w+lieXGsOgBagBjRixE=
+		J+3JFwP3ULPFt5u9P/7Q+sgEGcw=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<data>
-		S0eDDiRNyGC774acV1huQGeY+UU=
+		HrgyiqSGlSDYUQhIDj/Ly4n45vc=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-B8D-0N-5wS.nib</key>
 		<data>
-		kiC2Y6SC7Lr3y5Xx5qjkXhRaINs=
+		ozUCod9k/Bune6/QRmu2IN2pp8M=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<data>
@@ -22,7 +30,7 @@
 		</data>
 		<key>Resources/com.chikim.FloNumPad.plist</key>
 		<data>
-		bQDtfVDuxaAlf6qPxVyzt3n4gyA=
+		jtFlwAJ6Ykom0HfrkM7+KaiSSTc=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -162,34 +170,39 @@
 			<key>requirement</key>
 			<string>anchor apple generic and identifier "com.apple.dt.runtime.swiftos" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "9N598S2535")</string>
 		</dict>
-		<key>Library/LoginItems/FloNumPadLaunchApp.app</key>
+		<key>Resources/AppIcon.icns</key>
 		<dict>
-			<key>cdhash</key>
+			<key>hash2</key>
 			<data>
-			Nj68w/MlzuatsUKba0PUY/xlkAs=
+			T+MMagTMqHNqxiznO9W4xCvFoqNCh4aB4avQQBR2dz0=
 			</data>
-			<key>requirement</key>
-			<string>anchor apple generic and identifier "com.chikim.FloNumPadLaunchApp" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "9N598S2535")</string>
+		</dict>
+		<key>Resources/Assets.car</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			anWwkrqoiHU9SUXmouIUv896yt9Xr390MRfSnddtQyg=
+			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Fm3PWQhWqDeRaa9DNn6ImHDS93NwgiUuGYn0oZDJNVs=
+			gTMElyn/AIpiS+qF5pbyvTAtWbfK8gbMchrUl1DCs3Y=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Qjy4XEoLIuzADzOMd37bC/qIy9mN7rsGO8/kXOMPqlc=
+			nREQktGZ5RkOp8Za0M8NXv8F9U5fw0ronSmpAaEcx+M=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-B8D-0N-5wS.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			G3NAoRZYYXU1FlT8u8y7b5g4bILerq/zWbMxzULD7bs=
+			jgXIalx2ONUXNqO+aOKaQHxN4H3OI1oyni0eBWgJCTo=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
@@ -203,7 +216,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zwtz23BY9YRGE9uadelLhOaKpll1hvlxZganbhr6TKI=
+			Rzd7OkFf8mA4CqijAviscjJdm9mgYrg901JvaFpKSGQ=
 			</data>
 		</dict>
 	</dict>
