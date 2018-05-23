@@ -83,8 +83,14 @@ For all functions of Flo Tools to work as expected, it is recommended to apply t
 6. In the toolbar menu of the edit window, the "Transport", "midi Controls", and "expanded transport" settings should be checked.
 7. If the default keyboard is not set to "US" in System Preferences, Keyboards, input sources, please add it to the list of input sources, and switch to it when using Flo Tools.
 
+A FloTools Session Template with these settings is provided for convenience when installing  FloTools 2018.5 and above.
 
-Pro Tools includes a Keyboard Focus mode, within which commands are issued through single letter keystrokes. When Keyboard Focus mode is not active, these same commands can be issued by adding the Control key as a modifier. Since certain Flo Tools commands are issued with single letter taps and double-taps, it is recommended that users avoid the Keyboard Focus mode in Pro Tools. Although Flo Tools will function as expected in Keyboard Focus mode, users may inadvertently press a keystroke not used by Flo Tools and pass unwanted commands through to Pro Tools, yielding unexpected results. To allow use of the  Control modifier instead of keyboard focus mode for Pro Tools, and make single letter commands available for Flo Tools, move VoiceOver focus either on the Clips list by pressing Command-Option-2, or the Groups List by pressing Command-Option-3 while in the edit window.
+
+Pro Tools includes a Keyboard Focus mode, within which commands are issued through single letter keystrokes. When Keyboard Focus mode is not active, these same commands can be issued by adding the Control key as a modifier. Since certain Flo Tools commands are issued with single letter taps and double-taps, it is recommended that users avoid the Keyboard Focus mode in Pro Tools. 
+
+Although Flo Tools will function as expected in Keyboard Focus mode, users may inadvertently press a keystroke not used by Flo Tools and pass unwanted commands through to Pro Tools, yielding unexpected results.
+
+To allow use of the  Control modifier instead of keyboard focus mode for Pro Tools, and make single letter commands available for Flo Tools, move VoiceOver focus either on the Clips list by pressing Command-Option-2, or the Groups List by pressing Command-Option-3 while in the edit window.
 
 
 <div id='usingflotools'/>
@@ -99,7 +105,7 @@ The second is [This Sound](Pop.aiff), which signals that something is in process
 
 ### Commands
 
-Flo Tools is organized into 22 macro groups inside of Keyboard Maestro. Below is a list of Flo Tools commands, and their associated functions, separated by their respective groups.
+Flo Tools is organized into 24 macro groups inside of Keyboard Maestro. Below is a list of Flo Tools commands, and their associated functions, separated by their respective groups.
 
 #### Flo Tools
 
@@ -153,7 +159,9 @@ Where two actions are listed, double-tapping the key will perform the second act
 * Speak/Toggle Midi Merge:	Option+num pad 9
 * Speak/Toggle Link Timeline and Edit Selection: Shift+/
 * Speak/Toggle Tab to Transients:	Command+Option+Tab
-* Speak/Toggle Insertion Follows Playback:	Control+n
+* Speak/Toggle Insertion Follows Playback:	Control+N
+* Speak/Toggle Online Transport: Command+J
+* Speak/Toggle Dynamic Transport: Command+Control+P
 * Speak/select shufflemode:	f1
 * Speak/Select Slip Mode:	f2
 * Speak/Select Spot Mode:	f3
@@ -162,6 +170,7 @@ Where two actions are listed, double-tapping the key will perform the second act
 * Speak/Toggle loop playback:	Command+Shift+l
 * Speak/Toggle Loop Record:	Option+l
 * Speak/Toggle Pre/Post-Roll:	Command+K
+* Speak/Toggle Narrow Mix: Command+Option+M
 * Select Clip Keyboard Focus: Command+Option+2
 * Select Group Keyboard Focus: Command+Option+3
 * Select Timeline Keyboard Focus: Command+Option+1
@@ -171,6 +180,8 @@ Where two actions are listed, double-tapping the key will perform the second act
 * Resize track list Table:	Command+Control+Shift+t
 * Resize clip list table:	Command+Control+Shift+c
 * Speak Selected Clips:	Option+Shift+, (comma)
+* FloTools Preferences: Command+Control+, (comma)
+* ProTools Preferences: Command+Option+, (comma)
 
 
 #### Flo Tools Global
@@ -183,7 +194,7 @@ This group also contains a macro that allows Flo Tools to run only while the Voi
 
 The Flo Tools Inspector group of commands is inactive by default, but can be toggled on and off. Inspector commands only apply to the track on which VoiceOver is currently focused . This means the track name must be under the VoiceOver cursor, and the user should not be interacting with anything inside the track.
 
-Note: The inspector must be disabled to use first-letter navigation in any pop-up menus, menu bars, or the doc while Pro Tools is running.
+Note: The inspector must be disabled to use first-letter navigation in any pop-up menus, menu bars, or the doc while Pro Tools is running. Alternatively, you can use the temporary inspector, documented at the end of this section, to regain first-letter navigation.
 
 Where 2 actions are listed, double tapping the key will perform the second action.
 
@@ -223,7 +234,12 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 * Beta: Speak/Select Track View: w
 * Speak/Toggle Freeze Status: f
 * Speak/Select Timebase: b
-* Beta: Speak/Select Elastic Audio Plugin: e
+* Beta: Speak/Select Elastic Audio Plugin: eFloTools also includes a temporary inspector, which only allows inspector commands to be executed while the accent key is pressed. This allows the Qwerty keyboard to be used for regular functions without conflict or interference of the inspector. 
+
+To activate the temporary inspector, press the accent key. Release the key to de-activate.
+
+For example, to check the solo state of a track with the temporary inspector, press and hold the accent key, then press s. To change the state, hold the accent key and double-tap s. Release the accent key to exit temporary inspector and return the keyboard to standard operation.
+
 
 #### Flo Mouse
 
@@ -270,9 +286,7 @@ This macro group allows easier navigation and editing of the Midi Event List usi
 
 #### Flo Num Pad
 
-Flo Tools provides a key remapping using the keyboard as a standard num pad. This num pad group of remappings can be used system-wide, and can be toggled on and off by pressing Control+/.
-
-Note that the inspector and num pad groups cannot be active at the same time. If the inspector is turned on, the num pad group is automatically turned off, and If the num pad group is turned on, the inspector is automatically turned off.
+Flo Tools provides a key remapping using the keyboard as a standard num pad. This num pad group of remappings can be used system-wide by pressing the function or FN key simultaneously with any remapped key.
 
 Below is the list of remapped keyboard keys when using the num pad group.
 
@@ -480,8 +494,17 @@ The Flo Tools team will use this information to determine what the problem and s
 * Speak Record-enabled Tracks/disarm all tracks has been taken out of beta stage, and now works reliably. This is also true for the related command, Control+Shift+r, to List Record-Enabled Tracks/List Record-Disabled Tracks.
 * Flo Tools installs Flo Mouse and Flo Num Pad
 
-### Flo Tools 2.3.3:
+### Flo Tools 2018.5:
+Please note: FloTools 2018.5 and later includes a stand-alone application for FloNumPad, instead of the previous Keyboard Maestro Macro Group. When installing FloTools 2018.5 and above for the first time, you must grant assistive access to FloNumPad during installation for it to work properly. 
+
+Flo Tools 2018.5 and above also requires that the installed version of Keyboard Maestro is 8.0 or higher. Below is the changelog for FloTools 2018.5:
 
 * Fixed the initial state of toggle input monitor and loop record.
-* Included the macros to toggle Flo Mouse and Flo Num Pad
 * Fixed Retrospective Midi Record in shortcut helper to reflect the changes in Pro Tools 2018.1
+* Added Flo Tools Session Template when installing FloTools. Find it under the template categories in ProTools.
+* Added speak/toggle online transport
+* Added speak/toggle narrow mix
+* Added Speak/Toggle Dynamic Transport
+* Added  pro tools preferences shortcut: Command+Option+, (comma)
+* added  FloTools preferences: Command+Control+, (Comma)
+* added temporary inspector. To activate, press and hold accent key while performing inspector functions. Release Accent key to exit temporary inspector.
