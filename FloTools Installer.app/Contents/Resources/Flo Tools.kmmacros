@@ -336,7 +336,7 @@ window.KeyboardMaestro.Cancel()
 									<key>VariableConditionType</key>
 									<string>Contains</string>
 									<key>VariableValue</key>
-									<string>"starts with inspector":true</string>
+									<string>"starts with Flo Tools inspector":true</string>
 								</dict>
 							</array>
 							<key>ConditionListMatch</key>
@@ -377,7 +377,7 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>540217332.40785098</real>
+				<real>548872177.179636</real>
 				<key>Name</key>
 				<string>* Flo Tools 2.3.2. Check for Automatic Update</string>
 				<key>Triggers</key>
@@ -26597,7 +26597,7 @@ window.KeyboardMaestro.Cancel()
 &lt;div id='preference'&gt;
 &lt;p&gt;
 &lt;input name="temporary inspector" type="checkbox" /&gt;Use temporary inspector&lt;br/&gt;
-&lt;input name="starts with inspector" type="checkbox" /&gt;Turn on the inspector when Pro Tools starts&lt;br/&gt;
+&lt;input name="starts with Flo Tools inspector" type="checkbox" /&gt;Turn on the Flo Tools inspector when Pro Tools starts&lt;br/&gt;
 Doubletap Timeout: 
 &lt;select name="timeout"&gt;
 &lt;option value="200"&gt;200&lt;/option&gt;
@@ -26669,7 +26669,7 @@ app.closeAccess(file)
 				<key>CreationDate</key>
 				<real>539938778.20202196</real>
 				<key>ModificationDate</key>
-				<real>541359729.73544502</real>
+				<real>548871963.66156602</real>
 				<key>Name</key>
 				<string>Flo Tools Preferences</string>
 				<key>Triggers</key>
@@ -52893,7 +52893,7 @@ try {
 str = app.read(Path(fileName))
 console.log(str)
 } catch(err) {
-str = '{"temporary inspector":false,"option numpad":false,"starts with inspector":false,"timeout":"200"}'
+str = '{"temporary inspector":false,"starts with Flo Tools inspector":false,"timeout":"200"}'
 file = app.openForAccess(Path(fileName), {writePermission:true})
 app.setEof(file, {to:0})
 app.write(str, {to:file, as:"text"})
@@ -52923,7 +52923,7 @@ kme.setvariable("FTTimeout", {to:preference["timeout"]})
 				<key>CreationDate</key>
 				<real>539979531.77549398</real>
 				<key>ModificationDate</key>
-				<real>541359664.600757</real>
+				<real>548871802.89638901</real>
 				<key>Name</key>
 				<string>Refresh Preference</string>
 				<key>Triggers</key>
