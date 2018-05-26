@@ -1,0 +1,3913 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
+{\fonttbl\f0\fnil\fcharset0 Verdana;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green196\blue255;\red108\green5\blue211;
+\red0\green0\blue255;\red76\green78\blue78;\red64\green128\blue0;\red251\green0\blue7;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c0\c0;\csgenericrgb\c100000\c76891\c100000;\csgenericrgb\c42337\c1841\c82833;
+\csgenericrgb\c0\c0\c100000;\csgenericrgb\c29999\c30457\c30457;\csgenericrgb\c25000\c50001\c0;\cssrgb\c100000\c0\c0;}
+\deftab480
+\pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf2 use
+\b0 \cf2  \cf4 AppleScript\cf2  \cf5 version\cf2  \cf2 "2.4"\cf2 \
+\pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
+
+\b \cf2 use
+\b0 \cf2  
+\i \cf5 framework
+\i0 \cf2  \cf2 "Foundation"\cf2 \
+\
+\cf6 -- classes, constants, and enums used\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSURLContentAccessDateKey\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSURLContentAccessDateKey\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSURLCreationDateKey\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSURLCreationDateKey\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSURLAddedToDirectoryDateKey\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSURLAddedToDirectoryDateKey\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSURLNameKey\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSURLNameKey\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSSortDescriptor\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSSortDescriptor\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSURLContentModificationDateKey\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSURLContentModificationDateKey\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSMutableArray\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSMutableArray\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSURLVolumeSupportsSymbolicLinksKey\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSURLVolumeSupportsSymbolicLinksKey\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSURLVolumeSupportsHardLinksKey\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSURLVolumeSupportsHardLinksKey\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSURLIsDirectoryKey\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSURLIsDirectoryKey\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 |NSURL|\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 |NSURL|\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSFileManager\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSFileManager\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSURLIsPackageKey\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSURLIsPackageKey\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSURLPathKey\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSURLPathKey\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSArray\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSArray\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSString\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSString\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSDirectoryEnumerationSkipsPackageDescendants\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 2\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSDirectoryEnumerationSkipsHiddenFiles\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 4\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSFileManagerItemReplacementUsingNewMetadataOnly\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 1\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSUserDomainMask\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 1\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSFileWriteFileExistsError\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 516\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSItemReplacementDirectory\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 99\cf2 \
+
+\b \cf2 property
+\b0 \cf2  \cf7 NSURLBookmarkCreationSuitableForBookmarkFile\cf2  : 
+\b \cf2 a reference
+\b0 \cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 1024\cf2 \
+\
+
+\b \cf2 property
+\b0 \cf2  \cf7 copyString\cf2  : \cf2 " copy"\cf2  \cf6 -- added to file names for copies; edit to suit your language\cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 create duplicate of
+\b0 \cf2  \cf7 aFileOrPath\cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 duplicateItem\cf2 :\cf7 aFileOrPath\cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 create duplicate of
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 copy object
+\b0 \cf2  \cf7 aFileOrPath\cf2  \cf5 to folder\cf2  \cf7 folderOrPath\cf2  \cf5 replacing\cf2  \cf7 replaceFlag\cf2  : 
+\i \cf4 false
+\i0 \cf2  \cf5 return path\cf2  \cf7 pathFlag\cf2  : 
+\i \cf4 false
+\i0 \cf2 \
+	
+\b \cf2 if
+\b0 \cf2  \cf7 pathFlag\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 copyWithResultItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 intoFolder\cf2 :\cf7 folderOrPath\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 copyItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 intoFolder\cf2 :\cf7 folderOrPath\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 copy object
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 move object
+\b0 \cf2  \cf7 aFileOrPath\cf2  \cf5 to folder\cf2  \cf7 folderOrPath\cf2  \cf5 replacing\cf2  \cf7 replaceFlag\cf2  : 
+\i \cf4 false
+\i0 \cf2  \cf5 return path\cf2  \cf7 pathFlag\cf2  : 
+\i \cf4 false
+\i0 \cf2 \
+	
+\b \cf2 if
+\b0 \cf2  \cf7 pathFlag\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 moveWithResultItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 intoFolder\cf2 :\cf7 folderOrPath\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 moveItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 intoFolder\cf2 :\cf7 folderOrPath\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 move object
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 remove object
+\b0 \cf2  \cf7 aFileOrPath\cf2  \cf5 folders included\cf2  \cf7 foldersFlag\cf2  : 
+\i \cf4 false
+\i0 \cf2 \
+	
+\b \cf2 if
+\b0 \cf2  \cf7 foldersFlag\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 deleteItem\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 deleteFile\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 remove object
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 trash object
+\b0 \cf2  \cf7 aFileOrPath\cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 trashItem\cf2 :\cf7 aFileOrPath\cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 trash object
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 rename object
+\b0 \cf2  \cf7 aFileOrPath\cf2  \cf5 to name\cf2  \cf7 proposedName\cf2  \cf5 return path\cf2  \cf7 pathFlag\cf2  : 
+\i \cf4 false
+\i0 \cf2 \
+	
+\b \cf2 if
+\b0 \cf2  \cf7 pathFlag\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 renameWithResultItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 newName\cf2 :\cf7 proposedName\cf2 \
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 renameItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 newName\cf2 :\cf7 proposedName\cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 rename object
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 create alias to
+\b0 \cf2  \cf7 originalFileOrPath\cf2  \cf5 at\cf2  \cf7 aFileOrPath\cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 createAlias\cf2 :\cf7 aFileOrPath\cf2  \cf8 pointingTo\cf2 :\cf7 originalFileOrPath\cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 create alias to
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 find original of
+\b0 \cf2  \cf7 aFileOrPath\cf2  \cf5 returning file\cf2  \cf7 fileFlag\cf2  : 
+\i \cf4 false
+\i0 \cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 originalFromAlias\cf2 :\cf7 aFileOrPath\cf2  \cf8 asFile\cf2 :\cf7 fileFlag\cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 find original of
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 create folder at
+\b0 \cf2  \cf7 folderOrPath\cf2  \cf5 use name\cf2  \cf7 proposedName\cf2  : 
+\i \cf5 missing value
+\i0 \cf2 \
+	
+\b \cf2 if
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf5 missing value
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 createFolder\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 createFolderNamed\cf2 :\cf7 proposedName\cf2  \cf8 inFolder\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 create folder at
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 sort objects
+\b0 \cf2  \cf7 listOfFilesOrPaths\cf2  \cf5 low to high\cf2  \cf7 ascendFlag\cf2  : 
+\i \cf4 true
+\i0 \cf2  \cf5 sorted property\cf2  \cf7 sortProp\cf2  : 
+\i \cf4 name property
+\i0 \cf2  \cf5 sort type\cf2  \cf7 sortType\cf2  : 
+\i \cf4 case insensitive
+\i0 \cf2  \cf5 result type\cf2  \cf7 resType\cf2  : 
+\i \cf4 paths list
+\i0 \cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 resType\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 stringFromRestype\cf2 :\cf7 resType\cf2 \
+	
+\b \cf2 if
+\b0 \cf2  \cf7 sortProp\cf2  = 
+\i \cf4 name property
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 if
+\b0 \cf2  \cf7 sortType\cf2  = 
+\i \cf4 case insensitive
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 sortStyle\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 "localizedCaseInsensitiveCompare:"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 sortType\cf2  = 
+\i \cf4 fixed case sensitive
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 sortStyle\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 "compare:"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 sortType\cf2  = 
+\i \cf4 case sensitive
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 sortStyle\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 "localizedCompare:"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 sortType\cf2  = 
+\i \cf4 fixed case sensitive
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 sortStyle\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 "caseInsensitiveCompare:"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 sortStyle\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 "localizedStandardCompare:"\cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  (
+\b \cf2 my
+\b0 \cf2  \cf8 sortByNameFilesOrPaths\cf2 :\cf7 listOfFilesOrPaths\cf2  \cf8 lowToHigh\cf2 :\cf7 ascendFlag\cf2  \cf8 sortingStyle\cf2 :\cf7 sortStyle\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 )\
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 if
+\b0 \cf2  \cf7 sortProp\cf2  = 
+\i \cf4 modification property
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 sortProp\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 "mod"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 sortProp\cf2  = 
+\i \cf4 added property
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 sortProp\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 "add"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 sortProp\cf2  = 
+\i \cf4 created property
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 sortProp\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 "cre"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 sortProp\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 "las"\cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  (
+\b \cf2 my
+\b0 \cf2  \cf8 sortFilesOrPaths\cf2 :\cf7 listOfFilesOrPaths\cf2  \cf8 byProperty\cf2 :\cf7 sortProp\cf2  \cf8 lowToHigh\cf2 :\cf7 ascendFlag\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 )\
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 sort objects
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 objects of
+\b0 \cf2  \cf7 aFileOrPath\cf2  \cf5 searching subfolders\cf2  \cf7 recurseFlag\cf2  : 
+\i \cf4 false
+\i0 \cf2  \cf5 include invisible items\cf2  \cf7 incInvis\cf2  : 
+\i \cf4 false
+\i0 \cf2  \cf5 include folders\cf2  \cf7 incFolders\cf2  : 
+\i \cf4 true
+\i0 \cf2  \cf5 include files\cf2  \cf7 incFiles\cf2  : 
+\i \cf4 true
+\i0 \cf2  \cf5 result type\cf2  \cf7 resType\cf2  : 
+\i \cf4 paths list
+\i0 \cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 resType\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 stringFromRestype\cf2 :\cf7 resType\cf2 \
+	
+\b \cf2 if
+\b0 \cf2  \cf7 recurseFlag\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 to
+\b0 \cf2  (
+\b \cf2 my
+\b0 \cf2  \cf8 entireContentsOf\cf2 :\cf7 aFileOrPath\cf2  \cf8 includeInvisibles\cf2 :\cf7 incInvis\cf2  \cf8 includeFiles\cf2 :\cf7 incFiles\cf2  \cf8 includeFolders\cf2 :\cf7 incFolders\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 )\
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 to
+\b0 \cf2  (
+\b \cf2 my
+\b0 \cf2  \cf8 contentsOf\cf2 :\cf7 aFileOrPath\cf2  \cf8 includeInvisibles\cf2 :\cf7 incInvis\cf2  \cf8 includeFiles\cf2 :\cf7 incFiles\cf2  \cf8 includeFolders\cf2 :\cf7 incFolders\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 )\
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 objects of
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 exists object
+\b0 \cf2  \cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 aURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 return
+\b0 \cf2  (\cf7 aURL's\cf2  \cf8 checkResourceIsReachableAndReturnError\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 )) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 exists object
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 object is folder
+\b0 \cf2  \cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 aURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	\cf6 -- is it a directory?\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theValue\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  (\cf7 aURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :\cf7 NSURLIsDirectoryKey\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ))\
+	
+\b \cf2 if
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf4 false
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  \cf7 theValue\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+		\cf6 -- is it a package?\cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theValue\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  (\cf7 aURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :\cf7 NSURLIsPackageKey\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ))\
+		
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 theValue\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  
+\i \cf4 true
+\i0 \cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\i \cf4 false
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 object is folder
+\b0 \cf2 \
+\
+
+\b \cf2 on
+\b0 \cf2  
+\b \cf5 parse object
+\b0 \cf2  \cf7 aFileOrPath\cf2  \cf5 HFS results\cf2  \cf7 useHFS\cf2  : 
+\i \cf4 false
+\i0 \cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theExt\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theURL's\cf2  \cf8 pathExtension\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 folderPath\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theURL's\cf2  \cf8 path\cf2 ()'s \cf8 stringByDeletingLastPathComponent\cf2 ()\
+	
+\b \cf2 if
+\b0 \cf2  \cf7 useHFS\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 folderName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 folderPath's\cf2  \cf8 lastPathComponent\cf2 ()'s \cf8 stringByReplacingOccurrencesOfString\cf2 :\cf2 ":"\cf2  \cf8 withString\cf2 :\cf2 "/"\cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 folderPath\cf2  
+\b \cf2 to
+\b0 \cf2  ((
+\i \cf5 POSIX file
+\i0 \cf2  (\cf7 folderPath\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 )) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) & \cf2 ":"\cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 theName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theURL's\cf2  \cf8 lastPathComponent\cf2 ()'s \cf8 stringByReplacingOccurrencesOfString\cf2 :\cf2 ":"\cf2  \cf8 withString\cf2 :\cf2 "/"\cf2 \
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 folderName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 folderPath's\cf2  \cf8 lastPathComponent\cf2 ()\
+		
+\b \cf2 set
+\b0 \cf2  \cf7 theName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theURL's\cf2  \cf8 lastPathComponent\cf2 ()\
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 stubName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theName's\cf2  \cf8 stringByDeletingPathExtension\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theValue\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  (\cf7 theURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :(
+\i \cf4 current application's
+\i0 \cf2  \cf7 NSURLLocalizedNameKey\cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ))\
+	
+\b \cf2 return
+\b0 \cf2  \{\cf7 full_name\cf2 :\cf7 theName\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 , \cf7 name_extension\cf2 :\cf7 theExt\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 , \cf7 name_stub\cf2 :\cf7 stubName\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 , \cf7 parent_folder_path\cf2 :\cf7 folderPath\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 , \cf7 parent_folder_name\cf2 :\cf7 folderName\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 , \cf7 displayed_name\cf2 :\cf7 theValue\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 \}\
+
+\b \cf2 end
+\b0 \cf2  
+\b \cf5 parse object
+\b0 \cf2 \
+\
+\cf6 -- You can provide POSIX or HFS paths, files, or aliases to these handlers. POSIX paths beginning with ~ will be expanded.\cf2 \
+\
+\cf6 -- Duplicates a file or folder. The new name has " copy" added before any extension, but if that name is already taken it adds " copy #", where # starts from 2 and increments until success\cf2 \
+\cf6 -- Returns the POSIX path of the new file\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 duplicateItem\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestFolderURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |URLByDeletingLastPathComponent|\cf2 ()\
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 copyURL\cf2 :\cf7 theSourceURL\cf2  \cf8 uniquelyToFolderURL\cf2 :\cf7 theDestFolderURL\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 duplicateItem\cf8 :\cf2 \
+\
+\cf6 -- Copies a file or folder, replacing an existing file or folder if you wish. The destination is that of the destination parent folder; the original item's name will be used. Returns true/false.\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 copyItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 intoFolder\cf2 :\cf7 folderOrPath\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 destName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |lastPathComponent|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFolderURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theFolderURL's\cf2  \cf8 URLByAppendingPathComponent\cf2 :\cf7 destName\cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 copyFromURL\cf2 :\cf7 theSourceURL\cf2  \cf8 toURL\cf2 :\cf7 theDestURL\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 copyItem\cf8 :\cf8 intoFolder\cf8 :\cf8 withReplacing\cf8 :\cf2 \
+\
+\cf6 -- Moves a file or folder, replacing an existing file or folder if you wish. The destination is that of the destination folder; the original item's name will be used\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 moveItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 intoFolder\cf2 :\cf7 folderOrPath\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 destName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |lastPathComponent|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFolderURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theFolderURL's\cf2  \cf8 URLByAppendingPathComponent\cf2 :\cf7 destName\cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 moveFromURL\cf2 :\cf7 theSourceURL\cf2  \cf8 toURL\cf2 :\cf7 theDestURL\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 moveItem\cf8 :\cf8 intoFolder\cf8 :\cf8 withReplacing\cf8 :\cf2 \
+\
+\cf6 -- Renames a file or folder. If an item with the new name exists, generates an error\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 renameItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 newName\cf2 :\cf7 proposedName\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 destName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |lastPathComponent|\cf2 ()\
+	
+\b \cf2 if
+\b0 \cf2  
+\i \cf5 class
+\i0 \cf2  
+\b \cf2 of
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 set
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSString's\cf2  \cf8 stringWithString\cf2 :\cf7 proposedName\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 proposedName's\cf2  \cf8 stringByReplacingOccurrencesOfString\cf2 :\cf2 "/"\cf2  \cf8 withString\cf2 :\cf2 ":"\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |URLByDeletingLastPathComponent|\cf2 ()'s \cf8 URLByAppendingPathComponent\cf2 :\cf7 proposedName\cf2 \
+	
+\b \cf2 my
+\b0 \cf2  \cf8 moveFromURL\cf2 :\cf7 theSourceURL\cf2  \cf8 toURL\cf2 :\cf7 theDestURL\cf2  \cf8 withReplacing\cf2 :
+\i \cf4 false
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 renameItem\cf8 :\cf8 newName\cf8 :\cf2 \
+\
+\cf6 -- Deletes a file instantly (it does not move it to the trash, and can't be undone). For safety's sake, it errors if passed a folder\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 deleteFile\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 isDirectory\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :(\cf7 NSURLIsDirectoryKey\cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  \cf7 isDirectory\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 isPackage\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :(\cf7 NSURLIsPackageKey\cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+		
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 )\
+		
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 isPackage\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  \cf2 "Item is a directory, not a file"\cf2  \cf5 number\cf2  \cf2 -10000\cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theFileManager's\cf2  \cf8 removeItemAtURL\cf2 :\cf7 theSourceURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+
+\b \cf2 end
+\b0 \cf2  \cf8 deleteFile\cf8 :\cf2 \
+\
+\cf6 -- Deletes a file or folder instantly (it does not move it to the trash, and can't be undone). For safety's sake, use the above method unless you really mean to delete a folder\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 deleteItem\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theFileManager's\cf2  \cf8 removeItemAtURL\cf2 :\cf7 theSourceURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+
+\b \cf2 end
+\b0 \cf2  \cf8 deleteItem\cf8 :\cf2 \
+\
+\cf6 -- Moves a file or folder to the trash\cf2 \
+\cf6 -- Returns the POSIX path of the trashed file\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 trashItem\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 destURL\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theFileManager's\cf2  \cf8 trashItemAtURL\cf2 :\cf7 theSourceURL\cf2  \cf8 resultingItemURL\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 return
+\b0 \cf2  \cf7 destURL's\cf2  \cf8 path\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 trashItem\cf8 :\cf2 \
+\
+\cf6 -- Copies a file or folder, replacing an existing file or folder if you wish. The destination must include the new item's name. Returns true/false.\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 copyItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 toMake\cf2 :\cf7 destFileOrPath\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 destFileOrPath\cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 copyFromURL\cf2 :\cf7 theSourceURL\cf2  \cf8 toURL\cf2 :\cf7 theDestURL\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 copyItem\cf8 :\cf8 toMake\cf8 :\cf8 withReplacing\cf8 :\cf2 \
+\
+\cf6 -- Copies a file or folder to a folder. If a file or folder of the same name already exists, it adds " copy" to the name before the extension, and if that name is taken it adds " copy-#", where # starts from 1 and increments until success\cf2 \
+\cf6 -- Returns the POSIX path of the new file\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 copyItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 uniquelyToFolder\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestFolderURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 copyURL\cf2 :\cf7 theSourceURL\cf2  \cf8 uniquelyToFolderURL\cf2 :\cf7 theDestFolderURL\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 copyItem\cf8 :\cf8 uniquelyToFolder\cf8 :\cf2 \
+\
+\cf6 -- Moves a file or folder, replacing an existing file or folder if you wish. The destination must include the file's name, which does not have to match the original\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 moveItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 toMake\cf2 :\cf7 destFileOrPath\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 destFileOrPath\cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 moveFromURL\cf2 :\cf7 theSourceURL\cf2  \cf8 toURL\cf2 :\cf7 theDestURL\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 moveItem\cf8 :\cf8 toMake\cf8 :\cf8 withReplacing\cf8 :\cf2 \
+\
+\cf6 -- Moves a file or folder to a folder. If an item of the same name already exists, it adds " copy" to the name before the extension, and if that name is taken it adds " copy-#", where # starts from 2 and increments until success\cf2 \
+\cf6 -- Returns the new POSIX path of the file\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 moveItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 uniquelyToFolder\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 destName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |lastPathComponent|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 destNameLessExt\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 destName's\cf2  \cf8 |stringByDeletingPathExtension|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theExtension\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |pathExtension|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFolderURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theFolderURL's\cf2  \cf8 URLByAppendingPathComponent\cf2 :\cf7 destName\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 i\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 0\cf2 \
+	
+\b \cf2 repeat
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  (\cf7 theFileManager's\cf2  \cf8 moveItemAtURL\cf2 :\cf7 theSourceURL\cf2  \cf8 toURL\cf2 :\cf7 theDestURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ))\
+		
+\b \cf2 if
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 exit
+\b0 \cf2  
+\b \cf2 repeat
+\b0 \cf2 \
+		
+\b \cf2 if
+\b0 \cf2  \cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2  = \cf7 NSFileWriteFileExistsError\cf2  
+\b \cf2 then
+\b0 \cf2  \cf6 -- it already exists, so change name\cf2 \
+			
+\b \cf2 if
+\b0 \cf2  \cf7 i\cf2  = \cf2 0\cf2  
+\b \cf2 then
+\b0 \cf2 \
+				
+\b \cf2 set
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 to
+\b0 \cf2  (\cf7 destNameLessExt's\cf2  \cf8 stringByAppendingString\cf2 :\cf7 copyString\cf2 )'s \cf8 stringByAppendingPathExtension\cf2 :\cf7 theExtension\cf2 \
+			
+\b \cf2 else
+\b0 \cf2 \
+				
+\b \cf2 set
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 to
+\b0 \cf2  (\cf7 destNameLessExt's\cf2  \cf8 stringByAppendingString\cf2 :(\cf7 copyString\cf2  & \cf4 space\cf2  & \cf7 i\cf2 ))'s \cf8 stringByAppendingPathExtension\cf2 :\cf7 theExtension\cf2 \
+			
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theFolderURL's\cf2  \cf8 URLByAppendingPathComponent\cf2 :\cf7 proposedName\cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 i\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 i\cf2  + \cf2 1\cf2 \
+		
+\b \cf2 else
+\b0 \cf2  \cf6 -- an error other than file already exists, so return error\cf2 \
+			
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 repeat
+\b0 \cf2 \
+	
+\b \cf2 return
+\b0 \cf2  \cf7 theDestURL's\cf2  \cf8 path\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 moveItem\cf8 :\cf8 uniquelyToFolder\cf8 :\cf2 \
+\
+\cf6 -- Creates a new folder. There is no error if the folder already exists, and it will also create intermediate folders if required\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 createFolder\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFolderURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theFileManager's\cf2  \cf8 createDirectoryAtURL\cf2 :\cf7 theFolderURL\cf2  \cf8 withIntermediateDirectories\cf2 :
+\i \cf4 true
+\i0 \cf2  \cf8 attributes\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 return
+\b0 \cf2  \cf7 theFolderURL's\cf2  \cf8 path\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 createFolder\cf8 :\cf2 \
+\
+\cf6 -- Creates a new folder. There is no error if the folder already exists, and it will also create intermediate folders if required\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 createFolderNamed\cf2 :\cf7 proposedName\cf2  \cf8 inFolder\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFolderURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 if
+\b0 \cf2  
+\i \cf5 class
+\i0 \cf2  
+\b \cf2 of
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 set
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSString's\cf2  \cf8 stringWithString\cf2 :\cf7 proposedName\cf2 \
+	
+\b \cf2 if
+\b0 \cf2  (\cf7 proposedName's\cf2  \cf8 rangeOfString\cf2 :\cf2 ":"\cf2 )'s \cf8 |length|\cf2 () > \cf2 0\cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  \cf2 "Folder names cannot include the character '/'."\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 proposedName's\cf2  \cf8 stringByReplacingOccurrencesOfString\cf2 :\cf2 "/"\cf2  \cf8 withString\cf2 :\cf2 ":"\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theFolderURL's\cf2  \cf8 URLByAppendingPathComponent\cf2 :\cf7 proposedName\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theFileManager's\cf2  \cf8 createDirectoryAtURL\cf2 :\cf7 theDestURL\cf2  \cf8 withIntermediateDirectories\cf2 :
+\i \cf4 true
+\i0 \cf2  \cf8 attributes\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 return
+\b0 \cf2  \cf7 theDestURL's\cf2  \cf8 path\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 createFolderNamed\cf8 :\cf8 inFolder\cf8 :\cf2 \
+\
+\cf6 -- Creates an alias file at the provided path\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 createAlias\cf2 :\cf7 aFileOrPath\cf2  \cf8 pointingTo\cf2 :\cf7 originalFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theAliasURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 originalURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 originalFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theData\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 originalURL's\cf2  \cf8 bookmarkDataWithOptions\cf2 :\cf7 NSURLBookmarkCreationSuitableForBookmarkFile\cf2  \cf8 includingResourceValuesForKeys\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 ) \cf8 relativeToURL\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  \cf7 theData\cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf5 missing value
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 |NSURL|'s\cf2  \cf8 writeBookmarkData\cf2 :\cf7 theData\cf2  \cf8 toURL\cf2 :\cf7 theAliasURL\cf2  \cf8 options\cf2 :\cf2 0\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+
+\b \cf2 end
+\b0 \cf2  \cf8 createAlias\cf8 :\cf8 pointingTo\cf8 :\cf2 \
+\
+\cf6 -- Returns the POSIX path of the original file an alias points to\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 originalFromAlias\cf2 :\cf7 aFileOrPath\cf2  \cf8 asFile\cf2 :\cf7 fileFlag\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theAliasURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theData\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 |NSURL|'s\cf2  \cf8 bookmarkDataWithContentsOfURL\cf2 :\cf7 theAliasURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  \cf7 theData\cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf5 missing value
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDict\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 |NSURL|'s\cf2  \cf8 resourceValuesForKeys\cf2 :\{\cf7 NSURLPathKey\cf2 \} \cf8 fromBookmarkData\cf2 :\cf7 theData\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 thePath\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theDict's\cf2  \cf8 objectForKey\cf2 :(\cf7 NSURLPathKey\cf2 )\
+	
+\b \cf2 considering
+\b0 \cf2  
+\i \cf4 numeric strings
+\i0 \cf2 \
+		
+\b \cf2 if
+\b0 \cf2  \cf7 fileFlag\cf2  
+\b \cf2 and
+\b0 \cf2  \cf4 AppleScript's\cf2  
+\i \cf5 version
+\i0 \cf2  > \cf2 "2.4"\cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 originalURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 |NSURL|'s\cf2  \cf8 fileURLWithPath\cf2 :\cf7 thePath\cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf7 originalURL\cf2  
+\b \cf2 as
+\b0 \cf2  \'ab
+\i \cf5 class
+\i0 \cf2  \cf2 furl\cf2 \'bb\
+		
+\b \cf2 else
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf7 thePath\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 considering
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 originalFromAlias\cf8 :\cf8 asFile\cf8 :\cf2 \
+\
+\cf6 -- Creates a symbolic link\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 createSymlink\cf2 :\cf7 aFileOrPath\cf2  \cf8 pointingTo\cf2 :\cf7 originalFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theLinkURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 originalURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 originalFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theFileManager's\cf2  \cf8 createSymbolicLinkAtURL\cf2 :\cf7 theLinkURL\cf2  \cf8 withDestinationURL\cf2 :\cf7 originalURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 return
+\b0 \cf2  
+\i \cf4 true
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 createSymlink\cf8 :\cf8 pointingTo\cf8 :\cf2 \
+\
+\cf6 -- Resolves symbolic links in item\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 resolveSymlinksIn\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theLinkURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	\cf6 -- check it can be done\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theValue\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theLinkURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :(\cf7 NSURLVolumeSupportsSymbolicLinksKey\cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theValue\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  \cf2 "This volume does not support symbolic links"\cf2 \
+	
+\b \cf2 return
+\b0 \cf2  \cf7 theLinkURL's\cf2  \cf8 |URLByResolvingSymlinksInPath|\cf2 ()'s \cf8 path\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 resolveSymlinksIn\cf8 :\cf2 \
+\
+\cf6 -- Creates a hard link\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 createHardLink\cf2 :\cf7 aFileOrPath\cf2  \cf8 linkedTo\cf2 :\cf7 originalFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theLinkURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 originalURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 originalFileOrPath\cf2 \
+	\cf6 -- check it can be done\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theValue\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theLinkURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :(\cf7 NSURLVolumeSupportsHardLinksKey\cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theValue\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  \cf2 "This volume does not support hard links"\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theFileManager's\cf2  \cf8 linkItemAtURL\cf2 :\cf7 originalURL\cf2  \cf8 toURL\cf2 :\cf7 theLinkURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 return
+\b0 \cf2  
+\i \cf4 true
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 createHardLink\cf8 :\cf8 linkedTo\cf8 :\cf2 \
+\
+\cf6 -- If the items are files, their contents are compared. If they are folders, it compares the lists of their files and subdirectories (recursively)\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 contentsOf\cf2 :\cf7 fileOrPathA\cf2  \cf8 equalsContentsOf\cf2 :\cf7 fileOrPathB\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theURLA\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 fileOrPathA\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theURLB\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 fileOrPathB\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 return
+\b0 \cf2  (\cf7 theFileManager's\cf2  \cf8 contentsEqualAtPath\cf2 :(\cf7 theURLA's\cf2  \cf8 path\cf2 ()) \cf8 andPath\cf2 :(\cf7 theURLB's\cf2  \cf8 path\cf2 ())) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 contentsOf\cf8 :\cf8 equalsContentsOf\cf8 :\cf2 \
+\
+\cf6 -- Returns whether the item is a "file", "folder", or "package"\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 fileTypeOf\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 isDirectory\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :(\cf7 NSURLIsDirectoryKey\cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  \cf7 isDirectory\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 isPackage\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :(\cf7 NSURLIsPackageKey\cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+		
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  (\cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 )\
+		
+\b \cf2 if
+\b0 \cf2  (\cf7 isPackage\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 ) 
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf2 "package"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf2 "folder"\cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 return
+\b0 \cf2  \cf2 "file"\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 fileTypeOf\cf8 :\cf2 \
+\
+\cf6 -- Returns the contents of a folder. If includeFolders is false, only files (including packages) will be returned. If includeFiles is false, only folders will be returned. The resultType parameter takes a string:, "paths" to get POSIX paths, "names" to get just the names, "POSIX names" to get POSIX names (the / character appears as a :), "urls" to get an array of NSURLs, or "files" to get AppleScript file references. The latter is only available under macOS 10.11 and later.\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 contentsOf\cf2 :\cf7 aFileOrPath\cf2  \cf8 includeInvisibles\cf2 :\cf7 incInvis\cf2  \cf8 includeFiles\cf2 :\cf7 incFiles\cf2  \cf8 includeFolders\cf2 :\cf7 incFolders\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 fileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theOptions\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 0\cf2 \
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 incInvis\cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 set
+\b0 \cf2  \cf7 theOptions\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSDirectoryEnumerationSkipsHiddenFiles\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theURLs\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 fileManager's\cf2  \cf8 contentsOfDirectoryAtURL\cf2 :\cf7 theURL\cf2  \cf8 includingPropertiesForKeys\cf2 :\{\} \cf8 options\cf2 :\cf7 theOptions\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  \cf7 theURLs\cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf5 missing value
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 incFolders\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 theURLs\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 filesAndPackagesInURLArray\cf2 :\cf7 theURLs\cf2 \
+	
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 incFiles\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 theURLs\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 foldersInURLArray\cf2 :\cf7 theURLs\cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 convertURLs\cf2 :\cf7 theURLs\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 contentsOf\cf8 :\cf8 includeInvisibles\cf8 :\cf8 includeFiles\cf8 :\cf8 includeFolders\cf8 :\cf8 resultType\cf8 :\cf2 \
+\
+\cf6 -- Returns the entire contents of a folder and its subfolders. If includeFolders is false, only files (including packages) will be returned. If includeFiles is false, only folders will be returned. The resultType parameter takes a string:, "paths" to get POSIX paths, "names" to get just the names, "POSIX names" to get POSIX names (the / character appears as a :), "urls" to get an array of NSURLs, or "files" to get AppleScript file references. The latter is only available under macOS 10.11 and later.\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 entireContentsOf\cf2 :\cf7 aFileOrPath\cf2  \cf8 includeInvisibles\cf2 :\cf7 incInvis\cf2  \cf8 includeFiles\cf2 :\cf7 incFiles\cf2  \cf8 includeFolders\cf2 :\cf7 incFolders\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 fileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theOptions\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSDirectoryEnumerationSkipsPackageDescendants\cf2 \
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 incInvis\cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 set
+\b0 \cf2  \cf7 theOptions\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theOptions\cf2  + \cf7 NSDirectoryEnumerationSkipsHiddenFiles\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theEnumerator\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 fileManager's\cf2  \cf8 enumeratorAtURL\cf2 :\cf7 theURL\cf2  \cf8 includingPropertiesForKeys\cf2 :\{\} \cf8 options\cf2 :\cf7 theOptions\cf2  \cf8 errorHandler\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 )\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theURLs\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theEnumerator's\cf2  \cf8 allObjects\cf2 ()\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 incFolders\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 theURLs\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 filesAndPackagesInURLArray\cf2 :\cf7 theURLs\cf2 \
+	
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 incFiles\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 theURLs\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 foldersInURLArray\cf2 :\cf7 theURLs\cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 convertURLs\cf2 :\cf7 theURLs\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 entireContentsOf\cf8 :\cf8 includeInvisibles\cf8 :\cf8 includeFiles\cf8 :\cf8 includeFolders\cf8 :\cf8 resultType\cf8 :\cf2 \
+\
+\cf6 -- Sorts a list of files, aliases, paths or URLs by one of the following properties: "modification date", "added date", "creation date", "last access date". Enter your choice as a string (only the first three characters matter).  The resultType parameter takes a string:, "paths" to get POSIX paths, "names" to get just the names, "POSIX names" to get POSIX names (the / character appears as a :), "urls" to get an array of NSURLs, or "files" to get AppleScript file references. The latter is only available under macOS 10.11 and later.\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 sortFilesOrPaths\cf2 :\cf7 listOfFilesOrPaths\cf2  \cf8 byProperty\cf2 :\cf7 theProp\cf2  \cf8 lowToHigh\cf2 :\cf7 ascendFlag\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theCodes\cf2  
+\b \cf2 to
+\b0 \cf2  \{\cf2 "mod"\cf2 , \cf2 "add"\cf2 , \cf2 "cre"\cf2 , \cf2 "las"\cf2 \}\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theProperties\cf2  
+\b \cf2 to
+\b0 \cf2  \{\cf7 NSURLContentModificationDateKey\cf2 , \cf7 NSURLAddedToDirectoryDateKey\cf2 , \cf7 NSURLCreationDateKey\cf2 , \cf7 NSURLContentAccessDateKey\cf2 \}\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 chosenProp\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSURLContentModificationDateKey\cf2  \cf6 -- default\cf2 \
+	
+\b \cf2 repeat
+\b0 \cf2  
+\b \cf2 with
+\b0 \cf2  \cf7 i\cf2  
+\b \cf2 from
+\b0 \cf2  \cf2 1\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf5 count
+\b0 \cf2  
+\b \cf2 of
+\b0 \cf2  \cf7 theCodes\cf2 \
+		
+\b \cf2 if
+\b0 \cf2  \cf7 theProp\cf2  
+\b \cf2 begins with
+\b0 \cf2  
+\i \cf5 item
+\i0 \cf2  \cf7 i\cf2  
+\b \cf2 of
+\b0 \cf2  \cf7 theCodes\cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 chosenProp\cf2  
+\b \cf2 to
+\b0 \cf2  
+\i \cf5 item
+\i0 \cf2  \cf7 i\cf2  
+\b \cf2 of
+\b0 \cf2  \cf7 theProperties\cf2 \
+			
+\b \cf2 exit
+\b0 \cf2  
+\b \cf2 repeat
+\b0 \cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 repeat
+\b0 \cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 allProps\cf2  
+\b \cf2 to
+\b0 \cf2  \{\cf7 chosenProp\cf2 , \cf7 NSURLPathKey\cf2 , \cf7 NSURLNameKey\cf2 \}\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 containsURLs\cf2  
+\b \cf2 to
+\b0 \cf2  ((\cf7 NSArray's\cf2  \cf8 arrayWithArray\cf2 :\cf7 listOfFilesOrPaths\cf2 )'s \cf8 firstObject\cf2 ()'s \cf8 isKindOfClass\cf2 :(\cf7 |NSURL|\cf2 )) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 \
+	
+\b \cf2 considering
+\b0 \cf2  
+\i \cf4 numeric strings
+\i0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 includeURLs\cf2  
+\b \cf2 to
+\b0 \cf2  (\cf7 resType\cf2  = \cf2 "files"\cf2  
+\b \cf2 or
+\b0 \cf2  \cf7 resType\cf2  = \cf2 "urls"\cf2 )\
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 considering
+\b0 \cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theResults\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSMutableArray's\cf2  \cf8 array\cf2 ()\
+	
+\b \cf2 repeat
+\b0 \cf2  
+\b \cf2 with
+\b0 \cf2  \cf7 aFile\cf2  
+\b \cf2 in
+\b0 \cf2  \cf7 listOfFilesOrPaths\cf2 \
+		
+\b \cf2 if
+\b0 \cf2  \cf7 containsURLs\cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 theValues\cf2  
+\b \cf2 to
+\b0 \cf2  (\cf7 aFile's\cf2  \cf8 resourceValuesForKeys\cf2 :\cf7 allProps\cf2  \cf8 |error|\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 ))\
+			
+\b \cf2 if
+\b0 \cf2  \cf7 includeURLs\cf2  
+\b \cf2 then
+\b0 \cf2 \
+				
+\b \cf2 set
+\b0 \cf2  \cf7 theValues\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theValues's\cf2  \cf8 mutableCopy\cf2 ()\
+				(\cf7 theValues's\cf2  \cf8 setObject\cf2 :\cf7 aFile\cf2  \cf8 forKey\cf2 :\cf2 "theURLKey"\cf2 )\
+			
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+		
+\b \cf2 else
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 theURL\cf2  
+\b \cf2 to
+\b0 \cf2  (
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFile\cf2 )\
+			
+\b \cf2 set
+\b0 \cf2  \cf7 theValues\cf2  
+\b \cf2 to
+\b0 \cf2  (\cf7 theURL's\cf2  \cf8 resourceValuesForKeys\cf2 :\cf7 allProps\cf2  \cf8 |error|\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 ))\
+			
+\b \cf2 if
+\b0 \cf2  \cf7 includeURLs\cf2  
+\b \cf2 then
+\b0 \cf2 \
+				
+\b \cf2 set
+\b0 \cf2  \cf7 theValues\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theValues's\cf2  \cf8 mutableCopy\cf2 ()\
+				(\cf7 theValues's\cf2  \cf8 setObject\cf2 :\cf7 theURL\cf2  \cf8 forKey\cf2 :\cf2 "theURLKey"\cf2 )\
+			
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+		(\cf7 theResults's\cf2  \cf8 addObject\cf2 :\cf7 theValues\cf2 )\
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 repeat
+\b0 \cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 sortDesc\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSSortDescriptor's\cf2  \cf8 sortDescriptorWithKey\cf2 :\cf7 chosenProp\cf2  \cf8 ascending\cf2 :\cf7 ascendFlag\cf2  \cf8 selector\cf2 :\cf2 "compare:"\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 sortDesc2\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSSortDescriptor's\cf2  \cf8 sortDescriptorWithKey\cf2 :\cf7 NSURLNameKey\cf2  \cf8 ascending\cf2 :
+\i \cf4 true
+\i0 \cf2  \cf8 selector\cf2 :\cf2 "caseInsensitiveCompare:"\cf2 \
+	\cf7 theResults's\cf2  \cf8 sortUsingDescriptors\cf2 :\{\cf7 sortDesc\cf2 , \cf7 sortDesc2\cf2 \}\
+	
+\b \cf2 considering
+\b0 \cf2  
+\i \cf4 numeric strings
+\i0 \cf2 \
+		
+\b \cf2 if
+\b0 \cf2  \cf7 resType\cf2  = \cf2 "names"\cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  ((((\cf7 theResults's\cf2  \cf8 valueForKey\cf2 :\cf7 NSURLNameKey\cf2 )'s \cf8 componentsJoinedByString\cf2 :(
+\i \cf5 character
+\i0 \cf2  
+\i \cf4 id
+\i0 \cf2  \cf2 0\cf2 ))'s \cf8 stringByReplacingOccurrencesOfString\cf2 :\cf2 ":"\cf2  \cf8 withString\cf2 :\cf2 "/"\cf2 )'s \cf8 componentsSeparatedByString\cf2 :(
+\i \cf5 character
+\i0 \cf2  
+\i \cf4 id
+\i0 \cf2  \cf2 0\cf2 )) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 list
+\i0 \cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 resType\cf2  = \cf2 "POSIX names"\cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  (\cf7 theResults's\cf2  \cf8 valueForKey\cf2 :\cf7 NSURLNameKey\cf2 ) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 list
+\i0 \cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  (\cf7 resType\cf2  = \cf2 "files"\cf2  
+\b \cf2 and
+\b0 \cf2  \cf4 AppleScript's\cf2  
+\i \cf5 version
+\i0 \cf2  > \cf2 "2.4"\cf2 ) 
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  (\cf7 theResults's\cf2  \cf8 valueForKey\cf2 :\cf2 "theURLKey"\cf2 ) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 list
+\i0 \cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 resType\cf2  = \cf2 "urls"\cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf7 theResults's\cf2  \cf8 valueForKey\cf2 :\cf2 "theURLKey"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  (\cf7 theResults's\cf2  \cf8 valueForKey\cf2 :\cf7 NSURLPathKey\cf2 ) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 list
+\i0 \cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 considering
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 sortFilesOrPaths\cf8 :\cf8 byProperty\cf8 :\cf8 lowToHigh\cf8 :\cf8 resultType\cf8 :\cf2 \
+\
+\cf6 -- Sorts a list of files, aliases, paths or URLs using one of the following styles: "compare:", "caseInsensitiveCompare:", "localizedCompare:", "localizedCaseInsensitiveCompare:","localizedStandardCompare:". These must be entered as strings *exactly*; the last option is Finder sorting style. The resultType parameter takes a string:, "paths" to get POSIX paths, "names" to get just the names, "POSIX names" to get POSIX names (the / character appears as a :), "urls" to get an array of NSURLs, or "files" to get AppleScript file references. The latter is only available under macOS 10.11 and later.\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 sortByNameFilesOrPaths\cf2 :\cf7 listOfFilesOrPaths\cf2  \cf8 lowToHigh\cf2 :\cf7 ascendFlag\cf2  \cf8 sortingStyle\cf2 :\cf7 sortStyle\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 containsURLs\cf2  
+\b \cf2 to
+\b0 \cf2  ((\cf7 NSArray's\cf2  \cf8 arrayWithArray\cf2 :\cf7 listOfFilesOrPaths\cf2 )'s \cf8 firstObject\cf2 ()'s \cf8 isKindOfClass\cf2 :(\cf7 |NSURL|\cf2 )) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2 \
+	
+\b \cf2 if
+\b0 \cf2  \cf7 containsURLs\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 theResults\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSMutableArray's\cf2  \cf8 arrayWithArray\cf2 :\cf7 listOfFilesOrPaths\cf2 \
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 theResults\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSMutableArray's\cf2  \cf8 array\cf2 ()\
+		
+\b \cf2 repeat
+\b0 \cf2  
+\b \cf2 with
+\b0 \cf2  \cf7 aFile\cf2  
+\b \cf2 in
+\b0 \cf2  \cf7 listOfFilesOrPaths\cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 theURL\cf2  
+\b \cf2 to
+\b0 \cf2  (
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFile\cf2 )\
+			(\cf7 theResults's\cf2  \cf8 addObject\cf2 :\cf7 theURL\cf2 )\
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 repeat
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 sortDesc\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSSortDescriptor's\cf2  \cf8 sortDescriptorWithKey\cf2 :\cf2 "path"\cf2  \cf8 ascending\cf2 :\cf7 ascendFlag\cf2  \cf8 selector\cf2 :\cf7 sortStyle\cf2 \
+	\cf7 theResults's\cf2  \cf8 sortUsingDescriptors\cf2 :\{\cf7 sortDesc\cf2 \}\
+	
+\b \cf2 return
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 convertURLs\cf2 :\cf7 theResults\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 sortByNameFilesOrPaths\cf8 :\cf8 lowToHigh\cf8 :\cf8 sortingStyle\cf8 :\cf8 resultType\cf8 :\cf2 \
+\
+\cf6 -- This handler is called by other handlers\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 theFileOrPathInput\cf2 \
+	\cf6 -- make it into a Cocoa object for easier comparison\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileOrPath\cf2  
+\b \cf2 to
+\b0 \cf2  (\cf7 NSArray's\cf2  \cf8 arrayWithObject\cf2 :\cf7 theFileOrPathInput\cf2 )'s \cf8 firstObject\cf2 ()\
+	
+\b \cf2 if
+\b0 \cf2  (\cf7 theFileOrPath's\cf2  \cf8 isKindOfClass\cf2 :(\cf7 NSString\cf2 )) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 if
+\b0 \cf2  (\cf7 theFileOrPath's\cf2  \cf8 hasPrefix\cf2 :\cf2 "/"\cf2 ) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  \cf6 -- full POSIX path\cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf7 |NSURL|'s\cf2  \cf8 fileURLWithPath\cf2 :\cf7 theFileOrPath\cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  (\cf7 theFileOrPath's\cf2  \cf8 hasPrefix\cf2 :\cf2 "~"\cf2 ) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  \cf6 -- POSIX path needing ~ expansion\cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf7 |NSURL|'s\cf2  \cf8 fileURLWithPath\cf2 :(\cf7 theFileOrPath's\cf2  \cf8 |stringByExpandingTildeInPath|\cf2 ())\
+		
+\b \cf2 else
+\b0 \cf2  \cf6 -- must be HFS path\cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf7 |NSURL|'s\cf2  \cf8 fileURLWithPath\cf2 :(\cf4 POSIX path\cf2  
+\b \cf2 of
+\b0 \cf2  \cf7 theFileOrPathInput\cf2 )\
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  (\cf7 theFileOrPath's\cf2  \cf8 isKindOfClass\cf2 :(\cf7 |NSURL|\cf2 )) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  \cf6 -- happens with files and aliases in 10.11\cf2 \
+		
+\b \cf2 return
+\b0 \cf2  \cf7 theFileOrPath\cf2 \
+	
+\b \cf2 else
+\b0 \cf2  \cf6 -- must be a file or alias\cf2 \
+		
+\b \cf2 return
+\b0 \cf2  \cf7 |NSURL|'s\cf2  \cf8 fileURLWithPath\cf2 :(\cf4 POSIX path\cf2  
+\b \cf2 of
+\b0 \cf2  \cf7 theFileOrPathInput\cf2 )\
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf8 :\cf2 \
+\
+\cf6 -- This handler is called by other handlers\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 copyFromURL\cf2 :\cf7 sourceURL\cf2  \cf8 toURL\cf2 :\cf7 destinationURL\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 destinationURL's\cf2  \cf8 checkResourceIsReachableAndReturnError\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf4 false
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  (\cf7 theFileManager's\cf2  \cf8 copyItemAtURL\cf2 :\cf7 sourceURL\cf2  \cf8 toURL\cf2 :\cf7 destinationURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ))\
+		
+\b \cf2 if
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf4 false
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+		
+\b \cf2 return
+\b0 \cf2  
+\i \cf4 true
+\i0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 replaceFlag\cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 return
+\b0 \cf2  
+\i \cf4 false
+\i0 \cf2 \
+	\cf6 -- if we get here, we are replacing\cf2 \
+	\cf6 -- create suitable temporary directory in destinationURL's parent folder\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 tempFolderURL\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theFileManager's\cf2  \cf8 URLForDirectory\cf2 :\cf7 NSItemReplacementDirectory\cf2  \cf8 inDomain\cf2 :\cf7 NSUserDomainMask\cf2  \cf8 appropriateForURL\cf2 :\cf7 destinationURL\cf2  \cf8 create\cf2 :
+\i \cf4 true
+\i0 \cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  \cf7 tempFolderURL\cf2  = 
+\i \cf5 missing value
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf6 -- failed, so return error\cf2 \
+	\cf6 -- copy sourceURL to temp directory\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 tempDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 tempFolderURL's\cf2  \cf8 URLByAppendingPathComponent\cf2 :(\cf7 destinationURL's\cf2  \cf8 |lastPathComponent|\cf2 ())\
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theFileManager's\cf2  \cf8 copyItemAtURL\cf2 :\cf7 sourceURL\cf2  \cf8 toURL\cf2 :\cf7 tempDestURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+		\cf6 -- copy failed, so delete temporary directory and return error\cf2 \
+		\cf7 theFileManager's\cf2  \cf8 removeItemAtURL\cf2 :\cf7 tempFolderURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 )\
+		
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	\cf6 -- replace existing file with temp file atomically, then delete temp directory\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theFileManager's\cf2  \cf8 replaceItemAtURL\cf2 :\cf7 destinationURL\cf2  \cf8 withItemAtURL\cf2 :\cf7 tempDestURL\cf2  \cf8 backupItemName\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 ) \cf8 options\cf2 :\cf7 NSFileManagerItemReplacementUsingNewMetadataOnly\cf2  \cf8 resultingItemURL\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	\cf7 theFileManager's\cf2  \cf8 removeItemAtURL\cf2 :\cf7 tempFolderURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 )\
+	\cf6 -- if replacement failed, return error\cf2 \
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 return
+\b0 \cf2  
+\i \cf4 true
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 copyFromURL\cf8 :\cf8 toURL\cf8 :\cf8 withReplacing\cf8 :\cf2 \
+\
+\cf6 -- This handler is called by other handlers\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 moveFromURL\cf2 :\cf7 sourceURL\cf2  \cf8 toURL\cf2 :\cf7 destinationURL\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 destinationURL's\cf2  \cf8 checkResourceIsReachableAndReturnError\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 )\
+	
+\b \cf2 if
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf4 false
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  (\cf7 theFileManager's\cf2  \cf8 moveItemAtURL\cf2 :\cf7 sourceURL\cf2  \cf8 toURL\cf2 :\cf7 destinationURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ))\
+		
+\b \cf2 if
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf4 false
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+		
+\b \cf2 return
+\b0 \cf2  
+\i \cf4 true
+\i0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 replaceFlag\cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 return
+\b0 \cf2  
+\i \cf4 false
+\i0 \cf2 \
+	\cf6 -- if we get here, we are replacing\cf2 \
+	\cf6 -- replace existing file  atomically\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  \cf7 theFileManager's\cf2  \cf8 replaceItemAtURL\cf2 :\cf7 destinationURL\cf2  \cf8 withItemAtURL\cf2 :\cf7 sourceURL\cf2  \cf8 backupItemName\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 ) \cf8 options\cf2 :\cf7 NSFileManagerItemReplacementUsingNewMetadataOnly\cf2  \cf8 resultingItemURL\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 ) \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 )\
+	\cf6 -- if replacement failed, return error\cf2 \
+	
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+	
+\b \cf2 return
+\b0 \cf2  
+\i \cf4 true
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 moveFromURL\cf8 :\cf8 toURL\cf8 :\cf8 withReplacing\cf8 :\cf2 \
+\
+\cf6 -- This handler is called by other handlers\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 copyURL\cf2 :\cf7 theSourceURL\cf2  \cf8 uniquelyToFolderURL\cf2 :\cf7 theDestFolderURL\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 destName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |lastPathComponent|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theDestFolderURL's\cf2  \cf8 URLByAppendingPathComponent\cf2 :\cf7 destName\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 destNameLessExt\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 destName's\cf2  \cf8 |stringByDeletingPathExtension|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theExtension\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 destName's\cf2  \cf8 |pathExtension|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFileManager\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSFileManager's\cf2  \cf8 |defaultManager|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 i\cf2  
+\b \cf2 to
+\b0 \cf2  \cf2 1\cf2 \
+	
+\b \cf2 repeat
+\b0 \cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theDestURL's\cf2  \cf8 checkResourceIsReachableAndReturnError\cf2 :(
+\i \cf5 missing value
+\i0 \cf2 )\
+		
+\b \cf2 if
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf4 false
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  (\cf7 theFileManager's\cf2  \cf8 copyItemAtURL\cf2 :\cf7 theSourceURL\cf2  \cf8 toURL\cf2 :\cf7 theDestURL\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ))\
+			
+\b \cf2 if
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf4 false
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 error
+\b0 \cf2  (\cf7 theError's\cf2  \cf8 |localizedDescription|\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 ) \cf5 number\cf2  (\cf7 theError's\cf2  \cf8 code\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 integer
+\i0 \cf2 )\
+			
+\b \cf2 exit
+\b0 \cf2  
+\b \cf2 repeat
+\b0 \cf2 \
+		
+\b \cf2 else
+\b0 \cf2 \
+			
+\b \cf2 if
+\b0 \cf2  \cf7 i\cf2  = \cf2 1\cf2  
+\b \cf2 then
+\b0 \cf2 \
+				
+\b \cf2 set
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 to
+\b0 \cf2  (\cf7 destNameLessExt's\cf2  \cf8 stringByAppendingString\cf2 :\cf7 copyString\cf2 )'s \cf8 stringByAppendingPathExtension\cf2 :\cf7 theExtension\cf2 \
+			
+\b \cf2 else
+\b0 \cf2 \
+				
+\b \cf2 set
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 to
+\b0 \cf2  (\cf7 destNameLessExt's\cf2  \cf8 stringByAppendingString\cf2 :(\cf7 copyString\cf2  & \cf4 space\cf2  & \cf7 i\cf2 ))'s \cf8 stringByAppendingPathExtension\cf2 :\cf7 theExtension\cf2 \
+			
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theDestFolderURL's\cf2  \cf8 URLByAppendingPathComponent\cf2 :\cf7 proposedName\cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \cf7 i\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 i\cf2  + \cf2 1\cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 repeat
+\b0 \cf2 \
+	
+\b \cf2 return
+\b0 \cf2  \cf7 theDestURL's\cf2  \cf8 path\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 copyURL\cf8 :\cf8 uniquelyToFolderURL\cf8 :\cf2 \
+\
+\cf6 -- This handler is called by other handlers\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 filesAndPackagesInURLArray\cf2 :\cf7 theURLs\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 itemURLs\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSMutableArray's\cf2  \cf8 array\cf2 ()\
+	
+\b \cf2 repeat
+\b0 \cf2  
+\b \cf2 with
+\b0 \cf2  \cf7 aURL\cf2  
+\b \cf2 in
+\b0 \cf2  \cf7 theURLs\cf2 \
+		\cf6 -- is it a directory?\cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theValue\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  (\cf7 aURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :\cf7 NSURLIsDirectoryKey\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ))\
+		
+\b \cf2 if
+\b0 \cf2  \cf7 theValue\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			\cf6 -- is it a package?\cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theValue\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  (\cf7 aURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :\cf7 NSURLIsPackageKey\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ))\
+			
+\b \cf2 if
+\b0 \cf2  \cf7 theValue\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+				(\cf7 itemURLs's\cf2  \cf8 addObject\cf2 :\cf7 aURL\cf2 )\
+			
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+		
+\b \cf2 else
+\b0 \cf2 \
+			(\cf7 itemURLs's\cf2  \cf8 addObject\cf2 :\cf7 aURL\cf2 )\
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 repeat
+\b0 \cf2 \
+	
+\b \cf2 return
+\b0 \cf2  \cf7 itemURLs\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 filesAndPackagesInURLArray\cf8 :\cf2 \
+\
+\cf6 -- This handler is called by other handlers\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 foldersInURLArray\cf2 :\cf7 theURLs\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 itemURLs\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSMutableArray's\cf2  \cf8 array\cf2 ()\
+	
+\b \cf2 repeat
+\b0 \cf2  
+\b \cf2 with
+\b0 \cf2  \cf7 aURL\cf2  
+\b \cf2 in
+\b0 \cf2  \cf7 theURLs\cf2 \
+		\cf6 -- is it a directory?\cf2 \
+		
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theValue\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  (\cf7 aURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :\cf7 NSURLIsDirectoryKey\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ))\
+		
+\b \cf2 if
+\b0 \cf2  \cf7 theValue\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			\cf6 -- is it a package?\cf2 \
+			
+\b \cf2 set
+\b0 \cf2  \{\cf7 theResult\cf2 , \cf7 theValue\cf2 , \cf7 theError\cf2 \} 
+\b \cf2 to
+\b0 \cf2  (\cf7 aURL's\cf2  \cf8 getResourceValue\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ) \cf8 forKey\cf2 :\cf7 NSURLIsPackageKey\cf2  \cf8 |error|\cf2 :(
+\i \cf5 specifier
+\i0 \cf2 ))\
+			
+\b \cf2 if
+\b0 \cf2  
+\b \cf2 not
+\b0 \cf2  \cf7 theValue\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 boolean
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+				(\cf7 itemURLs's\cf2  \cf8 addObject\cf2 :\cf7 aURL\cf2 )\
+			
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 repeat
+\b0 \cf2 \
+	
+\b \cf2 return
+\b0 \cf2  \cf7 itemURLs\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 foldersInURLArray\cf8 :\cf2 \
+\
+\cf6 -- This handler is called by other handlers\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 convertURLs\cf2 :\cf7 theURLs\cf2  \cf8 resultType\cf2 :\cf7 resType\cf2 \
+	
+\b \cf2 considering
+\b0 \cf2  
+\i \cf4 numeric strings
+\i0 \cf2 \
+		
+\b \cf2 if
+\b0 \cf2  \cf7 resType\cf2  = \cf2 "names"\cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  ((((\cf7 theURLs's\cf2  \cf8 valueForKey\cf2 :\cf2 "lastPathComponent"\cf2 )'s \cf8 componentsJoinedByString\cf2 :(
+\i \cf5 character
+\i0 \cf2  
+\i \cf4 id
+\i0 \cf2  \cf2 0\cf2 ))'s \cf8 stringByReplacingOccurrencesOfString\cf2 :\cf2 ":"\cf2  \cf8 withString\cf2 :\cf2 "/"\cf2 )'s \cf8 componentsSeparatedByString\cf2 :(
+\i \cf5 character
+\i0 \cf2  
+\i \cf4 id
+\i0 \cf2  \cf2 0\cf2 )) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 list
+\i0 \cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 resType\cf2  = \cf2 "POSIX names"\cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  (\cf7 theURLs's\cf2  \cf8 valueForKey\cf2 :\cf2 "lastPathComponent"\cf2 ) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 list
+\i0 \cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 resType\cf2  = \cf2 "urls"\cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf7 theURLs\cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 resType\cf2  = \cf2 "files"\cf2  
+\b \cf2 and
+\b0 \cf2  \cf4 AppleScript's\cf2  
+\i \cf5 version
+\i0 \cf2  > \cf2 "2.4"\cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf7 theURLs\cf2  
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 list
+\i0 \cf2 \
+		
+\b \cf2 else
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  (\cf7 theURLs's\cf2  \cf8 valueForKey\cf2 :\cf2 "path"\cf2 ) 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 list
+\i0 \cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 considering
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 convertURLs\cf8 :\cf8 resultType\cf8 :\cf2 \
+\
+\cf6 -- This handler is called by other handlers\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 stringFromRestype\cf2 :\cf7 resType\cf2 \
+	
+\b \cf2 considering
+\b0 \cf2  
+\i \cf4 numeric strings
+\i0 \cf2 \
+		
+\b \cf2 if
+\b0 \cf2  \cf7 resType\cf2  = 
+\i \cf4 files list
+\i0 \cf2  
+\b \cf2 and
+\b0 \cf2  \cf4 AppleScript's\cf2  
+\i \cf5 version
+\i0 \cf2  > \cf2 "2.4"\cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf2 "files"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 resType\cf2  = 
+\i \cf4 names list
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf2 "names"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 resType\cf2  = 
+\i \cf4 POSIX names list
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf2 "POSIX names"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2  \cf7 resType\cf2  = 
+\i \cf4 urls array
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf2 "urls"\cf2 \
+		
+\b \cf2 else
+\b0 \cf2 \
+			
+\b \cf2 return
+\b0 \cf2  \cf2 "paths"\cf2 \
+		
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 considering
+\b0 \cf2 \
+	
+\b \cf2 return
+\b0 \cf2  \cf7 resType\cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 stringFromRestype\cf8 :\cf2 \
+\
+\pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
+\cf6 -->> 2.1 stuff\cf2 \
+\pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
+\cf2 \
+\cf6 -- Copies a file or folder, replacing an existing file or folder if you wish. The destination is that of the destination parent folder; the original item's name will be used. Returns true/false.\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 copyWithResultItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 intoFolder\cf2 :\cf7 folderOrPath\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 destName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |lastPathComponent|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFolderURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theFolderURL's\cf2  \cf8 URLByAppendingPathComponent\cf2 :\cf7 destName\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 copyFromURL\cf2 :\cf7 theSourceURL\cf2  \cf8 toURL\cf2 :\cf7 theDestURL\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 if
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  \cf7 theDestURL's\cf2  \cf8 path\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 \
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\i \cf5 missing value
+\i0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 copyWithResultItem\cf8 :\cf8 intoFolder\cf8 :\cf8 withReplacing\cf8 :\cf2 \
+\
+\cf6 -- Moves a file or folder, replacing an existing file or folder if you wish. The destination is that of the destination folder; the original item's name will be used\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 moveWithResultItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 intoFolder\cf2 :\cf7 folderOrPath\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 destName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |lastPathComponent|\cf2 ()\
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theFolderURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 folderOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theFolderURL's\cf2  \cf8 URLByAppendingPathComponent\cf2 :\cf7 destName\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 moveFromURL\cf2 :\cf7 theSourceURL\cf2  \cf8 toURL\cf2 :\cf7 theDestURL\cf2  \cf8 withReplacing\cf2 :\cf7 replaceFlag\cf2 \
+	
+\b \cf2 if
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  \cf7 theDestURL's\cf2  \cf8 path\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 \
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\i \cf5 missing value
+\i0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 moveWithResultItem\cf8 :\cf8 intoFolder\cf8 :\cf8 withReplacing\cf8 :\cf2 \
+\
+\cf6 -- Renames a file or folder. If an item with the new name exists, generates an error\cf2 \
+
+\b \cf2 on
+\b0 \cf2  \cf8 renameWithResultItem\cf2 :\cf7 aFileOrPath\cf2  \cf8 newName\cf2 :\cf7 proposedName\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theSourceURL\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 makeURLFromFileOrPath\cf2 :\cf7 aFileOrPath\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 destName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |lastPathComponent|\cf2 ()\
+	
+\b \cf2 if
+\b0 \cf2  
+\i \cf5 class
+\i0 \cf2  
+\b \cf2 of
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 is
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2  
+\b \cf2 then
+\b0 \cf2  
+\b \cf2 set
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 NSString's\cf2  \cf8 stringWithString\cf2 :\cf7 proposedName\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 proposedName\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 proposedName's\cf2  \cf8 stringByReplacingOccurrencesOfString\cf2 :\cf2 "/"\cf2  \cf8 withString\cf2 :\cf2 ":"\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theDestURL\cf2  
+\b \cf2 to
+\b0 \cf2  \cf7 theSourceURL's\cf2  \cf8 |URLByDeletingLastPathComponent|\cf2 ()'s \cf8 URLByAppendingPathComponent\cf2 :\cf7 proposedName\cf2 \
+	
+\b \cf2 set
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 to
+\b0 \cf2  
+\b \cf2 my
+\b0 \cf2  \cf8 moveFromURL\cf2 :\cf7 theSourceURL\cf2  \cf8 toURL\cf2 :\cf7 theDestURL\cf2  \cf8 withReplacing\cf2 :
+\i \cf4 false
+\i0 \cf2 \
+	
+\b \cf2 if
+\b0 \cf2  \cf7 theResult\cf2  
+\b \cf2 then
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  \cf7 theDestURL's\cf2  \cf8 path\cf2 () 
+\b \cf2 as
+\b0 \cf2  
+\i \cf5 text
+\i0 \cf2 \
+	
+\b \cf2 else
+\b0 \cf2 \
+		
+\b \cf2 return
+\b0 \cf2  
+\i \cf5 missing value
+\i0 \cf2 \
+	
+\b \cf2 end
+\b0 \cf2  
+\b \cf2 if
+\b0 \cf2 \
+
+\b \cf2 end
+\b0 \cf2  \cf8 renameWithResultItem\cf8 :\cf8 newName\cf8 :\cf2 \
+}

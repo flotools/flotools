@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<dictionary title="Dictionary">
+	<suite name="File Suite" code="©!Fs" description="Contains commands related to files and folders.">
+		<command name="create duplicate of" code="©!Fs©!Cd" description="Duplicates a file or folder.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the item to be duplicated.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<result description="The POSIX path of the newly created duplicate.">
+				<type type="text">
+				</type>
+			</result>
+		</command>
+		
+		<command name="copy object" code="©!Fs©!Ci" description="Copy a file or folder.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the item to be copied.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<parameter name="to folder" description="An alias, file, HFS path or POSIX path of the destination folder." code="©!Tf" optional="no">
+				<type type="any">
+				</type>
+			</parameter>
+            <parameter name="replacing" description="Whether any existing item of the same name should be replaced." code="©!Rp" optional="yes">
+                <type type="boolean">
+                </type>
+            </parameter>
+            <parameter name="return path" description="Whether the POSIX path of the copied item should be returned as the result. Default is false." code="©!R*" optional="yes">
+                <type type="boolean">
+                </type>
+            </parameter>
+			<result description="If 'return path' is true, returns POSIX path of copied item, or missing value if 'replacing' parameter was false and item already existed. Otherwise returns true on success, or false if 'replacing' parameter was false and item already existed.">
+				<type type="any">
+				</type>
+			</result>
+		</command>
+			
+		<command name="remove object" code="©!Fs©!Ri" description="Delete item immediately. This cannot be undone. See the 'trash item' command for a safer alternative.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the item to be deleted.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<parameter name="folders included" description="This parameter must be used and set to true if the item you wish to delete is a folder." code="©!Fi" optional="yes">
+				<type type="boolean">
+				</type>
+			</parameter>
+			<result description="Returns true on success.">
+				<type type="boolean">
+				</type>
+			</result>
+		</command>
+			
+		<command name="move object" code="©!Fs©!Mi" description="Move a file or folder.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the item to be copied.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<parameter name="to folder" description="An alias, file, HFS path or POSIX path of the destination folder." code="©!Tf" optional="no">
+				<type type="any">
+				</type>
+			</parameter>
+			<parameter name="replacing" description="Whether any existing item of the same name should be replaced." code="©!Rp" optional="yes">
+				<type type="boolean">
+				</type>
+			</parameter>
+            <parameter name="return path" description="Whether the POSIX path of the moved item should be returned as the result. Default is false." code="©!R*" optional="yes">
+                <type type="boolean">
+                </type>
+            </parameter>
+            <result description="If 'return path' is true, returns POSIX path of moved item, or missing value if 'replacing' parameter was false and item already existed. Otherwise returns true on success, or false if 'replacing' parameter was false and item already existed.">
+                <type type="any">
+				</type>
+			</result>
+		</command>
+			
+		<command name="rename object" code="©!Fs©!Re" description="Rename a file or folder.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the item to be renamed.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<parameter name="to name" description="The proposed new name." code="©!Tn" optional="no">
+				<type type="text">
+				</type>
+			</parameter>
+            <parameter name="return path" description="Whether the POSIX path of the renamed item should be returned as the result. Default is false." code="©!R*" optional="yes">
+                <type type="boolean">
+                </type>
+            </parameter>
+            <result description="If 'return path' is true, returns POSIX path of the renamed item, or missing value if an item with the specified name already exists. Otherwise returns true, or false if an item with the specified name already exists. Throws an error on failure.">
+                <type type="any">
+				</type>
+			</result>
+		</command>
+			
+		<command name="trash object" code="©!Fs©!Tr" description="Trash a file or folder.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the item to be trashed.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<result description="The POSIX path of the trashed item.">
+				<type type="text">
+				</type>
+			</result>
+		</command>
+			
+			
+		<command name="exists object" code="©!Fs©!Ux" description="Checks whether the item exists.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the item to check.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<result description="Whether the item exists.">
+				<type type="boolean">
+				</type>
+			</result>
+		</command>
+			
+		<command name="object is folder" code="©!Fs©!Uf" description="Checks whether the item is a folder.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the item to check.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<result description="True if the item is a folder or disk (but not a package).">
+				<type type="boolean">
+				</type>
+			</result>
+		</command>
+			
+			
+		<command name="create folder at" code="©!Fs©!Cf" description="Create a new folder.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the destination for the folder. If any folders in the path do not exist, they too will be created.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<parameter name="use name" description="The proposed name for the folder. Omit this if the direct parameter already includes the name." code="©!Nn" optional="yes">
+				<type type="text">
+				</type>
+			</parameter>
+			<result description="The POSIX path of the new (or already existing) folder.">
+				<type type="text">
+				</type>
+			</result>
+		</command>
+			
+		<command name="create alias to" code="©!Fs©!Ca" description="Create an alias file.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the item you wish to make an alias of.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<parameter name="at" description="A file, HFS path or POSIX path of the proposed alias file, including its name." code="at  " optional="no">
+				<type type="any">
+				</type>
+			</parameter>
+			<result description="Returns true on success.">
+				<type type="boolean">
+				</type>
+			</result>
+		</command>
+			
+		<command name="find original of" code="©!Fs©!Fo" description="Returns the item pointed to by an alias file.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the alias file.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<parameter name="returning file" description="Whether to return the result as a file reference, rather than a POSIX path. This requires macOS 10.11 or higher; under earlier versions a POSIX path will be returned regardless. The default is false." code="©!Tj" optional="yes">
+				<type type="boolean">
+				</type>
+			</parameter>
+			<result description="A POSIX path or file reference.">
+				<type type="any">
+				</type>
+			</result>
+		</command>
+			
+		<command name="objects of" code="©!Fs©!Co" description="Get the contents of a folder.">
+			<direct-parameter description="An alias, file, HFS path or POSIX path of the folder you wish to get the contents of.">
+				<type type="any">
+				</type>
+			</direct-parameter>
+			<parameter name="searching subfolders" description="Whether to recursively include items in subfolders of the target folder. Default is false." code="©!Su" optional="yes">
+				<type type="boolean">
+				</type>
+			</parameter>
+			<parameter name="include invisible items" description="Whether to include invisible items. The default is false." code="©!Iv" optional="yes">
+				<type type="boolean">
+				</type>
+			</parameter>
+			<parameter name="include folders" description="Whether to include folders in the results. The default is true." code="©!Id" optional="yes">
+				<type type="boolean">
+				</type>
+			</parameter>
+			<parameter name="include files" description="Whether to include files (including packages) in the results. The default is true." code="©!If" optional="yes">
+				<type type="boolean">
+				</type>
+			</parameter>
+			<parameter name="result type" description="How the result should be returned. Default is a list of POSIX paths." code="©!Rt" optional="yes">
+				<type type="result types">
+				</type>
+			</parameter>
+			<result description="Depends on the 'result type' parameter.">
+				<type type="any" list="yes">
+				</type>
+			</result>
+		</command>
+			
+		<enumeration name="result types" code="©!Tt" description="What to return from the relevant command.">
+			<enumerator name="paths list" code="©!Tp" description="A list of POSIX paths. This is the default output.">
+			</enumerator>
+			<enumerator name="names list" code="©!Tz" description="A list of file names.">
+			</enumerator>
+			<enumerator name="POSIX names list" code="©!To" description="A list of file names in POSIX form, which means any / characters will be replaced by the : character.">
+			</enumerator>
+			<enumerator name="files list" code="©!Ty" description="A list of file references. This option requires macOS 10.11 or higher; under earlier versions it will fall back to returning a list of POSIX paths.">
+			</enumerator>
+			<enumerator name="urls array" code="©!Tq" description="An array of NSURLs. This option is only useful if the script uses AppleScriptObjC.">
+			</enumerator>
+		</enumeration>
+		
+		<command name="sort objects" code="©!Fs©!Si" description="Sort a list of items.">
+			<direct-parameter description="A list of aliases, files, HFS paths or POSIX paths.">
+				<type type="any" list="yes">
+				</type>
+			</direct-parameter>
+			<parameter name="low to high" description="The sorting order. Default is true." code="©!Hl" optional="yes">
+				<type type="boolean">
+				</type>
+			</parameter>
+			<parameter name="sorted property" description="The property to sort on. The default is name." code="©!Sp" optional="yes">
+				<type type="sortable properties">
+				</type>
+			</parameter>
+			<parameter name="sort type" description="The type of sorting to use. Only valid when sorting by name." code="©!St" optional="yes">
+				<type type="sort types">
+				</type>
+			</parameter>
+			<parameter name="result type" description="How the result should be returned. Default is a list of POSIX paths." code="©!Rt" optional="yes">
+				<type type="result types">
+				</type>
+			</parameter>
+			<result description="Depends on the 'result type' parameter.">
+				<type type="any" list="yes">
+				</type>
+			</result>
+		</command>
+
+    <command name="parse object" code="©!Fs©!Pi" description="Parses the path of a file or folder.">
+        <direct-parameter description="An alias, file, HFS path or POSIX path of the item to be parsed.">
+            <type type="any">
+            </type>
+        </direct-parameter>
+        <parameter name="HFS results" description="If true, the results are retuned in HFS form, otherwise they are returned in POSIX form. Default is false." code="©!Pp" optional="yes">
+            <type type="boolean">
+            </type>
+        </parameter>
+        <result description="A record with the following labels: full_name, name_extension, name_stub, parent_folder_path, parent_folder_name, displayed_name.">
+            <type type="record">
+            </type>
+        </result>
+    </command>
+
+<enumeration name="sort types" code="©!Ts" description="The type of sort to use.">
+			<enumerator name="case insensitive" code="©!Tu" description="This matches what AppleScript uses for text comparisons, with the actual order depending on your language settings.">
+			</enumerator>
+			<enumerator name="case sensitive" code="©!Tc" description="A case-sensitive sort that depends on your language settings.">
+			</enumerator>
+			<enumerator name="fixed case insensitive" code="©!Ti" description="This uses a fixed sorting order regardless of your language settings.">
+			</enumerator>
+			<enumerator name="fixed case sensitive" code="©!Tw" description="This uses a fixed sorting order regardless of your language settings.">
+			</enumerator>
+			<enumerator name="Finder like" code="©!Tk" description="As used in the Finder.">
+			</enumerator>
+		</enumeration>
+		
+		<enumeration name="sortable properties" code="©!Tx" description="The properties of sort to use.">
+			<enumerator name="name property" code="©!Sz" description="By name.">
+			</enumerator>
+			<enumerator name="modification property" code="©!Tm" description="By modification date.">
+			</enumerator>
+			<enumerator name="added property" code="©!Ta" description="By date added to its current folder.">
+			</enumerator>
+			<enumerator name="created property" code="©!Tv" description="By date created.">
+			</enumerator>
+			<enumerator name="last access property" code="©!Tl" description="By date last accessed.">
+			</enumerator>
+		</enumeration>
+		
+	
+
+	</suite>
+</dictionary>
