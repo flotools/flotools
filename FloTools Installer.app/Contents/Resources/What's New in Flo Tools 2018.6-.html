@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 
+<title>What's New in FloTools 2018.6</title>
+
 <head>
 
-  <title>What's New in FloTools 2018.6</title>
-  
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
+<title>What’s New In Flo Tools 2018.6</title>
 
 
 <style type="text/css">
@@ -330,23 +330,50 @@ kbd {
 
 <body>
 
-<h3 id="toc_0">What&#39;s New in Flo Tools 2018.6:</h3>
+<h1 id="toc_0">What’s New In Flo Tools 2018.6</h1>
 
-<p>Please note: FloTools 2018.6 and later includes a stand-alone application for FloNumPad, instead of the previous Keyboard Maestro Macro Group. When installing FloTools 2018.6 and above for the first time, you must grant assistive access to FloNumPad during installation for it to work properly. </p>
+<p>Woah—2018.6? That numbering scheme sounds awfully Avid-like. Well, yeah but other companies are doing it too. It’s kind of simple and it works but, who knows, maybe next time we’ll call it Flo Tools MMXVIII.IX.</p>
 
-<p>Flo Tools 2018.6 and above also requires that the installed version of Keyboard Maestro is 8.0 or higher. Here&#39;s what&#39;s new in FloTools 2018.6:</p>
+<p>Wow, it’s been a while, eh? As always, we have some small stuff and some big stuff and maybe a few in between. Let’s take a look,  shall we?</p>
 
-<ul>
-<li>Fixed the initial state of toggle input monitor and loop record.</li>
-<li>Fixed Retrospective Midi Record in shortcut helper to reflect the changes in Pro Tools 2018.1</li>
-<li>Added Flo Tools Session Template when installing FloTools. Find it under the template categories in ProTools.</li>
-<li>Added speak/toggle online transport</li>
-<li>Added speak/toggle narrow mix</li>
-<li>Added Speak/Toggle Dynamic Transport</li>
-<li>Added  pro tools preferences shortcut: Command+Option+, (comma)</li>
-<li>added  FloTools preferences: Command+Control+, (Comma)</li>
-<li>added temporary inspector. To activate, press and hold accent key while performing inspector functions. Release Accent key to exit temporary inspector.</li>
-</ul>
+<h2 id="toc_1">A New Installer</h2>
+
+<p>Yep, totally rewritten from the ground up or maybe even from head to toe. OK, it’s not that the experience is so much different but this installer had a lot more responsibility to do some important stuff. If you’re about to run the installer for the first time, you’ll see what we mean. If you’re reading this after having completed an installation, wasn’t that cool? We kind of thought so.</p>
+
+<h2 id="toc_2">New Flo Num Pad</h2>
+
+<p>Let’s start with a biggie: We’ve managed to completely do away with the Flo Num Pad macro group and simply made Flo Num Pad an application that runs all the time or, well, in the background, well, not the background exactly but whenever you need it. How does that work? Well, if we told you, we’d pretty much have to kill you and we’d rather not. Suffice it to say that, whenever you’d like to access the num pad from a laptop keyboard, simply press the FN key and use the same old QWERTY keys you’ve always used for Flo Num Pad. No more having to toggle the group on and off or  forgetting that it’s on and inadvertently typing numbers instead of letters. No more iMessages to your significant other that say &quot;5 36ve y64.&quot; And, seriously, you shouldn’t be texting while operating Pro Tools. We’re just trying to look out for you. Speaking of looking out for you…</p>
+
+<h2 id="toc_3">A Few New Double-Tap Shortcuts</h2>
+
+<p>As great as it is to have keyboard shortcuts in Pro Tools, sometimes those key combinations can be accidentally triggered without your knowledge and, before you know it, you’re scratching your head and wondering why things aren’t working. Well, Flo Tools has your back or at least we’re trying to. We’ve added a few of those shortcuts where you need to double-tap in order to toggle things only when you really, truly intend to execute the command. This includes Speak/Toggle Narrow Mix, Speak/Toggle Online and Speak/Toggle Dynamic Transport. What are the shortcuts for these, you ask? Well, never you mind! That’s what got you into trouble in the first place. If you really want the Dynamic Transport (and, trust us, you absolutely don’t—no, really, you definitely don’t and we’re not joking) you’ll have to look up the shortcut on your own and double-tap those keys. But seriously, don’t use Dynamic Transport. Don’t say we didn’t warn you.</p>
+
+<h2 id="toc_4">Flo Tools Preferences</h2>
+
+<p>Hey, that’s totally new and completely unexpected: Flo Tools Preferences! We’re just rolling out a few items in this new dialog. It’s just a couple of simple checkboxes and a pop-up menu to do things like set the double-tap timeout for Flo Tools. Customize to your heart’s content as long as it’s the three preferences we’ve given you, for now.</p>
+
+<p>Speaking of preferences, we’ve decided to make it easier to quickly open the Pro Tools Preferences dialog without having to traverse those treacherous menus. Besides, it’s under the Pro Tools menu, it’s also under the Setups menu—what a catastrophe. Why can’t we just press Command comma like every other application? Well, for starters, Command+comma is the shortcut for creating a sync point in a clip. We’ll forgive Avid for stealing that shortcut from the OS and instead we offer Command+Option+comma and, bang—the Pro Tools Preferences dialog is there.</p>
+
+<h2 id="toc_5">Temporary Inspector</h2>
+
+<p>So here’s kind of a cool feature that might come in handy. The Flo Tools Inspector is, as you know, a powerful tool and you can easily enable it with one press of the forward Slash key. However, not unlike the old Flo Num Pad, you sometimes forget that it’s enabled and certain keystrokes get swallowed until you remember to toggle the Inspector off. well, with the Temporary Inspector, you can issue those single letter commands with the Accent key as a modifier. So, in other words, if you’re focused on a track in the Mix window and want to check the status of the track’s Mute button, rather than enabling the regular Inspector, you can press and hold the Accent key and tap the letter M. While holding the Accent key down, you can press any of the other letter keys that would normally work with the Inspector. When you’re done, letting go of the Accent key turns off the Inspector. Give it a try—maybe you’ll love it, maybe you’ll prefer the regular Inspector mode, who knows. Use both and see which you like better.</p>
+
+<h2 id="toc_6">Flo Tools Session Template</h2>
+
+<p>Finally, we thought we’d throw in something that might help you create sessions that are already optimized for Flo Tools. Flo Tools 2018.6 installs a session template in your Session Templates folder. In your Dashboard (when creating a new session file) you can choose to have this template be the default for a new session. The resulting session file will have the right elements displayed in the Edit window for Flo Tools to be able to report things like Pre and Post Roll times as well as things like tempo and certain MIDI settings. Also, if you open an existing session (like an old session from before the introduction of Flo Tools) where these things have never been set up, you can use the Import Session Data dialog to import the settings that work best with Flo Tools.</p>
+
+<h2 id="toc_7">Miscelanious Improvements</h2>
+
+<p>So there are a few under-the-hood things like updated macros for menu items and shortcut helper stuff that is really not very exciting and not worth mentioning, although we just mentioned it. An improvement is an improvement no matter how big or small. So that’s some helpful stuff, no? Hey, if you don’t think so, we’ll refund all of your money. 😉</p>
+
+<p>Remember to go through the Read Me file to refresh your memory on features you might not have used much but, more importantly, to get some more details about the latest features.</p>
+
+<p>As always, Go With the Flo,</p>
+
+<p>The F36 T663s Team.
+(Oops, didn’t install 2018.6 on this laptop yet…)</p>
+
+<p>The Flo Tools Team</p>
 
 
 
