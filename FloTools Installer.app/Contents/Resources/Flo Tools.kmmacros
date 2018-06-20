@@ -58980,11 +58980,22 @@ kme.setvariable("y", {to:""+y})
 		<array>
 			<dict>
 				<key>Actions</key>
-				<array/>
+				<array>
+					<dict>
+						<key>MacroActionType</key>
+						<string>ShowPaletteOfMacros</string>
+						<key>Macros</key>
+						<array>
+							<string>9E293ECB-8849-44FC-86D1-45C191E4482C</string>
+						</array>
+						<key>TimeOutAbortsMacro</key>
+						<true/>
+					</dict>
+				</array>
 				<key>CreationDate</key>
 				<real>529812089.10572302</real>
 				<key>ModificationDate</key>
-				<real>529812221.25182003</real>
+				<real>551050985.75056803</real>
 				<key>Name</key>
 				<string>Show all Shortcuts, ⌘⌃⇧H</string>
 				<key>Triggers</key>
