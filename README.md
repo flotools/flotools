@@ -85,7 +85,7 @@ For all functions of Flo Tools to work as expected, it is recommended to apply t
 6. In the toolbar menu of the edit window, the "Transport", "midi Controls", and "expanded transport" settings should be checked.
 7. If the default keyboard is not set to "US" in System Preferences, Keyboards, input sources, please add it to the list of input sources, and switch to it when using Flo Tools.
 
-A FloTools Session Template with these settings is provided for convenience when installing  FloTools 2018.6 and above.
+A FloTools Session Template with these settings is provided for convenience when installing  FloTools 2018.7 and above.
 
 
 Pro Tools includes a Keyboard Focus mode, within which commands are issued through single letter keystrokes. When Keyboard Focus mode is not active, these same commands can be issued by adding the Control key as a modifier. Since certain Flo Tools commands are issued with single letter taps and double-taps, it is recommended that users avoid the Keyboard Focus mode in Pro Tools. 
@@ -496,10 +496,10 @@ The Flo Tools team will use this information to determine what the problem and s
 * Speak Record-enabled Tracks/disarm all tracks has been taken out of beta stage, and now works reliably. This is also true for the related command, Control+Shift+r, to List Record-Enabled Tracks/List Record-Disabled Tracks.
 * Flo Tools installs Flo Mouse and Flo Num Pad
 
-### Flo Tools 2018.6:
-Please note: FloTools 2018.6 and later includes a stand-alone application for FloNumPad, instead of the previous Keyboard Maestro Macro Group. When installing FloTools 2018.6 and above for the first time, you must grant assistive access to FloNumPad during installation for it to work properly. 
+### Flo Tools 2018.7:
+Please note: FloTools 2018.7 and later includes a stand-alone application for FloNumPad, instead of the previous Keyboard Maestro Macro Group. When installing FloTools 2018.7 and above for the first time, you must grant assistive access to FloNumPad during installation for it to work properly. 
 
-Flo Tools 2018.6 and above also requires that the installed version of Keyboard Maestro is 8.0 or higher. Below is the changelog for FloTools 2018.6:
+Flo Tools 2018.7 and above also requires that the installed version of Keyboard Maestro is 8.0 or higher. Below is the changelog for FloTools 2018.7:
 
 * Fixed the initial state of toggle input monitor and loop record.
 * Fixed Retrospective Midi Record in shortcut helper to reflect the changes in Pro Tools 2018.1
