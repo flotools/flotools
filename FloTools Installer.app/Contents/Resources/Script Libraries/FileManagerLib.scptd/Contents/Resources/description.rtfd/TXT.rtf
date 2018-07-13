@@ -1,0 +1,245 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Verdana;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue255;\red64\green128\blue0;
+\red0\green22\blue176;\red68\green21\blue176;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c0\c0;\csgenericrgb\c0\c0\c100000;\csgenericrgb\c25000\c50000\c0;
+\csgenericrgb\c0\c8700\c69000;\csgenericrgb\c26600\c8300\c69100;}
+\deftab720
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+
+\f0\b\fs48 \cf0 \expnd0\expndtw0\kerning0
+FileManagerLib v2.1.0\
+
+\b0\fs28 \
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+
+\b \cf0 FileManagerLib
+\b0  is a script library providing handlers for file management tasks like duplicating, copying, moving, renaming, deleting, and trashing files, as well as creating folders, alias files, symbolic links and hard links, and comparing files and folder contents. As well as providing some features unavailable using either Finder or System Events scripting, it offers more options, greater speed, and some extra conveniences.\
+\
+
+\b FileManagerLib
+\b0 \kerning1\expnd0\expndtw0  is backwards compatible with version 1.0. In version 1.0, handlers were called directly, but version 2 has a terminology dictionary, so it can also be called using normal AppleScript-style commands under macOS 10.10 and later. Version 2 also introduces the ability to get the contents or entire contents of a folder, plus file sorting options.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
+\cf0 Once you have installed the file in 
+\i ~/Library/Script Libraries
+\i0 , you can read its dictionary by choosing 
+\b File -> Open Dictionary\'85
+\b0  in Script Editor, or simply dragging it over Script Debugger\'92s icon.\
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+\cf0 \expnd0\expndtw0\kerning0
+\
+Where files or folders are required as parameters, you can pass aliases, files, HFS paths and POSIX paths. POSIX paths should not be quoted, and a leading ~ will be expanded.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
+
+\b\fs36 \cf0 \kerning1\expnd0\expndtw0 Using the library\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
+
+\b0\fs28 \cf0 \
+You include the library in a script by adding a use statement:\
+\
+\pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
+
+\f1\b \cf2 use
+\b0  
+\i \cf3 script
+\i0 \cf2  "FileManagerLib" \cf3 version\cf2  "2.1"\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
+
+\f0 \cf0 \
+If your script uses any scripting addition commands, you will also need to include a 
+\b use scripting additions
+\b0  statement (or 
+\b using terms from scripting additions
+\b0  blocks).\
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+\cf0 \expnd0\expndtw0\kerning0
+\
+So for example, to get a list of the contents of your desktop sorted by modification date, you could use:\
+\
+\pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
+
+\f1\b \cf2 \kerning1\expnd0\expndtw0 use
+\b0  
+\i \cf3 scripting additions
+\i0 \cf2 \
+
+\b use
+\b0  \cf4 theLib\cf2  : 
+\i \cf3 script
+\i0 \cf2  "FileManagerLib" \cf3 version\cf2  "2.1"\
+\
+
+\b set
+\b0  \cf4 theDesktop\cf2  
+\b to
+\b0  
+\b \cf5 path to
+\b0 \cf2  \cf6 desktop\cf2 \
+
+\b set
+\b0  \cf4 theContents\cf2  
+\b to
+\b0  
+\b \cf5 objects of
+\b0 \cf2  \cf4 theDesktop\cf2 \
+\pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
+
+\b \cf5 sort objects
+\b0 \cf2  \cf4 theContents\cf2  \cf5 sorted property\cf2  \cf6 modification property\
+\pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
+
+\f0 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+\cf0 If you wanted the list to also include files within subfolders, to leave out folders, to be sorted in reverse order, and returned as a list of files rather than POSIX paths, you could use this:\
+\
+\pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
+
+\f1\b \cf2 \kerning1\expnd0\expndtw0 use
+\b0  
+\i \cf3 scripting additions
+\i0 \cf2 \
+
+\b use
+\b0  \cf4 theLib\cf2  : 
+\i \cf3 script
+\i0 \cf2  "FileManagerLib" \cf3 version\cf2  "2.1"\
+\
+
+\b set
+\b0  \cf4 theDesktop\cf2  
+\b to
+\b0  
+\b \cf5 path to
+\b0 \cf2  \cf6 desktop\cf2 \
+
+\b set
+\b0  \cf4 theContents\cf2  
+\b to
+\b0  
+\b \cf5 objects of
+\b0 \cf2  \cf4 theDesktop\cf2  
+\b with
+\b0  \cf5 searching subfolders\cf2  
+\b without
+\b0  \cf5 include folders\cf2 \
+\pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
+
+\b \cf5 sort objects
+\b0 \cf2  \cf4 theContents\cf2  \cf5 sorted property\cf2  \cf6 modification property\cf2  \cf5 result type\cf2  \cf6 files list\cf2  
+\b without
+\b0  \cf5 low to high
+\f0 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+\cf0 \
+Note that the 
+\i files list
+\i0  option is only available if you are running macOS 10.11 or later.\
+\
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+
+\b \cf0 FileManagerLib
+\b0  includes commands for the following functions:\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 * Copying (
+\i copy object
+\i0 ).\
+\pard\pardeftab720\sl336\slmult1\partightenfactor0
+\cf0 * Moving (
+\i move object
+\i0 ).\
+* Duplicating (
+\i duplicate object
+\i0 ).\
+* Renaming (
+\i rename object
+\i0 ).\
+* Deleting (
+\i trash object
+\i0  and 
+\i delete object
+\i0 ).\
+* Checking an item exists (
+\i exists object
+\i0 ).\
+* Checking whether an item is a folder (
+\i object is folder
+\i0 ).\
+* Creating folders (
+\i create folder at
+\i0 ).\
+* Creating alias files (
+\i create alias to
+\i0 ).\
+* Resolving alias files (
+\i find original of
+\i0 ).\
+* Getting the contents of a folder (
+\i objects of
+\i0 ).\
+* Sorting lists of files (
+\i sort objects
+\i0 ).\
+\pard\pardeftab720\sl264\slmult1\partightenfactor0
+\cf0 \
+It also includes handlers that can be called directly for dealing with symlinks and hard links, and for comparing files and folders.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl264\slmult1\pardirnatural\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
+
+\b\fs36 \cf0 Changes in version 2.1
+\b0\fs28 \
+\
+The terminology has been changed to use the word 
+\i object
+\i0  instead of 
+\i item
+\i0  in command names, to avoid conflicts. Existing scripts should recompile with the new terminology when opened in an editor.\
+\
+The 
+\b copy object
+\b0 , 
+\b move object
+\b0  and 
+\b rename object
+\b0  commands all have a new optional 
+\b return path
+\b0  parameter. When true, the commands return the POSIX path of the copied/moved/renamed item. \
+\
+A new 
+\b parse object
+\b0  command parses the path of a file or folder.\
+\
+
+\b\fs36 Feedback and updates
+\b0\fs28 \
+\
+I welcome feedback: Shane Stanley, <sstanley@myriad-com.com.au>. \
+The latest version can be downloaded from: <http://www.macosxautomation.com/applescript/apps/Script_Libs.html#FileManagerLib>.\
+\
+
+\b\fs36 Acknowledgements\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
+
+\b0\fs28 \cf0 \
+Special thanks to Nigel Garvey. \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
+
+\b\fs36 \cf0 Licence\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
+
+\b0\fs28 \cf0 \
+FileManagerLib is Copyright \'a9 2017-18 Shane Stanley <sstanley@myriad-com.com.au>\
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software to use, copy, and distribute copies, including within commercial software, subject to the following conditions:\
+\
+Modified copies should be distributed under a different name to avoid clashes.\
+\
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\
+\
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\
+}
