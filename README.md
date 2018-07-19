@@ -499,7 +499,9 @@ The Flo Tools team will use this information to determine what the problem and s
 
 Please note: FloTools 2018.7 and later includes a stand-alone application for FloNumPad, instead of the previous Keyboard Maestro Macro Group. When installing FloTools 2018.7 and above for the first time, you must grant assistive access to FloNumPad during installation for it to work properly. 
 
-Flo Tools 2018.7 and above also requires that the installed version of Keyboard Maestro is 8.0 or higher. Below is the changelog for FloTools 2018.7:
+As of FloTools 2018.7 and above, both FloMouse and FloNumPad are automatically installed. You do not need to use the separate installers located on the download page unless you are using FloTools 2.3.2 or lower.
+
+FloTools 2018.7 and above also requires that the installed version of Keyboard Maestro is 8.0 or higher. Below is the changelog for FloTools 2018.7:
 
 * Fixed the initial state of toggle input monitor and loop record.
 * Fixed Retrospective Midi Record in shortcut helper to reflect the changes in Pro Tools 2018.1
