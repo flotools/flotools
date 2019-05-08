@@ -42,7 +42,7 @@ Once downloaded, this  zip file, referenced in this read me, will automatically 
 
 Flo Tools supports Mac OS version 10.12 or later, and Pro Tools version 12.3 or later. Pro Tools First has limited support at this time from version 12.8.2 or higher. Earlier versions of Mac OS, Pro Tools, and Pro Tools First may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
 
-Please Note: If you're using versions of Pro Tools or Pro Tools First prior to Pro Tools 2019, you are required to use Flo Tools 2018.7. If you are using Pro Tools or Pro Tools First version 2019 or later, you must use Flo Tools 2019.3.
+Please Note: If you're using versions of Pro Tools or Pro Tools First prior to Pro Tools 2019, you are required to use Flo Tools 2018.7. If you are using Pro Tools or Pro Tools First version 2019 or later, you must use Flo Tools 2019.5.
 
 
 
@@ -518,9 +518,9 @@ FloTools 2018.7 and above also requires that the installed version of Keyboard M
 * added temporary inspector. To activate, press and hold accent key while performing inspector functions. Release Accent key to exit temporary inspector.
 
 
-### Flo Tools 2019.3:
+### Flo Tools 2019.5:
 
-FloTools 2019.3 replaces FloNumPad with the Virtual Extended Keyboard, adds compatibility to Pro Tools 2019.3 and above, and fixes a few bugs. To find more information about the new changes in Flo Tools 2019.3, see the What's New documentation. Below is the changelog:
+FloTools 2019.5 replaces FloNumPad with the Virtual Extended Keyboard, adds compatibility to Pro Tools 2019.5 and above, and fixes a few bugs. To find more information about the new changes in Flo Tools 2019.5, see the What's New documentation. Below is the changelog:
 
 * Macros which have come out of Beta, and are now fully functional:
  * Speak/Select Automation
