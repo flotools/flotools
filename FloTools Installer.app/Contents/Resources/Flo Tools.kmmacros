@@ -377,9 +377,9 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>553213600.68176496</real>
+				<real>579136050.21503603</real>
 				<key>Name</key>
-				<string>* Flo Tools 2018.7.0. Check for Automatic Update</string>
+				<string>* Flo Tools 2019.5.0. Check for Automatic Update</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -665,9 +665,9 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>553213655.90920603</real>
+				<real>579136080.73675299</real>
 				<key>Name</key>
-				<string>* Flo Tools 2018.7.0. Check for Update</string>
+				<string>* Flo Tools 2019.5.0. Check for Update</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
