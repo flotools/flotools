@@ -24,7 +24,7 @@ Flo Tools is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 ## Table of Contents
 
 * [Download](#download)
-* [System REquirements](#systemrequirements)
+* [System Requirements](#systemrequirements)
 * [Installation](#installation)
 * [Using Flo Tools](#usingflotools)
 * [Misc](#misc)
@@ -41,6 +41,10 @@ Once downloaded, this  zip file, referenced in this read me, will automatically 
 ## System Requirements
 
 Flo Tools supports Mac OS version 10.12 or later, and Pro Tools version 12.3 or later. Pro Tools First has limited support at this time from version 12.8.2 or higher. Earlier versions of Mac OS, Pro Tools, and Pro Tools First may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
+
+Please Note: If you're using versions of Pro Tools or Pro Tools First prior to Pro Tools 2019, you are required to use Flo Tools 2018.7. If you are using Pro Tools or Pro Tools First version 2019 or later, you must use Flo Tools 2019.5.
+
+
 
 <div id='installation'/>
 
@@ -497,9 +501,11 @@ The Flo Tools team will use this information to determine what the problem and s
 
 ### Flo Tools 2018.7:
 
-Please note: FloTools 2018.7 and later includes a stand-alone application for FloNumPad, instead of the previous Keyboard Maestro Macro Group. When installing FloTools 2018.7 and above for the first time, you must grant assistive access to FloNumPad during installation for it to work properly. 
+Please note: FloTools 2018.7 includes a stand-alone application for FloNumPad, instead of the previous Keyboard Maestro Macro Group. When installing FloTools 2018.7 for the first time, you must grant assistive access to FloNumPad during installation for it to work properly. 
 
-Flo Tools 2018.7 and above also requires that the installed version of Keyboard Maestro is 8.0 or higher. Below is the changelog for FloTools 2018.7:
+As of FloTools 2018.7, both FloMouse and FloNumPad are automatically installed. You do not need to use the separate installers located on the download page unless you are using FloTools 2.3.2 or lower.
+
+FloTools 2018.7 and above also requires that the installed version of Keyboard Maestro is 8.0 or higher. Below is the changelog for FloTools 2018.7:
 
 * Fixed the initial state of toggle input monitor and loop record.
 * Fixed Retrospective Midi Record in shortcut helper to reflect the changes in Pro Tools 2018.1
@@ -510,3 +516,57 @@ Flo Tools 2018.7 and above also requires that the installed version of Keyboard 
 * Added  pro tools preferences shortcut: Command+Option+, (comma)
 * added  FloTools preferences: Command+Control+, (Comma)
 * added temporary inspector. To activate, press and hold accent key while performing inspector functions. Release Accent key to exit temporary inspector.
+
+
+### Flo Tools 2019.5:
+
+FloTools 2019.5 replaces FloNumPad with the Virtual Extended Keyboard, adds compatibility to Pro Tools 2019.5 and above, and fixes a few bugs. To find more information about the new changes in Flo Tools 2019.5, see the What's New documentation. Below is the changelog:
+
+* Macros which have come out of Beta, and are now fully functional:
+ * Speak/Select Automation
+ * Speak/Select Elastic Audio
+ * Speak/Select Track View
+
+* New macros
+ * Speak And Navigate to First playlist: shift+home
+ * Speak And Navigate to last playlist: shift+end
+ * Speak And Move Ahead 5 Playlists: shift+page down
+ * Speak And Move Back 5 Playlists: shift+page Up
+ * pan Instrument left: Control Option Left Arrow
+ * pan instrument Right: Control Option Right Arrow
+ * Speak/Reset Instrument Pan: Option+n
+ * Previous track view on selected tracks: Control Command left arrow
+ * Next track view on selected tracks: Control Command right arrow
+ * Previous track view on all tracks: Control Option Command left arrow
+ * Next track view on all tracks: Control Option Command right arrow
+ * toggle Track view on all tracks: Option Hyphen
+ * Adjust all track heights to fit in Edit window: control+option+command+up/down arrow
+ * Analyze in Audio Suite: control+option+shift+command+a
+ * Preview Processing in Audio Suite: control+option+shift+command+p
+ * Render in Audio Suite: control+option+shift+command+r
+ * Bypass in Audio Suite: Control+Option+Command+Shift+b
+
+* Fixed
+ * Load default plug-in view
+
+* Changed counter announcement to reflect change in Pro Tools 2019:
+ * Press delete, then type Start value
+ * Press Delete, then type End value
+ * Press Delete, then type Length value
+ * Press Delete, then type Main Counter value
+ * Press Delete, then type Sub Counter value
+ * Press Delete, then type Nudge value
+ * Press Delete, then type Pre-Roll amount
+ * Press Delete, then type Post-Roll amount
+
+* Renamed Macros:
+ * pan left on mono/left channel, Command Control Left Arrow
+ * pan right on mono/left channel, Command Control Right Arrow
+ * pan left on right channel, Command Control Shift Left Arrow
+ * pan right on right channel, Command Control Shift Right Arrow
+
+* Shortcuts changed
+ * Increase Instrument Volume: control+option+up Arrow
+ * Decrease Instrument Volume: control+option+Down Arrow
+
+

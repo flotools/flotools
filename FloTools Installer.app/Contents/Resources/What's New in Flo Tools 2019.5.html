@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>What's New in Flo Tools 2019.5</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0"><strong>What’s New in Flo Tools 2019.5</strong></h1>
+
+<p>Oh, if you only knew what excitement the Flo Tools team has been experiencing over the last several months…
+Over what, you might ask? (And we thought you might ask.)</p>
+
+<p>Well, for one thing, we’ve had to rewrite a ton of macros virtually every time a new beta build of Pro Tools came down the pike. Why all the big changes? While working toward Mojave compatibility, Avid had to completely rewrite a significant portion of the Pro Tools interface. As is par for the course, when UI elements are rebuilt, things often change just enough to require code changes to UI automation scripts.</p>
+
+<h2 id="toc_1">Compatibility</h2>
+
+<p>Let&#39;s get to the big takeaway: Flo Tools 2019.5 is compatible with Pro Tools 2019.5 but not Pro Tools 2018.12 and earlier. </p>
+
+<p>Unless you&#39;ve upgraded to Pro Tools 2019.5, you should not update to Flo Tools 2019.5. If you&#39;re still on Pro Tools 2018, you should remain on Flo Tools 2018.7. </p>
+
+<p>Just so that we&#39;re absolutely crystal clear on this point: Flo Tools 2019.5 will only work with Pro Tools 2019.5 and no earlier versions of Pro Tools. We haven&#39;t tested with Pro Tools First but we think it&#39;ll probably work at least as well as with earlier versions of Pro Tools First.</p>
+
+<p>At the risk of confusing people, Pro Tools 2019.5 is Mojave compatible but it also works with Sierra and High Sierra. So, can you use Flo Tools 2019.5 with, say, Sierra? Yes, Flo Tools 2019.5 will work under sierra. One caveat is mentioned below but, for now, let&#39;s recap:</p>
+
+<ul>
+<li>Pro Tools 2019.5 will work with Sierra, High Sierra and Mojave</li>
+<li>2019.5 is the only version of Pro Tools compatible with Mojave</li>
+<li>Flo Tools 2019.5 will work in Sierra, High Sierra and Mojave</li>
+<li>Flo Tools 2019.5 will only work with Pro Tools 2019.5</li>
+</ul>
+
+<p>We had originally thought Flo Tools 2019.5 would be purely a compatibility update but we did manage to sneak in a few new things. That said, now that this version is out, we’ll be working on some new features for the next update soon. So, what’s new? Funny you should ask…</p>
+
+<h2 id="toc_2">A Heads Up on Upgrading to Mojave</h2>
+
+<p>If you&#39;re considering upgrading to Mojave, be aware that, after updating the operating system, you&#39;ll need to do the following:</p>
+
+<ol>
+<li>Go to the Security and Privacy pane of System Preferences</li>
+<li>Select the Privacy Tab</li>
+<li>Select Accessibility in the Privacy Categories Table</li>
+<li>If necessary, click the lock to make changes and enter your password</li>
+<li>In the second table, uncheck then recheck the Keyboard Maestro and Keyboard Maestro Engine items and restart your computer.</li>
+</ol>
+
+<p>If you haven&#39;t yet updated to Mojave, be forewarned that you&#39;ll be required to say okay to a bunch of things when installing software. </p>
+
+<p>Apple has made it necessary to approve access of several types for security reasons. As a result, the Flo Tools installation process is interrupted several times with such requests from the system. </p>
+
+<p>Make sure to approve and agree to everything during the installation process or else Flo Tools will not work. </p>
+
+<p>To be clear, if you install Flo Tools 2019.5 under Sierra or High Sierra, you won&#39;t be confronted with these requests to grant permission. It&#39;s only under Mojave that this would be the case.</p>
+
+<h2 id="toc_3">Modify Your Modifiers</h2>
+
+<p>We’ve said it before but, at this point, it’s practically a requirement. More and more, Pro Tools is utilizing the Control+Option modifiers either as a pair or in conjunction with other modifiers. </p>
+
+<p>With the previous version of Flo Tools, we began using the Control+Option modifiers for certain macros and, at this point, Flo Tools is starting to give feedback on Pro Tools commands which use those modifiers too. </p>
+
+<p>So, if you haven’t done so already, we encourage you to use the Caps Lock key as your VoiceOver key. You can find that preference in the General Category of the VoiceOver Utility. </p>
+
+<p>If you don’t know how to get to the VoiceOver Utility, we will now issue a good brow beating. Had enough? OK, it’s VO+f8. Now we’ll wait here while you go make the change. What? Back already? Alright, let’s move on…</p>
+
+<h2 id="toc_4">No More VoiceOver Focus Issues</h2>
+
+<p>OK, technically, this isn’t a Flo Tools improvement but, given that Flo Tools is all about efficiency and user experience, we thought it was important enough to mention that, at least in Mojave, the super annoying issue of VoiceOver losing focus and being thrown to the top left of the window after closing other windows or dialogs has finally been fixed. </p>
+
+<p>So now, whenever you use Command+Option+W to close all windows, VoiceOver will land right back where it was before. Yes, life is good once again!</p>
+
+<p>Oh, yeah, about that caveat mentioned above, if you&#39;re using Sierra or High Sierra, the focus issue has apparently improved but it&#39;s not fixed under those operating systems. It&#39;s really the changes in Mojave where the updated code in Pro Tools 2019.5 addresses the focus issues. So, unless you really enjoy being blown back to the top left corner every single time you do something, yeah, you just might consider making that jump to Mojave.</p>
+
+<h2 id="toc_5">A Few Commands No Longer in Beta</h2>
+
+<p>Fortuitously, as a byproduct of a bunch of things being rewritten in Pro Tools, a few controls have been updated so as to reveal themselves to the UI in such a way that Flo Tools has better access to them. </p>
+
+<p>As a result, a few macros have now been officially promoted out of beta. Which macros? Again, funny you should ask…</p>
+
+<ul>
+<li>Speak/Select Track View: No more having to double-tap the W key just to see which track view is selected. Just tap the W key once while the Flo Tools Inspector is enabled and Flo Tools will let you know whether a track is in Waveform view or one of the other view types. Double-tapping will, of course, allow you to change views as it always has.</li>
+<li>Speak/Select Automation: Another time saver: press the letter A once and the Flo Tools Inspector will report a track’s automation state while double-tapping brings up the automation mode menu.</li>
+<li>Speak/Select Elastic Audio: Just like its former beta buddies above, pressing the letter E once will speak the current Elastic Audio type (if any) while a double-tap brings up the menu.</li>
+</ul>
+
+<p>While the 3 macros mentioned above were officially promoted out of beta, we confess that there was another macro that wasn&#39;t officially considered beta in previous versions of Flo Tools but it technically didn&#39;t behave as originally intended (through no fault of our own, naturally). Again, as a result of Avid&#39;s changes, we&#39;ve gained better access to a couple of things in the Plug-in window. Now don&#39;t get too excited—it&#39;s just some quality of life improvement.</p>
+
+<ul>
+<li>Speak/Choose Preset: Maybe some of you weren&#39;t too familiar with double-tapping Option+p to quickly open the Preset menu in the Plug-in window. well, the idea was that a single tap was supposed to speak the name of the current preset while double-tapping would pop open the menu. The problem was that, while the currently selected preset was visible to voiceOver itself, it wasn&#39;t accessible through UI automation. Well, as one of the beneficieries of Avid&#39;s work, Flo Tools can now report the currently loaded preset when you press Option+p once.</li>
+<li>Previous/Next Preset: Although Left Bracket and Right Bracket always did work correctly in that they selected the previous and next presets, they weren&#39;t able to report the name of the newly loaded preset because of the aforementioned invisibility of the information through automation. As of Flo Tools 2019.5, pressing Left/Right Bracket will load a new preset as well as speak the preset&#39;s name.</li>
+</ul>
+
+<h2 id="toc_6">New Announcement When Editing Counters</h2>
+
+<p>This change actually depends on whether a counter is set to bars and beats or minutes and seconds. As a result of a particular change in Pro Tools 2019, when entering a value while a counter is set to minutes and seconds, it is necessary to press either Delete or a decimal before typing in a new value. </p>
+
+<p>This does not apply to the old school method of typing the asterisk  or slash key from the numeric keypad but rather when double-tapping Command+f1, for example. Flo Tools will say, &quot;Press Delete then type Start Value.&quot; 
+This requirement to press Delete first only applies to when you’re in minutes and seconds and not in bars and beats. Flo Tools will sense the difference and remind you to press delete only when the counter in question is set to minutes and seconds. Oo, it’s almost as if Flo Tools is on the verge of artificial intelligence… or not.</p>
+
+<h2 id="toc_7">Shortcut Changes in the Inspector</h2>
+
+<ul>
+<li>Increase/Decrease Instrument Volume: We’ve changed the Increase/Decrease Instrument Volume shortcut in the Flo Tools Inspector from Command+Option+Up/Down Arrow to Control+Option+Up/Down Arrow. Wait, Control+Option? But that’ll conflict with… Oh, never mind, you’ve already changed your VoiceOver key to Caps Lock, right? Of course you did. OK, moving right along…</li>
+</ul>
+
+<h2 id="toc_8">New macros</h2>
+
+<ul>
+<li>Pan Instrument left/Right, Control Option Left/Right Arrow: How did we miss this? Flo Tools Inspector has other shortcuts for instrument tracks but we kind of skipped over the instrument’s pan control. To be clear, we’re not talking about an instrument track’s main pan control but rather the pan control located within the Instrument section of an instrument track’s channel strip. It’s a single pan knob that Pro Tools identifies as &quot;MIDI Pan Indicator.&quot;</li>
+<li>Speak/Reset Instrument Pan, Option+N: What would an instrument pan be without a quick means to reset it? To speak or reset the Instrument Pan with the Flo Tools Inspector, use Option+N. </li>
+<li>Speak And Navigate to First or Last playlist, shift+home/End</li>
+<li>Speak And Move Back or Ahead 5 Playlists: shift+page Up/Page down</li>
+</ul>
+
+<p>These playlist commands were introduced in Pro Tools 2018.12 but, since there was no update to Flo Tools at that time because we were playing a game of Broken Beta Build Bingo, we’re adding them now.</p>
+
+<ul>
+<li>Previous/Next track view on selected tracks: Control Command left/Right arrow</li>
+<li>Previous/Next track view on all tracks: Control Option Command left/Right arrow</li>
+<li>Toggle Track view on all tracks: Option Hyphen</li>
+</ul>
+
+<p>These commands have been a part of Pro Tools since practically the beginning. </p>
+
+<p>You may recall that Flo Tools 2018.7 introduced a sort of safety net to prevent users from unwittingly changing the track view and finding themselves no longer able to edit waveforms because the track view might have been changed to volume or something else. </p>
+
+<p>well, now that the Flo Tools Inspector has the ability to easily report track view status, we’ve made it possible to use these shortcuts to switch track views with keyboard shortcuts instead of having to pop-up the menu. </p>
+
+<p>There’s still a sort of safety net in place. That is, let’s say you’ve pressed Command+Control+Shift+Right Arrow, thinking you’re panning right on the right channel of a stereo track and you’ve forgotten to turn on the Inspector, you’ll be alerted that you’ve just changed the track view of the selected track. </p>
+
+<p>With that, you can simply either undo the action or press the same modifiers with the opposite arrow key to cycle the track view back.</p>
+
+<ul>
+<li>Adjust all track heights to fit in Edit window: control+option+command+up/down arrow</li>
+</ul>
+
+<p>Why did we include this command? Well, basically, because we can. Actually, it’s similar to the commands listed just above in that you’re alerted to the fact that track heights have all been adjusted and you can verify the height of one track and know that all tracks are set to the same height. You may never need this command but, if you do, Flo Tools has you covered. Covered in what? We’re not sure exactly but, you’re covered.</p>
+
+<h2 id="toc_9">Audio Suite Macros</h2>
+
+<p>We’ve added a macro group named Flo Tools Audio Suite with 3 new macros for quickly accessing a few buttons without the need to stop interacting with the Audio Suite plug-in view.</p>
+
+<ul>
+<li>Analyze: control+option+shift+command+a</li>
+<li>Preview Processing: control+option+shift+command+p</li>
+<li>Bypass:  control+option+shift+command+b</li>
+<li>Render: control+option+shift+command+r</li>
+</ul>
+
+<p>Note that the Analyze button is not always present in the Audio Suite window. If it’s not available in the currently loaded plug-in, Flo Tools will alert you that there is no Analyze button. </p>
+
+<p>Also, it should be noted that depending on the particular plug-in, the visible name of the Analyze button can sometimes be different from what voiceOver sees. For example, the Analyze button might appear to sighted users as the Capture button. </p>
+
+<p>For that matter, sometimes the Render button can actually appear to say &quot;Process.&quot; Regardless of what is visually displayed, whenever the buttons are available, these shortcuts will either press them or let you know that you’re losing your mind and trying to Analyze something with a plug-in that has no such feature. Good luck with that.</p>
+
+<h2 id="toc_10">Some Renamed Shortcuts</h2>
+
+<p>To be a little clearer and more consistent, we’ve renamed the following macros. What did we used to call them? Never you mind—just get used to the new names, OK? Here they come:</p>
+
+<ul>
+<li>Pan left on mono/left channel, Command Control Left Arrow</li>
+<li>Pan right on mono/left channel, Command Control Right Arrow</li>
+<li>Pan left on right channel, Command Control Shift Left Arrow</li>
+<li>Pan right on right channel, Command Control Shift Right Arrow</li>
+</ul>
+
+<h2 id="toc_11">Shortcut Helper Updates</h2>
+
+<p>Yeah, yeah, there have been small but important changes to some Shortcut Helper macros but those are too numerous and too under the hood to mention. As always, if you notice any mistakes or incorrect language in any helper macros, let us know. And if you hear any fowl language from the helper macros, it might have been typed while we were yet again rewriting macros… </p>
+
+<p>Actually, we’re pretty sure everything is rated G.</p>
+
+<h2 id="toc_12">Introducing the Virtual Extended Keyboard</h2>
+
+<p>Flo Num Pad is now called Virtual Extended Keyboard. Why the name change? Well, its function has now expanded to support users of those pesky Touch Bars on the newer Mac Book Pros. The Virtual Extended Keyboard allows you to use the FN key along with other qwerty keys to simulate the Function Keys f1 through f12 and f16 through f19. Why the gap? Why not f13, 14 and 15? Apparently, Apple has reserved those for things like screen brightness and other nonsense. Oh well, . at any rate, here are the shortcuts:</p>
+
+<ul>
+<li>FN+1 (on the numbers row): f1</li>
+<li>FN+2 (on the numbers row): f2</li>
+<li>FN+3 (on the numbers row): f3</li>
+<li>FN+4 (on the numbers row): f4</li>
+<li>FN+q: f5</li>
+<li>FN+w: f6</li>
+<li>FN+e: f7</li>
+<li>FN+r: f8</li>
+<li>FN+a: f9</li>
+<li>FN+s: f10</li>
+<li>FN+d: f11</li>
+<li>FN+f: f12</li>
+<li>FN+z: f16</li>
+<li>FN+x: f17</li>
+<li>FN+c: f18</li>
+<li>FN+v: f19</li>
+</ul>
+
+<h2 id="toc_13">Thank You</h2>
+
+<p>As always, thanks for using Flo Tools and we hope it continues to help you make the most of your Pro Tools experience.</p>
+
+<p>Go with the Flo!</p>
+
+<p>The Flo Tools Team</p>
+
+
+
+
+</body>
+
+</html>
