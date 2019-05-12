@@ -377,9 +377,9 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>579136050.21503603</real>
+				<real>579396730.09597802</real>
 				<key>Name</key>
-				<string>* Flo Tools 2019.5.0. Check for Automatic Update</string>
+				<string>* Flo Tools 2019.5.1. Check for Automatic Update</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -665,9 +665,9 @@ window.KeyboardMaestro.Cancel()
 				<key>CreationDate</key>
 				<real>500680483.19485301</real>
 				<key>ModificationDate</key>
-				<real>579136080.73675299</real>
+				<real>579396704.41069698</real>
 				<key>Name</key>
-				<string>* Flo Tools 2019.5.0. Check for Update</string>
+				<string>* Flo Tools 2019.5.1. Check for Update</string>
 				<key>Triggers</key>
 				<array>
 					<dict>
@@ -92253,6 +92253,14 @@ else vo.output("Auto Input")
 										<string>C035969D-E50C-4671-AFBA-CFF648FD3A48</string>
 									</dict>
 									<dict>
+										<key>Action</key>
+										<string>Disable</string>
+										<key>MacroActionType</key>
+										<string>SetMacroEnable</string>
+										<key>MacroUID</key>
+										<string>1FF40247-C860-471D-BACC-DFB16C9A65A1</string>
+									</dict>
+									<dict>
 										<key>DisplayKind</key>
 										<string>None</string>
 										<key>IncludeStdErr</key>
@@ -92300,6 +92308,14 @@ else vo.output("Auto Input")
 										<string>C035969D-E50C-4671-AFBA-CFF648FD3A48</string>
 									</dict>
 									<dict>
+										<key>Action</key>
+										<string>Enable</string>
+										<key>MacroActionType</key>
+										<string>SetMacroEnable</string>
+										<key>MacroUID</key>
+										<string>1FF40247-C860-471D-BACC-DFB16C9A65A1</string>
+									</dict>
+									<dict>
 										<key>DisplayKind</key>
 										<string>None</string>
 										<key>IncludeStdErr</key>
@@ -92335,7 +92351,7 @@ else vo.output("Auto Input")
 				<key>CreationDate</key>
 				<real>503191698.386913</real>
 				<key>ModificationDate</key>
-				<real>576625363.35788</real>
+				<real>579393332.46775997</real>
 				<key>Name</key>
 				<string>Toggle Inspector</string>
 				<key>Triggers</key>
@@ -93194,6 +93210,8 @@ kme.setvariable("FTPluginMonitor", {to:"0"})
 				</array>
 				<key>CreationDate</key>
 				<real>533998645.120296</real>
+				<key>IsActive</key>
+				<false/>
 				<key>ModificationDate</key>
 				<real>572278647.06775701</real>
 				<key>Name</key>
