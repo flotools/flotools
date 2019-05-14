@@ -8283,7 +8283,6 @@ vo.output("Can't find Bypass button!")
 						<string>kme = Application("Keyboard Maestro Engine")
 kme.setvariable("command", {to:"%Delete%"})
 kme.setvariable("FTTimeout", {to:"%Delete%"})
-kme.setvariable("FTSkip", {to:"%Delete%"})
 kme.setvariable("FTUrl", {to:"%Delete%"})
 kme.setvariable("FTPrompt", {to:"%Delete%"})
 kme.setvariable("FTPreference", {to:"%Delete%"})
@@ -8312,7 +8311,7 @@ kme.setvariable("FTPluginControlParameters", {to:"%Delete%"})
 				<key>CreationDate</key>
 				<real>540217164.26168001</real>
 				<key>ModificationDate</key>
-				<real>540218225.34762895</real>
+				<real>579526757.05411506</real>
 				<key>Name</key>
 				<string>Cleanup Variables</string>
 				<key>Triggers</key>
