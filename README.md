@@ -518,9 +518,9 @@ FloTools 2018.7 and above also requires that the installed version of Keyboard M
 * added temporary inspector. To activate, press and hold accent key while performing inspector functions. Release Accent key to exit temporary inspector.
 
 
-### Flo Tools 2019.5:
+### Flo Tools 2019.5.1:
 
-FloTools 2019.5 replaces FloNumPad with the Virtual Extended Keyboard, adds compatibility to Pro Tools 2019.5 and above, and fixes a few bugs. To find more information about the new changes in Flo Tools 2019.5, see the What's New documentation. Below is the changelog:
+FloTools 2019.5.1 replaces FloNumPad with the Virtual Extended Keyboard, adds compatibility to Pro Tools 2019.5 and above, and fixes a few bugs. To find more information about the new changes in Flo Tools 2019.5, see the What's New documentation. Below is the changelog:
 
 * Macros which have come out of Beta, and are now fully functional:
  * Speak/Select Automation
@@ -569,4 +569,9 @@ FloTools 2019.5 replaces FloNumPad with the Virtual Extended Keyboard, adds comp
  * Increase Instrument Volume: control+option+up Arrow
  * Decrease Instrument Volume: control+option+Down Arrow
 
+
+### FloTools 2020.3
+
+* allowed FloTools to recognize folder tracks
+* fixed shortcut helper macros to reflect changes in Pro Tools 2020.3
 
