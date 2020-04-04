@@ -42,7 +42,7 @@ Once downloaded, this  zip file, referenced in this read me, will automatically 
 
 Flo Tools supports Mac OS version 10.12 or later, and Pro Tools version 12.3 or later. Pro Tools First has limited support at this time from version 12.8.2 or higher. Earlier versions of Mac OS, Pro Tools, and Pro Tools First may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
 
-Please Note: If you're using versions of Pro Tools or Pro Tools First prior to Pro Tools 2019, you are required to use Flo Tools 2018.7. If you are using Pro Tools or Pro Tools First version 2019 or later, you must use Flo Tools 2019.5.
+Please Note: If you're using versions of Pro Tools or Pro Tools First prior to Pro Tools 2019, you are required to use Flo Tools 2018.7. If you are using Pro Tools or Pro Tools First version 2019 or later, you must use Flo Tools 2019.5.1 or later.
 
 
 
@@ -75,7 +75,7 @@ Keyboard Maestro occasionally provides spoken notifications to alert you to task
 
 To install Flo Tools, go to the provided zip file, and open the application called "Flo Tools Installer". Follow the on-screen prompts to guide you through installation.
 
-For the scripts to run properly, open Keyboard Maestro Preferences, and under the general tab, check the box labeled, "Start Keyboard Maestro Engine at log-in." Note that the Keyboard Maestro window does not need to be open for the scripts to run.
+For the scripts to run properly, open Keyboard Maestro Preferences, and under the general tab, check the box labeled, "Start Keyboard Maestro Engine at log-in." Note that the Keyboard Maestro application does not need to be open for the scripts to run.
 
 ### Optimizing Pro Tools for Flo Tools
 
@@ -89,7 +89,7 @@ For all functions of Flo Tools to work as expected, it is recommended to apply t
 6. In the toolbar menu of the edit window, the "Transport", "midi Controls", and "expanded transport" settings should be checked.
 7. If the default keyboard is not set to "US" in System Preferences, Keyboards, input sources, please add it to the list of input sources, and switch to it when using Flo Tools.
 
-A FloTools Session Template with these settings is provided for convenience when installing  FloTools 2018.7 and above.
+A FloTools Session Template with these settings is provided for convenience when installing  FloTools 2018.7 or later.
 
 Pro Tools includes a Keyboard Focus mode, within which commands are issued through single letter keystrokes. When Keyboard Focus mode is not active, these same commands can be issued by adding the Control key as a modifier. Since certain Flo Tools commands are issued with single letter taps and double-taps, it is recommended that users avoid the Keyboard Focus mode in Pro Tools. 
 
@@ -110,7 +110,7 @@ The second is [This Sound](Pop.aiff), which signals that something is in process
 
 ### Commands
 
-Flo Tools is organized into 24 macro groups inside of Keyboard Maestro. Below is a list of Flo Tools commands, and their associated functions, separated by their respective groups.
+Flo Tools is organized into 25 macro groups inside of Keyboard Maestro. Below is a list of Flo Tools commands, and their associated functions, separated by their respective groups.
 
 #### Flo Tools
 
@@ -215,7 +215,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 * Speak/Select Instrument Input: Option+i
 * Speak/Select Track Output: o
 * Speak/Select Instrument Output: Option+o
-* Beta: Speak/Select Automation Mode: a
+* Speak/Select Automation Mode: a
 * Speak/Select Group: g
 * Speak/Reset Pan: n
 * Adjust pan value for mono track: Command+Control+left-or-right-arrows
@@ -236,7 +236,7 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 * Speak/Edit Comments: c
 * Track Options Menu: h
 * Speak/Select Playlist: \
-* Beta: Speak/Select Track View: w
+* Speak/Select Track View: w
 * Speak/Toggle Freeze Status: f
 * Speak/Select Timebase: b
 * Beta: Speak/Select Elastic Audio Plugin: eFloTools also includes a temporary inspector, which only allows inspector commands to be executed while the accent key is pressed. This allows the Qwerty keyboard to be used for regular functions without conflict or interference of the inspector. 
@@ -518,9 +518,9 @@ FloTools 2018.7 and above also requires that the installed version of Keyboard M
 * added temporary inspector. To activate, press and hold accent key while performing inspector functions. Release Accent key to exit temporary inspector.
 
 
-### Flo Tools 2019.5:
+### Flo Tools 2019.5.1:
 
-FloTools 2019.5 replaces FloNumPad with the Virtual Extended Keyboard, adds compatibility to Pro Tools 2019.5 and above, and fixes a few bugs. To find more information about the new changes in Flo Tools 2019.5, see the What's New documentation. Below is the changelog:
+FloTools 2019.5.1 replaces FloNumPad with the Virtual Extended Keyboard, adds compatibility to Pro Tools 2019.5 and above, and fixes a few bugs. To find more information about the new changes in Flo Tools 2019.5, see the What's New documentation. Below is the changelog:
 
 * Macros which have come out of Beta, and are now fully functional:
  * Speak/Select Automation
@@ -569,4 +569,9 @@ FloTools 2019.5 replaces FloNumPad with the Virtual Extended Keyboard, adds comp
  * Increase Instrument Volume: control+option+up Arrow
  * Decrease Instrument Volume: control+option+Down Arrow
 
+
+### FloTools 2020.3
+
+* allowed FloTools to recognize folder tracks
+* fixed shortcut helper macros to reflect changes in Pro Tools 2020.3
 
