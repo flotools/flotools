@@ -575,3 +575,8 @@ FloTools 2019.5.1 replaces FloNumPad with the Virtual Extended Keyboard, adds co
 * allowed FloTools to recognize folder tracks
 * fixed shortcut helper macros to reflect changes in Pro Tools 2020.3
 
+
+### FloTools 2020.3.1:
+
+* Fixed bugs related to arming and solo/mute with folder tracks
+
