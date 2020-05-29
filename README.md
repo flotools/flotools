@@ -580,3 +580,8 @@ FloTools 2019.5.1 replaces FloNumPad with the Virtual Extended Keyboard, adds co
 
 * Fixed bugs related to arming and solo/mute with folder tracks
 
+
+### FloTools 2020.5:
+
+* Fixed a bug that caused the "unsolo all tracks" macro to stop working, if a folder and one of it's member tracks were simultaneously soloed.
+* extending the track selection up or down by using control shift P or semi-colon now only reports the names of tracks being added to the selection. However, this stops VoiceOver from studdering while using the above macros.
