@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>What's New in Flo Tools 2020.3</title>
+<title>What's New in Flo Tools 2020.5</title>
 
 
 <style type="text/css">
@@ -328,25 +328,19 @@ kbd {
 
 <body>
 
-<h1 id="toc_0"><strong>What’s New in Flo Tools 2020.3</strong></h1>
+<h1 id="toc_0"><strong>What’s New in Flo Tools 2020.5</strong></h1>
 
-<p>Can we interest you in a Flo Tools update? Of course, we can! It&#39;s about time, eh? What&#39;s it been? A year? Well, almost a year, it turns out. With the release of Pro Tools 2020.3, the Flo Tools Team has made a few tweaks to stay on top of things.</p>
+<p>Pro Tools 2020.5 is out so the Flo Tools Team is right on it with Flo Tools version 2020.5. See how those numbers go together nicely? Yeah, we thought so too. There’s a bug fix and a little maintenance—nothing major.</p>
 
-<h2 id="toc_1">What&#39;s Under the Hood</h2>
+<h2 id="toc_1">Folder Tracks and Solo</h2>
 
-<p>While there are no new Flo Tools-specific features in this release, we did have to make sure Flo Tools played nice with Folder Tracks. Let&#39;s just say they&#39;re on speaking terms. Hopefully there will be a little more functionality when Avid adds the ability to identify the expanded/collapsed status of folders in the Tracks List.</p>
+<p>Have you been enjoying the new folder tracks feature? It’s great, isn’t it? Well, we discovered that it’s not so great if you solo a track inside a folder and try to &quot;unsolo all&quot; with flo Tools. We learned that folder tracks bring a new kind of solo state specific to the whole folder track world and we needed to teach Flo Tools to recognize this additional type of solo. </p>
 
-<h2 id="toc_2">Shortcut Helper Additions</h2>
+<h2 id="toc_2">Retired Macros</h2>
 
-<p>We&#39;ve added Shortcut Helper macros for the new keyboard shortcuts introduced in Pro Tools 2020 related to Folder Tracks. While we were at it, we added the ones that were introduced in Pro Tools version 2019.10. (Oops!) Well, what did you expect—a whole new version just for the sake of 2 Shortcut Helper macros? ;)</p>
+<p>Due to a conflict between Pro Tools’ self-voicing of track selection and Flo Tools reporting the same, a condition would sometimes arise when a group became selected, causing VoiceOver to enter a stuttering fit. We’ve decided to eliminate a couple of macros that automatically spoke the extension of selected tracks. Unfortunately, when you use Control+Shift+Semicolon or P to extend the edit selection to adjacent tracks, you’ll no longer hear VoiceOver indicate that the selection is being extended and which tracks are being added. Instead, Pro Tools speaks the name of the track being added without any additional information. Once your selection is made, you can always simply press Option+Shift+l to have Flo Tools inform you of which tracks are currently selected.</p>
 
-<h2 id="toc_3">Bug fixes</h2>
-
-<p>We&#39;ve also adressed  a number of bugs for shortcut conflicts, update alert, installer, and so on.</p>
-
-<p>That&#39;s a wrap.</p>
-
-<p>The Flo Tools Team</p>
+<p>All the best from The Flo Tools Team!</p>
 
 
 
