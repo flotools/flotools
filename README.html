@@ -320,6 +320,9 @@ kbd {
 	pre {
 		word-wrap: break-word;
 	}
+  body {
+    padding: 2cm; 
+  }
 }
 </style>
 
@@ -401,7 +404,7 @@ Copyright (C) 2016 Slau Halatyn</p>
 
 <p>More information about purchasing a license can be found <a href="https://wiki.keyboardmaestro.com/manual/Purchase">here.</a></p>
 
-<p>Keyboard Maestro occasionally provides spoken notifications to alert you to tasks it&#39;s performing in the background. If these become bothersome, you can turn them off by going to system preferences, notifications, and choosing Keyboard Maestro Engine from the table. Then select &quot;none&quot; under Alert Style.</p>
+<p>Keyboard Maestro occasionally provides spoken notifications to alert you to tasks it&#39;s performing in the background. If these become bothersome, you can turn them off by going to system preferences, notifications, and choosing Keyboard Maestro Engine from the table. Then set the &quot;allow notifications&quot; toggle to off.</p>
 
 <h3 id="toc_9">Flo Tools Installation</h3>
 
@@ -468,28 +471,26 @@ Copyright (C) 2016 Slau Halatyn</p>
 <li>Speak/Edit Tempo: Command+f11</li>
 <li>Close All Floating Windows: Command+Option+w</li>
 <li>Speak Shown Tracks, Show Track List Pop-up Menu:  Option+Shift+w</li>
-<li>List Shown Tracks:    Control+Shift+w</li>
+<li>List Shown Tracks:    Control+Option+Shift+L</li>
 <li>Speak Hidden Tracks, Show Track List Pop-up Menu: Option+Shift+h</li>
-<li>List Hidden Tracks:   Control+Shift+h</li>
+<li>List Hidden Tracks:   Control+Option+Shift+L</li>
 <li>Speak Selected Tracks, Deselect All Tracks: Option+Shift+l</li>
-<li>List Selected Tracks, List Unselected Tracks: Control+Shift+l</li>
-<li>Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks: Option+Shift+k</li>
-<li>List Input Monitor-Enabled Tracks, List Input Monitor-Disabled  Tracks:   Control+Shift+k</li>
+<li>List Selected Tracks, List Unselected Tracks: Control+Option+Shift+L</li>
+<li>Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks: Control+Option+Shift+L</li>
+<li>List Input Monitor-Enabled Tracks, List Input Monitor-Disabled  Tracks:   Control+Option+Shift+L</li>
 <li>Speak Record-Enabled Tracks, Disarm All Record Enabled Tracks: Option+Shift+r</li>
-<li>List Record-Enabled Tracks, List Record-Disabled Tracks:  Control+Shift+r</li>
+<li>List Record-Enabled Tracks, List Record-Disabled Tracks:  Control+Option+Shift+L</li>
 <li>Speak Soloed Tracks, UnSolo All Tracks: Option+Shift+s</li>
-<li>List Soloed Tracks, List Unsoloed Tracks: Control+Shift+s</li>
+<li>List Soloed Tracks, List Unsoloed Tracks: Control+Option+Shift+L</li>
 <li>Speak Muted Tracks, UnMute All Tracks: Option+Shift+m</li>
-<li>List Muted Tracks, List Unmuted Tracks:   Control+Shift+m
-
-<ul>
-<li>Note that this shortcut overrides one of the Pro Tools shortcuts for &quot;Nudge the Selected Clip Gain Back.&quot; Use either Control+Shift+minus or Control+Shift+comma instead</li>
-</ul></li>
+<li>List Muted Tracks, List Unmuted Tracks:   Control+Option+Shift+L</li>
 <li>Speak Record Safe Tracks: Command+Option+Shift+r</li>
 <li>Speak Solo Safe Tracks: Command+Option+Shift+s</li>
 <li>Speak tracks who’s level is greater then or equal to 0DB: Option+Shift+0</li>
 <li>Speak and select Previous Playlist: Shift + Up Arrow</li>
 <li>Speak and select Next Playlist: Shift+Down Arrow</li>
+<li>Toggle and Speak Link Track and Edit Selection: Shift+T (does not require a double tap)</li>
+<li>Toggle and Speak link timeline and edit selection: Shift+/ (does not require double tap)</li>
 <li>Speak and Select Previous Track: Control+P</li>
 <li>Speak and select Next Track: Control+; (semicolon)</li>
 <li>Speak and add Previous Track to Selection: Control+Shift+P</li>
@@ -499,7 +500,6 @@ Copyright (C) 2016 Slau Halatyn</p>
 <li>Speak/Toggle Metronome:   Option+num pad 7</li>
 <li>Speak/Toggle Count In:    Option+num pad8</li>
 <li>Speak/Toggle Midi Merge:  Option+num pad 9</li>
-<li>Speak/Toggle Link Timeline and Edit Selection: Shift+/</li>
 <li>Speak/Toggle Tab to Transients:   Command+Option+Tab</li>
 <li>Speak/Toggle Insertion Follows Playback:  Control+N</li>
 <li>Speak/Toggle Online Transport: Command+J</li>
@@ -509,6 +509,7 @@ Copyright (C) 2016 Slau Halatyn</p>
 <li>Speak/Select Spot Mode:   f3</li>
 <li>Speak/Select Grid Mode (and Toggle Absolute/Relative Grid Mode):  f4</li>
 <li>Speak/toggle quickpunch:  Command+Shift+p</li>
+<li>Speak/toggle track punch: command+Shift+T</li>
 <li>Speak/Toggle loop playback:   Command+Shift+l</li>
 <li>Speak/Toggle Loop Record: Option+l</li>
 <li>Speak/Toggle Pre/Post-Roll:   Command+K</li>
@@ -542,7 +543,7 @@ Copyright (C) 2016 Slau Halatyn</p>
 
 <ul>
 <li>Toggle Inspector on or off: /</li>
-<li>Speak Track Name, Select Track Pop-Up Menu: t</li>
+<li>Speak And Select Track/Show Right-Click Menu: t</li>
 <li>Speak/Open Inserts A through J:   1 through 0 on the numbers row</li>
 <li>Assign Inserts A through J:   Command+1 through 0 on the numbers row
 
@@ -634,7 +635,7 @@ Copyright (C) 2016 Slau Halatyn</p>
 <li>Edit Event:   Control+Command+Return</li>
 </ul>
 
-<h4 id="toc_19">Flo Num Pad</h4>
+<h4 id="toc_19">Flo Num Pad (now merged into virtual extended keyboard)</h4>
 
 <p>Flo Tools provides a key remapping using the keyboard as a standard num pad. This num pad group of remappings can be used system-wide by pressing the function or FN key simultaneously with any remapped key.</p>
 
@@ -702,7 +703,7 @@ Copyright (C) 2016 Slau Halatyn</p>
 
 <h2 id="toc_23">Misc</h2>
 
-<h3 id="toc_24">Changing Shortcuts</h3>
+<h3 id="toc_24">Changing Flo Tools Shortcuts</h3>
 
 <p>The shortcuts outlined above are the default assignments for Flo Tools. They may be changed based on personal preference, however, when Flo Tools is updated, the shortcuts will revert back to their default assignments. To  change a shortcut, open Keyboard Maestro and do the following:</p>
 
@@ -722,13 +723,16 @@ Copyright (C) 2016 Slau Halatyn</p>
 
 <h3 id="toc_25">Reinstalling Flo Tools</h3>
 
-<p>The provided zip file contains both an installer and uninstaller for Flo Tools. If  Flo Tools needs to be reinstalled for any reason, simply run the installer and follow the prompts to be guided through installation. All Flo Tools related macros will be automatically replaced with the ones within the installer. Be sure you have the latest version of the installer by downloading it from the Flo Tools website.</p>
+<p>If  Flo Tools needs to be reinstalled for any reason, simply re-run the FloTools installer and follow the prompts to be guided through installation. All previously existing Flo Tools related macros will be automatically replaced with the ones within the installer. Be sure you have the latest version of the installer by downloading it from the Flo Tools website.</p>
 
 <p>You can check the version you’re running, and check for updates by opening Pro Tools, and then navigating to the &quot;Keyboard Maestro Engine&quot; Menu Extra and arrowing through the options until you hear &quot;Flo Tools&quot;. Arrow down to hear the version number and the option to check for updates.</p>
 
 <h3 id="toc_26">Uninstalling Flo Tools</h3>
 
-<p>The uninstaller is only required if you wish to completely remove Flo Tools and its associated files and folders from your computer. To uninstall the Flo Tools scripts and associated plugin views, run the uninstaller application and follow the on-screen prompts to remove Flo Tools.</p>
+<p>The provided zip file contains both an installer and uninstaller for Flo Tools. The uninstaller is only required if you wish to completely remove Flo Tools and its associated files and folders from your computer. If you&#39;re only trying to re-install Flo 
+Tools, see above for instructions.</p>
+
+<p>To uninstall the Flo Tools scripts and associated plugin views, run the uninstaller application and follow the on-screen prompts to remove Flo Tools.</p>
 
 <p>Please backup any text files in the Plugin Views folder that you’d like to keep, as these will be permanently deleted during Flo Tools removal.</p>
 
@@ -738,7 +742,7 @@ Copyright (C) 2016 Slau Halatyn</p>
 
 <ul>
 <li>Items marked as &quot;Beta&quot; may not function as expected, and should not be used regularly until they are no longer in the beta stage.</li>
-<li>In versions of Pro Tools prior to 2018.1, checking the arm state of tracks does not report consistently. To work around this, check the arm state multiple times. However, Avid fixed the Track and Global record buttons to correctly report their status in Pro Tools versions 2018.1, so Flo Tools can now report track record states with complete accuracy.</li>
+<li>In versions of Pro Tools prior to 2018.1, checking the arm state of tracks does not report consistently. To work around this, check the arm state multiple times. However, Avid fixed the Track and Global record buttons to correctly report their status in Pro Tools versions 2018.1 and later, so Flo Tools can now report track record states with complete accuracy.</li>
 </ul>
 
 <h3 id="toc_28">Reporting Issues</h3>
@@ -989,6 +993,29 @@ Copyright (C) 2016 Slau Halatyn</p>
 <ul>
 <li>Fixed a bug that caused the &quot;unsolo all tracks&quot; macro to stop working, if a folder and one of it&#39;s member tracks were simultaneously soloed.</li>
 <li>extending the track selection up or down by using control shift P or semi-colon now only reports the names of tracks being added to the selection. However, this stops VoiceOver from studdering while using the above macros.</li>
+</ul>
+
+<h3 id="toc_42">Flo Tools 2022.4:</h3>
+
+<p>New Features:</p>
+
+<ul>
+<li>Speak/Toggle wait for Note
+
+<ul>
+<li>flo Tools can now report the status of the &quot;wait for Note&quot; feature and toggle it without having to go into the MIDI Control Cluster. Pressing Option+F11 once will speak the status and double-tapping Option+F11 will toggle its state. There is an option to use F11 for &quot;Wait for Note&quot; under the MIDI tab of Pro Tools preferences. The flo Tools &quot;Speak/Toggle wait for Note&quot; function will work regardless of this preference.</li>
+</ul></li>
+<li>Speak/Toggle Conductor: Option+F12</li>
+<li>Speak/Toggle Track Punch: Command+Shift+t</li>
+<li>FloTools now includes a custom keyset for Pro Tools Keyboard Shortcuts, adding a shortcut for renaming tracks (command+return) and Spot Clip to Insertion (Control+Option+Shift+S)</li>
+</ul>
+
+<p>Changes:</p>
+
+<ul>
+<li>all &quot;List Tracks with Flo Tools&quot; Commands changed to single macro pallet: Control+Option+Shift+L.</li>
+<li>Pressing T in the inspector will now speak and select the current track. Double tapping T will bring up the context menu as always.</li>
+<li>fixed shortcuts for toggling track and edit selection, and timeline and edit selection, so they no longer cause conflicts when typing in text fields.</li>
 </ul>
 
 

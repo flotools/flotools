@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>What's New in Flo Tools 2022.4</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0"><strong>What’s New in Flo Tools 2022.4</strong></h1>
+
+<p>Greetings from the flo Tools team! We have a couple of things to tell you about with this new release—nothing major but we wanted to point out some things that have changed a bit along with a few new macros.</p>
+
+<h2 id="toc_1">Pro Tools Versions and Flo Tools</h2>
+
+<p>For several years, we&#39;ve tried to synchronize Flo Tools with Pro Tools whenever possible. We&#39;ve come to a point where it&#39;s now important to consider which version of Flo Tools will work with which version of Pro Tools. Starting with Flo Tools 2022.4, it&#39;s more important to make sure you&#39;re using the latest version of Pro Tools. If you&#39;re not using Pro Tools 2022.4, it&#39;s best to use the previous version of Flo Tools. For the most part, things would work alright but there are a few things that wouldn&#39;t. Although we might not always be able to match Flo Tools with Pro Tools versions, a rule of thumb would be to use the latest versions of each. However, if you can&#39;t be on the latest version of Pro Tools right now, stick with the previous version of Flo Tools.</p>
+
+<h2 id="toc_2">Speak/Toggle wait for Note</h2>
+
+<p>flo Tools can now report the status of the &quot;wait for Note&quot; feature and toggle it without having to go into the MIDI Control Cluster. Pressing Option+F11 once will speak the status and double-tapping Option+F11 will toggle its state providing, of course, that the MIDI Controls cluster is visible. There is an option to use F11 for &quot;Wait for Note&quot; under the MIDI tab of Pro Tools preferences. The flo Tools &quot;Speak/Toggle wait for Note&quot; function will work regardless of this preference. We&#39;ve gotten a few requests for this one so we hope it comes in handy.</p>
+
+<h2 id="toc_3">Speak/Toggle Conductor</h2>
+
+<p>Determining the status of the Conductor and turning it on or off has always required going into the MIDI Controls cluster. Flo Tools can now report the status of the Conductor and allows you to toggle it on or off without the need to navigate to the MIDI Controls cluster. Pressing Option+F12 will speak the Conductor status and double-tapping will toggle its state.</p>
+
+<h2 id="toc_4">Speak/Toggle Track Punch</h2>
+
+<p>For those users with Track Punch as an option, pressing the Command+Shift+T shortcut will now speak the menu option just like other menu items under the Options menu. Double-tapping Command+Shift+T will toggle the state, in other words, selecting it.</p>
+
+<h2 id="toc_5">&quot;List Tracks with Flo Tools&quot;</h2>
+
+<p>There are two new features in Pro Tools 2022.4 that use the same keyboard shortcuts as some of the track listing macros in Flo Tools. We considered eliminating these track listing commands because they weren&#39;t particularly popular but users seemed to appreciate the option of having the feature available. We decided to combine the various macros into one command to bring up a palette of choices. The new macro is called &quot;List Tracks with flo Tools&quot; and its keyboard shortcut is Control+Option+Shift+L.</p>
+
+<p>when you issue the &quot;List Tracks with flo Tools&quot; command, Flo Tools presents you with a Keyboard Maestro palette of 12  macros. These include actions for listing all record-enabled tracks, all hidden tracks, all muted or unmuted tracks, selected and unselected tracks, etc. Each one of these macros had dedicated shortcuts. Now they all use the same shortcut to bring up the palette and then you can either navigate with VoiceOver to click on the desired macro or narrow down with first letter navigation. It&#39;s one extra step to get to the various list dialogs available but now there&#39;s only one keyboard shortcut to remember and we&#39;ve freed up a bunch of other keyboard shortcut combinations.</p>
+
+<h2 id="toc_6">Changes to Speak Track Name / Select Track Pop-Up Menu</h2>
+
+<p>We&#39;ve changed the name of this macro to &quot;Speak and select Track / show Right-Click Menu&quot; to more accurately reflect its function. Now a single tap of the letter T with the Inspector will speak and select the focused track and double-tapping will show the track&#39;s right-click menu just as it always has.</p>
+
+<p>There are two things worth mentioning about the single-tap portion of this macro:</p>
+
+<ol>
+<li>With the Inspector, if you focus VoiceOver on an unselected track and press the letter T, the track will become selected and any previously selected trackk or tracks become deselected.</li>
+<li>If the focused track is already selected and there are other tracks selected, pressing the letter T will simply speak the track name and indicate that it is selected but it will not deselect the previously selected tracks.</li>
+</ol>
+
+<h2 id="toc_7">Flo Tools Key Set</h2>
+
+<p>There&#39;s a new feature in Pro Tools 2022.4 and that is the Keyboard Shortcuts window. There are over twelve hundred items for which you can define and/or customize shortcuts. That includes the default Pro Tools shortcuts themselves. Given that these shortcuts have been around for decades, we would strongly encourage users not to change the default Pro Tools shortcuts so that users can be on the same page when it comes to one of the most important aspects of working with Pro Tools as blind users and that is a common set of keyboard shortcuts.</p>
+
+<p>That said, the flo Tools team has certainly had to step on a few default Pro Tools shortcuts over the years to try and keep a level of consistency with modifiers and Flo Tools shortcuts. So, ultimately, it&#39;s up to the user to determine whether they want to go ahead and make changes.</p>
+
+<p>Let&#39;s look at two custom shortcuts that we&#39;ve prepared for blind users that are technically not a part of flo Tools, per se, but we&#39;re just making them available through this version of Flo Tools</p>
+
+<p>The two customized shortcuts are located in a key set called &quot;Flo Tools Key Set&quot; which the Flo Tools Installer will put in a folder named &quot;Keyboard Shortcuts&quot; within the Pro Tools Presets folder in your Pro Tools folder. If you&#39;ve installed Pro Tools 2022.4 already, this folder is already in your Pro Tools folder. If you haven&#39;t yet installed Pro Tools 2022.4, the flo Tools Installer will create the necessary folder for you. Consult the Pro Tools documentation for more information on using the Keyboard Shortcuts window.</p>
+
+<p>The two customized shortcuts are as follows:</p>
+
+<h3 id="toc_8">1. Spot Clip to Insertion</h3>
+
+<p>Finally, in Pro Tools 2022.4, there&#39;s a new option to spot clips to the insertion cursor on a track. It&#39;s available under the Clips List menu but there&#39;s also an option to assign a keyboard shortcut to the function. We&#39;ve assigned Control+Option+Shift+s to the &quot;Spot Clip to Insertion&quot; command. Again, this is a Pro Tools command and not flo Tools. You can certainly reassign the shortcut to whatever you want. We&#39;re simply providing a default that happens to be available, perhaps easy to remember and maybe most Flo Tools users will simply use the keyboard shortcut as it is defined in this key set.</p>
+
+<h3 id="toc_9">2. rename Selected Track</h3>
+
+<p>One of the most common commands accessed through the Inspector is the Rename function within the track&#39;s right-click menu. Now you can rename any selected track by pressing Command+Return. This also works on multiple track selections.</p>
+
+<h2 id="toc_10">Changes to Speak/Toggle Link Timeline and Edit Selection, and Speak/Link Track and Edit Selection</h2>
+
+<p>There was a small issue with these two macros in that they could interfere with the ability to type a capital letter T or a question mark under certain circumstances. These macros no longer interfere with typing in edit fields. However, it&#39;s worth noting that, because of this change, these two macros behave a little differently. Now, instead of reporting first and toggling only after a double-tap, these commands will toggle the status each time and report the change. We&#39;ve also updated the macro names to &quot;Toggle and Speak Link Timeline and Edit Selection&quot; and &quot;Toggle and Speak Track and Edit Selection.&quot;</p>
+
+<h2 id="toc_11">shortcuts Helper Updates</h2>
+
+<p>As usual, there are some updates to the Shortcuts Helper macros to correct some errors and add some shortcuts newly introduced in Pro Tools 2022.4.</p>
+
+<h2 id="toc_12">Miscellaneous Fixes</h2>
+
+<p>Among some things that have been fixed are the following:</p>
+
+<ul>
+<li>flo Tools monitoring macros adjusted to minimize fan noise on some systems</li>
+<li>Bypass shortcut in Plug-in window now works when automation is enabled</li>
+<li>&quot;Deselect all&quot; now automatically makes sure the Track List Table is shown in order to accurately determine track selection</li>
+</ul>
+
+<h2 id="toc_13">General Notes</h2>
+
+<p>Of course, we&#39;re only addressing changes that are specific to Flo Tools. We aren&#39;t covering new features in Pro Tools that are great for blind users that have nothing to do with Flo Tools specifically like the new Pro Tools search feature. Of course, ongoing discussions through social media and communities are the best place to find out about things like that. We&#39;ll try to get in a few new flo tools features on the next release. For now, enjoy Pro Tools and Flo Tools 2022.4!</p>
+
+<p>All the best from The Flo Tools Team!</p>
+
+
+
+
+</body>
+
+</html>
