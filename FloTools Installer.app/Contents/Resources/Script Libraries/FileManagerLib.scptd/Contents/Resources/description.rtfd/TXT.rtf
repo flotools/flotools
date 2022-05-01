@@ -1,5 +1,7 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf400
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Verdana;}
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\fswiss\fcharset0 Helvetica-Oblique;
+\f3\fnil\fcharset0 Verdana-Bold;\f4\fnil\fcharset0 Verdana;\f5\fnil\fcharset0 Verdana-Italic;
+}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue255;\red64\green128\blue0;
 \red0\green22\blue176;\red68\green21\blue176;}
 {\*\expandedcolortbl;;\csgenericrgb\c0\c0\c0;\csgenericrgb\c0\c0\c100000;\csgenericrgb\c25000\c50000\c0;
@@ -8,24 +10,24 @@
 \pard\pardeftab720\sl264\slmult1\partightenfactor0
 
 \f0\b\fs48 \cf0 \expnd0\expndtw0\kerning0
-FileManagerLib v2.1.0\
+FileManagerLib v2.3.5\
 
-\b0\fs28 \
+\f1\b0\fs28 \
 \pard\pardeftab720\sl264\slmult1\partightenfactor0
 
-\b \cf0 FileManagerLib
-\b0  is a script library providing handlers for file management tasks like duplicating, copying, moving, renaming, deleting, and trashing files, as well as creating folders, alias files, symbolic links and hard links, and comparing files and folder contents. As well as providing some features unavailable using either Finder or System Events scripting, it offers more options, greater speed, and some extra conveniences.\
+\f0\b \cf0 FileManagerLib
+\f1\b0  is a script library providing handlers for file management tasks like duplicating, copying, moving, renaming, deleting, and trashing files, as well as creating folders, alias files, symbolic links and hard links, and comparing files and folder contents. As well as providing some features unavailable using either Finder or System Events scripting, it offers more options, greater speed, and some extra conveniences.\
 \
 
-\b FileManagerLib
-\b0 \kerning1\expnd0\expndtw0  is backwards compatible with version 1.0. In version 1.0, handlers were called directly, but version 2 has a terminology dictionary, so it can also be called using normal AppleScript-style commands under macOS 10.10 and later. Version 2 also introduces the ability to get the contents or entire contents of a folder, plus file sorting options.\
+\f0\b FileManagerLib
+\f1\b0 \kerning1\expnd0\expndtw0  is backwards compatible with version 1.0. In version 1.0, handlers were called directly, but version 2 has a terminology dictionary, so it can also be called using normal AppleScript-style commands under macOS 10.10 and later. Version 2 also introduces the ability to get the contents or entire contents of a folder, plus file sorting options.\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
 \cf0 Once you have installed the file in 
-\i ~/Library/Script Libraries
-\i0 , you can read its dictionary by choosing 
-\b File -> Open Dictionary\'85
-\b0  in Script Editor, or simply dragging it over Script Debugger\'92s icon.\
+\f2\i ~/Library/Script Libraries
+\f1\i0 , you can read its dictionary by choosing 
+\f0\b File -> Open Dictionary\'85
+\f1\b0  in Script Editor, or simply dragging it over Script Debugger\'92s icon.\
 \pard\pardeftab720\sl264\slmult1\partightenfactor0
 \cf0 \expnd0\expndtw0\kerning0
 \
@@ -33,26 +35,26 @@ Where files or folders are required as parameters, you can pass aliases, files, 
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
 
-\b\fs36 \cf0 \kerning1\expnd0\expndtw0 Using the library\
+\f0\b\fs36 \cf0 \kerning1\expnd0\expndtw0 Using the library\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
 
-\b0\fs28 \cf0 \
+\f1\b0\fs28 \cf0 \
 You include the library in a script by adding a use statement:\
 \
 \pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
 
-\f1\b \cf2 use
-\b0  
-\i \cf3 script
-\i0 \cf2  "FileManagerLib" \cf3 version\cf2  "2.1"\
+\f3\b \cf2 use
+\f4\b0  
+\f5\i \cf3 script
+\f4\i0 \cf2  "FileManagerLib" \cf3 version\cf2  "2.3.5"\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
 
-\f0 \cf0 \
+\f1 \cf0 \
 If your script uses any scripting addition commands, you will also need to include a 
-\b use scripting additions
-\b0  statement (or 
-\b using terms from scripting additions
-\b0  blocks).\
+\f0\b use scripting additions
+\f1\b0  statement (or 
+\f0\b using terms from scripting additions
+\f1\b0  blocks).\
 \pard\pardeftab720\sl264\slmult1\partightenfactor0
 \cf0 \expnd0\expndtw0\kerning0
 \
@@ -60,130 +62,144 @@ So for example, to get a list of the contents of your desktop sorted by modifica
 \
 \pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
 
-\f1\b \cf2 \kerning1\expnd0\expndtw0 use
-\b0  
-\i \cf3 scripting additions
-\i0 \cf2 \
+\f3\b \cf2 \kerning1\expnd0\expndtw0 use
+\f4\b0  
+\f5\i \cf3 scripting additions
+\f4\i0 \cf2 \
 
-\b use
-\b0  \cf4 theLib\cf2  : 
-\i \cf3 script
-\i0 \cf2  "FileManagerLib" \cf3 version\cf2  "2.1"\
+\f3\b use
+\f4\b0  
+\f5\i \cf3 script
+\f4\i0 \cf2  "FileManagerLib" \cf3 version\cf2  "2.3.5"\
 \
 
-\b set
-\b0  \cf4 theDesktop\cf2  
-\b to
-\b0  
-\b \cf5 path to
-\b0 \cf2  \cf6 desktop\cf2 \
+\f3\b set
+\f4\b0  \cf4 theDesktop\cf2  
+\f3\b to
+\f4\b0  
+\f3\b \cf5 path to
+\f4\b0 \cf2  \cf6 desktop\cf2 \
 
-\b set
-\b0  \cf4 theContents\cf2  
-\b to
-\b0  
-\b \cf5 objects of
-\b0 \cf2  \cf4 theDesktop\cf2 \
+\f3\b set
+\f4\b0  \cf4 theContents\cf2  
+\f3\b to
+\f4\b0  
+\f3\b \cf5 objects of
+\f4\b0 \cf2  \cf4 theDesktop\cf2 \
 \pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
 
-\b \cf5 sort objects
-\b0 \cf2  \cf4 theContents\cf2  \cf5 sorted property\cf2  \cf6 modification property\
+\f3\b \cf5 sort objects
+\f4\b0 \cf2  \cf4 theContents\cf2  \cf5 sorted property\cf2  \cf6 modification property\
 \pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
 
-\f0 \cf0 \expnd0\expndtw0\kerning0
+\f1 \cf0 \expnd0\expndtw0\kerning0
 \
 \pard\pardeftab720\sl264\slmult1\partightenfactor0
 \cf0 If you wanted the list to also include files within subfolders, to leave out folders, to be sorted in reverse order, and returned as a list of files rather than POSIX paths, you could use this:\
 \
 \pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
 
-\f1\b \cf2 \kerning1\expnd0\expndtw0 use
-\b0  
-\i \cf3 scripting additions
-\i0 \cf2 \
+\f3\b \cf2 \kerning1\expnd0\expndtw0 use
+\f4\b0  
+\f5\i \cf3 scripting additions
+\f4\i0 \cf2 \
 
-\b use
-\b0  \cf4 theLib\cf2  : 
-\i \cf3 script
-\i0 \cf2  "FileManagerLib" \cf3 version\cf2  "2.1"\
+\f3\b use
+\f4\b0  
+\f5\i \cf3 script
+\f4\i0 \cf2  "FileManagerLib" \cf3 version\cf2  "2.3.5"\
 \
 
-\b set
-\b0  \cf4 theDesktop\cf2  
-\b to
-\b0  
-\b \cf5 path to
-\b0 \cf2  \cf6 desktop\cf2 \
+\f3\b set
+\f4\b0  \cf4 theDesktop\cf2  
+\f3\b to
+\f4\b0  
+\f3\b \cf5 path to
+\f4\b0 \cf2  \cf6 desktop\cf2 \
 
-\b set
-\b0  \cf4 theContents\cf2  
-\b to
-\b0  
-\b \cf5 objects of
-\b0 \cf2  \cf4 theDesktop\cf2  
-\b with
-\b0  \cf5 searching subfolders\cf2  
-\b without
-\b0  \cf5 include folders\cf2 \
+\f3\b set
+\f4\b0  \cf4 theContents\cf2  
+\f3\b to
+\f4\b0  
+\f3\b \cf5 objects of
+\f4\b0 \cf2  \cf4 theDesktop\cf2  
+\f3\b with
+\f4\b0  \cf5 searching subfolders\cf2  
+\f3\b without
+\f4\b0  \cf5 include folders\cf2 \
 \pard\pardeftab480\slleading40\pardirnatural\partightenfactor0
 
-\b \cf5 sort objects
-\b0 \cf2  \cf4 theContents\cf2  \cf5 sorted property\cf2  \cf6 modification property\cf2  \cf5 result type\cf2  \cf6 files list\cf2  
-\b without
-\b0  \cf5 low to high
-\f0 \cf0 \expnd0\expndtw0\kerning0
+\f3\b \cf5 sort objects
+\f4\b0 \cf2  \cf4 theContents\cf2  \cf5 sorted property\cf2  \cf6 modification property\cf2  \cf5 result type\cf2  \cf6 files list\cf2  
+\f3\b without
+\f4\b0  \cf5 low to high
+\f1 \cf0 \expnd0\expndtw0\kerning0
 \
 \pard\pardeftab720\sl264\slmult1\partightenfactor0
 \cf0 \
 Note that the 
-\i files list
-\i0  option is only available if you are running macOS 10.11 or later.\
+\f2\i files list
+\f1\i0  option is only available if you are running macOS 10.11 or later.\
 \
 \pard\pardeftab720\sl264\slmult1\partightenfactor0
 
-\b \cf0 FileManagerLib
-\b0  includes commands for the following functions:\
+\f0\b \cf0 FileManagerLib
+\f1\b0  includes commands for the following functions:\
 \
 \pard\pardeftab720\partightenfactor0
 \cf0 * Copying (
-\i copy object
-\i0 ).\
+\f2\i copy object
+\f1\i0 ).\
 \pard\pardeftab720\sl336\slmult1\partightenfactor0
 \cf0 * Moving (
-\i move object
-\i0 ).\
+\f2\i move object
+\f1\i0 ).\
 * Duplicating (
-\i duplicate object
-\i0 ).\
+\f2\i duplicate object
+\f1\i0 ).\
 * Renaming (
-\i rename object
-\i0 ).\
+\f2\i rename object
+\f1\i0 ).\
 * Deleting (
-\i trash object
-\i0  and 
-\i delete object
-\i0 ).\
+\f2\i trash object
+\f1\i0  and 
+\f2\i delete object
+\f1\i0 ).\
 * Checking an item exists (
-\i exists object
-\i0 ).\
+\f2\i exists object
+\f1\i0 ).\
 * Checking whether an item is a folder (
-\i object is folder
-\i0 ).\
+\f2\i object is folder
+\f1\i0 ).\
 * Creating folders (
-\i create folder at
-\i0 ).\
+\f2\i create folder at
+\f1\i0 ).\
 * Creating alias files (
-\i create alias to
-\i0 ).\
+\f2\i create alias to
+\f1\i0 ).\
 * Resolving alias files (
-\i find original of
-\i0 ).\
+\f2\i find original of
+\f1\i0 ).\
 * Getting the contents of a folder (
-\i objects of
-\i0 ).\
+\f2\i objects of
+\f1\i0 ).\
 * Sorting lists of files (
-\i sort objects
-\i0 ).\
+\f2\i sort objects
+\f1\i0 ).\
+* Manipulating file tags (
+\f2\i tags of
+\f1\i0 , 
+\f2\i set tags of
+\f1\i0 , 
+\f2\i remove tags from
+\f1\i0  and 
+\f2\i add tags
+\f1\i0 ).\
+* Manipulating file dates (
+\f2\i date info for
+\f1\i0  and 
+\f2\i change value for
+\f1\i0 ).\
 \pard\pardeftab720\sl264\slmult1\partightenfactor0
 \cf0 \
 It also includes handlers that can be called directly for dealing with symlinks and hard links, and for comparing files and folders.\
@@ -191,50 +207,158 @@ It also includes handlers that can be called directly for dealing with symlinks 
 \cf0 \kerning1\expnd0\expndtw0 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
 
-\b\fs36 \cf0 Changes in version 2.1
-\b0\fs28 \
+\f0\b\fs36 \cf0 Changes in version 2.1
+\f1\b0\fs28 \
 \
 The terminology has been changed to use the word 
-\i object
-\i0  instead of 
-\i item
-\i0  in command names, to avoid conflicts. Existing scripts should recompile with the new terminology when opened in an editor.\
+\f2\i object
+\f1\i0  instead of 
+\f2\i item
+\f1\i0  in command names, to avoid conflicts. Existing scripts should recompile with the new terminology when opened in an editor.\
 \
 The 
-\b copy object
-\b0 , 
-\b move object
-\b0  and 
-\b rename object
-\b0  commands all have a new optional 
-\b return path
-\b0  parameter. When true, the commands return the POSIX path of the copied/moved/renamed item. \
+\f0\b copy object
+\f1\b0 , 
+\f0\b move object
+\f1\b0  and 
+\f0\b rename object
+\f1\b0  commands all have a new optional 
+\f0\b return path
+\f1\b0  parameter. When true, the commands return the POSIX path of the copied/moved/renamed item. \
 \
 A new 
-\b parse object
-\b0  command parses the path of a file or folder.\
+\f0\b parse object
+\f1\b0  command parses the path of a file or folder.\
 \
 
-\b\fs36 Feedback and updates
-\b0\fs28 \
+\f0\b\fs36 Changes in version 2.1.1
+\f1\b0\fs28 \
+\
+Fixed an error that was thrown when moving an object with replacing from one volume to another.\
+\
+
+\f0\b\fs36 Changes in version 2.2
+\f1\b0\fs28 \
+\
+Fixes a bug in the 
+\f0\b sort objects
+\f1\b0  command when sorting by name.\
+\
+The 
+\f0\b sortable properties
+\f1\b0  enumeration has a new enumerator, 
+\f0\b extension property
+\f1\b0 . This allows the 
+\f0\b sort objects
+\f1\b0  command to sort based on file extension (items with the same extension will also be sorted by name).\
+\
+The 
+\f0\b copy object
+\f1\b0  and 
+\f0\b move object
+\f1\b0  commands gain an optional 
+\f0\b new name
+\f1\b0  parameter. When supplied, the object will be renamed as part of the move/copy.\
+\
+The 
+\f0\b parse object
+\f1\b0  command adds a 
+\f2\i file_kind
+\f1\i0  value to the returned record.\
+\
+
+\f0\b\fs36 Changes in version 2.2.1
+\f1\b0\fs28 \
+\
+Works around an issue where the AppleScript compiler would confuse 
+\f2\i specifier
+\f1\i0  and 
+\f2\i reference
+\f1\i0 .\
+\
+
+\f0\b\fs36 Changes in version 2.3.0
+\f1\b0\fs28 \
+\
+Added Tag Suite, with commands for manipulating tags on files and folders: 
+\f0\b tags of
+\f1\b0 , 
+\f0\b set tags of
+\f1\b0 , 
+\f0\b remove tags from
+\f1\b0  and 
+\f0\b add tags
+\f1\b0 .\
+\
+
+\f0\b\fs36 Changes in version 2.3.1
+\f1\b0\fs28 \
+\
+Fixes bug in linking handler. Adds 
+\f0\b compare object
+\f1\b0  command for comparing the contents of files and folders. Some code compaction.\
+\
+
+\f0\b\fs36 Changes in version 2.3.2
+\f1\b0\fs28 \
+\
+Adds 
+\f0\b date info for
+\f1\b0  and 
+\f0\b change value for
+\f1\b0  commands for dealing with file date properties. Minor dictionary corrections.\
+\
+
+\f0\b\fs36 Changes in version 2.3.3
+\f1\b0\fs28 \
+\
+Fixes a bug where 
+\f0\b date info for
+\f1\b0  was swapping the creation and modification dates.\
+\
+
+\f0\b\fs36 Changes in version 2.3.4
+\f1\b0\fs28 \
+\
+The 
+\f0\b change value for
+\f1\b0  command now supports the 
+\f0\b added property
+\f1\b0  property name, but only when running under macOS 10.15 or later.\
+\
+
+\f0\b\fs36 Changes in version 2.3.5
+\f1\b0\fs28 \
+\
+Fixes a bug in the 
+\f0\b parse object
+\f1\b0  command where the 
+\f0\b parent_folder_path
+\f1\b0  could have a second colon at the end if the 
+\f0\b HFS results
+\f1\b0  parameter as true.\
+\
+
+\f0\b\fs36 Feedback and updates
+\f1\b0\fs28 \
 \
 I welcome feedback: Shane Stanley, <sstanley@myriad-com.com.au>. \
-The latest version can be downloaded from: <http://www.macosxautomation.com/applescript/apps/Script_Libs.html#FileManagerLib>.\
+The latest version can be downloaded from: <https://latenightsw.com/support/freeware>.\
 \
 
-\b\fs36 Acknowledgements\
+\f0\b\fs36 Acknowledgements\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
 
-\b0\fs28 \cf0 \
-Special thanks to Nigel Garvey. \
+\f1\b0\fs28 \cf0 \
+Special thanks to Nigel Garvey and Ed Stockly, and to Yvan Koenig for the Tag Suite.\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
 
-\b\fs36 \cf0 Licence\
+\f0\b\fs36 \cf0 Licence\
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sl288\slmult1\pardirnatural\partightenfactor0
 
-\b0\fs28 \cf0 \
-FileManagerLib is Copyright \'a9 2017-18 Shane Stanley <sstanley@myriad-com.com.au>\
+\f1\b0\fs28 \cf0 \
+FileManagerLib is Copyright \'a9 2017-20 Shane Stanley <sstanley@myriad-com.com.au>\
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software to use, copy, and distribute copies, including within commercial software, subject to the following conditions:\
 \
 Modified copies should be distributed under a different name to avoid clashes.\

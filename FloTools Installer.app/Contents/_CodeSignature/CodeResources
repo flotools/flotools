@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Flo Tools.kmmacros</key>
 		<data>
-		swF4I4M244YklRWlptJmcJEl7b0=
+		KtvfvVa9lvvcPTgCeRebf7gLyB4=
 		</data>
 		<key>Resources/Flo Tools/Flo Tools Key Set.ptpreset</key>
 		<data>
@@ -182,11 +182,11 @@
 		</data>
 		<key>Resources/Scripts/install macros.scpt</key>
 		<data>
-		HIG/a6lb0vdr3p+MGH/AiXoBLwc=
+		YkFRKbwfbpXYd6o/PDXycXLtlH8=
 		</data>
 		<key>Resources/Scripts/main.scpt</key>
 		<data>
-		8lR7qg+KV5uNAhVvJkHxXrLU3wk=
+		3BOPPXGcWvJF4bi8pSMkjtlzvc4=
 		</data>
 		<key>Resources/What's New in Flo Tools 2022.4.html</key>
 		<data>
@@ -211,11 +211,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			swF4I4M244YklRWlptJmcJEl7b0=
+			KtvfvVa9lvvcPTgCeRebf7gLyB4=
 			</data>
 			<key>hash2</key>
 			<data>
-			2UPYkvgA7sUtvpGlqVR+YCQ2pvL6DbaUQZl81uSYo7g=
+			/nwdlM69CIFSv3jEDvfte+OlRmdpoKHA0vMNvY/67wg=
 			</data>
 		</dict>
 		<key>Resources/Flo Tools/Flo Tools Key Set.ptpreset</key>
@@ -648,22 +648,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			HIG/a6lb0vdr3p+MGH/AiXoBLwc=
+			YkFRKbwfbpXYd6o/PDXycXLtlH8=
 			</data>
 			<key>hash2</key>
 			<data>
-			Og+kYudxk9jbuwUa6JqcRFq5UXwm3OnWl+aez74NISk=
+			anjhnxazzkXiXUZ6s84iHMao3pOlx/gy7KONuVSGyPc=
 			</data>
 		</dict>
 		<key>Resources/Scripts/main.scpt</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			8lR7qg+KV5uNAhVvJkHxXrLU3wk=
+			3BOPPXGcWvJF4bi8pSMkjtlzvc4=
 			</data>
 			<key>hash2</key>
 			<data>
-			QrX4wh6xCZ2UGU5fVZTt+r0twLZHinJlAcpRsolqOpY=
+			vfF9Ik1eLKXrj+BNx9Dc3S1m8XnhbT1hrlJXXxQZD04=
 			</data>
 		</dict>
 		<key>Resources/What's New in Flo Tools 2022.4.html</key>
@@ -709,6 +709,15 @@
 			<data>
 			Se28s76nBde81WaSNh/z4NsDqFkvDYBfFRRcoGNi2II=
 			</data>
+		</dict>
+		<key>kundapura.txt</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			SK0uAzTNcoytG82WaBUPilLAMf4=
+			</data>
+			<key>requirement</key>
+			<string>cdhash H"b476517a518d2cad41ffa67b0e5956aa46623bd0" or cdhash H"48ad2e0334cd728cad1bcd9668150f8a52c031fe"</string>
 		</dict>
 	</dict>
 	<key>rules</key>

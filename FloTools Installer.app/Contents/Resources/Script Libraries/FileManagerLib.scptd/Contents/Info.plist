@@ -7,9 +7,9 @@
 	<key>CFBundleIdentifier</key>
 	<string>au.com.myriad-com.FileManagerLib-Master</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1</string>
+	<string>2.3.5</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>17</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.10.0</string>
 	<key>OSAAppleScriptObjCEnabled</key>

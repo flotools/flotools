@@ -2,6 +2,9 @@
 <!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
 <dictionary title="Dictionary">
 	<suite name="File Suite" code="©!Fs" description="Contains commands related to files and folders.">
+        <class name="reference" code="obj " hidden="yes">
+            <synonym name="specifier"/>
+        </class>
 		<command name="create duplicate of" code="©!Fs©!Cd" description="Duplicates a file or folder.">
 			<direct-parameter description="An alias, file, HFS path or POSIX path of the item to be duplicated.">
 				<type type="any">
@@ -24,6 +27,10 @@
 			</parameter>
             <parameter name="replacing" description="Whether any existing item of the same name should be replaced." code="©!Rp" optional="yes">
                 <type type="boolean">
+                </type>
+            </parameter>
+            <parameter name="new name" description="When supplied, the object will be renamed as part of the copy. Then name should be in POSIX form (that is, no '/' characters)." code="©!Rn" optional="yes">
+                <type type="text">
                 </type>
             </parameter>
             <parameter name="return path" description="Whether the POSIX path of the copied item should be returned as the result. Default is false." code="©!R*" optional="yes">
@@ -64,6 +71,10 @@
 				<type type="boolean">
 				</type>
 			</parameter>
+            <parameter name="new name" description="When supplied, the object will be renamed as part of the move. Then name should be in POSIX form (that is, no '/' characters)." code="©!Rn" optional="yes">
+                <type type="text">
+                </type>
+            </parameter>
             <parameter name="return path" description="Whether the POSIX path of the moved item should be returned as the result. Default is false." code="©!R*" optional="yes">
                 <type type="boolean">
                 </type>
@@ -244,36 +255,83 @@
 			</result>
 		</command>
 
-    <command name="parse object" code="©!Fs©!Pi" description="Parses the path of a file or folder.">
-        <direct-parameter description="An alias, file, HFS path or POSIX path of the item to be parsed.">
-            <type type="any">
-            </type>
-        </direct-parameter>
-        <parameter name="HFS results" description="If true, the results are retuned in HFS form, otherwise they are returned in POSIX form. Default is false." code="©!Pp" optional="yes">
-            <type type="boolean">
-            </type>
-        </parameter>
-        <result description="A record with the following labels: full_name, name_extension, name_stub, parent_folder_path, parent_folder_name, displayed_name.">
-            <type type="record">
-            </type>
-        </result>
-    </command>
-
+        <command name="parse object" code="©!Fs©!Pi" description="Parses the path of a file or folder.">
+            <direct-parameter description="An alias, file, HFS path or POSIX path of the item to be parsed.">
+                <type type="any">
+                </type>
+            </direct-parameter>
+            <parameter name="HFS results" description="If true, the results are retuned in HFS form, otherwise they are returned in POSIX form. Default is false." code="©!Pp" optional="yes">
+                <type type="boolean">
+                </type>
+            </parameter>
+            <result description="A record with the following labels: full_name, name_extension, name_stub, parent_folder_path, parent_folder_name, displayed_name, file_kind.">
+                <type type="record">
+                </type>
+            </result>
+        </command>
+        
+        <command name="compare object" code="©!Fs©!Oi" description="Compare the contents of two files or directories. For simple files, this method checks to see if they are the same file, then compares their size, and finally compares their contents. In the case of directories, the list of files and subdirectories are compared (including the contents of subdirectories).">
+            <direct-parameter description="An alias, file, HFS path or POSIX path of an item to be compared.">
+                <type type="any">
+                </type>
+            </direct-parameter>
+            <parameter name="to object" description="An alias, file, HFS path or POSIX path of an item to be compared." code="©!Pq">
+                <type type="any">
+                </type>
+            </parameter>
+            <result description="Whether the contents match.">
+                <type type="boolean">
+                </type>
+            </result>
+        </command>
+        
+        <command name="date info for" code="©!Fs©!Di" description="Get the creation date, modification date, last access date, and added-to-directory date for an item.">
+            <direct-parameter description="An alias, file, HFS path or POSIX path of the item.">
+                <type type="any">
+                </type>
+            </direct-parameter>
+            <parameter name="returning dictionary" description="Whether to return a Cocoa dictionary instead of an AppleScript record. Use this if you want NSDates for sub-second precision. Default is false." code="©!Hc" optional="yes">
+                <type type="boolean">
+                </type>
+            </parameter>
+           <result description="A record or dictionary with the labels modification_date, creation_date, last_access_date, and added_date. Any values that are not available will be returned as missing value.">
+                <type type="any">
+                </type>
+            </result>
+        </command>
+        
+        <command name="change value for" code="©!Fs©!Dc" description="Change the modification date, creation date, last access date, and/or added date of an item. Not all properties can be set on all volume types or versions of the operating system.">
+            <direct-parameter description="An alias, file, HFS path or POSIX path of the item.">
+                <type type="any">
+                </type>
+            </direct-parameter>
+            <parameter name="to" description="The new date." code="©!T1" optional="no">
+                <type type="any">
+                </type>
+            </parameter>
+            <parameter name="property name" optional="yes" description="One of modification property/created property/last access property. Default is modification property." code="©!Dv">
+                <type type="sortable properties">
+                </type>
+            </parameter>
+        </command>
+        
 <enumeration name="sort types" code="©!Ts" description="The type of sort to use.">
-			<enumerator name="case insensitive" code="©!Tu" description="This matches what AppleScript uses for text comparisons, with the actual order depending on your language settings.">
+			<enumerator name="case sensitive" code="©!Tc" description="Case matters, but only when values are otherwise completely identical. This is the default for name and extension sorting.">
 			</enumerator>
-			<enumerator name="case sensitive" code="©!Tc" description="A case-sensitive sort that depends on your language settings.">
+			<enumerator name="case insensitive" code="©!Tu" description="Deprecated. Case is always ignored. Where case is the only difference between values, the existing order will be maintained." hidden="yes">
 			</enumerator>
-			<enumerator name="fixed case insensitive" code="©!Ti" description="This uses a fixed sorting order regardless of your language settings.">
+			<enumerator name="Finder like" code="©!Tk" description="As used by the Finder.">
 			</enumerator>
-			<enumerator name="fixed case sensitive" code="©!Tw" description="This uses a fixed sorting order regardless of your language settings.">
+			<enumerator name="fixed case sensitive" code="©!Tw" description="Deprecated. This sorts based on Unicode values, regardless of locale." hidden="yes">
 			</enumerator>
-			<enumerator name="Finder like" code="©!Tk" description="As used in the Finder.">
+			<enumerator name="fixed case insensitive" code="©!Ti" description="Deprecated. This sorts based on Unicode values of the lowercase equivalents. Where case is the only difference between values, the existing order will be maintained." hidden="yes">
 			</enumerator>
 		</enumeration>
 		
 		<enumeration name="sortable properties" code="©!Tx" description="The properties of sort to use.">
 			<enumerator name="name property" code="©!Sz" description="By name.">
+			</enumerator>
+			<enumerator name="extension property" code="©!Sx" description="By extension and then by name.">
 			</enumerator>
 			<enumerator name="modification property" code="©!Tm" description="By modification date.">
 			</enumerator>
@@ -284,8 +342,60 @@
 			<enumerator name="last access property" code="©!Tl" description="By date last accessed.">
 			</enumerator>
 		</enumeration>
-		
-	
 
 	</suite>
+    <suite name="Tags Suite" code="©!Ts" description="Contains commands for manipulating file tags.">
+        <command name="tags of" code="©!Ts©!Y1" description="Returns the tags of a file or folder.">
+            <direct-parameter description="An alias, file, HFS path or POSIX path of a file or folder.">
+                <type type="any">
+                </type>
+            </direct-parameter>
+            <result description="List of the file or folder's tags.">
+                <type type="text" list="yes">
+                </type>
+            </result>
+        </command>
+        
+        <command name="set tags of" code="©!Ts©!Y2" description="Set the tags of a file or folder. Any existing tags will be deleted.">
+            <direct-parameter description="A list of tags. An empty list removes all tags.">
+                <type type="text" list="yes">
+                </type>
+            </direct-parameter>
+            <parameter name="to" description="An alias, file, HFS path or POSIX path of a file or folder." code="©!T1" optional="no">
+                <type type="any">
+                </type>
+            </parameter>
+            <result description="Returns true on success.">
+                <type type="boolean">
+                </type>
+            </result>
+        </command>
+        
+        <command name="add tags" code="©!Ts©!Y3" description="Add the list of tags to a file or folder.">
+            <direct-parameter description="A list of tags.">
+                <type type="text" list="yes">
+                </type>
+            </direct-parameter>
+            <parameter name="to" description="An alias, file, HFS path or POSIX path of a file or folder." code="©!T1" optional="no">
+                <type type="any">
+                </type>
+            </parameter>
+            <result description="Returns true on success.">
+                <type type="boolean">
+                </type>
+            </result>
+        </command>
+        
+        <command name="remove tags from" code="©!Ts©!Y4" description="Clears the tags from a file or folder.">
+            <direct-parameter description="An alias, file, HFS path or POSIX path of a file or folder.">
+                <type type="any">
+                </type>
+            </direct-parameter>
+            <result description="Returns true on success.">
+                <type type="boolean">
+                </type>
+            </result>
+        </command>
+    </suite>
+
 </dictionary>
