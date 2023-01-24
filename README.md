@@ -157,11 +157,11 @@ Where two actions are listed, double-tapping the key will perform the second act
 * Speak and Select Previous Track: Control+P
 * Speak and select Next Track: Control+; (semicolon)
 * Speak and add Previous Track to Selection: Control+Shift+P
-* Speak and add Next Track to Selection: Control+Shift+;(semicolon)
+* Speak and add Next Track to Selection: Control+Shift+; (semicolon)
 * Speak and retract Selection from Top Track: Control+Option+P (must be passed through)
-*Speak and retract Selection from Bottom Track: Control+Option+; (semicolon) (must be passed through)
+* Speak and retract Selection from Bottom Track: Control+Option+; (semicolon) (must be passed through)
 * Speak/Toggle Metronome:	Option+num pad 7
-* Speak/Toggle Count In:	Option+num pad8
+* Speak/Toggle Count In:	Option+num pad 8
 * Speak/Toggle Midi Merge:	Option+num pad 9
 * Speak/Toggle Tab to Transients:	Command+Option+Tab
 * Speak/Toggle Insertion Follows Playback:	Control+N
@@ -240,7 +240,10 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 * Speak/Select Track View: w
 * Speak/Toggle Freeze Status: f
 * Speak/Select Timebase: b
-* Beta: Speak/Select Elastic Audio Plugin: eFloTools also includes a temporary inspector, which only allows inspector commands to be executed while the accent key is pressed. This allows the Qwerty keyboard to be used for regular functions without conflict or interference of the inspector. 
+* Beta: Speak/Select Elastic Audio Plugin: e
+
+
+FloTools also includes a temporary inspector, which only allows inspector commands to be executed while the accent key is pressed. This allows the Qwerty keyboard to be used for regular functions without conflict or interference of the inspector. 
 
 To activate the temporary inspector, press the accent key. Release the key to de-activate.
 
