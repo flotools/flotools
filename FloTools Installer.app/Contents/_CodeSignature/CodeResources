@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Flo Tools.kmmacros</key>
 		<data>
-		KtvfvVa9lvvcPTgCeRebf7gLyB4=
+		ImB1YYDXDmrJh/qnLEpIuy7cTzc=
 		</data>
 		<key>Resources/Flo Tools/Flo Tools Key Set.ptpreset</key>
 		<data>
@@ -158,23 +158,27 @@
 		</data>
 		<key>Resources/Script Libraries/FileManagerLib.scptd/Contents/Info.plist</key>
 		<data>
-		Q8YjztWVktdOXYsm/tpGu7HPgSE=
+		F+Sq9RdtT9MX+3xhnT85fXlzajA=
 		</data>
 		<key>Resources/Script Libraries/FileManagerLib.scptd/Contents/Resources/ScriptingDictionary.sdef</key>
 		<data>
-		REpjVlplks81KIWc1JIMj0AFm0k=
+		4GTecuXf328UbLg3z63zNOSvkdU=
 		</data>
 		<key>Resources/Script Libraries/FileManagerLib.scptd/Contents/Resources/Scripts/main.recover.rtf</key>
 		<data>
-		vZpkoAOKEHLsgZHSVse2yRz7IaE=
+		wgZ+/62E03H0qZ1VcMfRPMSb6vc=
 		</data>
 		<key>Resources/Script Libraries/FileManagerLib.scptd/Contents/Resources/Scripts/main.scpt</key>
 		<data>
-		Q32g/3IO8ZgKHxCchBoaGpYDrds=
+		KR2zqB+W/kEdWjunQl6B3Bk8Mvs=
 		</data>
 		<key>Resources/Script Libraries/FileManagerLib.scptd/Contents/Resources/description.rtfd/TXT.rtf</key>
 		<data>
-		9s4vBmi127hPAHmIKNtTtCFmRQQ=
+		JGD9zFbGXuiogLcluxKvSHGrUyM=
+		</data>
+		<key>Resources/Script Libraries/FileManagerLib.scptd/Contents/Script Debugger.plist</key>
+		<data>
+		/CZ+x6Srs0mJAANHO7sKjdwxcBw=
 		</data>
 		<key>Resources/Scripts/Merge Plug-in Views.scpt</key>
 		<data>
@@ -182,15 +186,15 @@
 		</data>
 		<key>Resources/Scripts/install macros.scpt</key>
 		<data>
-		YkFRKbwfbpXYd6o/PDXycXLtlH8=
+		96uaeedekD/2PVziZxgRz07jjCA=
 		</data>
 		<key>Resources/Scripts/main.scpt</key>
 		<data>
-		3BOPPXGcWvJF4bi8pSMkjtlzvc4=
+		3NVCWXIY1xHxIV/LPzWmEw6RTTk=
 		</data>
-		<key>Resources/What's New in Flo Tools 2022.4.html</key>
+		<key>Resources/What's New in Flo Tools 2023.6.html</key>
 		<data>
-		8XE7jnuhDQFqEDjr2W/JAXq5VVI=
+		YnHrZLAS1Mjg7BA8OUViPcelugs=
 		</data>
 		<key>Resources/applet.icns</key>
 		<data>
@@ -202,7 +206,7 @@
 		</data>
 		<key>Resources/description.rtfd/TXT.rtf</key>
 		<data>
-		I3CkL82OVziMdOdTvZVn9MiRGYI=
+		n/X9p2bMC8UsbIQeCclfr2IlAS8=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -211,11 +215,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			KtvfvVa9lvvcPTgCeRebf7gLyB4=
+			ImB1YYDXDmrJh/qnLEpIuy7cTzc=
 			</data>
 			<key>hash2</key>
 			<data>
-			/nwdlM69CIFSv3jEDvfte+OlRmdpoKHA0vMNvY/67wg=
+			sCwMa2NYrxuwBhLUcEyHSogyHzvDhkgrvkahsIerayc=
 			</data>
 		</dict>
 		<key>Resources/Flo Tools/Flo Tools Key Set.ptpreset</key>
@@ -582,55 +586,66 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Q8YjztWVktdOXYsm/tpGu7HPgSE=
+			F+Sq9RdtT9MX+3xhnT85fXlzajA=
 			</data>
 			<key>hash2</key>
 			<data>
-			EKh9i29cc6WCzSv0WM88pr5MTu/e7NAsY1BcilYg8eA=
+			xK1c3jtd9a+ONeEjFbwt1+Hf50OTjAMp4qQNFT9b8d4=
 			</data>
 		</dict>
 		<key>Resources/Script Libraries/FileManagerLib.scptd/Contents/Resources/ScriptingDictionary.sdef</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			REpjVlplks81KIWc1JIMj0AFm0k=
+			4GTecuXf328UbLg3z63zNOSvkdU=
 			</data>
 			<key>hash2</key>
 			<data>
-			nApBnVHQYkK90TZbLHupvyzM+MPoPX+/7Z8127WVl04=
+			3PMNa9vVxR/ATn9FQImkjHK7ABf4u2KTYmRTb0SItmM=
 			</data>
 		</dict>
 		<key>Resources/Script Libraries/FileManagerLib.scptd/Contents/Resources/Scripts/main.recover.rtf</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			vZpkoAOKEHLsgZHSVse2yRz7IaE=
+			wgZ+/62E03H0qZ1VcMfRPMSb6vc=
 			</data>
 			<key>hash2</key>
 			<data>
-			zUEP+Y7cRNAUgyQ6nhsGy+D5u5WQ7oDRdhTOJ/wPCn4=
+			z5Fj0/8KqUmmib23v+yDvAKtr57BJNdJSNB68sFucck=
 			</data>
 		</dict>
 		<key>Resources/Script Libraries/FileManagerLib.scptd/Contents/Resources/Scripts/main.scpt</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Q32g/3IO8ZgKHxCchBoaGpYDrds=
+			KR2zqB+W/kEdWjunQl6B3Bk8Mvs=
 			</data>
 			<key>hash2</key>
 			<data>
-			CRpu3voGTAhK2OunwdLXx/MHq3cJojBAomMas/mNMIg=
+			V2amNm4rp7uz/RyVYfpcwRHqFaOaWVxV/2ur9lVe0cw=
 			</data>
 		</dict>
 		<key>Resources/Script Libraries/FileManagerLib.scptd/Contents/Resources/description.rtfd/TXT.rtf</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			9s4vBmi127hPAHmIKNtTtCFmRQQ=
+			JGD9zFbGXuiogLcluxKvSHGrUyM=
 			</data>
 			<key>hash2</key>
 			<data>
-			6hYqIes2Px1SQbRs/2avWdk5FoZwL+bkap4y61S3+A4=
+			XhHcQARGhzV4btLSDbd+6uXLppUEI1OhBMwZVQMJ+as=
+			</data>
+		</dict>
+		<key>Resources/Script Libraries/FileManagerLib.scptd/Contents/Script Debugger.plist</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/CZ+x6Srs0mJAANHO7sKjdwxcBw=
+			</data>
+			<key>hash2</key>
+			<data>
+			Yxe4zysrPaP64w1YendDYhXgNj5vftRSI7sWw8sM/eM=
 			</data>
 		</dict>
 		<key>Resources/Scripts/Merge Plug-in Views.scpt</key>
@@ -648,33 +663,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			YkFRKbwfbpXYd6o/PDXycXLtlH8=
+			96uaeedekD/2PVziZxgRz07jjCA=
 			</data>
 			<key>hash2</key>
 			<data>
-			anjhnxazzkXiXUZ6s84iHMao3pOlx/gy7KONuVSGyPc=
+			IicoAZAMkExZLCVn4FQ7lW/mArFSRJYY0Db1JCkbPRo=
 			</data>
 		</dict>
 		<key>Resources/Scripts/main.scpt</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			3BOPPXGcWvJF4bi8pSMkjtlzvc4=
+			3NVCWXIY1xHxIV/LPzWmEw6RTTk=
 			</data>
 			<key>hash2</key>
 			<data>
-			vfF9Ik1eLKXrj+BNx9Dc3S1m8XnhbT1hrlJXXxQZD04=
+			db+xkeUGLMVDaJBVnvNyZYBaCyB2nVZPeMjCr5Fh/44=
 			</data>
 		</dict>
-		<key>Resources/What's New in Flo Tools 2022.4.html</key>
+		<key>Resources/What's New in Flo Tools 2023.6.html</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			8XE7jnuhDQFqEDjr2W/JAXq5VVI=
+			YnHrZLAS1Mjg7BA8OUViPcelugs=
 			</data>
 			<key>hash2</key>
 			<data>
-			rA5574lwK2M1GaCTeluUlMtKj+vYQNt0zXjE5TQNBiM=
+			cs3EcuVicpXXvCtwe6CPo6+HnVOO7qdIwDD4g35ShyQ=
 			</data>
 		</dict>
 		<key>Resources/applet.icns</key>
@@ -703,21 +718,12 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			I3CkL82OVziMdOdTvZVn9MiRGYI=
+			n/X9p2bMC8UsbIQeCclfr2IlAS8=
 			</data>
 			<key>hash2</key>
 			<data>
-			Se28s76nBde81WaSNh/z4NsDqFkvDYBfFRRcoGNi2II=
+			K8IxUdXWmiFCYgm2lc9jFlhlPDhX1gGst1jP7NT/6Vw=
 			</data>
-		</dict>
-		<key>kundapura.txt</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			SK0uAzTNcoytG82WaBUPilLAMf4=
-			</data>
-			<key>requirement</key>
-			<string>cdhash H"b476517a518d2cad41ffa67b0e5956aa46623bd0" or cdhash H"48ad2e0334cd728cad1bcd9668150f8a52c031fe"</string>
 		</dict>
 	</dict>
 	<key>rules</key>

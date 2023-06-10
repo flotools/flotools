@@ -188,6 +188,13 @@ Where two actions are listed, double-tapping the key will perform the second act
 * Speak Selected Clips:	Option+Shift+, (comma)
 * FloTools Preferences: Command+Control+, (comma)
 * ProTools Preferences: Command+Option+, (comma)
+* Speak/Edit Pitch for Selected Note:	Option+p
+* Speak/Edit Attack Velocity for Selected Note:	Option+a
+* Speak/Edit Release Velocity for Selected Note:	Option+r
+* Move to next Column for midi event:	Option+Shift+\]
+* Move to previous Column for midi event:	Option+Shift+\[
+* Edit selected midi Event:	Control+Command+Return
+
 
 
 #### Flo Tools Global
@@ -277,18 +284,6 @@ The Flo Mouse group is global, so these commands will work system-wide when the 
 * Move Mouse to Coordinates Relative  to Current Window: Command+Option+Shift+W
 * Zoom/Maximize Window: Command+Option+Shift+z
 
-#### Flo Tools Midi Event List
-
-This macro group allows easier navigation and editing of the Midi Event List using Flo Tools, and contains the following commands:
-
-
-* Speak/Edit Pitch for Selected Note:	Option+p
-* Speak/Edit Attack Velocity for Selected Note:	Option+a
-* Speak/Edit Release Velocity for Selected Note:	Option+r
-* Move to next Column:	Option+Shift+\]
-* Move to previous Column:	Option+Shift+\[
-* Edit Event:	Control+Command+Return
-
 
 #### Flo Num Pad (now merged into virtual extended keyboard)
 
@@ -306,8 +301,8 @@ Below is the list of remapped keyboard keys when using the num pad group.
 * 7, 8, 9, and the period key on the qwerty keyboard are mapped to num pad 7, 8, 9 and period.
 * Semicolon: *
 * apostrophe: /
-* Left bracket: minus
-* Right Bracket: +
+* Hyphen: minus
+* Equals: +
 * comma: equals
 
 
@@ -338,15 +333,6 @@ Where 2 actions are listed, double tapping the key will perform the second actio
 This group allows Flo Tools to announce the currently selected tab in Pro Tools dialogs, such as preferences and peripherals. Pressing Command+1, Command+2, etc. will trigger this feature.
 
 
-#### Flo Tools Shortcuts Helper
-
-Flo Tools provides a convenient way to find any Pro Tools Shortcut, called the Shortcuts Helper. While Pro Tools is running, Press Control Shift Command K to launch the Shortcuts Helper. Press keys to hear their functions.
-
-When you're in the Mix or Edit windows, you'll hear the main shortcuts that are available in most windows. When you're in a window or dialog that has its own shortcuts, you'll hear only those shortcuts that are specific to that environment.
-
-For example, Command+f brings up the Fades dialog in the Mix or Edit windows but it brings up the View filter while the MIDI Event List is in focus. Flo Tools Shortcuts Helper recognizes the context and offers the appropriate shortcuts.
-
-Rather than randomly pressing keys to hear their functions, you can also press Control Shift Command H to bring up a palette of all of the available shortcuts. You can even narrow down the list by bringing up the Item Chooser and use first letter navigation to narrow the list to make it easier to find the shortcut you're trying to remember. You can either trigger the macro, which will speak the function as if you had pressed the key combination or you can press the very first button in the palette (which happens to be unlabelled and that will close the palette. To exit Shortcuts Helper, simply press Escape.
 
  <div id='misc'/>
 ## Misc
@@ -606,3 +592,12 @@ Changes:
 * all "List Tracks with Flo Tools" Commands changed to single macro pallet: Control+Option+Shift+L.
 * Pressing T in the inspector will now speak and select the current track. Double tapping T will bring up the context menu as always.
 * fixed shortcuts for toggling track and edit selection, and timeline and edit selection, so they no longer cause conflicts when typing in text fields.
+
+### Flo Tools 2023.6:
+
+* installer support for Mac OS Ventura
+* Flo Tools Shortcuts Helper is removed from this release, and it's associated macros will be deleted upon installing Flo Tools 2023.6 or later
+* fixed fade dialog macros to reflect avid's renaming of controls
+* Midi Event List Macro Group has now been merged into the Flo Tools Group. Note that this does not effect the function of these macros.
+* Reporting of elastic audio with the Flo Tools inspector now works correctly.
+
