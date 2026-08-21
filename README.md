@@ -40,11 +40,9 @@ Once downloaded, this  zip file, referenced in this read me, will automatically 
 <div id='systemrequirements'/>
 ## System Requirements
 
-Flo Tools supports Mac OS version 10.12 or later, and Pro Tools version 12.3 or later. Pro Tools First has limited support at this time from version 12.8.2 or higher. Earlier versions of Mac OS, Pro Tools, and Pro Tools First may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
+Flo Tools supports Mac OS version 10.12 or later, and Pro Tools version 12.3 or later. Earlier versions of Mac OS and Pro Tools may provide limited functionality with Flo Tools, but have not been tested and are not guaranteed to function correctly.
 
-Please Note: If you're using versions of Pro Tools or Pro Tools First prior to Pro Tools 2019, you are required to use Flo Tools 2018.7. If you are using Pro Tools or Pro Tools First version 2019 or later, you must use Flo Tools 2019.5.1 or later.
-
-
+Please Note: If you're using versions of Pro Tools prior to Pro Tools 2019, you are required to use Flo Tools 2018.7. If you are using Pro Tools version 2019 or later, you must use Flo Tools 2019.5.1 or later.
 
 <div id='installation'/>
 
@@ -54,8 +52,7 @@ Flo Tools relies on a third party program called Keyboard Maestro to perform its
 
 ### Keyboard Maestro Installation
 
-1. Go to the Keyboard Maestro homepage by clicking [here](https://www.keyboardmaestro.com/) and download the Keyboard Maestro application from the website.
-
+1. Go to the Keyboard Maestro homepage by clicking [here](https://www.keyboardmaestro.com/) and download the Keyboard Maestro application from the website.
 2. Copy the Keyboard Maestro application from the downloads folder to the applications folder. From there, open Keyboard Maestro.
 
 If using Keyboard Maestro for the first time, please check the boxes for both Keyboard Maestro and Keyboard Maestro Engine in system preferences, under "Security and Privacy", "Accessibility." These must be enabled for Flo Tools to function correctly.
@@ -110,7 +107,7 @@ The second is [This Sound](Pop.aiff), which signals that something is in process
 
 ### Commands
 
-Flo Tools is organized into 25 macro groups inside of Keyboard Maestro. Below is a list of Flo Tools commands, and their associated functions, separated by their respective groups.
+Flo Tools is organized into 11 macro groups inside of Keyboard Maestro. Below is a list of Flo Tools commands, and their associated functions, separated by their respective groups.
 
 #### Flo Tools
 
@@ -285,11 +282,35 @@ The Flo Mouse group is global, so these commands will work system-wide when the 
 * Zoom/Maximize Window: Command+Option+Shift+z
 
 
-#### Flo Num Pad (now merged into virtual extended keyboard)
+#### Flo Tools Plugin
+
+These Flo Tools commands are used inside of Pro Tools plugins.
+
+Where 2 actions are listed, double tapping the key will perform the second action.
+
+* Speak/select preset: Option+Command+P
+* Load previous preset: left bracket
+* Load next preset: right bracket
+* Speak/toggle bypass: Option+B
+* Plugin Monitor:
+ * This  feature of Flo Tools is for  control surface users with Pro Tools. When controlling a plugin's parameters using a control surface, the plugin monitor will speak the value of the parameter as it changes in real time.
+ * Activate Plugin Monitor:	Option+/
+ * Deactivate Plugin Monitor:	Option+Shift+/
+* Plugin Views:
+ * Flo Tools provides an alternative means of browsing parameters in the Plug-In window, allowing some inaccessible plugin parameters to be manipulated and controlled. The script relies on user-generated text files to provide Flo Tools with a template for navigating parameters,  with the option to move the mouse pointer to specific coordinates within the Plug-In window.
+ * load default view: Command+0
+ * Load Views 1 through 9: Command+1 through 9
+ * for more information about plugin views, and how to create them, click [here.](/Plug-In Views/)
+
+#### Flo Tools Selected Tab
+
+This group allows Flo Tools to announce the currently selected tab in Pro Tools dialogs, such as preferences and peripherals. Pressing Command+1, Command+2, etc. will trigger this feature.
+
+#### virtual extended keyboard
 
 Flo Tools provides a key remapping using the keyboard as a standard num pad. This num pad group of remappings can be used system-wide by pressing the function or FN key simultaneously with any remapped key.
 
-Below is the list of remapped keyboard keys when using the num pad group.
+Below is the list of remapped keyboard keys when using the virtual extended keyboard.
 
 * m: 0
 * j: 1
@@ -306,35 +327,7 @@ Below is the list of remapped keyboard keys when using the num pad group.
 * comma: equals
 
 
-
-#### Flo Tools Plugin
-
-These Flo Tools commands are used inside of Pro Tools plugins.
-
-Where 2 actions are listed, double tapping the key will perform the second action.
-
-* Speak/select preset: Option+P
-* Load previous preset: left bracket
-* Load next preset: right bracket
-* Speak/toggle bypass: Option+B
-* Plugin Monitor:
- * This  feature of Flo Tools is for  control surface users with Pro Tools. When controlling a plugin's parameters using a control surface, the plugin monitor will speak the value of the parameter as it changes in real time.
- * Activate Plugin Monitor:	Option+/
- * Deactivate Plugin Monitor:	Option+Shift+/
-* Plugin Views:
- * Flo Tools provides an alternative means of browsing parameters in the Plug-In window, allowing some inaccessible plugin parameters to be manipulated and controlled. The script relies on user-generated text files to provide Flo Tools with a template for navigating parameters,  with the option to move the mouse pointer to specific coordinates within the Plug-In window.
- * load default view: Command+0
- * Load Views 1 through 9: Command+1 through 9
- * for more information about plugin views, and how to create them, click [here.](/Plug-In Views/)
-
-
-#### Flo Tools Selected Tab
-
-This group allows Flo Tools to announce the currently selected tab in Pro Tools dialogs, such as preferences and peripherals. Pressing Command+1, Command+2, etc. will trigger this feature.
-
-
-
- <div id='misc'/>
+<div id='misc'/>
 ## Misc
 
 ### Changing Flo Tools Shortcuts
@@ -601,3 +594,16 @@ Changes:
 * Midi Event List Macro Group has now been merged into the Flo Tools Group. Note that this does not effect the function of these macros.
 * Reporting of elastic audio with the Flo Tools inspector now works correctly.
 
+### Flo Tools 2026.8
+
+* Support for Pro Tools First has been removed from Flo Tools, but Flo Tools will continue to work with Pro Tools Intro.
+* Flo Tools now works with multiple versions of Pro Tools on a same system.
+* Speak Selected Clips Option+Command+, (Comma) now correctly reports which clips are currently selected in the Edit window.
+* The Flo Tools Inspector no longer says "verticle orientation" when resetting the Peak Value.
+* The Flo Tools Inspector now speaks the status of a track's elastic Audio state.
+* The flo Tools Inspector now speaks the input monitor status of a track when pressing the letter K.
+* Flo Tools can once again speak the status of track input monitoring.
+* Speak/select a preset in the Plugin window have been changed to Option+Command+P to avoid a keyboard shortcut conflict.
+* Speak/select presets in the Audio Suite window: Option+Command+P
+* 
+Select the previous and next presets in in the Audio Suite window: [ (Left bracket) and ] (Right Bracket)

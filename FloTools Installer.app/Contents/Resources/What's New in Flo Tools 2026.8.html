@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>What's New in Flo Tools 2023.6</title>
+<title>What's New in Flo Tools 2026.8</title>
 
 
 <style type="text/css">
@@ -331,37 +331,55 @@ kbd {
 
 <body>
 
-<h1 id="toc_0"><strong>What’s New in Flo Tools 2023.6</strong></h1>
+<h1 id="toc_0"><strong>What’s New in Flo Tools 2026.8</strong></h1>
 
-<p>Greetings from the Flo Tools Team. We&#39;re long overdue for a Flo Tools update so here it is. </p>
+<p>As always, it&#39;s been a while, hasn&#39;t it? Actually, it&#39;s not necessarily a bad thing when Flo Tools doesn&#39;t require much maintenance. However, over time, things require updating because of UI elements being renamed by Avid, new behaviors, etc. This update features some fixes to issues that have crept in over time. There&#39;s little in the way of new Flo Tools features but hopefully these adjusted macros will improve your experience while using Pro Tools.</p>
 
-<h2 id="toc_1">Support for Installation on Ventura</h2>
+<h1 id="toc_1">Fixes for Renamed UI Elements</h1>
 
-<p>Although there are several issues with VoiceOver, Pro Tools and Ventura running on Silicon machines, there are some users who essentially have no choice but to use Ventura. Given that reality, we&#39;ve updated the Flo Tools Installer to support Ventura. We have seen some unexpected behavior at times and it&#39;s virtually impossible to predict how certain combinations of hardware and software will behave, so if you discover any problems with installation, be sure to let us know.</p>
+<p>The following commands stopped working over time because Avid has renamed various menus or buttons. Naturally, these commands in Flo Tools 2026.8 will not work as expected with earlier versions of Pro Tools where the buttons and menus reflect the older names.</p>
 
-<h2 id="toc_2">Shortcuts Helper is Being Retired</h2>
+<h2 id="toc_2">Speak Selected Clips</h2>
 
-<p>For several reasons, we&#39;ve decided to retire the Shortcuts Helper. Now that Pro Tools includes the Keyboard Shortcuts window and virtually all keyboard shortcuts are user-definable, it began to make less and less sense to continue with this legacy framework. Between the Keyboard Shortcuts window and the Pro Tools Search feature, the Shortcuts Helper has become less important. The Flo Tools 2023.6 Installer removes the old Shortcut Helper macro groups and streamlines Flo Tools within Keyboard Maestro.</p>
+<p>Pressing Option+Command+, (Comma) now correctly reports which clips are currently selected in the Edit window.</p>
 
-<h2 id="toc_3">New Fade Dialog Macros</h2>
+<h2 id="toc_3">Speak/Reset Peak Meter</h2>
 
-<p>Occasionally, Avid unexpectedly changes the names of UI elements and Flo Tools needs to adapt to those changes. Such was the case when they renamed a few clusters within several Fade and Crossfade dialogs. Flo Tools now correctly reports fade curves when using Option+Left/Right Arrow keys within all fade dialogs. It has taken a little while for Avid to get the names of these various shapes correct and we hope things won&#39;t change again in the next release ;)</p>
+<p>The Flo Tools Inspector no longer says "verticle orientation" when resetting the Peak Value.</p>
 
-<h2 id="toc_4">MIDI Event List Macro Group Folded into Flo Tools Macro Group</h2>
+<h2 id="toc_4">Speak/Select Elastic Audio Plugin</h2>
 
-<p>In a further streamlining effort, we&#39;ve folded the macros from the MIDI Event List macro group into the main Flo Tools macro group. It doesn&#39;t affect behavior of the MIDI-related macros and simply tidies things up.</p>
+<p>The Flo Tools Inspector now speaks the status of a track&#39;s elastic Audio state.</p>
 
-<h2 id="toc_5">Elastic Audio Inspector reporting Fixed</h2>
+<h2 id="toc_5">Speak/Toggle Input Monitor</h2>
 
-<p>Again, Avid decided to change the name of the Elastic Audio pop-up menu to include the term &quot;ARA&quot; and thus the previous Inspector macros to report Elastic Audio state stopped working. We&#39;ve updated the macro to look for the new name and it now reports correctly.</p>
+<p>The flo Tools Inspector now speaks the input monitor status of a track when pressing the letter K.</p>
 
-<p>We hope these few changes are helpful, and we&#39;ll continue to work on improvements whenever possible. We do have a list of features we&#39;d like to implement and we&#39;ll try to anticipate users&#39; needs as quickly as we can when new versions of Pro Tools are introduced.</p>
+<h2 id="toc_6">Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks</h2>
 
-<p>Until next time, go with the Flo. :) </p>
+<p>Flo Tools can once again speak the status of track input monitoring.</p>
 
-<p>The Flo tools Team</p>
+<h2 id="toc_7">Speak/Choose Preset</h2>
 
+<p>To avoid a keyboard shortcut conflict, the modifiers for speaking or choosing a preset in the Plugin window have been changed to Option+Command+P rather than just Option+P.</p>
 
+<h2 id="toc_8">Audio Suite Preset Shortcuts</h2>
+
+<p>A new addition to Flo Tools 2026.8 is the ability to speak and choose presets in the Audio Suite window. The keyboard shortcut is Option+Command+P which is the same as the shortcut in the Plugin window. Also, as in the Plugin window, Left bracket and Right Bracket selects the previous and next presets if available for the chosen plugin.</p>
+
+<h2 id="toc_9">Pro Tools Intro Replacing Pro Tools First</h2>
+
+<p>Avid has retired Pro Tools First so support for First has been removed from Flo Tools. Flo Tools will continue to work with Pro Tools Intro as an entry-level version based on the user&#39;s available license.</p>
+
+<h2 id="toc_10">Flo Tools and Pro Tools Renaming</h2>
+
+<p>For those wishing to install multiple versions of Pro Tools on their system, Flo Tools will now work with any installed version of Pro Tools regardless of the name. For example, if you wish to keep an older version of Pro Tools installed alongside the current version, you can name the older version something like "Pro Tools 2025" and Flo Tools will recognize it and work as expected.</p>
+
+<h2 id="toc_11">Conclusion (for now)</h2>
+
+<p>We hope these few fixes help make Pro Tools work more smoothly and reliably for you.</p>
+
+<p>The Flo Tools Team</p>
 
 
 </body>
