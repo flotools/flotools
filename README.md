@@ -605,5 +605,12 @@ Changes:
 * Flo Tools can once again speak the status of track input monitoring.
 * Speak/select a preset in the Plugin window have been changed to Option+Command+P to avoid a keyboard shortcut conflict.
 * Speak/select presets in the Audio Suite window: Option+Command+P
-* 
-Select the previous and next presets in in the Audio Suite window: [ (Left bracket) and ] (Right Bracket)
+* Select the previous and next presets in in the Audio Suite window: [ (Left bracket) and ] (Right Bracket)
+
+### Flo Tools 2026.8.1
+
+* Fixed the bug where it keeps alerting for new update even though you have the latest installed.
+
+### Flo Tools 2026.8.2
+
+* Fixed the auto updater so it does not crash when it cannot send a speech announcement.
