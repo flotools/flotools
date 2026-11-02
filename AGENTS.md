@@ -10,7 +10,7 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 
 - `.pi/HANDOFF.md` is the work journal. It is not tracked by git (`.pi/` is in `.git/info/exclude`). Part 1 is the current state, the porting tracker and the exact next step; Part 2 is a dated `J-n` journal. Read Part 1 before doing anything. After every plan, code change, commit, live test or decision, append a journal entry and revise Part 1. Never rewrite old entries; add a correction entry instead. Keep observed results separate from inferences.
 - `reference/macros/INDEX.md` is the tracked record of which macros are ported (the "Ported" column).
-- `plan.md` at the repository root, once written, is the agreed architecture. Code changes should match it; if the design changes, update `plan.md` in the same commit.
+- `plan.md` at the repository root is the agreed architecture and refactor order. Code changes should match it; if the design changes, update `plan.md` in the same commit.
 - `.pi/jobs/` holds jobs sent to other agents with `lmg ask`, one folder per job, with `task.md` and `responseN.md`.
 
 ## Rules that must not change
@@ -102,7 +102,7 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 ### Errors and logging
 
 - Use one error model. Core code returns or throws meaningful errors (Pro Tools not running, window missing, element missing, timeout); it does not silently return nil when the caller needs to know why.
-- Decide what the user hears in one place, not separately in each macro.
+- Decide what the user hears in one place, not separately in each macro. Failures are spoken (KM showed a notification instead), with the wording in one table in the engine. Cancellation is silent.
 - No broad catch-and-ignore except at a deliberate boundary, and log it there.
 - Log where the context is, once per failure. Do not log secrets or identifiers (see Diagnostic log for what is allowed).
 
