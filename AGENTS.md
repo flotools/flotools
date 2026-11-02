@@ -65,8 +65,78 @@ Run from the repository root.
 
 The owner uses `lmg ask` to consult other agents (see the lmg-ask skill). Fable (`lmg ask claude read|edit FOLDER --model claude-fable-5-1`) is the advisor for major design decisions; it has a weekly cap, so use it sparingly. Codex (`lmg ask codex read|edit FOLDER`) is the colleague for second opinions and goes first for questions code can settle. Run `lmg usage` before each ask and note the reading in the journal. Edit jobs need a git worktree. Check each answer file exists and has real content before using it.
 
+## Code quality standard
+
+This summarizes the owner's optimize-codebase standard, adapted to Swift. The aim is a codebase that could be shown to students as an example of good design: each part has a clear job, and a reader can follow what happens without reading everything.
+
+### Design
+
+- Prefer simple, cohesive designs over clever or highly abstract ones. A shorter design is not automatically better, and a more abstract one is not either.
+- Give every module, type and function one clear responsibility. A reader should be able to say what it owns, what it depends on, what depends on it, what contract it exposes, and why it lives where it does.
+- Keep separate concerns apart: Pro Tools knowledge, macro behavior, the engine (triggers, context, enable state), macOS infrastructure (Accessibility, VoiceOver, hotkeys, input events, sounds, dialogs, files) and the app UI. Split files when it clarifies ownership, not mechanically.
+- Keep dependencies pointing one way: app -> macros -> core and infrastructure. Infrastructure never knows about specific macros. No circular dependencies.
+- Make dependencies explicit through initializers or parameters where that helps testing and clarity. Avoid hidden global state; when a shared instance is needed, say why. No dependency injection frameworks.
+- Every abstraction must reduce duplication, coupling, ambiguity or testing difficulty for a current need. Do not add protocols with one implementation, factories, managers, generic helpers, plugin systems or extension points for hypothetical futures. Do not add wrappers that only forward calls or rename things.
+- Prefer a direct design when it keeps the separation clean.
+
+### One source of truth
+
+- Each concept has one representation and one implementation: one model of a macro, one of a hotkey, one of a window condition, one double-press mechanism, one way to find a track, one preferences reader and writer.
+- KM metadata (UIDs, names, groups, hotkeys, conditions, triggers) comes only from the generated catalog. Swift code refers to it; it does not repeat it.
+- When several macros share a pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs), implement the pattern once and parameterize it. Do not copy 20 near-identical macros.
+- No duplicate constants, repeated parsing or repeated formatting rules.
+
+### One current implementation
+
+- Keep exactly one current implementation. Do not leave old code beside new code, fallbacks, compatibility aliases, deprecated parameters, migration code or version branches. Git history keeps the old code.
+- The one deliberate exception is the preferences file `~/Library/Application Support/Flo Tools/flotools.json`, whose format is shared with the KM version and is the current format.
+- Remove dead code, unused parameters, stale comments and unreachable branches as you find them.
+
+### Interfaces and data flow
+
+- Use narrow interfaces with explicit inputs and outputs, domain names, and domain types where they prevent mistakes. Make invalid use hard, without chasing theoretical type purity.
+- Avoid boolean-heavy APIs and long lists of optional parameters; name the operation or model the choice instead.
+- Keep data flow traceable: trigger -> context check -> macro logic -> Accessibility, speech or input side effect -> spoken result. Do not convert the same data between several near-identical shapes.
+- Validate at boundaries: catalog generation, preferences loading, Accessibility reads.
+
+### Errors and logging
+
+- Use one error model. Core code returns or throws meaningful errors (Pro Tools not running, window missing, element missing, timeout); it does not silently return nil when the caller needs to know why.
+- Decide what the user hears in one place, not separately in each macro.
+- No broad catch-and-ignore except at a deliberate boundary, and log it there.
+- Log where the context is, once per failure. Do not log sensitive data.
+
+### Security
+
+- Treat security as design: least privilege, safe defaults, explicit trust boundaries.
+- Escape or pass as parameters anything put into AppleScript or shell commands; avoid shell commands where an API exists.
+- Network access is limited to what the owner approved. Never send identifying hardware data.
+- Keep hardened runtime and minimal entitlements; sign consistently.
+
+### Efficiency
+
+- Avoid repeated work that matters: re-walking the Accessibility tree per element, recompiling AppleScript, polling faster than needed, blocking the main thread on a busy Pro Tools.
+- Choose fitting data structures (for example index hotkeys instead of scanning all macros). Do not micro-optimize at the cost of clarity, and explain real tradeoffs in `plan.md`.
+
+### Swift style
+
+- Clear, idiomatic Swift 6 with strict concurrency. State which actor owns mutable state.
+- Structs and enums for data, small focused functions, value types and immutability where they help reasoning.
+- No clever one-liners, force unwraps outside tests or truly impossible cases, or hidden side effects.
+- Use consistent names across code, tests, logs and docs. Avoid vague names such as Manager, Helper, Utils, Handler or Data unless they are the real responsibility.
+
+### Tests
+
+- Test behavior at the right level: message text, value parsing, filters, hotkey resolution, enable state, double-press timing, catalog integrity, preferences format.
+- Keep tests deterministic. Prefer designs where side effects can be supplied naturally over heavy mocking, and do not add abstractions only to mock them.
+- Never weaken a test to make a change pass. If behavior changes on purpose, update the test and say why.
+- Live Pro Tools checks complement unit tests; record them in the journal.
+
+### Before finishing a change
+
+Run the tests, read the whole diff, and check: no duplicate or obsolete path remains, names and error semantics are consistent, dependencies point the right way, new abstractions have a concrete reason, and the result is simpler to explain than before.
+
 ## Writing conventions
 
-- Comments explain why, in short plain English.
+- Comments explain why, in short plain English. Do not restate the code or invent jargon.
 - Markdown and other prose files: one paragraph per line, no soft wrapping, no bold or italics for emphasis.
-- Do not leave old implementations, fallbacks or compatibility shims beside new ones. Git history keeps the old code.
