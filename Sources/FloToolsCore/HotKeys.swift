@@ -52,6 +52,7 @@ public final class HotKeyCenter {
         let wanted = combos.subtracting(suspended)
         for combo in registeredCombos.subtracting(wanted) { unregister(combo) }
         for combo in wanted.subtracting(registeredCombos) { register(combo) }
+        log.debug("registered: \(self.registered.keys.map(\.description).sorted().joined(separator: ", "), privacy: .public)")
     }
 
     /// Sends a hotkey that no macro wanted on to the front app.

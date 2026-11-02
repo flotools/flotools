@@ -16,7 +16,7 @@ public final class DoublePress {
         self.timeout = timeout
     }
 
-    public func press(_ command: String, single: @escaping MacroAction, double: @escaping MacroAction) {
+    public func press(_ command: String, single: @escaping @MainActor () -> Void, double: @escaping @MainActor () -> Void) {
         let now = ContinuousClock.now
         if let previous = pending.removeValue(forKey: command), now - previous.time < timeout {
             previous.task.cancel()

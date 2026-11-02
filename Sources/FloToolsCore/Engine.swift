@@ -14,13 +14,16 @@ public final class MacroEngine {
     private let log = Logger(subsystem: "com.chikim.FloTools", category: "engine")
     private var macroIndex: [MacroID: Int] = [:]
     private var groupEnabled: [MacroGroupID: Bool]
+    private var groupActivated: [MacroGroupID: Bool]
     private var macroEnabled: [MacroID: Bool] = [:]
-    private var context = FrontContext()
+    /// The front app and window, refreshed before each hotkey runs its macro.
+    public private(set) var context = FrontContext()
     private var started = false
 
     public init(groups: [MacroGroup]) {
         self.groups = Dictionary(uniqueKeysWithValues: groups.map { ($0.id, $0) })
         groupEnabled = Dictionary(uniqueKeysWithValues: groups.map { ($0.id, $0.enabledByDefault) })
+        groupActivated = Dictionary(uniqueKeysWithValues: groups.map { ($0.id, true) })
     }
 
     // MARK: Setup
@@ -60,6 +63,17 @@ public final class MacroEngine {
         updateHotKeys()
     }
 
+    /// Whether the group is activated, like Keyboard Maestro's Activate/Deactivate Macro Group action. This is separate from enabled: Toggle Inspector activates and deactivates the Inspector group, while Flo Tools' own on/off switch enables and disables groups. Groups start activated.
+    public func isGroupActivated(_ id: MacroGroupID) -> Bool { groupActivated[id] ?? false }
+
+    public func setGroup(_ id: MacroGroupID, activated: Bool) {
+        precondition(groups[id] != nil, "unknown group \(id)")
+        groupActivated[id] = activated
+        updateHotKeys()
+    }
+
+    public func isMacroEnabled(_ id: MacroID) -> Bool { macroEnabled[id] ?? false }
+
     public func setMacro(_ id: MacroID, enabled: Bool) {
         precondition(macroEnabled[id] != nil, "unknown macro \(id)")
         macroEnabled[id] = enabled
@@ -72,16 +86,17 @@ public final class MacroEngine {
             log.error("macro \(id.value, privacy: .public) is not installed")
             return
         }
-        macro.action()
+        macro.action(self)
     }
 
     // MARK: Matching
 
-    /// Enabled macros whose group is enabled and applies to this context.
+    /// Enabled macros whose group is enabled, activated and applies to this context.
     private func activeMacros(in context: FrontContext) -> [Macro] {
         macros.filter { macro in
             macroEnabled[macro.id] == true
                 && groupEnabled[macro.group] == true
+                && groupActivated[macro.group] == true
                 && groups[macro.group]?.applies(to: context) == true
         }
     }
@@ -115,6 +130,6 @@ public final class MacroEngine {
             return
         }
         log.notice("\(combo.description, privacy: .public) -> \(macro.id.value, privacy: .public)")
-        macro.action()
+        macro.action(self)
     }
 }

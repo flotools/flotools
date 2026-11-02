@@ -119,7 +119,8 @@ public enum MacroTrigger: Sendable, Equatable {
     }
 }
 
-public typealias MacroAction = @MainActor () -> Void
+/// What a macro does. It gets the engine, to read the front context, change group and macro state or run other macros.
+public typealias MacroAction = @MainActor (MacroEngine) -> Void
 
 /// A macro: where and when it runs, and what it does.
 public struct Macro {

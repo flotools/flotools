@@ -86,11 +86,11 @@
 | Flo Tools | [Monitor Start](<Flo Tools/Monitor Start.md>) |  | True | 01E81CD7-D2A8-4D63-8B45-4367740B50E1 |  |
 | Flo Tools | [Next Column](<Flo Tools/Next Column.md>) | Opt+Shift+] | True | E8AB3E42-E437-4636-BE59-3B8EE83E0812 |  |
 | Flo Tools | [Next track view on All tracks](<Flo Tools/Next track view on All tracks.md>) | Ctrl+Opt+Cmd+Right | True | 89A29EA2-31C4-4722-A104-CD3AAE66B19A |  |
-| Flo Tools | [Next track view on selected tracks](<Flo Tools/Next track view on selected tracks.md>) | Ctrl+Cmd+Right | False | C035969D-E50C-4671-AFBA-CFF648FD3A48 |  |
+| Flo Tools | [Next track view on selected tracks](<Flo Tools/Next track view on selected tracks.md>) | Ctrl+Cmd+Right | False | C035969D-E50C-4671-AFBA-CFF648FD3A48 | yes |
 | Flo Tools | [Open Preferences Dialog](<Flo Tools/Open Preferences Dialog.md>) | Opt+Cmd+, | True | 90C978F3-57D9-4946-9836-C70D51F173C0 |  |
 | Flo Tools | [Previous Column](<Flo Tools/Previous Column.md>) | Opt+Shift+[ | True | 9725F627-F2C9-4CC4-8244-771E5793A8A8 |  |
 | Flo Tools | [Previous track view on All tracks](<Flo Tools/Previous track view on All tracks.md>) | Ctrl+Opt+Cmd+Left | True | 90507E7D-9DFD-4BF4-A697-6BA2F29C848D |  |
-| Flo Tools | [Previous track view on selected tracks](<Flo Tools/Previous track view on selected tracks.md>) | Ctrl+Cmd+Left | False | 1FF40247-C860-471D-BACC-DFB16C9A65A1 |  |
+| Flo Tools | [Previous track view on selected tracks](<Flo Tools/Previous track view on selected tracks.md>) | Ctrl+Cmd+Left | False | 1FF40247-C860-471D-BACC-DFB16C9A65A1 | yes |
 | Flo Tools | [Refresh Preference](<Flo Tools/Refresh Preference.md>) |  | True | 6F1D7002-0C9A-43CE-A540-B01795448B53 |  |
 | Flo Tools | [Report](<Flo Tools/Report.md>) |  | True | 0FCAC0B8-1482-4A8F-A388-280908A39AE6 |  |
 | Flo Tools | [Resize Clips Table](<Flo Tools/Resize Clips Table.md>) | Ctrl+Shift+Cmd+C | True | 1BDAA1BB-6545-416F-8706-7C9C6128FC8C |  |
@@ -153,8 +153,8 @@
 | Flo Tools | [Toggle And Speak Link Timeline And Edit Selection](<Flo Tools/Toggle And Speak Link Timeline And Edit Selection.md>) | Shift+/ | True | 6EF50BCB-FACB-4B57-807F-17138E576EBC |  |
 | Flo Tools | [Toggle And Speak Link Track and Edit Selection](<Flo Tools/Toggle And Speak Link Track and Edit Selection.md>) | Shift+T | True | 503B8B13-77A3-45BF-BC78-3F8E6EFD6B40 |  |
 | Flo Tools | [Toggle Input Monitor](<Flo Tools/Toggle Input Monitor.md>) | Opt+K | True | 336D9616-EFBD-43D1-98C9-94A173E3D9EB |  |
-| Flo Tools | [Toggle Inspector](<Flo Tools/Toggle Inspector.md>) | / | True | 8F157FEB-069E-465B-9AA5-92C4A59D23C4 |  |
-| Flo Tools | [Toggle Temporary INspector](<Flo Tools/Toggle Temporary INspector.md>) | `; ` (released) | True | E63048EB-FBD0-41A9-A4C7-8922216F11D3 |  |
+| Flo Tools | [Toggle Inspector](<Flo Tools/Toggle Inspector.md>) | / | True | 8F157FEB-069E-465B-9AA5-92C4A59D23C4 | yes |
+| Flo Tools | [Toggle Temporary INspector](<Flo Tools/Toggle Temporary INspector.md>) | `; ` (released) | True | E63048EB-FBD0-41A9-A4C7-8922216F11D3 | yes |
 | Flo Tools | [Track view toggled on all tracks](<Flo Tools/Track view toggled on all tracks.md>) | Opt+- | True | B5FFCC82-ADE7-4A3C-9D77-7EADC3E1BE64 |  |
 | Flo Tools | [speak/Edit selection start](<Flo Tools/speak_Edit selection start.md>) | Cmd+F1 | True | EE98B23A-8EEC-4DB2-A4EE-D7D2406DCA8A |  |
 | Flo Tools Audio Suite | [Analyze](<Flo Tools Audio Suite/Analyze.md>) | Ctrl+Opt+Shift+Cmd+N | True | 1B41CD91-E8C7-4789-872D-A3C6AFDB5358 |  |
@@ -285,7 +285,7 @@
 | Flo Tools Inspector | [Speak/Toggle Instrument Mute](<Flo Tools Inspector/Speak_Toggle Instrument Mute.md>) | Opt+M | True | D614E7B9-1A9B-4A7A-9100-D57C38D7B45A |  |
 | Flo Tools Inspector | [Speak/Toggle Mute](<Flo Tools Inspector/Speak_Toggle Mute.md>) | M | True | 708123E8-4C4A-4AF1-B102-9076D922CFD9 |  |
 | Flo Tools Inspector | [Speak/Toggle Record State](<Flo Tools Inspector/Speak_Toggle Record State.md>) | R | True | 800A0740-6F7A-46F0-BDCF-B2481B01FB02 |  |
-| Flo Tools Inspector | [Speak/Toggle Solo](<Flo Tools Inspector/Speak_Toggle Solo.md>) | S | True | 57957B28-6D66-4BEF-85B9-48406E95FB18 |  |
+| Flo Tools Inspector | [Speak/Toggle Solo](<Flo Tools Inspector/Speak_Toggle Solo.md>) | S | True | 57957B28-6D66-4BEF-85B9-48406E95FB18 | yes |
 | Flo Tools Inspector | [Track Options Menu](<Flo Tools Inspector/Track Options Menu.md>) | H | True | 93C746D3-9062-423E-857F-E95F06F6E300 |  |
 | Flo Tools Inspector | [pan Instrument Right](<Flo Tools Inspector/pan Instrument Right.md>) | Ctrl+Opt+Right | True | AC85B840-27F7-4476-9EC2-9B25E615052D |  |
 | Flo Tools Inspector | [pan Instrument left](<Flo Tools Inspector/pan Instrument left.md>) | Ctrl+Opt+Left | True | 30F5DC4E-61A4-415A-8E44-1465EFD13573 |  |

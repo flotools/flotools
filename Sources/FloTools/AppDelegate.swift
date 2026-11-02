@@ -8,10 +8,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private let engine = FloMacros.makeEngine()
     private var statusItem: NSStatusItem?
     private var accessibilityTask: Task<Void, Never>?
+    private var launchObserver: NSObjectProtocol?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         AXElement.setGlobalMessagingTimeout(1.0)
         applyPreferences()
+        FloMacros.setStartState(Preferences.load(), in: engine)
+        observeProToolsLaunch()
         engine.start()
         setUpStatusItem()
 
@@ -23,7 +26,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     private func applyPreferences() {
-        DoublePress.shared.timeout = .milliseconds(Preferences.load().timeout)
+        let preferences = Preferences.load()
+        DoublePress.shared.timeout = .milliseconds(preferences.timeout)
+        FloMacros.apply(preferences, to: engine)
+    }
+
+    private func observeProToolsLaunch() {
+        launchObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didLaunchApplicationNotification, object: nil, queue: .main) { notification in
+            let bundleID = (notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication)?.bundleIdentifier
+            MainActor.assumeIsolated {
+                guard bundleID == ProTools.bundleID else { return }
+                FloMacros.setStartState(Preferences.load(), in: self.engine)
+            }
+        }
     }
 
     private func waitForAccessibility() {

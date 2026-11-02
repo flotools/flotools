@@ -24,6 +24,11 @@ import Testing
     static let macroOrigins: [MacroID: String?] = [
         "inspector.speakOpenSendB": "F9ED77CC-B335-4608-BDBE-C560B3AC30F9",
         "floTools.speakSoloedTracksUnsoloAllTracks": "2727205D-51F2-49D2-B1B0-66BA8D4D6F06",
+        "inspector.speakToggleSolo": "57957B28-6D66-4BEF-85B9-48406E95FB18",
+        "floTools.toggleInspector": "8F157FEB-069E-465B-9AA5-92C4A59D23C4",
+        "floTools.toggleTemporaryInspector": "E63048EB-FBD0-41A9-A4C7-8922216F11D3",
+        "floTools.nextTrackViewOnSelectedTracks": "C035969D-E50C-4671-AFBA-CFF648FD3A48",
+        "floTools.previousTrackViewOnSelectedTracks": "1FF40247-C860-471D-BACC-DFB16C9A65A1",
     ]
 
     /// Macros whose triggers, group or default state differ from KM on purpose, with the reason.

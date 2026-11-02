@@ -5,7 +5,7 @@ import FloToolsCore
 enum TrackStatus {
     @MainActor
     static let macros = [
-        Macro("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", group: .floTools, triggers: [.key("Opt+Shift+S")]) {
+        Macro("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", group: .floTools, triggers: [.key("Opt+Shift+S")]) { _ in
             DoublePress.shared.press("gs", single: speakSoloed, double: {
                 Sound.play("Tink")
                 unsoloAll()

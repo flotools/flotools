@@ -36,7 +36,7 @@ import Testing
         let ctrl2 = KeyCombo(keyCode: 19, modifiers: KeyCombo.control)
         #expect(engine.activeCombos(in: mix).isEmpty)
 
-        engine.install(Macro("test.sendB", "Send B", group: .inspector, triggers: [.key("Ctrl+2")]) {})
+        engine.install(Macro("test.sendB", "Send B", group: .inspector, triggers: [.key("Ctrl+2")]) { _ in })
         #expect(engine.activeCombos(in: mix) == [ctrl2])
         #expect(engine.candidates(for: ctrl2, phase: .pressed, in: mix).map(\.id) == ["test.sendB"])
         #expect(engine.candidates(for: ctrl2, phase: .released, in: mix).isEmpty)
@@ -53,11 +53,63 @@ import Testing
         // In KM, Cmd+1 is "Tab 1" in Selected Tab, "Assign Insert A" in Inspector and "Load Plugin Parameters for View 1" in Plugin.
         let engine = MacroEngine(groups: FloMacros.groups)
         for group in [MacroGroupID.floTools, .inspector, .plugin] {
-            engine.install(Macro(MacroID("test.\(group)"), "Cmd+1", group: group, triggers: [.key("Cmd+1")]) {})
+            engine.install(Macro(MacroID("test.\(group)"), "Cmd+1", group: group, triggers: [.key("Cmd+1")]) { _ in })
         }
         let cmd1 = KeyCombo(keyCode: 18, modifiers: KeyCombo.command)
         #expect(engine.candidates(for: cmd1, phase: .pressed, in: plugin).first?.group == .plugin)
         #expect(engine.candidates(for: cmd1, phase: .pressed, in: mix).first?.group == .inspector)
+    }
+
+    @Test func deactivatedGroupTakesNoKeys() {
+        let engine = MacroEngine(groups: FloMacros.groups)
+        engine.install(Macro("test.solo", "Solo", group: .inspector, triggers: [.key("S")]) { _ in })
+        let s = KeyCombo("S")!
+        engine.setGroup(.inspector, activated: false)
+        #expect(engine.activeCombos(in: mix).isEmpty)
+        #expect(engine.isGroupEnabled(.inspector))
+        engine.setGroup(.inspector, activated: true)
+        #expect(engine.activeCombos(in: mix) == [s])
+        // Disabling and re-enabling the group does not activate it.
+        engine.setGroup(.inspector, activated: false)
+        engine.setGroup(.inspector, enabled: false)
+        engine.setGroup(.inspector, enabled: true)
+        #expect(engine.activeCombos(in: mix).isEmpty)
+    }
+
+    @Test func inspectorSwapsCtrlCmdArrowsWithTrackView() {
+        let engine = FloMacros.makeEngine()
+        let right = KeyCombo("Ctrl+Cmd+Right")!
+        let edit = FrontContext(bundleID: Self.proTools, windowTitle: "Edit: Session")
+        #expect(!engine.isMacroEnabled(InspectorMode.nextTrackView))
+        InspectorMode.setInspector(false, in: engine)
+        #expect(!engine.isGroupActivated(.inspector))
+        #expect(engine.candidates(for: right, phase: .pressed, in: edit).map(\.id) == [InspectorMode.nextTrackView])
+        #expect(engine.candidates(for: KeyCombo("S")!, phase: .pressed, in: edit).isEmpty)
+        InspectorMode.setInspector(true, in: engine)
+        #expect(engine.candidates(for: right, phase: .pressed, in: edit).isEmpty)
+        #expect(engine.candidates(for: KeyCombo("S")!, phase: .pressed, in: edit).map(\.id) == ["inspector.speakToggleSolo"])
+    }
+
+    @Test func preferencesControlInspectorMacros() {
+        let engine = FloMacros.makeEngine()
+        var preferences = Preferences()
+        FloMacros.apply(preferences, to: engine)
+        FloMacros.setStartState(preferences, in: engine)
+        #expect(!engine.isMacroEnabled(InspectorMode.toggleTemporaryInspector))
+        #expect(!engine.isGroupActivated(.inspector))
+        preferences.temporaryInspector = true
+        preferences.startsWithInspector = true
+        FloMacros.apply(preferences, to: engine)
+        FloMacros.setStartState(preferences, in: engine)
+        #expect(engine.isMacroEnabled(InspectorMode.toggleTemporaryInspector))
+        #expect(engine.isGroupActivated(.inspector))
+    }
+
+    @Test func toggleInspectorWindowCondition() {
+        #expect(InspectorMode.mixOrEdit.matches("Mix: Session"))
+        #expect(InspectorMode.mixOrEdit.matches("Edit: Session"))
+        #expect(!InspectorMode.mixOrEdit.matches("Plug-in: EQ3"))
+        #expect(!InspectorMode.mixOrEdit.matches(nil))
     }
 }
 
@@ -129,6 +181,12 @@ import Testing
     @Test func sendMessageMatchesJXA() {
         #expect(Inspector.sendMessage(selectorName: "Send selector B", selectorValue: "unassigned", assignmentValue: "unassigned") == " B. : unassigned")
         #expect(Inspector.sendMessage(selectorName: "Send selector B", selectorValue: "Bus 1", assignmentValue: "Send Assignment Reverb") == " B. Bus 1: Reverb")
+    }
+
+    @Test func soloStateTextMatchesJXA() {
+        #expect(Inspector.soloStateText("Selected") == "On")
+        #expect(Inspector.soloStateText("") == "Off")
+        #expect(Inspector.soloStateText("off safe") == "off safe")
     }
 
     @Test func soloFilter() {
