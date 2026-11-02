@@ -110,15 +110,17 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 
 Users must be able to send the developer a log that shows where a macro failed. All logging goes through one logger in the core; do not call `Logger` or `print` directly.
 
-- The menu bar menu has a checkable "Diagnostic Logging" item, off by default and remembered across launches. The user turns it on, reproduces the problem, then unchecks it.
-- While it is on, write every entry, at full detail, to a rotating file in `~/Library/Logs/Flo Tools/` (about 1 MB per file, last 5 files kept). The file is needed because an app can only read back its own unified log for the current process, so earlier runs would be lost. While it is off, write nothing to the file; only warnings and errors go to the unified log (subsystem `com.chikim.FloTools`, one category per area).
+- The menu bar menu has one item whose title switches between "Turn On Log" and "Turn Off Log". Logging is off by default.
+- "Turn On Log" starts a new log file in `~/Library/Logs/Flo Tools/` and the title becomes "Turn Off Log". The on state is remembered across launches, so a relaunch or crash while reproducing a problem keeps logging. The file is needed because an app can only read back its own unified log for the current process, so earlier runs would be lost.
+- "Turn Off Log" stops logging, closes the file, and reveals one file in Finder, selected, that the user can send as is. Use the macOS 13 `NSWorkspace.activateFileViewerSelecting`.
+- That file starts with a header: app version and build, macOS version, Pro Tools version, whether VoiceOver is running, permission status, preferences, and enabled and suspended groups. Then the log entries. If Flo Tools crash reports from `~/Library/Logs/DiagnosticReports` were written while logging was on, append them at the end. Nothing is uploaded automatically.
+- While logging is on, write every entry at full detail. Cap the file at about 20 MB by dropping the oldest entries, and log that entries were dropped. While logging is off, write nothing to a file; only warnings and errors go to the unified log (subsystem `com.chikim.FloTools`, one category per area).
 - One line per entry: timestamp with milliseconds, level, category, invocation ID, message. Every macro run gets an invocation ID that appears on every line it causes, including nested calls, so one run can be followed from start to end.
 - Trace each run: trigger (key, gesture, or event) and routing decision (context, chosen macro UID and name, or why it passed through); each Accessibility step with its selector path, result, `AXError` and duration; speech requests and VoiceOver errors; the final result, error or cancellation with total duration.
 - When a required element is missing, log the bounded subtree where the lookup stopped (role, title, description, index, a few levels deep). This shows what Pro Tools actually had in place of the expected element.
 - Also log app start and stop, permission status changes, context changes, enable and suspension changes, preferences loads, and helper or event-tap failures.
 - Track names, window titles, session names and spoken text may be logged; the user approved this (2026-11-02) because they help locate failures.
 - Never log typed keys that no macro matched, the clipboard, hardware identifiers, serial numbers or the user name. Write home paths as `~`.
-- The menu has "Save Diagnostic Report…", which writes one zip the user can send: the log files, recent Flo Tools crash reports from `~/Library/Logs/DiagnosticReports`, app version and build, macOS version, Pro Tools version, whether VoiceOver is running, permission status, preferences, and enabled and suspended groups. Nothing is uploaded automatically.
 - Logging must not block the caller: file writes happen on a serial background queue, and the event-tap callback only enqueues.
 
 ### Security
