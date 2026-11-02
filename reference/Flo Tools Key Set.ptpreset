@@ -1,0 +1,18 @@
+{
+    "Version": {
+        "Major": "1",
+        "Minor": "0"
+    },
+    "Bindings": [
+        {
+            "Command": "RenameTracks",
+            "New Key": "Return",
+            "New Modifiers": "<Cmd>"
+        },
+        {
+            "Command": "SpotClipFromClipsList",
+            "New Key": "S",
+            "New Modifiers": "<Opt>+<Ctrl>+<Shift>"
+        }
+    ]
+}

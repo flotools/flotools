@@ -1,0 +1,12 @@
+{"view":"Default", "click":[-1,-1], "parameters":[
+[
+["Knee Width",200,290],
+["Ratio",200,356],
+["Attack",324,290],
+["Release",324,356],
+["Gain",450,290],
+["Threshold",450,356],
+["High Filter Freq",450,160],
+["Low Filter Freq",450,210]
+]
+]}
