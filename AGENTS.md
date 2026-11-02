@@ -1,0 +1,72 @@
+# AGENTS.md
+
+Instructions for coding agents working on the `swift` branch of Flo Tools. Read this file first, then `.pi/HANDOFF.md` if it exists.
+
+## What this project is
+
+Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped version is a Keyboard Maestro (KM) macro library on the `development` branch. This `swift` branch is an orphan branch with a native rewrite: a Swift Package that builds a menu bar app (no Dock icon) which drives Pro Tools through the macOS Accessibility API. `PORTING.md` explains the KM export and how KM and JXA concepts map to Swift.
+
+## Where state lives
+
+- `.pi/HANDOFF.md` is the work journal. It is not tracked by git (`.pi/` is in `.git/info/exclude`). Part 1 is the current state, the porting tracker and the exact next step; Part 2 is a dated `J-n` journal. Read Part 1 before doing anything. After every plan, code change, commit, live test or decision, append a journal entry and revise Part 1. Never rewrite old entries; add a correction entry instead. Keep observed results separate from inferences.
+- `reference/macros/INDEX.md` is the tracked record of which macros are ported (the "Ported" column).
+- `plan.md` at the repository root, once written, is the agreed architecture. Code changes should match it; if the design changes, update `plan.md` in the same commit.
+- `.pi/jobs/` holds jobs sent to other agents with `lmg ask`, one folder per job, with `task.md` and `responseN.md`.
+
+## Rules that must not change
+
+- Hotkeys stay identical to the KM version and compatible with `reference/Flo Tools Key Set.ptpreset`. The hotkeys, groups and window conditions come from the KM export through the generated catalog; do not hand-edit them in Swift.
+- VoiceOver speech (`output`) and reading the VoiceOver cursor stay on AppleScript to VoiceOver. Everything that touches Pro Tools uses the Accessibility API, not System Events.
+- Spoken text should match the JXA version unless there is a stated reason to change it. Unit tests pin the text.
+- Support the oldest macOS that does not cost current capabilities (currently macOS 13, `Package.swift` and `Resources/Info.plist`). Swift 6 language mode, strict concurrency.
+- Do not edit `development` or anything outside this repository's `swift` branch.
+- Do not port the KM update check's hardware data collection (system_profiler, serial-number model lookup, sending specs to update.flotools.org) without the owner's approval.
+
+## Layout
+
+- `Sources/FloToolsCore/`: infrastructure and the macro engine (Accessibility, VoiceOver, hotkeys, window context, double press, preferences, Pro Tools access). `Catalog+Generated.swift` is generated; do not edit it.
+- `Sources/FloMacros/`: ported macros, one file per area, registered by KM macro UID.
+- `Sources/FloTools/`: the app (status menu, permission prompts).
+- `Tests/FloToolsTests/`: Swift Testing unit tests.
+- `tools/gen_catalog.py`: regenerates the catalog from `reference/Flo Tools.kmmacros`. `tools/extract_macros.py`: regenerates `reference/macros/`.
+- `scripts/build-app.sh`: builds and signs `build/Flo Tools.app`.
+
+This layout is expected to change with the refactor in `plan.md`. Update this section when it does.
+
+## Commands
+
+Run from the repository root.
+
+- Build: `swift build`
+- Test: `swift test`
+- App bundle: `scripts/build-app.sh` (universal release build, signed with the first "Apple Development" identity, or `FLO_SIGN_IDENTITY`). Always sign with the same identity, because Accessibility and Automation permissions are tied to the signature.
+- Relaunch: `pkill -x FloTools; scripts/build-app.sh && open "build/Flo Tools.app"`
+- Regenerate the catalog: `.venv/bin/python -I tools/gen_catalog.py`. Regenerate macro reference files: `.venv/bin/python -I tools/extract_macros.py`.
+- App log: `log show --last 1m --predicate 'subsystem == "com.chikim.FloTools"' --style compact`
+
+## Porting a macro
+
+1. Read its file in `reference/macros/<group>/<macro>.md`, including any macros it calls with ExecuteMacro.
+2. Implement it in `Sources/FloMacros/`, sharing code with macros of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
+3. Add unit tests for pure logic: message text, value parsing, filters.
+4. Build, run tests, rebuild the app and test it live (below).
+5. Mark it "yes" in the "Ported" column of `reference/macros/INDEX.md`, update the tracker in `.pi/HANDOFF.md`, and commit. Commit per group or per pattern, with a message that says what was tested live.
+
+## Testing live in Pro Tools
+
+- Pro Tools must be running with a session open. Keyboard Maestro Engine must not be running, or its Flo Tools macros take the same keys.
+- Front window: System Events `value of attribute "AXFocusedWindow"` of the Pro Tools process. VoiceOver cursor: `tell application "VoiceOver" to return text under cursor of vo cursor`.
+- Press a hotkey: `osascript -e 'tell application "System Events" to key code 19 using control down'`. For a double press, send two key codes 0.05 s apart in one script.
+- Check speech: `osascript -e 'tell application "VoiceOver" to return content of last phrase'`. Check which macro ran in the app log (`combo -> group/macro`).
+- Restore any session state a test changes (solo, mute, record arm, selection, open windows and menus), and record what was changed and restored in the journal.
+- Key presses from System Events go through the same hotkey path as physical keys, but say so when a result was not checked with a physical keyboard.
+
+## Working with other agents
+
+The owner uses `lmg ask` to consult other agents (see the lmg-ask skill). Fable (`lmg ask claude read|edit FOLDER --model claude-fable-5-1`) is the advisor for major design decisions; it has a weekly cap, so use it sparingly. Codex (`lmg ask codex read|edit FOLDER`) is the colleague for second opinions and goes first for questions code can settle. Run `lmg usage` before each ask and note the reading in the journal. Edit jobs need a git worktree. Check each answer file exists and has real content before using it.
+
+## Writing conventions
+
+- Comments explain why, in short plain English.
+- Markdown and other prose files: one paragraph per line, no soft wrapping, no bold or italics for emphasis.
+- Do not leave old implementations, fallbacks or compatibility shims beside new ones. Git history keeps the old code.
