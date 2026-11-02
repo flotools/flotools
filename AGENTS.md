@@ -20,7 +20,7 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 - Spoken text should match the JXA version unless there is a stated reason to change it. Unit tests pin the text.
 - Support the oldest macOS that does not cost current capabilities (currently macOS 13, `Package.swift` and `Resources/Info.plist`). Swift 6 language mode, strict concurrency.
 - Do not edit `development` or anything outside this repository's `swift` branch.
-- Do not port the KM update check's hardware data collection (system_profiler, serial-number model lookup, sending specs to update.flotools.org) without the owner's approval.
+- Updates will use Sparkle later. Do not port the KM update scripts: "Check for Update" (status menu) is dropped, and so is the update part of "Check for Automatic Update" (hardware profile, serial-number model lookup, sending specs to update.flotools.org). Keep that macro's other duties on Pro Tools launch: warn when VoiceOver cannot be controlled by AppleScript, reset per-session state ("Cleanup Variables"), reload preferences ("Refresh Preference"), and turn the Inspector group on or off from the "starts with Flo Tools inspector" preference.
 
 ## Layout
 
@@ -105,6 +105,20 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 - Decide what the user hears in one place, not separately in each macro.
 - No broad catch-and-ignore except at a deliberate boundary, and log it there.
 - Log where the context is, once per failure. Do not log sensitive data.
+
+### Diagnostic log
+
+Users must be able to send the developer a log that shows where a macro failed. All logging goes through one logger in the core; do not call `Logger` or `print` directly.
+
+- Write each entry both to the unified log (subsystem `com.chikim.FloTools`, one category per area) and to a rotating file in `~/Library/Logs/Flo Tools/` (about 1 MB per file, last 5 files kept). The file is needed because an app can only read back its own unified log for the current process, so earlier runs would be lost.
+- One line per entry: timestamp with milliseconds, level, category, invocation ID, message. Every macro run gets an invocation ID that appears on every line it causes, including nested calls, so one run can be followed from start to end.
+- Trace each run: trigger (key, gesture, or event) and routing decision (context, chosen macro UID and name, or why it passed through); each Accessibility step with its selector path, result, `AXError` and duration; speech requests and VoiceOver errors; the final result, error or cancellation with total duration.
+- When a required element is missing, log the bounded subtree where the lookup stopped (role, title, description, index, a few levels deep). This shows what Pro Tools actually had in place of the expected element.
+- Also log app start and stop, permission status changes, context changes, enable and suspension changes, preferences loads, and helper or event-tap failures.
+- Levels: info is always written; debug (per-step Accessibility detail and subtree dumps for successful runs) is written only when "Detailed logging" is on in the menu.
+- Never log typed keys that no macro matched, the clipboard, hardware identifiers, serial numbers or the user name. Write home paths as `~`.
+- The menu has "Save Diagnostic Report…", which writes one zip the user can send: the log files, recent Flo Tools crash reports from `~/Library/Logs/DiagnosticReports`, app version and build, macOS version, Pro Tools version, whether VoiceOver is running, permission status, preferences, and enabled and suspended groups. Nothing is uploaded automatically.
+- Logging must not block the caller: file writes happen on a serial background queue, and the event-tap callback only enqueues.
 
 ### Security
 
