@@ -118,7 +118,7 @@
 | Flo Tools | [Speak Selected Tracks, Deselect All Tracks](<Flo Tools/Speak Selected Tracks_ Deselect All Tracks.md>) | Opt+Shift+L | True | |
 | Flo Tools | [Speak Shown Tracks, Show Track List Pop-up Menu](<Flo Tools/Speak Shown Tracks_ Show Track List Pop-up Menu.md>) | Opt+Shift+W | True | |
 | Flo Tools | [Speak Solo Safe Tracks](<Flo Tools/Speak Solo Safe Tracks.md>) | Opt+Shift+Cmd+S | True | |
-| Flo Tools | [Speak Soloed Tracks, Unsolo All Tracks](<Flo Tools/Speak Soloed Tracks_ Unsolo All Tracks.md>) | Opt+Shift+S | True | |
+| Flo Tools | [Speak Soloed Tracks, Unsolo All Tracks](<Flo Tools/Speak Soloed Tracks_ Unsolo All Tracks.md>) | Opt+Shift+S | True | yes |
 | Flo Tools | [Speak Tracks With 0DB Level](<Flo Tools/Speak Tracks With 0DB Level.md>) | Opt+Shift+0 | True | |
 | Flo Tools | [Speak/Edit Attack Velocity for Selected Note](<Flo Tools/Speak_Edit Attack Velocity for Selected Note.md>) | Opt+A | True | |
 | Flo Tools | [Speak/Edit Nudge Value](<Flo Tools/Speak_Edit Nudge Value.md>) | Cmd+F7 | True | |
@@ -256,7 +256,7 @@
 | Flo Tools Inspector | [Speak/Open Insert J](<Flo Tools Inspector/Speak_Open Insert J.md>) | 0 | True | |
 | Flo Tools Inspector | [Speak/Open Insert h](<Flo Tools Inspector/Speak_Open Insert h.md>) | 8 | True | |
 | Flo Tools Inspector | [Speak/Open Send A](<Flo Tools Inspector/Speak_Open Send A.md>) | Ctrl+1 | True | |
-| Flo Tools Inspector | [Speak/Open Send B](<Flo Tools Inspector/Speak_Open Send B.md>) | Ctrl+2 | True | |
+| Flo Tools Inspector | [Speak/Open Send B](<Flo Tools Inspector/Speak_Open Send B.md>) | Ctrl+2 | True | yes |
 | Flo Tools Inspector | [Speak/Open Send C](<Flo Tools Inspector/Speak_Open Send C.md>) | Ctrl+3 | True | |
 | Flo Tools Inspector | [Speak/Open Send D](<Flo Tools Inspector/Speak_Open Send D.md>) | Ctrl+4 | True | |
 | Flo Tools Inspector | [Speak/Open Send E](<Flo Tools Inspector/Speak_Open Send E.md>) | Ctrl+5 | True | |
