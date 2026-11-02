@@ -3,7 +3,7 @@
 - Group: Flo Tools Global
 - UID: 025B4AFD-5340-492B-A7DF-6F526BE1252E
 - Enabled: True
-- Triggers: Application {"Application": {"BundleIdentifier": "com.apple.VoiceOver", "Name": "VoiceOver", "NewFile": "/System/Library/CoreServices/VoiceOver.app"}, "FireType2": "Quit", "RepeatTime": 60, "Target": "Specific"}; Application {"Application": {"BundleIdentifier": "com.apple.VoiceOver", "Name": "VoiceOver", "NewFile": "/System/Library/CoreServices/VoiceOver.app"}, "FireType2": "Launch", "RepeatTime": 60, "Target": "Specific"}
+- Triggers: VoiceOver quit; VoiceOver launch
 
 ## Actions
 

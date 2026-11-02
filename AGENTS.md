@@ -15,7 +15,9 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 
 ## Rules that must not change
 
-- Hotkeys stay identical to the KM version and compatible with `reference/Flo Tools Key Set.ptpreset`. The hotkeys, groups and window conditions come from the KM export through the generated catalog; do not hand-edit them in Swift.
+- Flo Tools for Keyboard Maestro is retired (legacy, no more support); all development happens here, and the Swift code is the source of truth. The KM export is a frozen porting reference.
+- Ported macros keep their KM hotkeys, groups and window conditions, compatible with `reference/Flo Tools Key Set.ptpreset`, unless a change is decided on purpose. `KeyboardMaestroParityTests` enforces this; a deliberate change goes in its `changedOnPurpose` list with the reason.
+- Flo Mouse is not part of this app; it moves to a separate project. Do not port the Flo Mouse group or Toggle Flo Mouse.
 - VoiceOver speech (`output`) and reading the VoiceOver cursor stay on AppleScript to VoiceOver. Everything that touches Pro Tools uses the Accessibility API, not System Events.
 - Spoken text should match the JXA version unless there is a stated reason to change it. Unit tests pin the text.
 - Support the oldest macOS that does not cost current capabilities (currently macOS 13, `Package.swift` and `Resources/Info.plist`). Swift 6 language mode, strict concurrency.
@@ -24,11 +26,11 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 
 ## Layout
 
-- `Sources/FloToolsCore/`: infrastructure and the macro engine (Accessibility, VoiceOver, hotkeys, window context, double press, preferences, Pro Tools access). `Catalog+Generated.swift` is generated; do not edit it.
-- `Sources/FloMacros/`: ported macros, one file per area, registered by KM macro UID.
+- `Sources/FloToolsCore/`: infrastructure and the macro engine (Accessibility, VoiceOver, hotkeys, window context, double press, preferences, Pro Tools access). `Macro.swift` is the macro and group model; `KeyNames.swift` is the one key-name table.
+- `Sources/FloMacros/`: `Groups.swift` (the groups and their conditions) and the macros, one file per area, each declaring its ID, name, group, triggers and action. `FloMacros.all` lists them.
 - `Sources/FloTools/`: the app (status menu, permission prompts).
 - `Tests/FloToolsTests/`: Swift Testing unit tests.
-- `tools/gen_catalog.py`: regenerates the catalog from `reference/Flo Tools.kmmacros`. `tools/extract_macros.py`: regenerates `reference/macros/`.
+- `tools/km_export.py`: regenerates `reference/macros/` from `reference/Flo Tools.kmmacros`, keeping the Ported column.
 - `scripts/build-app.sh`: builds and signs `build/Flo Tools.app`.
 
 This layout is expected to change with the refactor in `plan.md`. Update this section when it does.
@@ -41,13 +43,13 @@ Run from the repository root.
 - Test: `swift test`
 - App bundle: `scripts/build-app.sh` (universal release build, signed with the first "Apple Development" identity, or `FLO_SIGN_IDENTITY`). Always sign with the same identity, because Accessibility and Automation permissions are tied to the signature.
 - Relaunch: `pkill -x FloTools; scripts/build-app.sh && open "build/Flo Tools.app"`
-- Regenerate the catalog: `.venv/bin/python -I tools/gen_catalog.py`. Regenerate macro reference files: `.venv/bin/python -I tools/extract_macros.py`.
+- Regenerate macro reference files: `.venv/bin/python -I tools/km_export.py` (`--check` to only compare).
 - App log: `log show --last 1m --predicate 'subsystem == "com.chikim.FloTools"' --style compact`
 
 ## Porting a macro
 
 1. Read its file in `reference/macros/<group>/<macro>.md`, including any macros it calls with ExecuteMacro.
-2. Implement it in `Sources/FloMacros/`, sharing code with macros of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
+2. Declare it in `Sources/FloMacros/` with an ID `<group>.<lowerCamelName>`, the KM name, group and hotkeys (`.key("Ctrl+2")`), and add its KM UID to `macroOrigins` in `KeyboardMaestroParityTests`. Implement it sharing code with macros of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
 3. Add unit tests for pure logic: message text, value parsing, filters.
 4. Build, run tests, rebuild the app and test it live (below).
 5. Mark it "yes" in the "Ported" column of `reference/macros/INDEX.md`, update the tracker in `.pi/HANDOFF.md`, and commit. Commit per group or per pattern, with a message that says what was tested live.
@@ -82,7 +84,7 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 ### One source of truth
 
 - Each concept has one representation and one implementation: one model of a macro, one of a hotkey, one of a window condition, one double-press mechanism, one way to find a track, one preferences reader and writer.
-- KM metadata (UIDs, names, groups, hotkeys, conditions, triggers) comes only from the generated catalog. Swift code refers to it; it does not repeat it.
+- KM UIDs appear only in `KeyboardMaestroParityTests`. App code uses `MacroID` and `MacroGroupID`, never KM UIDs or display names, to find a macro or group.
 - When several macros share a pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs), implement the pattern once and parameterize it. Do not copy 20 near-identical macros.
 - No duplicate constants, repeated parsing or repeated formatting rules.
 
@@ -97,7 +99,7 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 - Use narrow interfaces with explicit inputs and outputs, domain names, and domain types where they prevent mistakes. Make invalid use hard, without chasing theoretical type purity.
 - Avoid boolean-heavy APIs and long lists of optional parameters; name the operation or model the choice instead.
 - Keep data flow traceable: trigger -> context check -> macro logic -> Accessibility, speech or input side effect -> spoken result. Do not convert the same data between several near-identical shapes.
-- Validate at boundaries: catalog generation, preferences loading, Accessibility reads.
+- Validate at boundaries: macro installation (unknown group, duplicate ID), reference generation, preferences loading, Accessibility reads.
 
 ### Errors and logging
 
@@ -144,7 +146,7 @@ Users must be able to send the developer a log that shows where a macro failed. 
 
 ### Tests
 
-- Test behavior at the right level: message text, value parsing, filters, hotkey resolution, enable state, double-press timing, catalog integrity, preferences format.
+- Test behavior at the right level: message text, value parsing, filters, hotkey resolution, enable state, double-press timing, parity with the KM export, preferences format.
 - Keep tests deterministic. Prefer designs where side effects can be supplied naturally over heavy mocking, and do not add abstractions only to mock them.
 - Never weaken a test to make a change pass. If behavior changes on purpose, update the test and say why.
 - Live Pro Tools checks complement unit tests; record them in the journal.

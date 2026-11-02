@@ -3,7 +3,7 @@
 - Group: Flo Tools Global
 - UID: 631D4577-668D-469E-AFA1-5D6535EB2B83
 - Enabled: True
-- Triggers: FocussedWindow {"ChangeType": "FocussedWindowChanges"}
+- Triggers: focused window: FocussedWindowChanges
 
 ## Actions
 

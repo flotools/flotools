@@ -3,7 +3,7 @@
 - Group: Flo Tools
 - UID: 81FAF053-36E0-44EF-B9B9-F3EA638A0F44
 - Enabled: True
-- Triggers: StatusMenu {}
+- Triggers: status menu
 
 ## Actions
 

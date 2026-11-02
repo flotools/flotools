@@ -1,11 +1,18 @@
 import FloToolsCore
 
-/// All ported macros. Each file registers its macros by Keyboard Maestro UID.
+/// All macros. Each file declares the macros of one area.
 public enum FloMacros {
     @MainActor
-    public static func registerAll(in engine: MacroEngine) {
-        Inspector.register(in: engine)
-        TrackStatus.register(in: engine)
+    public static var all: [Macro] {
+        Inspector.macros + TrackStatus.macros
+    }
+
+    /// An engine with all groups and macros installed.
+    @MainActor
+    public static func makeEngine() -> MacroEngine {
+        let engine = MacroEngine(groups: groups)
+        all.forEach(engine.install)
+        return engine
     }
 }
 

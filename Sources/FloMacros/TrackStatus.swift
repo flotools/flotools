@@ -4,15 +4,14 @@ import FloToolsCore
 /// Macros that report or reset track states in the Mix window.
 enum TrackStatus {
     @MainActor
-    static func register(in engine: MacroEngine) {
-        // Speak Soloed Tracks, Unsolo All Tracks (Opt+Shift+S)
-        engine.register("2727205D-51F2-49D2-B1B0-66BA8D4D6F06") {
+    static let macros = [
+        Macro("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", group: .floTools, triggers: [.key("Opt+Shift+S")]) {
             DoublePress.shared.press("gs", single: speakSoloed, double: {
                 Sound.play("Tink")
                 unsoloAll()
             })
-        }
-    }
+        },
+    ]
 
     // MARK: Solo
 

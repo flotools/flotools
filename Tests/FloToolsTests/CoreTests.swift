@@ -3,61 +3,61 @@ import Testing
 @testable import FloMacros
 @testable import FloToolsCore
 
-@Suite struct CatalogTests {
-    @Test func catalogMatchesExport() {
-        #expect(Catalog.macros.count == 300)
-        #expect(Set(Catalog.groups.map(\.name)).count == 12)
-        #expect(Set(Catalog.macros.map(\.uid)).count == 300)
-    }
-
-    @Test func sendBHotkeyIsControl2() throws {
-        let macro = try #require(Catalog.macros.first { $0.uid == "F9ED77CC-B335-4608-BDBE-C560B3AC30F9" })
-        #expect(macro.group == "Flo Tools Inspector")
-        #expect(macro.hotKeys.map(\.combo.description) == ["Ctrl+2"])
-    }
-
+@Suite struct GroupTests {
     @Test func groupConditions() throws {
-        let inspector = try #require(Catalog.groups.first { $0.name == "Flo Tools Inspector" })
+        let inspector = try #require(FloMacros.groups.first { $0.id == .inspector })
         #expect(inspector.applies(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: I Trust")))
         #expect(inspector.applies(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Edit: I Trust")))
         #expect(!inspector.applies(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3")))
         #expect(!inspector.applies(to: FrontContext(bundleID: "com.apple.finder", windowTitle: "Mix: I Trust")))
 
-        let fadeIn = try #require(Catalog.groups.first { $0.name == "Flo Tools Fade In" })
+        let fadeIn = try #require(FloMacros.groups.first { $0.id == .fadeIn })
         #expect(fadeIn.applies(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Fade In")))
         #expect(!fadeIn.applies(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Fade In Out")))
 
-        let mouse = try #require(Catalog.groups.first { $0.name == "Flo Mouse" })
-        #expect(!mouse.enabledByDefault)
-        #expect(mouse.applies(to: FrontContext(bundleID: "com.apple.finder")))
+        let global = try #require(FloMacros.groups.first { $0.id == .global })
+        #expect(global.applies(to: FrontContext(bundleID: "com.apple.finder")))
     }
 }
 
 @MainActor @Suite struct EngineTests {
-    @Test func onlyPortedMacrosInMatchingContextAreActive() {
-        let engine = MacroEngine()
+    static let proTools = "com.avid.ProTools"
+    let mix = FrontContext(bundleID: proTools, windowTitle: "Mix: Session")
+    let plugin = FrontContext(bundleID: proTools, windowTitle: "Plug-in: EQ3 7-Band")
+
+    @Test func allMacrosInstall() {
+        let engine = FloMacros.makeEngine()
+        #expect(engine.macros.count == FloMacros.all.count)
+        #expect(engine.macro("inspector.speakOpenSendB")?.hotKeys.map(\.combo.description) == ["Ctrl+2"])
+    }
+
+    @Test func onlyMacrosInMatchingContextAreActive() {
+        let engine = MacroEngine(groups: FloMacros.groups)
         let ctrl2 = KeyCombo(keyCode: 19, modifiers: KeyCombo.control)
-        let mix = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session")
         #expect(engine.activeCombos(in: mix).isEmpty)
 
-        engine.register("F9ED77CC-B335-4608-BDBE-C560B3AC30F9") {}
+        engine.install(Macro("test.sendB", "Send B", group: .inspector, triggers: [.key("Ctrl+2")]) {})
         #expect(engine.activeCombos(in: mix) == [ctrl2])
-        #expect(engine.candidates(for: ctrl2, onRelease: false, in: mix).map(\.name) == ["Speak/Open Send B"])
-        #expect(engine.activeCombos(in: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3")).isEmpty)
+        #expect(engine.candidates(for: ctrl2, phase: .pressed, in: mix).map(\.id) == ["test.sendB"])
+        #expect(engine.candidates(for: ctrl2, phase: .released, in: mix).isEmpty)
+        #expect(engine.activeCombos(in: plugin).isEmpty)
 
-        engine.setGroup("Flo Tools Inspector", enabled: false)
+        engine.setGroup(.inspector, enabled: false)
+        #expect(engine.activeCombos(in: mix).isEmpty)
+        engine.setGroup(.inspector, enabled: true)
+        engine.setMacro("test.sendB", enabled: false)
         #expect(engine.activeCombos(in: mix).isEmpty)
     }
 
     @Test func windowSpecificGroupWinsOverAppGroup() {
-        // Cmd+1 is "Tab 1" in Selected Tab, "Assign Insert A" in Inspector and "Load Plugin Parameters for View 1" in Plugin.
-        let engine = MacroEngine()
-        let cmd1 = KeyCombo(keyCode: 18, modifiers: KeyCombo.command)
-        for macro in engine.macros where macro.hotKeys.contains(where: { $0.combo == cmd1 }) {
-            engine.register(macro.uid) {}
+        // In KM, Cmd+1 is "Tab 1" in Selected Tab, "Assign Insert A" in Inspector and "Load Plugin Parameters for View 1" in Plugin.
+        let engine = MacroEngine(groups: FloMacros.groups)
+        for group in [MacroGroupID.floTools, .inspector, .plugin] {
+            engine.install(Macro(MacroID("test.\(group)"), "Cmd+1", group: group, triggers: [.key("Cmd+1")]) {})
         }
-        let plugin = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3 7-Band")
-        #expect(engine.candidates(for: cmd1, onRelease: false, in: plugin).first?.group == "Flo Tools Plugin")
+        let cmd1 = KeyCombo(keyCode: 18, modifiers: KeyCombo.command)
+        #expect(engine.candidates(for: cmd1, phase: .pressed, in: plugin).first?.group == .plugin)
+        #expect(engine.candidates(for: cmd1, phase: .pressed, in: mix).first?.group == .inspector)
     }
 }
 
@@ -111,6 +111,16 @@ import Testing
 }
 
 @Suite struct MacroTextTests {
+    @Test func keyComboParsesItsDescription() {
+        for code in KeyCombo.keyNames.keys {
+            for modifiers: UInt32 in [0, KeyCombo.command, KeyCombo.control | KeyCombo.option | KeyCombo.shift] {
+                let combo = KeyCombo(keyCode: code, modifiers: modifiers)
+                #expect(KeyCombo(combo.description) == combo, "\(combo)")
+            }
+        }
+        #expect(KeyCombo("Ctrl+Nope") == nil)
+    }
+
     @Test func keyComboNames() {
         #expect(KeyCombo(keyCode: 1, modifiers: KeyCombo.option | KeyCombo.shift).description == "Opt+Shift+S")
         #expect(KeyCombo(keyCode: 78, modifiers: KeyCombo.control | KeyCombo.option).description == "Ctrl+Opt+Keypad -")

@@ -3,7 +3,7 @@
 - Group: Flo Tools Plugin
 - UID: A7A67CAF-F0DE-4563-99C8-1AB611B9FF93
 - Enabled: True
-- Triggers: StatusMenu {}
+- Triggers: status menu
 
 ## Actions
 

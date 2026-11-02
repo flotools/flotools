@@ -3,7 +3,7 @@
 - Group: Flo Tools Global
 - UID: FFEBF9D7-1F2C-409B-9E63-7C52B04B8EBF
 - Enabled: True
-- Triggers: Application {"Application": {"BundleIdentifier": "com.avid.ProTools", "Match": "BundleID", "Name": "Pro Tools", "NewFile": "/Applications/Pro Tools.app"}, "FireType2": "Launch", "RepeatTime": 60, "Target": "Specific"}
+- Triggers: Pro Tools launch
 
 ## Actions
 

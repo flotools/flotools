@@ -12,56 +12,6 @@ public struct FrontContext: Equatable, Sendable {
     }
 }
 
-/// Keyboard Maestro's "focused window title" condition. Keyboard Maestro compares case-insensitively.
-public enum TitleCondition: Sendable, Equatable {
-    case any
-    case `is`(String)
-    case contains(String)
-    case matches(String)
-
-    public func matches(_ title: String?) -> Bool {
-        switch self {
-        case .any:
-            return true
-        case .is(let text):
-            return title?.caseInsensitiveCompare(text) == .orderedSame
-        case .contains(let text):
-            return title?.range(of: text, options: .caseInsensitive) != nil
-        case .matches(let pattern):
-            guard let title else { return false }
-            return title.range(of: pattern, options: [.regularExpression, .caseInsensitive]) != nil
-        }
-    }
-}
-
-/// A Keyboard Maestro macro group: the apps it applies to and an optional window title condition.
-public struct MacroGroup: Sendable, Equatable {
-    public let name: String
-    public let enabledByDefault: Bool
-    /// Empty means the group is global.
-    public let bundleIDs: [String]
-    public let title: TitleCondition
-
-    public init(name: String, enabledByDefault: Bool, bundleIDs: [String], title: TitleCondition) {
-        self.name = name
-        self.enabledByDefault = enabledByDefault
-        self.bundleIDs = bundleIDs
-        self.title = title
-    }
-
-    public func applies(to context: FrontContext) -> Bool {
-        if !bundleIDs.isEmpty {
-            guard let id = context.bundleID, bundleIDs.contains(id) else { return false }
-        }
-        return title.matches(context.windowTitle)
-    }
-
-    /// Groups with a window condition win over plain app groups when they share a hotkey.
-    var specificity: Int {
-        (title == .any ? 0 : 2) + (bundleIDs.isEmpty ? 0 : 1)
-    }
-}
-
 /// Watches the front app and its focused window title and reports changes.
 @MainActor
 public final class ContextMonitor {

@@ -3,10 +3,9 @@ import FloToolsCore
 /// Flo Tools Inspector group: works on the Mix window track under the VoiceOver cursor.
 enum Inspector {
     @MainActor
-    static func register(in engine: MacroEngine) {
-        // Speak/Open Send B (Ctrl+2)
-        engine.register("F9ED77CC-B335-4608-BDBE-C560B3AC30F9") { sendPress(slot: 1) }
-    }
+    static let macros = [
+        Macro("inspector.speakOpenSendB", "Speak/Open Send B", group: .inspector, triggers: [.key("Ctrl+2")]) { sendPress(slot: 1) },
+    ]
 
     // MARK: Sends
 

@@ -9,7 +9,7 @@ This branch (`swift`) is an orphan branch. It holds a native Swift rewrite of Fl
 - `reference/README (Keyboard Maestro).md`: the user-facing documentation of the Keyboard Maestro version.
 - `reference/Plug-In Views/` and `reference/Flo Tools Key Set.ptpreset`: support files shipped with the installer.
 
-Regenerate the per-macro files with `.venv/bin/python -I tools/extract_macros.py`.
+Regenerate the per-macro files with `.venv/bin/python -I tools/km_export.py`.
 
 ## What the export contains
 

@@ -3,7 +3,7 @@
 - Group: Flo Tools Global
 - UID: D31EAE62-2F59-4FBC-BC6F-F91D71F05DA3
 - Enabled: True
-- Triggers: FocussedWindow {"ChangeType": "FocussedWindowsTitleChanged"}
+- Triggers: focused window: FocussedWindowsTitleChanged
 
 ## Actions
 

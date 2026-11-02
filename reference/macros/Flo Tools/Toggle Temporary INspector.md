@@ -3,7 +3,7 @@
 - Group: Flo Tools
 - UID: E63048EB-FBD0-41A9-A4C7-8922216F11D3
 - Enabled: True
-- Triggers: `; ` (Released)
+- Triggers: `; ` (released)
 
 ## Actions
 

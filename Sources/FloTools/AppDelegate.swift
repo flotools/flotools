@@ -5,14 +5,13 @@ import FloToolsCore
 /// Menu bar app with no Dock icon. The menu shows status and lets the user turn Flo Tools off.
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
-    private let engine = MacroEngine.shared
+    private let engine = FloMacros.makeEngine()
     private var statusItem: NSStatusItem?
     private var accessibilityTask: Task<Void, Never>?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         AXElement.setGlobalMessagingTimeout(1.0)
         applyPreferences()
-        FloMacros.registerAll(in: engine)
         engine.start()
         setUpStatusItem()
 
@@ -64,7 +63,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         } else {
             menu.addItem(NSMenuItem(title: "Grant Accessibility Access…", action: #selector(grantAccessibility), keyEquivalent: ""))
         }
-        menu.addItem(disabled("\(engine.portedMacros.count) of \(engine.macros.count) macros ported"))
+        menu.addItem(disabled("\(engine.macros.count) macros"))
         menu.addItem(NSMenuItem(title: "Reload Preferences", action: #selector(reloadPreferences), keyEquivalent: ""))
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: "Quit Flo Tools", action: #selector(quit), keyEquivalent: "q"))
