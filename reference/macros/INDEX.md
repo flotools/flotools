@@ -48,7 +48,7 @@
 | Flo Mouse | [move mouse right](<Flo Mouse/move mouse right.md>) | Opt+Shift+Cmd+Right | True | |
 | Flo Mouse | [move mouse up](<Flo Mouse/move mouse up.md>) | Opt+Shift+Cmd+Up | True | |
 | Flo Mouse | [option+Shift-Click](<Flo Mouse/option_Shift-Click.md>) | Opt+Shift+` | True | |
-| Flo Tools | [* Flo Tools 2026.8.2. Check for Update](<Flo Tools/_ Flo Tools 2026.8.2. Check for Update.md>) | StatusMenu {} | True | |
+| Flo Tools | [* Flo Tools 2026.8.2. Check for Update](<Flo Tools/_ Flo Tools 2026.8.2. Check for Update.md>) | StatusMenu {} | True | dropped (Sparkle) |
 | Flo Tools | [Adjust all track heights to fit in Edit window](<Flo Tools/Adjust all track heights to fit in Edit window.md>) | Ctrl+Opt+Cmd+Up; Ctrl+Opt+Cmd+Down | True | |
 | Flo Tools | [Beta: Drag Clip](<Flo Tools/Beta_ Drag Clip.md>) | Opt+Shift+Cmd+. | True | |
 | Flo Tools | [Beta: Mark Clip for Drag](<Flo Tools/Beta_ Mark Clip for Drag.md>) | Opt+Shift+Cmd+, | True | |
