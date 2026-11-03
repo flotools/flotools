@@ -61,6 +61,7 @@ Run from the repository root.
 
 - Pro Tools must be running with a session open. Keyboard Maestro Engine must not be running, or its Flo Tools macros take the same keys.
 - Front window: System Events `value of attribute "AXFocusedWindow"` of the Pro Tools process. VoiceOver cursor: `tell application "VoiceOver" to return text under cursor of vo cursor`.
+- `scripts/vo.sh` wraps VoiceOver's AppleScript dictionary: read the VoiceOver cursor, keyboard cursor and last phrase, move the VoiceOver cursor (`move right`, `seek "Tom1"`), act on the item, click, speak, open VoiceOver menus, and run any VoiceOver command by its lower-case English name (`run "move left"`; `commands` lists them). Run it without arguments for the full list. Move the VoiceOver cursor this way, not with Ctrl+Opt+arrows from System Events: those reach Flo Tools' Inspector keys, and the owner's VoiceOver modifier is Caps Lock.
 - Press a hotkey: `osascript -e 'tell application "System Events" to key code 19 using control down'`. For a double press, send two key codes 0.05 s apart in one script.
 - Check speech: `osascript -e 'tell application "VoiceOver" to return content of last phrase'`. Check which command ran in the diagnostic log (`<combo> pressed in <context> -> <command ID>`).
 - Restore any session state a test changes (solo, mute, record arm, selection, open windows and menus), and record what was changed and restored in the journal.
