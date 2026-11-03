@@ -352,10 +352,8 @@ private actor Flag {
     @Test(arguments: ["Plug-in: EQ3", "Plug-in: Pro-Q 3"])
     func queuedWindowCommandDropsWhenAnotherWindowComesToFront(_ nextTitle: String) async throws {
         let events = Events()
-        let engine = engine(slowThenFast(events) + [
-            Command("test.plugIn", "Plug-in", scope: .windows([.plugIn]), triggers: [.key("F3")]) { @MainActor _ in events.list.append("plug-in") },
-        ])
-        let first = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3", windowNumber: 1, processID: 100)
+        let engine = engine(slowThenFast(events) + [plugInCommand(events)])
+        let first = plugInWindow
         engine.contextChanged(to: first)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: first)
         engine.dispatch(KeyCombo("F3")!, .pressed, in: first)
@@ -367,10 +365,8 @@ private actor Flag {
 
     @Test func queuedWindowCommandRunsWhileItsWindowStaysInFront() async throws {
         let events = Events()
-        let engine = engine(slowThenFast(events) + [
-            Command("test.plugIn", "Plug-in", scope: .windows([.plugIn]), triggers: [.key("F3")]) { @MainActor _ in events.list.append("plug-in") },
-        ])
-        let front = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3", windowNumber: 1, processID: 100)
+        let engine = engine(slowThenFast(events) + [plugInCommand(events)])
+        let front = plugInWindow
         engine.contextChanged(to: front)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: front)
         engine.dispatch(KeyCombo("F3")!, .pressed, in: front)
@@ -378,16 +374,15 @@ private actor Flag {
         #expect(events.list == ["slow start", "slow end", "plug-in"])
     }
 
+    let plugInWindow = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3", windowNumber: 1, processID: 100)
+
+    func plugInCommand(_ events: Events) -> Command {
+        Command("test.plugIn", "Plug-in", scope: .windows([.plugIn]), triggers: [.key("F3")]) { @MainActor _ in events.list.append("plug-in") }
+    }
+
     @Test func topLevelRunsDoNotInterleave() async throws {
         let events = Events()
-        let engine = engine([
-            Command("test.slow", "Slow", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor _ in
-                events.list.append("slow start")
-                try await Task.sleep(for: .milliseconds(50))
-                events.list.append("slow end")
-            },
-            Command("test.fast", "Fast", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
-        ])
+        let engine = engine(slowThenFast(events))
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
         await engine.waitUntilIdle()
@@ -570,21 +565,26 @@ private actor Flag {
         #expect(events.list == ["press", "release"])
     }
 
-    @Test func stopCancelsARunningCommand() async throws {
-        let events = Events()
+    /// A command on F1 that signals `started` when its body runs, then sleeps 5 s and records whether it finished or was cancelled.
+    func longCommand(_ events: Events) -> (command: Command, started: AsyncStream<Void>) {
         var signalStarted: AsyncStream<Void>.Continuation?
         let started = AsyncStream<Void> { signalStarted = $0 }
-        let engine = engine([
-            Command("test.long", "Long", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
-                signalStarted?.yield()
-                do {
-                    try await Task.sleep(for: .seconds(5))
-                    events.list.append("finished")
-                } catch {
-                    events.list.append("cancelled")
-                }
-            },
-        ])
+        let command = Command("test.long", "Long", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
+            signalStarted?.yield()
+            do {
+                try await Task.sleep(for: .seconds(5))
+                events.list.append("finished")
+            } catch {
+                events.list.append("cancelled")
+            }
+        }
+        return (command, started)
+    }
+
+    @Test func stopCancelsARunningCommand() async throws {
+        let events = Events()
+        let (long, started) = longCommand(events)
+        let engine = engine([long])
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         // Stop only once the body runs, so the test checks cancellation of a running command, not of a queued one.
         for await _ in started { break }
@@ -610,18 +610,9 @@ private actor Flag {
 
     @Test func cancelAllStopsRunsAndWatchesButKeepsTheEngine() async throws {
         let events = Events()
-        var signalStarted: AsyncStream<Void>.Continuation?
-        let started = AsyncStream<Void> { signalStarted = $0 }
+        let (long, started) = longCommand(events)
         let engine = engine([
-            Command("test.long", "Long", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
-                signalStarted?.yield()
-                do {
-                    try await Task.sleep(for: .seconds(5))
-                    events.list.append("finished")
-                } catch {
-                    events.list.append("cancelled")
-                }
-            },
+            long,
             Command("test.short", "Short", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("short") },
         ])
         engine.monitors.toggle("test.watch") { try? await Task.sleep(for: .seconds(5)) }
