@@ -376,7 +376,7 @@ public final class MacroEngine {
         }
     }
 
-    /// Why a queued hotkey or event run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the macro or the front app may have changed while it waited. The mode is not checked: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
+    /// Why a queued hotkey or event run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the macro or the front app may have changed while it waited. Of the mode, only the Inspector turning on is checked, because the keys of an Inspector-off macro (track view) now pan. An Inspector-on macro is not dropped when the Inspector turns off: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
     private func invalidReason(_ run: MacroRun) -> String? {
         switch run.trigger {
         case .hotKey, .event: break
@@ -387,6 +387,7 @@ public final class MacroEngine {
         if macroEnabled[run.macro.id] != true { return "macro disabled" }
         if context.processID != run.context.processID { return "another app is in front" }
         if !run.macro.scope.applies(to: context) { return "not in its windows: \(context)" }
+        if run.macro.mode == .inspectorOff && mode.inspector { return "the Inspector is on" }
         return nil
     }
 

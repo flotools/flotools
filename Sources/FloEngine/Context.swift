@@ -2,7 +2,7 @@ import AppKit
 import FloProTools
 import FloSystem
 
-/// Which app is in front and the title of its focused window. Macro groups are active or not based on this.
+/// Which app is in front and the title of its focused window. A macro's scope applies or not based on this.
 public struct FrontContext: Equatable, Sendable, CustomStringConvertible {
     public var bundleID: String?
     public var windowTitle: String?

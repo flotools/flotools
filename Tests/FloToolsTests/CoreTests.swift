@@ -324,6 +324,19 @@ import Testing
         #expect(events.list == ["slow start", "slow end"])
     }
 
+    /// A track view press queued while the Inspector was off must not run after `/` turned it on, because its key now pans.
+    @Test func queuedInspectorOffRunIsDroppedWhenTheInspectorTurnsOn() async throws {
+        let events = Events()
+        var macros = slowThenFast(events)
+        macros[1] = Macro("test.trackView", "Track View", scope: .anyProToolsWindow, mode: .inspectorOff, triggers: [.key("F2")]) { @MainActor _ in events.list.append("track view") }
+        let engine = engine(macros)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
+        engine.setInspector(true)
+        await engine.waitUntilIdle()
+        #expect(events.list == ["slow start", "slow end"])
+    }
+
     @Test func queuedRunIsDroppedWhenAnotherAppIsInFront() async throws {
         let events = Events()
         var signalStarted: AsyncStream<Void>.Continuation?

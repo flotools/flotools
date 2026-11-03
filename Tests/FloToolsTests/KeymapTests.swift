@@ -22,6 +22,7 @@ import Testing
         ("Untitled Edit: S", FrontContext(bundleID: proTools, windowTitle: "Untitled Edit: S")),
         ("Plug-in: EQ3", FrontContext(bundleID: proTools, windowTitle: "Plug-in: EQ3")),
         ("Plug-in: Audio Suite: X", FrontContext(bundleID: proTools, windowTitle: "Plug-in: Audio Suite: X")),
+        ("Mix: Audio Suite: odd", FrontContext(bundleID: proTools, windowTitle: "Mix: Audio Suite: odd")),
         ("Audio Suite: Reverb", FrontContext(bundleID: proTools, windowTitle: "Audio Suite: Reverb")),
         ("Fade In", FrontContext(bundleID: proTools, windowTitle: "Fade In")),
         ("Fade Out", FrontContext(bundleID: proTools, windowTitle: "Fade Out")),
@@ -89,7 +90,8 @@ import Testing
                 count[text] = ((combo, phase), (count[text]?.commands ?? 0) + 1)
             }
         }
-        let watched: Set<String> = ["/", "`", "` released", "S"]
+        // Also keys whose windows changed on purpose: the Inspector keys, and the AudioSuite buttons, which KM also took in Mix and plug-in windows with "Audio Suite:" in the title.
+        let watched: Set<String> = ["/", "`", "` released", "S", "Ctrl+Opt+Shift+Cmd+B", "Ctrl+Opt+Shift+Cmd+N", "Ctrl+Opt+Shift+Cmd+P", "Ctrl+Opt+Shift+Cmd+R"]
         return count.filter { $0.value.commands > 1 || watched.contains($0.key) }.sorted { $0.key < $1.key }.map(\.value.key)
     }
 
