@@ -17,7 +17,11 @@ public enum Log {
     /// The current macro run. The engine sets it around each run; tasks started by the run inherit it, so every line a run causes carries the same ID.
     @TaskLocal public static var invocation: String?
 
+    /// Set around each poll of a watch, such as the level meter monitor, whose per-step traces at ten polls a second would fill the file's size cap in minutes. Info and above are still written.
+    @TaskLocal public static var skipsDebug = false
+
     public static func debug(_ category: LogCategory, _ message: @autoclosure () -> String) {
+        guard !skipsDebug else { return }
         write(.debug, category, message)
     }
 

@@ -24,6 +24,9 @@ import Testing
 
     /// Swift macro to the KM macro it was ported from. Every macro needs an entry; a new macro with no KM original maps to nil.
     static let macroOrigins: [MacroID: String?] = [
+        "inspector.speakGainReductionMeterMaximumValue": "7EC8653F-24A2-43FE-B45B-C9D3C5C77044",
+        "inspector.speakGainReductionMeterToggleGainReductionMeterMonitor": "34DF45E2-F217-4453-9563-210A0BDDF7BE",
+        "inspector.speakLevelMeterToggleLevelMeterMonitor": "252B218D-D108-456B-9DA4-683D3858BC80",
         "inspector.decreaseInstrumentVolume": "213EE66F-86AC-462B-BB2C-3E3F0BAEE9AE",
         "inspector.decreaseVolume": "387783D0-17E0-4868-97BC-FC20712BEBDF",
         "inspector.increaseInstrumentVolume": "03CF90B2-C388-4F4F-9550-2D74C570597B",

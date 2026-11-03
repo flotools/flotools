@@ -12,6 +12,11 @@ public struct ProToolsApp: Sendable {
         ProToolsApp(pid: try runningApplication.required("Pro Tools").processIdentifier)
     }
 
+    /// Whether this Pro Tools process is still running, for watches that outlive a macro run.
+    public var isRunning: Bool {
+        NSRunningApplication(processIdentifier: pid).map { !$0.isTerminated } ?? false
+    }
+
     /// Pro Tools' version, or why it is not known. For the diagnostic log header.
     public static var version: String {
         guard let app = runningApplication else { return "not running" }
@@ -75,6 +80,12 @@ public struct ProToolsApp: Sendable {
         let element = try await trackWindow(window)
         let name = try await VoiceOver.cursorText().required("the VoiceOver cursor")
         return try await TrackStrip(named: name, in: element, window: window)
+    }
+
+    /// The track named `name` in `window`, for watches that follow the VoiceOver cursor and read its text themselves.
+    @AccessibilityActor
+    public func track(named name: String, in window: TrackWindow = .mix) throws -> TrackStrip {
+        try TrackStrip(named: name, in: trackWindow(window), window: window)
     }
 
     @AccessibilityActor

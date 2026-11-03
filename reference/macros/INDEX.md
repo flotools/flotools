@@ -241,9 +241,9 @@
 | Flo Tools Inspector | [Increase Instrument Volume](<Flo Tools Inspector/Increase Instrument Volume.md>) | Ctrl+Opt+Up | True | 03CF90B2-C388-4F4F-9550-2D74C570597B | yes |
 | Flo Tools Inspector | [Increase Volume](<Flo Tools Inspector/Increase Volume.md>) | Ctrl+Cmd+Up | True | 5DA65AC1-5A53-4003-844E-75273F49916C | yes |
 | Flo Tools Inspector | [Speak And Select Track/Show Right-Click Menu](<Flo Tools Inspector/Speak And Select Track_Show Right-Click Menu.md>) | T | True | ADBCEFDF-6ADF-47B1-8926-F0A37E2B81C1 | yes |
-| Flo Tools Inspector | [Speak Gain Reduction Meter Maximum Value](<Flo Tools Inspector/Speak Gain Reduction Meter Maximum Value.md>) | Shift+; | True | 7EC8653F-24A2-43FE-B45B-C9D3C5C77044 |  |
-| Flo Tools Inspector | [Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor](<Flo Tools Inspector/Speak Gain Reduction Meter_ Toggle Gain Reduction Meter Monitor.md>) | ; | True | 34DF45E2-F217-4453-9563-210A0BDDF7BE |  |
-| Flo Tools Inspector | [Speak Level Meter, Toggle Level Meter Monitor](<Flo Tools Inspector/Speak Level Meter_ Toggle Level Meter Monitor.md>) | L | True | 252B218D-D108-456B-9DA4-683D3858BC80 |  |
+| Flo Tools Inspector | [Speak Gain Reduction Meter Maximum Value](<Flo Tools Inspector/Speak Gain Reduction Meter Maximum Value.md>) | Shift+; | True | 7EC8653F-24A2-43FE-B45B-C9D3C5C77044 | yes |
+| Flo Tools Inspector | [Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor](<Flo Tools Inspector/Speak Gain Reduction Meter_ Toggle Gain Reduction Meter Monitor.md>) | ; | True | 34DF45E2-F217-4453-9563-210A0BDDF7BE | yes |
+| Flo Tools Inspector | [Speak Level Meter, Toggle Level Meter Monitor](<Flo Tools Inspector/Speak Level Meter_ Toggle Level Meter Monitor.md>) | L | True | 252B218D-D108-456B-9DA4-683D3858BC80 | yes |
 | Flo Tools Inspector | [Speak/Edit Comments](<Flo Tools Inspector/Speak_Edit Comments.md>) | C | True | BC36AF98-3D2F-45D4-920E-7F61A03AD411 | yes |
 | Flo Tools Inspector | [Speak/Open Insert A](<Flo Tools Inspector/Speak_Open Insert A.md>) | 1 | True | F08671D6-BAA1-455E-8AE1-E9908063345A | yes |
 | Flo Tools Inspector | [Speak/Open Insert B](<Flo Tools Inspector/Speak_Open Insert B.md>) | 2 | True | 43E15266-F1C0-4131-B6D0-3A068A08288D | yes |

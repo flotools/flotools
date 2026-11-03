@@ -163,6 +163,25 @@ public struct TrackStrip {
         }
     }
 
+    // MARK: Meters
+
+    public enum Meter: Sendable {
+        /// The track's level meter; empty when there is no signal.
+        case level
+        /// The gain reduction meter, shown when a dynamics plug-in is inserted, for example "minus 3 db".
+        case gainReduction
+    }
+
+    /// Both meters are buttons whose role description is "Level Meter"; only the gain reduction one has a title (checked live on the Master track, 2026-11-02). The JXA took the first "Level Meter" button for the level meter, which comes first.
+    public func meter(_ meter: Meter) throws -> AXElement {
+        switch meter {
+        case .level:
+            try element.required("the level meter") { try $0.buttons.first { try $0.roleDescription == "Level Meter" && $0.title != "Gain Reduction" } }
+        case .gainReduction:
+            try element.required("the gain reduction meter") { try $0.button("Gain Reduction") }
+        }
+    }
+
     // MARK: Menus and fields
 
     /// Pop-up buttons, buttons and fields that macros read and press. Names were checked live on 2026-11-02 (Pro Tools 2025); several end in a line break and the current setting, for example "Audio Input Path selector\n\"no input\"".

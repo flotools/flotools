@@ -83,6 +83,7 @@ public struct AXElement {
 
     public var role: String? { get throws { try string("AXRole") } }
     public var title: String? { get throws { try string("AXTitle") } }
+    public var roleDescription: String? { get throws { try string("AXRoleDescription") } }
 
     /// What System Events calls `name`.
     public var name: String? { get throws { try title } }

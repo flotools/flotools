@@ -8,6 +8,8 @@ import Foundation
 @MainActor
 public final class MacroEngine {
     public let groups: [MacroGroupID: MacroGroup]
+    /// Watches that macros start and stop, such as the level meter monitor. Stopped with the engine.
+    public let monitors = Monitors()
     public private(set) var macros: [Macro] = []
     public var isEnabled = true {
         didSet {
@@ -94,6 +96,7 @@ public final class MacroEngine {
         endHolds { _ in true }
         cancelPendingSingles()
         runs.values.forEach { $0.cancel() }
+        monitors.stopAll()
         guard started else { return }
         started = false
         hotKeys.stop()

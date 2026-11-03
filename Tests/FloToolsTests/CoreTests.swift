@@ -116,6 +116,61 @@ import Testing
     }
 }
 
+@MainActor @Suite struct MonitorsTests {
+    /// A watch body that reports when it starts and when it ends, and runs until cancelled.
+    final class Probe: Sendable {
+        let events: AsyncStream<String>
+        let continuation: AsyncStream<String>.Continuation
+        init() { (events, continuation) = AsyncStream.makeStream() }
+        var body: Monitors.Body {
+            { [continuation] in
+                continuation.yield("started")
+                while !Task.isCancelled { try? await Task.sleep(for: .seconds(60)) }
+                continuation.yield("ended")
+            }
+        }
+    }
+
+    @Test func toggleStartsAndStops() async {
+        let monitors = Monitors()
+        let probe = Probe()
+        var events = probe.events.makeAsyncIterator()
+        #expect(monitors.toggle("inspector.a", probe.body))
+        #expect(await events.next() == "started")
+        #expect(monitors.isRunning("inspector.a"))
+        #expect(!monitors.toggle("inspector.a", probe.body))
+        #expect(await events.next() == "ended")
+        #expect(!monitors.isRunning("inspector.a"))
+    }
+
+    @Test func aStoppedWatchEndingLateDoesNotForgetItsReplacement() async {
+        let monitors = Monitors()
+        let first = Probe(), second = Probe()
+        var firstEvents = first.events.makeAsyncIterator(), secondEvents = second.events.makeAsyncIterator()
+        monitors.toggle("inspector.a", first.body)
+        #expect(await firstEvents.next() == "started")
+        monitors.toggle("inspector.a", first.body)
+        monitors.toggle("inspector.a", second.body)
+        #expect(await firstEvents.next() == "ended")
+        #expect(await secondEvents.next() == "started")
+        await Task.yield()
+        #expect(monitors.isRunning("inspector.a"))
+        monitors.stopAll()
+        #expect(await secondEvents.next() == "ended")
+        #expect(!monitors.isRunning("inspector.a"))
+    }
+
+    @Test func aWatchThatEndsByItselfIsForgotten() async {
+        let monitors = Monitors()
+        let (ended, continuation) = AsyncStream<Void>.makeStream()
+        monitors.toggle("inspector.a") { continuation.yield() }
+        var iterator = ended.makeAsyncIterator()
+        _ = await iterator.next()
+        while monitors.isRunning("inspector.a") { await Task.yield() }
+        #expect(!monitors.isRunning("inspector.a"))
+    }
+}
+
 @Suite struct DoublePressDeciderTests {
     let start = ContinuousClock.now
 
@@ -560,6 +615,22 @@ import Testing
         #expect(InspectorControls.spokenText(.comments, name: "Comments \"\"", value: "") == "No Comment")
         #expect(InspectorControls.spokenText(.freeze, name: "Not Frozen", value: "") == "Not Frozen")
         #expect(InspectorControls.panList(["100 to the left", "100 to the right"]) == "100 to the left. 100 to the right. ")
+    }
+
+    @Test func gainReductionDecibelsLikeParseInt() {
+        #expect(GainReductionPeak.decibels("minus 3 db") == -3)
+        #expect(GainReductionPeak.decibels("minus 3.7 db") == -3)
+        #expect(GainReductionPeak.decibels("0 db") == 0)
+        #expect(GainReductionPeak.decibels("") == nil)
+    }
+
+    @Test func gainReductionPeakKeepsTheDeepestAndStartsOver() async {
+        let peak = GainReductionPeak()
+        await peak.record("minus 2 db")
+        await peak.record("minus 6 db")
+        await peak.record("minus 1 db")
+        #expect(await peak.take() == -6)
+        #expect(await peak.take() == 0)
     }
 
     @Test func soloedMessageMatchesJXA() {
