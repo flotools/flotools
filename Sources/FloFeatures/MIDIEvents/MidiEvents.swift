@@ -133,25 +133,27 @@ enum MidiEvents {
     }
 }
 
-/// Which event column the column commands are on: before the first (-1, "No report"), or one of the six. Starts on the first, as the KM variable did once Cleanup Variables deleted it.
+/// Which event column the column commands are on: one of the six, or nil before the first ("No report"). Starts on the first, as the KM variable did once Cleanup Variables deleted it.
 actor EventColumnCursor {
-    private var index = 0
+    private(set) var column: MidiEvents.Column? = .start
 
-    var column: MidiEvents.Column? { MidiEvents.Column(rawValue: index) }
-
-    func reset() { index = 0 }
+    func reset() { column = .start }
 
     /// Moves right; nil at the last column, where the cursor stays.
     func next() -> MidiEvents.Column? {
-        guard index < MidiEvents.Column.allCases.count - 1 else { return nil }
-        index += 1
-        return column
+        guard let column else {
+            self.column = .start
+            return .start
+        }
+        guard let next = MidiEvents.Column(rawValue: column.rawValue + 1) else { return nil }
+        self.column = next
+        return next
     }
 
     /// Moves left; nil when the cursor ends up, or already was, before the first column.
     func previous() -> MidiEvents.Column? {
-        guard index > -1 else { return nil }
-        index -= 1
-        return column
+        guard let column else { return nil }
+        self.column = MidiEvents.Column(rawValue: column.rawValue - 1)
+        return self.column
     }
 }

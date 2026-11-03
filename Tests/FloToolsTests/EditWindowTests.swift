@@ -32,6 +32,9 @@ import Testing
         #expect(await cursor.column == nil)
         #expect(await cursor.previous() == nil)
         #expect(await cursor.next() == .start)
+        _ = await cursor.next()
+        await cursor.reset()
+        #expect(await cursor.column == .start)
     }
 }
 
