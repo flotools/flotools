@@ -14,55 +14,47 @@ enum KeyAnnouncements {
         speakSelectedTracks("floTools.speakAndNavigateToLastPlaylist", "Speak And Navigate to Last Playlist", key: "Shift+End"),
         announce("floTools.nextTrackViewOnAllTracks", "Next track view on All tracks", keys: ["Ctrl+Opt+Cmd+Right"], "Next track view on All tracks.", when: .always),
         announce("floTools.previousTrackViewOnAllTracks", "Previous track view on All tracks", keys: ["Ctrl+Opt+Cmd+Left"], "Previous track view on All tracks.", when: .always),
-        announce("floTools.trackViewToggledOnAllTracks", "Track view toggled on all tracks", keys: ["Opt+-"], "Track view toggled on all tracks.", when: .keyReachesWindow),
+        announce("floTools.trackViewToggledOnAllTracks", "Track view toggled on all tracks", keys: ["Opt+-"], "Track view toggled on all tracks.", when: .outsideListedDialogsAndText),
         // Both keys send Down, as in the KM version.
         announce("floTools.adjustAllTrackHeightsToFitInEditWindow", "Adjust all track heights to fit in Edit window", keys: ["Ctrl+Opt+Cmd+Up", "Ctrl+Opt+Cmd+Down"], sends: "Ctrl+Opt+Cmd+Down", "Adjust all track heights to fit in Edit window..", when: .always),
-        announce("floTools.selectEditKeyboardFocus", "Select Edit Keyboard Focus", keys: ["Opt+Cmd+1"], "Edit Keyboard Focus", when: .editWindowInFront),
-        announce("floTools.selectClipsKeyboardFocus", "Select Clips Keyboard Focus", keys: ["Opt+Cmd+2"], "Clips Keyboard Focus", when: .editWindowInFront),
-        announce("floTools.selectGroupsKeyboardFocus", "Select Groups Keyboard Focus", keys: ["Opt+Cmd+3"], "Groups Keyboard Focus", when: .editWindowInFront),
+        announce("floTools.selectEditKeyboardFocus", "Select Edit Keyboard Focus", keys: ["Opt+Cmd+1"], "Edit Keyboard Focus", when: .inEditWindow),
+        announce("floTools.selectClipsKeyboardFocus", "Select Clips Keyboard Focus", keys: ["Opt+Cmd+2"], "Clips Keyboard Focus", when: .inEditWindow),
+        announce("floTools.selectGroupsKeyboardFocus", "Select Groups Keyboard Focus", keys: ["Opt+Cmd+3"], "Groups Keyboard Focus", when: .inEditWindow),
     ] }
 
-    /// When the announcement is spoken after the key went to Pro Tools.
-    enum Condition: Sendable {
-        case always
-        /// Not while a text field has the keyboard focus or a dialog is in front, where the key is typed or does something else. The KM version checked the VoiceOver keyboard cursor and a list of dialog titles.
-        case keyReachesWindow
-        /// The keyboard focus keys act only in the Edit window.
-        case editWindowInFront
-    }
-
-    /// Sends the key, or `sends` instead, to Pro Tools and speaks `text` if `condition` holds.
+    /// Sends the key, or `sends` instead, to Pro Tools and speaks `text` if the guard allows it.
     @MainActor
-    private static func announce(_ id: MacroID, _ name: String, keys: [String], sends: String? = nil, _ text: String, when condition: Condition) -> Macro {
+    private static func announce(_ id: MacroID, _ name: String, keys: [String], sends: String? = nil, _ text: String, when guarding: AnnouncementGuard) -> Macro {
         let replacement = sends.map { KeyCombo($0)! }
         return Macro(id, name, group: .floTools, triggers: keys.map { .key($0) }) { run in
-            let app = try ProToolsApp.running()
-            let speaks = switch condition {
-            case .always: true
-            case .keyReachesWindow: try await !app.keysGoToTextOrDialog()
-            case .editWindowInFront: run.context.windowTitle?.hasPrefix("Edit:") == true
-            }
             if let replacement {
-                await app.keystroke(replacement)
+                try await ProToolsApp.running().keystroke(replacement)
             } else {
                 await run.passThrough()
             }
-            if speaks { try await VoiceOver.say(text) }
+            if try await speaks(after: guarding) { try await VoiceOver.say(text) }
         }
     }
 
-    /// Sends the key, which in Pro Tools moves or extends the track selection, and speaks the selected tracks from the Mix window's Track List, unless the key was typed into a text field or went to a dialog. Pro Tools may take a moment to show the new selection.
+    /// Sends the key, which in Pro Tools selects another playlist on the selected tracks, and speaks the selected tracks from the Mix window's Track List, as the JXA did. The selection read before the key is only for waiting until Pro Tools shows the new one, so its failure does not keep the key from Pro Tools.
     @MainActor
     private static func speakSelectedTracks(_ id: MacroID, _ name: String, key: String) -> Macro {
         Macro(id, name, group: .floTools, triggers: [.key(key)]) { run in
-            let app = try ProToolsApp.running()
-            let speaks = try await !app.keysGoToTextOrDialog()
-            let before = speaks ? try await selectedTracksText(app) : ""
+            let before = try? await selectedTracksText(try ProToolsApp.running())
             await run.passThrough()
-            guard speaks else { return }
-            let after = try await ProToolsUpdate.reading(changedFrom: before, within: .milliseconds(500)) { try selectedTracksText(app) }
+            guard try await speaks(after: .outsideListedDialogsAndText) else { return }
+            let app = try ProToolsApp.running()
+            let after = try await ProToolsUpdate.reading(changedFrom: before ?? "", within: .milliseconds(500)) { try selectedTracksText(app) }
             try await VoiceOver.say(after)
         }
+    }
+
+    /// Whether to speak after a shortcut went to Pro Tools, read now, after the key, as the KM versions did.
+    static func speaks(after guarding: AnnouncementGuard) async throws -> Bool {
+        guard guarding != .always else { return true }
+        let cursorText = guarding.readsKeyboardCursor ? try await VoiceOver.keyboardCursorText() : nil
+        let window = try await ProToolsApp.running().frontWindowFacts()
+        return guarding.allows(window, keyboardCursorText: cursorText)
     }
 
     @AccessibilityActor

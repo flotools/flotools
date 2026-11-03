@@ -170,6 +170,11 @@ public final class MacroEngine {
     /// Whether the group is activated, like Keyboard Maestro's Activate/Deactivate Macro Group action. This is separate from enabled: Toggle Inspector activates and deactivates the Inspector group, while Flo Tools' own on/off switch enables and disables groups. Groups start activated.
     public func isGroupActivated(_ id: MacroGroupID) -> Bool { groupActivated[id] ?? false }
 
+    /// Whether the group's macros can run now, like Keyboard Maestro's "macro group is active": enabled, activated and its window condition holds for the front window.
+    public func isGroupActive(_ id: MacroGroupID) -> Bool {
+        groupEnabled[id] == true && groupActivated[id] == true && groups[id]?.applies(to: context) == true
+    }
+
     /// Activation does not void pending single presses: releasing the temporary Inspector key within the double-press timeout must still let a single press of S speak.
     public func setGroup(_ id: MacroGroupID, activated: Bool) {
         precondition(groups[id] != nil, "unknown group \(id)")
@@ -266,6 +271,19 @@ public final class MacroEngine {
             return
         }
         _ = start(macro, trigger: .direct, context: context, reason: "run by the app")
+    }
+
+    /// Runs a macro because `event` happened, if it could run from a hotkey now: Flo Tools is on and not suspended, and the macro and its group are active for the front window. Checked again when the run reaches the front of the queue, like a hotkey run.
+    public func fire(_ id: MacroID, on event: String) {
+        guard let macro = macro(id) else {
+            Log.error(.engine, "macro \(id) is not installed")
+            return
+        }
+        guard takesKeys, isActive(macro, in: context) else {
+            Log.info(.engine, "\(event): \(id) is not active in \(context)")
+            return
+        }
+        _ = start(macro, trigger: .event(event), context: context, reason: event)
     }
 
     /// Gives the run an invocation ID and starts it, waiting first for a double press where the macro has one.
@@ -367,9 +385,12 @@ public final class MacroEngine {
         }
     }
 
-    /// Why a queued hotkey run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the macro or the front app may have changed while it waited. Group activation is not checked: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
+    /// Why a queued hotkey or event run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the macro or the front app may have changed while it waited. Group activation is not checked: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
     private func invalidReason(_ run: MacroRun) -> String? {
-        guard case .hotKey = run.trigger else { return nil }
+        switch run.trigger {
+        case .hotKey, .event: break
+        case .nested, .direct: return nil
+        }
         if !isEnabled { return "Flo Tools is disabled" }
         if let suspension = suspensions.first { return "suspended: \(suspension)" }
         if macroEnabled[run.macro.id] != true { return "macro disabled" }

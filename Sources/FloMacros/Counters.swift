@@ -25,14 +25,14 @@ enum Counters {
         openMenu("floTools.selectSubCounter", "Select Sub Counter", key: "Opt+Cmd+F6", EditWindowControl([counterCluster], role: "AXButton", .is("Sub Counter selector"))),
         openMenu("floTools.selectNudgeValue", "Select Nudge Value", key: "Opt+Cmd+F7", EditWindowControl([gridNudgeCluster], role: "AXPopUpButton", .is("Nudge value"))),
         openMenu("floTools.selectGridValue", "Select Grid Value", key: "Opt+Cmd+F8", gridValue),
-        step("floTools.increaseGridValue", "Increase Grid Value", key: "Ctrl+Opt+Keypad +", sends: "Shift+=", gridValue, label: ". Grid."),
-        step("floTools.increaseGridValueWithQwerty", "Increase Grid Value with Qwerty", key: "Shift+=", sends: "Shift+=", gridValue, label: ". Grid."),
-        step("floTools.decreaseGridValue", "Decrease Grid Value", key: "Ctrl+Opt+Keypad -", sends: "Shift+-", gridValue, label: ". Grid."),
-        step("floTools.decreaseGridValueWithQwerty", "Decrease Grid Value with Qwerty", key: "Shift+-", sends: "Shift+-", gridValue, label: ". Grid."),
-        step("floTools.increaseNudgeValue", "Increase Nudge Value", key: "Opt+Cmd+Keypad +", sends: "Opt+Cmd+Keypad +", nudgeValue, label: ". Nudge."),
-        step("floTools.increaseNudgeValueWithQwerty", "Increase Nudge Value With Qwerty", key: "Opt+Shift+=", sends: "Opt+Shift+=", nudgeValue, label: ". Nudge."),
-        step("floTools.decreaseNudgeValue", "Decrease Nudge Value", key: "Opt+Cmd+Keypad -", sends: "Opt+Cmd+Keypad -", nudgeValue, label: ". Nudge."),
-        step("floTools.decreaseNudgeValueWithQwerty", "Decrease Nudge Value with Qwerty", key: "Opt+Shift+-", sends: "Opt+Shift+-", nudgeValue, label: ". Nudge."),
+        step("floTools.increaseGridValue", "Increase Grid Value", key: "Ctrl+Opt+Keypad +", sends: "Shift+=", gridValue, when: .outsideDialogsAndText, label: ". Grid."),
+        step("floTools.increaseGridValueWithQwerty", "Increase Grid Value with Qwerty", key: "Shift+=", sends: "Shift+=", gridValue, when: .outsideDialogsAndText, label: ". Grid."),
+        step("floTools.decreaseGridValue", "Decrease Grid Value", key: "Ctrl+Opt+Keypad -", sends: "Shift+-", gridValue, when: .outsideDialogsAndText, label: ". Grid."),
+        step("floTools.decreaseGridValueWithQwerty", "Decrease Grid Value with Qwerty", key: "Shift+-", sends: "Shift+-", gridValue, when: .outsideDialogsAndText, label: ". Grid."),
+        step("floTools.increaseNudgeValue", "Increase Nudge Value", key: "Opt+Cmd+Keypad +", sends: "Opt+Cmd+Keypad +", nudgeValue, when: .always, label: ". Nudge."),
+        step("floTools.increaseNudgeValueWithQwerty", "Increase Nudge Value With Qwerty", key: "Opt+Shift+=", sends: "Opt+Shift+=", nudgeValue, when: .outsideDialogsAndText, label: ". Nudge."),
+        step("floTools.decreaseNudgeValue", "Decrease Nudge Value", key: "Opt+Cmd+Keypad -", sends: "Opt+Cmd+Keypad -", nudgeValue, when: .always, label: ". Nudge."),
+        step("floTools.decreaseNudgeValueWithQwerty", "Decrease Nudge Value with Qwerty", key: "Opt+Shift+-", sends: "Opt+Shift+-", nudgeValue, when: .outsideDialogsAndText, label: ". Nudge."),
     ] }
 
     // MARK: Where the values are
@@ -101,17 +101,17 @@ enum Counters {
         }
     }
 
-    /// Sends Pro Tools its own key for the next or previous grid or nudge value, then speaks the new value. As in the JXA, nothing is spoken while a text field has the keyboard focus or a dialog is in front, where the key is typed or does something else.
+    /// Sends Pro Tools its own key for the next or previous grid or nudge value, then speaks the new value if the guard allows it. The KM grid and Qwerty nudge macros checked for a text field and a dialog; the keypad nudge macros did not.
     @MainActor
-    private static func step(_ id: MacroID, _ name: String, key: String, sends: String, _ control: EditWindowControl, label: String) -> Macro {
+    private static func step(_ id: MacroID, _ name: String, key: String, sends: String, _ control: EditWindowControl, when guarding: AnnouncementGuard, label: String) -> Macro {
         let combo = KeyCombo(sends)!
         return Macro(id, name, group: .floTools, triggers: [.key(key)]) { _ in
             let app = try ProToolsApp.running()
-            let speaks = try await !app.keysGoToTextOrDialog()
-            let before = speaks ? try await app.element(control).value ?? "" : ""
+            // Only for waiting until the value changes; a failed read must not keep the key from Pro Tools.
+            let before = try? await app.element(control).value
             await app.keystroke(combo)
-            guard speaks else { return }
-            let after = try await ProToolsUpdate.reading(changedFrom: before) { try app.element(control).value ?? "" }
+            guard try await KeyAnnouncements.speaks(after: guarding) else { return }
+            let after = try await ProToolsUpdate.reading(changedFrom: before ?? "") { try app.element(control).value ?? "" }
             try await VoiceOver.say(CounterText.spoken(after, as: .duration) + label)
         }
     }

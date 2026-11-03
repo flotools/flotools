@@ -9,6 +9,8 @@ public struct MacroRun: Sendable {
         case nested(by: MacroID)
         /// Run by the app, for example from the status menu.
         case direct
+        /// Started by something that happened rather than a key, such as a plug-in window coming to front, like Keyboard Maestro's window triggers. Checked like a hotkey run.
+        case event(String)
     }
 
     public let macro: Macro

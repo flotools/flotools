@@ -46,12 +46,51 @@ extension ProToolsApp {
         return try parent.required("the \(control.name.text)") { try $0.children(role: control.role).first { try control.name.matches($0.name) } }
     }
 
-    /// Whether a key sent to Pro Tools now would be typed into a text field or go to a dialog rather than reach the Edit or Mix window. Text fields are what VoiceOver calls "edit text"; dialogs, unlike document windows, have no close button. The JXA asked VoiceOver's keyboard cursor and checked `AXCloseButton` of the front window.
+    /// The title of the front window and whether it has a close button, which document windows have and dialogs do not. Nil when no window is in front.
     @AccessibilityActor
-    public func keysGoToTextOrDialog() throws -> Bool {
-        let app = AXElement.application(pid: pid)
-        if let focused = try app.element("AXFocusedUIElement"), let role = try focused.role, ["AXTextField", "AXTextArea"].contains(role) { return true }
-        guard let window = try app.focusedWindow else { return true }
-        return try window.element("AXCloseButton") == nil
+    public func frontWindowFacts() throws -> FrontWindowFacts? {
+        guard let window = try AXElement.application(pid: pid).focusedWindow else { return nil }
+        return FrontWindowFacts(title: try window.title ?? "", hasCloseButton: try window.element("AXCloseButton") != nil)
+    }
+}
+
+public struct FrontWindowFacts: Sendable, Equatable {
+    public let title: String
+    public let hasCloseButton: Bool
+
+    public init(title: String, hasCloseButton: Bool) {
+        self.title = title
+        self.hasCloseButton = hasCloseButton
+    }
+}
+
+/// When Flo Tools speaks after passing one of Pro Tools' own shortcuts on. The key is always sent first, as in the KM versions, and they checked afterwards whether it had reached the Edit or Mix window rather than being typed into a text field or taken by a dialog. Those checks came in two kinds, kept here as they were.
+public enum AnnouncementGuard: Sendable, Equatable {
+    case always
+    /// Not in a dialog from the KM version's list of titles, and not with VoiceOver's keyboard cursor on a text field. Playlists, track views and the link settings.
+    case outsideListedDialogsAndText
+    /// Not in a window without a close button, and not with VoiceOver's keyboard cursor on a text field. Grid and Qwerty nudge steps.
+    case outsideDialogsAndText
+    /// Only with the Edit window in front. The keyboard focus keys.
+    case inEditWindow
+
+    /// Whether this guard reads VoiceOver's keyboard cursor.
+    public var readsKeyboardCursor: Bool { self == .outsideListedDialogsAndText || self == .outsideDialogsAndText }
+
+    /// The decision, from the front window (nil when there is none) and the text under VoiceOver's keyboard cursor.
+    public func allows(_ window: FrontWindowFacts?, keyboardCursorText: String?) -> Bool {
+        let inText = keyboardCursorText?.hasSuffix("edit text") ?? false
+        switch self {
+        case .always: return true
+        case .outsideListedDialogsAndText: return !inText && !Self.isListedDialog(window?.title ?? "")
+        case .outsideDialogsAndText: return !inText && window?.hasCloseButton == true
+        case .inEditWindow: return window?.title.hasPrefix("Edit:") == true
+        }
+    }
+
+    /// The KM version's title pattern for dialogs where the shortcuts do something else.
+    static func isListedDialog(_ title: String) -> Bool {
+        let prefixes = ["Dashboard", "Save", "Open", "Get Info", "Create Group", "Scroll To Track", "Name", "Metadata Inspector", "New Memory Location", "MIDI Event List", "Workspace", "Artist Chat"]
+        return prefixes.contains { title.hasPrefix($0) } || title.hasSuffix("Bounce") || title.hasSuffix("Setup")
     }
 }

@@ -111,7 +111,7 @@ public final class Lifecycle {
         }
         // Like KM Load Plugin Parameters for Default View on a focused window change. A plug-in window showing another plug-in changes its title, which loads that plug-in's view too.
         if title != lastProToolsTitle, title.hasPrefix(PlugInWindow.Kind.plugIn.titlePrefix) {
-            engine.run(PlugIns.loadDefaultView)
+            engine.fire(PlugIns.loadDefaultView, on: "plug-in window \"\(title)\" in front")
         }
         lastProToolsTitle = title
     }

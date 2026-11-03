@@ -28,19 +28,25 @@ public enum VoiceOver {
     }
 
     /// Text under the VoiceOver cursor, like `vo.voCursor.textUnderCursor()`. Nil when the item under the cursor has no text.
-    public static func cursorText() throws -> String? {
+    public static func cursorText() throws -> String? { try text(under: "vocu", named: "VoiceOver cursor") }
+
+    /// Text under VoiceOver's keyboard cursor, like `vo.keyboardCursor.textUnderCursor()`. Ends with "edit text" on a text field.
+    public static func keyboardCursorText() throws -> String? { try text(under: "kbcu", named: "keyboard cursor") }
+
+    /// `text under cursor` (`votx`) of the cursor property `cursor` of the application.
+    private static func text(under cursor: String, named name: String) throws -> String? {
         let start = ContinuousClock.now
         let event = voiceOverEvent(eventClass: "core", id: "getd")
-        event.setParam(cursorTextSpecifier, forKeyword: keyDirectObject)
-        let text = try send(event, doing: "read the VoiceOver cursor").paramDescriptor(forKeyword: keyDirectObject)?.stringValue
-        Log.debug(.voiceover, "VoiceOver cursor: \(text.map { "\"\($0)\"" } ?? "no text") (\(Log.elapsed(since: start)))")
+        event.setParam(property("votx", of: property(cursor, of: .null())), forKeyword: keyDirectObject)
+        let text = try send(event, doing: "read the \(name)").paramDescriptor(forKeyword: keyDirectObject)?.stringValue
+        Log.debug(.voiceover, "\(name): \(text.map { "\"\($0)\"" } ?? "no text") (\(Log.elapsed(since: start)))")
         return text
     }
 
     /// The screen frame of the item in the VoiceOver cursor, like `vo.voCursor.bounds()`, in the global coordinates mouse events use. VoiceOver's `bounds` is a rectangle, which coerces to a list of left, top, right and bottom.
     public static func cursorBounds() throws -> CGRect {
         let event = voiceOverEvent(eventClass: "core", id: "getd")
-        event.setParam(cursorBoundsSpecifier, forKeyword: keyDirectObject)
+        event.setParam(property("pbnd", of: property("vocu", of: .null())), forKeyword: keyDirectObject)
         let reply = try send(event, doing: "read the VoiceOver cursor bounds").paramDescriptor(forKeyword: keyDirectObject)
         guard let list = reply?.coerce(toDescriptorType: typeAEList), list.numberOfItems == 4 else {
             throw FloError.unexpectedValue("VoiceOver cursor bounds of type \(reply.map { String(describing: $0.descriptorType) } ?? "none")")
@@ -77,10 +83,6 @@ public enum VoiceOver {
     // MARK: Apple events
 
     private static let target = NSAppleEventDescriptor(bundleIdentifier: "com.apple.VoiceOver")
-
-    /// `text under cursor of vo cursor`, as an object specifier: property `votx` of property `vocu` of the application.
-    private static let cursorTextSpecifier = property("votx", of: property("vocu", of: .null()))
-    private static let cursorBoundsSpecifier = property("pbnd", of: property("vocu", of: .null()))
 
     private static func voiceOverEvent(eventClass: String, id: String) -> NSAppleEventDescriptor {
         NSAppleEventDescriptor(eventClass: fourCharCode(eventClass), eventID: fourCharCode(id), targetDescriptor: target,

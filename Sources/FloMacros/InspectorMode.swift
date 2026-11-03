@@ -52,7 +52,7 @@ enum InspectorMode {
     @MainActor
     static func trackView(_ id: MacroID, _ name: String, key: String, inspectorMacro: MacroID) -> Macro {
         Macro(id, name, group: .floTools, enabledByDefault: false, triggers: [.key(key)]) { run in
-            if await run.engine.isGroupActivated(.inspector) {
+            if await run.engine.isGroupActive(.inspector) {
                 try await run.run(inspectorMacro)
             } else {
                 try await ProToolsApp.running().keystroke(KeyCombo(key)!)

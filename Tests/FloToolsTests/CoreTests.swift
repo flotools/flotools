@@ -290,6 +290,22 @@ import Testing
         ]
     }
 
+    /// An event, such as a plug-in window coming to front, starts a macro only when a hotkey could: not while suspended, and not outside its group's windows.
+    @Test func eventRunsOnlyWhereAHotkeyWould() async throws {
+        let events = Events()
+        let engine = engine([Macro("test.event", "Event", group: .floTools, triggers: []) { @MainActor _ in events.list.append("ran") }])
+        engine.dispatch(KeyCombo("F9")!, .pressed, in: FrontContext(bundleID: "com.apple.finder", windowTitle: "Desktop"))
+        engine.fire("test.event", on: "test event")
+        engine.dispatch(KeyCombo("F9")!, .pressed, in: mix)
+        let paused = Suspension("test")
+        engine.suspend(paused)
+        engine.fire("test.event", on: "test event")
+        engine.resume(paused)
+        engine.fire("test.event", on: "test event")
+        await engine.waitUntilIdle()
+        #expect(events.list == ["ran"])
+    }
+
     @Test func queuedRunIsDroppedWhenItsMacroIsDisabled() async throws {
         let events = Events()
         let engine = engine(slowThenFast(events))

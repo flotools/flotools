@@ -60,3 +60,42 @@ import Testing
         #expect(KeyAnnouncements.selectedTracksText(names: ["Kick - Audio Track ", "Bass - MIDI Track "]) == "Kick - Audio. Bass - MIDI. ")
     }
 }
+
+@Suite struct AnnouncementGuardTests {
+    let edit = FrontWindowFacts(title: "Edit: I Trust", hasCloseButton: true)
+    let mix = FrontWindowFacts(title: "Mix: I Trust", hasCloseButton: true)
+    let saveDialog = FrontWindowFacts(title: "Save Session As", hasCloseButton: false)
+    let otherDialog = FrontWindowFacts(title: "Track Name", hasCloseButton: false)
+
+    /// The KM title pattern `^Dashboard|^Save|Bounce$|^Open|^Get Info|Setup$|^Create Group|...`.
+    @Test func listedDialogsMatchTheKeyboardMaestroPattern() {
+        #expect(AnnouncementGuard.isListedDialog("Save Session As"))
+        #expect(AnnouncementGuard.isListedDialog("Bounce Mix: Bounce"))
+        #expect(AnnouncementGuard.isListedDialog("Playback Engine Setup"))
+        #expect(AnnouncementGuard.isListedDialog("MIDI Event List"))
+        #expect(!AnnouncementGuard.isListedDialog("Edit: I Trust"))
+        #expect(!AnnouncementGuard.isListedDialog("Bounce Settings"))
+    }
+
+    @Test func textFieldsSilenceTheKeyboardCursorGuards() {
+        for guarding in [AnnouncementGuard.outsideListedDialogsAndText, .outsideDialogsAndText] {
+            #expect(guarding.allows(edit, keyboardCursorText: "Main Counter, 1| 1| 000"))
+            #expect(!guarding.allows(edit, keyboardCursorText: "Name, Kick, edit text"))
+        }
+    }
+
+    /// Only listed dialogs silence the playlist and link keys; any window without a close button silences the grid steps.
+    @Test func dialogsAreCheckedTheTwoKeyboardMaestroWays() {
+        #expect(!AnnouncementGuard.outsideListedDialogsAndText.allows(saveDialog, keyboardCursorText: nil))
+        #expect(AnnouncementGuard.outsideListedDialogsAndText.allows(otherDialog, keyboardCursorText: nil))
+        #expect(!AnnouncementGuard.outsideDialogsAndText.allows(otherDialog, keyboardCursorText: nil))
+        #expect(!AnnouncementGuard.outsideDialogsAndText.allows(nil, keyboardCursorText: nil))
+    }
+
+    @Test func editWindowGuardAndAlways() {
+        #expect(AnnouncementGuard.inEditWindow.allows(edit, keyboardCursorText: nil))
+        #expect(!AnnouncementGuard.inEditWindow.allows(mix, keyboardCursorText: nil))
+        #expect(AnnouncementGuard.always.allows(nil, keyboardCursorText: "edit text"))
+        #expect(!AnnouncementGuard.inEditWindow.readsKeyboardCursor)
+    }
+}

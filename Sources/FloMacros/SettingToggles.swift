@@ -77,16 +77,17 @@ enum SettingToggles {
         isOn ? "Grid mode, " + buttonName.replacingFirst("Grid mode", with: "") : "Grid mode, off"
     }
 
-    /// The hotkey is Pro Tools' own shortcut for the Options menu item, so it goes on to Pro Tools, which switches the setting; the new state is spoken if the setting changed. The KM version spoke unless a dialog was in front or the VoiceOver keyboard cursor was on a text field, the cases where the key does not reach the menu item; an unchanged setting covers both. The wait is longer than `ProToolsUpdate.timeout` because the key travels through the event system first.
+    /// The hotkey is Pro Tools' own shortcut for the Options menu item, so it goes on to Pro Tools, which switches the setting, and the new state is spoken if the guard allows it, as in the KM version. The wait is longer than `ProToolsUpdate.timeout` because the key travels through the event system first; the state read before the key is only for that wait, so its failure does not keep the key from Pro Tools.
     @MainActor
     private static func link(_ id: MacroID, _ name: String, key: String, _ item: String, _ wording: Wording) -> Macro {
         let setting = ProToolsSetting.menuItem(menu: "Options", .is(item))
         return Macro(id, name, group: .floTools, triggers: [.key(key)]) { run in
-            let control = try await ProToolsApp.running().control(setting)
-            let before = try await wording.text(control.isOn)
+            let before = try? await wording.text(ProToolsApp.running().control(setting).isOn)
             await run.passThrough()
-            let after = try await ProToolsUpdate.reading(changedFrom: before, within: .milliseconds(500)) { try wording.text(control.isOn) }
-            if after != before { try await VoiceOver.say(after) }
+            guard try await KeyAnnouncements.speaks(after: .outsideListedDialogsAndText) else { return }
+            let control = try await ProToolsApp.running().control(setting)
+            let after = try await ProToolsUpdate.reading(changedFrom: before ?? "", within: .milliseconds(500)) { try wording.text(control.isOn) }
+            try await VoiceOver.say(after)
         }
     }
 
