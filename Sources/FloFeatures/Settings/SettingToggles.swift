@@ -60,14 +60,14 @@ enum SettingToggles {
         })
     }
 
-    /// The Grid mode button is named for the grid kind, such as "Absolute Grid mode", which the JXA spoke as "Grid mode, Absolute " (`name.replace("Grid mode", "")`).
+    /// The Grid mode button is named for the grid kind, such as "Absolute Grid mode", which the JXA spoke as "Grid mode, Absolute ".
     @AccessibilityActor
     static func gridModeText(_ control: SettingControl) throws -> String {
         try gridModeText(isOn: control.isOn, buttonName: control.name)
     }
 
     static func gridModeText(isOn: Bool, buttonName: String) -> String {
-        isOn ? "Grid mode, " + buttonName.replacingFirst("Grid mode", with: "") : "Grid mode, off"
+        isOn ? "Grid mode, " + SettingControl.gridKind(buttonName: buttonName) : "Grid mode, off"
     }
 
     /// The hotkey is Pro Tools' own shortcut for the Options menu item, so it goes on to Pro Tools, which switches the setting, and the new state is spoken if the guard allows it, as in the KM version. The wait is longer than `ProToolsUpdate.timeout` because the key travels through the event system first.
@@ -97,7 +97,10 @@ enum SettingToggles {
     }
 
     static func inputMonitorText(itemName: String) -> String {
-        itemName.contains("Auto Input") ? "Input Only" : "Auto Input"
+        switch SettingControl.inputMonitorMode(itemName: itemName) {
+        case .inputOnly: "Input Only"
+        case .autoInput: "Auto Input"
+        }
     }
 }
 

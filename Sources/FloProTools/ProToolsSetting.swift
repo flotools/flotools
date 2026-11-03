@@ -36,6 +36,21 @@ public struct SettingControl {
 
     /// Clicks the button or chooses the menu item, without opening the menu.
     public func press() throws { try element.press() }
+
+    /// The grid kind that the Grid mode button names, for example "Absolute " from "Absolute Grid mode". The label is removed as the JXA did, which keeps the space before it.
+    public nonisolated static func gridKind(buttonName: String) -> String {
+        buttonName.replacingFirst("Grid mode", with: "")
+    }
+
+    /// How record-armed tracks monitor their input: the two modes of Track > Set Record Tracks to.
+    public enum InputMonitorMode: Sendable, Equatable {
+        case autoInput, inputOnly
+    }
+
+    /// The current mode, from the name of the Set Record Tracks to item, which offers the other mode: "Set Record Tracks to Auto Input" means Input Only is on.
+    public nonisolated static func inputMonitorMode(itemName: String) -> InputMonitorMode {
+        itemName.contains("Auto Input") ? .inputOnly : .autoInput
+    }
 }
 
 extension ProToolsApp {
