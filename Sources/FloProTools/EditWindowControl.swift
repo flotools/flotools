@@ -140,7 +140,7 @@ public enum AnnouncementGuard: Sendable, Equatable {
         case .always: return true
         case .outsideListedDialogsAndText: return !inText && !Self.isListedDialog(window?.title ?? "")
         case .outsideDialogsAndText: return !inText && window?.hasCloseButton == true
-        case .inEditWindow: return window?.title.hasPrefix("Edit:") == true
+        case .inEditWindow: return window.map { ProToolsWindowKind(title: $0.title) } == .edit
         }
     }
 
