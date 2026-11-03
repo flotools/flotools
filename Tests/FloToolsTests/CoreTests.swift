@@ -101,6 +101,12 @@ import Testing
         // A disabled window command decides nothing.
         engine.setCommand("test.batchFades", enabled: false)
         #expect(engine.activeCombos(in: unknown) == [cmdF8, shiftUp])
+        #expect(engine.candidates(for: shiftUp, phase: .pressed, in: unknown).map(\.id) == ["test.playlist"])
+        // Nor does one whose mode does not hold.
+        engine.install(Command("test.inspectorF8", "Cmd+F8", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Cmd+F8")]) { _ in })
+        #expect(engine.candidates(for: cmdF8, phase: .pressed, in: unknown).map(\.id) == ["test.grid"])
+        engine.setInspector(true)
+        #expect(engine.candidates(for: cmdF8, phase: .pressed, in: unknown).isEmpty)
     }
 
     @Test func inspectorModeGatesKeys() {
@@ -511,6 +517,17 @@ private actor Flag {
         engine.contextChanged(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Edit: Session"))
         #expect(events.list == ["press"])
         engine.dispatch(KeyCombo("F3")!, .released, in: mix)
+        #expect(events.list == ["press", "release"])
+    }
+
+    /// A held key that some window overrides stops being a hotkey when the window becomes unknown, so its hold ends then, once, and the later release finds no hold.
+    @Test func holdEndsOnceWhenTheWindowBecomesUnknown() {
+        let events = Events()
+        let engine = engine([holdCommand(events), Command("test.batchFadesF3", "F3", scope: .windows([.fade(.batchFades)]), triggers: [.key("F3")]) { _ in }])
+        engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
+        engine.contextChanged(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: nil))
+        #expect(events.list == ["press", "release"])
+        engine.dispatch(KeyCombo("F3")!, .released, in: FrontContext(bundleID: "com.avid.ProTools", windowTitle: nil))
         #expect(events.list == ["press", "release"])
     }
 
