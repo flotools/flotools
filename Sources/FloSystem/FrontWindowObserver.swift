@@ -34,11 +34,16 @@ public final class FrontWindowObserver {
     private var observedPid: pid_t = 0
     /// The last app attaching failed for, so the failure is logged once and not on every retry.
     private var failedPid: pid_t = 0
+    /// The window AXTitleChanged is registered on. Cleared when the observer is attached again, because the registration belonged to the old observer.
     private var watchedWindow: AXElement?
+    /// The focused window the last read found, which `windowNumber` counts changes of. Kept apart from `watchedWindow`, so attaching the observer again does not count the same window as a new one.
+    private var lastWindow: AXElement?
     /// Whether AXFocusedWindowChanged is registered on the observed app. Without it, switching between existing windows sends nothing, so the context must keep polling. Retried on every read.
     private var focusWatched = false
     /// Whether AXTitleChanged is registered on `watchedWindow`, or there is no window to watch. Retried on every read.
     private var titleWatched = true
+    /// Whether AXMenuClosed is registered on the observed app. Without it, a plug-in chosen from a plug-in window's menu changes the title unseen (see `observe`), so the context must keep polling. Retried on every read.
+    private var menuWatched = false
     /// So a registration that keeps failing is logged once per app, not on every poll.
     private var registrationFailureLogged = false
     /// Counts changes of the focused window, so two windows with the same title, such as two instances of one plug-in, still tell apart.
@@ -54,26 +59,27 @@ public final class FrontWindowObserver {
         guard !stopped else { throw CancellationError() }
         if pid != observedPid { observe(pid: pid) }
         let window = try AXElement.application(pid: pid).focusedWindow
-        if !isSame(window, watchedWindow) {
-            watchTitle(of: window)
+        if !isSame(window, lastWindow) {
+            lastWindow = window
             windowNumber += 1
-        } else if !titleWatched {
-            watchTitle(of: window)
         }
-        if observer != nil, !focusWatched { watchFocus(pid: pid) }
+        if !isSame(window, watchedWindow) || !titleWatched { watchTitle(of: window) }
+        if observer != nil, !focusWatched { focusWatched = watchApp(Self.focusChanged, pid: pid) }
+        if observer != nil, !menuWatched { menuWatched = watchApp(Self.menuClosed, pid: pid) }
         logRegistration()
         return FocusedWindow(title: try window?.title, number: windowNumber)
     }
 
-    /// Whether notifications from app `pid` cover both a change of focused window and a change of its title. Only then is polling that app not needed.
+    /// Whether notifications from app `pid` cover every change of the focused window and its title: focus, title and menu. Only then is polling that app not needed.
     public func isObserving(pid: pid_t) -> Bool {
-        observer != nil && observedPid == pid && focusWatched && titleWatched
+        observer != nil && observedPid == pid && focusWatched && titleWatched && menuWatched
     }
 
     /// Detaches from the observed app for good. Call before dropping the instance.
     public func stop() {
         stopped = true
         observe(pid: 0)
+        lastWindow = nil
         failedPid = 0
         // Callbacks run on the main thread, so once this block runs there is none in progress, and the source is removed, so none follows.
         let callback = callback
@@ -89,6 +95,7 @@ public final class FrontWindowObserver {
         observedPid = 0
         focusWatched = false
         titleWatched = true
+        menuWatched = false
         registrationFailureLogged = false
         guard pid > 0 else { return }
         var created: AXObserver?
@@ -102,7 +109,7 @@ public final class FrontWindowObserver {
         }
         let app = AXElement.application(pid: pid)
         var results: [String: AXError] = [:]
-        for name in ["AXFocusedWindowChanged", "AXMainWindowChanged", "AXWindowCreated"] {
+        for name in [Self.focusChanged, kAXMainWindowChangedNotification as String, kAXWindowCreatedNotification as String] {
             results[name] = app.addNotification(name, to: created, refcon: refcon)
         }
         // With none registered, nothing would arrive; try attaching again on the next read. With some, the observer is kept, and `isObserving` stays false until AXFocusedWindowChanged is registered, so the context keeps polling.
@@ -110,10 +117,9 @@ public final class FrontWindowObserver {
             attachFailed(pid: pid, results.map { "\($0.key) \($0.value.rawValue)" }.sorted().joined(separator: ", "))
             return
         }
-        focusWatched = results["AXFocusedWindowChanged"] == .success
-        // Pro Tools changes a plug-in or AudioSuite window's title in place, without AXTitleChanged, when another plug-in is chosen from a menu; by AXMenuClosed the title is new (checked live 2026-11-03). Optional: the window notifications above still follow everything else.
-        let menuResult = app.addNotification("AXMenuClosed", to: created, refcon: refcon)
-        if menuResult != .success { Log.debug(.context, "watch AXMenuClosed failed: AXError \(menuResult.rawValue)") }
+        focusWatched = results[Self.focusChanged] == .success
+        // Pro Tools changes a plug-in or AudioSuite window's title in place, without AXTitleChanged, when another plug-in is chosen from a menu; by AXMenuClosed the title is new (checked live 2026-11-03).
+        menuWatched = app.addNotification(Self.menuClosed, to: created, refcon: refcon) == .success
         CFRunLoopAddSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(created), .commonModes)
         observer = created
         observedPid = pid
@@ -130,28 +136,29 @@ public final class FrontWindowObserver {
     /// Title changes are watched on the focused window only, because watching the whole app would also report every changing counter.
     private func watchTitle(of window: AXElement?) {
         if let observer, let old = watchedWindow, titleWatched {
-            old.removeNotification("AXTitleChanged", from: observer)
+            old.removeNotification(Self.titleChanged, from: observer)
         }
         watchedWindow = window
         guard let observer, let window else {
             titleWatched = true
             return
         }
-        titleWatched = window.addNotification("AXTitleChanged", to: observer, refcon: refcon) == .success
+        titleWatched = window.addNotification(Self.titleChanged, to: observer, refcon: refcon) == .success
     }
 
-    private func watchFocus(pid: pid_t) {
-        guard let observer else { return }
-        focusWatched = AXElement.application(pid: pid).addNotification("AXFocusedWindowChanged", to: observer, refcon: refcon) == .success
+    /// Registers app notification `name` again after it failed; returns whether it worked.
+    private func watchApp(_ name: String, pid: pid_t) -> Bool {
+        guard let observer else { return false }
+        return AXElement.application(pid: pid).addNotification(name, to: observer, refcon: refcon) == .success
     }
 
     /// Logs once when notifications do not cover every window change, and once when they do again.
     private func logRegistration() {
         guard observer != nil else { return }
-        let covered = focusWatched && titleWatched
+        let covered = focusWatched && titleWatched && menuWatched
         if !covered, !registrationFailureLogged {
             registrationFailureLogged = true
-            let missing = [focusWatched ? nil : "AXFocusedWindowChanged", titleWatched ? nil : "AXTitleChanged"].compactMap { $0 }
+            let missing = [focusWatched ? nil : Self.focusChanged, titleWatched ? nil : Self.titleChanged, menuWatched ? nil : Self.menuClosed].compactMap { $0 }
             Log.warning(.context, "pid \(observedPid): could not register \(missing.joined(separator: " and ")); polling instead, will retry")
         } else if covered, registrationFailureLogged {
             registrationFailureLogged = false
@@ -166,6 +173,10 @@ public final class FrontWindowObserver {
         default: false
         }
     }
+
+    private static let focusChanged = kAXFocusedWindowChangedNotification as String
+    private static let titleChanged = kAXTitleChangedNotification as String
+    private static let menuClosed = kAXMenuClosedNotification as String
 
     /// How AX notifications reach `callback`, which lives at least as long as the observer is attached.
     private var refcon: UnsafeMutableRawPointer { Unmanaged.passUnretained(callback).toOpaque() }

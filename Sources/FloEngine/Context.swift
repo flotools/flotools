@@ -24,9 +24,9 @@ public struct FrontContext: Equatable, Sendable, CustomStringConvertible {
         return ProToolsWindowKind(title: windowTitle)
     }
 
-    /// For the log, for example `com.avid.ProTools "Mix: Session"`.
+    /// For the log, for example `com.avid.ProTools "Mix: Session" #3`. The number tells apart two windows with the same title.
     public var description: String {
-        "\(bundleID ?? "no app") \(windowTitle.map { "\"\($0)\"" } ?? "no window")"
+        "\(bundleID ?? "no app") \(windowTitle.map { "\"\($0)\" #\(windowNumber)" } ?? "no window")"
     }
 }
 
@@ -176,7 +176,7 @@ public final class ContextMonitor {
                     let window = try observer.focusedWindow(pid: context.processID)
                     return (window, observer.isObserving(pid: context.processID), nil)
                 } catch {
-                    // Keep the last title. Reported as not observing, so the poll tries again even when no further notification comes.
+                    // Reported as not observing, so the poll tries again even when no further notification comes.
                     return (nil, false, "\(error)")
                 }
             }.value
@@ -184,13 +184,13 @@ public final class ContextMonitor {
             switch self.reads.readEnded(id: id) {
             case .publish:
                 // Only for the app the read was for; a read for an app no longer in front says nothing about the new one.
-                if context.processID == self.current.processID { self.observing = observing }
-                if let window {
-                    var updated = context
-                    updated.windowTitle = window.title
-                    updated.windowNumber = window.number
-                    self.publish(updated)
-                }
+                guard context.processID == self.current.processID else { break }
+                self.observing = observing
+                // A failed read makes the window unknown rather than keeping the last one: the read may have been for a window change, and keys must not run commands for a window that is no longer in front. Unknown, window-specific keys pass through until a read works.
+                var updated = context
+                updated.windowTitle = window?.title
+                updated.windowNumber = window?.number ?? 0
+                self.publish(updated)
             case .readAgain(let next):
                 self.readWindowTitle(id: next)
             case .ignore:
