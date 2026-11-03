@@ -57,6 +57,24 @@ import Testing
         #expect(try PlugInView.load(plugIn: "No Such Plug-in", view: nil, from: folder) == nil)
     }
 
+    /// First-launch install: every shipped file lands in a new folder, and a file the user already has is not overwritten.
+    @Test func installsShippedViewsWithoutOverwriting() throws {
+        let shipped = URL(fileURLWithPath: #filePath).deletingLastPathComponent().appending(path: "../../reference/Plug-In Views")
+        let temp = FileManager.default.temporaryDirectory.appending(path: "flo-views-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: temp) }
+        let folder = temp.appending(path: "Flo Tools/Plug-In Views")
+        let all = try FloFeatures.installPlugInViews(from: shipped, to: folder)
+        #expect(all.count == 13)
+        #expect(all.contains("Channel Strip-9.txt") && all.contains("EQ3 7-Band.txt"))
+        #expect(try PlugInView.load(plugIn: "Channel Strip", view: 4, from: folder)?.name == "Low Band")
+
+        let mine = folder.appending(path: "EQ3 7-Band.txt")
+        try Data(#"{"view":"Mine", "click":[-1,-1], "parameters":[]}"#.utf8).write(to: mine)
+        try FileManager.default.removeItem(at: folder.appending(path: "Channel Strip.txt"))
+        #expect(try FloFeatures.installPlugInViews(from: shipped, to: folder) == ["Channel Strip.txt"])
+        #expect(try PlugInView.load(plugIn: "EQ3 7-Band", view: nil, from: folder)?.name == "Mine")
+    }
+
     @Test func fileNames() {
         #expect(PlugInView.fileName(plugIn: "EQ3 7-Band", view: nil) == "EQ3 7-Band.txt")
         #expect(PlugInView.fileName(plugIn: "EQ3 7-Band", view: 3) == "EQ3 7-Band-3.txt")

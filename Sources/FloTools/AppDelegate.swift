@@ -32,6 +32,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         // A relaunch or crash while the user reproduces a problem keeps logging into the same file.
         Log.resumeRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current))
         Log.info(.app, "Flo Tools started")
+        installPlugInViewsOnFirstLaunch()
         engine.start()
         setUpStatusItem()
 
@@ -46,6 +47,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         lifecycle.stop()
         engine.stop()
         Log.info(.app, "Flo Tools quitting")
+    }
+
+    /// A failed copy is logged and tried again on the next launch; a build without the views, such as `swift run`, never marks them installed.
+    private func installPlugInViewsOnFirstLaunch() {
+        guard !preferences.plugInViewsInstalled else { return }
+        guard let shipped = Bundle.main.url(forResource: "Plug-In Views", withExtension: nil) else {
+            Log.warning(.app, "the app has no Plug-In Views folder to install")
+            return
+        }
+        do {
+            let copied = try FloFeatures.installPlugInViews(from: shipped)
+            preferences.plugInViewsInstalled = true
+            Log.info(.app, "installed plug-in views: \(copied.isEmpty ? "none, the user had them all" : copied.joined(separator: ", "))")
+        } catch {
+            Log.error(.app, "could not install the plug-in views: \(error)")
+        }
     }
 
     private func waitForAccessibility() {

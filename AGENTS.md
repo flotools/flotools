@@ -32,8 +32,8 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 - `Sources/FloFeatures/`: the commands, one folder per feature (`Inspector/`, `Tracks/`, `Counters/`, `MIDIEvents/`, `Settings/`, `Shortcuts/`, `Fades/`, `PlugIns/`, `Presets/` (shared by plug-in and AudioSuite windows), `AudioSuite/`, `Windows/`, `ClipDrag/`, `Preferences/`), each file declaring its commands' IDs, names, scopes, mode conditions, triggers and actions. At the top: `FloFeatures.swift` (`FloFeatures.all` lists the commands), `SessionState.swift` (what commands remember about the session) and `Lifecycle.swift` (what happens on VoiceOver and Pro Tools launch and quit and on window changes, replacing the KM Global group).
 - `Sources/FloTools/`: the app (status menu, permission prompts, the preferences panel, the diagnostic log header).
 - `Tests/FloToolsTests/`: Swift Testing unit tests. `Tests/Baselines/` holds `Keymap.txt` and `Routing.txt`, the keymap baselines `KeymapTests` compares against.
-- `reference/`: frozen Keyboard Maestro material: the export, `macros/` with `INDEX.md`, the key set preset, the KM README, and `Plug-In Views/`, the plug-in view files meant to ship with Flo Tools (nothing installs them yet).
-- `scripts/build-app.sh`: builds and signs `build/Flo Tools.app`.
+- `reference/`: frozen Keyboard Maestro material: the export, `macros/` with `INDEX.md`, the key set preset, the KM README, and `Plug-In Views/`, the plug-in view files that ship with Flo Tools: `build-app.sh` puts them in the app, and the app copies them into `~/Library/Application Support/Flo Tools/Plug-In Views/` on first launch, without overwriting the user's files.
+- `scripts/build-app.sh`: builds and signs `build/Flo Tools.app`, with the sounds and plug-in views in its Resources.
 - `Resources/`: `Info.plist`, entitlements, and `Sounds/` with the feedback sounds (`Done.aiff`, `Progress.aiff`; for now copies of the macOS Tink and Pop), which `build-app.sh` copies into the app.
 
 Dependencies point one way: `FloTools` -> `FloFeatures` -> `FloEngine` -> `FloProTools` -> `FloSystem`. Update this section when the layout changes.

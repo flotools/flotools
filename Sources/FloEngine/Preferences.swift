@@ -28,6 +28,7 @@ public final class PreferencesStore {
         static let startsWithInspector = "startsWithInspector"
         static let timeout = "doublePressTimeout"
         static let floToolsEnabled = "floToolsEnabled"
+        static let plugInViewsInstalled = "plugInViewsInstalled"
     }
 
     public init(defaults: UserDefaults = .standard) {
@@ -51,6 +52,12 @@ public final class PreferencesStore {
             defaults.set(newValue, forKey: Key.floToolsEnabled)
             Log.info(.preferences, "saved Flo Tools \(newValue ? "enabled" : "disabled")")
         }
+    }
+
+    /// Whether the shipped plug-in views were copied into the user's folder, which happens once, on the first launch. After that a view file the user deletes stays deleted. Off when never set.
+    public var plugInViewsInstalled: Bool {
+        get { defaults.bool(forKey: Key.plugInViewsInstalled) }
+        set { defaults.set(newValue, forKey: Key.plugInViewsInstalled) }
     }
 
     /// Missing values are defaults. A timeout outside `timeoutChoices`, which only `defaults write` can set, is logged and replaced by the default, so double presses stay usable.

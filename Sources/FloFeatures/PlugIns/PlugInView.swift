@@ -124,6 +124,28 @@ struct PlugInView: Sendable, Equatable {
     }
 }
 
+extension FloFeatures {
+    /// Copies the view files shipped in the app (`Contents/Resources/Plug-In Views`, copied from `reference/Plug-In Views` by `scripts/build-app.sh`) into the user's Plug-In Views folder, as the KM installer did. A file the user already has is left alone, so their own views and edits survive. Returns the names of the files copied.
+    public static func installPlugInViews(from shipped: URL) throws -> [String] {
+        try installPlugInViews(from: shipped, to: PlugInView.folder)
+    }
+
+    /// Into `folder`, which tests set to a temporary one.
+    static func installPlugInViews(from shipped: URL, to folder: URL) throws -> [String] {
+        let files = FileManager.default
+        try files.createDirectory(at: folder, withIntermediateDirectories: true)
+        let names = try files.contentsOfDirectory(atPath: shipped.path(percentEncoded: false)).filter { $0.hasSuffix(".txt") }.sorted()
+        var copied: [String] = []
+        for name in names {
+            let target = folder.appending(path: name, directoryHint: .notDirectory)
+            guard !files.fileExists(atPath: target.path(percentEncoded: false)) else { continue }
+            try files.copyItem(at: shipped.appending(path: name, directoryHint: .notDirectory), to: target)
+            copied.append(name)
+        }
+        return copied
+    }
+}
+
 /// The loaded plug-in view and the parameter the cursor is on. Replaces the KM variables FTPluginControlParameters and FTPluginControlIndex. Loading a view, which happens whenever a plug-in window comes to front, starts over.
 actor PlugInViewCursor {
     private var view: PlugInView?
