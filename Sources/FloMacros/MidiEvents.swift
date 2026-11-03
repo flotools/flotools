@@ -85,15 +85,22 @@ enum MidiEvents {
         engine.monitors.toggle(watch) { await follow(column) }
     }
 
+    /// How many reads a kept field serves before it is found again: one second of polls.
+    static let readsPerLookup = 10
+
     /// Speaks the value now, then each change, until the watch is replaced or stopped. A failed read, for example while the Edit window is closed or no note is selected, counts as an empty value at first and is skipped later, as in the JXA. The first failure of a streak and the recovery go to the log, as in the meter watch.
-    /// The field is found once and kept, so each poll is one read; after a failed read it is found again, because a closed window or a new session leaves the kept element invalid. Runs on `AccessibilityActor`, which owns the element, and leaves it free between polls.
+    /// The field is kept between polls, so most polls are one read. It is found again after a failed read, and after `readsPerLookup` reads, because it is not known whether a field of a closed window or an old session always fails to read: a stale one is used for at most a second. Runs on `AccessibilityActor`, which owns the element, and leaves it free between polls.
     @AccessibilityActor
     private static func follow(_ column: Column) async {
         var field: AXElement?
+        var reads = 0
         func read() throws -> String {
             do {
+                if reads == readsPerLookup { field = nil }
+                if field == nil { reads = 0 }
                 let found = try field ?? ProToolsApp.running().element(column.control)
                 field = found
+                reads += 1
                 return try found.value ?? ""
             } catch {
                 field = nil

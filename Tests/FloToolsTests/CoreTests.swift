@@ -749,6 +749,15 @@ import Testing
         #expect(SpokenError.text(for: FloError.couldNot(TrackLists.unchangedText(arm, ["Kick - Audio Track "]))) == "Could not arm: Kick - Audio Track.")
     }
 
+    @Test func settingATrackFlagNeedsTheFlagButClearingAcceptsALeftOutTrack() {
+        #expect(TrackFlag.isSettled(true, on: true))
+        #expect(!TrackFlag.isSettled(false, on: true), "Pro Tools refused to arm")
+        #expect(!TrackFlag.isSettled(nil, on: true), "became inactive or safe instead")
+        #expect(TrackFlag.isSettled(false, on: false))
+        #expect(!TrackFlag.isSettled(true, on: false))
+        #expect(TrackFlag.isSettled(nil, on: false))
+    }
+
     @Test func readFailureStreakTracksARunOfFailures() {
         var streak = ReadFailureStreak(reading: "the meter")
         #expect(!streak.isFailing)

@@ -12,6 +12,11 @@ public enum TrackFlag: Sendable, CaseIterable {
         }
     }
 
+    /// Whether a track whose flag now reads `state` (from `state(of:trackName:buttonState:)`) ends as asked after a press. Turning the flag on needs the flag. Turning it off also counts a track that stopped taking part, for example one that became inactive, as the reset-all check did before.
+    public static func isSettled(_ state: Bool?, on: Bool) -> Bool {
+        on ? state == true : state != true
+    }
+
     /// Whether the track has the flag, or nil when it does not take part. `buttonState` is `TrackStrip.state(of:)` of `toggle`: the button's value, empty when off, or the name of a named input monitoring button.
     /// The rules are the JXA filters: solo and mute leave out master tracks; mute leaves out tracks muted only by another track's solo; arming leaves out master, aux and folder tracks; input monitoring counts audio tracks only. Inactive tracks never take part.
     public static func state(of flag: TrackFlag, trackName: String, buttonState: String) -> Bool? {

@@ -121,11 +121,11 @@ public struct TrackStrip {
         return try await ProToolsUpdate.reading(changedFrom: before) { try state(of: toggle) }
     }
 
-    /// Gives the track `flag` (`on`) or takes it away, unless it already is so or does not take part. Returns whether the track ends as asked: false when its button did not change, or changed to something else.
+    /// Gives the track `flag` (`on`) or takes it away, unless it already is so or does not take part. Returns whether the track ends as asked (`TrackFlag.isSettled`), for example false when Pro Tools refused to arm it.
     public func set(_ flag: TrackFlag, to on: Bool) async throws -> Bool {
         guard let state = try has(flag), state != on else { return true }
         _ = try await press(flag.toggle)
-        return try has(flag) != !on
+        return TrackFlag.isSettled(try has(flag), on: on)
     }
 
     /// The toggle's state as Pro Tools shows it: the name of a named input monitoring button, otherwise the button's value, empty when off.
