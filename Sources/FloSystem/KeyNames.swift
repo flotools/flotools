@@ -36,6 +36,12 @@ extension KeyCombo {
         self.init(keyCode: code, modifiers: modifiers)
     }
 
+    /// A key written in code, such as a hotkey or a key a command sends. An unknown key name is a programming error, so it stops the app; the keymap tests build every command and catch it first.
+    public init(literal text: String) {
+        guard let combo = KeyCombo(text) else { preconditionFailure("unknown key \"\(text)\"") }
+        self = combo
+    }
+
     /// For example "Ctrl+Opt+Keypad -".
     public var description: String {
         var parts = Self.modifierNames.filter { modifiers & $0.bit != 0 }.map(\.name)

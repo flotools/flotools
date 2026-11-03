@@ -135,19 +135,19 @@ import Testing
         let engine = FloFeatures.makeEngine()
         var preferences = Preferences()
         FloFeatures.apply(preferences, to: engine)
-        FloFeatures.setStartState(preferences, in: engine)
+        InspectorMode.applyStartState(preferences, to: engine)
         #expect(!engine.isCommandEnabled(InspectorMode.toggleTemporaryInspector))
         #expect(!engine.mode.inspector)
         preferences.temporaryInspector = true
         preferences.startsWithInspector = true
         FloFeatures.apply(preferences, to: engine)
-        FloFeatures.setStartState(preferences, in: engine)
+        InspectorMode.applyStartState(preferences, to: engine)
         #expect(engine.isCommandEnabled(InspectorMode.toggleTemporaryInspector))
         #expect(engine.mode.inspector)
     }
 }
 
-@MainActor @Suite struct MonitorsTests {
+@MainActor @Suite struct WatchesTests {
     /// A watch body that reports when it starts and when it ends, and runs until cancelled.
     final class Probe: Sendable {
         let events: AsyncStream<String>
@@ -163,41 +163,41 @@ import Testing
     }
 
     @Test func toggleStartsAndStops() async {
-        let monitors = Watches()
+        let watches = Watches()
         let probe = Probe()
         var events = probe.events.makeAsyncIterator()
-        #expect(monitors.toggle("inspector.a", probe.body))
+        #expect(watches.toggle("inspector.a", probe.body))
         #expect(await events.next() == "started")
-        #expect(monitors.isRunning("inspector.a"))
-        #expect(!monitors.toggle("inspector.a", probe.body))
+        #expect(watches.isRunning("inspector.a"))
+        #expect(!watches.toggle("inspector.a", probe.body))
         #expect(await events.next() == "ended")
-        #expect(!monitors.isRunning("inspector.a"))
+        #expect(!watches.isRunning("inspector.a"))
     }
 
     @Test func aStoppedWatchEndingLateDoesNotForgetItsReplacement() async {
-        let monitors = Watches()
+        let watches = Watches()
         let first = Probe(), second = Probe()
         var firstEvents = first.events.makeAsyncIterator(), secondEvents = second.events.makeAsyncIterator()
-        monitors.toggle("inspector.a", first.body)
+        watches.toggle("inspector.a", first.body)
         #expect(await firstEvents.next() == "started")
-        monitors.toggle("inspector.a", first.body)
-        monitors.toggle("inspector.a", second.body)
+        watches.toggle("inspector.a", first.body)
+        watches.toggle("inspector.a", second.body)
         #expect(await firstEvents.next() == "ended")
         #expect(await secondEvents.next() == "started")
         await Task.yield()
-        #expect(monitors.isRunning("inspector.a"))
-        monitors.stopAll()
+        #expect(watches.isRunning("inspector.a"))
+        watches.stopAll()
         #expect(await secondEvents.next() == "ended")
-        #expect(!monitors.isRunning("inspector.a"))
+        #expect(!watches.isRunning("inspector.a"))
     }
 
     /// A watch stopped on its own may still be ending; a later `stopAll()`, as when Pro Tools quits and session state is reset, waits for it too, and so does a second `stopAll()`.
     /// The watch reaches its goodbye before anything is checked, and the gate opens only after the check that nothing finished early, so correct code always passes. The 50 ms only give broken code time to show itself.
     @Test func stopAllWaitsForAWatchStoppedEarlier() async throws {
-        let monitors = Watches()
+        let watches = Watches()
         let gate = Gate(), ended = Flag(), joined = Flag()
         let (progress, report) = AsyncStream<String>.makeStream()
-        monitors.toggle("inspector.a") {
+        watches.toggle("inspector.a") {
             report.yield("started")
             try? await Task.sleep(for: .seconds(60))
             // Cancelled: say goodbye, which takes until the gate opens.
@@ -207,10 +207,10 @@ import Testing
         }
         var steps = progress.makeAsyncIterator()
         #expect(await steps.next() == "started")
-        monitors.stop("inspector.a")
-        #expect(!monitors.isRunning("inspector.a"))
+        watches.stop("inspector.a")
+        #expect(!watches.isRunning("inspector.a"))
         #expect(await steps.next() == "at gate")
-        let first = monitors.stopAll(), second = monitors.stopAll()
+        let first = watches.stopAll(), second = watches.stopAll()
         let joiner = Task {
             await first.value
             await second.value
@@ -224,13 +224,13 @@ import Testing
     }
 
     @Test func aWatchThatEndsByItselfIsForgotten() async {
-        let monitors = Watches()
+        let watches = Watches()
         let (ended, continuation) = AsyncStream<Void>.makeStream()
-        monitors.toggle("inspector.a") { continuation.yield() }
+        watches.toggle("inspector.a") { continuation.yield() }
         var iterator = ended.makeAsyncIterator()
         _ = await iterator.next()
-        while monitors.isRunning("inspector.a") { await Task.yield() }
-        #expect(!monitors.isRunning("inspector.a"))
+        while watches.isRunning("inspector.a") { await Task.yield() }
+        #expect(!watches.isRunning("inspector.a"))
     }
 }
 
@@ -615,12 +615,12 @@ private actor Flag {
             long,
             Command("test.short", "Short", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("short") },
         ])
-        engine.monitors.toggle("test.watch") { try? await Task.sleep(for: .seconds(5)) }
+        engine.watches.toggle("test.watch") { try? await Task.sleep(for: .seconds(5)) }
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         for await _ in started { break }
         engine.cancelAll()
         await engine.waitUntilIdle()
-        #expect(!engine.monitors.isRunning("test.watch"))
+        #expect(!engine.watches.isRunning("test.watch"))
         engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
         await engine.waitUntilIdle()
         #expect(events.list == ["cancelled", "short"])
@@ -639,7 +639,7 @@ private actor Flag {
                 events.list.append("run wrote")
             },
         ])
-        engine.monitors.toggle("test.watch") { @MainActor in
+        engine.watches.toggle("test.watch") { @MainActor in
             try? await Task.sleep(for: .seconds(5))
             await Task.yield()
             events.list.append("watch wrote")
@@ -802,6 +802,11 @@ private actor Flag {
     @Test func keyComboNames() {
         #expect(KeyCombo(keyCode: 1, modifiers: KeyCombo.option | KeyCombo.shift).description == "Opt+Shift+S")
         #expect(KeyCombo(keyCode: 78, modifiers: KeyCombo.control | KeyCombo.option).description == "Ctrl+Opt+Keypad -")
+    }
+
+    /// Key literals outside a command's triggers, which building the keymap does not reach.
+    @Test func keyLiteralsParse() {
+        #expect(ProToolsApp.suspendAllGroupsKey.description == "Shift+Cmd+G")
     }
 
     @Test func slotMessageMatchesJXA() {

@@ -33,12 +33,15 @@ public struct ProToolsApp: Sendable {
         try await Keyboard.press(combo, pid: pid)
     }
 
+    /// Pro Tools' Suspend All Groups shortcut.
+    static let suspendAllGroupsKey = KeyCombo(literal: "Cmd+Shift+G")
+
     /// Suspends or resumes all mix groups with Pro Tools' Suspend All Groups command (Cmd+Shift+G), which switches between the two, and waits up to 1 s for the Group List to show it. Call it only when the groups are known to be active (to suspend) or suspended by this run (to resume).
     /// Throws `FloError.couldNot` when the Group List does not change. A cancelled wait returns early: the command has been sent, and a cancelled job still resumes the groups.
     public func setGroups(suspended: Bool, in mix: MixWindow) async throws {
         let goal = suspended ? "suspend the mix groups" : "resume the mix groups"
         let start = ContinuousClock.now
-        try await keystroke(KeyCombo("Cmd+Shift+G")!)
+        try await keystroke(Self.suspendAllGroupsKey)
         // Suspended groups lose the "Active " prefix in the Group List (checked live 2026-11-02).
         while try await mix.hasActiveGroups() == suspended {
             guard ContinuousClock.now - start < .seconds(1) else { throw FloError.couldNot(goal) }

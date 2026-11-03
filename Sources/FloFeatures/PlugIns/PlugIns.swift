@@ -65,9 +65,9 @@ enum PlugIns {
     @MainActor
     static var toggleMonitor: Command {
         Command(monitor, "Toggle Plugin Monitor", summary: "Starts or stops a watch that speaks each plug-in parameter that changes, for example while automation plays. It stops by itself when the window closes.", scope: .windows([.plugIn]), triggers: [.key("Opt+/")]) { run in
-            let monitors = await run.engine.monitors
-            if await monitors.isRunning(monitor) {
-                await monitors.stop(monitor)
+            let watches = await run.engine.watches
+            if await watches.isRunning(monitor) {
+                await watches.stop(monitor)
                 try await VoiceOver.say("Deactivate plugin monitor.")
                 return
             }
@@ -86,7 +86,7 @@ enum PlugIns {
                 return
             }
             // Not running, as checked above: runs are serial, and a watch only ends by itself.
-            await monitors.toggle(monitor) { await watch(window, from: first) }
+            await watches.toggle(monitor) { await watch(window, from: first) }
             try await VoiceOver.say("Watching " + title)
         }
     }

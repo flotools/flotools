@@ -48,8 +48,9 @@ public final class Lifecycle {
 
     /// Applies what the preferences control and the start state, like KM Refresh Preference and the Inspector step of Check for Automatic Update. At Flo Tools start and Pro Tools launch.
     private func applyPreferences() {
-        FloFeatures.apply(preferences(), to: engine)
-        FloFeatures.setStartState(preferences(), in: engine)
+        let preferences = preferences()
+        FloFeatures.apply(preferences, to: engine)
+        InspectorMode.applyStartState(preferences, to: engine)
     }
 
     /// Speaks `text` and, if VoiceOver is on but does not take it, warns through the system voice that Flo Tools cannot control VoiceOver. An empty text only checks, as the KM version did with `vo.output("")`.

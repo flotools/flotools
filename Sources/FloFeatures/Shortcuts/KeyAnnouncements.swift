@@ -32,7 +32,7 @@ enum KeyAnnouncements {
     /// Sends the key, or `sends` instead, to Pro Tools and speaks `text` if the guard allows it.
     @MainActor
     private static func announce(_ id: CommandID, _ name: String, does effect: String, keys: [String], sends: String? = nil, _ text: String, when guarding: AnnouncementGuard, mode: ModeCondition = .any) -> Command {
-        let replacement = sends.map { KeyCombo($0)! }
+        let replacement = sends.map { KeyCombo(literal: $0) }
         return Command(id, name, summary: "Passes the key to Pro Tools, which \(effect), and says so.", scope: .anyProToolsWindow, mode: mode, triggers: keys.map { .key($0) }) { run in
             if let replacement {
                 try await ProToolsApp.running().keystroke(replacement)

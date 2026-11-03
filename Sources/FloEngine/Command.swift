@@ -23,10 +23,9 @@ public enum Trigger: Sendable, Equatable {
     /// The command is listed in the status menu.
     case statusMenu
 
-    /// A hotkey written as in `KeyCombo.description`, for example `.key("Ctrl+2")`. An unknown key name stops the app at launch; the tests catch it first.
+    /// A hotkey written as in `KeyCombo.description`, for example `.key("Ctrl+2")`.
     public static func key(_ text: String, _ phase: KeyPhase = .pressed) -> Trigger {
-        guard let combo = KeyCombo(text) else { preconditionFailure("unknown key \"\(text)\"") }
-        return .hotKey(combo, phase)
+        .hotKey(KeyCombo(literal: text), phase)
     }
 }
 

@@ -21,7 +21,7 @@ enum MidiEvents {
             },
             Command("floTools.previousColumn", "Previous Column", summary: "Moves to the previous value of the selected MIDI note and speaks it, and again each time it changes. Before the first one, stops speaking changes and says \"No report\".", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+[")]) { run in
                 guard let column = await cursor.previous() else {
-                    await run.engine.monitors.stop(watch)
+                    await run.engine.watches.stop(watch)
                     try await VoiceOver.say("No report")
                     return
                 }
@@ -81,8 +81,8 @@ enum MidiEvents {
     /// Replaces the watch with one for `column`.
     @MainActor
     private static func startWatch(_ column: Column, in engine: Engine) {
-        engine.monitors.stop(watch)
-        engine.monitors.toggle(watch) { await follow(column) }
+        engine.watches.stop(watch)
+        engine.watches.toggle(watch) { await follow(column) }
     }
 
     /// How many reads a kept field serves before it is found again: one second of polls.

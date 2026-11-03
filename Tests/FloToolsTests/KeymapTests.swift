@@ -67,7 +67,7 @@ import Testing
         preferences.startsWithInspector = false
         preferences.temporaryInspector = true
         FloFeatures.apply(preferences, to: engine)
-        FloFeatures.setStartState(preferences, in: engine)
+        InspectorMode.applyStartState(preferences, to: engine)
         switch state {
         case "Inspector on by /":
             engine.setInspector(true)

@@ -65,7 +65,7 @@ enum FadeDialogs {
 
     @MainActor
     static func command(_ setting: FadeSetting) -> Command {
-        let combo = KeyCombo(setting.key)!
+        let combo = KeyCombo(literal: setting.key)
         return Command(setting.id, setting.name, summary: setting.summary, scope: .windows([.fade(setting.dialog)]), triggers: [.key(setting.key)]) { _ in
             let proTools = try ProToolsApp.running()
             let dialog = try await proTools.fadeDialog(setting.dialog)

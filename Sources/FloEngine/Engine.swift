@@ -21,7 +21,7 @@ public struct Suspension: Hashable, Sendable, CustomStringConvertible {
 @MainActor
 public final class Engine {
     /// Watches that commands start and stop, such as the level meter monitor. Stopped with the engine.
-    public let monitors = Watches()
+    public let watches = Watches()
     public private(set) var commands: [Command] = []
     public var isEnabled = true {
         didSet {
@@ -135,7 +135,7 @@ public final class Engine {
         cancelPendingSingles()
         let cancelledRuns = Array(runs.values)
         cancelledRuns.forEach { $0.cancel() }
-        let watchesEnded = monitors.stopAll()
+        let watchesEnded = watches.stopAll()
         return Task { @MainActor in
             for run in cancelledRuns { await run.value }
             await watchesEnded.value

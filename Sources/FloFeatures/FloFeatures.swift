@@ -35,12 +35,6 @@ public enum FloFeatures {
         InspectorMode.apply(preferences, to: engine)
     }
 
-    /// Sets the start state that the KM version set on Pro Tools launch. `Lifecycle` calls it when Flo Tools starts and when Pro Tools launches.
-    @MainActor
-    static func setStartState(_ preferences: Preferences, in engine: Engine) {
-        InspectorMode.applyStartState(preferences, to: engine)
-    }
-
     /// An engine with all commands installed, using the app's hotkeys and context monitor.
     @MainActor
     public static func makeEngine(session: SessionState, hotKeys: HotKeyCenter, contextMonitor: ContextMonitor, openPreferences: @escaping @MainActor @Sendable () -> Void) -> Engine {

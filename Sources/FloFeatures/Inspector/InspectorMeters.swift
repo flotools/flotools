@@ -16,8 +16,8 @@ enum InspectorMeters {
     /// Stops both meter watches, like the KM Deactivate Level and Gain Reduction Monitors macro when the Pro Tools window changes.
     @MainActor
     static func stopWatches(in engine: Engine) {
-        engine.monitors.stop(levelCommand)
-        engine.monitors.stop(gainReductionCommand)
+        engine.watches.stop(levelCommand)
+        engine.watches.stop(gainReductionCommand)
     }
 
     // MARK: Level meter
@@ -71,7 +71,7 @@ enum InspectorMeters {
     /// Starts the watch for the run's command, or stops it if it runs. Says `started` when it starts; the watch says `stopped` when it ends.
     @MainActor
     private static func toggleWatch(_ run: CommandRun, started: String, stopped: String, _ body: @escaping @Sendable () async -> Void) async {
-        let isRunning = run.engine.monitors.toggle(run.command.id) {
+        let isRunning = run.engine.watches.toggle(run.command.id) {
             await body()
             await VoiceOver.sayOrLog(stopped)
         }

@@ -75,7 +75,7 @@ enum Counters {
     /// Sends Pro Tools its own key for the next or previous grid or nudge value, then speaks the new value if the guard allows it. The KM grid and Qwerty nudge macros checked for a text field and a dialog; the keypad nudge macros did not.
     @MainActor
     private static func step(_ id: CommandID, _ name: String, what: String, key: String, sends: String, _ control: EditWindowControl, when guarding: AnnouncementGuard, label: String) -> Command {
-        let combo = KeyCombo(sends)!
+        let combo = KeyCombo(literal: sends)
         let direction = sends.hasSuffix("-") ? "previous" : "next"
         return Command(id, name, summary: "Changes the \(what) to the \(direction) one and speaks it.", scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
             try await KeyAnnouncements.announceChange(run, sending: combo, when: guarding, find: { try ProToolsApp.running().element(control) }, read: { try $0.value ?? "" }, spoken: { CounterText.spoken($0, as: .duration) + label })
