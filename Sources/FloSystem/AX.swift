@@ -166,8 +166,21 @@ public struct AXElement {
     public func table(_ name: String) throws -> AXElement? { try child(role: "AXTable", name: name) }
 
     /// The result of `find`, or `FloError.notFound(what)`. When it is missing and the diagnostic log is on, the log gets a bounded dump of this element, which shows what the app had in place of the expected element.
+    ///
+    /// Every lookup that a command cannot continue without goes through here, so the debug line at its end names what the attribute reads before it were looking for.
     public func required(_ what: @autoclosure () -> String, _ find: (AXElement) throws -> AXElement?) throws -> AXElement {
-        if let found = try find(self) { return found }
+        let start = ContinuousClock.now
+        let found: AXElement?
+        do {
+            found = try find(self)
+        } catch {
+            Log.debug(.accessibility, "looking for \(what()) failed (\(Log.elapsed(since: start))): \(error)")
+            throw error
+        }
+        if let found {
+            Log.debug(.accessibility, "found \(what()) (\(Log.elapsed(since: start)))")
+            return found
+        }
         let what = what()
         // Not inside a watch's poll: a watch on a missing element would dump it ten times a second (seen live 2026-11-03: 1762 dumps in five minutes). The watch logs its own failures.
         if Log.isRecording, !Log.skipsDebug { Log.info(.accessibility, "\(what) not found in:\n\(dump())") }
