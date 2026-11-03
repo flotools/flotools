@@ -270,7 +270,7 @@ public final class Engine {
             return hold.invocation
         }
         guard takesKeys, let command = candidates(for: combo, phase: phase, in: context).first else { return nil }
-        return start(command, trigger: .hotKey(combo, phase), context: context, reason: "\(combo) \(phase) in \(context)")
+        return start(command, origin: .hotKey(combo, phase), context: context, reason: "\(combo) \(phase) in \(context)")
     }
 
     /// Runs a command from the app, for example a status menu item. Errors are spoken like those of hotkey runs.
@@ -279,7 +279,7 @@ public final class Engine {
             Log.error(.engine, "command \(id) is not installed")
             return
         }
-        _ = start(command, trigger: .direct, context: context, reason: "run by the app")
+        _ = start(command, origin: .direct, context: context, reason: "run by the app")
     }
 
     /// Runs a command because `event` happened, if it could run from a hotkey now: Flo Tools is on and not suspended, and the command is on and its scope and mode apply. Checked again when the run reaches the front of the queue, like a hotkey run.
@@ -292,23 +292,23 @@ public final class Engine {
             Log.info(.engine, "\(event): \(id) is not active in \(context)")
             return
         }
-        _ = start(command, trigger: .event(event), context: context, reason: event)
+        _ = start(command, origin: .event(event), context: context, reason: event)
     }
 
     /// Gives the run an invocation ID and starts it, waiting first for a double press where the command has one.
-    private func start(_ command: Command, trigger: CommandRun.Trigger, context: FrontContext, reason: String) -> String {
+    private func start(_ command: Command, origin: CommandRun.Origin, context: FrontContext, reason: String) -> String {
         runCount += 1
         let invocation = "run\(runCount)"
         // Tasks created in this scope inherit the invocation ID, so delayed single presses carry it too.
         Log.$invocation.withValue(invocation) {
             Log.info(.engine, "\(reason) -> \(command.id) \"\(command.name)\"")
-            let run = CommandRun(command: command, trigger: trigger, context: context, engine: self)
+            let run = CommandRun(command: command, origin: origin, context: context, engine: self)
             switch command.action {
             case .body(let body):
                 enqueue(run, body)
             case .hold(let press, let release):
                 // Only a press starts a hold; a release reaching here belongs to a press that did not.
-                guard case .hotKey(let combo, .pressed) = trigger else { return }
+                guard case .hotKey(let combo, .pressed) = origin else { return }
                 if press(run) { holds[combo] = (run, release, invocation) }
             case .singleOrDouble(let single, let double, let doneSound):
                 switch doublePress.press(command.id, at: .now) {
@@ -379,7 +379,7 @@ public final class Engine {
 
     /// Why a queued hotkey or event run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the command or the front app may have changed while it waited. Of the mode, only the Inspector turning on is checked, because the keys of an Inspector-off command (track view) now pan. An Inspector-on command is not dropped when the Inspector turns off: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
     private func invalidReason(_ run: CommandRun) -> String? {
-        switch run.trigger {
+        switch run.origin {
         case .hotKey, .event: break
         case .direct: return nil
         }
@@ -400,7 +400,7 @@ public final class Engine {
             guard let hold = holds.removeValue(forKey: combo) else { continue }
             Log.$invocation.withValue(hold.invocation) {
                 Log.info(.engine, "\(hold.run.command.id) hold of \(combo) ended")
-                let release = CommandRun(command: hold.run.command, trigger: .hotKey(combo, .released), context: context, engine: self)
+                let release = CommandRun(command: hold.run.command, origin: .hotKey(combo, .released), context: context, engine: self)
                 hold.release(release)
             }
         }

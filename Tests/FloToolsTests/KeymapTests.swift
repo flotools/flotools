@@ -113,12 +113,27 @@ import Testing
     }
 
     /// Window kinds in a fixed order, so a scope reads the same every run.
-    static let kindOrder: [ProToolsWindowKind] = [.mix, .edit, .plugIn, .audioSuite, .fade(.fadeIn), .fade(.fadeOut), .fade(.crossfade), .fade(.batchFades), .tabbedSetup, .keyboardShortcuts, .other]
+    /// The window kinds of `kinds` in the order the baselines list them. The switch has no default, so a new kind does not build until it has a place.
+    static func ordered(_ kinds: Set<ProToolsWindowKind>) -> [ProToolsWindowKind] {
+        func position(_ kind: ProToolsWindowKind) -> Int {
+            switch kind {
+            case .mix: 0
+            case .edit: 1
+            case .plugIn: 2
+            case .audioSuite: 3
+            case .fade(let fade): 4 + FadeDialog.Kind.allCases.firstIndex(of: fade)!
+            case .tabbedSetup: 10
+            case .keyboardShortcuts: 11
+            case .other: 12
+            }
+        }
+        return kinds.sorted { position($0) < position($1) }
+    }
 
     static func scope(_ scope: Scope) -> String {
         switch scope {
         case .anyProToolsWindow: "any Pro Tools window"
-        case .windows(let kinds): kindOrder.filter(kinds.contains).map(\.description).joined(separator: ", ")
+        case .windows(let kinds): ordered(kinds).map(\.description).joined(separator: ", ")
         }
     }
 

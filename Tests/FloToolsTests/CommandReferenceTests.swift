@@ -68,7 +68,7 @@ import Testing
     static func windows(_ command: Command) -> String {
         let scope = switch command.scope {
         case .anyProToolsWindow: "Any"
-        case .windows(let kinds): KeymapTests.kindOrder.filter(kinds.contains).map(windowName).joined(separator: ", ")
+        case .windows(let kinds): KeymapTests.ordered(kinds).map(windowName).joined(separator: ", ")
         }
         return switch command.mode {
         case .any: scope
