@@ -109,10 +109,10 @@ public struct ProToolsApp: Sendable {
         try self.window(window.kind, "the \(window.rawValue) window")
     }
 
-    /// Whether Pro Tools has a window with exactly this title, focused or not.
+    /// Whether Pro Tools has a window of `kind`, focused or not, by the same title rule as `window(_:_:)`.
     @AccessibilityActor
-    public func hasWindow(titled title: String) throws -> Bool {
-        try AXElement.application(pid: pid).windows.contains { try $0.title == title }
+    public func hasWindow(_ kind: ProToolsWindowKind) throws -> Bool {
+        try AXElement.application(pid: pid).windows.contains { try $0.title.map(ProToolsWindowKind.init(title:)) == kind }
     }
 
     /// The focused window, or `FloError.notFound` naming `what`.

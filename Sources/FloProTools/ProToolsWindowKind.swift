@@ -9,7 +9,11 @@ public enum ProToolsWindowKind: Sendable, Hashable, CustomStringConvertible {
     case fade(FadeDialog.Kind)
     /// A window with setup tabs that Cmd+1 to 9 pick: I/O Setup, Peripherals, Preferences, Dashboard.
     case tabbedSetup
+    /// The Keyboard Shortcuts window, in which Flo Tools stands aside so any shortcut can be typed.
+    case keyboardShortcuts
     case other
+
+    static let keyboardShortcutsTitle = "Keyboard Shortcuts"
 
     /// Words that mark a tabbed setup window anywhere in its title, as in the KM Selected Tab group.
     static let tabbedSetupWords = ["I/O Setup", "Peripherals", "Preferences", "Dashboard"]
@@ -29,6 +33,8 @@ public enum ProToolsWindowKind: Sendable, Hashable, CustomStringConvertible {
             self = .audioSuite
         } else if let fade = FadeDialog.Kind.allCases.first(where: { title.caseInsensitiveCompare($0.rawValue) == .orderedSame }) {
             self = .fade(fade)
+        } else if title.caseInsensitiveCompare(Self.keyboardShortcutsTitle) == .orderedSame {
+            self = .keyboardShortcuts
         } else if Self.tabbedSetupWords.contains(where: contains) {
             self = .tabbedSetup
         } else {
@@ -48,6 +54,7 @@ public enum ProToolsWindowKind: Sendable, Hashable, CustomStringConvertible {
         case .audioSuite: "AudioSuite"
         case .fade(let kind): kind.rawValue
         case .tabbedSetup: "setup tabs"
+        case .keyboardShortcuts: "Keyboard Shortcuts"
         case .other: "other"
         }
     }

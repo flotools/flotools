@@ -13,7 +13,6 @@ public final class Lifecycle {
     static let voiceOverOff = Suspension("VoiceOver is not running")
     /// Set while Pro Tools' Keyboard Shortcuts window is open, so the user can type any shortcut into it. As in KM, it holds while the window stays open behind another one.
     static let keyboardShortcuts = Suspension("the Pro Tools Keyboard Shortcuts window is open")
-    static let keyboardShortcutsTitle = "Keyboard Shortcuts"
     /// Spoken by the system voice, as in the KM Check for Automatic Update macro.
     static let cannotControlVoiceOver = "Alert! Flo Tools cannot control VoiceOver. Please allow VoiceOver to be controlled with AppleScript in Voiceover Utility."
 
@@ -110,7 +109,7 @@ public final class Lifecycle {
         }
         // Nil while the title of a newly front Pro Tools is still being read.
         guard let title = context.windowTitle else { return }
-        if title == Self.keyboardShortcutsTitle {
+        if context.proToolsWindowKind == .keyboardShortcuts {
             engine.suspend(Self.keyboardShortcuts)
         } else if engine.suspensions.contains(Self.keyboardShortcuts) {
             resumeIfShortcutsWindowClosed()
@@ -142,7 +141,7 @@ public final class Lifecycle {
         Task { @MainActor in
             let open: Bool
             do {
-                open = try await ProToolsApp.running().hasWindow(titled: Self.keyboardShortcutsTitle)
+                open = try await ProToolsApp.running().hasWindow(.keyboardShortcuts)
             } catch FloError.notFound {
                 open = false
             } catch {

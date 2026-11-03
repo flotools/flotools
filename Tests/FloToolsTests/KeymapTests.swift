@@ -113,7 +113,7 @@ import Testing
     }
 
     /// Window kinds in a fixed order, so a scope reads the same every run.
-    static let kindOrder: [ProToolsWindowKind] = [.mix, .edit, .plugIn, .audioSuite, .fade(.fadeIn), .fade(.fadeOut), .fade(.crossfade), .fade(.batchFades), .tabbedSetup, .other]
+    static let kindOrder: [ProToolsWindowKind] = [.mix, .edit, .plugIn, .audioSuite, .fade(.fadeIn), .fade(.fadeOut), .fade(.crossfade), .fade(.batchFades), .tabbedSetup, .keyboardShortcuts, .other]
 
     static func scope(_ scope: Scope) -> String {
         switch scope {
