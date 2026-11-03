@@ -1,15 +1,17 @@
 import AppKit
-import ApplicationServices
 import FloSystem
 
 /// Which app is in front and the title of its focused window. Macro groups are active or not based on this.
 public struct FrontContext: Equatable, Sendable, CustomStringConvertible {
     public var bundleID: String?
     public var windowTitle: String?
+    /// The front app's process, so a run accepted for one Pro Tools process does not start in another. 0 when unknown.
+    public var processID: pid_t
 
-    public init(bundleID: String? = nil, windowTitle: String? = nil) {
+    public init(bundleID: String? = nil, windowTitle: String? = nil, processID: pid_t = 0) {
         self.bundleID = bundleID
         self.windowTitle = windowTitle
+        self.processID = processID
     }
 
     /// For the log, for example `com.avid.ProTools "Mix: Session"`.
@@ -19,20 +21,18 @@ public struct FrontContext: Equatable, Sendable, CustomStringConvertible {
 }
 
 /// Watches the front app and its focused window title and reports changes.
-/// The app owns one instance; `start()` and `stop()` bound the observers and the poll.
+///
+/// The front app comes from NSWorkspace and is published at once. The window title needs AX calls, which can block while the app is busy, so it is read on `AccessibilityActor` and published when the read returns; meanwhile the title is unknown and window-specific keys pass through. The app owns one instance; `start()` and `stop()` bound the observers and the poll.
 @MainActor
 public final class ContextMonitor {
     public private(set) var current = FrontContext()
     public var onChange: ((FrontContext) -> Void)?
 
-    private var observer: AXObserver?
-    /// The app the observer is attached to. Set only when attaching worked, so a failed attempt, for example before Accessibility access is granted, is tried again on the next refresh.
-    private var observedPid: pid_t = 0
-    /// The last app attaching failed for, so the failure is logged once and not on every retry.
-    private var failedPid: pid_t = 0
-    private var frontPid: pid_t = 0
-    private var observedWindow: AXElement?
-    private var refreshScheduled = false
+    private var windowObserver: FrontWindowObserver?
+    /// Changes on start, stop and front app change, so a window read that started before is not published after.
+    private var generation = 0
+    private var reading = false
+    private var readAgain = false
     private var activationObserver: NSObjectProtocol?
     private var poll: Task<Void, Never>?
 
@@ -40,13 +40,18 @@ public final class ContextMonitor {
 
     public func start() {
         guard poll == nil else { return }
+        generation += 1
+        windowObserver = FrontWindowObserver { [weak self] in
+            // AX notifications arrive on the main run loop.
+            MainActor.assumeIsolated { self?.refresh() }
+        }
         activationObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { [weak self] _ in
-            MainActor.assumeIsolated { _ = self?.refresh() }
+            MainActor.assumeIsolated { self?.refresh() }
         }
         // AX notifications can be missed, for example before Accessibility access is granted, so also poll slowly.
         poll = Task { @MainActor [weak self] in
             while true {
-                // Stop at once when cancelled, so no refresh runs after `stop()` and attaches a new observer.
+                // Stop at once when cancelled, so no refresh runs after `stop()`.
                 do { try await Task.sleep(for: .seconds(1)) } catch { return }
                 self?.refresh()
             }
@@ -57,98 +62,67 @@ public final class ContextMonitor {
     public func stop() {
         poll?.cancel()
         poll = nil
+        generation += 1
         if let activationObserver { NSWorkspace.shared.notificationCenter.removeObserver(activationObserver) }
         activationObserver = nil
-        observe(pid: 0)
-        failedPid = 0
+        if let observer = windowObserver {
+            Task { @AccessibilityActor in observer.stop() }
+        }
+        windowObserver = nil
     }
 
-    /// The cached context, refreshed first only when another app is now in front. For the hotkey callback, which must not wait for a busy Pro Tools: notifications and the poll keep window titles current, and the front app check needs no Accessibility call.
+    /// The cached context, refreshed first only when another app is now in front. For the hotkey callback, which must not wait: notifications and the poll keep window titles current.
     public func refreshIfFrontAppChanged() -> FrontContext {
-        let pid = NSWorkspace.shared.frontmostApplication?.processIdentifier ?? 0
-        return pid == frontPid ? current : refresh()
+        if NSWorkspace.shared.frontmostApplication?.processIdentifier ?? 0 != current.processID { refresh() }
+        return current
     }
 
-    /// Reads the current context now and reports it if it changed.
-    @discardableResult
-    public func refresh() -> FrontContext {
+    /// Publishes a change of front app now and reads the window title in the background. Overlapping requests are merged into one more read.
+    public func refresh() {
+        guard poll != nil else { return }
         let front = NSWorkspace.shared.frontmostApplication
         let pid = front?.processIdentifier ?? 0
-        frontPid = pid
-        if pid != observedPid { observe(pid: pid) }
-        let window = pid > 0 ? AXElement.application(pid: pid).focusedWindow : nil
-        if window != observedWindow { observeTitle(of: window) }
-        let context = FrontContext(bundleID: front?.bundleIdentifier, windowTitle: window?.title)
-        if context != current {
-            current = context
-            onChange?(context)
+        if pid != current.processID {
+            generation += 1
+            publish(FrontContext(bundleID: front?.bundleIdentifier, windowTitle: nil, processID: pid))
         }
-        return context
+        if reading {
+            readAgain = true
+        } else {
+            readWindowTitle()
+        }
     }
 
-    private func scheduleRefresh() {
-        guard !refreshScheduled else { return }
-        refreshScheduled = true
+    private func readWindowTitle() {
+        guard let observer = windowObserver else { return }
+        reading = true
+        readAgain = false
+        let context = current
+        let generation = generation
         Task { @MainActor in
-            self.refreshScheduled = false
-            guard self.poll != nil else { return }  // stopped meanwhile
-            self.refresh()
+            let title: String?? = await Task { @AccessibilityActor in
+                guard context.processID > 0 else { return .some(nil) }
+                do {
+                    return .some(try observer.focusedWindowTitle(pid: context.processID))
+                } catch {
+                    // Keep the last title; the poll or the next notification tries again.
+                    Log.debug(.context, "window read failed: \(error)")
+                    return .none
+                }
+            }.value
+            self.reading = false
+            if let title, generation == self.generation {
+                var updated = context
+                updated.windowTitle = title
+                self.publish(updated)
+            }
+            if self.readAgain { self.refresh() }
         }
     }
 
-    private func observe(pid: pid_t) {
-        if let observer {
-            CFRunLoopRemoveSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(observer), .commonModes)
-        }
-        observer = nil
-        observedWindow = nil
-        observedPid = 0
-        guard pid > 0 else { return }
-        var created: AXObserver?
-        let status = AXObserverCreate(pid, { _, _, _, refcon in
-            guard let refcon else { return }
-            MainActor.assumeIsolated { Unmanaged<ContextMonitor>.fromOpaque(refcon).takeUnretainedValue().scheduleRefresh() }
-        }, &created)
-        guard status == .success, let created else {
-            attachFailed(pid: pid, "AXObserverCreate \(status.rawValue)")
-            return
-        }
-        let app = AXUIElementCreateApplication(pid)
-        var failures: [String] = []
-        for name in ["AXFocusedWindowChanged", "AXMainWindowChanged", "AXWindowCreated"] {
-            let result = AXObserverAddNotification(created, app, name as CFString, refcon)
-            if result != .success { failures.append("\(name) \(result.rawValue)") }
-        }
-        // Some apps do not send every notification; one is enough to follow window changes.
-        guard failures.count < 3 else {
-            attachFailed(pid: pid, failures.joined(separator: ", "))
-            return
-        }
-        // Common modes, so notifications still arrive while a menu is open.
-        CFRunLoopAddSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(created), .commonModes)
-        observer = created
-        observedPid = pid
-        if failedPid == pid { Log.info(.context, "observing pid \(pid) after an earlier failure") }
-        failedPid = 0
+    private func publish(_ context: FrontContext) {
+        guard context != current else { return }
+        current = context
+        onChange?(context)
     }
-
-    private func attachFailed(pid: pid_t, _ reason: String) {
-        guard failedPid != pid else { return }
-        failedPid = pid
-        Log.warning(.context, "could not observe pid \(pid), will retry: \(reason)")
-    }
-
-    /// Title changes are watched on the focused window only, because watching the whole app would also report every changing counter.
-    private func observeTitle(of window: AXElement?) {
-        if let observer, let old = observedWindow {
-            AXObserverRemoveNotification(observer, old.ref, "AXTitleChanged" as CFString)
-        }
-        observedWindow = window
-        if let observer, let window {
-            AXObserverAddNotification(observer, window.ref, "AXTitleChanged" as CFString, refcon)
-        }
-    }
-
-    /// How AX notifications reach this instance. The app keeps the instance alive until `stop()` removes the observer.
-    private var refcon: UnsafeMutableRawPointer { Unmanaged.passUnretained(self).toOpaque() }
 }

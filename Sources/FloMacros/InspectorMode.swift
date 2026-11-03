@@ -1,4 +1,3 @@
-import CoreGraphics
 import FloEngine
 import FloProTools
 import FloSystem
@@ -10,11 +9,11 @@ enum InspectorMode {
     static let toggleTemporaryInspector: MacroID = "floTools.toggleTemporaryInspector"
     static let nextTrackView: MacroID = "floTools.nextTrackViewOnSelectedTracks"
     static let previousTrackView: MacroID = "floTools.previousTrackViewOnSelectedTracks"
-    static let backtick: UInt16 = 50
 
     @MainActor
     static var macros: [Macro] { [
-        Macro("floTools.toggleInspector", "Toggle Inspector", group: .floTools, triggers: [.key("/")]) { run in
+        // Only Flo Tools state changes, so the body stays on the main actor.
+        Macro("floTools.toggleInspector", "Toggle Inspector", group: .floTools, triggers: [.key("/")]) { @MainActor run in
             guard mixOrEdit.matches(run.context.windowTitle) else {
                 run.passThrough()
                 return
@@ -23,16 +22,18 @@ enum InspectorMode {
             setInspector(on, in: run.engine)
             try VoiceOver.say(on ? "Inspector On" : "Inspector Off")
         },
-        // Fires on press and release; the KM version read the key state rather than the trigger.
-        Macro(toggleTemporaryInspector, "Toggle Temporary INspector", group: .floTools, triggers: [.key("`"), .key("`", .released)]) { run in
-            let down = CGEventSource.keyState(.combinedSessionState, key: backtick)
+        // A hold, so the Inspector turns off on release even if the key stops being a hotkey meanwhile. The KM version read the key state on press and release instead.
+        Macro(toggleTemporaryInspector, "Toggle Temporary INspector", group: .floTools, triggers: [.key("`"), .key("`", .released)], press: { run in
             guard mixOrEdit.matches(run.context.windowTitle) else {
                 // The KM version typed a backtick on release too; only the press is passed on here.
                 run.passThrough()
-                return
+                return false
             }
-            run.engine.setGroup(.inspector, activated: down)
-        },
+            run.engine.setGroup(.inspector, activated: true)
+            return true
+        }, release: { run in
+            run.engine.setGroup(.inspector, activated: false)
+        }),
         trackView(nextTrackView, "Next track view on selected tracks", key: "Ctrl+Cmd+Right", inspectorMacro: "inspector.panRightOnMonoLeftChannel"),
         trackView(previousTrackView, "Previous track view on selected tracks", key: "Ctrl+Cmd+Left", inspectorMacro: "inspector.panLeftOnMonoLeftChannel"),
     ] }
@@ -51,11 +52,11 @@ enum InspectorMode {
     @MainActor
     static func trackView(_ id: MacroID, _ name: String, key: String, inspectorMacro: MacroID) -> Macro {
         Macro(id, name, group: .floTools, enabledByDefault: false, triggers: [.key(key)]) { run in
-            if run.engine.isGroupActivated(.inspector) {
+            if await run.engine.isGroupActivated(.inspector) {
                 try await run.run(inspectorMacro)
             } else {
                 ProTools.keystroke(KeyCombo(key)!)
-                try VoiceOver.say(name + ".")
+                try await VoiceOver.say(name + ".")
             }
         }
     }

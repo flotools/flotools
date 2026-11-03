@@ -9,21 +9,22 @@ enum Inspector {
         send("inspector.speakOpenSendB", "Speak/Open Send B", slot: 1, key: "Ctrl+2"),
         // The JXA played Tink after speaking the new Solo state.
         Macro("inspector.speakToggleSolo", "Speak/Toggle Solo", group: .inspector, triggers: [.key("S")], tink: .afterDouble, single: { _ in
-            try VoiceOver.say(soloStateText(try soloButton().value ?? ""))
+            let solo = try await soloButton(in: Tracks.underVoiceOverCursor())
+            try await VoiceOver.say(soloStateText(solo.value ?? ""))
         }, double: { _ in
-            let solo = try soloButton()
-            solo.press()
+            let solo = try await soloButton(in: Tracks.underVoiceOverCursor())
+            try await solo.press()
             // The JXA waited 0.1 s for Pro Tools to update the button before reading it.
             try await Task.sleep(for: .milliseconds(100))
-            try VoiceOver.say(soloStateText(solo.value ?? ""))
+            try await VoiceOver.say(soloStateText(solo.value ?? ""))
         }),
     ] }
 
     // MARK: Solo
 
-    @MainActor
-    static func soloButton() throws -> AXElement {
-        try Tracks.underVoiceOverCursor().button("Solo").required("the Solo button")
+    @AccessibilityActor
+    static func soloButton(in strip: AXElement) throws -> AXElement {
+        try strip.required("the Solo button") { try $0.button("Solo") }
     }
 
     /// Same text as the JXA version: "Selected" is "On", empty is "Off", anything else ("off safe") is spoken as is.
@@ -41,21 +42,29 @@ enum Inspector {
     @MainActor
     static func send(_ id: MacroID, _ name: String, slot: Int, key: String) -> Macro {
         Macro(id, name, group: .inspector, triggers: [.key(key)], tink: .afterDouble, single: { _ in
-            let (selector, assignment) = try sendButtons(slot: slot)
-            try VoiceOver.say(sendMessage(selectorName: selector.name ?? "", selectorValue: selector.value ?? "", assignmentValue: assignment.value ?? ""))
+            let strip = try await Tracks.underVoiceOverCursor()
+            try await VoiceOver.say(sendText(slot: slot, in: strip))
         }, double: { _ in
-            try sendButtons(slot: slot).assignment.press()
+            let strip = try await Tracks.underVoiceOverCursor()
+            try await sendButtons(slot: slot, in: strip).assignment.press()
         })
     }
 
     /// Selector and assignment buttons of send slot 0 (A) to 9 (J).
-    @MainActor
-    static func sendButtons(slot: Int) throws -> (selector: AXElement, assignment: AXElement) {
+    @AccessibilityActor
+    static func sendButtons(slot: Int, in strip: AXElement) throws -> (selector: AXElement, assignment: AXElement) {
         let groupName = slot < 5 ? "Sends A-E" : "Sends F-J"
-        let buttons = try Tracks.underVoiceOverCursor().group(groupName).required("the \(groupName) sends").buttons
+        let buttons = try strip.required("the \(groupName) sends") { try $0.group(groupName) }.buttons
         let index = (slot % 5) * 2
         guard buttons.count > index + 1 else { throw FloError.notFound("the send \(sendLetter(slot)) buttons") }
         return (buttons[index], buttons[index + 1])
+    }
+
+    /// What a single press says. Absent names and values are empty, as in the JXA; failed reads throw.
+    @AccessibilityActor
+    static func sendText(slot: Int, in strip: AXElement) throws -> String {
+        let (selector, assignment) = try sendButtons(slot: slot, in: strip)
+        return sendMessage(selectorName: try selector.name ?? "", selectorValue: try selector.value ?? "", assignmentValue: try assignment.value ?? "")
     }
 
     static func sendLetter(_ slot: Int) -> String {

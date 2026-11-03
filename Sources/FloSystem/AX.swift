@@ -1,140 +1,201 @@
 import AppKit
 import ApplicationServices
 
-/// A thin wrapper around `AXUIElement` with the lookups the System Events scripts used.
+/// The one executor for Accessibility calls into other apps. A busy Pro Tools can block an AX call for up to the messaging timeout; on this actor that wait holds up other AX work, not hotkeys, the menu or speech on the main actor.
+@globalActor
+public actor AccessibilityActor {
+    public static let shared = AccessibilityActor()
+}
+
+/// An element of another app's user interface, wrapped so it is used only on `AccessibilityActor`.
 ///
 /// System Events terms map to AX like this: `name` is `AXTitle`, `value` is `AXValue`, `groups` are children with role `AXGroup`, `buttons` are `AXButton`, `popUpButtons` are `AXPopUpButton`, `uiElements` are all children.
-public struct AXElement: Equatable, CustomStringConvertible {
-    public let ref: AXUIElement
+///
+/// Reads return nil only when the element has no such attribute or no value. Every other failure throws `FloError.accessibility`, so a macro never mistakes a busy or closed window for an empty value.
+@AccessibilityActor
+public struct AXElement {
+    /// Kept private and actor-isolated: `AXUIElement` is not `Sendable`, and Apple does not document concurrent use.
+    private let ref: AXUIElement
 
-    public init(_ ref: AXUIElement) { self.ref = ref }
+    init(_ ref: AXUIElement) { self.ref = ref }
 
     public static func application(pid: pid_t) -> AXElement { AXElement(AXUIElementCreateApplication(pid)) }
-    public static var systemWide: AXElement { AXElement(AXUIElementCreateSystemWide()) }
 
     /// Limits how long any AX call may block when the target app is busy.
-    public static func setGlobalMessagingTimeout(_ seconds: Float) {
+    public nonisolated static func setGlobalMessagingTimeout(_ seconds: Float) {
         AXUIElementSetMessagingTimeout(AXUIElementCreateSystemWide(), seconds)
     }
 
-    public static func == (a: AXElement, b: AXElement) -> Bool { CFEqual(a.ref, b.ref) }
+    /// Whether both wrap the same element. Not `Equatable`, because comparing needs the actor.
+    public func isSame(as other: AXElement) -> Bool { CFEqual(ref, other.ref) }
 
-    // MARK: Attributes
+    // MARK: Reads
 
-    public func raw(_ attribute: String) -> CFTypeRef? {
+    /// The attribute's value, nil when the element has no such attribute or it has no value. Other failures throw, among them a window that closed (`invalidUIElement`) and a busy app (`cannotComplete`).
+    private func attribute(_ name: String) throws -> CFTypeRef? {
+        let start = ContinuousClock.now
         var value: CFTypeRef?
-        guard AXUIElementCopyAttributeValue(ref, attribute as CFString, &value) == .success else { return nil }
-        return value
-    }
-
-    public func string(_ attribute: String) -> String? { raw(attribute) as? String }
-
-    public func element(_ attribute: String) -> AXElement? {
-        guard let value = raw(attribute), CFGetTypeID(value) == AXUIElementGetTypeID() else { return nil }
-        return AXElement(unsafeDowncast(value, to: AXUIElement.self))
-    }
-
-    public func elements(_ attribute: String) -> [AXElement] {
-        guard let value = raw(attribute) as? [AXUIElement] else { return [] }
-        return value.map(AXElement.init)
-    }
-
-    public var role: String? { string("AXRole") }
-    public var subrole: String? { string("AXSubrole") }
-    public var title: String? { string("AXTitle") }
-    public var axDescription: String? { string("AXDescription") }
-    public var help: String? { string("AXHelp") }
-
-    /// What System Events calls `name`.
-    public var name: String? { title }
-
-    /// `AXValue` as text. Numbers are converted, other types give nil.
-    public var value: String? {
-        guard let value = raw("AXValue") else { return nil }
-        if let s = value as? String { return s }
-        if let n = value as? NSNumber { return n.stringValue }
-        return nil
-    }
-
-    public var children: [AXElement] { elements("AXChildren") }
-    public var windows: [AXElement] { elements("AXWindows") }
-    public var focusedWindow: AXElement? { element("AXFocusedWindow") }
-    public var focusedElement: AXElement? { element("AXFocusedUIElement") }
-
-    public var pid: pid_t? {
-        var pid: pid_t = 0
-        return AXUIElementGetPid(ref, &pid) == .success ? pid : nil
-    }
-
-    // MARK: Queries
-
-    public func children(role: String) -> [AXElement] { children.filter { $0.role == role } }
-
-    /// First child with the given role and `AXTitle`, like `groups.byName(...)` in JXA.
-    public func child(role: String, name: String) -> AXElement? {
-        children.first { $0.role == role && $0.name == name }
-    }
-
-    public var groups: [AXElement] { children(role: "AXGroup") }
-    public var buttons: [AXElement] { children(role: "AXButton") }
-    public var popUpButtons: [AXElement] { children(role: "AXPopUpButton") }
-    public var tables: [AXElement] { children(role: "AXTable") }
-    public var rows: [AXElement] { children(role: "AXRow") }
-
-    public func group(_ name: String) -> AXElement? { child(role: "AXGroup", name: name) }
-    public func button(_ name: String) -> AXElement? { child(role: "AXButton", name: name) }
-    public func popUpButton(_ name: String) -> AXElement? { child(role: "AXPopUpButton", name: name) }
-    public func table(_ name: String) -> AXElement? { child(role: "AXTable", name: name) }
-
-    // MARK: Actions
-
-    @discardableResult
-    public func perform(_ action: String) -> Bool {
-        let start = ContinuousClock.now
-        let result = AXUIElementPerformAction(ref, action as CFString)
-        logAction("\(action) on \(self)", result, start)
-        return result == .success
-    }
-
-    /// Same as `click()` on a System Events button.
-    @discardableResult
-    public func press() -> Bool { perform("AXPress") }
-
-    @discardableResult
-    public func set(_ attribute: String, to value: CFTypeRef) -> Bool {
-        let start = ContinuousClock.now
-        let result = AXUIElementSetAttributeValue(ref, attribute as CFString, value)
-        logAction("set \(attribute) of \(self)", result, start)
-        return result == .success
-    }
-
-    /// Attribute reads are not traced yet; plan step 4 adds that with the typed lookups.
-    /// `what` is built only when it is logged, because describing an element reads its attributes.
-    private func logAction(_ what: @autoclosure () -> String, _ result: AXError, _ start: ContinuousClock.Instant) {
-        if result == .success {
-            Log.info(.accessibility, "\(what()) (\(Log.elapsed(since: start)))")
-        } else {
-            Log.warning(.accessibility, "\(what()) failed: AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
+        let result = AXUIElementCopyAttributeValue(ref, name as CFString, &value)
+        switch Self.readOutcome(result) {
+        case .value:
+            Log.debug(.accessibility, "read \(name) (\(Log.elapsed(since: start)))")
+            return value
+        case .absent:
+            Log.debug(.accessibility, "read \(name): none, AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
+            return nil
+        case .failure:
+            Log.warning(.accessibility, "read \(name) failed: AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
+            throw FloError.accessibility(operation: "read \(name)", code: result.rawValue)
         }
     }
 
-    // MARK: Debugging
+    public enum ReadOutcome: Equatable, Sendable {
+        case value, absent, failure
+    }
 
-    public var description: String {
-        var parts = [role ?? "?"]
-        if let subrole { parts.append("(\(subrole))") }
-        if let title, !title.isEmpty { parts.append("title=\(title.debugDescription)") }
-        if let axDescription, !axDescription.isEmpty { parts.append("desc=\(axDescription.debugDescription)") }
-        if let value, !value.isEmpty { parts.append("value=\(value.debugDescription)") }
+    /// How a read's `AXError` is treated. Only "no such attribute" and "no value" are absence; anything else means the read did not work.
+    public nonisolated static func readOutcome(_ result: AXError) -> ReadOutcome {
+        switch result {
+        case .success: .value
+        case .noValue, .attributeUnsupported: .absent
+        default: .failure
+        }
+    }
+
+    public func string(_ name: String) throws -> String? {
+        guard let value = try attribute(name) else { return nil }
+        guard let text = value as? String else { throw FloError.unexpectedValue("\(name) is not text") }
+        return text
+    }
+
+    public func element(_ name: String) throws -> AXElement? {
+        guard let value = try attribute(name) else { return nil }
+        guard CFGetTypeID(value) == AXUIElementGetTypeID() else { throw FloError.unexpectedValue("\(name) is not an element") }
+        return AXElement(unsafeDowncast(value, to: AXUIElement.self))
+    }
+
+    /// An absent list is an empty one.
+    public func elements(_ name: String) throws -> [AXElement] {
+        guard let value = try attribute(name) else { return [] }
+        guard let refs = value as? [AXUIElement] else { throw FloError.unexpectedValue("\(name) is not a list of elements") }
+        return refs.map(AXElement.init)
+    }
+
+    public var role: String? { get throws { try string("AXRole") } }
+    public var title: String? { get throws { try string("AXTitle") } }
+
+    /// What System Events calls `name`.
+    public var name: String? { get throws { try title } }
+
+    /// `AXValue` as text; numbers are converted. An empty string stays empty, which for a Solo button means off.
+    public var value: String? {
+        get throws {
+            guard let value = try attribute("AXValue") else { return nil }
+            if let text = value as? String { return text }
+            if let number = value as? NSNumber { return number.stringValue }
+            throw FloError.unexpectedValue("AXValue is neither text nor a number")
+        }
+    }
+
+    public var children: [AXElement] { get throws { try elements("AXChildren") } }
+    public var windows: [AXElement] { get throws { try elements("AXWindows") } }
+    public var focusedWindow: AXElement? { get throws { try element("AXFocusedWindow") } }
+
+    // MARK: Queries
+
+    public func children(role: String) throws -> [AXElement] {
+        try children.filter { try $0.role == role }
+    }
+
+    /// First child with the given role and `AXTitle`, like `groups.byName(...)` in JXA. Searches immediate children only.
+    public func child(role: String, name: String) throws -> AXElement? {
+        try children.first { try $0.role == role && $0.name == name }
+    }
+
+    public var groups: [AXElement] { get throws { try children(role: "AXGroup") } }
+    public var buttons: [AXElement] { get throws { try children(role: "AXButton") } }
+    public var rows: [AXElement] { get throws { try children(role: "AXRow") } }
+
+    public func group(_ name: String) throws -> AXElement? { try child(role: "AXGroup", name: name) }
+    public func button(_ name: String) throws -> AXElement? { try child(role: "AXButton", name: name) }
+    public func table(_ name: String) throws -> AXElement? { try child(role: "AXTable", name: name) }
+
+    /// The result of `find`, or `FloError.notFound(what)`. When it is missing and the diagnostic log is on, the log gets a bounded dump of this element, which shows what the app had in place of the expected element.
+    public func required(_ what: @autoclosure () -> String, _ find: (AXElement) throws -> AXElement?) throws -> AXElement {
+        if let found = try find(self) { return found }
+        let what = what()
+        if Log.isRecording { Log.info(.accessibility, "\(what) not found in:\n\(dump())") }
+        throw FloError.notFound(what)
+    }
+
+    // MARK: Actions
+
+    /// Performs an AX action. A failure throws. `cannotComplete` may still have taken effect, so callers must not retry toggles.
+    public func perform(_ action: String) throws {
+        let start = ContinuousClock.now
+        let result = AXUIElementPerformAction(ref, action as CFString)
+        guard result == .success else {
+            Log.warning(.accessibility, "\(action) on \(summary()) failed: AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
+            throw FloError.accessibility(operation: action, code: result.rawValue)
+        }
+        Log.info(.accessibility, "\(action) on \(summary()) (\(Log.elapsed(since: start)))")
+    }
+
+    /// Same as `click()` on a System Events button.
+    public func press() throws { try perform("AXPress") }
+
+    // MARK: Notifications, for FrontWindowObserver
+
+    func addNotification(_ name: String, to observer: AXObserver, refcon: UnsafeMutableRawPointer) {
+        let result = AXObserverAddNotification(observer, ref, name as CFString, refcon)
+        if result != .success { Log.debug(.context, "watch \(name) failed: AXError \(result.rawValue)") }
+    }
+
+    func removeNotification(_ name: String, from observer: AXObserver) {
+        AXObserverRemoveNotification(observer, ref, name as CFString)
+    }
+
+    // MARK: Diagnostics
+
+    /// Role, title, description and value, for the log. Unreadable attributes are left out, so describing an element never throws.
+    public func summary() -> String {
+        func read(_ name: String) -> String? {
+            var value: CFTypeRef?
+            guard AXUIElementCopyAttributeValue(ref, name as CFString, &value) == .success else { return nil }
+            if let text = value as? String { return text }
+            return (value as? NSNumber)?.stringValue
+        }
+        var parts = [read("AXRole") ?? "?"]
+        if let subrole = read("AXSubrole") { parts.append("(\(subrole))") }
+        for (label, name) in [("title", "AXTitle"), ("desc", "AXDescription"), ("value", "AXValue")] {
+            if let text = read(name), !text.isEmpty { parts.append("\(label)=\(text.debugDescription)") }
+        }
         return parts.joined(separator: " ")
     }
 
-    /// Indented tree of this element and its descendants, for porting work.
-    public func dump(depth: Int = 3, indent: String = "") -> String {
-        var out = indent + description + "\n"
-        guard depth > 0 else { return out }
-        for child in children { out += child.dump(depth: depth - 1, indent: indent + "  ") }
-        return out
+    /// Indented tree of this element and its descendants, for the log and porting work. Bounded, because each node costs several messages to a possibly busy app: it stops at `depth` levels, `maxNodes` elements, `maxCharacters` of text or `budget` of time, and at the first read that fails.
+    public func dump(depth: Int = 3, maxNodes: Int = 80, maxCharacters: Int = 8_000, budget: Duration = .milliseconds(500)) -> String {
+        var lines: [String] = []
+        var characters = 0
+        let deadline = ContinuousClock.now + budget
+        var stopped: String?
+        func visit(_ element: AXElement, level: Int) {
+            guard stopped == nil else { return }
+            guard lines.count < maxNodes else { stopped = "\(maxNodes) elements"; return }
+            guard ContinuousClock.now < deadline else { stopped = "time limit"; return }
+            guard characters < maxCharacters else { stopped = "\(maxCharacters) characters"; return }
+            let line = String(repeating: "  ", count: level) + element.summary()
+            characters += line.count
+            lines.append(line)
+            guard level < depth else { return }
+            var value: CFTypeRef?
+            let result = AXUIElementCopyAttributeValue(element.ref, "AXChildren" as CFString, &value)
+            guard Self.readOutcome(result) != .failure else { stopped = "AXError \(result.rawValue) reading children"; return }
+            for child in (value as? [AXUIElement]) ?? [] { visit(AXElement(child), level: level + 1) }
+        }
+        visit(self, level: 0)
+        if let stopped { lines.append("(dump stopped: \(stopped))") }
+        return lines.joined(separator: "\n")
     }
 }
 

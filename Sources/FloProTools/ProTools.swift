@@ -1,10 +1,9 @@
 import AppKit
 import FloSystem
 
-/// Shortcuts to Pro Tools' accessibility elements.
-@MainActor
+/// Pro Tools as a running app and its windows. Process facts come from NSWorkspace and need no actor; window lookups message Pro Tools and run on `AccessibilityActor`.
 public enum ProTools {
-    public nonisolated static let bundleID = "com.avid.ProTools"
+    public static let bundleID = "com.avid.ProTools"
 
     public static var runningApp: NSRunningApplication? {
         NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).first
@@ -19,16 +18,19 @@ public enum ProTools {
 
     public static var pid: pid_t? { runningApp?.processIdentifier }
 
-    public static var app: AXElement? { pid.map { AXElement.application(pid: $0) } }
-
-    public static var windows: [AXElement] { app?.windows ?? [] }
-
-    public static func window(titlePrefix: String) -> AXElement? {
-        windows.first { $0.title?.hasPrefix(titlePrefix) == true }
+    @AccessibilityActor
+    public static func app() throws -> AXElement {
+        AXElement.application(pid: try pid.required("Pro Tools"))
     }
 
-    public static var mixWindow: AXElement? { window(titlePrefix: "Mix:") }
-    public static var editWindow: AXElement? { window(titlePrefix: "Edit:") }
+    /// The first window whose title starts with `titlePrefix`. `what` names it for the user, for example "the Mix window".
+    @AccessibilityActor
+    public static func window(titlePrefix: String, _ what: String) throws -> AXElement {
+        try app().required(what) { app in try app.windows.first { try $0.title?.hasPrefix(titlePrefix) == true } }
+    }
+
+    @AccessibilityActor
+    public static func mixWindow() throws -> AXElement { try window(titlePrefix: "Mix:", "the Mix window") }
 
     /// Sends a keystroke to Pro Tools without going through global hotkeys.
     public static func keystroke(_ combo: KeyCombo) {

@@ -4,7 +4,7 @@ import Foundation
 /// Connects hotkeys to installed macros, honoring group app and window conditions like Keyboard Maestro, and runs the macros.
 /// Only installed macros take keys, so other keys stay free.
 ///
-/// All state is owned by the main actor. Top-level runs go through one serial queue, so two macros never interleave across an `await`; nested runs execute inside their parent.
+/// All state is owned by the main actor; macro bodies run off it (see `MacroBody`). Top-level runs go through one serial queue, so two macros never interleave across an `await`; nested runs execute inside their parent. Holds (`MacroAction.hold`) bypass the queue.
 @MainActor
 public final class MacroEngine {
     public let groups: [MacroGroupID: MacroGroup]
@@ -49,6 +49,8 @@ public final class MacroEngine {
     private var queuedCount = 0
     /// Numbers macro runs for the log's invocation IDs.
     private var runCount = 0
+    /// Keys whose hold has started and not ended, with the run that started it and its invocation ID.
+    private var holds: [KeyCombo: (run: MacroRun, release: HoldRelease, invocation: String)] = [:]
 
     public init(groups: [MacroGroup], hotKeys: HotKeyCenter, contextMonitor: ContextMonitor) {
         self.groups = Dictionary(uniqueKeysWithValues: groups.map { ($0.id, $0) })
@@ -89,6 +91,7 @@ public final class MacroEngine {
 
     /// Cancels pending, queued and running macros and releases the hotkeys and observers.
     public func stop() {
+        endHolds { _ in true }
         cancelPendingSingles()
         runs.values.forEach { $0.cancel() }
         guard started else { return }
@@ -169,7 +172,10 @@ public final class MacroEngine {
 
     private func updateHotKeys() {
         guard started, batchDepth == 0 else { return }
-        hotKeys.setActive(isEnabled ? activeCombos(in: context) : [])
+        let combos = isEnabled ? activeCombos(in: context) : []
+        // A held key that is no longer a hotkey would never report its release, so its hold ends now.
+        endHolds { !combos.contains($0) }
+        hotKeys.setActive(combos)
     }
 
     // MARK: Running
@@ -188,9 +194,14 @@ public final class MacroEngine {
         }
     }
 
-    /// Starts the best macro for this key in this context. Returns the run's invocation ID, or nil when no macro takes the key.
+    /// Starts the best macro for this key in this context, which becomes the engine's current one: queued runs are checked against it. Returns the run's invocation ID, or nil when no macro takes the key.
     @discardableResult
     func dispatch(_ combo: KeyCombo, _ phase: KeyPhase, in context: FrontContext) -> String? {
+        self.context = context
+        if phase == .released, let hold = holds[combo] {
+            endHolds { $0 == combo }
+            return hold.invocation
+        }
         guard isEnabled, let macro = candidates(for: combo, phase: phase, in: context).first else { return nil }
         return start(macro, trigger: .hotKey(combo, phase), context: context, reason: "\(combo) \(phase) in \(context)")
     }
@@ -215,6 +226,10 @@ public final class MacroEngine {
             switch macro.action {
             case .body(let body):
                 enqueue(run, body)
+            case .hold(let press, let release):
+                // Only a press starts a hold; a release reaching here belongs to a press that did not.
+                guard case .hotKey(let combo, .pressed) = trigger else { return }
+                if press(run) { holds[combo] = (run, release, invocation) }
             case .singleOrDouble(let single, let double, let tink):
                 switch doublePress.press(macro.id, at: .now) {
                 case .double:
@@ -240,13 +255,13 @@ public final class MacroEngine {
         switch tink {
         case .beforeDouble:
             return { run in
-                Sound.play("Tink")
+                await Sound.play("Tink")
                 try await double(run)
             }
         case .afterDouble:
             return { run in
                 try await double(run)
-                Sound.play("Tink")
+                await Sound.play("Tink")
             }
         }
     }
@@ -259,6 +274,11 @@ public final class MacroEngine {
         let task = Task { @MainActor [weak self] in
             await previous?.value
             let start = ContinuousClock.now
+            if let reason = self?.invalidReason(run) {
+                Log.info(.engine, "\(run.macro.id) dropped: \(reason)")
+                self?.runs[number] = nil
+                return
+            }
             do {
                 try Task.checkCancellation()
                 try await body(run)
@@ -287,6 +307,31 @@ public final class MacroEngine {
         switch macro.action {
         case .body(let body), .singleOrDouble(let body, _, _):
             try await body(run)
+        case .hold:
+            Log.warning(.engine, "\(macro.id) holds a key and cannot be run by another macro")
+        }
+    }
+
+    /// Why a queued hotkey run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the macro or the front app may have changed while it waited. Group activation is not checked: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
+    private func invalidReason(_ run: MacroRun) -> String? {
+        guard case .hotKey = run.trigger else { return nil }
+        if !isEnabled { return "Flo Tools is disabled" }
+        if macroEnabled[run.macro.id] != true { return "macro disabled" }
+        if groupEnabled[run.macro.group] != true { return "group disabled" }
+        if context.processID != run.context.processID { return "another app is in front" }
+        if groups[run.macro.group]?.applies(to: context) != true { return "group does not apply in \(context)" }
+        return nil
+    }
+
+    /// Ends the holds whose key matches, running their release with the current context.
+    private func endHolds(where ends: (KeyCombo) -> Bool) {
+        for combo in holds.keys.filter(ends) {
+            guard let hold = holds.removeValue(forKey: combo) else { continue }
+            Log.$invocation.withValue(hold.invocation) {
+                Log.info(.engine, "\(hold.run.macro.id) hold of \(combo) ended")
+                let release = MacroRun(macro: hold.run.macro, trigger: .hotKey(combo, .released), context: context, engine: self, path: hold.run.path)
+                hold.release(release)
+            }
         }
     }
 

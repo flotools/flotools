@@ -121,8 +121,13 @@ public enum MacroTrigger: Sendable, Equatable {
     }
 }
 
-/// What a macro does. It runs on the main actor and may wait for Pro Tools or VoiceOver. Throwing stops the macro; the engine logs the error and says what went wrong.
-public typealias MacroBody = @MainActor @Sendable (MacroRun) async throws -> Void
+/// What a macro does. It is nonisolated, so it never runs on the main actor and a slow Pro Tools cannot block hotkeys: Pro Tools reads are `await`s on `AccessibilityActor`, and speech and engine state are `await`s on the main actor. A body that only changes Flo Tools state can be written `{ @MainActor run in ... }`. Throwing stops the macro; the engine logs the error and says what went wrong.
+public typealias MacroBody = @Sendable (MacroRun) async throws -> Void
+
+/// Starts a hold when its key is pressed; returns whether it did. See `MacroAction.hold`.
+public typealias HoldPress = @MainActor @Sendable (MacroRun) -> Bool
+/// Ends a hold. See `MacroAction.hold`.
+public typealias HoldRelease = @MainActor @Sendable (MacroRun) -> Void
 
 /// When the Tink feedback sound plays for a double press. Almost every JXA macro played it before the double action; a few, such as Speak/Toggle Solo, played it after.
 public enum TinkTiming: Sendable {
@@ -134,6 +139,8 @@ public enum MacroAction: Sendable {
     case body(MacroBody)
     /// Keyboard Maestro's "single press speaks, double press acts" pattern. The engine tells the two apart with the preferences timeout.
     case singleOrDouble(single: MacroBody, double: MacroBody, tink: TinkTiming)
+    /// Changes only Flo Tools state while a key is held, like the temporary Inspector. Both closures run on the main actor as soon as the key event arrives, outside the macro queue, so a busy Pro Tools cannot delay them. If `press` returns true, `release` runs when the key is released, or when the key stops being a hotkey (another app in front, Flo Tools disabled or stopped), so a hold always ends.
+    case hold(press: HoldPress, release: HoldRelease)
 }
 
 /// A macro: where and when it runs, and what it does.
@@ -152,6 +159,10 @@ public struct Macro: Sendable {
 
     public init(_ id: MacroID, _ name: String, group: MacroGroupID, enabledByDefault: Bool = true, triggers: [MacroTrigger], tink: TinkTiming = .beforeDouble, single: @escaping MacroBody, double: @escaping MacroBody) {
         self.init(id, name, group: group, enabledByDefault: enabledByDefault, triggers: triggers, action: .singleOrDouble(single: single, double: double, tink: tink))
+    }
+
+    public init(_ id: MacroID, _ name: String, group: MacroGroupID, enabledByDefault: Bool = true, triggers: [MacroTrigger], press: @escaping HoldPress, release: @escaping HoldRelease) {
+        self.init(id, name, group: group, enabledByDefault: enabledByDefault, triggers: triggers, action: .hold(press: press, release: release))
     }
 
     private init(_ id: MacroID, _ name: String, group: MacroGroupID, enabledByDefault: Bool, triggers: [MacroTrigger], action: MacroAction) {

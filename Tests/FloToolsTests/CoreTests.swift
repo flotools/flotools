@@ -1,3 +1,4 @@
+import ApplicationServices
 import Foundation
 import Testing
 @testable import FloMacros
@@ -166,7 +167,7 @@ import Testing
 @MainActor @Suite struct MacroRunTests {
     let mix = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session")
 
-    final class Events {
+    @MainActor final class Events {
         var list: [String] = []
     }
 
@@ -177,7 +178,7 @@ import Testing
     }
 
     func doubleMacro(_ events: Events) -> Macro {
-        Macro("test.speak", "Speak", group: .floTools, triggers: [.key("F1")], single: { _ in events.list.append("single") }, double: { _ in events.list.append("double") })
+        Macro("test.speak", "Speak", group: .floTools, triggers: [.key("F1")], single: { @MainActor _ in events.list.append("single") }, double: { @MainActor _ in events.list.append("double") })
     }
 
     @Test func singlePressRunsAfterTimeout() async throws {
@@ -200,7 +201,7 @@ import Testing
 
     @Test func disablingAMacroVoidsPendingSingles() async throws {
         let events = Events()
-        let engine = engine([doubleMacro(events), Macro("test.other", "Other", group: .floTools, triggers: []) { _ in }])
+        let engine = engine([doubleMacro(events), Macro("test.other", "Other", group: .floTools, triggers: []) { @MainActor _ in }])
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         engine.setMacro("test.other", enabled: false)
         await engine.waitUntilIdle()
@@ -210,12 +211,12 @@ import Testing
     @Test func topLevelRunsDoNotInterleave() async throws {
         let events = Events()
         let engine = engine([
-            Macro("test.slow", "Slow", group: .floTools, triggers: [.key("F1")]) { _ in
+            Macro("test.slow", "Slow", group: .floTools, triggers: [.key("F1")]) { @MainActor _ in
                 events.list.append("slow start")
                 try await Task.sleep(for: .milliseconds(50))
                 events.list.append("slow end")
             },
-            Macro("test.fast", "Fast", group: .floTools, triggers: [.key("F2")]) { _ in events.list.append("fast") },
+            Macro("test.fast", "Fast", group: .floTools, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
         ])
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
@@ -223,16 +224,98 @@ import Testing
         #expect(events.list == ["slow start", "slow end", "fast"])
     }
 
+    func slowThenFast(_ events: Events) -> [Macro] {
+        [
+            Macro("test.slow", "Slow", group: .floTools, triggers: [.key("F1")]) { @MainActor _ in
+                events.list.append("slow start")
+                try await Task.sleep(for: .milliseconds(50))
+                events.list.append("slow end")
+            },
+            Macro("test.fast", "Fast", group: .floTools, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
+        ]
+    }
+
+    @Test func queuedRunIsDroppedWhenItsMacroIsDisabled() async throws {
+        let events = Events()
+        let engine = engine(slowThenFast(events))
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
+        engine.setMacro("test.fast", enabled: false)
+        await engine.waitUntilIdle()
+        #expect(events.list == ["slow start", "slow end"])
+    }
+
+    @Test func queuedRunIsDroppedWhenAnotherAppIsInFront() async throws {
+        let events = Events()
+        var signalStarted: AsyncStream<Void>.Continuation?
+        let started = AsyncStream<Void> { signalStarted = $0 }
+        let engine = engine([
+            Macro("test.slow", "Slow", group: .floTools, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
+                signalStarted?.yield()
+                try await Task.sleep(for: .milliseconds(50))
+                events.list.append("slow")
+            },
+            Macro("test.fast", "Fast", group: .floTools, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
+        ])
+        let proTools = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session", processID: 100)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: proTools)
+        engine.dispatch(KeyCombo("F2")!, .pressed, in: proTools)
+        for await _ in started { break }
+        // While the slow macro runs, Finder comes to front and a key no macro takes is pressed.
+        #expect(engine.dispatch(KeyCombo("F9")!, .pressed, in: FrontContext(bundleID: "com.apple.finder", processID: 200)) == nil)
+        await engine.waitUntilIdle()
+        #expect(events.list == ["slow"])
+    }
+
+    func holdMacro(_ events: Events, accepts: Bool = true) -> Macro {
+        Macro("test.hold", "Hold", group: .floTools, triggers: [.key("F3"), .key("F3", .released)], press: { _ in
+            events.list.append("press")
+            return accepts
+        }, release: { _ in
+            events.list.append("release")
+        })
+    }
+
+    @Test func holdEndsOnReleaseWithoutTheQueue() async throws {
+        let events = Events()
+        let engine = engine(slowThenFast(events) + [holdMacro(events)])
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
+        engine.dispatch(KeyCombo("F3")!, .released, in: mix)
+        // Both ran at once, before the queued slow macro started.
+        #expect(events.list == ["press", "release"])
+        await engine.waitUntilIdle()
+        engine.dispatch(KeyCombo("F3")!, .released, in: mix)
+        #expect(events.list == ["press", "release", "slow start", "slow end"])
+    }
+
+    @Test func declinedHoldGetsNoRelease() {
+        let events = Events()
+        let engine = engine([holdMacro(events, accepts: false)])
+        engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
+        engine.dispatch(KeyCombo("F3")!, .released, in: mix)
+        #expect(events.list == ["press"])
+    }
+
+    @Test func stopEndsHolds() {
+        let events = Events()
+        let engine = engine([holdMacro(events)])
+        engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
+        engine.stop()
+        engine.dispatch(KeyCombo("F3")!, .released, in: mix)
+        #expect(events.list == ["press", "release"])
+    }
+
     @Test func nestedRunWaitsAndSeesItsTrigger() async throws {
         let events = Events()
         let engine = engine([
-            Macro("test.outer", "Outer", group: .floTools, triggers: [.key("F1")]) { run in
+            Macro("test.outer", "Outer", group: .floTools, triggers: [.key("F1")]) { @MainActor run in
                 events.list.append("outer")
                 try await run.run("test.inner")
                 events.list.append("outer end")
             },
             // Disabled and in another group's window: nested runs ignore both, as KM's Execute Macro did.
-            Macro("test.inner", "Inner", group: .plugin, enabledByDefault: false, triggers: []) { run in
+            Macro("test.inner", "Inner", group: .plugin, enabledByDefault: false, triggers: []) { @MainActor run in
                 events.list.append("inner by \(run.trigger)")
             },
         ])
@@ -244,14 +327,14 @@ import Testing
     @Test func nestedCycleIsAnError() async throws {
         let events = Events()
         let engine = engine([
-            Macro("test.a", "A", group: .floTools, triggers: [.key("F1")]) { run in
+            Macro("test.a", "A", group: .floTools, triggers: [.key("F1")]) { @MainActor run in
                 do {
                     try await run.run("test.b")
                 } catch {
                     events.list.append("\(error)")
                 }
             },
-            Macro("test.b", "B", group: .floTools, triggers: []) { run in try await run.run("test.a") },
+            Macro("test.b", "B", group: .floTools, triggers: []) { @MainActor run in try await run.run("test.a") },
         ])
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         await engine.waitUntilIdle()
@@ -263,7 +346,7 @@ import Testing
         var signalStarted: AsyncStream<Void>.Continuation?
         let started = AsyncStream<Void> { signalStarted = $0 }
         let engine = engine([
-            Macro("test.long", "Long", group: .floTools, triggers: [.key("F1")]) { [signalStarted] _ in
+            Macro("test.long", "Long", group: .floTools, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
                 signalStarted?.yield()
                 do {
                     try await Task.sleep(for: .seconds(5))
@@ -306,6 +389,20 @@ import Testing
         #expect(SpokenError.text(for: FloError.notFound("the Mix window")) == "Could not find the Mix window.")
         #expect(SpokenError.text(for: CancellationError()) == nil)
         #expect(SpokenError.text(for: FloError.voiceOver("could not speak: VoiceOver is not running")) == "VoiceOver did not respond.")
+        #expect(SpokenError.text(for: FloError.accessibility(operation: "read AXChildren", code: AXError.cannotComplete.rawValue)) == "Pro Tools did not respond.")
+        #expect(SpokenError.text(for: FloError.accessibility(operation: "read AXChildren", code: AXError.apiDisabled.rawValue)) == "Flo Tools needs Accessibility access.")
+    }
+}
+
+@Suite struct AccessibilityReadTests {
+    /// Only "no value" and "no such attribute" are absence; a busy or closed window must not read as an empty value.
+    @Test func readOutcomes() {
+        #expect(AXElement.readOutcome(.success) == .value)
+        #expect(AXElement.readOutcome(.noValue) == .absent)
+        #expect(AXElement.readOutcome(.attributeUnsupported) == .absent)
+        #expect(AXElement.readOutcome(.cannotComplete) == .failure)
+        #expect(AXElement.readOutcome(.invalidUIElement) == .failure)
+        #expect(AXElement.readOutcome(.apiDisabled) == .failure)
     }
 }
 
