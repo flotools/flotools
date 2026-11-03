@@ -35,6 +35,12 @@ public final class FrontWindowObserver {
     /// The last app attaching failed for, so the failure is logged once and not on every retry.
     private var failedPid: pid_t = 0
     private var watchedWindow: AXElement?
+    /// Whether AXFocusedWindowChanged is registered on the observed app. Without it, switching between existing windows sends nothing, so the context must keep polling. Retried on every read.
+    private var focusWatched = false
+    /// Whether AXTitleChanged is registered on `watchedWindow`, or there is no window to watch. Retried on every read.
+    private var titleWatched = true
+    /// So a registration that keeps failing is logged once per app, not on every poll.
+    private var registrationFailureLogged = false
     /// Counts changes of the focused window, so two windows with the same title, such as two instances of one plug-in, still tell apart.
     private var windowNumber = 0
 
@@ -51,13 +57,17 @@ public final class FrontWindowObserver {
         if !isSame(window, watchedWindow) {
             watchTitle(of: window)
             windowNumber += 1
+        } else if !titleWatched {
+            watchTitle(of: window)
         }
+        if observer != nil, !focusWatched { watchFocus(pid: pid) }
+        logRegistration()
         return FocusedWindow(title: try window?.title, number: windowNumber)
     }
 
-    /// Whether notifications from app `pid` arrive. While they do, polling that app is not needed.
+    /// Whether notifications from app `pid` cover both a change of focused window and a change of its title. Only then is polling that app not needed.
     public func isObserving(pid: pid_t) -> Bool {
-        observer != nil && observedPid == pid
+        observer != nil && observedPid == pid && focusWatched && titleWatched
     }
 
     /// Detaches from the observed app for good. Call before dropping the instance.
@@ -77,6 +87,9 @@ public final class FrontWindowObserver {
         observer = nil
         watchedWindow = nil
         observedPid = 0
+        focusWatched = false
+        titleWatched = true
+        registrationFailureLogged = false
         guard pid > 0 else { return }
         var created: AXObserver?
         let status = AXObserverCreate(pid, { _, _, _, refcon in
@@ -88,16 +101,16 @@ public final class FrontWindowObserver {
             return
         }
         let app = AXUIElementCreateApplication(pid)
-        var failures: [String] = []
+        var results: [String: AXError] = [:]
         for name in ["AXFocusedWindowChanged", "AXMainWindowChanged", "AXWindowCreated"] {
-            let result = AXObserverAddNotification(created, app, name as CFString, refcon)
-            if result != .success { failures.append("\(name) \(result.rawValue)") }
+            results[name] = AXObserverAddNotification(created, app, name as CFString, refcon)
         }
-        // Some apps do not send every notification; one is enough to follow window changes.
-        guard failures.count < 3 else {
-            attachFailed(pid: pid, failures.joined(separator: ", "))
+        // With none registered, nothing would arrive; try attaching again on the next read. With some, the observer is kept, and `isObserving` stays false until AXFocusedWindowChanged is registered, so the context keeps polling.
+        guard results.values.contains(.success) else {
+            attachFailed(pid: pid, results.map { "\($0.key) \($0.value.rawValue)" }.sorted().joined(separator: ", "))
             return
         }
+        focusWatched = results["AXFocusedWindowChanged"] == .success
         // Pro Tools changes a plug-in or AudioSuite window's title in place, without AXTitleChanged, when another plug-in is chosen from a menu; by AXMenuClosed the title is new (checked live 2026-11-03). Optional: the window notifications above still follow everything else.
         let menuResult = AXObserverAddNotification(created, app, "AXMenuClosed" as CFString, refcon)
         if menuResult != .success { Log.debug(.context, "watch AXMenuClosed failed: AXError \(menuResult.rawValue)") }
@@ -116,12 +129,33 @@ public final class FrontWindowObserver {
 
     /// Title changes are watched on the focused window only, because watching the whole app would also report every changing counter.
     private func watchTitle(of window: AXElement?) {
-        if let observer, let old = watchedWindow {
+        if let observer, let old = watchedWindow, titleWatched {
             old.removeNotification("AXTitleChanged", from: observer)
         }
         watchedWindow = window
-        if let observer, let window {
-            window.addNotification("AXTitleChanged", to: observer, refcon: refcon)
+        guard let observer, let window else {
+            titleWatched = true
+            return
+        }
+        titleWatched = window.addNotification("AXTitleChanged", to: observer, refcon: refcon) == .success
+    }
+
+    private func watchFocus(pid: pid_t) {
+        guard let observer else { return }
+        focusWatched = AXObserverAddNotification(observer, AXUIElementCreateApplication(pid), "AXFocusedWindowChanged" as CFString, refcon) == .success
+    }
+
+    /// Logs once when notifications do not cover every window change, and once when they do again.
+    private func logRegistration() {
+        guard observer != nil else { return }
+        let covered = focusWatched && titleWatched
+        if !covered, !registrationFailureLogged {
+            registrationFailureLogged = true
+            let missing = [focusWatched ? nil : "AXFocusedWindowChanged", titleWatched ? nil : "AXTitleChanged"].compactMap { $0 }
+            Log.warning(.context, "pid \(observedPid): could not register \(missing.joined(separator: " and ")); polling instead, will retry")
+        } else if covered, registrationFailureLogged {
+            registrationFailureLogged = false
+            Log.info(.context, "pid \(observedPid): window notifications registered after an earlier failure")
         }
     }
 

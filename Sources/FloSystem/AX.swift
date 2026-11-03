@@ -209,9 +209,9 @@ public struct AXElement {
 
     // MARK: Notifications, for FrontWindowObserver
 
-    func addNotification(_ name: String, to observer: AXObserver, refcon: UnsafeMutableRawPointer) {
-        let result = AXObserverAddNotification(observer, ref, name as CFString, refcon)
-        if result != .success { Log.debug(.context, "watch \(name) failed: AXError \(result.rawValue)") }
+    /// The `AXError` of the registration; `.success` when it worked.
+    func addNotification(_ name: String, to observer: AXObserver, refcon: UnsafeMutableRawPointer) -> AXError {
+        AXObserverAddNotification(observer, ref, name as CFString, refcon)
     }
 
     func removeNotification(_ name: String, from observer: AXObserver) {
