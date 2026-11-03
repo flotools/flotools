@@ -1,6 +1,19 @@
 import ApplicationServices
 import Foundation
 
+/// The focused window as the observer saw it.
+public struct FocusedWindow: Sendable, Equatable {
+    /// Nil when the app has no focused window.
+    public let title: String?
+    /// Changes whenever another window gets the focus, also between windows with the same title.
+    public let number: Int
+
+    public init(title: String?, number: Int) {
+        self.title = title
+        self.number = number
+    }
+}
+
 /// Reads the focused window title of the front app and asks to be called again when it may have changed, through AX notifications.
 ///
 /// Everything here messages the observed app, so it runs on `AccessibilityActor`. The notifications arrive on the main run loop, in the common modes so they also arrive while a menu is open; they only call `onChange`, which must not touch AX itself.
@@ -22,19 +35,24 @@ public final class FrontWindowObserver {
     /// The last app attaching failed for, so the failure is logged once and not on every retry.
     private var failedPid: pid_t = 0
     private var watchedWindow: AXElement?
+    /// Counts changes of the focused window, so two windows with the same title, such as two instances of one plug-in, still tell apart.
+    private var windowNumber = 0
 
     /// Nonisolated so the main actor can create it; it only stores the callback.
     public nonisolated init(onChange: @escaping @Sendable () -> Void) {
         callback = Callback(onChange)
     }
 
-    /// The title of the focused window of app `pid`, nil when it has no focused window. Attaches the observer to that app first. Throws when the window cannot be read, for example while the app is busy.
-    public func focusedWindowTitle(pid: pid_t) throws -> String? {
+    /// The focused window of app `pid`. Attaches the observer to that app first. Throws when the window cannot be read, for example while the app is busy.
+    public func focusedWindow(pid: pid_t) throws -> FocusedWindow {
         guard !stopped else { throw CancellationError() }
         if pid != observedPid { observe(pid: pid) }
         let window = try AXElement.application(pid: pid).focusedWindow
-        if !isSame(window, watchedWindow) { watchTitle(of: window) }
-        return try window?.title
+        if !isSame(window, watchedWindow) {
+            watchTitle(of: window)
+            windowNumber += 1
+        }
+        return FocusedWindow(title: try window?.title, number: windowNumber)
     }
 
     /// Whether notifications from app `pid` arrive. While they do, polling that app is not needed.

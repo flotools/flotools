@@ -5,12 +5,15 @@ import FloSystem
 public struct FrontContext: Equatable, Sendable, CustomStringConvertible {
     public var bundleID: String?
     public var windowTitle: String?
+    /// Changes whenever another window of the app gets the focus, so a focus change between windows with the same title is a change of context. 0 when unknown.
+    public var windowNumber: Int
     /// The front app's process, so a run accepted for one Pro Tools process does not start in another. 0 when unknown.
     public var processID: pid_t
 
-    public init(bundleID: String? = nil, windowTitle: String? = nil, processID: pid_t = 0) {
+    public init(bundleID: String? = nil, windowTitle: String? = nil, windowNumber: Int = 0, processID: pid_t = 0) {
         self.bundleID = bundleID
         self.windowTitle = windowTitle
+        self.windowNumber = windowNumber
         self.processID = processID
     }
 
@@ -156,24 +159,25 @@ public final class ContextMonitor {
         guard let observer = windowObserver else { return }
         let context = current
         Task { @MainActor in
-            let (title, observing): (String??, Bool) = await Task { @AccessibilityActor in
-                guard context.processID > 0 else { return (.some(nil), false) }
+            let (window, observing): (FocusedWindow?, Bool) = await Task { @AccessibilityActor in
+                guard context.processID > 0 else { return (FocusedWindow(title: nil, number: 0), false) }
                 do {
-                    let title = try observer.focusedWindowTitle(pid: context.processID)
-                    return (.some(title), observer.isObserving(pid: context.processID))
+                    let window = try observer.focusedWindow(pid: context.processID)
+                    return (window, observer.isObserving(pid: context.processID))
                 } catch {
-                    // Keep the last title; the poll or the next notification tries again.
+                    // Keep the last title. Reported as not observing, so the poll tries again even when no further notification comes.
                     Log.debug(.context, "window read failed: \(error)")
-                    return (.none, observer.isObserving(pid: context.processID))
+                    return (nil, false)
                 }
             }.value
             switch self.reads.readEnded(id: id) {
             case .publish:
                 // Only for the app the read was for; a read for an app no longer in front says nothing about the new one.
                 if context.processID == self.current.processID { self.observing = observing }
-                if let title {
+                if let window {
                     var updated = context
-                    updated.windowTitle = title
+                    updated.windowTitle = window.title
+                    updated.windowNumber = window.number
                     self.publish(updated)
                 }
             case .readAgain(let next):

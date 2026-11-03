@@ -79,6 +79,17 @@ import Testing
     }
 }
 
+@Suite struct WindowChangeTests {
+    /// Like KM's focused window trigger: two instances of one plug-in have the same title but are different windows; coming back from another app is not a new window.
+    @Test func focusChangesCountEvenWithTheSameTitle() {
+        #expect(Lifecycle.isNewWindow("Plug-in: EQ3", number: 1, after: nil))
+        #expect(Lifecycle.isNewWindow("Plug-in: EQ3", number: 4, after: ("Plug-in: EQ3", 3)))
+        #expect(!Lifecycle.isNewWindow("Plug-in: EQ3", number: 3, after: ("Plug-in: EQ3", 3)))
+        #expect(Lifecycle.isNewWindow("Plug-in: Dyn3", number: 3, after: ("Plug-in: EQ3", 3)))
+        #expect(!Lifecycle.isNewWindow("Plug-in: EQ3", number: 9, after: ("Plug-in: EQ3", nil)))
+    }
+}
+
 @Suite struct AnnouncementGuardTests {
     let edit = FrontWindowFacts(title: "Edit: I Trust", hasCloseButton: true)
     let mix = FrontWindowFacts(title: "Mix: I Trust", hasCloseButton: true)

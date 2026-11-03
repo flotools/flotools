@@ -21,8 +21,8 @@ public final class Lifecycle {
     private let session: SessionState
     private let workspace: WorkspaceEvents
     private let preferences: @MainActor () -> Preferences
-    /// The last Pro Tools window title, so a change of window can stop the meter watches.
-    private var lastProToolsTitle: String?
+    /// The last Pro Tools window, by title and focus count, so a change of window can stop the meter watches and load a plug-in's view. The count is forgotten while another app is in front, because coming back counts as a new focus even in the same window.
+    private var lastProToolsWindow: (title: String, number: Int?)?
     /// Numbers the checks for a still open Keyboard Shortcuts window, so only the latest result counts.
     private var shortcutsCheck = 0
 
@@ -83,7 +83,7 @@ public final class Lifecycle {
             engine.cancelAll()
             Task { [session] in await session.reset() }
             engine.resume(Self.keyboardShortcuts)
-            lastProToolsTitle = nil
+            lastProToolsWindow = nil
         case .launched, .quit:
             break
         }
@@ -99,6 +99,7 @@ public final class Lifecycle {
 
     private func contextChanged(_ context: FrontContext) {
         guard context.bundleID == ProToolsApp.bundleID else {
+            lastProToolsWindow?.number = nil
             if engine.suspensions.contains(Self.keyboardShortcuts) { resumeIfShortcutsWindowClosed() }
             return
         }
@@ -109,14 +110,24 @@ public final class Lifecycle {
         } else if engine.suspensions.contains(Self.keyboardShortcuts) {
             resumeIfShortcutsWindowClosed()
         }
-        if let last = lastProToolsTitle, last != title {
+        let last = lastProToolsWindow
+        let windowChanged = Self.isNewWindow(title, number: context.windowNumber, after: last)
+        if last != nil, windowChanged {
             InspectorMeters.stopWatches(in: engine)
         }
-        // Like KM Load Plugin Parameters for Default View on a focused window change. A plug-in window showing another plug-in changes its title, which loads that plug-in's view too.
-        if title != lastProToolsTitle, title.hasPrefix(PlugInWindow.Kind.plugIn.titlePrefix) {
+        // Like KM Load Plugin Parameters for Default View on a focused window change, which includes moving between two instances of one plug-in, whose windows have the same title. A plug-in window showing another plug-in changes its title, which loads that plug-in's view too.
+        if windowChanged, title.hasPrefix(PlugInWindow.Kind.plugIn.titlePrefix) {
             engine.fire(PlugIns.loadDefaultView, on: "plug-in window \"\(title)\" in front")
         }
-        lastProToolsTitle = title
+        lastProToolsWindow = (title, context.windowNumber)
+    }
+
+    /// Whether the window with `title` and focus count `number` is another one than `last`. Without a count, after another app was in front, only the title tells.
+    nonisolated static func isNewWindow(_ title: String, number: Int, after last: (title: String, number: Int?)?) -> Bool {
+        guard let last else { return true }
+        if last.title != title { return true }
+        guard let lastNumber = last.number else { return false }
+        return lastNumber != number
     }
 
     /// Resumes once Pro Tools has no Keyboard Shortcuts window. A failed read keeps the suspension; the next window change checks again.
