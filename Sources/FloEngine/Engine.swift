@@ -1,5 +1,6 @@
 import Foundation
 import os
+import FloSystem
 
 /// Connects hotkeys to installed macros, honoring group app and window conditions like Keyboard Maestro.
 /// Only installed macros take keys, so other keys stay free.

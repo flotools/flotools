@@ -1,7 +1,9 @@
 import Foundation
 import Testing
 @testable import FloMacros
-@testable import FloToolsCore
+@testable import FloEngine
+@testable import FloProTools
+@testable import FloSystem
 
 /// Checks the Swift macros against the retired Keyboard Maestro version, `reference/Flo Tools.kmmacros`, so ports keep their hotkeys and conditions.
 /// The Keyboard Maestro UIDs live only here. A deliberate change from the KM version goes in `changedOnPurpose` with the reason.

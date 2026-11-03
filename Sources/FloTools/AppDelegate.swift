@@ -1,6 +1,7 @@
 import AppKit
 import FloMacros
-import FloToolsCore
+import FloEngine
+import FloSystem
 
 /// Menu bar app with no Dock icon. The menu shows status and lets the user turn Flo Tools off.
 @MainActor
@@ -35,8 +36,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         launchObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didLaunchApplicationNotification, object: nil, queue: .main) { notification in
             let bundleID = (notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication)?.bundleIdentifier
             MainActor.assumeIsolated {
-                guard bundleID == ProTools.bundleID else { return }
-                FloMacros.setStartState(Preferences.load(), in: self.engine)
+                FloMacros.applicationLaunched(bundleID: bundleID, in: self.engine)
             }
         }
     }

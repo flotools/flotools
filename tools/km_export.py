@@ -25,7 +25,7 @@ MACROS_DIR = ROOT / "reference" / "macros"
 # Keyboard Maestro modifier bits (the Carbon ones), in display order.
 MODIFIERS = [(4096, "Ctrl"), (2048, "Opt"), (512, "Shift"), (256, "Cmd")]
 
-# macOS virtual key codes (ANSI layout). Sources/FloToolsCore/KeyNames.swift has the same table for the app.
+# macOS virtual key codes (ANSI layout). Sources/FloSystem/KeyNames.swift has the same table for the app.
 KEY_NAMES = {
     0: "A", 1: "S", 2: "D", 3: "F", 4: "H", 5: "G", 6: "Z", 7: "X", 8: "C", 9: "V",
     11: "B", 12: "Q", 13: "W", 14: "E", 15: "R", 16: "Y", 17: "T", 18: "1", 19: "2",

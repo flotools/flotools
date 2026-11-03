@@ -1,9 +1,10 @@
 import AppKit
+import FloSystem
 
 /// Shortcuts to Pro Tools' accessibility elements.
 @MainActor
 public enum ProTools {
-    public static let bundleID = "com.avid.ProTools"
+    public nonisolated static let bundleID = "com.avid.ProTools"
 
     public static var runningApp: NSRunningApplication? {
         NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).first

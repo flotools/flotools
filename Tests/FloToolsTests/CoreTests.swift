@@ -1,7 +1,9 @@
 import Foundation
 import Testing
 @testable import FloMacros
-@testable import FloToolsCore
+@testable import FloEngine
+@testable import FloProTools
+@testable import FloSystem
 
 @Suite struct GroupTests {
     @Test func groupConditions() throws {

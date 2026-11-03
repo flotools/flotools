@@ -1,5 +1,7 @@
 import CoreGraphics
-import FloToolsCore
+import FloEngine
+import FloProTools
+import FloSystem
 
 /// Turning the Flo Tools Inspector group on and off. While it is on, plain keys such as S and Ctrl+Cmd+Right act on the track under the VoiceOver cursor; while it is off, they go to Pro Tools.
 enum InspectorMode {

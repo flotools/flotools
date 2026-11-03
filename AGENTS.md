@@ -26,14 +26,16 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 
 ## Layout
 
-- `Sources/FloToolsCore/`: infrastructure and the macro engine (Accessibility, VoiceOver, hotkeys, window context, double press, preferences, Pro Tools access). `Macro.swift` is the macro and group model; `KeyNames.swift` is the one key-name table.
+- `Sources/FloSystem/`: generic macOS infrastructure (Accessibility, VoiceOver, hotkeys and synthetic keys, sounds). `KeyNames.swift` is the one key-name table. Knows nothing about Pro Tools or macros.
+- `Sources/FloEngine/`: the macro model and runtime. `Macro.swift` is the macro and group model; `Engine.swift` routes hotkeys to macros; `Context.swift` tracks the front app and window (moves to `FloSystem` as an observer in plan step 7); `DoublePress.swift`; `Preferences.swift`. Depends on `FloSystem` only.
+- `Sources/FloProTools/`: Pro Tools knowledge (windows, the track under the VoiceOver cursor). Depends on `FloSystem` only.
 - `Sources/FloMacros/`: `Groups.swift` (the groups and their conditions) and the macros, one file per area, each declaring its ID, name, group, triggers and action. `FloMacros.all` lists them.
 - `Sources/FloTools/`: the app (status menu, permission prompts).
 - `Tests/FloToolsTests/`: Swift Testing unit tests.
 - `tools/km_export.py`: regenerates `reference/macros/` from `reference/Flo Tools.kmmacros`, keeping the Ported column.
 - `scripts/build-app.sh`: builds and signs `build/Flo Tools.app`.
 
-This layout is expected to change with the refactor in `plan.md`. Update this section when it does.
+Dependencies point one way: `FloTools` -> `FloMacros` -> `FloEngine`, `FloProTools` -> `FloSystem`. This layout changes further with the refactor in `plan.md`. Update this section when it does.
 
 ## Commands
 

@@ -1,4 +1,6 @@
-import FloToolsCore
+import FloEngine
+import FloProTools
+import FloSystem
 
 /// Flo Tools Inspector group: works on the Mix window track under the VoiceOver cursor.
 enum Inspector {

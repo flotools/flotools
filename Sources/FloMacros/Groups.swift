@@ -1,4 +1,6 @@
-import FloToolsCore
+import FloEngine
+import FloProTools
+import FloSystem
 
 extension MacroGroupID {
     static let floTools: MacroGroupID = "floTools"
@@ -14,7 +16,7 @@ extension MacroGroupID {
 }
 
 extension FloMacros {
-    static let proTools = "com.avid.ProTools"
+    static let proTools = ProTools.bundleID
 
     /// The macro groups, with the app and window conditions of the Keyboard Maestro groups they came from.
     public static let groups: [MacroGroup] = [

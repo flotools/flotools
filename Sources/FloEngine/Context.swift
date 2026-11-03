@@ -1,5 +1,6 @@
 import AppKit
 import ApplicationServices
+import FloSystem
 
 /// Which app is in front and the title of its focused window. Macro groups are active or not based on this.
 public struct FrontContext: Equatable, Sendable {

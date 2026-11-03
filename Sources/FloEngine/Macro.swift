@@ -1,3 +1,5 @@
+import FloSystem
+
 /// The macro model. Groups and macros are declared in Swift (`FloMacros`); the Keyboard Maestro export is only a porting reference, checked by `KeyboardMaestroParityTests`.
 
 /// A macro's stable ID, `<group>.<macro>` in lower camel case, for example "inspector.speakOpenSendB". Used for enable state, `run`, preferences and the log; never shown to the user.

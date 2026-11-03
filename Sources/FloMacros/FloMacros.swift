@@ -1,4 +1,6 @@
-import FloToolsCore
+import FloEngine
+import FloProTools
+import FloSystem
 
 /// All macros. Each file declares the macros of one area.
 public enum FloMacros {
@@ -19,21 +21,18 @@ public enum FloMacros {
         InspectorMode.applyStartState(preferences, to: engine)
     }
 
+    /// Called for every app launch; acts only on Pro Tools.
+    @MainActor
+    public static func applicationLaunched(bundleID: String?, in engine: MacroEngine) {
+        guard bundleID == ProTools.bundleID else { return }
+        setStartState(Preferences.load(), in: engine)
+    }
+
     /// An engine with all groups and macros installed.
     @MainActor
     public static func makeEngine() -> MacroEngine {
         let engine = MacroEngine(groups: groups)
         all.forEach(engine.install)
         return engine
-    }
-}
-
-/// Track helpers shared by many macros.
-@MainActor
-enum Tracks {
-    /// The Mix window track strip whose name is under the VoiceOver cursor, like `mix.groups.byName(vo.voCursor.textUnderCursor())`.
-    static func underVoiceOverCursor() -> AXElement? {
-        guard let mix = ProTools.mixWindow, let name = VoiceOver.cursorText() else { return nil }
-        return mix.group(name)
     }
 }

@@ -103,7 +103,7 @@ Unsolo All Tracks is hardened as the model for multi-step mutations: validate th
 Each step ends with `swift build`, `swift test`, a journal entry and a commit. Steps marked live end with a live re-test of the two ported macros.
 
 1. Macro model and reference generator: `tools/km_export.py` (reference files only, `--check`, Ported-column preservation), `MacroID`, `MacroGroupID`, Swift-declared groups and macros, typed `MacroTrigger`, `KeyCombo("Ctrl+2")` parsing, `KeyboardMaestroParityTests`. Python tests deferred.
-2. Target split as a pure move: `FloSystem`, `FloEngine`, `FloProTools`; split `Support.swift`; remove `FloToolsCore`. Add `Log` with the file log and menu item. Update the `AGENTS.md` layout.
+2. Target split as a pure move: `FloSystem`, `FloEngine`, `FloProTools`; split `Support.swift`; remove `FloToolsCore` (done 2026-11-02; `ContextMonitor` stays in `FloEngine` until step 7 turns it into `FrontWindowObserver`). Add `Log` with the file log and menu item. Update the `AGENTS.md` layout.
 3. Engine: `Macro`, `MacroRun`, `FloError`, `SpokenError`, `DoublePressDecider`, `Monitors`, foreground queue, `install` validation, nested `run`, combo index, injected instances, no singletons: `HotKeyCenter`, `ContextMonitor` and observers become instances with explicit lifetimes here, while their input mechanics change in steps 6 and 7. Port both macros to the new shape. Live.
 4. Accessibility: `AccessibilityActor`, typed values, role lists and filters, throwing actions, subtree dumps for the log. Live.
 5. VoiceOver: compiled handlers, parameters, `FloError` on failure, durations logged. Live, including a track name containing a quote and an unresponsive VoiceOver.
