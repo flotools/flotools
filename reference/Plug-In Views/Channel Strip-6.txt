@@ -1,0 +1,14 @@
+{"view":"High-Mid Band", "click":[200, 724], "parameters":[
+
+[
+["EQ High-Mid In/Out", 161, 723],
+["EQ High-Mid Listen In/Out", 177, 723]
+],
+
+[
+["EQ High-Mid Frequency", 185, 744],
+["EQ High-Mid Gain", 312, 744],
+["EQ High-Mid Q", 425, 744]
+]
+
+]}

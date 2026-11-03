@@ -1,0 +1,16 @@
+{"view":"Default", "click":[-1, -1], "parameters":[
+
+[
+["Input Trim", 60, 133],
+["Phase Switch In/Out", 91, 133],
+["Fader Volume", 409, 133]
+],
+
+[
+["EQ On/Off", 142, 135],
+["Filters On/Off", 198, 135],
+["Dynamics On/Off", 255, 135],
+["Fader Volume On/Off", 310, 135]
+]
+
+]}

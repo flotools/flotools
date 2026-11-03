@@ -1,0 +1,21 @@
+{"view":"Expander", "click":[70, 348], "parameters":[
+
+[
+["Exp In/Out", 26, 348]
+],
+
+[
+["Exp Ratio", 40, 390],
+["Exp Threshold", 140, 390],
+["Exp Attack Time", 242, 390],
+["Exp Depth", 345, 390]
+],
+
+[
+["Exp Hold Time", 110, 445],
+["Exp Knee", 210, 445],
+["Exp Release Time", 311, 445],
+["Exp Hysteresis", 414, 445]
+]
+
+]}

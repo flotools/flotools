@@ -1,0 +1,15 @@
+{"view":"Low Band", "click":[52, 724], "parameters":[
+
+[
+["EQ Low In/Out", 16, 723],
+["EQ Low Listen In/Out", 32, 723]
+],
+
+[
+["EQ Low Type", 30, 744],
+["EQ Low Frequency", 185, 744],
+["EQ Low Gain", 312, 744],
+["EQ Low Q", 425, 744]
+]
+
+]}

@@ -1,0 +1,20 @@
+{"view":"Compressor", "click":[175, 348], "parameters":[
+
+[
+["Cmp In/Out", 134, 348]
+],
+
+[
+["Cmp Ratio", 50, 420],
+["Cmp Threshold", 125, 395],
+["Cmp Attack Time", 235, 395],
+["Cmp Depth", 345, 395]
+],
+
+[
+["Cmp Knee", 192, 445],
+["Cmp Release Time", 303, 445],
+["Cmp Gain Makeup", 414, 445]
+]
+
+]}

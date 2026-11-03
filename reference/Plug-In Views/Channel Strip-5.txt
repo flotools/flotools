@@ -1,0 +1,14 @@
+{"view":"Low-Mid Band", "click":[126, 724], "parameters":[
+
+[
+["EQ Low-Mid In/Out", 89, 723],
+["EQ Low-Mid Listen In/Out", 105, 723]
+],
+
+[
+["EQ Low-Mid Frequency", 185, 744],
+["EQ Low-Mid Gain", 312, 744],
+["EQ Low-Mid Q", 425, 744]
+]
+
+]}

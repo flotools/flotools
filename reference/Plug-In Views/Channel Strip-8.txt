@@ -1,0 +1,14 @@
+{"view":"Filter 1", "click":[345, 724], "parameters":[
+
+[
+["Filter 1 In/Out", 306, 723],
+["Filter 1 Listen In/Out", 322, 723]
+],
+
+[
+["Filter 1 Type", 37, 744],
+["Filter 1 Frequency", 311, 744],
+["Filter 1 Slope 12/24dB", 396, 744]
+]
+
+]}

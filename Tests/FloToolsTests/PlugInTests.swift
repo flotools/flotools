@@ -42,11 +42,18 @@ import Testing
 
     @Test func shippedViewFilesAreReadable() throws {
         let folder = URL(fileURLWithPath: #filePath).deletingLastPathComponent().appending(path: "../../reference/Plug-In Views")
-        for name in ["Dyn3 Compressor Limiter", "EQ3 7-Band"] {
+        for name in ["Dyn3 Compressor Limiter", "EQ3 7-Band", "Channel Strip"] {
             let view = try #require(try PlugInView.load(plugIn: name, view: nil, from: folder))
             #expect(!view.rows.isEmpty)
         }
         #expect(try PlugInView.load(plugIn: "EQ3 7-Band", view: 1, from: folder)?.name == "View 1")
+        // Channel Strip has one view per module; each clicks its module's tab when loaded.
+        let channelStripViews = ["Compressor", "Expander", "Side Chain", "Low Band", "Low-Mid Band", "High-Mid Band", "High Band", "Filter 1", "Filter 2"]
+        for (index, name) in channelStripViews.enumerated() {
+            let view = try #require(try PlugInView.load(plugIn: "Channel Strip", view: index + 1, from: folder))
+            #expect(view.name == name)
+            #expect(view.click != nil)
+        }
         #expect(try PlugInView.load(plugIn: "No Such Plug-in", view: nil, from: folder) == nil)
     }
 

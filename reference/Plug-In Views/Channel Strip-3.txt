@@ -1,0 +1,15 @@
+{"view":"Side Chain", "click":[297, 348], "parameters":[
+
+[
+["Sc Listen In/Out", 241, 348],
+["Sc Source", 87, 395],
+["Sc Detector Type Avg/Pk", 59, 444]
+],
+
+[
+["Sc Filter In/Out", 285, 392],
+["Sc Filter Type", 335, 392],
+["Sc Filter Frequency", 212, 420]
+]
+
+]}

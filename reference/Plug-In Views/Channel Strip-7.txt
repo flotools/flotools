@@ -1,0 +1,15 @@
+{"view":"High Band", "click":[272, 724], "parameters":[
+
+[
+["EQ High In/Out", 233, 723],
+["EQ High Listen In/Out", 249, 723]
+],
+
+[
+["EQ High Type", 30, 744],
+["EQ High Frequency", 185, 744],
+["EQ High Gain", 312, 744],
+["EQ High Q", 425, 744]
+]
+
+]}
