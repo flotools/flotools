@@ -13,7 +13,7 @@ enum ClipDrag {
                 await mark.set(point)
                 try await VoiceOver.say("Marked for drag.")
                 // The KM version held the button until the hotkey's modifiers were up. It is released however the wait ends.
-                Mouse.pressButton(at: point, modifiers: .maskAlternate)
+                try Mouse.pressButton(at: point, modifiers: .maskAlternate)
                 defer { Mouse.releaseButton(at: point, modifiers: .maskAlternate) }
                 try await Keyboard.waitForModifiersReleased()
             },

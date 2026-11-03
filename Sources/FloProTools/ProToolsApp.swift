@@ -29,8 +29,8 @@ public struct ProToolsApp: Sendable {
     }
 
     /// Sends a keystroke to Pro Tools without going through global hotkeys, and returns once it is posted.
-    public func keystroke(_ combo: KeyCombo) async {
-        await Keyboard.press(combo, pid: pid)
+    public func keystroke(_ combo: KeyCombo) async throws {
+        try await Keyboard.press(combo, pid: pid)
     }
 
     /// Suspends or resumes all mix groups with Pro Tools' Suspend All Groups command (Cmd+Shift+G), which switches between the two, and waits up to 1 s for the Group List to show it. Call it only when the groups are known to be active (to suspend) or suspended by this run (to resume).
@@ -38,7 +38,7 @@ public struct ProToolsApp: Sendable {
     public func setGroups(suspended: Bool, in mix: MixWindow) async throws {
         let goal = suspended ? "suspend the mix groups" : "resume the mix groups"
         let start = ContinuousClock.now
-        await keystroke(KeyCombo("Cmd+Shift+G")!)
+        try await keystroke(KeyCombo("Cmd+Shift+G")!)
         // Suspended groups lose the "Active " prefix in the Group List (checked live 2026-11-02).
         while try await mix.hasActiveGroups() == suspended {
             guard ContinuousClock.now - start < .seconds(1) else { throw FloError.couldNot(goal) }

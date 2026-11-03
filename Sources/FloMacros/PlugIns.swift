@@ -168,7 +168,7 @@ enum PlugIns {
             try await VoiceOver.say(value.map { "\(parameter.name): \($0)" } ?? parameter.name)
             // (0, 0) is the template's placeholder for a control not placed yet; moving there would only put the pointer on the window's corner.
             if parameter.point != .zero {
-                Mouse.move(to: try await window.origin.offset(by: parameter.point))
+                try Mouse.move(to: try await window.origin.offset(by: parameter.point))
             }
         }
     }

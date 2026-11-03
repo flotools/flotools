@@ -44,6 +44,8 @@ public final class HotKeyCenter {
     private var combosByID: [UInt32: KeyCombo] = [:]
     private var nextID: UInt32 = 1
     private var eventHandler: EventHandlerRef?
+    /// So a handler that cannot be installed is logged once, not on every context change.
+    private var handlerFailureLogged = false
 
     public init() {}
 
@@ -56,8 +58,9 @@ public final class HotKeyCenter {
     }
 
     /// Registers exactly `combos`, adding and removing registrations as needed.
+    /// Without the event handler no key is registered: a registered key would be taken from Pro Tools and do nothing. The next call tries again.
     public func setActive(_ combos: Set<KeyCombo>) {
-        installHandlerIfNeeded()
+        guard installHandlerIfNeeded() else { return }
         for combo in registeredCombos.subtracting(combos) { unregister(combo) }
         for combo in combos.subtracting(registeredCombos) { register(combo) }
         Log.debug(.hotkeys, "registered: \(registered.keys.map(\.description).sorted().joined(separator: ", "))")
@@ -88,15 +91,16 @@ public final class HotKeyCenter {
         handler?(combo, phase)
     }
 
-    private func installHandlerIfNeeded() {
-        guard eventHandler == nil else { return }
+    /// Whether the handler is installed.
+    private func installHandlerIfNeeded() -> Bool {
+        guard eventHandler == nil else { return true }
         var types = [
             EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed)),
             EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyReleased)),
         ]
         // The handler reaches this instance through `userData`. The app keeps the instance alive until `stop()` removes the handler.
         let userData = Unmanaged.passUnretained(self).toOpaque()
-        InstallEventHandler(GetApplicationEventTarget(), { _, event, userData -> OSStatus in
+        let status = InstallEventHandler(GetApplicationEventTarget(), { _, event, userData -> OSStatus in
             guard let event, let userData else { return OSStatus(eventNotHandledErr) }
             var hotKeyID = EventHotKeyID()
             let status = GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, &hotKeyID)
@@ -108,6 +112,15 @@ public final class HotKeyCenter {
             }
             return noErr
         }, types.count, &types, userData, &eventHandler)
+        guard status == noErr, eventHandler != nil else {
+            eventHandler = nil
+            if !handlerFailureLogged { Log.error(.hotkeys, "could not install the hotkey handler: OSStatus \(status); no hotkeys registered") }
+            handlerFailureLogged = true
+            return false
+        }
+        if handlerFailureLogged { Log.info(.hotkeys, "hotkey handler installed after an earlier failure") }
+        handlerFailureLogged = false
+        return true
     }
 }
 
@@ -122,19 +135,19 @@ public enum Keyboard {
     private static let holdTime: useconds_t = 10_000
     private static let queue = DispatchQueue(label: "com.chikim.FloTools.keyboard")
 
-    /// Presses and releases `combo` in app `pid` and returns once both events are posted, so the next step sees the key's effect.
-    public static func press(_ combo: KeyCombo, pid: pid_t) async {
-        await withCheckedContinuation { done in
-            queue.async {
-                pressNow(combo, pid: pid)
-                done.resume()
-            }
+    /// Presses and releases `combo` in app `pid` and returns once both events are posted, so the next step sees the key's effect. Throws `FloError.couldNot` when the events cannot be made; then nothing is posted.
+    public static func press(_ combo: KeyCombo, pid: pid_t) async throws {
+        let posted = await withCheckedContinuation { done in
+            queue.async { done.resume(returning: pressNow(combo, pid: pid)) }
         }
+        guard posted else { throw FloError.couldNot("send a key to Pro Tools") }
     }
 
-    /// Presses and releases `combo` in app `pid` without waiting, for the hotkey callback.
+    /// Presses and releases `combo` in app `pid` without waiting, for the hotkey callback, which has no caller to report to. A failure is logged without the key, since this also passes on keys no macro matched.
     public static func post(_ combo: KeyCombo, pid: pid_t) {
-        queue.async { pressNow(combo, pid: pid) }
+        queue.async {
+            if !pressNow(combo, pid: pid) { Log.error(.hotkeys, "could not make keyboard events to pass a key on") }
+        }
     }
 
     /// Waits until the user lets go of Command, Shift, Option and Control, like Keyboard Maestro's Pause Until modifiers are up, so a macro's own clicks do not carry the hotkey's modifiers. Throws `FloError.couldNot` after `limit`.
@@ -147,14 +160,19 @@ public enum Keyboard {
         }
     }
 
-    private static func pressNow(_ combo: KeyCombo, pid: pid_t) {
+    /// Both events are made before either is posted, so a key down is never left without its key up. False when they cannot be made.
+    private static func pressNow(_ combo: KeyCombo, pid: pid_t) -> Bool {
         let source = CGEventSource(stateID: .hidSystemState)
-        for down in [true, false] {
-            guard let event = CGEvent(keyboardEventSource: source, virtualKey: CGKeyCode(combo.keyCode), keyDown: down) else { continue }
+        guard let down = CGEvent(keyboardEventSource: source, virtualKey: CGKeyCode(combo.keyCode), keyDown: true),
+              let up = CGEvent(keyboardEventSource: source, virtualKey: CGKeyCode(combo.keyCode), keyDown: false)
+        else { return false }
+        for event in [down, up] {
             event.flags = combo.cgFlags
             event.setIntegerValueField(.eventSourceUserData, value: syntheticMarker)
-            event.postToPid(pid)
-            if down { usleep(holdTime) }
         }
+        down.postToPid(pid)
+        usleep(holdTime)
+        up.postToPid(pid)
+        return true
     }
 }

@@ -69,7 +69,7 @@ enum FadeDialogs {
             let proTools = try ProToolsApp.running()
             let dialog = try await proTools.fadeDialog(setting.dialog)
             let before = try await read(setting.reading, setting.section, in: dialog)
-            await proTools.keystroke(combo)
+            try await proTools.keystroke(combo)
             // Radio buttons stop at the first and last choice; there the key changes nothing and the unchanged setting is spoken.
             let now = try await ProToolsUpdate.reading(changedFrom: before) { try read(setting.reading, setting.section, in: dialog) }
             try await VoiceOver.say(now + setting.suffix)

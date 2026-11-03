@@ -109,7 +109,7 @@ enum Counters {
             let app = try ProToolsApp.running()
             // Only for waiting until the value changes; a failed read must not keep the key from Pro Tools.
             let before = try? await app.element(control).value
-            await app.keystroke(combo)
+            try await app.keystroke(combo)
             guard try await KeyAnnouncements.speaks(after: guarding) else { return }
             let after = try await ProToolsUpdate.reading(changedFrom: before ?? "") { try app.element(control).value ?? "" }
             try await VoiceOver.say(CounterText.spoken(after, as: .duration) + label)

@@ -26,7 +26,7 @@ enum WindowTools {
         Macro(id, name, group: .floTools, triggers: [.key(key)]) { _ in
             let frame = try await ProToolsApp.running().frame(of: table)
             try await VoiceOver.say(resizeText(table, width: frame.width))
-            Mouse.move(to: resizeEdge(table, frame))
+            try Mouse.move(to: resizeEdge(table, frame))
         }
     }
 
