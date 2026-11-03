@@ -7,12 +7,15 @@ import FloSystem
 public final class Watches {
     public typealias Body = @Sendable () async -> Void
 
-    private var tasks: [CommandID: (number: Int, task: Task<Void, Never>)] = [:]
+    /// The running watch of each command, by its number.
+    private var active: [CommandID: Int] = [:]
+    /// Every watch task whose body has not returned yet, by number, including stopped ones that are still saying goodbye, so `stopAll()` can wait for them too.
+    private var unfinished: [Int: Task<Void, Never>] = [:]
     private var count = 0
 
     public init() {}
 
-    public func isRunning(_ id: CommandID) -> Bool { tasks[id] != nil }
+    public func isRunning(_ id: CommandID) -> Bool { active[id] != nil }
 
     /// Stops the watch of `id` if it runs, otherwise starts `body` as that watch. Returns whether a watch runs now.
     @discardableResult
@@ -25,32 +28,39 @@ public final class Watches {
         count += 1
         let number = count
         // The task inherits the starting run's invocation ID, so its log lines can be followed.
+        // Starts only after this method returns, on the main actor, so it is registered before it can finish.
         let task = Task { @MainActor [weak self] in
             await body()
-            // A watch that ended by itself is forgotten; one stopped and replaced meanwhile is not this one.
-            if self?.tasks[id]?.number == number { self?.tasks[id] = nil }
+            self?.finished(id, number)
         }
-        tasks[id] = (number, task)
+        active[id] = number
+        unfinished[number] = task
         return true
     }
 
-    /// Stops the watch of `id`, if it runs.
+    /// Stops the watch of `id`, if it runs. Its task stays in `unfinished` until its body returns.
     public func stop(_ id: CommandID) {
-        guard let watch = tasks.removeValue(forKey: id) else { return }
+        guard let number = active.removeValue(forKey: id) else { return }
         Log.info(.engine, "\(id) watch stopped")
-        watch.task.cancel()
+        unfinished[number]?.cancel()
     }
 
-    /// Stops every watch. The returned task ends once their bodies have returned.
+    /// Stops every watch. The returned task ends once all their bodies have returned, also those of watches stopped earlier that are still ending.
     @discardableResult
     public func stopAll() -> Task<Void, Never> {
-        let stopped = tasks.values.map(\.task)
-        tasks = [:]
+        let stopped = Array(unfinished.values)
+        active = [:]
         if !stopped.isEmpty { Log.info(.engine, "stopping \(stopped.count) watch(es)") }
         stopped.forEach { $0.cancel() }
         return Task { @MainActor in
             for task in stopped { await task.value }
         }
+    }
+
+    /// A watch that ended by itself is no longer running; one stopped and replaced meanwhile is not the running one.
+    private func finished(_ id: CommandID, _ number: Int) {
+        unfinished[number] = nil
+        if active[id] == number { active[id] = nil }
     }
 }
 

@@ -168,6 +168,31 @@ import Testing
         #expect(!monitors.isRunning("inspector.a"))
     }
 
+    /// A watch stopped on its own may still be ending; a later `stopAll()`, as when Pro Tools quits and session state is reset, waits for it too.
+    @Test func stopAllWaitsForAWatchStoppedEarlier() async {
+        let monitors = Watches()
+        let gate = Gate(), ended = Flag()
+        let (started, didStart) = AsyncStream<Void>.makeStream()
+        monitors.toggle("inspector.a") {
+            didStart.yield()
+            try? await Task.sleep(for: .seconds(60))
+            // Cancelled: say goodbye, which takes until the gate opens.
+            await gate.wait()
+            await ended.set()
+        }
+        var iterator = started.makeAsyncIterator()
+        _ = await iterator.next()
+        monitors.stop("inspector.a")
+        #expect(!monitors.isRunning("inspector.a"))
+        let all = monitors.stopAll()
+        Task.detached {
+            try? await Task.sleep(for: .milliseconds(50))
+            await gate.open()
+        }
+        await all.value
+        #expect(await ended.isSet)
+    }
+
     @Test func aWatchThatEndsByItselfIsForgotten() async {
         let monitors = Watches()
         let (ended, continuation) = AsyncStream<Void>.makeStream()
@@ -177,6 +202,28 @@ import Testing
         while monitors.isRunning("inspector.a") { await Task.yield() }
         #expect(!monitors.isRunning("inspector.a"))
     }
+}
+
+/// Opens once; waiting ignores cancellation, like a watch's goodbye.
+private actor Gate {
+    private var isOpen = false
+    private var waiters: [CheckedContinuation<Void, Never>] = []
+
+    func wait() async {
+        guard !isOpen else { return }
+        await withCheckedContinuation { waiters.append($0) }
+    }
+
+    func open() {
+        isOpen = true
+        waiters.forEach { $0.resume() }
+        waiters = []
+    }
+}
+
+private actor Flag {
+    private(set) var isSet = false
+    func set() { isSet = true }
 }
 
 @Suite struct DoublePressDeciderTests {
