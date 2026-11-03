@@ -6,7 +6,7 @@ public enum ProToolsUpdate {
 
     /// Reads until the reading differs from `before` or `limit` passes, and returns the last reading. Some actions change nothing, such as a key at the end of a list or arming a track without an input, so an unchanged reading is not an error.
     @AccessibilityActor
-    public static func reading(changedFrom before: String, within limit: Duration = timeout, _ read: @AccessibilityActor () throws -> String) async throws -> String {
+    public static func reading<Value: Equatable>(changedFrom before: Value, within limit: Duration = timeout, _ read: @AccessibilityActor () throws -> Value) async throws -> Value {
         let start = ContinuousClock.now
         var now = try read()
         while now == before, ContinuousClock.now - start < limit {

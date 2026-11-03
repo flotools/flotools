@@ -27,8 +27,8 @@ enum ClipDrag {
                 let target = dropPoint(onTrack: try await track.frame())
                 await Mouse.click(at: start, modifiers: .maskControl)
                 await Mouse.drag(from: start, to: target, modifiers: .maskControl)
-                let moved = try await ProToolsUpdate.reading(changedFrom: "empty") { try selectionIsEmpty(app) ? "empty" : "selected" }
-                try await VoiceOver.say(moved == "selected" ? "Finished dragging" : "Failed dragging.")
+                let empty = try await ProToolsUpdate.reading(changedFrom: true) { try selectionIsEmpty(app) }
+                try await VoiceOver.say(empty ? "Failed dragging." : "Finished dragging")
             },
         ]
     }

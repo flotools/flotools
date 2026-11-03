@@ -184,12 +184,7 @@ enum TrackStatus {
             try Task.checkCancellation()
             try row.toggleSelected()
         }
-        let start = ContinuousClock.now
-        var stillSelected = try mix.trackList().rows().contains(where: \.isSelected)
-        while stillSelected, ContinuousClock.now - start < ProToolsUpdate.timeout {
-            try await Task.sleep(for: .milliseconds(10))
-            stillSelected = try mix.trackList().rows().contains(where: \.isSelected)
-        }
+        let stillSelected = try await ProToolsUpdate.reading(changedFrom: true) { try mix.trackList().rows().contains(where: \.isSelected) }
         try await VoiceOver.say(stillSelected ? "Please expand track list table." : "Deselected All Tracks.")
     }
 }
