@@ -39,14 +39,60 @@ extension ProToolsApp {
         return CGRect(origin: origin, size: size)
     }
 
-    /// The names of the clips selected in the Edit window's clip list, quoted as Pro Tools shows them, for example "\"Kick_01\"". A clip row's second cell holds one element whose name is like `Audio clip "Kick_01" ...`.
+    /// The names of the clips selected in the Edit window's clip list, quoted as Pro Tools shows them, for example "\"Kick_01\"".
     @AccessibilityActor
     public func selectedClipNames() throws -> [String] {
-        return try clipList().rows.filter { try $0.bool("AXSelected") == true }.compactMap { row in
-            let cells = try row.children
-            guard cells.count > 1, let name = try cells[1].children.first?.name else { return nil }
-            return Self.quotedClipName(name)
+        try clipRows().filter { try $0.row.bool("AXSelected") == true }.compactMap { try $0.label.name.flatMap(Self.quotedClipName) }
+    }
+
+    /// A clip as the clip list shows it now. Pro Tools exposes clips only as clip list rows, not on the timeline, and only the rows scrolled into view (checked live 2026-11-03).
+    public struct ListedClip: Sendable, Equatable {
+        /// The row's text without the "Selected. " that Pro Tools puts before a selected clip, for example `Audio Clip "Guitar_01"  Timebase selector (samples)`, so it stays the same when the selection changes.
+        public let name: String
+        /// Where the row's text is on screen.
+        public let frame: CGRect
+    }
+
+    /// The clip whose row is at `point`, nil when no clip row in view is there. The whole row counts, because the VoiceOver cursor may be on the row's empty first cell or on the cell around the text, which is a point wider than the text (checked live 2026-11-03).
+    @AccessibilityActor
+    public func listedClip(at point: CGPoint) throws -> ListedClip? {
+        for entry in try clipRows() {
+            guard let origin = try entry.row.position, let size = try entry.row.size, CGRect(origin: origin, size: size).contains(point) else { continue }
+            return try listedClip(entry.label)
         }
+        return nil
+    }
+
+    /// The clip named `name` where its row is now, nil when it is not in view, for example after the list scrolled.
+    @AccessibilityActor
+    public func listedClip(named name: String) throws -> ListedClip? {
+        try listedClips().first { $0.name == name }
+    }
+
+    @AccessibilityActor
+    private func listedClips() throws -> [ListedClip] {
+        try clipRows().compactMap { try listedClip($0.label) }
+    }
+
+    @AccessibilityActor
+    private func listedClip(_ label: AXElement) throws -> ListedClip? {
+        guard let text = try label.name, let origin = try label.position, let size = try label.size else { return nil }
+        return ListedClip(name: Self.clipName(rowText: text), frame: CGRect(origin: origin, size: size))
+    }
+
+    /// The clip list's rows with the element that holds each row's text. A clip row's second cell holds one element whose name is like `Audio Clip "Kick_01" ...`; rows without it are left out.
+    @AccessibilityActor
+    private func clipRows() throws -> [(row: AXElement, label: AXElement)] {
+        try clipList().rows.compactMap { row in
+            let cells = try row.children
+            guard cells.count > 1, let label = try cells[1].children.first else { return nil }
+            return (row, label)
+        }
+    }
+
+    /// "Selected. Audio Clip \"Kick_01\" ..." -> "Audio Clip \"Kick_01\" ...".
+    nonisolated static func clipName(rowText: String) -> String {
+        rowText.hasPrefix("Selected. ") ? String(rowText.dropFirst("Selected. ".count)) : rowText
     }
 
     /// The Edit window's clip list. The KM Resize Clips Table looked for a table named "Clips", which Pro Tools no longer has (checked live 2026-11-02); its Speak Selected Clips used "clip list".

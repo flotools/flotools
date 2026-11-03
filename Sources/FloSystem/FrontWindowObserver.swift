@@ -100,10 +100,10 @@ public final class FrontWindowObserver {
             attachFailed(pid: pid, "AXObserverCreate \(status.rawValue)")
             return
         }
-        let app = AXUIElementCreateApplication(pid)
+        let app = AXElement.application(pid: pid)
         var results: [String: AXError] = [:]
         for name in ["AXFocusedWindowChanged", "AXMainWindowChanged", "AXWindowCreated"] {
-            results[name] = AXObserverAddNotification(created, app, name as CFString, refcon)
+            results[name] = app.addNotification(name, to: created, refcon: refcon)
         }
         // With none registered, nothing would arrive; try attaching again on the next read. With some, the observer is kept, and `isObserving` stays false until AXFocusedWindowChanged is registered, so the context keeps polling.
         guard results.values.contains(.success) else {
@@ -112,7 +112,7 @@ public final class FrontWindowObserver {
         }
         focusWatched = results["AXFocusedWindowChanged"] == .success
         // Pro Tools changes a plug-in or AudioSuite window's title in place, without AXTitleChanged, when another plug-in is chosen from a menu; by AXMenuClosed the title is new (checked live 2026-11-03). Optional: the window notifications above still follow everything else.
-        let menuResult = AXObserverAddNotification(created, app, "AXMenuClosed" as CFString, refcon)
+        let menuResult = app.addNotification("AXMenuClosed", to: created, refcon: refcon)
         if menuResult != .success { Log.debug(.context, "watch AXMenuClosed failed: AXError \(menuResult.rawValue)") }
         CFRunLoopAddSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(created), .commonModes)
         observer = created
@@ -142,7 +142,7 @@ public final class FrontWindowObserver {
 
     private func watchFocus(pid: pid_t) {
         guard let observer else { return }
-        focusWatched = AXObserverAddNotification(observer, AXUIElementCreateApplication(pid), "AXFocusedWindowChanged" as CFString, refcon) == .success
+        focusWatched = AXElement.application(pid: pid).addNotification("AXFocusedWindowChanged", to: observer, refcon: refcon) == .success
     }
 
     /// Logs once when notifications do not cover every window change, and once when they do again.

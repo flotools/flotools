@@ -60,6 +60,19 @@ import Testing
         #expect(ClipDrag.dropPoint(onTrack: frame) == CGPoint(x: 110, y: 40))
     }
 
+    /// The mark keeps the clip's row text without the selection prefix, so selecting the clip does not lose it.
+    @Test func clipListName() {
+        #expect(ProToolsApp.clipName(rowText: "Selected. Audio Clip \"Guitar_01\"  Timebase selector (samples)") == "Audio Clip \"Guitar_01\"  Timebase selector (samples)")
+        #expect(ProToolsApp.clipName(rowText: "Audio Clip \"Bass_02\"") == "Audio Clip \"Bass_02\"")
+    }
+
+    @Test func clipDragResult() {
+        #expect(ClipDrag.resultText(undoBefore: "Undo Unfreeze Tracks", undoAfter: "Undo Drag from Bin") == "Finished dragging")
+        #expect(ClipDrag.resultText(undoBefore: "Undo Unfreeze Tracks", undoAfter: "Undo Unfreeze Tracks") == "Failed dragging.")
+        #expect(ClipDrag.resultText(undoBefore: "Undo Drag from Bin", undoAfter: "Undo Drag from Bin") == "Could not tell whether the drag worked.")
+        #expect(ClipDrag.resultText(undoBefore: "Undo Drag from Bin", undoAfter: "Undo Nudge") == "Failed dragging.")
+    }
+
     @Test func selectedTracks() {
         #expect(KeyAnnouncements.selectedTracksText(names: []) == "No tracks are selected.")
         #expect(KeyAnnouncements.selectedTracksText(names: ["Kick - Audio Track ", "Bass - MIDI Track "]) == "Kick - Audio. Bass - MIDI. ")
@@ -67,15 +80,15 @@ import Testing
 }
 
 @Suite struct SessionStateTests {
-    /// Like KM Cleanup Variables on Pro Tools quit: no clip position, view, gain reduction or event column carries into the next session.
+    /// Like KM Cleanup Variables on Pro Tools quit: no marked clip, view, gain reduction or event column carries into the next session.
     @Test func resetForgetsTheSession() async throws {
         let session = SessionState()
-        await session.clipMark.set(CGPoint(x: 10, y: 20))
+        await session.clipMark.set("Audio Clip \"Guitar_01\"")
         await session.plugInView.load(try PlugInView(json: Data(#"{"view":"Default","click":[-1,-1],"parameters":[[["Gain",1,2]]]}"#.utf8)))
         await session.gainReduction.record("minus 6 db")
         _ = await session.eventColumn.next()
         await session.reset()
-        #expect(await session.clipMark.point == nil)
+        #expect(await session.clipMark.clipName == nil)
         await #expect(throws: FloError.self) { try await session.plugInView.move(rows: 1, columns: 0) }
         #expect(await session.gainReduction.take() == 0)
         #expect(await session.eventColumn.column == .start)

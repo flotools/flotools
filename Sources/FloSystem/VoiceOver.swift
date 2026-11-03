@@ -50,18 +50,23 @@ public enum VoiceOver {
         return text
     }
 
-    /// The screen frame of the item in the VoiceOver cursor, like `vo.voCursor.bounds()`, in the global coordinates mouse events use. VoiceOver's `bounds` is a rectangle, which coerces to a list of left, top, right and bottom.
+    /// The screen frame of the item in the VoiceOver cursor, like `vo.voCursor.bounds()`, in the global coordinates mouse events use. VoiceOver answers with a QuickDraw rectangle (`'qdrt'`), which does not coerce to a list (checked live 2026-11-03).
     public static func cursorBounds() throws -> CGRect {
         let event = voiceOverEvent(eventClass: "core", id: "getd")
         event.setParam(property("pbnd", of: property("vocu", of: .null())), forKeyword: keyDirectObject)
         let reply = try send(event, doing: "read the VoiceOver cursor bounds").paramDescriptor(forKeyword: keyDirectObject)
-        guard let list = reply?.coerce(toDescriptorType: typeAEList), list.numberOfItems == 4 else {
+        guard let reply, reply.descriptorType == typeQDRectangle, let frame = frame(quickDrawRect: reply.data) else {
             throw FloError.unexpectedValue("VoiceOver cursor bounds of type \(reply.map { String(describing: $0.descriptorType) } ?? "none")")
         }
-        let edges = (1...4).map { CGFloat(list.atIndex($0)?.doubleValue ?? 0) }
-        let frame = CGRect(x: edges[0], y: edges[1], width: edges[2] - edges[0], height: edges[3] - edges[1])
         Log.debug(.voiceover, "VoiceOver cursor bounds: \(frame)")
         return frame
+    }
+
+    /// A QuickDraw `Rect`: four Int16 in host byte order, top, left, bottom, right. Nil when the data is not 8 bytes.
+    nonisolated static func frame(quickDrawRect data: Data) -> CGRect? {
+        guard data.count == 8 else { return nil }
+        let edges = (0..<4).map { index in data.withUnsafeBytes { CGFloat($0.loadUnaligned(fromByteOffset: index * 2, as: Int16.self)) } }
+        return CGRect(x: edges[1], y: edges[0], width: edges[3] - edges[1], height: edges[2] - edges[0])
     }
 
     /// Whether macOS lets Flo Tools control VoiceOver with Apple events, checked without asking the user. For the diagnostic log header. Nonisolated so the synchronous header can call it: it sends no event to VoiceOver and does not ask the user, so it should return quickly, although the API does not promise that. It has its own target descriptor, which is not Sendable.

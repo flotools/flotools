@@ -713,6 +713,14 @@ private actor Flag {
         #expect(VoiceOver.failureReason(status: -1743) == "Flo Tools may not control VoiceOver (Automation permission)")
         #expect(VoiceOver.failureReason(status: -1708) == "Apple event error -1708")
     }
+
+    /// The cursor bounds of a clip list cell, as VoiceOver answered them live: top 414, left 1023, bottom 425, right 1327.
+    @Test func cursorBoundsRectangle() {
+        let edges: [Int16] = [414, 1023, 425, 1327]
+        let data = edges.withUnsafeBytes { Data($0) }
+        #expect(VoiceOver.frame(quickDrawRect: data) == CGRect(x: 1023, y: 414, width: 304, height: 11))
+        #expect(VoiceOver.frame(quickDrawRect: Data([0, 1])) == nil)
+    }
 }
 
 @Suite @MainActor struct PreferencesTests {

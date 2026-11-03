@@ -61,11 +61,22 @@ extension ProToolsApp {
         case .editWindowButton(let cluster, let match):
             return SettingControl(setting, try element(EditWindowControl(cluster, role: "AXButton", match)))
         case .menuItem(let menu, let match):
-            let app = AXElement.application(pid: pid)
-            let bar = try app.required("the menu bar") { try $0.element("AXMenuBar") }
-            let menuElement = try bar.required("the \(menu) menu") { try $0.child(role: "AXMenuBarItem", name: menu)?.children.first }
-            let item = try menuElement.required("the \(menu) menu item \(match.text)") { try $0.children(role: "AXMenuItem").first { try match.matches($0.name) } }
-            return SettingControl(setting, item)
+            return SettingControl(setting, try menuItem(menu, match))
         }
+    }
+
+    /// The name of Edit > Undo, which names the last undoable action, for example "Undo Drag from Bin". Read without opening the menu.
+    @AccessibilityActor
+    public func undoItemName() throws -> String {
+        try menuItem("Edit", .contains("Undo")).name ?? ""
+    }
+
+    /// The first item of menu bar menu `menu` that `match` picks, or `FloError.notFound` naming it.
+    @AccessibilityActor
+    private func menuItem(_ menu: String, _ match: NameMatch) throws -> AXElement {
+        let app = AXElement.application(pid: pid)
+        let bar = try app.required("the menu bar") { try $0.element("AXMenuBar") }
+        let menuElement = try bar.required("the \(menu) menu") { try $0.child(role: "AXMenuBarItem", name: menu)?.children.first }
+        return try menuElement.required("the \(menu) menu item \(match.text)") { try $0.children(role: "AXMenuItem").first { try match.matches($0.name) } }
     }
 }
