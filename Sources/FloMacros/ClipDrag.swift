@@ -24,8 +24,8 @@ enum ClipDrag {
                 let app = try ProToolsApp.running()
                 let track = try await app.trackUnderVoiceOverCursor(in: .edit)
                 let target = dropPoint(onTrack: try await track.frame())
-                await Mouse.click(at: start, modifiers: .maskControl)
-                await Mouse.drag(from: start, to: target, modifiers: .maskControl)
+                try await Mouse.click(at: start, modifiers: .maskControl)
+                try await Mouse.drag(from: start, to: target, modifiers: .maskControl)
                 let empty = try await ProToolsUpdate.reading(changedFrom: true) { try selectionIsEmpty(app) }
                 try await VoiceOver.say(empty ? "Failed dragging." : "Finished dragging")
             },

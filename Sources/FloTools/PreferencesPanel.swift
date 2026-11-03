@@ -21,6 +21,8 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
     }
 
     func show() {
+        // Make the window first: it adds the timeout choices, and selecting one before they exist selects nothing, so OK would save the first choice.
+        _ = window
         let preferences = store.current
         temporaryInspector.state = preferences.temporaryInspector ? .on : .off
         startsWithInspector.state = preferences.startsWithInspector ? .on : .off

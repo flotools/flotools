@@ -227,7 +227,7 @@ final class LogFile: @unchecked Sendable {
             size += data.count
         } catch {
             // Logging the failure to the file would fail the same way.
-            Logger(subsystem: "com.chikim.FloTools", category: LogCategory.log.rawValue).error("log file write failed: \(error, privacy: .public)")
+            Logger(subsystem: "com.chikim.FloTools", category: LogCategory.log.rawValue).error("log file write failed: \(Log.redactingHome("\(error)"), privacy: .public)")
         }
     }
 
@@ -253,7 +253,7 @@ final class LogFile: @unchecked Sendable {
             size = Int(try reopened.seekToEnd())
             self.handle = reopened
         } catch {
-            Logger(subsystem: "com.chikim.FloTools", category: LogCategory.log.rawValue).error("could not shorten the log file: \(error, privacy: .public)")
+            Logger(subsystem: "com.chikim.FloTools", category: LogCategory.log.rawValue).error("could not shorten the log file: \(Log.redactingHome("\(error)"), privacy: .public)")
             self.handle = try? FileHandle(forWritingTo: url)
             _ = try? self.handle?.seekToEnd()
         }

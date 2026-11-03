@@ -14,8 +14,9 @@ public enum Mouse {
         Log.info(.hotkeys, "mouse moved to \(text(point))")
     }
 
-    /// Moves the pointer and clicks the left button there, with `modifiers` held, such as `.maskControl`.
-    public static func click(at point: CGPoint, modifiers: CGEventFlags = []) async {
+    /// Moves the pointer and clicks the left button there, with `modifiers` held, such as `.maskControl`. Throws `CancellationError` without clicking when the caller is already cancelled, because mouse events go to whatever window is under the pointer.
+    public static func click(at point: CGPoint, modifiers: CGEventFlags = []) async throws {
+        try Task.checkCancellation()
         post(.mouseMoved, at: point)
         post(.leftMouseDown, at: point, modifiers: modifiers)
         try? await Task.sleep(for: holdTime)
@@ -36,12 +37,19 @@ public enum Mouse {
         Log.info(.hotkeys, "mouse button up at \(text(point))")
     }
 
-    /// Presses the left button at `start`, drags to `end` and releases it there, with `modifiers` held, like Keyboard Maestro's click and drag.
-    public static func drag(from start: CGPoint, to end: CGPoint, modifiers: CGEventFlags = []) async {
+    /// Presses the left button at `start`, drags to `end` and releases it there, with `modifiers` held, like Keyboard Maestro's click and drag. Throws `CancellationError` without pressing when already cancelled; cancelled during the first hold, it releases the button where it was pressed, without dragging.
+    public static func drag(from start: CGPoint, to end: CGPoint, modifiers: CGEventFlags = []) async throws {
+        try Task.checkCancellation()
         post(.mouseMoved, at: start)
         post(.leftMouseDown, at: start, modifiers: modifiers)
         try? await Task.sleep(for: holdTime)
+        guard !Task.isCancelled else {
+            post(.leftMouseUp, at: start, modifiers: modifiers)
+            Log.info(.hotkeys, "mouse drag cancelled, button released at \(text(start))")
+            throw CancellationError()
+        }
         post(.leftMouseDragged, at: end, modifiers: modifiers)
+        // Once dragged, the button is released at the end even when cancelled, so the drag is not left half done.
         try? await Task.sleep(for: holdTime)
         post(.leftMouseUp, at: end, modifiers: modifiers)
         Log.info(.hotkeys, "mouse dragged from \(text(start)) to \(text(end))")

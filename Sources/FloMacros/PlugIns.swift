@@ -152,7 +152,7 @@ enum PlugIns {
             }
             try await VoiceOver.say("\(view.name) view for \(plugIn)")
             if let click = view.click {
-                await Mouse.click(at: try await window.origin.offset(by: click))
+                try await Mouse.click(at: try await window.origin.offset(by: click))
             }
         }
     }
@@ -163,7 +163,8 @@ enum PlugIns {
         Macro(id, name, group: .plugin, triggers: [.key(key)]) { _ in
             let window = try await ProToolsApp.running().plugInWindow(.plugIn)
             let parameter = try await cursor.move(rows: rows, columns: columns)
-            let value = try? await window.parameterValue(named: parameter.name)
+            // Nil when the plug-in has no slider of that name; a failed read throws to the engine.
+            let value = try await window.parameterValue(named: parameter.name)
             try await VoiceOver.say(value.map { "\(parameter.name): \($0)" } ?? parameter.name)
             // (0, 0) is the template's placeholder for a control not placed yet; moving there would only put the pointer on the window's corner.
             if parameter.point != .zero {

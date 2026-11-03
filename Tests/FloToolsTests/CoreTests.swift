@@ -741,6 +741,10 @@ import Testing
         #expect(GainReductionPeak.decibels("minus 3.7 db") == -3)
         #expect(GainReductionPeak.decibels("0 db") == 0)
         #expect(GainReductionPeak.decibels("") == nil)
+        // Readings Int cannot hold are skipped rather than trapping.
+        #expect(GainReductionPeak.decibels("minus inf db") == nil)
+        #expect(GainReductionPeak.decibels("nan db") == nil)
+        #expect(GainReductionPeak.decibels("1e300 db") == nil)
     }
 
     @Test func gainReductionPeakKeepsTheDeepestAndStartsOver() async {
