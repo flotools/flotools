@@ -23,6 +23,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
     private var statusItem: NSStatusItem?
     private var accessibilityTask: Task<Void, Never>?
+    private var logToggle: Task<Void, Never>?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         AXElement.setGlobalMessagingTimeout(1.0)
@@ -133,19 +134,24 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     /// Turning the log off shows the finished file in Finder, selected, so the user can send it as is.
+    /// Ignores a second choice of the menu item while the first is still opening or closing the file.
     @objc private func toggleLog() {
-        if Log.isRecording {
-            Log.info(.app, "log turned off")
-            guard let file = Log.stopRecording() else { return }
-            NSWorkspace.shared.activateFileViewerSelecting([file])
-        } else {
-            do {
-                try Log.startRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current))
-                Log.info(.app, "log turned on")
-                VoiceOver.sayOrLog("Log turned on.")
-            } catch {
-                Log.error(.app, "could not start the log file: \(error)")
-                VoiceOver.sayOrLog("Could not start the log.")
+        guard logToggle == nil else { return }
+        logToggle = Task { @MainActor in
+            defer { logToggle = nil }
+            if Log.isRecording {
+                Log.info(.app, "log turned off")
+                guard let file = await Log.stopRecording() else { return }
+                NSWorkspace.shared.activateFileViewerSelecting([file])
+            } else {
+                do {
+                    try await Log.startRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current))
+                    Log.info(.app, "log turned on")
+                    VoiceOver.sayOrLog("Log turned on.")
+                } catch {
+                    Log.error(.app, "could not start the log file: \(error)")
+                    VoiceOver.sayOrLog("Could not start the log.")
+                }
             }
         }
     }

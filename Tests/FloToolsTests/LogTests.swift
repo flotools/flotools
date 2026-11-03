@@ -26,14 +26,14 @@ import Testing
         try String(contentsOf: try #require(url), encoding: .utf8)
     }
 
-    @Test func writesHeaderThenOneLinePerEntry() throws {
+    @Test func writesHeaderThenOneLinePerEntry() async throws {
         let file = makeFile()
         #expect(!file.isRecording)
-        try file.start(header: "HEADER")
+        try await file.start(header: "HEADER")
         #expect(file.isRecording)
         file.append(entry("S pressed -> inspector.speakToggleSolo"))
         file.append(entry("two\nlines", invocation: nil))
-        let url = file.stop()
+        let url = await file.stop()
         #expect(!file.isRecording)
         let lines = try text(url).split(separator: "\n").map(String.init)
         #expect(lines.first == "HEADER")
@@ -43,16 +43,16 @@ import Testing
         #expect(lines[2].hasSuffix(" info engine - two\\nlines"))
     }
 
-    @Test func resumeContinuesTheSameFile() throws {
+    @Test func resumeContinuesTheSameFile() async throws {
         let first = makeFile()
-        try first.start(header: "FIRST")
+        try await first.start(header: "FIRST")
         first.append(entry("before relaunch"))
         first.waitForWrites()
         // A new instance with the same defaults stands in for the next launch.
         let second = makeFile()
         #expect(second.resume(header: "SECOND"))
         second.append(entry("after relaunch"))
-        let contents = try text(second.stop())
+        let contents = try text(await second.stop())
         #expect(contents.contains("FIRST"))
         #expect(contents.contains("before relaunch"))
         #expect(contents.contains("Flo Tools started again while logging was on.\nSECOND"))
@@ -60,11 +60,11 @@ import Testing
         #expect(!makeFile().resume(header: "THIRD"), "stop clears the remembered file")
     }
 
-    @Test func dropsOldestEntriesPastTheCap() throws {
+    @Test func dropsOldestEntriesPastTheCap() async throws {
         let file = makeFile(capBytes: 4_000, keepBytes: 1_000)
-        try file.start(header: "HEADER")
+        try await file.start(header: "HEADER")
         for i in 0..<200 { file.append(entry("entry \(i)")) }
-        let contents = try text(file.stop())
+        let contents = try text(await file.stop())
         #expect(contents.hasPrefix("HEADER\n"))
         #expect(contents.contains("dropped"))
         #expect(contents.utf8.count < 4_000 + 200)
@@ -72,20 +72,33 @@ import Testing
         #expect(!contents.contains("entry 0\n"))
     }
 
-    @Test func appendsOnlyFloToolsCrashReportsFromWhileLogging() throws {
+    @Test func appendsOnlyFloToolsCrashReportsFromWhileLogging() async throws {
         try FileManager.default.createDirectory(at: crashes, withIntermediateDirectories: true)
         let old = crashes.appendingPathComponent("FloTools-old.ips")
         try "old crash".write(to: old, atomically: true, encoding: .utf8)
         // Dated a minute back rather than waiting, because creation dates have one-second precision on some volumes.
         try FileManager.default.setAttributes([.creationDate: Date(timeIntervalSinceNow: -60)], ofItemAtPath: old.path)
         let file = makeFile()
-        try file.start(header: "HEADER")
+        try await file.start(header: "HEADER")
         try "new crash in \(NSHomeDirectory())/x".write(to: crashes.appendingPathComponent("FloTools-new.ips"), atomically: true, encoding: .utf8)
         try "other app".write(to: crashes.appendingPathComponent("Finder-new.ips"), atomically: true, encoding: .utf8)
-        let contents = try text(file.stop())
+        let contents = try text(await file.stop())
         #expect(contents.contains("--- Crash report FloTools-new.ips ---\nnew crash in ~/x"))
         #expect(!contents.contains("old crash"))
         #expect(!contents.contains("other app"))
+    }
+
+    @Test func crashReportsStayUnderTheCap() async throws {
+        try FileManager.default.createDirectory(at: crashes, withIntermediateDirectories: true)
+        let file = makeFile(capBytes: 4_000, keepBytes: 1_000)
+        try await file.start(header: "HEADER")
+        for i in 0..<30 { file.append(entry("entry \(i)")) }
+        try String(repeating: "x", count: 10_000).write(to: crashes.appendingPathComponent("FloTools-big.ips"), atomically: true, encoding: .utf8)
+        let contents = try text(await file.stop())
+        #expect(contents.utf8.count <= 4_000)
+        #expect(contents.hasPrefix("HEADER\n"))
+        #expect(contents.contains("--- Crash report FloTools-big.ips ---"))
+        #expect(contents.contains("--- Crash report cut: "))
     }
 
     @Test func crashReportsLoseDeviceIdentifiers() {

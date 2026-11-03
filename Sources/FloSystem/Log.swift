@@ -49,20 +49,20 @@ public enum Log {
     /// Whether entries are being written to the diagnostic log file.
     public static var isRecording: Bool { file.isRecording }
 
-    /// Starts a new log file that begins with `header`, and remembers across launches that logging is on.
-    public static func startRecording(header: String) throws {
-        try file.start(header: header)
+    /// Starts a new log file that begins with `header`, and remembers across launches that logging is on. The file work runs on the log queue, so the caller does not block.
+    public static func startRecording(header: String) async throws {
+        try await file.start(header: header)
     }
 
-    /// If logging was on when Flo Tools last quit or crashed, continues the same file, adding `header` again. Returns whether it did.
+    /// If logging was on when Flo Tools last quit or crashed, continues the same file, adding `header` again. Returns whether it did. Synchronous on purpose: it runs once at launch, before the entries of startup, which would otherwise be lost.
     @discardableResult
     public static func resumeRecording(header: String) -> Bool {
         file.resume(header: header)
     }
 
-    /// Stops logging, appends Flo Tools crash reports written while it was on, and returns the finished file.
-    public static func stopRecording() -> URL? {
-        file.stop()
+    /// Stops logging, appends Flo Tools crash reports written while it was on, and returns the finished file. The file work runs on the log queue, so the caller does not block.
+    public static func stopRecording() async -> URL? {
+        await file.stop()
     }
 
     // MARK: Writing
@@ -147,15 +147,20 @@ final class LogFile: @unchecked Sendable {
 
     var isRecording: Bool { recording.withLock { $0 } }
 
-    func start(header: String) throws {
+    func start(header: String) async throws {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd 'at' HH.mm.ss"
         let url = directory.appendingPathComponent("Flo Tools \(formatter.string(from: Date())).log")
-        try queue.sync {
-            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-            try Data().write(to: url)
-            try open(url, header: header)
+        let directory = directory
+        try await withCheckedThrowingContinuation { (done: CheckedContinuation<Void, Error>) in
+            queue.async {
+                done.resume(with: Result {
+                    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+                    try Data().write(to: url)
+                    try self.open(url, header: header)
+                })
+            }
         }
         defaults.set(url.path, forKey: Self.fileKey)
         defaults.set(Date(), forKey: Self.startedKey)
@@ -180,18 +185,20 @@ final class LogFile: @unchecked Sendable {
         }
     }
 
-    func stop() -> URL? {
+    func stop() async -> URL? {
         guard isRecording else { return nil }
         let started = defaults.object(forKey: Self.startedKey) as? Date ?? .distantPast
         defaults.removeObject(forKey: Self.fileKey)
         defaults.removeObject(forKey: Self.startedKey)
         recording.withLock { $0 = false }
-        return queue.sync {
-            appendCrashReports(since: started)
-            try? handle?.close()
-            handle = nil
-            defer { url = nil }
-            return url
+        return await withCheckedContinuation { done in
+            queue.async {
+                self.appendCrashReports(since: started)
+                try? self.handle?.close()
+                self.handle = nil
+                done.resume(returning: self.url)
+                self.url = nil
+            }
         }
     }
 
@@ -259,7 +266,7 @@ final class LogFile: @unchecked Sendable {
         }
     }
 
-    /// Flo Tools crash reports created since logging was turned on, appended in full.
+    /// Flo Tools crash reports created since logging was turned on, appended in full while they fit under `capBytes`. Old entries are dropped first to make room, as for any entry; a report that still does not fit is cut, with a note.
     private func appendCrashReports(since started: Date) {
         let keys: [URLResourceKey] = [.creationDateKey]
         let files = (try? FileManager.default.contentsOfDirectory(at: crashReportDirectory, includingPropertiesForKeys: keys)) ?? []
@@ -267,9 +274,22 @@ final class LogFile: @unchecked Sendable {
             let created = (try? file.resourceValues(forKeys: Set(keys)))?.creationDate ?? .distantPast
             return file.lastPathComponent.hasPrefix("FloTools") && created >= started
         }
-        for report in reports.sorted(by: { $0.lastPathComponent < $1.lastPathComponent }) {
-            guard let text = try? String(contentsOf: report, encoding: .utf8) else { continue }
-            write("\n--- Crash report \(report.lastPathComponent) ---\n" + Self.redactingCrashReport(text) + "\n")
+        let texts = reports.sorted(by: { $0.lastPathComponent < $1.lastPathComponent }).compactMap { report -> String? in
+            guard let text = try? String(contentsOf: report, encoding: .utf8) else { return nil }
+            return "\n--- Crash report \(report.lastPathComponent) ---\n" + Self.redactingCrashReport(text) + "\n"
+        }
+        if size + texts.reduce(0, { $0 + $1.utf8.count }) > capBytes { dropOldEntries() }
+        for text in texts {
+            let room = capBytes - size
+            let bytes = text.utf8.count
+            if bytes <= room {
+                write(text)
+            } else {
+                let note = "\n--- Crash report cut: \(bytes) bytes did not fit under \(capBytes) bytes ---\n"
+                let kept = max(0, room - note.utf8.count)
+                // A cut inside a multibyte character becomes a replacement character, which is fine for a report read by a person.
+                write(String(decoding: Data(text.utf8.prefix(kept)), as: UTF8.self) + note)
+            }
         }
     }
 
