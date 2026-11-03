@@ -9,7 +9,7 @@ enum TrackLists {
     struct Listing: Sendable {
         let name: String
         /// The listed tracks; choosing one switches the flag or presses the row's button.
-        let source: TrackSet
+        let source: TrackQuery
         /// Spoken instead of opening an empty list.
         let none: String
         /// Follows the number of tracks in the window title, for example "3 Muted".
@@ -56,7 +56,7 @@ enum TrackLists {
     /// Shows the listed tracks in a chooser and changes the chosen ones, or says there are none.
     static func show(_ listing: Listing) async throws {
         let proTools = try ProToolsApp.running()
-        let names = try await listing.source.names(in: proTools.mixWindow())
+        let names = try await proTools.mixWindow().names(listing.source)
         guard !names.isEmpty else {
             let isArmedList: Bool = if case .strips(.recordArmed, on: true) = listing.source { true } else { false }
             try await VoiceOver.say(isArmedList ? TrackStatus.noArmedTracksText(proTools) : listing.none)
@@ -65,36 +65,19 @@ enum TrackLists {
         let request = Chooser.Request(title: "\(names.count) \(listing.heading)", prompt: listing.prompt, items: names.map(displayName), okTitle: listing.okTitle)
         let chosen = await Chooser.choose(request).map { names[$0] }
         try Task.checkCancellation()
-        try await apply(listing.source, to: chosen, proTools)
+        guard !chosen.isEmpty else { return }
+        let unchanged = try await proTools.mixWindow().change(chosen, outOf: listing.source)
+        // The JXA did not check; a track Pro Tools refused, such as one without an input to arm, is named rather than passed over in silence.
+        guard unchanged.isEmpty else { throw FloError.couldNot(unchangedText(listing, unchanged)) }
+    }
+
+    /// For example "arm: Kick - Audio Track, Snare - Audio Track", after "Could not".
+    static func unchangedText(_ listing: Listing, _ names: [String]) -> String {
+        listing.okTitle.lowercased() + ": " + names.map(displayName).joined(separator: ", ")
     }
 
     /// Without the trailing space Pro Tools puts after "Track".
     static func displayName(_ name: String) -> String {
         name.trimmingCharacters(in: .whitespaces)
-    }
-
-    /// Changes each chosen track that is still in the listed state. The lists were read before the user chose, so a track may have changed or gone since; those are skipped.
-    @AccessibilityActor
-    private static func apply(_ source: TrackSet, to chosen: [String], _ proTools: ProToolsApp) async throws {
-        guard !chosen.isEmpty else { return }
-        let mix = try proTools.mixWindow()
-        switch source {
-        case .strips(let flag, let on):
-            for name in chosen {
-                try Task.checkCancellation()
-                guard let track = try mix.track(named: name) else { continue }
-                try await TrackStatus.set(flag, on: track, to: !on)
-            }
-        case .trackList(let property, let on):
-            let rows = try mix.trackList().rows()
-            for name in chosen {
-                try Task.checkCancellation()
-                guard let row = rows.first(where: { $0.name == name }), row.value(property) == on else { continue }
-                switch property {
-                case .selected: try row.toggleSelected()
-                case .shown: try row.toggleShown()
-                }
-            }
-        }
     }
 }

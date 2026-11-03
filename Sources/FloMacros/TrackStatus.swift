@@ -80,8 +80,8 @@ enum TrackStatus {
         })
     }
 
-    static func speak(_ tracks: TrackSet, _ wording: Wording) async throws {
-        let names = try await tracks.names(in: ProToolsApp.running().mixWindow())
+    static func speak(_ tracks: TrackQuery, _ wording: Wording) async throws {
+        let names = try await ProToolsApp.running().mixWindow().names(tracks)
         try await VoiceOver.say(message(names: names, wording))
     }
 
@@ -131,9 +131,8 @@ enum TrackStatus {
             for track in ordered {
                 // A stop request ends the loop between clicks.
                 try Task.checkCancellation()
-                try await set(flag, on: track, to: false)
-                // The click waits only so long for the button, so check that the flag is off before counting the track, or success would be spoken for a track still soloed.
-                if try await track.has(flag) == true { throw FloError.couldNot("\(reset.verb) \(track.name)") }
+                // The click waits only so long for the button, so a track still soloed must not be counted, or success would be spoken.
+                guard try await track.set(flag, to: false) else { throw FloError.couldNot("\(reset.verb) \(track.name)") }
                 handled += 1
                 if ContinuousClock.now - lastSound > .seconds(1) {
                     await Sound.progress.play()
@@ -159,15 +158,6 @@ enum TrackStatus {
         }
         // A stop request during the last click must not be announced as success.
         try Task.checkCancellation()
-    }
-
-    /// Presses the flag's button if the track takes part and its state is not `on` yet, then waits for the button to change.
-    @AccessibilityActor
-    static func set(_ flag: TrackFlag, on track: TrackStrip, to on: Bool) async throws {
-        guard let state = try track.has(flag), state != on else { return }
-        let before = try track.state(of: flag.toggle)
-        try track.button(flag.toggle).press()
-        _ = try await ProToolsUpdate.reading(changedFrom: before) { try track.state(of: flag.toggle) }
     }
 
     // MARK: 0 dB
@@ -196,38 +186,9 @@ enum TrackStatus {
         try mix.expandTrackList()
         for row in try mix.trackList().rows() where row.isSelected {
             try Task.checkCancellation()
-            try row.toggleSelected()
+            try row.toggle(.selected)
         }
         let stillSelected = try await ProToolsUpdate.reading(changedFrom: true) { try mix.trackList().rows().contains(where: \.isSelected) }
         try await VoiceOver.say(stillSelected ? "Please expand track list table." : "Deselected All Tracks.")
-    }
-}
-
-/// The tracks a macro reports or lists.
-enum TrackSet: Sendable {
-    /// Shown tracks that take part in the flag and have it (`on`) or not.
-    case strips(TrackFlag, on: Bool)
-    /// Track List rows, hidden tracks included, that are selected or shown (`on`) or not.
-    case trackList(TrackListProperty, on: Bool)
-
-    enum TrackListProperty: Sendable { case selected, shown }
-
-    /// The tracks' names in window order.
-    @AccessibilityActor
-    func names(in mix: MixWindow) throws -> [String] {
-        switch self {
-        case .strips(let flag, let on): try mix.tracks(flag, on: on).map(\.name)
-        case .trackList(let property, let on): try mix.trackList().rows().filter { $0.value(property) == on }.map(\.name)
-        }
-    }
-}
-
-extension TrackList.Row {
-    @AccessibilityActor
-    func value(_ property: TrackSet.TrackListProperty) -> Bool {
-        switch property {
-        case .selected: isSelected
-        case .shown: isShown
-        }
     }
 }

@@ -114,6 +114,20 @@ public struct TrackStrip {
         }
     }
 
+    /// Presses the toggle's button and returns its state once Pro Tools shows the change. A track that cannot change, such as one without an input to arm, shows a dialog and keeps its state, which is returned after the bounded wait.
+    public func press(_ toggle: Toggle) async throws -> String {
+        let before = try state(of: toggle)
+        try button(toggle).press()
+        return try await ProToolsUpdate.reading(changedFrom: before) { try state(of: toggle) }
+    }
+
+    /// Gives the track `flag` (`on`) or takes it away, unless it already is so or does not take part. Returns whether the track ends as asked: false when its button did not change, or changed to something else.
+    public func set(_ flag: TrackFlag, to on: Bool) async throws -> Bool {
+        guard let state = try has(flag), state != on else { return true }
+        _ = try await press(flag.toggle)
+        return try has(flag) != !on
+    }
+
     /// The toggle's state as Pro Tools shows it: the name of a named input monitoring button, otherwise the button's value, empty when off.
     public func state(of toggle: Toggle) throws -> String {
         try Self.state(of: toggle, button: button(toggle))

@@ -29,10 +29,8 @@ enum Inspector {
             try await VoiceOver.say(stateText(toggle, track.state(of: toggle)))
         }, double: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
-            let before = try await track.state(of: toggle)
-            try await track.button(toggle).press()
             // A track without an input and output cannot be armed or monitored; Pro Tools shows a dialog and the state stays as it was.
-            let after = try await ProToolsUpdate.reading(changedFrom: before) { try track.state(of: toggle) }
+            let after = try await track.press(toggle)
             try await VoiceOver.say(stateText(toggle, after))
         })
     }

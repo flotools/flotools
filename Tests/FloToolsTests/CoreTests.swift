@@ -743,6 +743,12 @@ import Testing
         #expect(TrackStrip.decibels(peakText: "minus ∞") == nil)
     }
 
+    @Test func chooserNamesTracksProToolsRefused() {
+        let arm = TrackLists.listings.first { $0.name == "List Record-Disabled Tracks" }!
+        #expect(TrackLists.unchangedText(arm, ["Kick - Audio Track ", "Snare - Audio Track "]) == "arm: Kick - Audio Track, Snare - Audio Track")
+        #expect(SpokenError.text(for: FloError.couldNot(TrackLists.unchangedText(arm, ["Kick - Audio Track "]))) == "Could not arm: Kick - Audio Track.")
+    }
+
     @Test func panMessageMatchesJXA() {
         #expect(Inspector.panMessage(valueDescription: "70 to the left", knobName: "Pan Knob") == "70 to the left, Pan Knob")
         #expect(Inspector.panMessage(valueDescription: "Centered", knobName: nil) == "Centered")

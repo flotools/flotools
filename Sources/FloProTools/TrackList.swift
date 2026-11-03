@@ -7,6 +7,9 @@ public struct TrackList {
 
     init(_ element: AXElement) { self.element = element }
 
+    /// The two states a row shows and toggles.
+    public enum Property: Sendable { case selected, shown }
+
     @AccessibilityActor
     public struct Row {
         /// The track's name as its strip is named, for example "Drums - Routing Folder Track ".
@@ -24,8 +27,20 @@ public struct TrackList {
             self.selectButton = selectButton
         }
 
-        public func toggleShown() throws { try showButton.press() }
-        public func toggleSelected() throws { try selectButton.press() }
+        public func has(_ property: Property) -> Bool {
+            switch property {
+            case .selected: isSelected
+            case .shown: isShown
+            }
+        }
+
+        /// Presses the property's button, which toggles only this track.
+        public func toggle(_ property: Property) throws {
+            switch property {
+            case .selected: try selectButton.press()
+            case .shown: try showButton.press()
+            }
+        }
     }
 
     /// All rows in list order. A row without its two buttons, which a collapsed Track List may have, is an error, so a partial list is never spoken as the whole.
