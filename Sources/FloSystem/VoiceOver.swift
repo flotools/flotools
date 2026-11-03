@@ -10,7 +10,7 @@ public actor VoiceOverActor {
 /// VoiceOver through the Apple events of its scripting dictionary, sent directly rather than through AppleScript source.
 /// There is no public API for the VoiceOver cursor, and VoiceOver does not speak accessibility announcements from a background app (tested 2026-11-02), so `output` is the way to speak.
 /// Sending the events directly takes about 3 ms instead of about 30 ms for compiling and running AppleScript, passes text as a parameter so nothing needs escaping, and sets a timeout per call.
-/// Owned by `VoiceOverActor`: an event waits for VoiceOver's reply, up to `timeout`, and an unresponsive VoiceOver must not hold up the main actor, which routes hotkeys and runs the menu. One actor also keeps speech in the order it was asked for.
+/// Owned by `VoiceOverActor`: an event waits for VoiceOver's reply, up to `timeout`, and an unresponsive VoiceOver must not hold up the main actor, which routes hotkeys and runs the menu. The actor sends one event at a time; each caller awaits its calls, so its own speech stays in order. Separate callers get no first-come order.
 @VoiceOverActor
 public enum VoiceOver {
     /// How long to wait for VoiceOver to answer. Without a limit, an Apple event to a VoiceOver that is not answering (for example while its welcome dialog is open) waits about two minutes.
@@ -64,7 +64,7 @@ public enum VoiceOver {
         return frame
     }
 
-    /// Whether macOS lets Flo Tools control VoiceOver with Apple events, checked without asking the user. For the diagnostic log header. Nonisolated because it sends no event and so cannot wait for VoiceOver; it has its own target descriptor, which is not Sendable.
+    /// Whether macOS lets Flo Tools control VoiceOver with Apple events, checked without asking the user. For the diagnostic log header. Nonisolated so the synchronous header can call it: it sends no event to VoiceOver and does not ask the user, so it should return quickly, although the API does not promise that. It has its own target descriptor, which is not Sendable.
     public nonisolated static func automationPermission() -> String {
         guard let desc = NSAppleEventDescriptor(bundleIdentifier: bundleID).aeDesc else { return "unknown" }
         let status = AEDeterminePermissionToAutomateTarget(desc, typeWildCard, typeWildCard, false)

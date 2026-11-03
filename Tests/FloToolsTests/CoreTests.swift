@@ -168,28 +168,35 @@ import Testing
         #expect(!monitors.isRunning("inspector.a"))
     }
 
-    /// A watch stopped on its own may still be ending; a later `stopAll()`, as when Pro Tools quits and session state is reset, waits for it too.
-    @Test func stopAllWaitsForAWatchStoppedEarlier() async {
+    /// A watch stopped on its own may still be ending; a later `stopAll()`, as when Pro Tools quits and session state is reset, waits for it too, and so does a second `stopAll()`.
+    /// The watch reaches its goodbye before anything is checked, and the gate opens only after the check that nothing finished early, so correct code always passes. The 50 ms only give broken code time to show itself.
+    @Test func stopAllWaitsForAWatchStoppedEarlier() async throws {
         let monitors = Watches()
-        let gate = Gate(), ended = Flag()
-        let (started, didStart) = AsyncStream<Void>.makeStream()
+        let gate = Gate(), ended = Flag(), joined = Flag()
+        let (progress, report) = AsyncStream<String>.makeStream()
         monitors.toggle("inspector.a") {
-            didStart.yield()
+            report.yield("started")
             try? await Task.sleep(for: .seconds(60))
             // Cancelled: say goodbye, which takes until the gate opens.
+            report.yield("at gate")
             await gate.wait()
             await ended.set()
         }
-        var iterator = started.makeAsyncIterator()
-        _ = await iterator.next()
+        var steps = progress.makeAsyncIterator()
+        #expect(await steps.next() == "started")
         monitors.stop("inspector.a")
         #expect(!monitors.isRunning("inspector.a"))
-        let all = monitors.stopAll()
-        Task.detached {
-            try? await Task.sleep(for: .milliseconds(50))
-            await gate.open()
+        #expect(await steps.next() == "at gate")
+        let first = monitors.stopAll(), second = monitors.stopAll()
+        let joiner = Task {
+            await first.value
+            await second.value
+            await joined.set()
         }
-        await all.value
+        try await Task.sleep(for: .milliseconds(50))
+        #expect(await !joined.isSet)
+        await gate.open()
+        await joiner.value
         #expect(await ended.isSet)
     }
 
