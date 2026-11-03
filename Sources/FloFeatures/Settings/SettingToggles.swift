@@ -46,7 +46,7 @@ enum SettingToggles {
         toggle(id, name, key: key, .menuItem(menu: menu, .is(item))) { control in try wording.text(control.isOn) }
     }
 
-    /// Single press speaks the setting; double press plays the done sound, switches it and speaks the new state. The JXA waited a fixed 0.1 s before reading the new state of a button and spoke nothing after choosing a menu item; this waits until the state changes, and speaks menu items too, so every double press confirms what it did.
+    /// Single press speaks the setting; double press plays the done sound, switches it and speaks the new state. The JXA waited a fixed 0.1 s before reading the new state of a button and spoke nothing after choosing a menu item; this waits until the state changes, and speaks menu items too, so every double press confirms what it did. A dimmed control is refused: Pro Tools ignores the press, and speaking the unchanged state would sound like success. Pro Tools dims its menus while a modal window such as the About splash is open.
     @MainActor
     private static func toggle(_ id: CommandID, _ name: String, key: String, _ setting: ProToolsSetting, spoken: @escaping @Sendable @AccessibilityActor (SettingControl) throws -> String) -> Command {
         Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
@@ -54,6 +54,10 @@ enum SettingToggles {
             try await VoiceOver.say(spoken(control))
         }, double: { _ in
             let control = try await ProToolsApp.running().control(setting)
+            guard try await control.isEnabled else {
+                let name = try await control.name
+                throw FloError.couldNot("switch \(name), it is dimmed")
+            }
             try await VoiceOver.say(ProToolsUpdate.reading(after: { try control.press() }) { try spoken(control) })
         })
     }
