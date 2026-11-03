@@ -16,10 +16,10 @@ public struct CommandRun: Sendable {
     public let context: FrontContext
     public let engine: Engine
 
-    /// Sends the hotkey that started this run on to the front app, for commands that act only in some windows. Does nothing for other triggers.
-    @MainActor
-    public func passThrough() {
+    /// Sends the hotkey that started this run on to the front app, and returns once it is posted, so what the command does next follows the key. Does nothing for other triggers. Throws `FloError.couldNot` when the key cannot be sent.
+    public func passThrough() async throws {
         guard case .hotKey(let combo, .pressed) = trigger else { return }
-        engine.passThrough(combo, to: context)
+        guard context.processID > 0 else { throw FloError.couldNot("send a key to Pro Tools") }
+        try await Keyboard.press(combo, pid: context.processID)
     }
 }

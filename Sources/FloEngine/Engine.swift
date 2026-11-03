@@ -396,8 +396,8 @@ public final class Engine {
         while let tail = queueTail, runs.isEmpty == false { await tail.value }
     }
 
-    /// Sends a key Carbon took from the front app on to it. Posted to the process, so the key is not caught as a hotkey again.
-    func passThrough(_ combo: KeyCombo, to context: FrontContext) {
+    /// Sends a key Carbon took from the front app on to it, from the hotkey callback, without waiting. Posted to the process, so the key is not caught as a hotkey again.
+    private func passThrough(_ combo: KeyCombo, to context: FrontContext) {
         guard context.processID > 0 else {
             Log.warning(.engine, "no front app to pass a key on to, the key is lost")
             return

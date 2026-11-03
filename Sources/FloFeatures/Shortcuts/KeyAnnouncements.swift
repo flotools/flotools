@@ -37,7 +37,7 @@ enum KeyAnnouncements {
             if let replacement {
                 try await ProToolsApp.running().keystroke(replacement)
             } else {
-                await run.passThrough()
+                try await run.passThrough()
             }
             if try await speaks(after: guarding) { try await VoiceOver.say(text) }
         }
@@ -59,7 +59,7 @@ enum KeyAnnouncements {
         if let replacement {
             try await ProToolsApp.running().keystroke(replacement)
         } else {
-            await run.passThrough()
+            try await run.passThrough()
         }
         guard try await speaks(after: guarding) else { return }
         let source = try find()
