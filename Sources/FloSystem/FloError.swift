@@ -1,3 +1,5 @@
+import ApplicationServices
+
 /// The one error model. Core code throws these so the engine can log why a command stopped and tell the user (`SpokenError` in `FloEngine`).
 /// Cancellation is Swift's own `CancellationError`, which the engine treats as silent.
 public enum FloError: Error, Equatable, Sendable, CustomStringConvertible {
@@ -13,6 +15,11 @@ public enum FloError: Error, Equatable, Sendable, CustomStringConvertible {
     case couldNot(String)
     /// A multi-step job stopped part way. `done` says what was done, for example "Unsoloed 2 of 5 tracks"; `cause` is why it stopped.
     indirect case incomplete(done: String, cause: FloError)
+
+    /// Whether an Accessibility call failed because the app did not answer (`cannotComplete`, which includes the messaging timeout), as Pro Tools does while it is busy. Such a read can work when tried again.
+    public var isBusyApp: Bool {
+        if case .accessibility(_, AXError.cannotComplete.rawValue) = self { true } else { false }
+    }
 
     public var description: String {
         switch self {

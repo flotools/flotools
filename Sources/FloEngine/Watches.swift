@@ -69,9 +69,9 @@ extension Watches {
     public nonisolated static let pollInterval: Duration = .milliseconds(100)
 }
 
-/// A watch's run of failed reads. A watch polls ten times a second, so it logs only the first failure of a run and the first good read after it. What a failure does to the watch, such as dropping its baseline or ending it, stays with the watch.
+/// A run of failed reads by a loop that polls Pro Tools ten times a second, such as a watch or the freeze wait, so it logs only the first failure of a run and the first good read after it. What a failure does to the loop, such as dropping a watch's baseline or ending it, stays with the loop.
 public struct ReadFailureStreak: Sendable {
-    /// What the watch reads, for the log, for example "the meter".
+    /// What the loop reads, for the log, for example "the meter".
     public let what: String
     public private(set) var isFailing = false
 
@@ -80,12 +80,12 @@ public struct ReadFailureStreak: Sendable {
     }
 
     public mutating func failed(_ error: any Error) {
-        if !isFailing { Log.info(.engine, "watch could not read \(what): \(error)") }
+        if !isFailing { Log.info(.engine, "could not read \(what): \(error)") }
         isFailing = true
     }
 
     public mutating func succeeded() {
-        if isFailing { Log.info(.engine, "watch reads \(what) again") }
+        if isFailing { Log.info(.engine, "reads \(what) again") }
         isFailing = false
     }
 }

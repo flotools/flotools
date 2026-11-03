@@ -128,12 +128,19 @@ enum InspectorControls {
         return name
     }
 
-    /// Reads the freeze button's name until it differs from `before`. Failed reads are expected while Pro Tools renders, so they only mean "not yet".
+    /// Reads the freeze button's name until it differs from `before`. Pro Tools answers slowly or not at all while it renders, so a busy read (`cannotComplete`, which includes the messaging timeout) only means "not yet". Any other failure, such as a track that is gone, ends the wait rather than holding the queue for `freezeTimeout`.
     private static func waitForFreeze(_ track: TrackStrip, changedFrom before: String) async throws -> String {
         let start = ContinuousClock.now
         var progress = ProgressTicker(every: .seconds(1), startingAt: start)
+        var streak = ReadFailureStreak(reading: "the freeze button")
         while true {
-            if let name = try? await readout(.freeze, of: track), name != before { return name }
+            do {
+                let name = try await readout(.freeze, of: track)
+                streak.succeeded()
+                if name != before { return name }
+            } catch let error as FloError where error.isBusyApp {
+                streak.failed(error)
+            }
             guard ContinuousClock.now - start < freezeTimeout else { throw FloError.couldNot("see the freeze finish") }
             await progress.tick()
             try await Task.sleep(for: .milliseconds(100))

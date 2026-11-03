@@ -683,6 +683,8 @@ private actor Flag {
         #expect(SpokenError.text(for: FloError.couldNot("resume the mix groups")) == "Could not resume the mix groups.")
         let partial = FloError.incomplete(done: "Unsoloed 2 of 5 tracks", cause: .accessibility(operation: "AXPress", code: AXError.cannotComplete.rawValue))
         #expect(SpokenError.text(for: partial) == "Unsoloed 2 of 5 tracks. Pro Tools did not respond.")
+        // A closed window or a track that is gone is not a busy app, so the freeze wait stops on it.
+        #expect(!FloError.accessibility(operation: "read AXTitle", code: AXError.invalidUIElement.rawValue).isBusyApp)
     }
 }
 

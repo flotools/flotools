@@ -18,7 +18,7 @@ public enum SpokenError {
         case FloError.voiceOver:
             // Speaking this usually fails too; it is still worth trying, because only one call may have timed out.
             return "VoiceOver did not respond."
-        case FloError.accessibility(_, AXError.cannotComplete.rawValue):
+        case let error as FloError where error.isBusyApp:
             return "Pro Tools did not respond."
         case FloError.accessibility(_, AXError.apiDisabled.rawValue):
             return "Flo Tools needs Accessibility access."
