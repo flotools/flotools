@@ -121,7 +121,7 @@ public final class Lifecycle {
             InspectorMeters.stopWatches(in: engine)
         }
         // Like KM Load Plugin Parameters for Default View on a focused window change, which includes moving between two instances of one plug-in, whose windows have the same title. A plug-in window showing another plug-in changes its title, which loads that plug-in's view too.
-        if windowChanged, title.hasPrefix(PlugInWindow.Kind.plugIn.titlePrefix) {
+        if windowChanged, context.proToolsWindowKind == .plugIn {
             engine.fire(PlugIns.loadDefaultView, on: "plug-in window \"\(title)\" in front")
         }
         lastProToolsWindow = (title, context.windowNumber)

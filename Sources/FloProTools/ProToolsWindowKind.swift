@@ -36,6 +36,9 @@ public enum ProToolsWindowKind: Sendable, Hashable, CustomStringConvertible {
         }
     }
 
+    /// Whether this is the Mix or Edit window, which Close All Floating Windows keeps open.
+    public var isTrackWindow: Bool { self == .mix || self == .edit }
+
     /// For the log and the keymap baseline.
     public var description: String {
         switch self {

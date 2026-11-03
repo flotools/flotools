@@ -37,6 +37,14 @@ import Testing
         }
     }
 
+    @Test func onlyMixAndEditAreTrackWindows() {
+        #expect(ProToolsWindowKind(title: "Mix: I Trust").isTrackWindow)
+        #expect(ProToolsWindowKind(title: "edit: I Trust").isTrackWindow)
+        #expect(!ProToolsWindowKind(title: "Plug-in: Mix: Bus").isTrackWindow)
+        #expect(!ProToolsWindowKind(title: "Session Notes: Edit: draft").isTrackWindow)
+        #expect(!ProToolsWindowKind(title: "Audio Suite: Gain").isTrackWindow)
+    }
+
     @Test func contextHasKindOnlyForProToolsWindows() {
         #expect(FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Fade In").proToolsWindowKind == .fade(.fadeIn))
         #expect(FrontContext(bundleID: ProToolsApp.bundleID).proToolsWindowKind == nil)
