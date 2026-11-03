@@ -46,7 +46,7 @@ Run from the repository root.
 - App bundle: `scripts/build-app.sh` (universal release build, signed with the first "Apple Development" identity, or `FLO_SIGN_IDENTITY`). Always sign with the same identity, because Accessibility and Automation permissions are tied to the signature.
 - Relaunch: `pkill -x FloTools; scripts/build-app.sh && open "build/Flo Tools.app"`
 - Regenerate macro reference files: `.venv/bin/python -I tools/km_export.py` (`--check` to only compare).
-- App log: `log show --last 1m --predicate 'subsystem == "com.chikim.FloTools"' --style compact`
+- App log: turn on the diagnostic log from the menu bar menu ("Turn On Log") and read the newest file in `~/Library/Logs/Flo Tools/`. The unified log (`log show --last 1m --predicate 'subsystem == "com.chikim.FloTools"' --style compact`) has only warnings and errors.
 
 ## Porting a macro
 
@@ -61,7 +61,7 @@ Run from the repository root.
 - Pro Tools must be running with a session open. Keyboard Maestro Engine must not be running, or its Flo Tools macros take the same keys.
 - Front window: System Events `value of attribute "AXFocusedWindow"` of the Pro Tools process. VoiceOver cursor: `tell application "VoiceOver" to return text under cursor of vo cursor`.
 - Press a hotkey: `osascript -e 'tell application "System Events" to key code 19 using control down'`. For a double press, send two key codes 0.05 s apart in one script.
-- Check speech: `osascript -e 'tell application "VoiceOver" to return content of last phrase'`. Check which macro ran in the app log (`combo -> group/macro`).
+- Check speech: `osascript -e 'tell application "VoiceOver" to return content of last phrase'`. Check which macro ran in the diagnostic log (`<combo> pressed in <context> -> <macro ID>`).
 - Restore any session state a test changes (solo, mute, record arm, selection, open windows and menus), and record what was changed and restored in the journal.
 - Key presses from System Events go through the same hotkey path as physical keys, but say so when a result was not checked with a physical keyboard.
 
