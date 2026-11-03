@@ -110,13 +110,7 @@ public final class MacroEngine {
         guard !started else { return }
         started = true
         hotKeys.handler = { [weak self] combo, phase in self?.handle(combo, phase) }
-        contextMonitor.onChange = { [weak self] context in
-            Log.info(.context, "front: \(context)")
-            self?.context = context
-            // A single press waiting for its timeout belongs to the window it was pressed in.
-            self?.stateChanged(voidsPendingSingles: true)
-            self?.onContextChange?(context)
-        }
+        contextMonitor.onChange = { [weak self] context in self?.contextChanged(to: context) }
         contextMonitor.start()
         context = contextMonitor.current
         updateHotKeys()
@@ -186,6 +180,15 @@ public final class MacroEngine {
         stateChanged(voidsPendingSingles: true)
     }
 
+    /// The front app or window changed.
+    func contextChanged(to context: FrontContext) {
+        Log.info(.context, "front: \(context)")
+        self.context = context
+        // A single press waiting for its timeout belongs to the window it was pressed in.
+        stateChanged(voidsPendingSingles: true)
+        onContextChange?(context)
+    }
+
     private func stateChanged(voidsPendingSingles: Bool) {
         if voidsPendingSingles { cancelPendingSingles() }
         updateHotKeys()
@@ -215,8 +218,9 @@ public final class MacroEngine {
         Set(macrosByCombo.filter { _, ids in ids.contains { id in macro(id).map { isActive($0, in: context) } ?? false } }.keys)
     }
 
+    /// Ends the holds whose key stopped being a hotkey and, once started, registers the hotkeys. Holds end before `start()` too, so the tests, which dispatch keys without registering them, cover it.
     private func updateHotKeys() {
-        guard started, !endingHolds else { return }
+        guard !endingHolds, started || !holds.isEmpty else { return }
         var combos = takesKeys ? activeCombos(in: context) : []
         // A held key that is no longer a hotkey would never report its release, so its hold ends now. A release can change state, for example deactivate the Inspector, so the keys are worked out again after it. Ends because every pass removes a hold.
         while holds.keys.contains(where: { !combos.contains($0) }) {
@@ -225,7 +229,7 @@ public final class MacroEngine {
             endingHolds = false
             combos = takesKeys ? activeCombos(in: context) : []
         }
-        hotKeys.setActive(combos)
+        if started { hotKeys.setActive(combos) }
     }
 
     // MARK: Running

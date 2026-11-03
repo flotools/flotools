@@ -418,6 +418,31 @@ import Testing
         #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == [InspectorMode.nextTrackView])
     }
 
+    /// A held key that stops being a hotkey never reports its release, so the engine ends the hold itself: when Flo Tools is suspended or turned off, when the macro is turned off, and when the front window is one where the key does not apply. The temporary Inspector then turns off.
+    @Test(arguments: ["suspended", "disabled", "macro turned off", "window changed"])
+    func temporaryInspectorEndsWhenItsKeyStopsBeingAHotkey(_ cause: String) {
+        let engine = engine(InspectorMode.macros)
+        engine.dispatch(KeyCombo("`")!, .pressed, in: mix)
+        #expect(engine.mode.inspector)
+        switch cause {
+        case "suspended": engine.suspend(Suspension("test"))
+        case "disabled": engine.isEnabled = false
+        case "macro turned off": engine.setMacro(InspectorMode.toggleTemporaryInspector, enabled: false)
+        default: engine.contextChanged(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Memory Locations"))
+        }
+        #expect(!engine.mode.inspector)
+    }
+
+    @Test func holdOutlivesChangesThatKeepItsKey() {
+        let events = Events()
+        let engine = engine([holdMacro(events)])
+        engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
+        engine.contextChanged(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Edit: Session"))
+        #expect(events.list == ["press"])
+        engine.dispatch(KeyCombo("F3")!, .released, in: mix)
+        #expect(events.list == ["press", "release"])
+    }
+
     @Test func stopEndsHolds() {
         let events = Events()
         let engine = engine([holdMacro(events)])
