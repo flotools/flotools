@@ -172,9 +172,14 @@ public final class MacroEngine {
 
     private func updateHotKeys() {
         guard started, batchDepth == 0 else { return }
-        let combos = isEnabled ? activeCombos(in: context) : []
-        // A held key that is no longer a hotkey would never report its release, so its hold ends now.
-        endHolds { !combos.contains($0) }
+        var combos = isEnabled ? activeCombos(in: context) : []
+        // A held key that is no longer a hotkey would never report its release, so its hold ends now. A release can change state, for example deactivate the Inspector, so the keys are worked out again after it. Ends because every pass removes a hold.
+        while holds.keys.contains(where: { !combos.contains($0) }) {
+            batchDepth += 1
+            endHolds { !combos.contains($0) }
+            batchDepth -= 1
+            combos = isEnabled ? activeCombos(in: context) : []
+        }
         hotKeys.setActive(combos)
     }
 

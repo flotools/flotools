@@ -157,23 +157,32 @@ public struct AXElement {
 
     // MARK: Diagnostics
 
-    /// Role, title, description and value, for the log. Unreadable attributes are left out, so describing an element never throws.
-    public func summary() -> String {
-        func read(_ name: String) -> String? {
+    /// Role, title, description and value, for the log. Absent attributes are left out, so describing an element never throws.
+    public func summary() -> String { describe(until: nil).text }
+
+    /// Reads the summary's attributes until one read fails or `deadline` passes, so a busy app costs at most one messaging timeout. Returns why it stopped, if it did.
+    private func describe(until deadline: ContinuousClock.Instant?) -> (text: String, stopped: String?) {
+        let fields: [(name: String, format: (String) -> String)] = [
+            ("AXRole", { $0 }),
+            ("AXSubrole", { "(\($0))" }),
+            ("AXTitle", { "title=\($0.debugDescription)" }),
+            ("AXDescription", { "desc=\($0.debugDescription)" }),
+            ("AXValue", { "value=\($0.debugDescription)" }),
+        ]
+        var parts: [String] = []
+        var stopped: String?
+        for field in fields {
+            if let deadline, ContinuousClock.now >= deadline { stopped = "time limit"; break }
             var value: CFTypeRef?
-            guard AXUIElementCopyAttributeValue(ref, name as CFString, &value) == .success else { return nil }
-            if let text = value as? String { return text }
-            return (value as? NSNumber)?.stringValue
+            let result = AXUIElementCopyAttributeValue(ref, field.name as CFString, &value)
+            if Self.readOutcome(result) == .failure { stopped = "AXError \(result.rawValue) reading \(field.name)"; break }
+            let text = (value as? String) ?? (value as? NSNumber)?.stringValue
+            if let text, !text.isEmpty { parts.append(field.format(text)) }
         }
-        var parts = [read("AXRole") ?? "?"]
-        if let subrole = read("AXSubrole") { parts.append("(\(subrole))") }
-        for (label, name) in [("title", "AXTitle"), ("desc", "AXDescription"), ("value", "AXValue")] {
-            if let text = read(name), !text.isEmpty { parts.append("\(label)=\(text.debugDescription)") }
-        }
-        return parts.joined(separator: " ")
+        return (parts.isEmpty ? "?" : parts.joined(separator: " "), stopped)
     }
 
-    /// Indented tree of this element and its descendants, for the log and porting work. Bounded, because each node costs several messages to a possibly busy app: it stops at `depth` levels, `maxNodes` elements, `maxCharacters` of text or `budget` of time, and at the first read that fails.
+    /// Indented tree of this element and its descendants, for the log and porting work. Bounded, because each node costs several messages to a possibly busy app: it stops at `depth` levels, `maxNodes` elements, `maxCharacters` of text or `budget` of time, and at the first read that fails. The time is checked before each read, so one read that is already running can overrun it.
     public func dump(depth: Int = 3, maxNodes: Int = 80, maxCharacters: Int = 8_000, budget: Duration = .milliseconds(500)) -> String {
         var lines: [String] = []
         var characters = 0
@@ -182,12 +191,14 @@ public struct AXElement {
         func visit(_ element: AXElement, level: Int) {
             guard stopped == nil else { return }
             guard lines.count < maxNodes else { stopped = "\(maxNodes) elements"; return }
-            guard ContinuousClock.now < deadline else { stopped = "time limit"; return }
             guard characters < maxCharacters else { stopped = "\(maxCharacters) characters"; return }
-            let line = String(repeating: "  ", count: level) + element.summary()
+            let description = element.describe(until: deadline)
+            let line = String((String(repeating: "  ", count: level) + description.text).prefix(maxCharacters - characters))
             characters += line.count
             lines.append(line)
+            if let reason = description.stopped { stopped = reason; return }
             guard level < depth else { return }
+            guard ContinuousClock.now < deadline else { stopped = "time limit"; return }
             var value: CFTypeRef?
             let result = AXUIElementCopyAttributeValue(element.ref, "AXChildren" as CFString, &value)
             guard Self.readOutcome(result) != .failure else { stopped = "AXError \(result.rawValue) reading children"; return }

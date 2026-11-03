@@ -1,12 +1,21 @@
 import ApplicationServices
+import Foundation
 
 /// Reads the focused window title of the front app and asks to be called again when it may have changed, through AX notifications.
 ///
 /// Everything here messages the observed app, so it runs on `AccessibilityActor`. The notifications arrive on the main run loop, in the common modes so they also arrive while a menu is open; they only call `onChange`, which must not touch AX itself.
 @AccessibilityActor
 public final class FrontWindowObserver {
-    /// Called on the main thread when the app's focused window or its title may have changed.
-    private nonisolated let onChange: @Sendable () -> Void
+    /// What the C callback reaches through its refcon. Kept apart from the observer so `stop()` can keep it alive until the main run loop has finished a callback that was already running.
+    private final class Callback: Sendable {
+        /// Called on the main thread when the app's focused window or its title may have changed.
+        let onChange: @Sendable () -> Void
+        init(_ onChange: @escaping @Sendable () -> Void) { self.onChange = onChange }
+    }
+
+    private nonisolated let callback: Callback
+    /// Set by `stop()`, so a read that was queued before it does not attach the observer again.
+    private var stopped = false
     private var observer: AXObserver?
     /// The app the observer is attached to. Set only when attaching worked, so a failed attempt, for example before Accessibility access is granted, is tried again on the next read.
     private var observedPid: pid_t = 0
@@ -16,21 +25,26 @@ public final class FrontWindowObserver {
 
     /// Nonisolated so the main actor can create it; it only stores the callback.
     public nonisolated init(onChange: @escaping @Sendable () -> Void) {
-        self.onChange = onChange
+        callback = Callback(onChange)
     }
 
     /// The title of the focused window of app `pid`, nil when it has no focused window. Attaches the observer to that app first. Throws when the window cannot be read, for example while the app is busy.
     public func focusedWindowTitle(pid: pid_t) throws -> String? {
+        guard !stopped else { throw CancellationError() }
         if pid != observedPid { observe(pid: pid) }
         let window = try AXElement.application(pid: pid).focusedWindow
         if !isSame(window, watchedWindow) { watchTitle(of: window) }
         return try window?.title
     }
 
-    /// Detaches from the observed app. Call before dropping the instance; the notification callback holds an unretained reference.
+    /// Detaches from the observed app for good. Call before dropping the instance.
     public func stop() {
+        stopped = true
         observe(pid: 0)
         failedPid = 0
+        // Callbacks run on the main thread, so once this block runs there is none in progress, and the source is removed, so none follows.
+        let callback = callback
+        DispatchQueue.main.async { withExtendedLifetime(callback) {} }
     }
 
     private func observe(pid: pid_t) {
@@ -44,7 +58,7 @@ public final class FrontWindowObserver {
         var created: AXObserver?
         let status = AXObserverCreate(pid, { _, _, _, refcon in
             guard let refcon else { return }
-            Unmanaged<FrontWindowObserver>.fromOpaque(refcon).takeUnretainedValue().onChange()
+            Unmanaged<Callback>.fromOpaque(refcon).takeUnretainedValue().onChange()
         }, &created)
         guard status == .success, let created else {
             attachFailed(pid: pid, "AXObserverCreate \(status.rawValue)")
@@ -93,6 +107,6 @@ public final class FrontWindowObserver {
         }
     }
 
-    /// How AX notifications reach this instance. The owner keeps it alive until `stop()` removes the observer.
-    private var refcon: UnsafeMutableRawPointer { Unmanaged.passUnretained(self).toOpaque() }
+    /// How AX notifications reach `callback`, which lives at least as long as the observer is attached.
+    private var refcon: UnsafeMutableRawPointer { Unmanaged.passUnretained(callback).toOpaque() }
 }

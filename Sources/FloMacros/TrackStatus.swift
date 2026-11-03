@@ -72,6 +72,8 @@ enum TrackStatus {
                 }
             }
         }
+        // A stop request during the last click must not be announced as success.
+        try Task.checkCancellation()
         try await VoiceOver.say("unsoloed all tracks.")
     }
 

@@ -249,10 +249,12 @@ import Testing
         let events = Events()
         var signalStarted: AsyncStream<Void>.Continuation?
         let started = AsyncStream<Void> { signalStarted = $0 }
+        var signalFinish: AsyncStream<Void>.Continuation?
+        let finish = AsyncStream<Void> { signalFinish = $0 }
         let engine = engine([
             Macro("test.slow", "Slow", group: .floTools, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
                 signalStarted?.yield()
-                try await Task.sleep(for: .milliseconds(50))
+                for await _ in finish { break }
                 events.list.append("slow")
             },
             Macro("test.fast", "Fast", group: .floTools, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
@@ -263,6 +265,7 @@ import Testing
         for await _ in started { break }
         // While the slow macro runs, Finder comes to front and a key no macro takes is pressed.
         #expect(engine.dispatch(KeyCombo("F9")!, .pressed, in: FrontContext(bundleID: "com.apple.finder", processID: 200)) == nil)
+        signalFinish?.yield()
         await engine.waitUntilIdle()
         #expect(events.list == ["slow"])
     }
@@ -295,6 +298,22 @@ import Testing
         engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F3")!, .released, in: mix)
         #expect(events.list == ["press"])
+    }
+
+    @Test func inspectorSingleStillRunsAfterTheTemporaryHoldEnds() async throws {
+        let events = Events()
+        let engine = engine(InspectorMode.macros + [
+            Macro("test.inspectorKey", "Inspector key", group: .inspector, triggers: [.key("F1")], single: { @MainActor _ in events.list.append("single") }, double: { @MainActor _ in events.list.append("double") }),
+        ])
+        engine.setGroup(.inspector, activated: false)
+        #expect(engine.dispatch(KeyCombo("`")!, .pressed, in: mix) != nil)
+        #expect(engine.isGroupActivated(.inspector))
+        #expect(engine.dispatch(KeyCombo("F1")!, .pressed, in: mix) != nil)
+        // Released within the double-press timeout: the accepted single press must still run.
+        engine.dispatch(KeyCombo("`")!, .released, in: mix)
+        #expect(!engine.isGroupActivated(.inspector))
+        await engine.waitUntilIdle()
+        #expect(events.list == ["single"])
     }
 
     @Test func stopEndsHolds() {
@@ -473,5 +492,53 @@ import Testing
     @Test func soloedMessageMatchesJXA() {
         #expect(TrackStatus.soloedMessage(names: []) == "No tracks are soloed.")
         #expect(TrackStatus.soloedMessage(names: ["Kick - Audio Track ", "Snare - Audio Track "]) == "2 Soloed: Kick - Audio. Snare - Audio. ")
+    }
+}
+
+/// `#expect` cannot call mutating methods, so each step's result is stored first.
+@Suite struct WindowTitleReadsTests {
+    @Test func oneReadAtATime() throws {
+        var reads = WindowTitleReads()
+        let first = try #require(reads.changeReported() as Int?)
+        let pollDuringRead = reads.pollTicked()
+        let end = reads.readEnded(id: first)
+        let pollAfter = reads.pollTicked()
+        #expect(pollDuringRead == nil)
+        #expect(end == .publish)
+        #expect(pollAfter != nil)
+    }
+
+    @Test func changeDuringAReadDropsItAndReadsAgain() throws {
+        var reads = WindowTitleReads()
+        let first = try #require(reads.changeReported() as Int?)
+        let changeDuringRead = reads.changeReported()
+        let end = reads.readEnded(id: first)
+        #expect(changeDuringRead == nil)
+        guard case .readAgain(let second) = end else {
+            Issue.record("the stale result was not dropped: \(end)")
+            return
+        }
+        let secondEnd = reads.readEnded(id: second)
+        #expect(secondEnd == .publish)
+    }
+
+    @Test func pollDuringAReadKeepsItsResult() throws {
+        var reads = WindowTitleReads()
+        let first = try #require(reads.pollTicked() as Int?)
+        let pollDuringRead = reads.pollTicked()
+        let end = reads.readEnded(id: first)
+        #expect(pollDuringRead == nil)
+        #expect(end == .publish)
+    }
+
+    @Test func readFromBeforeResetIsIgnored() throws {
+        var reads = WindowTitleReads()
+        let old = try #require(reads.changeReported() as Int?)
+        reads.reset()
+        let new = try #require(reads.changeReported() as Int?)
+        let oldEnd = reads.readEnded(id: old)
+        let newEnd = reads.readEnded(id: new)
+        #expect(oldEnd == .ignore)
+        #expect(newEnd == .publish)
     }
 }
