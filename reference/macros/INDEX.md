@@ -164,50 +164,50 @@
 | Flo Tools Audio Suite | [Previous Preset](<Flo Tools Audio Suite/Previous Preset.md>) | [ | True | 18D68121-4D3D-43DB-A50B-14495539D29F |  |
 | Flo Tools Audio Suite | [Render](<Flo Tools Audio Suite/Render.md>) | Ctrl+Opt+Shift+Cmd+R | True | C26162A5-D033-4B70-A89C-DF7F7DA139E1 |  |
 | Flo Tools Audio Suite | [Speak/Choose Audio Suite Preset](<Flo Tools Audio Suite/Speak_Choose Audio Suite Preset.md>) | Opt+Cmd+P | True | CEAA11A1-6E5F-4F6A-B630-A68B2BFC1346 |  |
-| Flo Tools Batch Fades | [Next Crossfade In Shape Curve](<Flo Tools Batch Fades/Next Crossfade In Shape Curve.md>) | Opt+Right | True | FD840406-E744-441C-BE7C-01AD00774D85 |  |
-| Flo Tools Batch Fades | [Next Crossfade In Shape Parameter](<Flo Tools Batch Fades/Next Crossfade In Shape Parameter.md>) | Opt+Down | True | 420ECF4B-CD66-4F2A-BBCA-9B9B1CFC5714 |  |
-| Flo Tools Batch Fades | [Next Crossfade Link,](<Flo Tools Batch Fades/Next Crossfade Link_.md>) | Opt+Cmd+Down | True | D65B8F56-D100-44AA-8D9D-10CC96B4F3FE |  |
-| Flo Tools Batch Fades | [Next Crossfade Out Shape Curve](<Flo Tools Batch Fades/Next Crossfade Out Shape Curve.md>) | Opt+Shift+Right | True | 1AB29A21-663B-4957-A19C-CE4F7DFA89F4 |  |
-| Flo Tools Batch Fades | [Next Crossfade Out Shape Parameter](<Flo Tools Batch Fades/Next Crossfade Out Shape Parameter.md>) | Opt+Shift+Down | True | 53007920-D2C6-490A-B84D-7E1D738E50BC |  |
-| Flo Tools Batch Fades | [Next Fade In Shape Curve](<Flo Tools Batch Fades/Next Fade In Shape Curve.md>) | Shift+Right | True | DD93F80A-1026-4B63-B44E-BAD89F2CB21C |  |
-| Flo Tools Batch Fades | [Next Fade In Shape Parameter](<Flo Tools Batch Fades/Next Fade In Shape Parameter.md>) | Shift+Down | True | F5E52450-3C8E-45BE-BE81-AD4DCC43EC49 |  |
-| Flo Tools Batch Fades | [Next Fade Out Shape Curve](<Flo Tools Batch Fades/Next Fade Out Shape Curve.md>) | Cmd+Right | True | 9A9C99B0-A7E3-452D-ABA1-CF719BBF1400 |  |
-| Flo Tools Batch Fades | [Next Fade Out Shape Parameter](<Flo Tools Batch Fades/Next Fade Out Shape Parameter.md>) | Cmd+Down | True | C789F858-DDF6-49AA-966A-E5BA0800BC5F |  |
-| Flo Tools Batch Fades | [Next In Slope](<Flo Tools Batch Fades/Next In Slope.md>) | Shift+Cmd+Down | True | 2BBCE161-2778-4445-A106-A781732D1637 |  |
-| Flo Tools Batch Fades | [Next Out Slope](<Flo Tools Batch Fades/Next Out Slope.md>) | Ctrl+Cmd+Down | True | 5EBD25A4-EBAE-42ED-AC2D-93F1EE3B7228 |  |
-| Flo Tools Batch Fades | [Previous Crossfade In Shape Curve](<Flo Tools Batch Fades/Previous Crossfade In Shape Curve.md>) | Opt+Left | True | 894B5278-E347-4E8A-9202-A8154FCF8CAC |  |
-| Flo Tools Batch Fades | [Previous Crossfade In Shape Parameter](<Flo Tools Batch Fades/Previous Crossfade In Shape Parameter.md>) | Opt+Up | True | 76AC612A-3F5C-4B43-A1E8-BB46E27A08CA |  |
-| Flo Tools Batch Fades | [Previous Crossfade Link](<Flo Tools Batch Fades/Previous Crossfade Link.md>) | Opt+Cmd+Up | True | 24FFACB2-3C41-4203-9F9B-3035B6C8FF5D |  |
-| Flo Tools Batch Fades | [Previous Crossfade Out Shape Curve](<Flo Tools Batch Fades/Previous Crossfade Out Shape Curve.md>) | Opt+Shift+Left | True | 0834989E-3119-4CF5-8675-3D4125FC918F |  |
-| Flo Tools Batch Fades | [Previous Crossfade Out Shape Parameter](<Flo Tools Batch Fades/Previous Crossfade Out Shape Parameter.md>) | Opt+Shift+Up | True | C0BD46D8-CB73-4DFD-9847-A4B68404DC98 |  |
-| Flo Tools Batch Fades | [Previous Fade In Shape Curve](<Flo Tools Batch Fades/Previous Fade In Shape Curve.md>) | Shift+Left | True | 456BB4D3-3257-4570-902A-B5148D91D46D |  |
-| Flo Tools Batch Fades | [Previous Fade In Shape Parameter](<Flo Tools Batch Fades/Previous Fade In Shape Parameter.md>) | Shift+Up | True | 348D1F52-5AA6-4210-AC19-CA6BEA9B0A87 |  |
-| Flo Tools Batch Fades | [Previous Fade Out Shape Curve](<Flo Tools Batch Fades/Previous Fade Out Shape Curve.md>) | Cmd+Left | True | B4D8720E-149E-49DC-B948-027A541C777E |  |
-| Flo Tools Batch Fades | [Previous Fade Out Shape Parameter](<Flo Tools Batch Fades/Previous Fade Out Shape Parameter.md>) | Cmd+Up | True | E8398D3F-1A17-44F1-A7CB-FF7F521A97E6 |  |
-| Flo Tools Batch Fades | [Previous In Slope](<Flo Tools Batch Fades/Previous In Slope.md>) | Shift+Cmd+Up | True | 5A5EFB2E-6051-41EF-8521-56BAAC3828D2 |  |
-| Flo Tools Batch Fades | [Previous Out Slope](<Flo Tools Batch Fades/Previous Out Slope.md>) | Ctrl+Cmd+Up | True | BCD27252-0B06-4A87-BB17-A1DAAC5357C4 |  |
-| Flo Tools Crossfade | [Next Crossfade In Shape Curve](<Flo Tools Crossfade/Next Crossfade In Shape Curve.md>) | Opt+Right | True | 3711FFBB-2395-4F41-A46B-0154CC2D456A |  |
-| Flo Tools Crossfade | [Next Crossfade In Shape Parameter](<Flo Tools Crossfade/Next Crossfade In Shape Parameter.md>) | Opt+Down | True | 92BC8EDB-B6A8-4586-A9F9-B53CCE08FA43 |  |
-| Flo Tools Crossfade | [Next Crossfade Out Shape Curve](<Flo Tools Crossfade/Next Crossfade Out Shape Curve.md>) | Cmd+Right | True | F6E24227-3232-4EEC-ACEC-965D9B9C0173 |  |
-| Flo Tools Crossfade | [Next Link Out / In](<Flo Tools Crossfade/Next Link Out _ In.md>) | Down | True | 82B4E09F-0330-4030-979C-9CF9C89586D3 |  |
-| Flo Tools Crossfade | [Next crossfade Out Shape Parameter](<Flo Tools Crossfade/Next crossfade Out Shape Parameter.md>) | Cmd+Down | True | 0890D22E-EDF7-4803-B20F-14E72720D89A |  |
-| Flo Tools Crossfade | [Previous Crossfade In Shape Curve](<Flo Tools Crossfade/Previous Crossfade In Shape Curve.md>) | Opt+Left | True | C708B32F-9E32-43C7-B310-BB80C7E77E92 |  |
-| Flo Tools Crossfade | [Previous Crossfade In Shape Parameter](<Flo Tools Crossfade/Previous Crossfade In Shape Parameter.md>) | Opt+Up | True | 1FA44547-5F78-45E4-8703-51DFCC118791 |  |
-| Flo Tools Crossfade | [Previous Crossfade Out Shape Curve](<Flo Tools Crossfade/Previous Crossfade Out Shape Curve.md>) | Cmd+Left | True | B0A4EA1C-3FB3-4AA8-BC96-0938DC552357 |  |
-| Flo Tools Crossfade | [Previous Crossfade Out Shape Parameter](<Flo Tools Crossfade/Previous Crossfade Out Shape Parameter.md>) | Cmd+Up | True | 0D658DC8-D474-4E0D-A791-C942F9C98752 |  |
-| Flo Tools Crossfade | [Previous Link Out / In](<Flo Tools Crossfade/Previous Link Out _ In.md>) | Up | True | A47F3FB3-EDB7-4C6C-9F52-BF573DDD95B9 |  |
-| Flo Tools Fade In | [Next Fade In Shape Curve](<Flo Tools Fade In/Next Fade In Shape Curve.md>) | Opt+Right | True | D81E6BA6-605C-4C85-BCC8-5623589CBB97 |  |
-| Flo Tools Fade In | [Next Fade In Shape Parameter](<Flo Tools Fade In/Next Fade In Shape Parameter.md>) | Down | True | 91510FDD-7E7A-4248-A8E6-1513BFE43F1A |  |
-| Flo Tools Fade In | [Next Link Out/In](<Flo Tools Fade In/Next Link Out_In.md>) | Opt+Cmd+Down | True | 5F66BB03-846C-494A-8DAB-0350BB484C64 |  |
-| Flo Tools Fade In | [Previous Fade In Shape Curve](<Flo Tools Fade In/Previous Fade In Shape Curve.md>) | Opt+Left | True | B288A7C5-A16E-46DE-A3A6-D7DEF0B74112 |  |
-| Flo Tools Fade In | [Previous Fade In Shape Parameter](<Flo Tools Fade In/Previous Fade In Shape Parameter.md>) | Up | True | B764E305-995D-4089-926B-02D32AEB4DC9 |  |
-| Flo Tools Fade In | [Previous Link Out/In](<Flo Tools Fade In/Previous Link Out_In.md>) | Opt+Cmd+Up | True | 2CA006EB-DE0E-44A7-85D6-744EB715FD8B |  |
-| Flo Tools Fade Out | [Next Fade Out Shape Curve](<Flo Tools Fade Out/Next Fade Out Shape Curve.md>) | Cmd+Right | True | 7C50FFBD-7E81-45A3-AF03-8F28A17D5AAD |  |
-| Flo Tools Fade Out | [Next Fade Out Shape Parameter](<Flo Tools Fade Out/Next Fade Out Shape Parameter.md>) | Down | True | C2EC2E94-4907-4385-8A8C-B1657F0AB0F9 |  |
-| Flo Tools Fade Out | [Next Link Out/In](<Flo Tools Fade Out/Next Link Out_In.md>) | Opt+Cmd+Down | True | 32D43CC4-D724-46B2-9008-953A5E62722E |  |
-| Flo Tools Fade Out | [Previous Fade Out Shape Curve](<Flo Tools Fade Out/Previous Fade Out Shape Curve.md>) | Cmd+Left | True | B54D3D63-BECF-4D96-A354-2CE80E858AB3 |  |
-| Flo Tools Fade Out | [Previous Fade Out Shape Parameter](<Flo Tools Fade Out/Previous Fade Out Shape Parameter.md>) | Up | True | 421B1B80-21EE-4142-951E-750750EFEBDC |  |
-| Flo Tools Fade Out | [Previous Link Out/In](<Flo Tools Fade Out/Previous Link Out_In.md>) | Opt+Cmd+Up | True | FCD20C29-0233-456B-85D5-5CB9BAE573D9 |  |
+| Flo Tools Batch Fades | [Next Crossfade In Shape Curve](<Flo Tools Batch Fades/Next Crossfade In Shape Curve.md>) | Opt+Right | True | FD840406-E744-441C-BE7C-01AD00774D85 | yes |
+| Flo Tools Batch Fades | [Next Crossfade In Shape Parameter](<Flo Tools Batch Fades/Next Crossfade In Shape Parameter.md>) | Opt+Down | True | 420ECF4B-CD66-4F2A-BBCA-9B9B1CFC5714 | yes |
+| Flo Tools Batch Fades | [Next Crossfade Link,](<Flo Tools Batch Fades/Next Crossfade Link_.md>) | Opt+Cmd+Down | True | D65B8F56-D100-44AA-8D9D-10CC96B4F3FE | yes |
+| Flo Tools Batch Fades | [Next Crossfade Out Shape Curve](<Flo Tools Batch Fades/Next Crossfade Out Shape Curve.md>) | Opt+Shift+Right | True | 1AB29A21-663B-4957-A19C-CE4F7DFA89F4 | yes |
+| Flo Tools Batch Fades | [Next Crossfade Out Shape Parameter](<Flo Tools Batch Fades/Next Crossfade Out Shape Parameter.md>) | Opt+Shift+Down | True | 53007920-D2C6-490A-B84D-7E1D738E50BC | yes |
+| Flo Tools Batch Fades | [Next Fade In Shape Curve](<Flo Tools Batch Fades/Next Fade In Shape Curve.md>) | Shift+Right | True | DD93F80A-1026-4B63-B44E-BAD89F2CB21C | yes |
+| Flo Tools Batch Fades | [Next Fade In Shape Parameter](<Flo Tools Batch Fades/Next Fade In Shape Parameter.md>) | Shift+Down | True | F5E52450-3C8E-45BE-BE81-AD4DCC43EC49 | yes |
+| Flo Tools Batch Fades | [Next Fade Out Shape Curve](<Flo Tools Batch Fades/Next Fade Out Shape Curve.md>) | Cmd+Right | True | 9A9C99B0-A7E3-452D-ABA1-CF719BBF1400 | yes |
+| Flo Tools Batch Fades | [Next Fade Out Shape Parameter](<Flo Tools Batch Fades/Next Fade Out Shape Parameter.md>) | Cmd+Down | True | C789F858-DDF6-49AA-966A-E5BA0800BC5F | yes |
+| Flo Tools Batch Fades | [Next In Slope](<Flo Tools Batch Fades/Next In Slope.md>) | Shift+Cmd+Down | True | 2BBCE161-2778-4445-A106-A781732D1637 | yes |
+| Flo Tools Batch Fades | [Next Out Slope](<Flo Tools Batch Fades/Next Out Slope.md>) | Ctrl+Cmd+Down | True | 5EBD25A4-EBAE-42ED-AC2D-93F1EE3B7228 | yes |
+| Flo Tools Batch Fades | [Previous Crossfade In Shape Curve](<Flo Tools Batch Fades/Previous Crossfade In Shape Curve.md>) | Opt+Left | True | 894B5278-E347-4E8A-9202-A8154FCF8CAC | yes |
+| Flo Tools Batch Fades | [Previous Crossfade In Shape Parameter](<Flo Tools Batch Fades/Previous Crossfade In Shape Parameter.md>) | Opt+Up | True | 76AC612A-3F5C-4B43-A1E8-BB46E27A08CA | yes |
+| Flo Tools Batch Fades | [Previous Crossfade Link](<Flo Tools Batch Fades/Previous Crossfade Link.md>) | Opt+Cmd+Up | True | 24FFACB2-3C41-4203-9F9B-3035B6C8FF5D | yes |
+| Flo Tools Batch Fades | [Previous Crossfade Out Shape Curve](<Flo Tools Batch Fades/Previous Crossfade Out Shape Curve.md>) | Opt+Shift+Left | True | 0834989E-3119-4CF5-8675-3D4125FC918F | yes |
+| Flo Tools Batch Fades | [Previous Crossfade Out Shape Parameter](<Flo Tools Batch Fades/Previous Crossfade Out Shape Parameter.md>) | Opt+Shift+Up | True | C0BD46D8-CB73-4DFD-9847-A4B68404DC98 | yes |
+| Flo Tools Batch Fades | [Previous Fade In Shape Curve](<Flo Tools Batch Fades/Previous Fade In Shape Curve.md>) | Shift+Left | True | 456BB4D3-3257-4570-902A-B5148D91D46D | yes |
+| Flo Tools Batch Fades | [Previous Fade In Shape Parameter](<Flo Tools Batch Fades/Previous Fade In Shape Parameter.md>) | Shift+Up | True | 348D1F52-5AA6-4210-AC19-CA6BEA9B0A87 | yes |
+| Flo Tools Batch Fades | [Previous Fade Out Shape Curve](<Flo Tools Batch Fades/Previous Fade Out Shape Curve.md>) | Cmd+Left | True | B4D8720E-149E-49DC-B948-027A541C777E | yes |
+| Flo Tools Batch Fades | [Previous Fade Out Shape Parameter](<Flo Tools Batch Fades/Previous Fade Out Shape Parameter.md>) | Cmd+Up | True | E8398D3F-1A17-44F1-A7CB-FF7F521A97E6 | yes |
+| Flo Tools Batch Fades | [Previous In Slope](<Flo Tools Batch Fades/Previous In Slope.md>) | Shift+Cmd+Up | True | 5A5EFB2E-6051-41EF-8521-56BAAC3828D2 | yes |
+| Flo Tools Batch Fades | [Previous Out Slope](<Flo Tools Batch Fades/Previous Out Slope.md>) | Ctrl+Cmd+Up | True | BCD27252-0B06-4A87-BB17-A1DAAC5357C4 | yes |
+| Flo Tools Crossfade | [Next Crossfade In Shape Curve](<Flo Tools Crossfade/Next Crossfade In Shape Curve.md>) | Opt+Right | True | 3711FFBB-2395-4F41-A46B-0154CC2D456A | yes |
+| Flo Tools Crossfade | [Next Crossfade In Shape Parameter](<Flo Tools Crossfade/Next Crossfade In Shape Parameter.md>) | Opt+Down | True | 92BC8EDB-B6A8-4586-A9F9-B53CCE08FA43 | yes |
+| Flo Tools Crossfade | [Next Crossfade Out Shape Curve](<Flo Tools Crossfade/Next Crossfade Out Shape Curve.md>) | Cmd+Right | True | F6E24227-3232-4EEC-ACEC-965D9B9C0173 | yes |
+| Flo Tools Crossfade | [Next Link Out / In](<Flo Tools Crossfade/Next Link Out _ In.md>) | Down | True | 82B4E09F-0330-4030-979C-9CF9C89586D3 | yes |
+| Flo Tools Crossfade | [Next crossfade Out Shape Parameter](<Flo Tools Crossfade/Next crossfade Out Shape Parameter.md>) | Cmd+Down | True | 0890D22E-EDF7-4803-B20F-14E72720D89A | yes |
+| Flo Tools Crossfade | [Previous Crossfade In Shape Curve](<Flo Tools Crossfade/Previous Crossfade In Shape Curve.md>) | Opt+Left | True | C708B32F-9E32-43C7-B310-BB80C7E77E92 | yes |
+| Flo Tools Crossfade | [Previous Crossfade In Shape Parameter](<Flo Tools Crossfade/Previous Crossfade In Shape Parameter.md>) | Opt+Up | True | 1FA44547-5F78-45E4-8703-51DFCC118791 | yes |
+| Flo Tools Crossfade | [Previous Crossfade Out Shape Curve](<Flo Tools Crossfade/Previous Crossfade Out Shape Curve.md>) | Cmd+Left | True | B0A4EA1C-3FB3-4AA8-BC96-0938DC552357 | yes |
+| Flo Tools Crossfade | [Previous Crossfade Out Shape Parameter](<Flo Tools Crossfade/Previous Crossfade Out Shape Parameter.md>) | Cmd+Up | True | 0D658DC8-D474-4E0D-A791-C942F9C98752 | yes |
+| Flo Tools Crossfade | [Previous Link Out / In](<Flo Tools Crossfade/Previous Link Out _ In.md>) | Up | True | A47F3FB3-EDB7-4C6C-9F52-BF573DDD95B9 | yes |
+| Flo Tools Fade In | [Next Fade In Shape Curve](<Flo Tools Fade In/Next Fade In Shape Curve.md>) | Opt+Right | True | D81E6BA6-605C-4C85-BCC8-5623589CBB97 | yes |
+| Flo Tools Fade In | [Next Fade In Shape Parameter](<Flo Tools Fade In/Next Fade In Shape Parameter.md>) | Down | True | 91510FDD-7E7A-4248-A8E6-1513BFE43F1A | yes |
+| Flo Tools Fade In | [Next Link Out/In](<Flo Tools Fade In/Next Link Out_In.md>) | Opt+Cmd+Down | True | 5F66BB03-846C-494A-8DAB-0350BB484C64 | yes |
+| Flo Tools Fade In | [Previous Fade In Shape Curve](<Flo Tools Fade In/Previous Fade In Shape Curve.md>) | Opt+Left | True | B288A7C5-A16E-46DE-A3A6-D7DEF0B74112 | yes |
+| Flo Tools Fade In | [Previous Fade In Shape Parameter](<Flo Tools Fade In/Previous Fade In Shape Parameter.md>) | Up | True | B764E305-995D-4089-926B-02D32AEB4DC9 | yes |
+| Flo Tools Fade In | [Previous Link Out/In](<Flo Tools Fade In/Previous Link Out_In.md>) | Opt+Cmd+Up | True | 2CA006EB-DE0E-44A7-85D6-744EB715FD8B | yes |
+| Flo Tools Fade Out | [Next Fade Out Shape Curve](<Flo Tools Fade Out/Next Fade Out Shape Curve.md>) | Cmd+Right | True | 7C50FFBD-7E81-45A3-AF03-8F28A17D5AAD | yes |
+| Flo Tools Fade Out | [Next Fade Out Shape Parameter](<Flo Tools Fade Out/Next Fade Out Shape Parameter.md>) | Down | True | C2EC2E94-4907-4385-8A8C-B1657F0AB0F9 | yes |
+| Flo Tools Fade Out | [Next Link Out/In](<Flo Tools Fade Out/Next Link Out_In.md>) | Opt+Cmd+Down | True | 32D43CC4-D724-46B2-9008-953A5E62722E | yes |
+| Flo Tools Fade Out | [Previous Fade Out Shape Curve](<Flo Tools Fade Out/Previous Fade Out Shape Curve.md>) | Cmd+Left | True | B54D3D63-BECF-4D96-A354-2CE80E858AB3 | yes |
+| Flo Tools Fade Out | [Previous Fade Out Shape Parameter](<Flo Tools Fade Out/Previous Fade Out Shape Parameter.md>) | Up | True | 421B1B80-21EE-4142-951E-750750EFEBDC | yes |
+| Flo Tools Fade Out | [Previous Link Out/In](<Flo Tools Fade Out/Previous Link Out_In.md>) | Opt+Cmd+Up | True | FCD20C29-0233-456B-85D5-5CB9BAE573D9 | yes |
 | Flo Tools Global | [* Flo Tools 2026.8.2. Check for Automatic Update](<Flo Tools Global/_ Flo Tools 2026.8.2. Check for Automatic Update.md>) | Pro Tools launch | True | FFEBF9D7-1F2C-409B-9E63-7C52B04B8EBF |  |
 | Flo Tools Global | [Auto Toggle Flo Tools](<Flo Tools Global/Auto Toggle Flo Tools.md>) | VoiceOver quit; VoiceOver launch | True | 025B4AFD-5340-492B-A7DF-6F526BE1252E |  |
 | Flo Tools Global | [Bypass Flo Tools in Keyboard Shortcuts window](<Flo Tools Global/Bypass Flo Tools in Keyboard Shortcuts window.md>) | focused window: FocussedWindowChanges | True | 631D4577-668D-469E-AFA1-5D6535EB2B83 |  |

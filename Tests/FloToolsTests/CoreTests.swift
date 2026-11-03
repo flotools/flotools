@@ -588,3 +588,33 @@ import Testing
         #expect(newEnd == .publish)
     }
 }
+
+@Suite struct FadeDialogTests {
+    @Test func eachDialogsGroupIsConditionedOnItsTitle() {
+        for kind in [FadeDialog.Kind.fadeIn, .fadeOut, .crossfade, .batchFades] {
+            let group = FloMacros.groups.first { $0.id == FadeDialogs.group(of: kind) }
+            #expect(group?.title == .is(kind.rawValue))
+        }
+    }
+
+    /// The JXA read the first "Slope" group for both; the second one belongs to the fade out.
+    @Test func outSlopeReadsTheSecondSlopeGroup() {
+        let slopes = Dictionary(uniqueKeysWithValues: FadeDialogs.settings.filter { $0.section.title == "Slope" }.map { ($0.name, $0.section.occurrence) })
+        #expect(slopes == ["Next In Slope": 0, "Previous In Slope": 0, "Next Out Slope": 1, "Previous Out Slope": 1])
+    }
+
+    /// Batch Fades group titles as Pro Tools showed them on 2026-11-02.
+    @Test func batchFadesSectionsExist() {
+        let titles: Set = ["Fade In Shape", "Slope", "In Shape", "Out Shape", "<<- Link ->>", "Fade Out Shape"]
+        for setting in FadeDialogs.settings where setting.dialog == .batchFades {
+            #expect(titles.contains(setting.section.title), "\(setting.id)")
+        }
+    }
+
+    @Test func spokenSuffixesKeepTheJXAWordingWithTheTypoFixed() {
+        let suffixes = Dictionary(uniqueKeysWithValues: FadeDialogs.settings.map { ($0.id, $0.suffix) })
+        #expect(suffixes["crossfade.nextCrossfadeInShapeCurve"] == ", Crossfade, In.")
+        #expect(suffixes["fadeIn.previousFadeInShapeParameter"] == ", In Shape .")
+        #expect(!FadeDialogs.settings.contains { $0.suffix.contains("Crossffade") })
+    }
+}

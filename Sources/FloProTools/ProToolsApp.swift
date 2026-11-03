@@ -47,6 +47,11 @@ public struct ProToolsApp: Sendable {
         MixWindow(try window(titlePrefix: "Mix:", "the Mix window"))
     }
 
+    @AccessibilityActor
+    public func fadeDialog(_ kind: FadeDialog.Kind) throws -> FadeDialog {
+        FadeDialog(try AXElement.application(pid: pid).required("the \(kind.rawValue) dialog") { app in try app.windows.first { try $0.title == kind.rawValue } })
+    }
+
     /// The Mix window track strip whose name is under the VoiceOver cursor, like `mix.groups.byName(vo.voCursor.textUnderCursor())` in the JXA. The one place the VoiceOver cursor is joined to a strip.
     public func trackUnderVoiceOverCursor() async throws -> TrackStrip {
         let mix = try await mixWindow()
