@@ -113,7 +113,7 @@ public struct ProToolsApp: Sendable {
     /// Whether Pro Tools has a window of `kind`, focused or not, by the same title rule as `window(_:_:)`.
     @AccessibilityActor
     public func hasWindow(_ kind: ProToolsWindowKind) throws -> Bool {
-        try AXElement.application(pid: pid).windows.contains { try $0.title.map(ProToolsWindowKind.init(title:)) == kind }
+        try firstWindow(kind, in: AXElement.application(pid: pid)) != nil
     }
 
     /// The focused window, or `FloError.notFound` naming `what`.
@@ -125,6 +125,12 @@ public struct ProToolsApp: Sendable {
     /// The first window of `kind`, by the title rule that also decides which commands apply, so a window a command was allowed in is the one it finds. `what` names it for the user, for example "the Mix window".
     @AccessibilityActor
     func window(_ kind: ProToolsWindowKind, _ what: String) throws -> AXElement {
-        try AXElement.application(pid: pid).required(what) { app in try app.windows.first { try $0.title.map(ProToolsWindowKind.init(title:)) == kind } }
+        try AXElement.application(pid: pid).required(what) { try firstWindow(kind, in: $0) }
+    }
+
+    /// The one title rule behind `window(_:_:)` and `hasWindow`.
+    @AccessibilityActor
+    private func firstWindow(_ kind: ProToolsWindowKind, in app: AXElement) throws -> AXElement? {
+        try app.windows.first { try $0.title.map(ProToolsWindowKind.init(title:)) == kind }
     }
 }

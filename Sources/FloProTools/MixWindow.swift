@@ -28,7 +28,7 @@ public struct MixWindow {
 
     /// The Track List table at the left of the window.
     public func trackList() throws -> TrackList {
-        TrackList(try TrackList.table(in: element, requiredAs: "the Track List"))
+        TrackList(try TrackList.table(in: element))
     }
 
     /// Opens the Track List pop-up menu (show and hide, sort and so on).

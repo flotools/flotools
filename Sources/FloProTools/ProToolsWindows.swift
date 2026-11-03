@@ -32,7 +32,7 @@ extension ProToolsApp {
         case .editClips:
             element = try clipList()
         case .frontTrackList:
-            element = try TrackList.table(in: frontWindow(), requiredAs: "the Track List table")
+            element = try TrackList.table(in: frontWindow())
         }
         return try element.requiredFrame(of: "the table")
     }

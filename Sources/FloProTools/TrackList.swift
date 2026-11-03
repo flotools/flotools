@@ -10,9 +10,9 @@ public struct TrackList {
 
     init(_ element: AXElement) { self.element = element }
 
-    /// The Track List table among the children of a Mix or Edit window. `what` names it in the error when it is missing.
-    static func table(in window: AXElement, requiredAs what: String) throws -> AXElement {
-        try window.required(what) { try $0.table("Track List") }
+    /// The Track List table among the children of a Mix or Edit window.
+    static func table(in window: AXElement) throws -> AXElement {
+        try window.required("the Track List") { try $0.table("Track List") }
     }
 
     /// The two states a row shows and toggles.
