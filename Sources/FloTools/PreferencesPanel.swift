@@ -65,16 +65,12 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
         let timeoutLabel = NSTextField(labelWithString: "Double-press timeout:")
         timeout.setAccessibilityTitleUIElement(timeoutLabel)
 
-        let cancelButton = NSButton(title: "Cancel", target: self, action: #selector(cancel))
-        cancelButton.keyEquivalent = "\u{1b}"
-        let okButton = NSButton(title: "OK", target: self, action: #selector(ok))
-        okButton.keyEquivalent = "\r"
 
         return NSWindow.floating(title: "Flo Tools Preferences", views: [
             temporaryInspector,
             startsWithInspector,
             NSStackView(views: [timeoutLabel, timeout]),
-            NSStackView(views: [cancelButton, okButton]),
+            NSStackView.confirmationButtons(okTitle: "OK", target: self, confirm: #selector(ok), cancel: #selector(cancel)),
         ], alignment: .leading, delegate: self)
     }
 }

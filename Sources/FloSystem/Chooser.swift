@@ -107,20 +107,11 @@ private final class ChooserWindow: NSObject, NSWindowDelegate, NSTableViewDataSo
         table.doubleAction = #selector(ok)
         table.setAccessibilityLabel(request.prompt)
 
-        let scroll = NSScrollView()
-        scroll.documentView = table
-        scroll.hasVerticalScroller = true
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        scroll.widthAnchor.constraint(equalToConstant: 360).isActive = true
-        scroll.heightAnchor.constraint(equalToConstant: 300).isActive = true
-
+        let scroll = NSScrollView.fixed(document: table, size: CGSize(width: 360, height: 300))
         let prompt = NSTextField(wrappingLabelWithString: request.prompt)
-        let cancelButton = NSButton(title: "Cancel", target: self, action: #selector(cancel))
-        cancelButton.keyEquivalent = "\u{1b}"
-        let okButton = NSButton(title: request.okTitle, target: self, action: #selector(ok))
-        okButton.keyEquivalent = "\r"
+        let buttons = NSStackView.confirmationButtons(okTitle: request.okTitle, target: self, confirm: #selector(ok), cancel: #selector(cancel))
 
-        return NSWindow.floating(title: request.title, views: [prompt, scroll, NSStackView(views: [cancelButton, okButton])], alignment: .leading, delegate: self)
+        return NSWindow.floating(title: request.title, views: [prompt, scroll, buttons], alignment: .leading, delegate: self)
     }
 }
 

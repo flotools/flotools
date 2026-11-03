@@ -26,14 +26,9 @@ private final class TextWindowController: NSObject, NSWindowDelegate {
         textView.font = .monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
         textView.setAccessibilityLabel(title)
 
-        let scroll = NSScrollView()
-        scroll.documentView = textView
-        scroll.hasVerticalScroller = true
         textView.autoresizingMask = [.width]
         textView.frame = NSRect(x: 0, y: 0, width: 520, height: 360)
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        scroll.widthAnchor.constraint(equalToConstant: 520).isActive = true
-        scroll.heightAnchor.constraint(equalToConstant: 360).isActive = true
+        let scroll = NSScrollView.fixed(document: textView, size: CGSize(width: 520, height: 360))
 
         let close = NSButton(title: "Close", target: self, action: #selector(closeWindow))
         close.keyEquivalent = "\u{1b}"
