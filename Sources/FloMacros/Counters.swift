@@ -87,14 +87,8 @@ enum Counters {
     @MainActor
     private static func step(_ id: MacroID, _ name: String, key: String, sends: String, _ control: EditWindowControl, when guarding: AnnouncementGuard, label: String) -> Macro {
         let combo = KeyCombo(sends)!
-        return Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { _ in
-            let app = try ProToolsApp.running()
-            // Only for waiting until the value changes; a failed read must not keep the key from Pro Tools.
-            let before = try? await app.value(of: control)
-            try await app.keystroke(combo)
-            guard try await KeyAnnouncements.speaks(after: guarding) else { return }
-            let after = try await app.value(of: control, changedFrom: before ?? "")
-            try await VoiceOver.say(CounterText.spoken(after, as: .duration) + label)
+        return Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
+            try await KeyAnnouncements.announceChange(run, sending: combo, when: guarding, find: { try ProToolsApp.running().element(control) }, read: { try $0.value ?? "" }, spoken: { CounterText.spoken($0, as: .duration) + label })
         }
     }
 

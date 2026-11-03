@@ -37,17 +37,28 @@ enum KeyAnnouncements {
         }
     }
 
-    /// Sends the key, which in Pro Tools selects another playlist on the selected tracks, and speaks the selected tracks from the Mix window's Track List, as the JXA did. The selection read before the key is only for waiting until Pro Tools shows the new one, so its failure does not keep the key from Pro Tools.
+    /// Sends the key, which in Pro Tools selects another playlist on the selected tracks, and speaks the selected tracks from the Mix window's Track List, as the JXA did. The wait is longer than `ProToolsUpdate.timeout` because the passed key travels through the event system first.
     @MainActor
     private static func speakSelectedTracks(_ id: MacroID, _ name: String, key: String) -> Macro {
         Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
-            let before = try? await selectedTracksText(try ProToolsApp.running())
-            await run.passThrough()
-            guard try await speaks(after: .outsideListedDialogsAndText) else { return }
-            let app = try ProToolsApp.running()
-            let after = try await ProToolsUpdate.reading(changedFrom: before ?? "", within: .milliseconds(500)) { try selectedTracksText(app) }
-            try await VoiceOver.say(after)
+            try await announceChange(run, when: .outsideListedDialogsAndText, within: .milliseconds(500), find: { try ProToolsApp.running() }, read: selectedTracksText)
         }
+    }
+
+    /// The shared order of a shortcut whose effect Flo Tools reads back: read the value, pass the run's key on to Pro Tools (or send `replacement`), and if the guard allows it, speak the value once Pro Tools shows a change, or as it is after `limit`.
+    /// The reading before the key is only for that wait, so its failure does not keep the key from Pro Tools. After the key, `find` locates the source once and `read` polls it.
+    @AccessibilityActor
+    static func announceChange<Source>(_ run: MacroRun, sending replacement: KeyCombo? = nil, when guarding: AnnouncementGuard, within limit: Duration = ProToolsUpdate.timeout, find: @AccessibilityActor () throws -> Source, read: @AccessibilityActor (Source) throws -> String, spoken: (String) -> String = { $0 }) async throws {
+        let before = try? read(find())
+        if let replacement {
+            try await ProToolsApp.running().keystroke(replacement)
+        } else {
+            await run.passThrough()
+        }
+        guard try await speaks(after: guarding) else { return }
+        let source = try find()
+        let after = try await ProToolsUpdate.reading(changedFrom: before ?? "", within: limit) { try read(source) }
+        try await VoiceOver.say(spoken(after))
     }
 
     /// Whether to speak after a shortcut went to Pro Tools, read now, after the key, as the KM versions did.

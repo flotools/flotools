@@ -84,13 +84,6 @@ extension ProToolsApp {
         try element(control).value ?? ""
     }
 
-    /// Reads the value of `control` until it differs from `before`, as `ProToolsUpdate.reading` does. The control is found once, not on every read.
-    @AccessibilityActor
-    public func value(of control: EditWindowControl, changedFrom before: String) async throws -> String {
-        let field = try element(control)
-        return try await ProToolsUpdate.reading(changedFrom: before) { try field.value ?? "" }
-    }
-
     /// Clicks the field so the next typed digits replace its value, and returns the value it had.
     @AccessibilityActor
     public func openForTyping(_ control: EditWindowControl) throws -> String {

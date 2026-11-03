@@ -77,17 +77,12 @@ enum SettingToggles {
         isOn ? "Grid mode, " + buttonName.replacingFirst("Grid mode", with: "") : "Grid mode, off"
     }
 
-    /// The hotkey is Pro Tools' own shortcut for the Options menu item, so it goes on to Pro Tools, which switches the setting, and the new state is spoken if the guard allows it, as in the KM version. The wait is longer than `ProToolsUpdate.timeout` because the key travels through the event system first; the state read before the key is only for that wait, so its failure does not keep the key from Pro Tools.
+    /// The hotkey is Pro Tools' own shortcut for the Options menu item, so it goes on to Pro Tools, which switches the setting, and the new state is spoken if the guard allows it, as in the KM version. The wait is longer than `ProToolsUpdate.timeout` because the key travels through the event system first.
     @MainActor
     private static func link(_ id: MacroID, _ name: String, key: String, _ item: String, _ wording: Wording) -> Macro {
         let setting = ProToolsSetting.menuItem(menu: "Options", .is(item))
         return Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
-            let before = try? await wording.text(ProToolsApp.running().control(setting).isOn)
-            await run.passThrough()
-            guard try await KeyAnnouncements.speaks(after: .outsideListedDialogsAndText) else { return }
-            let control = try await ProToolsApp.running().control(setting)
-            let after = try await ProToolsUpdate.reading(changedFrom: before ?? "", within: .milliseconds(500)) { try wording.text(control.isOn) }
-            try await VoiceOver.say(after)
+            try await KeyAnnouncements.announceChange(run, when: .outsideListedDialogsAndText, within: .milliseconds(500), find: { try ProToolsApp.running().control(setting) }, read: { try wording.text($0.isOn) })
         }
     }
 
