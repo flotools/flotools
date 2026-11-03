@@ -54,9 +54,7 @@ enum SettingToggles {
             try await VoiceOver.say(spoken(control))
         }, double: { _ in
             let control = try await ProToolsApp.running().control(setting)
-            let before = try await spoken(control)
-            try await control.press()
-            try await VoiceOver.say(ProToolsUpdate.reading(changedFrom: before) { try spoken(control) })
+            try await VoiceOver.say(ProToolsUpdate.reading(after: { try control.press() }) { try spoken(control) })
         })
     }
 
@@ -89,9 +87,7 @@ enum SettingToggles {
                 try await VoiceOver.say("Set Record Tracks to is Dimmed")
                 return
             }
-            let before = try await control.name
-            try await control.press()
-            let after = try await ProToolsUpdate.reading(changedFrom: before) { try control.name }
+            let after = try await ProToolsUpdate.reading(after: { try control.press() }) { try control.name }
             try await VoiceOver.say(inputMonitorText(itemName: after))
         }
     }

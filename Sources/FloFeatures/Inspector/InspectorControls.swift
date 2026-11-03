@@ -197,9 +197,7 @@ enum InspectorControls {
     /// Clicks a slider and returns its value once Pro Tools shows the change. The JXA waited a fixed 0.1 s.
     @AccessibilityActor
     private static func reset(_ slider: AXElement) async throws -> String {
-        let before = try slider.valueDescription ?? ""
-        try slider.press()
-        return try await ProToolsUpdate.reading(changedFrom: before) { try slider.valueDescription ?? "" }
+        try await ProToolsUpdate.reading(after: { try slider.press() }) { try slider.valueDescription ?? "" }
     }
 
     /// Same text as the JXA version, for example "100 to the left. 100 to the right. ".

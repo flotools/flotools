@@ -15,4 +15,12 @@ public enum ProToolsUpdate {
         }
         return now
     }
+
+    /// Reads, runs `action` (a press or click), then reads until the reading differs from the first one, as `reading(changedFrom:)`. The one `read` gives both readings, so they cannot drift apart.
+    @AccessibilityActor
+    public static func reading<Value: Equatable>(after action: @AccessibilityActor () throws -> Void, within limit: Duration = timeout, _ read: @AccessibilityActor () throws -> Value) async throws -> Value {
+        let before = try read()
+        try action()
+        return try await reading(changedFrom: before, within: limit, read)
+    }
 }

@@ -95,9 +95,7 @@ public struct PlugInWindow {
     /// Goes to the next or previous preset and returns its name, once Pro Tools shows it.
     public func step(_ step: PresetStep) async throws -> String {
         let menu = try presetMenu()
-        let before = try menu.value ?? ""
-        try press(step.buttonTitle)
-        return try await ProToolsUpdate.reading(changedFrom: before) { try menu.value ?? "" }
+        return try await ProToolsUpdate.reading(after: { try press(step.buttonTitle) }) { try menu.value ?? "" }
     }
 
     /// Opens the preset menu, for VoiceOver to choose from.
@@ -113,9 +111,7 @@ public struct PlugInWindow {
     /// Switches the bypass and returns the new state, once Pro Tools shows it. The JXA waited 0.1 s.
     public func toggleBypass() async throws -> Bool {
         let button = try bypassButton()
-        let before = try button.value ?? ""
-        try button.press()
-        return try await ProToolsUpdate.reading(changedFrom: before) { try button.value ?? "" }.contains("on")
+        return try await ProToolsUpdate.reading(after: { try button.press() }) { try button.value ?? "" }.contains("on")
     }
 
     /// The plug-in's sliders in window order, skipping those without a name.
