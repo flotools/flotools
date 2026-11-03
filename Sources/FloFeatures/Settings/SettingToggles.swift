@@ -22,7 +22,7 @@ enum SettingToggles {
         button("floTools.speakToggleWaitForNote", "Speak/Toggle Wait for Note", key: "Opt+F11", .midi, "Wait for Note", Wording(on: "Wait for note On", off: "Wait for note off")),
         button("floTools.speakToggleInsertionFollowsPlayback", "Speak/Toggle Insertion Follows Playback", key: "Ctrl+N", .cursorTool, "Insertion Follows Playback", Wording(on: "Insertion Follows Playback, On", off: "Insertion Follows Playback, Off")),
         button("floTools.speakToggleTabToTransients", "Speak/Toggle Tab to Transients", key: "Opt+Cmd+Tab", .cursorTool, "Tab to Transients", Wording(on: "Tab to Transients, On", off: "Tab to Transients, Off")),
-        toggle("floTools.speakToggleGridMode", "Speak/Toggle Grid Mode", key: "F4", .editWindowButton(cluster: Cluster.editMode.rawValue, .contains("Grid")), spoken: gridModeText),
+        toggle("floTools.speakToggleGridMode", "Speak/Toggle Grid Mode", key: "F4", .editWindowButton(.editMode, .contains("Grid")), spoken: gridModeText),
         menuItem("floTools.speakToggleDynamicTransport", "Speak/Toggle Dynamic Transport", key: "Ctrl+Cmd+P", "Options", "Dynamic Transport", Wording(on: "Dynamic Transport, Checked", off: "Dynamic Transport")),
         menuItem("floTools.speakToggleLoopPlayback", "Speak/Toggle Loop Playback", key: "Shift+Cmd+L", "Options", "Loop Playback", Wording(on: "Loop Playback , Checked", off: "Loop Playback")),
         menuItem("floTools.speakToggleLoopRecord", "Speak/Toggle Loop Record", key: "Opt+L", "Options", "Loop Record", Wording(on: "Loop Record , Checked", off: "Loop Record")),
@@ -36,16 +36,9 @@ enum SettingToggles {
         toggleInputMonitor,
     ] }
 
-    /// The Edit window toolbar clusters that hold setting buttons.
-    enum Cluster: String {
-        case editMode = "Edit Mode Cluster"
-        case midi = "MIDI Control Cluster"
-        case cursorTool = "Cursor Tool Cluster"
-    }
-
     @MainActor
-    private static func button(_ id: CommandID, _ name: String, key: String, _ cluster: Cluster, _ button: String, _ wording: Wording) -> Command {
-        toggle(id, name, key: key, .editWindowButton(cluster: cluster.rawValue, .is(button))) { control in try wording.text(control.isOn) }
+    private static func button(_ id: CommandID, _ name: String, key: String, _ cluster: EditWindowControl.Cluster, _ button: String, _ wording: Wording) -> Command {
+        toggle(id, name, key: key, .editWindowButton(cluster, .is(button))) { control in try wording.text(control.isOn) }
     }
 
     @MainActor

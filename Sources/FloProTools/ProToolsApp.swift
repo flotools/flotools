@@ -73,7 +73,7 @@ public struct ProToolsApp: Sendable {
     @AccessibilityActor
     public func hasArmedTracks() throws -> Bool {
         let buttons = try window(titlePrefix: "Edit:", "the Edit window")
-            .required("the Transport View Cluster") { try $0.group("Transport View Cluster") }
+            .required("the Transport View Cluster") { try $0.group(EditWindowControl.Cluster.transportView.rawValue) }
             .required("the Normal Transport Buttons") { try $0.group("Normal Transport Buttons") }
         return try buttons.button("Track Record Enabled") != nil
     }

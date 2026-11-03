@@ -2,8 +2,8 @@ import FloSystem
 
 /// A Pro Tools setting that is switched on and off: a button in one of the Edit window's toolbar clusters, or a menu bar item.
 public enum ProToolsSetting: Sendable, Equatable {
-    /// A button in the Edit window's group `cluster`, such as "MIDI Control Cluster". On when its value is "Selected".
-    case editWindowButton(cluster: String, NameMatch)
+    /// A button in one of the Edit window's toolbar clusters, such as the MIDI Control Cluster. On when its value is "Selected".
+    case editWindowButton(EditWindowControl.Cluster, NameMatch)
     /// An item of the menu bar menu `menu`. On when it has a check mark.
     case menuItem(menu: String, NameMatch)
 }
@@ -44,7 +44,7 @@ extension ProToolsApp {
     public func control(_ setting: ProToolsSetting) throws -> SettingControl {
         switch setting {
         case .editWindowButton(let cluster, let match):
-            return SettingControl(setting, try element(EditWindowControl([cluster], role: "AXButton", match)))
+            return SettingControl(setting, try element(EditWindowControl(cluster, role: "AXButton", match)))
         case .menuItem(let menu, let match):
             let app = AXElement.application(pid: pid)
             let bar = try app.required("the menu bar") { try $0.element("AXMenuBar") }
