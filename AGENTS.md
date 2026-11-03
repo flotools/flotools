@@ -26,8 +26,8 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 
 ## Layout
 
-- `Sources/FloSystem/`: generic macOS infrastructure (Accessibility, VoiceOver, hotkeys and synthetic keys, sounds, the `Log`). `KeyNames.swift` is the one key-name table. Knows nothing about Pro Tools or macros.
-- `Sources/FloEngine/`: the macro model and runtime. `Macro.swift` is the macro and group model; `Engine.swift` routes hotkeys to macros; `Context.swift` tracks the front app and window (moves to `FloSystem` as an observer in plan step 7); `DoublePress.swift`; `Preferences.swift`. Depends on `FloSystem` only.
+- `Sources/FloSystem/`: generic macOS infrastructure (Accessibility, VoiceOver, hotkeys and synthetic keys, sounds, the `Log`, and `FloError`, the one error model). `KeyNames.swift` is the one key-name table. Knows nothing about Pro Tools or macros.
+- `Sources/FloEngine/`: the macro model and runtime. `Macro.swift` is the macro and group model; `MacroRun.swift` is what a macro body gets; `Engine.swift` routes hotkeys to macros, tells single from double presses and runs macros through one serial queue; `DoublePressDecider.swift` is the pure double-press logic; `SpokenError.swift` is the one table of failure wording; `Context.swift` tracks the front app and window (moves to `FloSystem` as an observer in plan step 7); `Preferences.swift`. Depends on `FloSystem` only.
 - `Sources/FloProTools/`: Pro Tools knowledge (windows, the track under the VoiceOver cursor). Depends on `FloSystem` only.
 - `Sources/FloMacros/`: `Groups.swift` (the groups and their conditions) and the macros, one file per area, each declaring its ID, name, group, triggers and action. `FloMacros.all` lists them.
 - `Sources/FloTools/`: the app (status menu, permission prompts).

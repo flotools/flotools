@@ -197,6 +197,11 @@ final class LogFile: @unchecked Sendable {
         }
     }
 
+    /// Returns when every entry appended so far is written. Tests use it where a real relaunch would have ended the old process first.
+    func waitForWrites() {
+        queue.sync {}
+    }
+
     // MARK: On the queue
 
     private func open(_ url: URL, header: String) throws {

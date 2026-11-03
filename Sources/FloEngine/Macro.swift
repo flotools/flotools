@@ -121,11 +121,23 @@ public enum MacroTrigger: Sendable, Equatable {
     }
 }
 
-/// What a macro does. It gets the engine, to read the front context, change group and macro state or run other macros.
-public typealias MacroAction = @MainActor (MacroEngine) -> Void
+/// What a macro does. It runs on the main actor and may wait for Pro Tools or VoiceOver. Throwing stops the macro; the engine logs the error and says what went wrong.
+public typealias MacroBody = @MainActor @Sendable (MacroRun) async throws -> Void
+
+/// When the Tink feedback sound plays for a double press. Almost every JXA macro played it before the double action; a few, such as Speak/Toggle Solo, played it after.
+public enum TinkTiming: Sendable {
+    case beforeDouble
+    case afterDouble
+}
+
+public enum MacroAction: Sendable {
+    case body(MacroBody)
+    /// Keyboard Maestro's "single press speaks, double press acts" pattern. The engine tells the two apart with the preferences timeout.
+    case singleOrDouble(single: MacroBody, double: MacroBody, tink: TinkTiming)
+}
 
 /// A macro: where and when it runs, and what it does.
-public struct Macro {
+public struct Macro: Sendable {
     public let id: MacroID
     /// Display name, for menus and the log.
     public let name: String
@@ -134,7 +146,15 @@ public struct Macro {
     public let triggers: [MacroTrigger]
     public let action: MacroAction
 
-    public init(_ id: MacroID, _ name: String, group: MacroGroupID, enabledByDefault: Bool = true, triggers: [MacroTrigger], action: @escaping MacroAction) {
+    public init(_ id: MacroID, _ name: String, group: MacroGroupID, enabledByDefault: Bool = true, triggers: [MacroTrigger], body: @escaping MacroBody) {
+        self.init(id, name, group: group, enabledByDefault: enabledByDefault, triggers: triggers, action: .body(body))
+    }
+
+    public init(_ id: MacroID, _ name: String, group: MacroGroupID, enabledByDefault: Bool = true, triggers: [MacroTrigger], tink: TinkTiming = .beforeDouble, single: @escaping MacroBody, double: @escaping MacroBody) {
+        self.init(id, name, group: group, enabledByDefault: enabledByDefault, triggers: triggers, action: .singleOrDouble(single: single, double: double, tink: tink))
+    }
+
+    private init(_ id: MacroID, _ name: String, group: MacroGroupID, enabledByDefault: Bool, triggers: [MacroTrigger], action: MacroAction) {
         self.id = id
         self.name = name
         self.group = group

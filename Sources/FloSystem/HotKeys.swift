@@ -30,19 +30,26 @@ public enum HotKeyEvent: Sendable { case pressed, released }
 
 /// Registers global hotkeys with Carbon `RegisterEventHotKey`, like Keyboard Maestro does.
 /// The set of registered keys changes with the front window, so a key only gets taken from other apps while a macro is active for it.
+/// The app owns one instance for its lifetime; `stop()` removes every registration and the event handler.
 @MainActor
 public final class HotKeyCenter {
-    public static let shared = HotKeyCenter()
-
     public var handler: ((KeyCombo, HotKeyEvent) -> Void)?
 
     private var registered: [KeyCombo: (ref: EventHotKeyRef, id: UInt32)] = [:]
     private var combosByID: [UInt32: KeyCombo] = [:]
     private var nextID: UInt32 = 1
-    private var handlerInstalled = false
+    private var eventHandler: EventHandlerRef?
     private var suspended: Set<KeyCombo> = []
 
+    public init() {}
+
     public var registeredCombos: Set<KeyCombo> { Set(registered.keys) }
+
+    public func stop() {
+        for combo in registeredCombos { unregister(combo) }
+        if let eventHandler { RemoveEventHandler(eventHandler) }
+        eventHandler = nil
+    }
 
     /// Registers exactly `combos`, adding and removing registrations as needed.
     public func setActive(_ combos: Set<KeyCombo>) {
@@ -93,21 +100,25 @@ public final class HotKeyCenter {
     }
 
     private func installHandlerIfNeeded() {
-        guard !handlerInstalled else { return }
-        handlerInstalled = true
+        guard eventHandler == nil else { return }
         var types = [
             EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyPressed)),
             EventTypeSpec(eventClass: OSType(kEventClassKeyboard), eventKind: UInt32(kEventHotKeyReleased)),
         ]
-        InstallEventHandler(GetApplicationEventTarget(), { _, event, _ -> OSStatus in
+        // The handler reaches this instance through `userData`. The app keeps the instance alive until `stop()` removes the handler.
+        let userData = Unmanaged.passUnretained(self).toOpaque()
+        InstallEventHandler(GetApplicationEventTarget(), { _, event, userData -> OSStatus in
+            guard let event, let userData else { return OSStatus(eventNotHandledErr) }
             var hotKeyID = EventHotKeyID()
             let status = GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, &hotKeyID)
             guard status == noErr else { return status }
             let id = hotKeyID.id
             let kind: HotKeyEvent = GetEventKind(event) == UInt32(kEventHotKeyPressed) ? .pressed : .released
-            MainActor.assumeIsolated { HotKeyCenter.shared.dispatch(id: id, event: kind) }
+            MainActor.assumeIsolated {
+                Unmanaged<HotKeyCenter>.fromOpaque(userData).takeUnretainedValue().dispatch(id: id, event: kind)
+            }
             return noErr
-        }, types.count, &types, nil, nil)
+        }, types.count, &types, userData, &eventHandler)
     }
 }
 

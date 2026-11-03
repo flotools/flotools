@@ -19,10 +19,9 @@ public struct FrontContext: Equatable, Sendable, CustomStringConvertible {
 }
 
 /// Watches the front app and its focused window title and reports changes.
+/// The app owns one instance; `start()` and `stop()` bound the observers and the poll.
 @MainActor
 public final class ContextMonitor {
-    public static let shared = ContextMonitor()
-
     public private(set) var current = FrontContext()
     public var onChange: ((FrontContext) -> Void)?
 
@@ -30,22 +29,32 @@ public final class ContextMonitor {
     private var observedPid: pid_t = 0
     private var observedWindow: AXElement?
     private var refreshScheduled = false
-    private var started = false
+    private var activationObserver: NSObjectProtocol?
+    private var poll: Task<Void, Never>?
+
+    public init() {}
 
     public func start() {
-        guard !started else { return }
-        started = true
-        NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { _ in
-            MainActor.assumeIsolated { _ = ContextMonitor.shared.refresh() }
+        guard poll == nil else { return }
+        activationObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { [weak self] _ in
+            MainActor.assumeIsolated { _ = self?.refresh() }
         }
         // AX notifications can be missed, for example before Accessibility access is granted, so also poll slowly.
-        Task { @MainActor in
-            while true {
+        poll = Task { @MainActor [weak self] in
+            while !Task.isCancelled {
                 try? await Task.sleep(for: .seconds(1))
-                self.refresh()
+                self?.refresh()
             }
         }
         refresh()
+    }
+
+    public func stop() {
+        poll?.cancel()
+        poll = nil
+        if let activationObserver { NSWorkspace.shared.notificationCenter.removeObserver(activationObserver) }
+        activationObserver = nil
+        observe(pid: 0)
     }
 
     /// Reads the current context now and reports it if it changed.
@@ -64,7 +73,7 @@ public final class ContextMonitor {
         return context
     }
 
-    fileprivate func scheduleRefresh() {
+    private func scheduleRefresh() {
         guard !refreshScheduled else { return }
         refreshScheduled = true
         Task { @MainActor in
@@ -82,13 +91,14 @@ public final class ContextMonitor {
         observedPid = pid
         guard pid > 0 else { return }
         var created: AXObserver?
-        let status = AXObserverCreate(pid, { _, _, _, _ in
-            MainActor.assumeIsolated { ContextMonitor.shared.scheduleRefresh() }
+        let status = AXObserverCreate(pid, { _, _, _, refcon in
+            guard let refcon else { return }
+            MainActor.assumeIsolated { Unmanaged<ContextMonitor>.fromOpaque(refcon).takeUnretainedValue().scheduleRefresh() }
         }, &created)
         guard status == .success, let created else { return }
         let app = AXUIElementCreateApplication(pid)
         for name in ["AXFocusedWindowChanged", "AXMainWindowChanged", "AXWindowCreated"] {
-            AXObserverAddNotification(created, app, name as CFString, nil)
+            AXObserverAddNotification(created, app, name as CFString, refcon)
         }
         CFRunLoopAddSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(created), .defaultMode)
         observer = created
@@ -101,7 +111,10 @@ public final class ContextMonitor {
         }
         observedWindow = window
         if let observer, let window {
-            AXObserverAddNotification(observer, window.ref, "AXTitleChanged" as CFString, nil)
+            AXObserverAddNotification(observer, window.ref, "AXTitleChanged" as CFString, refcon)
         }
     }
+
+    /// How AX notifications reach this instance. The app keeps the instance alive until `stop()` removes the observer.
+    private var refcon: UnsafeMutableRawPointer { Unmanaged.passUnretained(self).toOpaque() }
 }

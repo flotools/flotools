@@ -31,8 +31,14 @@ public enum FloMacros {
     /// An engine with all groups and macros installed.
     @MainActor
     public static func makeEngine() -> MacroEngine {
-        let engine = MacroEngine(groups: groups)
-        all.forEach(engine.install)
+        makeEngine(macros: all)
+    }
+
+    /// An engine with all groups and the given macros, for tests.
+    @MainActor
+    static func makeEngine(macros: [Macro]) -> MacroEngine {
+        let engine = MacroEngine(groups: groups, hotKeys: HotKeyCenter(), contextMonitor: ContextMonitor())
+        macros.forEach(engine.install)
         return engine
     }
 }

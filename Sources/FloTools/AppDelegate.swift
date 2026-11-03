@@ -30,12 +30,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     func applicationWillTerminate(_ notification: Notification) {
+        engine.stop()
         Log.info(.app, "Flo Tools quitting")
     }
 
     private func applyPreferences() {
         let preferences = Preferences.load()
-        DoublePress.shared.timeout = .milliseconds(preferences.timeout)
+        engine.doublePressTimeout = .milliseconds(preferences.timeout)
         FloMacros.apply(preferences, to: engine)
     }
 
@@ -56,7 +57,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             }
             guard !Task.isCancelled else { return }
             Log.info(.app, "Accessibility permission granted")
-            ContextMonitor.shared.refresh()
+            self.engine.refreshContext()
             VoiceOver.say("Flo Tools has accessibility access.")
         }
     }

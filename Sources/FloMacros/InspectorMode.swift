@@ -13,44 +13,46 @@ enum InspectorMode {
     static let backtick: UInt16 = 50
 
     @MainActor
-    static let macros = [
-        Macro("floTools.toggleInspector", "Toggle Inspector", group: .floTools, triggers: [.key("/")]) { engine in
-            guard mixOrEdit.matches(engine.context.windowTitle) else {
-                HotKeyCenter.shared.passThrough(KeyCombo("/")!)
+    static var macros: [Macro] { [
+        Macro("floTools.toggleInspector", "Toggle Inspector", group: .floTools, triggers: [.key("/")]) { run in
+            guard mixOrEdit.matches(run.context.windowTitle) else {
+                run.passThrough()
                 return
             }
-            let on = !engine.isGroupActivated(.inspector)
-            setInspector(on, in: engine)
+            let on = !run.engine.isGroupActivated(.inspector)
+            setInspector(on, in: run.engine)
             VoiceOver.say(on ? "Inspector On" : "Inspector Off")
         },
         // Fires on press and release; the KM version read the key state rather than the trigger.
-        Macro(toggleTemporaryInspector, "Toggle Temporary INspector", group: .floTools, triggers: [.key("`"), .key("`", .released)]) { engine in
+        Macro(toggleTemporaryInspector, "Toggle Temporary INspector", group: .floTools, triggers: [.key("`"), .key("`", .released)]) { run in
             let down = CGEventSource.keyState(.combinedSessionState, key: backtick)
-            guard mixOrEdit.matches(engine.context.windowTitle) else {
+            guard mixOrEdit.matches(run.context.windowTitle) else {
                 // The KM version typed a backtick on release too; only the press is passed on here.
-                if down { HotKeyCenter.shared.passThrough(KeyCombo("`")!) }
+                run.passThrough()
                 return
             }
-            engine.setGroup(.inspector, activated: down)
+            run.engine.setGroup(.inspector, activated: down)
         },
         trackView(nextTrackView, "Next track view on selected tracks", key: "Ctrl+Cmd+Right", inspectorMacro: "inspector.panRightOnMonoLeftChannel"),
         trackView(previousTrackView, "Previous track view on selected tracks", key: "Ctrl+Cmd+Left", inspectorMacro: "inspector.panLeftOnMonoLeftChannel"),
-    ]
+    ] }
 
     /// Activates or deactivates the Inspector group. The track view macros share their keys with Inspector pan macros, so they are enabled only while the Inspector is off.
     @MainActor
     static func setInspector(_ on: Bool, in engine: MacroEngine) {
-        engine.setGroup(.inspector, activated: on)
-        engine.setMacro(nextTrackView, enabled: !on)
-        engine.setMacro(previousTrackView, enabled: !on)
+        engine.batch {
+            engine.setGroup(.inspector, activated: on)
+            engine.setMacro(nextTrackView, enabled: !on)
+            engine.setMacro(previousTrackView, enabled: !on)
+        }
     }
 
     /// Pro Tools' own track view shortcut, spoken. Off by default; Toggle Inspector turns these on while the Inspector is off.
     @MainActor
     static func trackView(_ id: MacroID, _ name: String, key: String, inspectorMacro: MacroID) -> Macro {
-        Macro(id, name, group: .floTools, enabledByDefault: false, triggers: [.key(key)]) { engine in
-            if engine.isGroupActivated(.inspector) {
-                engine.run(inspectorMacro)
+        Macro(id, name, group: .floTools, enabledByDefault: false, triggers: [.key(key)]) { run in
+            if run.engine.isGroupActivated(.inspector) {
+                try await run.run(inspectorMacro)
             } else {
                 ProTools.keystroke(KeyCombo(key)!)
                 VoiceOver.say(name + ".")

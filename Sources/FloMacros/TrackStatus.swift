@@ -6,14 +6,13 @@ import FloSystem
 /// Macros that report or reset track states in the Mix window.
 enum TrackStatus {
     @MainActor
-    static let macros = [
-        Macro("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", group: .floTools, triggers: [.key("Opt+Shift+S")]) { _ in
-            DoublePress.shared.press("gs", single: speakSoloed, double: {
-                Sound.play("Tink")
-                unsoloAll()
-            })
-        },
-    ]
+    static var macros: [Macro] { [
+        Macro("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", group: .floTools, triggers: [.key("Opt+Shift+S")], single: { _ in
+            try speakSoloed()
+        }, double: { _ in
+            try unsoloAll()
+        }),
+    ] }
 
     // MARK: Solo
 
@@ -41,15 +40,15 @@ enum TrackStatus {
     }
 
     @MainActor
-    static func speakSoloed() {
-        guard let mix = ProTools.mixWindow else { return }
+    static func speakSoloed() throws {
+        let mix = try ProTools.mixWindow.required("the Mix window")
         VoiceOver.say(soloedMessage(names: soloedTracks(in: mix).map(\.name)))
     }
 
     /// Clicks every soloed track's Solo button, folders last. Active mix groups are suspended meanwhile so one click doesn't toggle a whole group.
     @MainActor
-    static func unsoloAll() {
-        guard let mix = ProTools.mixWindow else { return }
+    static func unsoloAll() throws {
+        let mix = try ProTools.mixWindow.required("the Mix window")
         let tracks = soloedTracks(in: mix)
         let suspendGroups = !tracks.isEmpty && hasActiveGroups(in: mix)
         let suspendKey = KeyCombo(keyCode: 5, modifiers: KeyCombo.command | KeyCombo.shift) // Cmd+Shift+G
@@ -58,6 +57,8 @@ enum TrackStatus {
         var lastSound = ContinuousClock.now
         let ordered = tracks.filter { !$0.name.contains("Folder Track") } + tracks.filter { $0.name.contains("Folder Track") }
         for track in ordered {
+            // A stop request ends the loop between clicks; Mix groups are resumed below either way.
+            guard !Task.isCancelled else { break }
             track.solo.press()
             if ContinuousClock.now - lastSound > .seconds(1) {
                 Sound.play("Pop")
@@ -66,6 +67,7 @@ enum TrackStatus {
         }
 
         if suspendGroups { ProTools.keystroke(suspendKey) }
+        try Task.checkCancellation()
         VoiceOver.say("unsoloed all tracks.")
     }
 

@@ -47,6 +47,7 @@ import Testing
         let first = makeFile()
         try first.start(header: "FIRST")
         first.append(entry("before relaunch"))
+        first.waitForWrites()
         // A new instance with the same defaults stands in for the next launch.
         let second = makeFile()
         #expect(second.resume(header: "SECOND"))

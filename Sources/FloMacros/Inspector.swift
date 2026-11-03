@@ -5,29 +5,25 @@ import FloSystem
 /// Flo Tools Inspector group: works on the Mix window track under the VoiceOver cursor.
 enum Inspector {
     @MainActor
-    static let macros = [
-        Macro("inspector.speakOpenSendB", "Speak/Open Send B", group: .inspector, triggers: [.key("Ctrl+2")]) { _ in sendPress(slot: 1) },
-        Macro("inspector.speakToggleSolo", "Speak/Toggle Solo", group: .inspector, triggers: [.key("S")]) { _ in soloPress() },
-    ]
+    static var macros: [Macro] { [
+        send("inspector.speakOpenSendB", "Speak/Open Send B", slot: 1, key: "Ctrl+2"),
+        // The JXA played Tink after speaking the new Solo state.
+        Macro("inspector.speakToggleSolo", "Speak/Toggle Solo", group: .inspector, triggers: [.key("S")], tink: .afterDouble, single: { _ in
+            VoiceOver.say(soloStateText(try soloButton().value ?? ""))
+        }, double: { _ in
+            let solo = try soloButton()
+            solo.press()
+            // The JXA waited 0.1 s for Pro Tools to update the button before reading it.
+            try await Task.sleep(for: .milliseconds(100))
+            VoiceOver.say(soloStateText(solo.value ?? ""))
+        }),
+    ] }
 
     // MARK: Solo
 
-    /// Single press speaks the Solo state of the track under the VoiceOver cursor. Double press clicks Solo and speaks the new state.
     @MainActor
-    static func soloPress() {
-        DoublePress.shared.press("s", single: {
-            guard let solo = Tracks.underVoiceOverCursor()?.button("Solo") else { return }
-            VoiceOver.say(soloStateText(solo.value ?? ""))
-        }, double: {
-            guard let solo = Tracks.underVoiceOverCursor()?.button("Solo") else { return }
-            solo.press()
-            Task { @MainActor in
-                // The JXA waited 0.1 s for Pro Tools to update the button, then spoke, then played Tink.
-                try? await Task.sleep(for: .milliseconds(100))
-                VoiceOver.say(soloStateText(solo.value ?? ""))
-                Sound.play("Tink")
-            }
-        })
+    static func soloButton() throws -> AXElement {
+        try Tracks.underVoiceOverCursor().button("Solo").required("the Solo button")
     }
 
     /// Same text as the JXA version: "Selected" is "On", empty is "Off", anything else ("off safe") is spoken as is.
@@ -41,27 +37,29 @@ enum Inspector {
 
     // MARK: Sends
 
-    /// Single press speaks the send slot and its assignment. Double press clicks the assignment button.
+    /// Single press speaks the send slot and its assignment. Double press clicks the assignment button, then plays Tink as the JXA did.
     @MainActor
-    static func sendPress(slot: Int) {
-        DoublePress.shared.press("send\(slot)", single: {
-            guard let (selector, assignment) = sendButtons(slot: slot) else { return }
+    static func send(_ id: MacroID, _ name: String, slot: Int, key: String) -> Macro {
+        Macro(id, name, group: .inspector, triggers: [.key(key)], tink: .afterDouble, single: { _ in
+            let (selector, assignment) = try sendButtons(slot: slot)
             VoiceOver.say(sendMessage(selectorName: selector.name ?? "", selectorValue: selector.value ?? "", assignmentValue: assignment.value ?? ""))
-        }, double: {
-            guard let (_, assignment) = sendButtons(slot: slot) else { return }
-            assignment.press()
-            Sound.play("Tink")
+        }, double: { _ in
+            try sendButtons(slot: slot).assignment.press()
         })
     }
 
     /// Selector and assignment buttons of send slot 0 (A) to 9 (J).
     @MainActor
-    static func sendButtons(slot: Int) -> (selector: AXElement, assignment: AXElement)? {
+    static func sendButtons(slot: Int) throws -> (selector: AXElement, assignment: AXElement) {
         let groupName = slot < 5 ? "Sends A-E" : "Sends F-J"
-        guard let buttons = Tracks.underVoiceOverCursor()?.group(groupName)?.buttons else { return nil }
+        let buttons = try Tracks.underVoiceOverCursor().group(groupName).required("the \(groupName) sends").buttons
         let index = (slot % 5) * 2
-        guard buttons.count > index + 1 else { return nil }
+        guard buttons.count > index + 1 else { throw FloError.notFound("the send \(sendLetter(slot)) buttons") }
         return (buttons[index], buttons[index + 1])
+    }
+
+    static func sendLetter(_ slot: Int) -> String {
+        String(UnicodeScalar(UInt8(ascii: "A") + UInt8(slot)))
     }
 
     /// Same text as the JXA version, for example " B. : unassigned".

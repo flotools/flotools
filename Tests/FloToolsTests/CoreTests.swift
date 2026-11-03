@@ -34,7 +34,7 @@ import Testing
     }
 
     @Test func onlyMacrosInMatchingContextAreActive() {
-        let engine = MacroEngine(groups: FloMacros.groups)
+        let engine = FloMacros.makeEngine(macros: [])
         let ctrl2 = KeyCombo(keyCode: 19, modifiers: KeyCombo.control)
         #expect(engine.activeCombos(in: mix).isEmpty)
 
@@ -53,7 +53,7 @@ import Testing
 
     @Test func windowSpecificGroupWinsOverAppGroup() {
         // In KM, Cmd+1 is "Tab 1" in Selected Tab, "Assign Insert A" in Inspector and "Load Plugin Parameters for View 1" in Plugin.
-        let engine = MacroEngine(groups: FloMacros.groups)
+        let engine = FloMacros.makeEngine(macros: [])
         for group in [MacroGroupID.floTools, .inspector, .plugin] {
             engine.install(Macro(MacroID("test.\(group)"), "Cmd+1", group: group, triggers: [.key("Cmd+1")]) { _ in })
         }
@@ -63,7 +63,7 @@ import Testing
     }
 
     @Test func deactivatedGroupTakesNoKeys() {
-        let engine = MacroEngine(groups: FloMacros.groups)
+        let engine = FloMacros.makeEngine(macros: [])
         engine.install(Macro("test.solo", "Solo", group: .inspector, triggers: [.key("S")]) { _ in })
         let s = KeyCombo("S")!
         engine.setGroup(.inspector, activated: false)
@@ -115,32 +115,192 @@ import Testing
     }
 }
 
-@MainActor @Suite struct DoublePressTests {
+@Suite struct DoublePressDeciderTests {
+    let start = ContinuousClock.now
+
+    @Test func secondPressInTimeIsDouble() {
+        var decider = DoublePressDecider(timeout: .milliseconds(200))
+        let first = decider.press("a", at: start)
+        let second = decider.press("a", at: start + .milliseconds(150))
+        // The voided single does not run when its timer ends.
+        let voidedSingleRuns = decider.singleIsDue("a", generation: 1)
+        #expect(first == .single(generation: 1))
+        #expect(second == .double)
+        #expect(!voidedSingleRuns)
+    }
+
+    @Test func lateSecondPressIsANewSingle() {
+        var decider = DoublePressDecider(timeout: .milliseconds(200))
+        _ = decider.press("a", at: start)
+        let second = decider.press("a", at: start + .milliseconds(250))
+        let firstRuns = decider.singleIsDue("a", generation: 1)
+        let secondRuns = decider.singleIsDue("a", generation: 2)
+        let secondRunsAgain = decider.singleIsDue("a", generation: 2)
+        #expect(second == .single(generation: 2))
+        #expect(!firstRuns)
+        #expect(secondRuns)
+        #expect(!secondRunsAgain)
+    }
+
+    @Test func differentMacrosDoNotCombine() {
+        var decider = DoublePressDecider(timeout: .milliseconds(200))
+        _ = decider.press("a", at: start)
+        let other = decider.press("b", at: start + .milliseconds(10))
+        let firstRuns = decider.singleIsDue("a", generation: 1)
+        #expect(other == .single(generation: 2))
+        #expect(firstRuns)
+    }
+
+    @Test func cancelAllVoidsPendingSingles() {
+        var decider = DoublePressDecider(timeout: .milliseconds(200))
+        _ = decider.press("a", at: start)
+        decider.cancelAll()
+        let cancelledRuns = decider.singleIsDue("a", generation: 1)
+        let next = decider.press("a", at: start + .milliseconds(10))
+        #expect(!cancelledRuns)
+        #expect(next == .single(generation: 2))
+    }
+}
+
+/// Runs macros through the engine without hotkeys: `dispatch` is what a hotkey press calls after reading the context.
+@MainActor @Suite struct MacroRunTests {
+    let mix = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session")
+
+    final class Events {
+        var list: [String] = []
+    }
+
+    func engine(_ macros: [Macro]) -> MacroEngine {
+        let engine = FloMacros.makeEngine(macros: macros)
+        engine.doublePressTimeout = .milliseconds(50)
+        return engine
+    }
+
+    func doubleMacro(_ events: Events) -> Macro {
+        Macro("test.speak", "Speak", group: .floTools, triggers: [.key("F1")], single: { _ in events.list.append("single") }, double: { _ in events.list.append("double") })
+    }
+
     @Test func singlePressRunsAfterTimeout() async throws {
-        let detector = DoublePress(timeout: .milliseconds(50))
-        var log: [String] = []
-        detector.press("a", single: { log.append("single") }, double: { log.append("double") })
-        #expect(log.isEmpty)
-        try await Task.sleep(for: .milliseconds(200))
-        #expect(log == ["single"])
+        let events = Events()
+        let engine = engine([doubleMacro(events)])
+        #expect(engine.dispatch(KeyCombo("F1")!, .pressed, in: mix) != nil)
+        #expect(events.list.isEmpty)
+        await engine.waitUntilIdle()
+        #expect(events.list == ["single"])
     }
 
     @Test func secondPressInTimeRunsDoubleOnly() async throws {
-        let detector = DoublePress(timeout: .milliseconds(100))
-        var log: [String] = []
-        detector.press("a", single: { log.append("single") }, double: { log.append("double") })
-        detector.press("a", single: { log.append("single") }, double: { log.append("double") })
-        try await Task.sleep(for: .milliseconds(250))
-        #expect(log == ["double"])
+        let events = Events()
+        let engine = engine([doubleMacro(events)])
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        await engine.waitUntilIdle()
+        #expect(events.list == ["double"])
     }
 
-    @Test func differentCommandsDoNotCombine() async throws {
-        let detector = DoublePress(timeout: .milliseconds(50))
-        var log: [String] = []
-        detector.press("a", single: { log.append("a") }, double: { log.append("aa") })
-        detector.press("b", single: { log.append("b") }, double: { log.append("bb") })
-        try await Task.sleep(for: .milliseconds(200))
-        #expect(log.sorted() == ["a", "b"])
+    @Test func disablingAMacroVoidsPendingSingles() async throws {
+        let events = Events()
+        let engine = engine([doubleMacro(events), Macro("test.other", "Other", group: .floTools, triggers: []) { _ in }])
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        engine.setMacro("test.other", enabled: false)
+        await engine.waitUntilIdle()
+        #expect(events.list.isEmpty)
+    }
+
+    @Test func topLevelRunsDoNotInterleave() async throws {
+        let events = Events()
+        let engine = engine([
+            Macro("test.slow", "Slow", group: .floTools, triggers: [.key("F1")]) { _ in
+                events.list.append("slow start")
+                try await Task.sleep(for: .milliseconds(50))
+                events.list.append("slow end")
+            },
+            Macro("test.fast", "Fast", group: .floTools, triggers: [.key("F2")]) { _ in events.list.append("fast") },
+        ])
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
+        await engine.waitUntilIdle()
+        #expect(events.list == ["slow start", "slow end", "fast"])
+    }
+
+    @Test func nestedRunWaitsAndSeesItsTrigger() async throws {
+        let events = Events()
+        let engine = engine([
+            Macro("test.outer", "Outer", group: .floTools, triggers: [.key("F1")]) { run in
+                events.list.append("outer")
+                try await run.run("test.inner")
+                events.list.append("outer end")
+            },
+            // Disabled and in another group's window: nested runs ignore both, as KM's Execute Macro did.
+            Macro("test.inner", "Inner", group: .plugin, enabledByDefault: false, triggers: []) { run in
+                events.list.append("inner by \(run.trigger)")
+            },
+        ])
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        await engine.waitUntilIdle()
+        #expect(events.list == ["outer", "inner by nested(by: test.outer)", "outer end"])
+    }
+
+    @Test func nestedCycleIsAnError() async throws {
+        let events = Events()
+        let engine = engine([
+            Macro("test.a", "A", group: .floTools, triggers: [.key("F1")]) { run in
+                do {
+                    try await run.run("test.b")
+                } catch {
+                    events.list.append("\(error)")
+                }
+            },
+            Macro("test.b", "B", group: .floTools, triggers: []) { run in try await run.run("test.a") },
+        ])
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        await engine.waitUntilIdle()
+        #expect(events.list == ["macro cycle: test.a -> test.b -> test.a"])
+    }
+
+    @Test func stopCancelsARunningMacro() async throws {
+        let events = Events()
+        let engine = engine([
+            Macro("test.long", "Long", group: .floTools, triggers: [.key("F1")]) { _ in
+                do {
+                    try await Task.sleep(for: .seconds(5))
+                    events.list.append("finished")
+                } catch {
+                    events.list.append("cancelled")
+                }
+            },
+        ])
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        try await Task.sleep(for: .milliseconds(20))
+        engine.stop()
+        await engine.waitUntilIdle()
+        #expect(events.list == ["cancelled"])
+    }
+
+    @Test func batchedChangesAreAllApplied() {
+        let engine = FloMacros.makeEngine()
+        InspectorMode.setInspector(false, in: engine)
+        #expect(!engine.isGroupActivated(.inspector))
+        #expect(engine.isMacroEnabled(InspectorMode.nextTrackView))
+        #expect(engine.isMacroEnabled(InspectorMode.previousTrackView))
+    }
+
+    @Test func tinkTimingMatchesJXA() throws {
+        func tink(_ id: MacroID) throws -> TinkTiming? {
+            let macro = try #require(FloMacros.all.first { $0.id == id })
+            guard case .singleOrDouble(_, _, let tink) = macro.action else { return nil }
+            return tink
+        }
+        #expect(try tink("inspector.speakOpenSendB") == .afterDouble)
+        #expect(try tink("inspector.speakToggleSolo") == .afterDouble)
+        #expect(try tink("floTools.speakSoloedTracksUnsoloAllTracks") == .beforeDouble)
+    }
+}
+
+@Suite struct SpokenErrorTests {
+    @Test func wording() {
+        #expect(SpokenError.text(for: FloError.notFound("the Mix window")) == "Could not find the Mix window.")
+        #expect(SpokenError.text(for: CancellationError()) == nil)
     }
 }
 
