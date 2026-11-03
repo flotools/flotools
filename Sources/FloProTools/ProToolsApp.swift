@@ -44,7 +44,7 @@ public struct ProToolsApp: Sendable {
 
     @AccessibilityActor
     public func mixWindow() throws -> MixWindow {
-        MixWindow(try window(titlePrefix: "Mix:", "the Mix window"))
+        MixWindow(try trackWindow(.mix))
     }
 
     @AccessibilityActor
@@ -64,11 +64,22 @@ public struct ProToolsApp: Sendable {
         return try tab.name ?? ""
     }
 
-    /// The Mix window track strip whose name is under the VoiceOver cursor, like `mix.groups.byName(vo.voCursor.textUnderCursor())` in the JXA. The one place the VoiceOver cursor is joined to a strip.
-    public func trackUnderVoiceOverCursor() async throws -> TrackStrip {
-        let mix = try await mixWindow()
+    /// The two windows that show one group per track, named by their title prefix.
+    public enum TrackWindow: String, Sendable {
+        case mix = "Mix"
+        case edit = "Edit"
+    }
+
+    /// The track whose name is under the VoiceOver cursor, as shown in `window`, like `mix.groups.byName(vo.voCursor.textUnderCursor())` in the JXA. Both windows name a track's group the same way, so the cursor can be in either. The one place the VoiceOver cursor is joined to a track.
+    public func trackUnderVoiceOverCursor(in window: TrackWindow = .mix) async throws -> TrackStrip {
+        let element = try await trackWindow(window)
         let name = try await VoiceOver.cursorText().required("the VoiceOver cursor")
-        return try await mix.strip(named: name)
+        return try await TrackStrip(named: name, in: element, window: window)
+    }
+
+    @AccessibilityActor
+    private func trackWindow(_ window: TrackWindow) throws -> AXElement {
+        try self.window(titlePrefix: window.rawValue + ":", "the \(window.rawValue) window")
     }
 
     /// The first window whose title starts with `titlePrefix`. `what` names it for the user, for example "the Mix window".

@@ -550,6 +550,18 @@ import Testing
         #expect(Inspector.panMessage(valueDescription: "Centered", knobName: nil) == "Centered")
     }
 
+    @Test func controlTextMatchesJXA() {
+        #expect(InspectorControls.spokenText(.automationMode, name: "Automation Mode selector", value: "auto read") == "auto read")
+        #expect(InspectorControls.spokenText(.group, name: "Group ID indicator/pop-up", value: "no group") == "No Group")
+        #expect(InspectorControls.spokenText(.input, name: "Audio Input Path selector\n\"no input\"", value: "no input") == "\n\"no input\"")
+        #expect(InspectorControls.spokenText(.output, name: "MIDI Output selector\nXpand!2 1-1", value: "") == "\nXpand!2 1-1")
+        #expect(InspectorControls.spokenText(.timebase, name: "Timebase selector (ticks)", value: "") == " (ticks)")
+        #expect(InspectorControls.spokenText(.elasticAudioPlugIn, name: "Current Elastic Audio or ARA Plugin", value: "") == "None")
+        #expect(InspectorControls.spokenText(.comments, name: "Comments \"\"", value: "") == "No Comment")
+        #expect(InspectorControls.spokenText(.freeze, name: "Not Frozen", value: "") == "Not Frozen")
+        #expect(InspectorControls.panList(["100 to the left", "100 to the right"]) == "100 to the left. 100 to the right. ")
+    }
+
     @Test func soloedMessageMatchesJXA() {
         #expect(TrackStatus.soloedMessage(names: []) == "No tracks are soloed.")
         #expect(TrackStatus.soloedMessage(names: ["Kick - Audio Track ", "Snare - Audio Track "]) == "2 Soloed: Kick - Audio. Snare - Audio. ")

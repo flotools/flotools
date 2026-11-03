@@ -267,6 +267,8 @@ public final class MacroEngine {
                 try await double(run)
                 await Sound.done.play()
             }
+        case .none:
+            return double
         }
     }
 

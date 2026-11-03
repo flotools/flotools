@@ -127,6 +127,8 @@ public typealias HoldRelease = @MainActor @Sendable (MacroRun) -> Void
 public enum DoneSoundTiming: Sendable {
     case beforeDouble
     case afterDouble
+    /// No done sound: the double action opens a menu that VoiceOver reads, or the macro plays the sound itself.
+    case none
 }
 
 public enum MacroAction: Sendable {

@@ -154,9 +154,14 @@ public struct AXElement {
     public func press() throws { try perform("AXPress") }
 
     /// Presses a button that may open a pop-up menu, such as a Pro Tools insert or send selector. Pro Tools answers that press only once the menu closes, so the press times out while the menu is open (measured 2026-11-02: AXError -25204 after the timeout, menu window on screen). With this element's timeout cut to 0.25 s, a timeout counts as done when the app then shows a pop-up menu window; otherwise it throws as a busy app. A press that opens a plug-in window instead returned at once (11 ms).
-    public func pressOpeningMenu() throws {
+    public func pressOpeningMenu() throws { try performOpeningMenu("AXPress") }
+
+    /// Opens the element's context menu, like a right click, with the same timeout handling as `pressOpeningMenu()`.
+    public func showMenu() throws { try performOpeningMenu("AXShowMenu") }
+
+    private func performOpeningMenu(_ action: String) throws {
         AXUIElementSetMessagingTimeout(ref, 0.25)
-        try perform("AXPress", menuMayOpen: true)
+        try perform(action, menuMayOpen: true)
     }
 
     /// Whether this element's app has a pop-up menu window on screen. Window layer and owner are available without Screen Recording permission.

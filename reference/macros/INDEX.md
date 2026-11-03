@@ -236,15 +236,15 @@
 | Flo Tools Inspector | [Assign Send H](<Flo Tools Inspector/Assign Send H.md>) | Ctrl+Cmd+8 | True | 5178C660-214B-4F18-B46C-3EC9E66EB955 | yes |
 | Flo Tools Inspector | [Assign Send I](<Flo Tools Inspector/Assign Send I.md>) | Ctrl+Cmd+9 | True | 3047752C-0899-4962-A819-3797E6095707 | yes |
 | Flo Tools Inspector | [Assign Send J](<Flo Tools Inspector/Assign Send J.md>) | Ctrl+Cmd+0 | True | DD561616-0FF2-4F82-9A8B-1BB3444BE045 | yes |
-| Flo Tools Inspector | [Decrease Instrument Volume](<Flo Tools Inspector/Decrease Instrument Volume.md>) | Ctrl+Opt+Down | True | 213EE66F-86AC-462B-BB2C-3E3F0BAEE9AE |  |
-| Flo Tools Inspector | [Decrease Volume](<Flo Tools Inspector/Decrease Volume.md>) | Ctrl+Cmd+Down | True | 387783D0-17E0-4868-97BC-FC20712BEBDF |  |
-| Flo Tools Inspector | [Increase Instrument Volume](<Flo Tools Inspector/Increase Instrument Volume.md>) | Ctrl+Opt+Up | True | 03CF90B2-C388-4F4F-9550-2D74C570597B |  |
-| Flo Tools Inspector | [Increase Volume](<Flo Tools Inspector/Increase Volume.md>) | Ctrl+Cmd+Up | True | 5DA65AC1-5A53-4003-844E-75273F49916C |  |
-| Flo Tools Inspector | [Speak And Select Track/Show Right-Click Menu](<Flo Tools Inspector/Speak And Select Track_Show Right-Click Menu.md>) | T | True | ADBCEFDF-6ADF-47B1-8926-F0A37E2B81C1 |  |
+| Flo Tools Inspector | [Decrease Instrument Volume](<Flo Tools Inspector/Decrease Instrument Volume.md>) | Ctrl+Opt+Down | True | 213EE66F-86AC-462B-BB2C-3E3F0BAEE9AE | yes |
+| Flo Tools Inspector | [Decrease Volume](<Flo Tools Inspector/Decrease Volume.md>) | Ctrl+Cmd+Down | True | 387783D0-17E0-4868-97BC-FC20712BEBDF | yes |
+| Flo Tools Inspector | [Increase Instrument Volume](<Flo Tools Inspector/Increase Instrument Volume.md>) | Ctrl+Opt+Up | True | 03CF90B2-C388-4F4F-9550-2D74C570597B | yes |
+| Flo Tools Inspector | [Increase Volume](<Flo Tools Inspector/Increase Volume.md>) | Ctrl+Cmd+Up | True | 5DA65AC1-5A53-4003-844E-75273F49916C | yes |
+| Flo Tools Inspector | [Speak And Select Track/Show Right-Click Menu](<Flo Tools Inspector/Speak And Select Track_Show Right-Click Menu.md>) | T | True | ADBCEFDF-6ADF-47B1-8926-F0A37E2B81C1 | yes |
 | Flo Tools Inspector | [Speak Gain Reduction Meter Maximum Value](<Flo Tools Inspector/Speak Gain Reduction Meter Maximum Value.md>) | Shift+; | True | 7EC8653F-24A2-43FE-B45B-C9D3C5C77044 |  |
 | Flo Tools Inspector | [Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor](<Flo Tools Inspector/Speak Gain Reduction Meter_ Toggle Gain Reduction Meter Monitor.md>) | ; | True | 34DF45E2-F217-4453-9563-210A0BDDF7BE |  |
 | Flo Tools Inspector | [Speak Level Meter, Toggle Level Meter Monitor](<Flo Tools Inspector/Speak Level Meter_ Toggle Level Meter Monitor.md>) | L | True | 252B218D-D108-456B-9DA4-683D3858BC80 |  |
-| Flo Tools Inspector | [Speak/Edit Comments](<Flo Tools Inspector/Speak_Edit Comments.md>) | C | True | BC36AF98-3D2F-45D4-920E-7F61A03AD411 |  |
+| Flo Tools Inspector | [Speak/Edit Comments](<Flo Tools Inspector/Speak_Edit Comments.md>) | C | True | BC36AF98-3D2F-45D4-920E-7F61A03AD411 | yes |
 | Flo Tools Inspector | [Speak/Open Insert A](<Flo Tools Inspector/Speak_Open Insert A.md>) | 1 | True | F08671D6-BAA1-455E-8AE1-E9908063345A | yes |
 | Flo Tools Inspector | [Speak/Open Insert B](<Flo Tools Inspector/Speak_Open Insert B.md>) | 2 | True | 43E15266-F1C0-4131-B6D0-3A068A08288D | yes |
 | Flo Tools Inspector | [Speak/Open Insert C](<Flo Tools Inspector/Speak_Open Insert C.md>) | 3 | True | E100309E-77A7-4BDC-9775-11A0EF423C3B | yes |
@@ -265,28 +265,28 @@
 | Flo Tools Inspector | [Speak/Open Send I](<Flo Tools Inspector/Speak_Open Send I.md>) | Ctrl+9 | True | E5A4BF4F-8338-4E18-892A-6503E719FE84 | yes |
 | Flo Tools Inspector | [Speak/Open Send J](<Flo Tools Inspector/Speak_Open Send J.md>) | Ctrl+0 | True | 0B0F935C-CEB5-40E5-87C7-2E95F304B4D2 | yes |
 | Flo Tools Inspector | [Speak/Open Send h](<Flo Tools Inspector/Speak_Open Send h.md>) | Ctrl+8 | True | D1E605F3-8712-49B4-866C-96FD0EBC1159 | yes |
-| Flo Tools Inspector | [Speak/Reset Instrument Pan](<Flo Tools Inspector/Speak_Reset Instrument Pan.md>) | Opt+N | True | 6165EE6F-CFDB-4F95-B309-C0BE011BA511 |  |
-| Flo Tools Inspector | [Speak/Reset Instrument Volume](<Flo Tools Inspector/Speak_Reset Instrument Volume.md>) | Opt+V | True | 72146C65-FD10-4EF8-87E9-AF354AC7C72C |  |
-| Flo Tools Inspector | [Speak/Reset Pan](<Flo Tools Inspector/Speak_Reset Pan.md>) | N | True | B7196BF6-FE59-4DF8-AE2F-7603E8569D3B |  |
-| Flo Tools Inspector | [Speak/Reset Peak Meter](<Flo Tools Inspector/Speak_Reset Peak Meter.md>) | P | True | 1C6D9619-0269-4AB1-A64F-799FDEA688D5 |  |
-| Flo Tools Inspector | [Speak/Reset Volume Fader](<Flo Tools Inspector/Speak_Reset Volume Fader.md>) | V | True | 76B6802A-B448-4CD7-BBEF-AD8A550315FD |  |
-| Flo Tools Inspector | [Speak/Select Automation Mode](<Flo Tools Inspector/Speak_Select Automation Mode.md>) | A | True | 7E24E71D-E197-4D9D-B501-673C0119CF44 |  |
-| Flo Tools Inspector | [Speak/Select Elastic Audio Plugin](<Flo Tools Inspector/Speak_Select Elastic Audio Plugin.md>) | E | True | 613C6AFB-613B-4CCB-8EE0-7CFED22C14E3 |  |
-| Flo Tools Inspector | [Speak/Select Group](<Flo Tools Inspector/Speak_Select Group.md>) | G | True | 32214BFE-5ADF-41CF-8DE2-2E20A2FEABFC |  |
-| Flo Tools Inspector | [Speak/Select Instrument Input](<Flo Tools Inspector/Speak_Select Instrument Input.md>) | Opt+I | True | 8733DDFD-E6DC-499A-9569-16CD651605B6 |  |
-| Flo Tools Inspector | [Speak/Select Instrument Output](<Flo Tools Inspector/Speak_Select Instrument Output.md>) | Opt+O | True | 03BC2EC0-31FA-4732-9189-8AFD106AC795 |  |
-| Flo Tools Inspector | [Speak/Select Playlist](<Flo Tools Inspector/Speak_Select Playlist.md>) | \ | True | 366D9BB1-8DE8-4A77-BEF2-4C69C1878B03 |  |
-| Flo Tools Inspector | [Speak/Select Timebase](<Flo Tools Inspector/Speak_Select Timebase.md>) | B | True | 87F99400-977E-4A95-9FD5-3918BEAF93CE |  |
-| Flo Tools Inspector | [Speak/Select Track Input](<Flo Tools Inspector/Speak_Select Track Input.md>) | I | True | 7A7404B4-51E6-4C3F-9ED0-36F38FF9277D |  |
-| Flo Tools Inspector | [Speak/Select Track Output](<Flo Tools Inspector/Speak_Select Track Output.md>) | O | True | AC68B729-FACE-40B3-B44E-75D060D4E6F1 |  |
-| Flo Tools Inspector | [Speak/Select Track View](<Flo Tools Inspector/Speak_Select Track View.md>) | W | True | 6A53AF54-B897-4B37-9CF8-5F15D19B1CE4 |  |
-| Flo Tools Inspector | [Speak/Toggle Freeze Status](<Flo Tools Inspector/Speak_Toggle Freeze Status.md>) | F | True | DF394380-80A1-4B45-950F-8EFCB3C940A3 |  |
+| Flo Tools Inspector | [Speak/Reset Instrument Pan](<Flo Tools Inspector/Speak_Reset Instrument Pan.md>) | Opt+N | True | 6165EE6F-CFDB-4F95-B309-C0BE011BA511 | yes |
+| Flo Tools Inspector | [Speak/Reset Instrument Volume](<Flo Tools Inspector/Speak_Reset Instrument Volume.md>) | Opt+V | True | 72146C65-FD10-4EF8-87E9-AF354AC7C72C | yes |
+| Flo Tools Inspector | [Speak/Reset Pan](<Flo Tools Inspector/Speak_Reset Pan.md>) | N | True | B7196BF6-FE59-4DF8-AE2F-7603E8569D3B | yes |
+| Flo Tools Inspector | [Speak/Reset Peak Meter](<Flo Tools Inspector/Speak_Reset Peak Meter.md>) | P | True | 1C6D9619-0269-4AB1-A64F-799FDEA688D5 | yes |
+| Flo Tools Inspector | [Speak/Reset Volume Fader](<Flo Tools Inspector/Speak_Reset Volume Fader.md>) | V | True | 76B6802A-B448-4CD7-BBEF-AD8A550315FD | yes |
+| Flo Tools Inspector | [Speak/Select Automation Mode](<Flo Tools Inspector/Speak_Select Automation Mode.md>) | A | True | 7E24E71D-E197-4D9D-B501-673C0119CF44 | yes |
+| Flo Tools Inspector | [Speak/Select Elastic Audio Plugin](<Flo Tools Inspector/Speak_Select Elastic Audio Plugin.md>) | E | True | 613C6AFB-613B-4CCB-8EE0-7CFED22C14E3 | yes |
+| Flo Tools Inspector | [Speak/Select Group](<Flo Tools Inspector/Speak_Select Group.md>) | G | True | 32214BFE-5ADF-41CF-8DE2-2E20A2FEABFC | yes |
+| Flo Tools Inspector | [Speak/Select Instrument Input](<Flo Tools Inspector/Speak_Select Instrument Input.md>) | Opt+I | True | 8733DDFD-E6DC-499A-9569-16CD651605B6 | yes |
+| Flo Tools Inspector | [Speak/Select Instrument Output](<Flo Tools Inspector/Speak_Select Instrument Output.md>) | Opt+O | True | 03BC2EC0-31FA-4732-9189-8AFD106AC795 | yes |
+| Flo Tools Inspector | [Speak/Select Playlist](<Flo Tools Inspector/Speak_Select Playlist.md>) | \ | True | 366D9BB1-8DE8-4A77-BEF2-4C69C1878B03 | yes |
+| Flo Tools Inspector | [Speak/Select Timebase](<Flo Tools Inspector/Speak_Select Timebase.md>) | B | True | 87F99400-977E-4A95-9FD5-3918BEAF93CE | yes |
+| Flo Tools Inspector | [Speak/Select Track Input](<Flo Tools Inspector/Speak_Select Track Input.md>) | I | True | 7A7404B4-51E6-4C3F-9ED0-36F38FF9277D | yes |
+| Flo Tools Inspector | [Speak/Select Track Output](<Flo Tools Inspector/Speak_Select Track Output.md>) | O | True | AC68B729-FACE-40B3-B44E-75D060D4E6F1 | yes |
+| Flo Tools Inspector | [Speak/Select Track View](<Flo Tools Inspector/Speak_Select Track View.md>) | W | True | 6A53AF54-B897-4B37-9CF8-5F15D19B1CE4 | yes |
+| Flo Tools Inspector | [Speak/Toggle Freeze Status](<Flo Tools Inspector/Speak_Toggle Freeze Status.md>) | F | True | DF394380-80A1-4B45-950F-8EFCB3C940A3 | yes |
 | Flo Tools Inspector | [Speak/Toggle Input Monitor](<Flo Tools Inspector/Speak_Toggle Input Monitor.md>) | K | True | 6B397B91-A570-47FD-91B7-807C30511E69 | yes |
 | Flo Tools Inspector | [Speak/Toggle Instrument Mute](<Flo Tools Inspector/Speak_Toggle Instrument Mute.md>) | Opt+M | True | D614E7B9-1A9B-4A7A-9100-D57C38D7B45A | yes |
 | Flo Tools Inspector | [Speak/Toggle Mute](<Flo Tools Inspector/Speak_Toggle Mute.md>) | M | True | 708123E8-4C4A-4AF1-B102-9076D922CFD9 | yes |
 | Flo Tools Inspector | [Speak/Toggle Record State](<Flo Tools Inspector/Speak_Toggle Record State.md>) | R | True | 800A0740-6F7A-46F0-BDCF-B2481B01FB02 | yes |
 | Flo Tools Inspector | [Speak/Toggle Solo](<Flo Tools Inspector/Speak_Toggle Solo.md>) | S | True | 57957B28-6D66-4BEF-85B9-48406E95FB18 | yes |
-| Flo Tools Inspector | [Track Options Menu](<Flo Tools Inspector/Track Options Menu.md>) | H | True | 93C746D3-9062-423E-857F-E95F06F6E300 |  |
+| Flo Tools Inspector | [Track Options Menu](<Flo Tools Inspector/Track Options Menu.md>) | H | True | 93C746D3-9062-423E-857F-E95F06F6E300 | yes |
 | Flo Tools Inspector | [pan Instrument Right](<Flo Tools Inspector/pan Instrument Right.md>) | Ctrl+Opt+Right | True | AC85B840-27F7-4476-9EC2-9B25E615052D | yes |
 | Flo Tools Inspector | [pan Instrument left](<Flo Tools Inspector/pan Instrument left.md>) | Ctrl+Opt+Left | True | 30F5DC4E-61A4-415A-8E44-1465EFD13573 | yes |
 | Flo Tools Inspector | [pan left on mono/Left channel](<Flo Tools Inspector/pan left on mono_Left channel.md>) | Ctrl+Cmd+Left | True | 9C149078-8675-401D-9CD7-E1457E482328 | yes |

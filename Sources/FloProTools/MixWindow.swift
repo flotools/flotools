@@ -7,11 +7,6 @@ public struct MixWindow {
 
     init(_ element: AXElement) { self.element = element }
 
-    /// The strip with this name, for example "Kick - Audio Track ".
-    public func strip(named name: String) throws -> TrackStrip {
-        TrackStrip(name: name, element: try element.required("the track \(name) in the Mix window") { try $0.group(name) })
-    }
-
     /// Soloed tracks in window order, by `TrackStrip.isSoloed(trackName:soloValue:)`. Groups without a name or a Solo button, such as the Group List, are skipped. A failed read throws, so a busy Pro Tools is never reported as "no tracks soloed".
     public func soloedTracks() throws -> [TrackStrip] {
         try element.groups.compactMap { group in
@@ -33,7 +28,7 @@ public struct MixWindow {
     }
 }
 
-/// One track strip in the Mix window. The name is the strip's `AXTitle`, for example "Kick - Audio Track ".
+/// One track's group in the Mix window, or in the Edit window for the controls only it shows (freeze, timebase, track view, Elastic Audio, track options). The name is the group's `AXTitle`, for example "Kick - Audio Track ".
 @AccessibilityActor
 public struct TrackStrip {
     public nonisolated let name: String
@@ -42,6 +37,11 @@ public struct TrackStrip {
     init(name: String, element: AXElement) {
         self.name = name
         self.element = element
+    }
+
+    /// The group named `name` among the immediate children of a Mix or Edit window.
+    init(named name: String, in window: AXElement, window kind: ProToolsApp.TrackWindow) throws {
+        self.init(name: name, element: try window.required("the track \(name) in the \(kind.rawValue) window") { try $0.group(name) })
     }
 
     /// Folder tracks are unsoloed after the others, as in the JXA.
@@ -127,17 +127,87 @@ public struct TrackStrip {
         case instrument
     }
 
-    /// The slider for `control`. Mono tracks have one "Pan Knob", stereo tracks "Left Pan Knob" and "Right Pan Knob".
+    /// The slider for `control`.
     public func pan(_ control: PanControl) throws -> AXElement {
         switch control {
         case .monoOrLeft, .right:
-            let knobs = try element.sliders.filter { try $0.name?.contains("Pan Knob") == true }
+            let knobs = try panKnobs()
             let index = control == .right && knobs.count > 1 ? 1 : 0
             guard knobs.count > index else { throw FloError.notFound("the pan knob") }
             return knobs[index]
         case .instrument:
-            let instrument = try element.required("the Instrument section") { try $0.group("Instrument") }
-            return try instrument.required("the MIDI pan") { try $0.sliders.first { try $0.name?.contains("MIDI Pan indicator") == true } }
+            return try instrumentSection().required("the MIDI pan") { try $0.sliders.first { try $0.name?.contains("MIDI Pan indicator") == true } }
+        }
+    }
+
+    /// Mono tracks have one "Pan Knob", stereo tracks "Left Pan Knob" and "Right Pan Knob". Tracks without panning, such as a MIDI track, have none.
+    public func panKnobs() throws -> [AXElement] {
+        try element.sliders.filter { try $0.name?.contains("Pan Knob") == true }
+    }
+
+    // MARK: Faders
+
+    public enum Fader: Sendable {
+        case volume
+        /// The peak hold readout next to the level meter; pressing it clears the hold.
+        case peak
+        /// The MIDI volume of an instrument track, in its Instrument section.
+        case instrumentVolume
+    }
+
+    public func fader(_ fader: Fader) throws -> AXElement {
+        switch fader {
+        case .volume: try element.required("the volume fader") { try $0.child(role: "AXSlider", name: "Volume") }
+        case .peak: try element.required("the peak meter") { try $0.child(role: "AXSlider", name: "Peak") }
+        case .instrumentVolume: try instrumentSection().required("the MIDI volume") { try $0.sliders.first { try $0.name?.contains("MIDI Volume indicator") == true } }
+        }
+    }
+
+    // MARK: Menus and fields
+
+    /// Pop-up buttons, buttons and fields that macros read and press. Names were checked live on 2026-11-02 (Pro Tools 2025); several end in a line break and the current setting, for example "Audio Input Path selector\n\"no input\"".
+    public enum Control: Sendable {
+        case automationMode, group, input, output, instrumentInput, instrumentOutput, trackName, comments
+        /// Edit window only.
+        case playlist, timebase, trackView, trackOptions, freeze, elasticAudioPlugIn, elasticAudioSelector
+    }
+
+    /// The element for `control`. Matching ignores case, as JXA's `_contains` did. Input and output are the MIDI selectors on a MIDI track and the audio paths on other tracks.
+    public func control(_ control: Control) throws -> AXElement {
+        let isMIDI = name.contains(" - MIDI Track")
+        return switch control {
+        case .automationMode: try first("the automation mode selector", role: "AXPopUpButton") { $0.contains("automation mode selector") }
+        case .group: try first("the group selector", role: "AXButton") { $0.hasPrefix("group id indicator") }
+        case .input where isMIDI: try first("the MIDI input selector", role: "AXButton") { $0.contains("midi input selector") }
+        case .input: try first("the input path selector", role: "AXPopUpButton") { $0.contains("input path") }
+        case .output where isMIDI: try first("the MIDI output selector", role: "AXButton") { $0.contains("midi output selector") }
+        case .output: try first("the output path selector", role: "AXPopUpButton") { $0.contains("output path") }
+        case .instrumentInput: try first("the MIDI input selector", role: "AXButton", in: instrumentSection()) { $0.contains("midi input selector") }
+        case .instrumentOutput: try first("the MIDI output selector", role: "AXButton", in: instrumentSection()) { $0.contains("midi output selector") }
+        case .trackName: try first("the track name button", role: "AXPopUpButton") { $0.contains("track name") }
+        case .comments: try first("the comments field", role: "AXTextField") { $0.hasPrefix("comments") }
+        case .playlist: try first("the playlist selector", role: "AXPopUpButton") { $0.contains("playlist selector") }
+        case .timebase: try first("the timebase selector") { $0.contains("timebase selector") }
+        case .trackView: try first("the track view selector") { $0.contains("track view selector") }
+        case .trackOptions: try first("the track options button", role: "AXPopUpButton") { $0.contains("track options") }
+        case .freeze: try first("the freeze button", role: "AXButton") { $0.contains("frozen") }
+        // The JXA looked for "Plug-in"; this Pro Tools says "Plugin", so both spellings match.
+        case .elasticAudioPlugIn: try first("the Elastic Audio plug-in") { $0.hasPrefix("current elastic audio or ara plug") }
+        case .elasticAudioSelector: try first("the Elastic Audio selector") { $0.contains("elastic audio or ara plug") && $0.contains("selector") }
+        }
+    }
+
+    private func instrumentSection() throws -> AXElement {
+        try element.required("the Instrument section") { try $0.group("Instrument") }
+    }
+
+    /// The first child of `parent` (the strip by default) with `role` (any role if nil) whose lowercased name passes `matches`.
+    private func first(_ what: String, role: String? = nil, in parent: AXElement? = nil, _ matches: (String) -> Bool) throws -> AXElement {
+        try (parent ?? element).required(what) { parent in
+            try parent.children.first { child in
+                guard let name = try child.name, matches(name.lowercased()) else { return false }
+                return try role == nil || child.role == role
+            }
         }
     }
 }
