@@ -284,6 +284,11 @@ import Testing
     /// Macros whose triggers, group or default state differ from KM on purpose, with the reason.
     static let changedOnPurpose: [MacroID: String] = [:]
 
+    /// Groups whose window condition differs from KM on purpose, with the reason.
+    static let groupTitlesChangedOnPurpose: [MacroGroupID: String] = [
+        .selectedTab: "KM matched the tab window names anywhere in the title, so Mix, Edit, plug-in and AudioSuite windows named after one (a session called Dashboard) also took Cmd+1 to 9, with no rule for which group wins.",
+    ]
+
     static let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
 
     struct KMGroup {
@@ -356,7 +361,21 @@ import Testing
             let km = try #require(Self.groupOrigins[group.id].flatMap { export.groups[$0] }, "no KM group for \(group.id)")
             #expect(group.enabledByDefault == km.enabled, "\(group.id)")
             #expect(group.bundleIDs == km.bundleIDs, "\(group.id)")
-            #expect(group.title == km.title, "\(group.id)")
+            if Self.groupTitlesChangedOnPurpose[group.id] == nil {
+                #expect(group.title == km.title, "\(group.id)")
+            }
+        }
+    }
+
+    /// No title is claimed by two window groups, which would leave a shared hotkey to installation order. The titles are those that overlapped under the KM conditions, then the real tab windows.
+    @Test func windowGroupsDoNotOverlap() {
+        let windowGroups = FloMacros.groups.filter { $0.title != .any }
+        let expected: [String: MacroGroupID] = [
+            "Mix: Dashboard": .inspector, "Edit: Preferences": .inspector, "Plug-in: Preferences": .plugin, "Audio Suite: Dashboard": .audioSuite,
+            "I/O Setup": .selectedTab, "Peripherals": .selectedTab, "Pro Tools Preferences": .selectedTab, "Dashboard": .selectedTab,
+        ]
+        for (title, group) in expected {
+            #expect(windowGroups.filter { $0.title.matches(title) }.map(\.id) == [group], "\(title)")
         }
     }
 
