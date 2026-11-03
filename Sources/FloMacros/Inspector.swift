@@ -5,7 +5,7 @@ import FloSystem
 /// Flo Tools Inspector group: works on the Mix window track under the VoiceOver cursor.
 enum Inspector {
     @MainActor
-    static var macros: [Macro] { (0..<10).map { slot(.insert, $0) } + (0..<10).map { slot(.send, $0) } + [
+    static var macros: [Macro] { (0..<10).flatMap { [slot(.insert, $0), assign(.insert, $0), slot(.send, $0), assign(.send, $0)] } + [
         // The JXA played Tink, now the done sound, after speaking the new Solo state.
         Macro("inspector.speakToggleSolo", "Speak/Toggle Solo", group: .inspector, triggers: [.key("S")], doneSound: .afterDouble, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
@@ -54,8 +54,19 @@ enum Inspector {
             try await VoiceOver.say(slotText(kind, slot, in: track))
         }, double: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
-            try await track.slotButtons(kind, slot: slot).assignment.press()
+            try await track.slotButtons(kind, slot: slot).assignment.pressOpeningMenu()
         })
+    }
+
+    /// Assign Insert A to J on Cmd+1 to Cmd+0, and Assign Send A to J on Ctrl+Cmd+1 to Ctrl+Cmd+0: clicks the slot's selector button, which opens Pro Tools' assignment menu. Silent, as in the JXA; VoiceOver reads the menu.
+    @MainActor
+    static func assign(_ kind: TrackStrip.SlotKind, _ slot: Int) -> Macro {
+        let letter = TrackStrip.slotLetter(slot)
+        let key = (kind == .send ? "Ctrl+Cmd+" : "Cmd+") + "\((slot + 1) % 10)"
+        return Macro(MacroID("inspector.assign\(kind.rawValue)\(letter)"), "Assign \(kind.rawValue) \(letter)", group: .inspector, triggers: [.key(key)]) { _ in
+            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+            try await track.slotButtons(kind, slot: slot).selector.pressOpeningMenu()
+        }
     }
 
     /// What a single press says. Absent names and values are empty, as in the JXA; failed reads throw.

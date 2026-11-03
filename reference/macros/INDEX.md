@@ -216,26 +216,26 @@
 | Flo Tools Global | [Disable Flo Tools](<Flo Tools Global/Disable Flo Tools.md>) |  | True | C4A644CE-1DF7-4925-B364-679E00AB9E63 |  |
 | Flo Tools Global | [Enable Flo Tools](<Flo Tools Global/Enable Flo Tools.md>) |  | True | CDB03324-1E21-47E2-A96F-316AB5E737A3 |  |
 | Flo Tools Global | [Toggle Macros for Batch Fades Dialog](<Flo Tools Global/Toggle Macros for Batch Fades Dialog.md>) | focused window: FocussedWindowsTitleChanged | True | D31EAE62-2F59-4FBC-BC6F-F91D71F05DA3 |  |
-| Flo Tools Inspector | [Assign Insert A](<Flo Tools Inspector/Assign Insert A.md>) | Cmd+1 | True | A913784B-20F4-465C-BEEE-060DB4CE1B08 |  |
-| Flo Tools Inspector | [Assign Insert B](<Flo Tools Inspector/Assign Insert B.md>) | Cmd+2 | True | E7C506D4-F2CF-4032-BE01-B7A2DBDE4098 |  |
-| Flo Tools Inspector | [Assign Insert C](<Flo Tools Inspector/Assign Insert C.md>) | Cmd+3 | True | EF605A53-014F-4FD5-9C1B-14E2220383C1 |  |
-| Flo Tools Inspector | [Assign Insert D](<Flo Tools Inspector/Assign Insert D.md>) | Cmd+4 | True | 02C3CC1C-9126-44D2-88D2-0AF962790972 |  |
-| Flo Tools Inspector | [Assign Insert E](<Flo Tools Inspector/Assign Insert E.md>) | Cmd+5 | True | 2056F943-E789-4487-9013-97A3C9C521E6 |  |
-| Flo Tools Inspector | [Assign Insert F](<Flo Tools Inspector/Assign Insert F.md>) | Cmd+6 | True | E842D842-DD6A-4253-890B-E3F4D9C04D22 |  |
-| Flo Tools Inspector | [Assign Insert G](<Flo Tools Inspector/Assign Insert G.md>) | Cmd+7 | True | F2B12D67-8618-41ED-AEB7-0A77C8576CC1 |  |
-| Flo Tools Inspector | [Assign Insert H](<Flo Tools Inspector/Assign Insert H.md>) | Cmd+8 | True | FCC1BB1D-D756-45E4-BCD7-DC142F33126B |  |
-| Flo Tools Inspector | [Assign Insert I](<Flo Tools Inspector/Assign Insert I.md>) | Cmd+9 | True | 9A62399E-80C2-4784-94F1-C32CAE5FCF92 |  |
-| Flo Tools Inspector | [Assign Insert J](<Flo Tools Inspector/Assign Insert J.md>) | Cmd+0 | True | 9D34C1E5-DB04-4BA4-A6E5-0AF3EA0213D7 |  |
-| Flo Tools Inspector | [Assign Send A](<Flo Tools Inspector/Assign Send A.md>) | Ctrl+Cmd+1 | True | 93157301-7A3A-431A-BAD4-0F814DF57840 |  |
-| Flo Tools Inspector | [Assign Send B](<Flo Tools Inspector/Assign Send B.md>) | Ctrl+Cmd+2 | True | A5CB767B-E3D8-4E77-B282-E24B68CB6E7E |  |
-| Flo Tools Inspector | [Assign Send C](<Flo Tools Inspector/Assign Send C.md>) | Ctrl+Cmd+3 | True | 86933FB3-55A5-43C3-A319-E0EFB4DFEB57 |  |
-| Flo Tools Inspector | [Assign Send D](<Flo Tools Inspector/Assign Send D.md>) | Ctrl+Cmd+4 | True | 37E30067-D8FD-41C8-BB5F-FEDFDA9A7A7A |  |
-| Flo Tools Inspector | [Assign Send E](<Flo Tools Inspector/Assign Send E.md>) | Ctrl+Cmd+5 | True | 853A4B13-CD0A-408B-8532-C8A77D2DA7DB |  |
-| Flo Tools Inspector | [Assign Send F](<Flo Tools Inspector/Assign Send F.md>) | Ctrl+Cmd+6 | True | F3E88078-4DA4-45ED-8333-D9B756C5C296 |  |
-| Flo Tools Inspector | [Assign Send G](<Flo Tools Inspector/Assign Send G.md>) | Ctrl+Cmd+7 | True | 6063BA2E-6C29-4E66-8458-96DF2323E14F |  |
-| Flo Tools Inspector | [Assign Send H](<Flo Tools Inspector/Assign Send H.md>) | Ctrl+Cmd+8 | True | 5178C660-214B-4F18-B46C-3EC9E66EB955 |  |
-| Flo Tools Inspector | [Assign Send I](<Flo Tools Inspector/Assign Send I.md>) | Ctrl+Cmd+9 | True | 3047752C-0899-4962-A819-3797E6095707 |  |
-| Flo Tools Inspector | [Assign Send J](<Flo Tools Inspector/Assign Send J.md>) | Ctrl+Cmd+0 | True | DD561616-0FF2-4F82-9A8B-1BB3444BE045 |  |
+| Flo Tools Inspector | [Assign Insert A](<Flo Tools Inspector/Assign Insert A.md>) | Cmd+1 | True | A913784B-20F4-465C-BEEE-060DB4CE1B08 | yes |
+| Flo Tools Inspector | [Assign Insert B](<Flo Tools Inspector/Assign Insert B.md>) | Cmd+2 | True | E7C506D4-F2CF-4032-BE01-B7A2DBDE4098 | yes |
+| Flo Tools Inspector | [Assign Insert C](<Flo Tools Inspector/Assign Insert C.md>) | Cmd+3 | True | EF605A53-014F-4FD5-9C1B-14E2220383C1 | yes |
+| Flo Tools Inspector | [Assign Insert D](<Flo Tools Inspector/Assign Insert D.md>) | Cmd+4 | True | 02C3CC1C-9126-44D2-88D2-0AF962790972 | yes |
+| Flo Tools Inspector | [Assign Insert E](<Flo Tools Inspector/Assign Insert E.md>) | Cmd+5 | True | 2056F943-E789-4487-9013-97A3C9C521E6 | yes |
+| Flo Tools Inspector | [Assign Insert F](<Flo Tools Inspector/Assign Insert F.md>) | Cmd+6 | True | E842D842-DD6A-4253-890B-E3F4D9C04D22 | yes |
+| Flo Tools Inspector | [Assign Insert G](<Flo Tools Inspector/Assign Insert G.md>) | Cmd+7 | True | F2B12D67-8618-41ED-AEB7-0A77C8576CC1 | yes |
+| Flo Tools Inspector | [Assign Insert H](<Flo Tools Inspector/Assign Insert H.md>) | Cmd+8 | True | FCC1BB1D-D756-45E4-BCD7-DC142F33126B | yes |
+| Flo Tools Inspector | [Assign Insert I](<Flo Tools Inspector/Assign Insert I.md>) | Cmd+9 | True | 9A62399E-80C2-4784-94F1-C32CAE5FCF92 | yes |
+| Flo Tools Inspector | [Assign Insert J](<Flo Tools Inspector/Assign Insert J.md>) | Cmd+0 | True | 9D34C1E5-DB04-4BA4-A6E5-0AF3EA0213D7 | yes |
+| Flo Tools Inspector | [Assign Send A](<Flo Tools Inspector/Assign Send A.md>) | Ctrl+Cmd+1 | True | 93157301-7A3A-431A-BAD4-0F814DF57840 | yes |
+| Flo Tools Inspector | [Assign Send B](<Flo Tools Inspector/Assign Send B.md>) | Ctrl+Cmd+2 | True | A5CB767B-E3D8-4E77-B282-E24B68CB6E7E | yes |
+| Flo Tools Inspector | [Assign Send C](<Flo Tools Inspector/Assign Send C.md>) | Ctrl+Cmd+3 | True | 86933FB3-55A5-43C3-A319-E0EFB4DFEB57 | yes |
+| Flo Tools Inspector | [Assign Send D](<Flo Tools Inspector/Assign Send D.md>) | Ctrl+Cmd+4 | True | 37E30067-D8FD-41C8-BB5F-FEDFDA9A7A7A | yes |
+| Flo Tools Inspector | [Assign Send E](<Flo Tools Inspector/Assign Send E.md>) | Ctrl+Cmd+5 | True | 853A4B13-CD0A-408B-8532-C8A77D2DA7DB | yes |
+| Flo Tools Inspector | [Assign Send F](<Flo Tools Inspector/Assign Send F.md>) | Ctrl+Cmd+6 | True | F3E88078-4DA4-45ED-8333-D9B756C5C296 | yes |
+| Flo Tools Inspector | [Assign Send G](<Flo Tools Inspector/Assign Send G.md>) | Ctrl+Cmd+7 | True | 6063BA2E-6C29-4E66-8458-96DF2323E14F | yes |
+| Flo Tools Inspector | [Assign Send H](<Flo Tools Inspector/Assign Send H.md>) | Ctrl+Cmd+8 | True | 5178C660-214B-4F18-B46C-3EC9E66EB955 | yes |
+| Flo Tools Inspector | [Assign Send I](<Flo Tools Inspector/Assign Send I.md>) | Ctrl+Cmd+9 | True | 3047752C-0899-4962-A819-3797E6095707 | yes |
+| Flo Tools Inspector | [Assign Send J](<Flo Tools Inspector/Assign Send J.md>) | Ctrl+Cmd+0 | True | DD561616-0FF2-4F82-9A8B-1BB3444BE045 | yes |
 | Flo Tools Inspector | [Decrease Instrument Volume](<Flo Tools Inspector/Decrease Instrument Volume.md>) | Ctrl+Opt+Down | True | 213EE66F-86AC-462B-BB2C-3E3F0BAEE9AE |  |
 | Flo Tools Inspector | [Decrease Volume](<Flo Tools Inspector/Decrease Volume.md>) | Ctrl+Cmd+Down | True | 387783D0-17E0-4868-97BC-FC20712BEBDF |  |
 | Flo Tools Inspector | [Increase Instrument Volume](<Flo Tools Inspector/Increase Instrument Volume.md>) | Ctrl+Opt+Up | True | 03CF90B2-C388-4F4F-9550-2D74C570597B |  |

@@ -135,18 +135,38 @@ public struct AXElement {
     // MARK: Actions
 
     /// Performs an AX action. A failure throws. `cannotComplete` may still have taken effect, so callers must not retry toggles.
-    public func perform(_ action: String) throws {
+    public func perform(_ action: String) throws { try perform(action, menuMayOpen: false) }
+
+    private func perform(_ action: String, menuMayOpen: Bool) throws {
         let start = ContinuousClock.now
         let result = AXUIElementPerformAction(ref, action as CFString)
-        guard result == .success else {
+        if result == .success {
+            Log.info(.accessibility, "\(action) on \(summary()) (\(Log.elapsed(since: start)))")
+        } else if menuMayOpen, result == .cannotComplete, showsPopUpMenu() {
+            Log.info(.accessibility, "\(action) on \(summary()) opened a pop-up menu; the app answers when it closes (\(Log.elapsed(since: start)))")
+        } else {
             Log.warning(.accessibility, "\(action) on \(summary()) failed: AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
             throw FloError.accessibility(operation: action, code: result.rawValue)
         }
-        Log.info(.accessibility, "\(action) on \(summary()) (\(Log.elapsed(since: start)))")
     }
 
     /// Same as `click()` on a System Events button.
     public func press() throws { try perform("AXPress") }
+
+    /// Presses a button that may open a pop-up menu, such as a Pro Tools insert or send selector. Pro Tools answers that press only once the menu closes, so the press times out while the menu is open (measured 2026-11-02: AXError -25204 after the timeout, menu window on screen). With this element's timeout cut to 0.25 s, a timeout counts as done when the app then shows a pop-up menu window; otherwise it throws as a busy app. A press that opens a plug-in window instead returned at once (11 ms).
+    public func pressOpeningMenu() throws {
+        AXUIElementSetMessagingTimeout(ref, 0.25)
+        try perform("AXPress", menuMayOpen: true)
+    }
+
+    /// Whether this element's app has a pop-up menu window on screen. Window layer and owner are available without Screen Recording permission.
+    private func showsPopUpMenu() -> Bool {
+        var pid: pid_t = 0
+        guard AXUIElementGetPid(ref, &pid) == .success,
+              let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [[String: Any]] else { return false }
+        let menuLayer = Int(CGWindowLevelForKey(.popUpMenuWindow))
+        return windows.contains { $0[kCGWindowOwnerPID as String] as? pid_t == pid && $0[kCGWindowLayer as String] as? Int == menuLayer }
+    }
 
     /// Same as `increment()` and `decrement()` on a System Events slider.
     public func increment() throws { try perform("AXIncrement") }
