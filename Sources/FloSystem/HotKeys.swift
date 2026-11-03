@@ -141,6 +141,8 @@ public enum Keyboard {
             queue.async { done.resume(returning: pressNow(combo, pid: pid)) }
         }
         guard posted else { throw FloError.couldNot("send a key to Pro Tools") }
+        // Only keys a macro sends are logged here; `post`, which also passes on keys no macro matched, logs none.
+        Log.info(.hotkeys, "sent \(combo)")
     }
 
     /// Presses and releases `combo` in app `pid` without waiting, for the hotkey callback, which has no caller to report to. A failure is logged without the key, since this also passes on keys no macro matched.

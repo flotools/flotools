@@ -76,7 +76,8 @@ struct PlugInView: Sendable, Equatable {
         do {
             return try PlugInView(json: data)
         } catch {
-            Log.warning(.app, "view file \(file.lastPathComponent): \(error)")
+            // Info, not warning: the engine logs the thrown error as the failure. This line keeps the parse detail, which the thrown error leaves out.
+            Log.info(.app, "view file \(file.lastPathComponent): \(error)")
             throw FloError.couldNot("read the view file \(file.lastPathComponent)")
         }
     }

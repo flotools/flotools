@@ -587,6 +587,14 @@ import Testing
         #expect(AXElement.readOutcome(.invalidUIElement) == .failure)
         #expect(AXElement.readOutcome(.apiDisabled) == .failure)
     }
+
+    @Test func readPreviewsAreShort() {
+        #expect(AXElement.preview("Kick" as CFString) == "\"Kick\"")
+        #expect(AXElement.preview(String(repeating: "a", count: 80) as CFString) == "\"\(String(repeating: "a", count: 60))...\"")
+        #expect(AXElement.preview(NSNumber(value: 1)) == "1")
+        #expect(AXElement.preview([1, 2, 3] as CFArray) == "3 items")
+        #expect(AXElement.preview(AXUIElementCreateSystemWide()) == "an element")
+    }
 }
 
 @MainActor @Suite struct VoiceOverTests {

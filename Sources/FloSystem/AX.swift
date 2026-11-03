@@ -38,7 +38,7 @@ public struct AXElement {
         let result = AXUIElementCopyAttributeValue(ref, name as CFString, &value)
         switch Self.readOutcome(result) {
         case .value:
-            Log.debug(.accessibility, "read \(name) (\(Log.elapsed(since: start)))")
+            Log.debug(.accessibility, "read \(name): \(value.map(Self.preview) ?? "nil") (\(Log.elapsed(since: start)))")
             return value
         case .absent:
             Log.debug(.accessibility, "read \(name): none, AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
@@ -48,6 +48,16 @@ public struct AXElement {
             Log.debug(.accessibility, "read \(name) failed: AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
             throw FloError.accessibility(operation: "read \(name)", code: result.rawValue)
         }
+    }
+
+    /// A short form of a read value for the log, so a run of AXTitle and AXValue reads shows which control each was. Only built while the log is on, since `Log.debug` takes its message lazily.
+    nonisolated static func preview(_ value: CFTypeRef) -> String {
+        if let text = value as? String { return text.count > 60 ? "\"\(text.prefix(60))...\"" : "\"\(text)\"" }
+        if let number = value as? NSNumber { return number.stringValue }
+        if let list = value as? [Any] { return "\(list.count) items" }
+        if CFGetTypeID(value) == AXUIElementGetTypeID() { return "an element" }
+        if CFGetTypeID(value) == AXValueGetTypeID() { return "a geometry value" }
+        return "a value of another type"
     }
 
     public enum ReadOutcome: Equatable, Sendable {
@@ -175,7 +185,8 @@ public struct AXElement {
         } else if menuMayOpen, result == .cannotComplete, showsPopUpMenu() {
             Log.info(.accessibility, "\(action) on \(summary()) opened a pop-up menu; the app answers when it closes (\(Log.elapsed(since: start)))")
         } else {
-            Log.warning(.accessibility, "\(action) on \(summary()) failed: AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
+            // Info, not warning: the thrown error reaches whoever owns the failure, usually the engine, which logs it once. This line keeps which element it was.
+            Log.info(.accessibility, "\(action) on \(summary()) failed: AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
             throw FloError.accessibility(operation: action, code: result.rawValue)
         }
     }
