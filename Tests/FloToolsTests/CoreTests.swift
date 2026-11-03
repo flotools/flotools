@@ -749,6 +749,18 @@ import Testing
         #expect(SpokenError.text(for: FloError.couldNot(TrackLists.unchangedText(arm, ["Kick - Audio Track "]))) == "Could not arm: Kick - Audio Track.")
     }
 
+    @Test func readFailureStreakTracksARunOfFailures() {
+        var streak = ReadFailureStreak(reading: "the meter")
+        #expect(!streak.isFailing)
+        streak.succeeded()
+        #expect(!streak.isFailing)
+        streak.failed(FloError.notFound("the meter"))
+        streak.failed(FloError.notFound("the meter"))
+        #expect(streak.isFailing)
+        streak.succeeded()
+        #expect(!streak.isFailing)
+    }
+
     @Test func panMessageMatchesJXA() {
         #expect(Inspector.panMessage(valueDescription: "70 to the left", knobName: "Pan Knob") == "70 to the left, Pan Knob")
         #expect(Inspector.panMessage(valueDescription: "Centered", knobName: nil) == "Centered")

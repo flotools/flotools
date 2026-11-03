@@ -85,9 +85,6 @@ enum MidiEvents {
         engine.monitors.toggle(watch) { await follow(column) }
     }
 
-    /// How often the watch reads the value, as in the JXA.
-    static let pollInterval: Duration = .milliseconds(100)
-
     /// Speaks the value now, then each change, until the watch is replaced or stopped. A failed read, for example while the Edit window is closed or no note is selected, counts as an empty value at first and is skipped later, as in the JXA. The first failure of a streak and the recovery go to the log, as in the meter watch.
     /// The field is found once and kept, so each poll is one read; after a failed read it is found again, because a closed window or a new session leaves the kept element invalid. Runs on `AccessibilityActor`, which owns the element, and leaves it free between polls.
     @AccessibilityActor
@@ -104,27 +101,24 @@ enum MidiEvents {
             }
         }
         var last = ""
-        var failing = false
+        var streak = ReadFailureStreak(reading: column.fieldName)
         do {
             last = try read()
         } catch {
-            Log.info(.engine, "watch could not read \(column.fieldName): \(error)")
-            failing = true
+            streak.failed(error)
         }
         await VoiceOver.sayOrLog(column.spoken(last))
         while !Task.isCancelled {
-            try? await Task.sleep(for: pollInterval)
+            try? await Task.sleep(for: Monitors.pollInterval)
             guard !Task.isCancelled else { return }
             let now: String
             do {
                 now = try Log.$skipsDebug.withValue(true) { try read() }
             } catch {
-                if !failing { Log.info(.engine, "watch could not read \(column.fieldName): \(error)") }
-                failing = true
+                streak.failed(error)
                 continue
             }
-            if failing { Log.info(.engine, "watch reads \(column.fieldName) again") }
-            failing = false
+            streak.succeeded()
             guard now != last else { continue }
             last = now
             await VoiceOver.sayOrLog(column.spoken(now))

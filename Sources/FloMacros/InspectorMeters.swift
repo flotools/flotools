@@ -78,15 +78,12 @@ enum InspectorMeters {
         if isRunning { VoiceOver.sayOrLog(started) }
     }
 
-    /// How often a watch reads the meter. The JXA level monitor waited 0.1 s between reads; its gain reduction monitor did not wait at all.
-    static let pollInterval: Duration = .milliseconds(100)
-
-    /// Reads `meter` of the track under the VoiceOver cursor every `pollInterval` until cancelled, calling `changed` with each reading that differs from the one before. Moving the cursor to another track compares with the last reading, so a different level there is reported. The first reading, and the first after a failed one, only sets the baseline (passed to `first`), as in the JXA.
+    /// Reads `meter` of the track under the VoiceOver cursor every `Monitors.pollInterval` until cancelled, calling `changed` with each reading that differs from the one before. Moving the cursor to another track compares with the last reading, so a different level there is reported. The first reading, and the first after a failed one, only sets the baseline (passed to `first`), as in the JXA.
     /// Failed reads are expected while the cursor is on something that is not a track or Pro Tools is busy, so they only end the current baseline; the first failure of a run of them is logged. The watch ends when Pro Tools quits.
     static func watch(_ meter: TrackStrip.Meter, in app: ProToolsApp, first: @escaping @Sendable (String) async -> Void = { _ in }, changed: @escaping @Sendable (String) async -> Void) async {
         var track: TrackStrip?
         var last: String?
-        var failing = false
+        var streak = ReadFailureStreak(reading: "the meter")
         while !Task.isCancelled {
             do {
                 let value = try await Log.$skipsDebug.withValue(true) {
@@ -96,8 +93,7 @@ enum InspectorMeters {
                     track = strip
                     return try await reading(meter, of: strip)
                 }
-                if failing { Log.info(.engine, "watch reads the meter again") }
-                failing = false
+                streak.succeeded()
                 if last == nil { await first(value) } else if value != last { await changed(value) }
                 last = value
             } catch {
@@ -105,12 +101,11 @@ enum InspectorMeters {
                     Log.info(.engine, "watch ends: Pro Tools quit")
                     return
                 }
-                if !failing { Log.info(.engine, "watch could not read the meter: \(error)") }
-                failing = true
+                streak.failed(error)
                 track = nil
                 last = nil
             }
-            try? await Task.sleep(for: pollInterval)
+            try? await Task.sleep(for: Monitors.pollInterval)
         }
     }
 

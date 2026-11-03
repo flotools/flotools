@@ -53,3 +53,29 @@ public final class Monitors {
         }
     }
 }
+
+extension Monitors {
+    /// How often a watch reads Pro Tools, as the JXA monitors waited 0.1 s between reads. Its gain reduction monitor did not wait at all.
+    public nonisolated static let pollInterval: Duration = .milliseconds(100)
+}
+
+/// A watch's run of failed reads. A watch polls ten times a second, so it logs only the first failure of a run and the first good read after it. What a failure does to the watch, such as dropping its baseline or ending it, stays with the watch.
+public struct ReadFailureStreak: Sendable {
+    /// What the watch reads, for the log, for example "the meter".
+    public let what: String
+    public private(set) var isFailing = false
+
+    public init(reading what: String) {
+        self.what = what
+    }
+
+    public mutating func failed(_ error: any Error) {
+        if !isFailing { Log.info(.engine, "watch could not read \(what): \(error)") }
+        isFailing = true
+    }
+
+    public mutating func succeeded() {
+        if isFailing { Log.info(.engine, "watch reads \(what) again") }
+        isFailing = false
+    }
+}
