@@ -184,11 +184,12 @@ enum TrackStatus {
     static func deselectAll() async throws {
         let mix = try ProToolsApp.running().mixWindow()
         try mix.expandTrackList()
-        for row in try mix.trackList().rows() where row.isSelected {
+        let list = try mix.trackList()
+        for row in try list.rows() where row.isSelected {
             try Task.checkCancellation()
             try row.toggle(.selected)
         }
-        let stillSelected = try await ProToolsUpdate.reading(changedFrom: true) { try mix.trackList().rows().contains(where: \.isSelected) }
+        let stillSelected = try await ProToolsUpdate.reading(changedFrom: true) { try list.rows().contains(where: \.isSelected) }
         try await VoiceOver.say(stillSelected ? "Please expand track list table." : "Deselected All Tracks.")
     }
 }

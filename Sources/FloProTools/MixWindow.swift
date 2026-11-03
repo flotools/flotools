@@ -117,16 +117,21 @@ public struct TrackStrip {
     /// Presses the toggle's button and returns its state once Pro Tools shows the change. A track that cannot change, such as one without an input to arm, shows a dialog and keeps its state, which is returned after the bounded wait. The button is found once and then reread, as the bypass toggle does.
     public func press(_ toggle: Toggle) async throws -> String {
         let button = try button(toggle)
-        let before = try Self.state(of: toggle, button: button)
-        try button.press()
-        return try await ProToolsUpdate.reading(changedFrom: before) { try Self.state(of: toggle, button: button) }
+        return try await Self.press(button, of: toggle, from: Self.state(of: toggle, button: button))
     }
 
-    /// Gives the track `flag` (`on`) or takes it away, unless it already is so or does not take part. Returns whether the track ends as asked (`TrackFlag.isSettled`), for example false when Pro Tools refused to arm it.
+    private static func press(_ button: AXElement, of toggle: Toggle, from before: String) async throws -> String {
+        try button.press()
+        return try await ProToolsUpdate.reading(changedFrom: before) { try state(of: toggle, button: button) }
+    }
+
+    /// Gives the track `flag` (`on`) or takes it away, unless it already is so or does not take part. Returns whether the track ends as asked (`TrackFlag.isSettled`), for example false when Pro Tools refused to arm it. The button is found once, as in `press`.
     public func set(_ flag: TrackFlag, to on: Bool) async throws -> Bool {
-        guard let state = try has(flag), state != on else { return true }
-        _ = try await press(flag.toggle)
-        return TrackFlag.isSettled(try has(flag), on: on)
+        guard let button = try findButton(flag.toggle) else { return true }
+        let before = try Self.state(of: flag.toggle, button: button)
+        guard let state = TrackFlag.state(of: flag, trackName: name, buttonState: before), state != on else { return true }
+        let after = try await Self.press(button, of: flag.toggle, from: before)
+        return TrackFlag.isSettled(TrackFlag.state(of: flag, trackName: name, buttonState: after), on: on)
     }
 
     /// The toggle's state as Pro Tools shows it: the name of a named input monitoring button, otherwise the button's value, empty when off.
