@@ -101,7 +101,7 @@ import Testing
         let engine = FloFeatures.makeEngine()
         let right = KeyCombo("Ctrl+Cmd+Right")!
         let edit = FrontContext(bundleID: Self.proTools, windowTitle: "Edit: Session")
-        #expect(engine.candidates(for: right, phase: .pressed, in: edit).map(\.id) == [InspectorMode.nextTrackView])
+        #expect(engine.candidates(for: right, phase: .pressed, in: edit).map(\.id) == [KeyAnnouncements.nextTrackViewOnSelectedTracks])
         #expect(engine.candidates(for: KeyCombo("S")!, phase: .pressed, in: edit).isEmpty)
         engine.setInspector(true)
         #expect(engine.candidates(for: right, phase: .pressed, in: edit).map(\.id) == ["inspector.panRightOnMonoLeftChannel"])
@@ -409,13 +409,13 @@ import Testing
 
     /// With the Inspector off, Ctrl+Cmd+Right is Pro Tools' track view key; while the temporary Inspector is held it pans, and after release it is the track view key again.
     @Test func temporaryInspectorHoldPansWithCtrlCmdArrows() {
-        let engine = engine(InspectorMode.commands + Inspector.commands)
+        let engine = engine(InspectorMode.commands + Inspector.commands + KeyAnnouncements.commands)
         let right = KeyCombo("Ctrl+Cmd+Right")!
-        #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == [InspectorMode.nextTrackView])
+        #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == [KeyAnnouncements.nextTrackViewOnSelectedTracks])
         #expect(engine.dispatch(KeyCombo("`")!, .pressed, in: mix) != nil)
         #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == ["inspector.panRightOnMonoLeftChannel"])
         engine.dispatch(KeyCombo("`")!, .released, in: mix)
-        #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == [InspectorMode.nextTrackView])
+        #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == [KeyAnnouncements.nextTrackViewOnSelectedTracks])
     }
 
     /// A held key that stops being a hotkey never reports its release, so the engine ends the hold itself: when Flo Tools is suspended or turned off, when the command is turned off, and when the front window is one where the key does not apply. The temporary Inspector then turns off.

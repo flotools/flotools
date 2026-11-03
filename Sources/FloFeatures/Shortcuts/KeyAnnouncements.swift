@@ -4,6 +4,9 @@ import FloSystem
 
 /// Pro Tools shortcuts that Flo Tools passes on to Pro Tools and then announces, because Pro Tools changes nothing VoiceOver reads: selecting playlists, switching track views and heights, and choosing the keyboard focus.
 enum KeyAnnouncements {
+    static let nextTrackViewOnSelectedTracks: CommandID = "floTools.nextTrackViewOnSelectedTracks"
+    static let previousTrackViewOnSelectedTracks: CommandID = "floTools.previousTrackViewOnSelectedTracks"
+
     @MainActor
     static var commands: [Command] { [
         speakSelectedTracks("floTools.speakAndSelectNextPlaylist", "Speak And Select Next Playlist", key: "Shift+Down"),
@@ -12,6 +15,9 @@ enum KeyAnnouncements {
         speakSelectedTracks("floTools.speakAndMoveBack5Playlists", "Speak And Move Back 5 Playlists", key: "Shift+Page Up"),
         speakSelectedTracks("floTools.speakAndNavigateToFirstPlaylist", "Speak And Navigate to First Playlist", key: "Shift+Home"),
         speakSelectedTracks("floTools.speakAndNavigateToLastPlaylist", "Speak And Navigate to Last Playlist", key: "Shift+End"),
+        // The Inspector pans with these keys, so they reach Pro Tools only while it is off. The KM version enabled them only after `/` was pressed once; here they work from launch (changed on purpose, 2026-11-03).
+        announce(nextTrackViewOnSelectedTracks, "Next track view on selected tracks", keys: ["Ctrl+Cmd+Right"], "Next track view on selected tracks.", when: .always, mode: .inspectorOff),
+        announce(previousTrackViewOnSelectedTracks, "Previous track view on selected tracks", keys: ["Ctrl+Cmd+Left"], "Previous track view on selected tracks.", when: .always, mode: .inspectorOff),
         announce("floTools.nextTrackViewOnAllTracks", "Next track view on All tracks", keys: ["Ctrl+Opt+Cmd+Right"], "Next track view on All tracks.", when: .always),
         announce("floTools.previousTrackViewOnAllTracks", "Previous track view on All tracks", keys: ["Ctrl+Opt+Cmd+Left"], "Previous track view on All tracks.", when: .always),
         // Pro Tools 26.10 toggles the view of all tracks with Ctrl+Opt+- and ignores the Opt+- the KM version sent (checked live 2026-11-03); the hotkey stays Opt+-.
@@ -25,9 +31,9 @@ enum KeyAnnouncements {
 
     /// Sends the key, or `sends` instead, to Pro Tools and speaks `text` if the guard allows it.
     @MainActor
-    private static func announce(_ id: CommandID, _ name: String, keys: [String], sends: String? = nil, _ text: String, when guarding: AnnouncementGuard) -> Command {
+    private static func announce(_ id: CommandID, _ name: String, keys: [String], sends: String? = nil, _ text: String, when guarding: AnnouncementGuard, mode: ModeCondition = .any) -> Command {
         let replacement = sends.map { KeyCombo($0)! }
-        return Command(id, name, scope: .anyProToolsWindow, triggers: keys.map { .key($0) }) { run in
+        return Command(id, name, scope: .anyProToolsWindow, mode: mode, triggers: keys.map { .key($0) }) { run in
             if let replacement {
                 try await ProToolsApp.running().keystroke(replacement)
             } else {
