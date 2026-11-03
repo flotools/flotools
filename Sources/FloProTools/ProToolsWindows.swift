@@ -3,19 +3,18 @@ import FloSystem
 
 /// Pro Tools window-level facts and actions that belong to no one window model: floating windows, table frames and the Edit window's clip list.
 extension ProToolsApp {
-    /// Closes every window except the Mix and Edit windows by pressing its close button, as Close All Floating Windows did, and returns how many it closed. A window without a close button, such as a dialog, is left open; the JXA failed there. Mix and Edit are told apart by `ProToolsWindowKind`, as for key routing; the JXA kept any title containing "Mix:" or "Edit:", so a plug-in window such as "Plug-in: Mix: Bus" stayed open.
+    /// Closes every window except the Mix and Edit windows by pressing its close button, as Close All Floating Windows did. It does not wait to see them close: in one live check (J-113) Pro Tools ignored the press. A window without a close button, such as a dialog, is left open; the JXA failed there. Mix and Edit are told apart by `ProToolsWindowKind`, as for key routing; the JXA kept any title containing "Mix:" or "Edit:", so a plug-in window such as "Plug-in: Mix: Bus" stayed open.
     @AccessibilityActor
-    public func closeFloatingWindows() throws -> Int {
+    public func closeFloatingWindows() throws {
         let app = AXElement.application(pid: pid)
-        var closed = 0
+        var pressed = 0
         for window in try app.windows {
             let title = try window.title ?? ""
             guard !ProToolsWindowKind(title: title).isTrackWindow, let close = try window.element("AXCloseButton") else { continue }
             try close.press()
-            closed += 1
+            pressed += 1
         }
-        Log.info(.accessibility, "closed \(closed) floating window(s)")
-        return closed
+        Log.info(.accessibility, "pressed the close button of \(pressed) floating window(s)")
     }
 
     /// Where the table is on screen, for commands that put the mouse on its edge.

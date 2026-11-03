@@ -8,7 +8,7 @@ enum WindowTools {
     @MainActor
     static var commands: [Command] { [
         Command("floTools.closeAllFloatingWindows", "Close All Floating Windows", scope: .anyProToolsWindow, triggers: [.key("Opt+Cmd+W")]) { _ in
-            _ = try await ProToolsApp.running().closeFloatingWindows()
+            try await ProToolsApp.running().closeFloatingWindows()
         },
         Command("floTools.openPreferencesDialog", "Open Preferences Dialog", scope: .anyProToolsWindow, triggers: [.key("Opt+Cmd+,")]) { _ in
             try await ProToolsApp.running().control(.menuItem(menu: "Setup", .contains("Preferences"))).press()
