@@ -112,11 +112,21 @@ enum TrackStatus {
         let tracks = try await mix.tracks(flag, on: true)
         let ordered = tracks.filter { !$0.isFolder } + tracks.filter(\.isFolder)
         let suspendGroups = reset.suspendsGroups && !ordered.isEmpty ? try await mix.hasActiveGroups() : false
-        if suspendGroups { try await proTools.setGroups(suspended: true, in: mix) }
         // `defer` cannot await, so the loop's error is kept and thrown after the groups are resumed.
         var handled = 0
         var loopError: (any Error)?
+        var groupsSuspended = false
         do {
+            if suspendGroups {
+                do {
+                    try await proTools.setGroups(suspended: true, in: mix)
+                } catch {
+                    // The command was sent but not confirmed. Resume only groups that read as suspended: Cmd+Shift+G switches, so resuming blindly could suspend them.
+                    groupsSuspended = (try? await mix.hasActiveGroups()) == false
+                    throw error
+                }
+                groupsSuspended = true
+            }
             var lastSound = ContinuousClock.now
             for track in ordered {
                 // A stop request ends the loop between clicks.
@@ -133,7 +143,7 @@ enum TrackStatus {
         } catch {
             loopError = error
         }
-        if suspendGroups {
+        if groupsSuspended {
             do {
                 try await proTools.setGroups(suspended: false, in: mix)
             } catch {
