@@ -7,15 +7,14 @@ import Testing
     let root = FileManager.default.temporaryDirectory.appendingPathComponent("FloToolsLogTests-\(UUID().uuidString)")
     var logs: URL { root.appendingPathComponent("Logs") }
     var crashes: URL { root.appendingPathComponent("DiagnosticReports") }
-    let suite = "FloToolsLogTests-\(UUID().uuidString)"
+    let suite = TestDefaults("FloToolsLogTests")
 
     deinit {
         try? FileManager.default.removeItem(at: root)
-        UserDefaults().removePersistentDomain(forName: suite)
     }
 
     func makeFile(capBytes: Int = 20_000_000, keepBytes: Int = 10_000_000) -> LogFile {
-        LogFile(directory: logs, crashReportDirectory: crashes, capBytes: capBytes, keepBytes: keepBytes, defaults: UserDefaults(suiteName: suite)!)
+        LogFile(directory: logs, crashReportDirectory: crashes, capBytes: capBytes, keepBytes: keepBytes, defaults: suite.defaults)
     }
 
     func entry(_ message: String, invocation: String? = "run1") -> LogFile.Entry {

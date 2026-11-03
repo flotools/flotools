@@ -724,12 +724,10 @@ private actor Flag {
 }
 
 @Suite @MainActor struct PreferencesTests {
-    /// A throwaway suite, so tests never touch the user's settings.
+    private let suite = TestDefaults("FloToolsTests")
+
     private func makeDefaults() -> UserDefaults {
-        let name = "FloToolsTests-" + UUID().uuidString
-        let defaults = UserDefaults(suiteName: name)!
-        defaults.removePersistentDomain(forName: name)
-        return defaults
+        suite.defaults
     }
 
     @Test func missingValuesAreDefaults() {
