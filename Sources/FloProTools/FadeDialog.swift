@@ -3,8 +3,8 @@ import FloSystem
 /// One of Pro Tools' fade dialogs (Fade In, Fade Out, Crossfade, Batch Fades). Each setting is a group of radio buttons, and a shape group also has a pop-up button with the group's name that picks the curve.
 @AccessibilityActor
 public struct FadeDialog {
-    /// The dialog titles, which are also the window conditions of the Flo Tools fade groups.
-    public enum Kind: String, Sendable {
+    /// The dialog titles, by which `ProToolsWindowKind` recognizes them.
+    public enum Kind: String, Sendable, CaseIterable {
         case fadeIn = "Fade In"
         case fadeOut = "Fade Out"
         case crossfade = "Crossfade"

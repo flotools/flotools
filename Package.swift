@@ -11,7 +11,7 @@ let package = Package(
         // Generic macOS infrastructure: Accessibility, VoiceOver, hotkeys, synthetic keys, sounds.
         .target(name: "FloSystem"),
         // Macro model and runtime: groups, macros, triggers, front context, double press, preferences.
-        .target(name: "FloEngine", dependencies: ["FloSystem"]),
+        .target(name: "FloEngine", dependencies: ["FloSystem", "FloProTools"]),
         // Pro Tools knowledge: windows, track strips.
         .target(name: "FloProTools", dependencies: ["FloSystem"]),
         // Ported Keyboard Maestro macros.

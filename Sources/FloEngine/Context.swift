@@ -1,4 +1,5 @@
 import AppKit
+import FloProTools
 import FloSystem
 
 /// Which app is in front and the title of its focused window. Macro groups are active or not based on this.
@@ -15,6 +16,12 @@ public struct FrontContext: Equatable, Sendable, CustomStringConvertible {
         self.windowTitle = windowTitle
         self.windowNumber = windowNumber
         self.processID = processID
+    }
+
+    /// The kind of the front window when Pro Tools is in front with a window, else nil. Derived from the title, so it cannot disagree with it.
+    public var proToolsWindowKind: ProToolsWindowKind? {
+        guard bundleID == ProToolsApp.bundleID, let windowTitle else { return nil }
+        return ProToolsWindowKind(title: windowTitle)
     }
 
     /// For the log, for example `com.avid.ProTools "Mix: Session"`.

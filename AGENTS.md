@@ -27,8 +27,8 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 ## Layout
 
 - `Sources/FloSystem/`: generic macOS infrastructure (Accessibility, VoiceOver, hotkeys and synthetic keys, synthetic mouse moves and clicks, Flo Tools' own windows (the chooser and the text window), sounds, the `Log`, and `FloError`, the one error model). `KeyNames.swift` is the one key-name table. Knows nothing about Pro Tools or macros.
-- `Sources/FloEngine/`: the macro model and runtime (the engine also holds suspension reasons and `cancelAll()`). `Macro.swift` is the macro and group model; `MacroRun.swift` is what a macro body gets; `Engine.swift` routes hotkeys to macros, tells single from double presses and runs macros through one serial queue; `DoublePressDecider.swift` is the pure double-press logic; `Monitors.swift` holds watches that macros start and stop, such as the level meter monitor, outside the queue; `SpokenError.swift` is the one table of failure wording; `Context.swift` tracks the front app and window (moves to `FloSystem` as an observer in plan step 7); `Preferences.swift`. Depends on `FloSystem` only.
-- `Sources/FloProTools/`: Pro Tools knowledge (windows, the track under the VoiceOver cursor). Depends on `FloSystem` only.
+- `Sources/FloEngine/`: the macro model and runtime (the engine also holds suspension reasons and `cancelAll()`). `Macro.swift` is the macro and group model; `MacroRun.swift` is what a macro body gets; `Engine.swift` routes hotkeys to macros, tells single from double presses and runs macros through one serial queue; `DoublePressDecider.swift` is the pure double-press logic; `Monitors.swift` holds watches that macros start and stop, such as the level meter monitor, outside the queue; `SpokenError.swift` is the one table of failure wording; `Context.swift` tracks the front app and window (moves to `FloSystem` as an observer in plan step 7); `Preferences.swift`. Depends on `FloSystem` and `FloProTools` (for `ProToolsWindowKind`, plan.md section 11).
+- `Sources/FloProTools/`: Pro Tools knowledge (windows, the track under the VoiceOver cursor). `ProToolsWindowKind.swift` classifies each front window title as exactly one kind. Depends on `FloSystem` only.
 - `Sources/FloMacros/`: `Groups.swift` (the groups and their conditions), `Lifecycle.swift` (what happens on VoiceOver and Pro Tools launch and quit and on window changes, replacing the KM Global group) and the macros, one file per area, each declaring its ID, name, group, triggers and action. `FloMacros.all` lists them.
 - `Sources/FloTools/`: the app (status menu, permission prompts).
 - `Tests/FloToolsTests/`: Swift Testing unit tests.
@@ -36,7 +36,7 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 - `scripts/build-app.sh`: builds and signs `build/Flo Tools.app`.
 - `Resources/`: `Info.plist`, entitlements, and `Sounds/` with the feedback sounds (`Done.aiff`, `Progress.aiff`; for now copies of the macOS Tink and Pop), which `build-app.sh` copies into the app.
 
-Dependencies point one way: `FloTools` -> `FloMacros` -> `FloEngine`, `FloProTools` -> `FloSystem`. This layout changes further with the refactor in `plan.md`. Update this section when it does.
+Dependencies point one way: `FloTools` -> `FloMacros` -> `FloEngine` -> `FloProTools` -> `FloSystem`. This layout changes further with the refactor in `plan.md`. Update this section when it does.
 
 ## Commands
 
