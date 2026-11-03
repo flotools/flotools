@@ -16,7 +16,7 @@ public struct Suspension: Hashable, Sendable, CustomStringConvertible {
 /// Connects hotkeys to installed macros, honoring each macro's scope (front window) and mode condition, and runs the macros.
 /// Only installed macros take keys, so other keys stay free.
 ///
-/// All state is owned by the main actor; macro bodies run off it (see `MacroBody`). Top-level runs go through one serial queue, so two macros never interleave across an `await`; nested runs execute inside their parent. Holds (`MacroAction.hold`) bypass the queue.
+/// All state is owned by the main actor; macro bodies run off it (see `MacroBody`). Top-level runs go through one serial queue, so two macros never interleave across an `await`. Holds (`MacroAction.hold`) bypass the queue.
 @MainActor
 public final class MacroEngine {
     /// Watches that macros start and stop, such as the level meter monitor. Stopped with the engine.
@@ -284,7 +284,7 @@ public final class MacroEngine {
         // Tasks created in this scope inherit the invocation ID, so delayed single presses carry it too.
         Log.$invocation.withValue(invocation) {
             Log.info(.engine, "\(reason) -> \(macro.id) \"\(macro.name)\"")
-            let run = MacroRun(macro: macro, trigger: trigger, context: context, engine: self, path: [macro.id])
+            let run = MacroRun(macro: macro, trigger: trigger, context: context, engine: self)
             switch macro.action {
             case .body(let body):
                 enqueue(run, body)
@@ -359,28 +359,11 @@ public final class MacroEngine {
         queueTail = task
     }
 
-    /// Runs a macro inside another, bypassing enable state and window conditions, as Keyboard Maestro's Execute Macro did. A double-press macro runs its single action.
-    func runNested(_ id: MacroID, from parent: MacroRun) async throws {
-        let macro = try macro(id).required("the macro \(id)")
-        let path = parent.path + [id]
-        guard !parent.path.contains(id) else {
-            throw FloError.cycle(path: path.map(\.description).joined(separator: " -> "))
-        }
-        Log.info(.engine, "\(parent.macro.id) runs \(macro.id) \"\(macro.name)\"")
-        let run = MacroRun(macro: macro, trigger: .nested(by: parent.macro.id), context: parent.context, engine: self, path: path)
-        switch macro.action {
-        case .body(let body), .singleOrDouble(let body, _, _):
-            try await body(run)
-        case .hold:
-            Log.warning(.engine, "\(macro.id) holds a key and cannot be run by another macro")
-        }
-    }
-
     /// Why a queued hotkey or event run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the macro or the front app may have changed while it waited. Of the mode, only the Inspector turning on is checked, because the keys of an Inspector-off macro (track view) now pan. An Inspector-on macro is not dropped when the Inspector turns off: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
     private func invalidReason(_ run: MacroRun) -> String? {
         switch run.trigger {
         case .hotKey, .event: break
-        case .nested, .direct: return nil
+        case .direct: return nil
         }
         if !isEnabled { return "Flo Tools is disabled" }
         if let suspension = suspensions.first { return "suspended: \(suspension)" }
@@ -397,7 +380,7 @@ public final class MacroEngine {
             guard let hold = holds.removeValue(forKey: combo) else { continue }
             Log.$invocation.withValue(hold.invocation) {
                 Log.info(.engine, "\(hold.run.macro.id) hold of \(combo) ended")
-                let release = MacroRun(macro: hold.run.macro, trigger: .hotKey(combo, .released), context: context, engine: self, path: hold.run.path)
+                let release = MacroRun(macro: hold.run.macro, trigger: .hotKey(combo, .released), context: context, engine: self)
                 hold.release(release)
             }
         }

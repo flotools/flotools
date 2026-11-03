@@ -427,41 +427,6 @@ import Testing
         #expect(events.list == ["press", "release"])
     }
 
-    @Test func nestedRunWaitsAndSeesItsTrigger() async throws {
-        let events = Events()
-        let engine = engine([
-            Macro("test.outer", "Outer", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor run in
-                events.list.append("outer")
-                try await run.run("test.inner")
-                events.list.append("outer end")
-            },
-            // Disabled and scoped to other windows: nested runs ignore both, as KM's Execute Macro did.
-            Macro("test.inner", "Inner", scope: .windows([.plugIn]), enabledByDefault: false, triggers: []) { @MainActor run in
-                events.list.append("inner by \(run.trigger)")
-            },
-        ])
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        await engine.waitUntilIdle()
-        #expect(events.list == ["outer", "inner by nested(by: test.outer)", "outer end"])
-    }
-
-    @Test func nestedCycleIsAnError() async throws {
-        let events = Events()
-        let engine = engine([
-            Macro("test.a", "A", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor run in
-                do {
-                    try await run.run("test.b")
-                } catch {
-                    events.list.append("\(error)")
-                }
-            },
-            Macro("test.b", "B", scope: .anyProToolsWindow, triggers: []) { @MainActor run in try await run.run("test.a") },
-        ])
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        await engine.waitUntilIdle()
-        #expect(events.list == ["macro cycle: test.a -> test.b -> test.a"])
-    }
-
     @Test func stopCancelsARunningMacro() async throws {
         let events = Events()
         var signalStarted: AsyncStream<Void>.Continuation?

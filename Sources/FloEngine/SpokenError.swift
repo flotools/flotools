@@ -15,8 +15,6 @@ public enum SpokenError {
         case FloError.incomplete(let done, let cause):
             // The cause is never cancellation: a stopped job is silent.
             return "\(done). " + (text(for: cause) ?? "")
-        case FloError.cycle:
-            return "Flo Tools macro error."
         case FloError.voiceOver:
             // Speaking this usually fails too; it is still worth trying, because only one call may have timed out.
             return "VoiceOver did not respond."

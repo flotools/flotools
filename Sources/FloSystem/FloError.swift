@@ -3,8 +3,6 @@
 public enum FloError: Error, Equatable, Sendable, CustomStringConvertible {
     /// Something a macro needs is not there: a window, a track, a button. `what` is a noun phrase, for example "the Mix window".
     case notFound(String)
-    /// A macro ran itself through nested calls. `path` is the chain of macro IDs, for example "a -> b -> a".
-    case cycle(path: String)
     /// VoiceOver did not take an Apple event: not running, not answering, or not permitted. `reason` says which, for the log.
     case voiceOver(String)
     /// An Accessibility call failed with an `AXError` other than "no value". `operation` is the attribute read or the action, `code` the raw `AXError`; `cannotComplete` (-25204) also covers the messaging timeout of a busy app.
@@ -19,7 +17,6 @@ public enum FloError: Error, Equatable, Sendable, CustomStringConvertible {
     public var description: String {
         switch self {
         case .notFound(let what): "not found: \(what)"
-        case .cycle(let path): "macro cycle: \(path)"
         case .voiceOver(let reason): "VoiceOver: \(reason)"
         case .accessibility(let operation, let code): "Accessibility: \(operation) failed with AXError \(code)"
         case .unexpectedValue(let what): "unexpected value: \(what)"

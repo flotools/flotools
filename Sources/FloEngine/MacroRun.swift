@@ -5,8 +5,6 @@ import FloSystem
 public struct MacroRun: Sendable {
     public enum Trigger: Sendable, Equatable {
         case hotKey(KeyCombo, KeyPhase)
-        /// Run by another macro, like Keyboard Maestro's Execute Macro action.
-        case nested(by: MacroID)
         /// Run by the app, for example from the status menu.
         case direct
         /// Started by something that happened rather than a key, such as a plug-in window coming to front, like Keyboard Maestro's window triggers. Checked like a hotkey run.
@@ -17,13 +15,6 @@ public struct MacroRun: Sendable {
     public let trigger: Trigger
     public let context: FrontContext
     public let engine: MacroEngine
-    /// The macros this run is nested in, outermost first, then this macro. Used to reject cycles.
-    let path: [MacroID]
-
-    /// Runs another macro inside this one and waits for it. Errors and cancellation reach this macro.
-    public func run(_ id: MacroID) async throws {
-        try await engine.runNested(id, from: self)
-    }
 
     /// Sends the hotkey that started this run on to the front app, for macros that act only in some windows. Does nothing for other triggers.
     @MainActor
