@@ -70,25 +70,11 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
         let okButton = NSButton(title: "OK", target: self, action: #selector(ok))
         okButton.keyEquivalent = "\r"
 
-        let stack = NSStackView(views: [
+        return NSWindow.floating(title: "Flo Tools Preferences", views: [
             temporaryInspector,
             startsWithInspector,
             NSStackView(views: [timeoutLabel, timeout]),
             NSStackView(views: [cancelButton, okButton]),
-        ])
-        stack.orientation = .vertical
-        stack.alignment = .leading
-        stack.spacing = 12
-        stack.edgeInsets = NSEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-
-        let window = NSWindow(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
-        window.title = "Flo Tools Preferences"
-        window.contentView = stack
-        // Above Pro Tools, as the KM prompt was floating.
-        window.level = .floating
-        window.isReleasedWhenClosed = false
-        window.delegate = self
-        window.center()
-        return window
+        ], alignment: .leading, delegate: self)
     }
 }

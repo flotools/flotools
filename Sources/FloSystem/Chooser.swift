@@ -120,21 +120,7 @@ private final class ChooserWindow: NSObject, NSWindowDelegate, NSTableViewDataSo
         let okButton = NSButton(title: request.okTitle, target: self, action: #selector(ok))
         okButton.keyEquivalent = "\r"
 
-        let stack = NSStackView(views: [prompt, scroll, NSStackView(views: [cancelButton, okButton])])
-        stack.orientation = .vertical
-        stack.alignment = .leading
-        stack.spacing = 12
-        stack.edgeInsets = NSEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-
-        let window = NSWindow(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
-        window.title = request.title
-        window.contentView = stack
-        // Above Pro Tools, as the AppleScript list was.
-        window.level = .floating
-        window.isReleasedWhenClosed = false
-        window.delegate = self
-        window.center()
-        return window
+        return NSWindow.floating(title: request.title, views: [prompt, scroll, NSStackView(views: [cancelButton, okButton])], alignment: .leading, delegate: self)
     }
 }
 

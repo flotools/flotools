@@ -38,19 +38,7 @@ private final class TextWindowController: NSObject, NSWindowDelegate {
         let close = NSButton(title: "Close", target: self, action: #selector(closeWindow))
         close.keyEquivalent = "\u{1b}"
 
-        let stack = NSStackView(views: [scroll, close])
-        stack.orientation = .vertical
-        stack.alignment = .trailing
-        stack.spacing = 12
-        stack.edgeInsets = NSEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-
-        let window = NSWindow(contentRect: .zero, styleMask: [.titled, .closable], backing: .buffered, defer: false)
-        window.title = title
-        window.contentView = stack
-        window.level = .floating
-        window.isReleasedWhenClosed = false
-        window.delegate = self
-        window.center()
+        let window = NSWindow.floating(title: title, views: [scroll, close], alignment: .trailing, delegate: self)
         self.window = window
 
         BorrowedFocus.take()
