@@ -7,13 +7,38 @@ public struct MixWindow {
 
     init(_ element: AXElement) { self.element = element }
 
-    /// Soloed tracks in window order, by `TrackStrip.isSoloed(trackName:soloValue:)`. Groups without a name or a Solo button, such as the Group List, are skipped. A failed read throws, so a busy Pro Tools is never reported as "no tracks soloed".
-    public func soloedTracks() throws -> [TrackStrip] {
+    /// The shown tracks' strips in window order. Hidden tracks have no strip. Groups without a name are skipped.
+    public func trackStrips() throws -> [TrackStrip] {
         try element.groups.compactMap { group in
             guard let name = try group.name else { return nil }
-            let strip = TrackStrip(name: name, element: group)
-            return try strip.isSoloed() ? strip : nil
+            return TrackStrip(name: name, element: group)
         }
+    }
+
+    /// The tracks that take part in `flag` and have it (`on`) or not, in window order. A failed read throws, so a busy Pro Tools is never reported as "no tracks soloed".
+    public func tracks(_ flag: TrackFlag, on: Bool) throws -> [TrackStrip] {
+        try trackStrips().filter { try $0.has(flag) == on }
+    }
+
+    /// The strip of the shown track named `name`, or nil when it is gone or hidden.
+    public func track(named name: String) throws -> TrackStrip? {
+        try element.group(name).map { TrackStrip(name: name, element: $0) }
+    }
+
+    /// The Track List table at the left of the window.
+    public func trackList() throws -> TrackList {
+        TrackList(try element.required("the Track List") { try $0.table("Track List") })
+    }
+
+    /// Opens the Track List pop-up menu (show and hide, sort and so on).
+    public func openTrackListMenu() throws {
+        try element.required("the Track List pop-up") { try $0.button("Track List pop-up") }.pressOpeningMenu()
+    }
+
+    /// The Track List can be collapsed to a narrow strip that hides its rows' buttons; this expands it. The Show/Hide button's value is "Expanded. " or contains "Collapsed".
+    public func expandTrackList() throws {
+        let button = try element.required("the Track List Show/Hide button") { try $0.button("Track List Show/Hide") }
+        if try button.value?.contains("Collapsed") == true { try button.press() }
     }
 
     /// Whether any row of the Group List has its first button named "Active ...", as the JXA checked. No Group List means no active groups.
@@ -56,39 +81,47 @@ public struct TrackStrip {
         case instrumentMute
     }
 
-    /// The button for `toggle`. The input monitoring button is named for its state, for example "Input monitoring disabled" or, on an instrument track, "Input monitoring is enabled, but delay compensation is disabled. ..." (seen 2026-11-02); the JXA also handled a button named "TrackInput Monitor" that shows its state as its value.
+    /// The button for `toggle`, or `FloError.notFound`.
     public func button(_ toggle: Toggle) throws -> AXElement {
+        try element.required(Self.buttonDescription(toggle)) { _ in try findButton(toggle) }
+    }
+
+    private nonisolated static func buttonDescription(_ toggle: Toggle) -> String {
         switch toggle {
-        case .solo: try element.required("the Solo button") { try $0.button("Solo") }
-        case .mute: try element.required("the Mute button") { try $0.button("Mute") }
-        case .recordEnable: try element.required("the Track Record Enable button") { try $0.button("Track Record Enable") }
-        case .inputMonitor: try element.required("the input monitoring button") { strip in
-            try strip.buttons.first { try $0.name?.contains("Input monitoring") == true } ?? strip.button("TrackInput Monitor")
+        case .solo: "the Solo button"
+        case .mute: "the Mute button"
+        case .recordEnable: "the Track Record Enable button"
+        case .inputMonitor: "the input monitoring button"
+        case .instrumentMute: "the MIDI Mute button"
         }
+    }
+
+    /// The button for `toggle`, or nil when the track has none. The input monitoring button is named for its state, for example "Input monitoring disabled" or, on an instrument track, "Input monitoring is enabled, but delay compensation is disabled. ..." (seen 2026-11-02); the JXA also handled a button named "TrackInput Monitor" that shows its state as its value.
+    private func findButton(_ toggle: Toggle) throws -> AXElement? {
+        switch toggle {
+        case .solo: try element.button("Solo")
+        case .mute: try element.button("Mute")
+        case .recordEnable: try element.button("Track Record Enable")
+        case .inputMonitor: try element.buttons.first { try $0.name?.contains("Input monitoring") == true } ?? element.button("TrackInput Monitor")
         case .instrumentMute:
-            try element.required("the Instrument section") { try $0.group("Instrument") }.required("the MIDI Mute button") { try $0.button("MIDI Mute") }
+            try element.required("the Instrument section") { try $0.group("Instrument") }.button("MIDI Mute")
         }
     }
 
     /// The toggle's state as Pro Tools shows it: the name of a named input monitoring button, otherwise the button's value, empty when off.
     public func state(of toggle: Toggle) throws -> String {
-        let button = try button(toggle)
+        try Self.state(of: toggle, button: button(toggle))
+    }
+
+    private static func state(of toggle: Toggle, button: AXElement) throws -> String {
         if toggle == .inputMonitor, let name = try button.name, name.contains("Input monitoring") { return name }
         return try button.value ?? ""
     }
 
-    /// Whether the track is soloed now. False without a Solo button.
-    public func isSoloed() throws -> Bool {
-        guard let solo = try element.button("Solo") else { return false }
-        return Self.isSoloed(trackName: name, soloValue: try solo.value ?? "")
-    }
-
-    /// The JXA rule: the Solo button value is not empty and not "safe" or "inactive", and the track is not a master track.
-    nonisolated static func isSoloed(trackName: String, soloValue: String) -> Bool {
-        !trackName.localizedCaseInsensitiveContains(" - Master Track")
-            && !soloValue.isEmpty
-            && !soloValue.localizedCaseInsensitiveContains("safe")
-            && !soloValue.localizedCaseInsensitiveContains("inactive")
+    /// Whether the track has `flag` now, by `TrackFlag.state(of:trackName:buttonState:)`; nil when it does not take part, including when it lacks the button.
+    public func has(_ flag: TrackFlag) throws -> Bool? {
+        guard let button = try findButton(flag.toggle) else { return nil }
+        return TrackFlag.state(of: flag, trackName: name, buttonState: try Self.state(of: flag.toggle, button: button))
     }
 
     // MARK: Inserts and sends
@@ -161,6 +194,17 @@ public struct TrackStrip {
         case .peak: try element.required("the peak meter") { try $0.child(role: "AXSlider", name: "Peak") }
         case .instrumentVolume: try instrumentSection().required("the MIDI volume") { try $0.sliders.first { try $0.name?.contains("MIDI Volume indicator") == true } }
         }
+    }
+
+    /// The peak hold level in dB, for example -3.1 for "minus 3.1"; nil for "minus ∞" and for a track without a peak meter.
+    public func peakDecibels() throws -> Double? {
+        guard let peak = try element.child(role: "AXSlider", name: "Peak"), let text = try peak.valueDescription else { return nil }
+        return Self.decibels(peakText: text)
+    }
+
+    nonisolated static func decibels(peakText text: String) -> Double? {
+        let number = text.hasPrefix("minus ") ? "-" + text.dropFirst("minus ".count) : text
+        return Double(number).flatMap { $0.isFinite ? $0 : nil }
     }
 
     // MARK: Meters

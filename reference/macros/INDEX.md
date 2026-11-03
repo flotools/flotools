@@ -64,19 +64,19 @@
 | Flo Tools | [Increase Grid Value with Qwerty](<Flo Tools/Increase Grid Value with Qwerty.md>) | Shift+= | True | 9B41F36F-DD1A-4F6F-A584-E0FD15EE1280 | yes |
 | Flo Tools | [Increase Nudge Value](<Flo Tools/Increase Nudge Value.md>) | Opt+Cmd+Keypad + | True | 040FB4C6-1F48-4861-9CAF-FB19EEBE1148 | yes |
 | Flo Tools | [Increase Nudge Value With Qwerty](<Flo Tools/Increase Nudge Value With Qwerty.md>) | Opt+Shift+= | True | 9AAC770A-C514-4369-9622-4EAE8C910092 | yes |
-| Flo Tools | [List Hidden Tracks](<Flo Tools/List Hidden Tracks.md>) |  | True | 8707D170-ADDA-46FA-A29E-7F98449F4A38 |  |
-| Flo Tools | [List Input Monitor-Disabled  Tracks](<Flo Tools/List Input Monitor-Disabled  Tracks.md>) |  | True | A06B8ECE-792B-48A5-A3E2-BA979594C1FA |  |
-| Flo Tools | [List Input Monitor-Enabled Tracks](<Flo Tools/List Input Monitor-Enabled Tracks.md>) |  | True | B885D11D-EB9B-4F6D-8312-00BEAE8FB669 |  |
-| Flo Tools | [List Muted Tracks](<Flo Tools/List Muted Tracks.md>) |  | True | ECA3C361-676D-4CB1-AEB6-BF0B2D188ED8 |  |
-| Flo Tools | [List Record-Disabled Tracks](<Flo Tools/List Record-Disabled Tracks.md>) |  | True | 283AFC32-5847-45FB-8C2F-44CCA0531319 |  |
-| Flo Tools | [List Record-Enabled Tracks](<Flo Tools/List Record-Enabled Tracks.md>) |  | True | 5CC51E1E-500D-4767-B719-4AD544667A89 |  |
-| Flo Tools | [List Selected Tracks](<Flo Tools/List Selected Tracks.md>) |  | True | 58C059EC-7A71-44C7-BDE8-C7E3CDCBF886 |  |
-| Flo Tools | [List Shown Tracks](<Flo Tools/List Shown Tracks.md>) |  | True | 7040C918-4589-43DA-AEE2-71CD77243B57 |  |
-| Flo Tools | [List Soloed Tracks](<Flo Tools/List Soloed Tracks.md>) |  | True | 901A4E73-54C8-436C-A98F-8F42FF754509 |  |
-| Flo Tools | [List Tracks with Flo Tools](<Flo Tools/List Tracks with Flo Tools.md>) | Ctrl+Opt+Shift+L | True | A95D2CBC-AEDD-4807-BCBD-F6BEFD1A2C40 |  |
-| Flo Tools | [List Unmuted Tracks](<Flo Tools/List Unmuted Tracks.md>) |  | True | 35D75B3E-439E-4692-BC02-5E90F862F421 |  |
-| Flo Tools | [List Unselected Tracks](<Flo Tools/List Unselected Tracks.md>) |  | True | 55DD1145-A398-4F55-8395-B60E701170C3 |  |
-| Flo Tools | [List Unsoloed Tracks](<Flo Tools/List Unsoloed Tracks.md>) |  | True | 943B53A6-0CB8-484E-8A3F-B5B101F138C0 |  |
+| Flo Tools | [List Hidden Tracks](<Flo Tools/List Hidden Tracks.md>) |  | True | 8707D170-ADDA-46FA-A29E-7F98449F4A38 | yes |
+| Flo Tools | [List Input Monitor-Disabled  Tracks](<Flo Tools/List Input Monitor-Disabled  Tracks.md>) |  | True | A06B8ECE-792B-48A5-A3E2-BA979594C1FA | yes |
+| Flo Tools | [List Input Monitor-Enabled Tracks](<Flo Tools/List Input Monitor-Enabled Tracks.md>) |  | True | B885D11D-EB9B-4F6D-8312-00BEAE8FB669 | yes |
+| Flo Tools | [List Muted Tracks](<Flo Tools/List Muted Tracks.md>) |  | True | ECA3C361-676D-4CB1-AEB6-BF0B2D188ED8 | yes |
+| Flo Tools | [List Record-Disabled Tracks](<Flo Tools/List Record-Disabled Tracks.md>) |  | True | 283AFC32-5847-45FB-8C2F-44CCA0531319 | yes |
+| Flo Tools | [List Record-Enabled Tracks](<Flo Tools/List Record-Enabled Tracks.md>) |  | True | 5CC51E1E-500D-4767-B719-4AD544667A89 | yes |
+| Flo Tools | [List Selected Tracks](<Flo Tools/List Selected Tracks.md>) |  | True | 58C059EC-7A71-44C7-BDE8-C7E3CDCBF886 | yes |
+| Flo Tools | [List Shown Tracks](<Flo Tools/List Shown Tracks.md>) |  | True | 7040C918-4589-43DA-AEE2-71CD77243B57 | yes |
+| Flo Tools | [List Soloed Tracks](<Flo Tools/List Soloed Tracks.md>) |  | True | 901A4E73-54C8-436C-A98F-8F42FF754509 | yes |
+| Flo Tools | [List Tracks with Flo Tools](<Flo Tools/List Tracks with Flo Tools.md>) | Ctrl+Opt+Shift+L | True | A95D2CBC-AEDD-4807-BCBD-F6BEFD1A2C40 | yes |
+| Flo Tools | [List Unmuted Tracks](<Flo Tools/List Unmuted Tracks.md>) |  | True | 35D75B3E-439E-4692-BC02-5E90F862F421 | yes |
+| Flo Tools | [List Unselected Tracks](<Flo Tools/List Unselected Tracks.md>) |  | True | 55DD1145-A398-4F55-8395-B60E701170C3 | yes |
+| Flo Tools | [List Unsoloed Tracks](<Flo Tools/List Unsoloed Tracks.md>) |  | True | 943B53A6-0CB8-484E-8A3F-B5B101F138C0 | yes |
 | Flo Tools | [Load Plugin Parameters for Default View](<Flo Tools/Load Plugin Parameters for Default View.md>) | focused window: FocussedWindowChanges | True | 9E527A76-E233-41E9-9B66-A17747F42646 |  |
 | Flo Tools | [Monitor Attack](<Flo Tools/Monitor Attack.md>) |  | True | D7EE1801-A2E8-4FFF-B4BD-A4C8305CE671 |  |
 | Flo Tools | [Monitor End](<Flo Tools/Monitor End.md>) |  | True | 2ED91EBB-3D9D-47A8-AB4A-58681E8CAC9B |  |
@@ -109,17 +109,17 @@
 | Flo Tools | [Speak And Select Next Playlist](<Flo Tools/Speak And Select Next Playlist.md>) | Shift+Down | True | 2B84BD4D-351A-43DA-90AC-189C8BC7B7B9 |  |
 | Flo Tools | [Speak And Select Previous Playlist](<Flo Tools/Speak And Select Previous Playlist.md>) | Shift+Up | True | B1D8EF63-1F31-4C68-B619-394E6A3C718C |  |
 | Flo Tools | [Speak Grid Value](<Flo Tools/Speak Grid Value.md>) | Cmd+F8 | True | 48DEE0DA-19B2-4029-BCAA-AD7D5C14340E | yes |
-| Flo Tools | [Speak Hidden Tracks, Show Track List Pop-up Menu](<Flo Tools/Speak Hidden Tracks_ Show Track List Pop-up Menu.md>) | Opt+Shift+H | True | 2AC2F1D3-BAAC-4FAF-9BD6-7564D095010F |  |
-| Flo Tools | [Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks](<Flo Tools/Speak Input Monitor-Enabled Tracks_ Disable Input Monitor On All Tracks.md>) | Opt+Shift+K | True | CF7CAA29-052E-4BEC-910F-757E788CCBC2 |  |
-| Flo Tools | [Speak Muted Tracks, Unmute All Tracks](<Flo Tools/Speak Muted Tracks_ Unmute All Tracks.md>) | Opt+Shift+M | True | BE81CE62-6368-4549-AD3F-38BCEB5DED1D |  |
-| Flo Tools | [Speak Record Safe Tracks](<Flo Tools/Speak Record Safe Tracks.md>) | Opt+Shift+Cmd+R | True | 9014BA79-26AD-4E1F-92B4-1339D6405214 |  |
-| Flo Tools | [Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks](<Flo Tools/Speak Record-Enabled Tracks_ Disarm All Record-Enabled Tracks.md>) | Opt+Shift+R | True | 7B187870-DC44-44BE-89C0-3A799F0885E5 |  |
+| Flo Tools | [Speak Hidden Tracks, Show Track List Pop-up Menu](<Flo Tools/Speak Hidden Tracks_ Show Track List Pop-up Menu.md>) | Opt+Shift+H | True | 2AC2F1D3-BAAC-4FAF-9BD6-7564D095010F | yes |
+| Flo Tools | [Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks](<Flo Tools/Speak Input Monitor-Enabled Tracks_ Disable Input Monitor On All Tracks.md>) | Opt+Shift+K | True | CF7CAA29-052E-4BEC-910F-757E788CCBC2 | yes |
+| Flo Tools | [Speak Muted Tracks, Unmute All Tracks](<Flo Tools/Speak Muted Tracks_ Unmute All Tracks.md>) | Opt+Shift+M | True | BE81CE62-6368-4549-AD3F-38BCEB5DED1D | yes |
+| Flo Tools | [Speak Record Safe Tracks](<Flo Tools/Speak Record Safe Tracks.md>) | Opt+Shift+Cmd+R | True | 9014BA79-26AD-4E1F-92B4-1339D6405214 | yes |
+| Flo Tools | [Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks](<Flo Tools/Speak Record-Enabled Tracks_ Disarm All Record-Enabled Tracks.md>) | Opt+Shift+R | True | 7B187870-DC44-44BE-89C0-3A799F0885E5 | yes |
 | Flo Tools | [Speak Selected Clips](<Flo Tools/Speak Selected Clips.md>) | Opt+Shift+, | True | 365E4ABC-2658-495C-A98F-14AF724B0E0F |  |
-| Flo Tools | [Speak Selected Tracks, Deselect All Tracks](<Flo Tools/Speak Selected Tracks_ Deselect All Tracks.md>) | Opt+Shift+L | True | 2EB16086-C725-4C7A-A41D-6274C3EA26F5 |  |
-| Flo Tools | [Speak Shown Tracks, Show Track List Pop-up Menu](<Flo Tools/Speak Shown Tracks_ Show Track List Pop-up Menu.md>) | Opt+Shift+W | True | 89B69BCD-1F27-453C-AF7C-A749EE5E389A |  |
-| Flo Tools | [Speak Solo Safe Tracks](<Flo Tools/Speak Solo Safe Tracks.md>) | Opt+Shift+Cmd+S | True | 9C5DEED2-1FDD-425C-90BE-0F2F8533FB16 |  |
+| Flo Tools | [Speak Selected Tracks, Deselect All Tracks](<Flo Tools/Speak Selected Tracks_ Deselect All Tracks.md>) | Opt+Shift+L | True | 2EB16086-C725-4C7A-A41D-6274C3EA26F5 | yes |
+| Flo Tools | [Speak Shown Tracks, Show Track List Pop-up Menu](<Flo Tools/Speak Shown Tracks_ Show Track List Pop-up Menu.md>) | Opt+Shift+W | True | 89B69BCD-1F27-453C-AF7C-A749EE5E389A | yes |
+| Flo Tools | [Speak Solo Safe Tracks](<Flo Tools/Speak Solo Safe Tracks.md>) | Opt+Shift+Cmd+S | True | 9C5DEED2-1FDD-425C-90BE-0F2F8533FB16 | yes |
 | Flo Tools | [Speak Soloed Tracks, Unsolo All Tracks](<Flo Tools/Speak Soloed Tracks_ Unsolo All Tracks.md>) | Opt+Shift+S | True | 2727205D-51F2-49D2-B1B0-66BA8D4D6F06 | yes |
-| Flo Tools | [Speak Tracks With 0DB Level](<Flo Tools/Speak Tracks With 0DB Level.md>) | Opt+Shift+0 | True | 7053D5DD-60A3-444A-AB18-A54AA32DF625 |  |
+| Flo Tools | [Speak Tracks With 0DB Level](<Flo Tools/Speak Tracks With 0DB Level.md>) | Opt+Shift+0 | True | 7053D5DD-60A3-444A-AB18-A54AA32DF625 | yes |
 | Flo Tools | [Speak/Edit Attack Velocity for Selected Note](<Flo Tools/Speak_Edit Attack Velocity for Selected Note.md>) | Opt+A | True | A09642E3-1015-4049-8788-0D827A6565FB | yes |
 | Flo Tools | [Speak/Edit Nudge Value](<Flo Tools/Speak_Edit Nudge Value.md>) | Cmd+F7 | True | 347B48AC-0E8F-4631-90C1-D3AB3617AEDA | yes |
 | Flo Tools | [Speak/Edit Pitch for Selected Note](<Flo Tools/Speak_Edit Pitch for Selected Note.md>) | Opt+P | True | E5D2500D-0E04-494C-A049-94A51C5A6519 | yes |

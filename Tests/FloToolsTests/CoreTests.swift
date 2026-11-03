@@ -592,12 +592,46 @@ import Testing
         #expect(Inspector.stateText(.solo, "on") == "on")
     }
 
-    @Test func soloFilter() {
-        #expect(TrackStrip.isSoloed(trackName: "Kick - Audio Track ", soloValue: "on"))
-        #expect(!TrackStrip.isSoloed(trackName: "Kick - Audio Track ", soloValue: ""))
-        #expect(!TrackStrip.isSoloed(trackName: "Kick - Audio Track ", soloValue: "on, solo safe"))
-        #expect(!TrackStrip.isSoloed(trackName: "Kick - Audio Track ", soloValue: "Inactive"))
-        #expect(!TrackStrip.isSoloed(trackName: "Master 1 - Master Track ", soloValue: "on"))
+    @Test func trackFlagRulesMatchJXAFilters() {
+        let kick = "Kick - Audio Track "
+        func state(_ flag: TrackFlag, _ name: String, _ value: String) -> Bool? { TrackFlag.state(of: flag, trackName: name, buttonState: value) }
+        #expect(state(.soloed, kick, "on") == true)
+        #expect(state(.soloed, kick, "") == false)
+        #expect(state(.soloed, kick, "on, solo safe") == nil)
+        #expect(state(.soloed, kick, "Inactive") == nil)
+        #expect(state(.soloed, "Master 1 - Master Track ", "on") == nil)
+        #expect(state(.soloSafe, kick, "on, solo safe") == true)
+        #expect(state(.soloSafe, kick, "") == false)
+        #expect(state(.muted, kick, "on") == true)
+        #expect(state(.muted, kick, "") == false)
+        // Muted only because another track is soloed.
+        #expect(state(.muted, kick, "on solo") == nil)
+        #expect(state(.recordArmed, kick, "armed") == true)
+        #expect(state(.recordArmed, kick, "") == false)
+        #expect(state(.recordArmed, kick, "safe") == nil)
+        #expect(state(.recordArmed, "Reverb L - Aux Track ", "") == nil)
+        #expect(state(.recordArmed, "Drums - Routing Folder Track ", "") == nil)
+        #expect(state(.recordSafe, kick, "safe") == true)
+        #expect(state(.recordSafe, "Reverb L - Aux Track ", "safe") == nil)
+        #expect(state(.inputMonitored, kick, "Input monitoring enabled") == true)
+        #expect(state(.inputMonitored, kick, "Input monitoring disabled") == false)
+        #expect(state(.inputMonitored, kick, "on") == true)
+        #expect(state(.inputMonitored, "Synth Lead - Inst Track ", "Input monitoring is enabled, but delay compensation is disabled.") == nil)
+    }
+
+    @Test func trackListRowNames() {
+        #expect(TrackList.trackName(selectButtonName: "Selected. Open. Drums - Routing Folder Track ") == "Drums - Routing Folder Track ")
+        #expect(TrackList.trackName(selectButtonName: "Closed. Drums - Routing Folder Track ") == "Drums - Routing Folder Track ")
+        #expect(TrackList.trackName(selectButtonName: "Kick - Audio Track ") == "Kick - Audio Track ")
+        #expect(TrackList.isSelected(selectButtonName: "Selected. Kick - Audio Track "))
+        #expect(!TrackList.isSelected(selectButtonName: "Kick - Audio Track "))
+    }
+
+    @Test func peakText() {
+        #expect(TrackStrip.decibels(peakText: "minus 3.1") == -3.1)
+        #expect(TrackStrip.decibels(peakText: "3.0") == 3.0)
+        #expect(TrackStrip.decibels(peakText: "0.0") == 0)
+        #expect(TrackStrip.decibels(peakText: "minus ∞") == nil)
     }
 
     @Test func panMessageMatchesJXA() {
@@ -643,9 +677,25 @@ import Testing
         #expect(await peak.take() == 0)
     }
 
-    @Test func soloedMessageMatchesJXA() {
-        #expect(TrackStatus.soloedMessage(names: []) == "No tracks are soloed.")
-        #expect(TrackStatus.soloedMessage(names: ["Kick - Audio Track ", "Snare - Audio Track "]) == "2 Soloed: Kick - Audio. Snare - Audio. ")
+    @Test func trackStatusMessagesMatchJXA() {
+        let soloed = TrackStatus.Wording(none: "No tracks are soloed.", heading: "Soloed:")
+        #expect(TrackStatus.message(names: [], soloed) == "No tracks are soloed.")
+        #expect(TrackStatus.message(names: ["Kick - Audio Track ", "Snare - Audio Track "], soloed) == "2 Soloed: Kick - Audio. Snare - Audio. ")
+        #expect(TrackStatus.message(names: ["Kick - Audio Track "], .init(none: "", heading: "selected.")) == "1 selected. Kick - Audio. ")
+    }
+
+    @Test func chooserTypeSelectFindsTheFirstMatch() {
+        let items = ["List Hidden Tracks", "List Input Monitor-Disabled  Tracks", "List Muted Tracks"]
+        #expect(Chooser.firstMatch("List Hid", in: items) == 0)
+        #expect(Chooser.firstMatch("list m", in: items) == 2)
+        #expect(Chooser.firstMatch("Hid", in: items) == nil)
+    }
+
+    @Test func trackListingsAreDistinct() {
+        let listings = TrackLists.listings
+        #expect(Set(listings.map(\.id)).count == listings.count)
+        #expect(Set(listings.map(\.name)).count == listings.count)
+        #expect(TrackLists.displayName("Kick - Audio Track ") == "Kick - Audio Track")
     }
 }
 

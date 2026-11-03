@@ -1,5 +1,6 @@
 import AppKit
 import FloEngine
+import FloSystem
 
 /// The preferences window: the settings of the KM preferences dialog, with OK and Cancel. Opened from the menu and by the Flo Tools Preferences macro. OK saves to the store, then calls `onSave` so the app applies the new values.
 @MainActor
@@ -7,8 +8,8 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
     private let store: PreferencesStore
     private let onSave: (Preferences) -> Void
     private lazy var window = makeWindow()
-    /// The app that was in front before the panel opened, usually Pro Tools; it gets the focus back when the panel closes, as after the KM prompt.
-    private var previousApp: NSRunningApplication?
+    /// Whether the panel holds a `BorrowedFocus` loan; the app that was in front before it opened, usually Pro Tools, gets the focus back when it closes, as after the KM prompt.
+    private var holdsFocus = false
 
     private let temporaryInspector = NSButton(checkboxWithTitle: "Use temporary inspector", target: nil, action: nil)
     private let startsWithInspector = NSButton(checkboxWithTitle: "Turn on the Flo Tools inspector when Pro Tools starts", target: nil, action: nil)
@@ -24,14 +25,11 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
         temporaryInspector.state = preferences.temporaryInspector ? .on : .off
         startsWithInspector.state = preferences.startsWithInspector ? .on : .off
         timeout.selectItem(withTag: preferences.timeout)
-        if !window.isVisible, let front = NSWorkspace.shared.frontmostApplication, front != .current {
-            previousApp = front
-        }
-        // `activate(ignoringOtherApps:)` is deprecated from macOS 14; `activate()` is its cooperative replacement.
-        if #available(macOS 14, *) {
-            NSApp.activate()
+        if holdsFocus {
+            BorrowedFocus.bringToFront()
         } else {
-            NSApp.activate(ignoringOtherApps: true)
+            BorrowedFocus.take()
+            holdsFocus = true
         }
         window.makeKeyAndOrderFront(nil)
         window.makeFirstResponder(temporaryInspector)
@@ -53,8 +51,8 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
 
     /// Covers OK, Cancel and the close button.
     func windowWillClose(_ notification: Notification) {
-        previousApp?.activate()
-        previousApp = nil
+        if holdsFocus { BorrowedFocus.giveBack() }
+        holdsFocus = false
     }
 
     private func makeWindow() -> NSWindow {
