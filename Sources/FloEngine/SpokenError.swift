@@ -1,7 +1,7 @@
 import ApplicationServices
 import FloSystem
 
-/// What the user hears when a macro fails: the one table for failure wording. The Keyboard Maestro version showed a notification instead.
+/// What the user hears when a command fails: the one table for failure wording. The Keyboard Maestro version showed a notification instead.
 public enum SpokenError {
     /// Nil means say nothing, as for cancellation.
     public static func text(for error: Error) -> String? {

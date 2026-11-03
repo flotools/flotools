@@ -2,10 +2,10 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// The Fade In, Fade Out, Crossfade and Batch Fades groups. Every macro passes its key to the dialog, where Pro Tools changes a setting, then speaks the new setting.
+/// The Fade In, Fade Out, Crossfade and Batch Fades groups. Every command passes its key to the dialog, where Pro Tools changes a setting, then speaks the new setting.
 enum FadeDialogs {
     @MainActor
-    static var macros: [Macro] { settings.map(macro) }
+    static var commands: [Command] { settings.map(command) }
 
     /// Spoken text is the JXA's, with two changes on purpose: "Crossffade" is spelled right, and Out Slope reads the second "Slope" group, where the JXA read the first (the fade in slope).
     static let settings: [FadeSetting] = [
@@ -59,13 +59,13 @@ enum FadeDialogs {
         FadeSetting("batchFades.previousOutSlope", "Previous Out Slope", .batchFades, key: "Ctrl+Cmd+Up", .option, .init("Slope", occurrence: 1), suffix: ", Out Slope ."),
     ]
 
-    /// What a macro reads after its key: the shape curve pop-up button, or the selected radio button of the section.
+    /// What a command reads after its key: the shape curve pop-up button, or the selected radio button of the section.
     enum Reading: Sendable { case curve, option }
 
     @MainActor
-    static func macro(_ setting: FadeSetting) -> Macro {
+    static func command(_ setting: FadeSetting) -> Command {
         let combo = KeyCombo(setting.key)!
-        return Macro(setting.id, setting.name, scope: .windows([.fade(setting.dialog)]), triggers: [.key(setting.key)]) { _ in
+        return Command(setting.id, setting.name, scope: .windows([.fade(setting.dialog)]), triggers: [.key(setting.key)]) { _ in
             let proTools = try ProToolsApp.running()
             let dialog = try await proTools.fadeDialog(setting.dialog)
             let before = try await read(setting.reading, setting.section, in: dialog)
@@ -86,9 +86,9 @@ enum FadeDialogs {
 
 }
 
-/// One fade dialog macro: its key changes `section` in `dialog`, and it speaks the new value followed by `suffix`.
+/// One fade dialog command: its key changes `section` in `dialog`, and it speaks the new value followed by `suffix`.
 struct FadeSetting: Sendable {
-    let id: MacroID
+    let id: CommandID
     let name: String
     let dialog: FadeDialog.Kind
     let key: String
@@ -96,7 +96,7 @@ struct FadeSetting: Sendable {
     let section: FadeDialog.Section
     let suffix: String
 
-    init(_ id: MacroID, _ name: String, _ dialog: FadeDialog.Kind, key: String, _ reading: FadeDialogs.Reading, _ section: FadeDialog.Section, suffix: String) {
+    init(_ id: CommandID, _ name: String, _ dialog: FadeDialog.Kind, key: String, _ reading: FadeDialogs.Reading, _ section: FadeDialog.Section, suffix: String) {
         self.id = id
         self.name = name
         self.dialog = dialog

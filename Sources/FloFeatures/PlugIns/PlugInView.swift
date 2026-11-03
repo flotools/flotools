@@ -2,7 +2,7 @@ import CoreGraphics
 import FloSystem
 import Foundation
 
-/// A Flo Tools plug-in view: a file the user writes that lays a plug-in's parameters out in rows and columns, with where each control is in the plug-in window, so the parameter macros can walk them with Ctrl+arrows and move the mouse to each. The format and folder are the KM version's, so existing files keep working.
+/// A Flo Tools plug-in view: a file the user writes that lays a plug-in's parameters out in rows and columns, with where each control is in the plug-in window, so the parameter commands can walk them with Ctrl+arrows and move the mouse to each. The format and folder are the KM version's, so existing files keep working.
 ///
 /// The file is JSON in a `.txt` file in `~/Library/Application Support/Flo Tools/Plug-In Views/`, named after the plug-in, with "-N" for view N:
 ///

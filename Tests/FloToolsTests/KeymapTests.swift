@@ -1,7 +1,7 @@
 import Foundation
 import Testing
 @testable import FloEngine
-@testable import FloMacros
+@testable import FloFeatures
 @testable import FloProTools
 @testable import FloSystem
 
@@ -36,13 +36,13 @@ import Testing
     ]
 
     @Test func keymapMatchesBaseline() throws {
-        try Self.compare(Self.bindingLines(FloMacros.makeEngine()), with: "Keymap.txt")
+        try Self.compare(Self.bindingLines(FloFeatures.makeEngine()), with: "Keymap.txt")
     }
 
     @Test func routingMatchesBaseline() throws {
         var lines: [String] = []
         for state in Self.inspectorStates {
-            let engine = FloMacros.makeEngine()
+            let engine = FloFeatures.makeEngine()
             Self.prepare(engine, state)
             for (combo, phase) in Self.contestedKeys(engine) {
                 var winners: [String: [String]] = [:]
@@ -62,12 +62,12 @@ import Testing
     /// Inspector states to route in. Each starts from launch with "starts with Flo Tools inspector" off and "temporary inspector" on.
     static let inspectorStates = ["launch, Inspector off", "Inspector on by /", "Inspector off by /", "backtick held"]
 
-    static func prepare(_ engine: MacroEngine, _ state: String) {
+    static func prepare(_ engine: Engine, _ state: String) {
         var preferences = Preferences()
         preferences.startsWithInspector = false
         preferences.temporaryInspector = true
-        FloMacros.apply(preferences, to: engine)
-        FloMacros.setStartState(preferences, in: engine)
+        FloFeatures.apply(preferences, to: engine)
+        FloFeatures.setStartState(preferences, in: engine)
         switch state {
         case "Inspector on by /":
             engine.setInspector(true)
@@ -82,10 +82,10 @@ import Testing
     }
 
     /// Keys bound by more than one command, and the keys that change the Inspector.
-    static func contestedKeys(_ engine: MacroEngine) -> [(KeyCombo, KeyPhase)] {
+    static func contestedKeys(_ engine: Engine) -> [(KeyCombo, KeyPhase)] {
         var count: [String: (key: (KeyCombo, KeyPhase), commands: Int)] = [:]
-        for macro in engine.macros {
-            for (combo, phase) in macro.hotKeys {
+        for command in engine.commands {
+            for (combo, phase) in command.hotKeys {
                 let text = keyText(combo, phase)
                 count[text] = ((combo, phase), (count[text]?.commands ?? 0) + 1)
             }
@@ -95,10 +95,10 @@ import Testing
         return count.filter { $0.value.commands > 1 || watched.contains($0.key) }.sorted { $0.key < $1.key }.map(\.value.key)
     }
 
-    static func bindingLines(_ engine: MacroEngine) -> [String] {
-        engine.macros.flatMap { macro -> [String] in
-            let rest = "\(scope(macro.scope)) | \(mode(macro.mode)) | \(macro.id) | \(action(macro.action)) | \"\(macro.name)\"" + (macro.enabledByDefault ? "" : " | off by default")
-            let triggers = macro.triggers.map { trigger in
+    static func bindingLines(_ engine: Engine) -> [String] {
+        engine.commands.flatMap { command -> [String] in
+            let rest = "\(scope(command.scope)) | \(mode(command.mode)) | \(command.id) | \(action(command.action)) | \"\(command.name)\"" + (command.enabledByDefault ? "" : " | off by default")
+            let triggers = command.triggers.map { trigger in
                 switch trigger {
                 case .hotKey(let combo, let phase): keyText(combo, phase)
                 case .statusMenu: "status menu"
@@ -130,7 +130,7 @@ import Testing
         }
     }
 
-    static func action(_ action: MacroAction) -> String {
+    static func action(_ action: CommandAction) -> String {
         switch action {
         case .body: "run"
         case .hold: "hold"

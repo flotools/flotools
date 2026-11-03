@@ -156,7 +156,7 @@ Each step: build, full tests, baseline diff reviewed, journal entry, commit; Cod
 4. Scopes replace groups and specificity; the tie check (done with step 5; `Scope.swift`, `MacroEngine.tie(with:)`, groups and their enable state removed).
 5. Inspector as a mode; track view and Inspector bindings use mode conditions; no command enables another (done with step 4; `MacroEngine.setInspector`).
 6. Remove nested runs in favor of shared functions (done; List Tracks with Flo Tools was the only caller).
-7. Rename to `Command`, `Binding`, `Keymap`, `Engine`, `Watches`; feature folders.
+7. Rename to `Command`, `Binding`, `Keymap`, `Engine`, `Watches`; feature folders (done: `Macro` became `Command`, `MacroID` `CommandID`, `MacroRun` `CommandRun`, `MacroEngine` `Engine`, `Monitors` `Watches`, `FloMacros` `FloFeatures` with one folder per feature; IDs and baselines unchanged). `Binding` and `Keymap` did not become types of their own: every command's keys share one scope and mode condition, so a command holds its triggers, scope and mode, and the keymap is the engine's index of commands by key. A separate `Binding` would be worth it only once one command needs different windows or modes per key.
 8. Remove the KM parity tooling; update `AGENTS.md` and this plan (done: `KeyboardMaestroParityTests`, `tools/km_export.py` and its tests removed; `reference/` and its Ported column stay frozen).
 
 ## 12. Not done on purpose

@@ -3,13 +3,13 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// Plug-in window keys: presets, bypass and parameters of the plug-in window, including the user's plug-in views (`PlugInView`). The preset macros are shared with the AudioSuite window.
+/// Plug-in window keys: presets, bypass and parameters of the plug-in window, including the user's plug-in views (`PlugInView`). The preset commands are shared with the AudioSuite window.
 enum PlugIns {
-    static let loadDefaultView: MacroID = "plugin.loadPluginParametersForDefaultView"
-    static let monitor: MacroID = "plugin.togglePluginMonitor"
+    static let loadDefaultView: CommandID = "plugin.loadPluginParametersForDefaultView"
+    static let monitor: CommandID = "plugin.togglePluginMonitor"
 
     @MainActor
-    static func macros(_ cursor: PlugInViewCursor) -> [Macro] {
+    static func commands(_ cursor: PlugInViewCursor) -> [Command] {
         [
             stepPreset("plugin.nextPreset", "Next Preset", .plugIn, .next, key: "]"),
             stepPreset("plugin.previousPreset", "Previous Preset", .plugIn, .previous, key: "["),
@@ -29,8 +29,8 @@ enum PlugIns {
 
     /// Goes to the next or previous preset and speaks its name.
     @MainActor
-    static func stepPreset(_ id: MacroID, _ name: String, _ kind: PlugInWindow.Kind, _ step: PlugInWindow.PresetStep, key: String) -> Macro {
-        Macro(id, name, scope: scope(kind), triggers: [.key(key)]) { _ in
+    static func stepPreset(_ id: CommandID, _ name: String, _ kind: PlugInWindow.Kind, _ step: PlugInWindow.PresetStep, key: String) -> Command {
+        Command(id, name, scope: scope(kind), triggers: [.key(key)]) { _ in
             let preset = try await ProToolsApp.running().plugInWindow(kind).step(step)
             try await VoiceOver.say(preset)
         }
@@ -38,8 +38,8 @@ enum PlugIns {
 
     /// Single press speaks the preset; double press opens the preset menu.
     @MainActor
-    static func speakChoosePreset(_ id: MacroID, _ name: String, _ kind: PlugInWindow.Kind) -> Macro {
-        Macro(id, name, scope: scope(kind), triggers: [.key("Opt+Cmd+P")], single: { _ in
+    static func speakChoosePreset(_ id: CommandID, _ name: String, _ kind: PlugInWindow.Kind) -> Command {
+        Command(id, name, scope: scope(kind), triggers: [.key("Opt+Cmd+P")], single: { _ in
             let preset = try await ProToolsApp.running().plugInWindow(kind).preset
             try await VoiceOver.say(preset)
         }, double: { _ in
@@ -60,8 +60,8 @@ enum PlugIns {
 
     /// Single press speaks whether the plug-in is bypassed ("On" or "Off"); double press switches it and speaks the new state.
     @MainActor
-    static var speakToggleBypass: Macro {
-        Macro("plugin.speakToggleBypass", "Speak/Toggle Bypass", scope: .windows([.plugIn]), triggers: [.key("Opt+B")], single: { _ in
+    static var speakToggleBypass: Command {
+        Command("plugin.speakToggleBypass", "Speak/Toggle Bypass", scope: .windows([.plugIn]), triggers: [.key("Opt+B")], single: { _ in
             let bypassed = try await ProToolsApp.running().plugInWindow(.plugIn).isBypassed
             try await VoiceOver.say(bypassText(bypassed))
         }, double: { _ in
@@ -77,8 +77,8 @@ enum PlugIns {
 
     /// Starts or stops a watch of the plug-in window's parameters that speaks each one that changes, for example while automation plays. It ends by itself when the window closes.
     @MainActor
-    static var toggleMonitor: Macro {
-        Macro(monitor, "Toggle Plugin Monitor", scope: .windows([.plugIn]), triggers: [.key("Opt+/")]) { run in
+    static var toggleMonitor: Command {
+        Command(monitor, "Toggle Plugin Monitor", scope: .windows([.plugIn]), triggers: [.key("Opt+/")]) { run in
             let monitors = await run.engine.monitors
             if await monitors.isRunning(monitor) {
                 await monitors.stop(monitor)
@@ -109,7 +109,7 @@ enum PlugIns {
     private static func watch(_ window: PlugInWindow, from first: [PlugInWindow.Parameter]) async {
         var last = first
         while !Task.isCancelled {
-            try? await Task.sleep(for: Monitors.pollInterval)
+            try? await Task.sleep(for: Watches.pollInterval)
             guard !Task.isCancelled else { return }
             do {
                 let now = try await Log.$skipsDebug.withValue(true) { try await window.parameters() }
@@ -129,10 +129,10 @@ enum PlugIns {
 
     /// Load Plugin Parameters for Default View (Cmd+0, and whenever a plug-in window comes to front) and for View 1 to 9 (Cmd+1 to Cmd+9): reads the plug-in's view file, speaks "<view> view for <plug-in>" and clicks the view's click point. Without a file the cursor is emptied silently, as in the JXA.
     @MainActor
-    static func loadView(_ number: Int?, _ cursor: PlugInViewCursor) -> Macro {
-        let id = number.map { MacroID("plugin.loadPluginParametersForView\($0)") } ?? loadDefaultView
+    static func loadView(_ number: Int?, _ cursor: PlugInViewCursor) -> Command {
+        let id = number.map { CommandID("plugin.loadPluginParametersForView\($0)") } ?? loadDefaultView
         let name = "Load Plugin Parameters for " + (number.map { "View \($0)" } ?? "Default View")
-        return Macro(id, name, scope: .windows([.plugIn]), triggers: [.key("Cmd+\(number ?? 0)")]) { _ in
+        return Command(id, name, scope: .windows([.plugIn]), triggers: [.key("Cmd+\(number ?? 0)")]) { _ in
             let window = try await ProToolsApp.running().plugInWindow(.plugIn)
             let plugIn = try await window.plugInName
             let view: PlugInView?
@@ -156,8 +156,8 @@ enum PlugIns {
 
     /// Moves the parameter cursor, speaks "name: value" (just the name when the plug-in shows no slider of that name), and moves the mouse over the control.
     @MainActor
-    static func moveParameter(_ id: MacroID, _ name: String, key: String, rows: Int, columns: Int, _ cursor: PlugInViewCursor) -> Macro {
-        Macro(id, name, scope: .windows([.plugIn]), triggers: [.key(key)]) { _ in
+    static func moveParameter(_ id: CommandID, _ name: String, key: String, rows: Int, columns: Int, _ cursor: PlugInViewCursor) -> Command {
+        Command(id, name, scope: .windows([.plugIn]), triggers: [.key(key)]) { _ in
             let window = try await ProToolsApp.running().plugInWindow(.plugIn)
             let parameter = try await cursor.move(rows: rows, columns: columns)
             // Nil when the plug-in has no slider of that name; a failed read throws to the engine.
@@ -172,8 +172,8 @@ enum PlugIns {
 
     /// A status menu item: shows a view file template for the front plug-in, listing its parameters, for the user to arrange and save in the Plug-In Views folder.
     @MainActor
-    static var displayViewTemplate: Macro {
-        Macro("plugin.displayPluginViewTemplate", "Display Plugin View Template", scope: .windows([.plugIn]), triggers: [.statusMenu]) { _ in
+    static var displayViewTemplate: Command {
+        Command("plugin.displayPluginViewTemplate", "Display Plugin View Template", scope: .windows([.plugIn]), triggers: [.statusMenu]) { _ in
             let window = try await ProToolsApp.running().plugInWindow(.plugIn)
             let plugIn = try await window.plugInName
             let names = try await window.parameters().map(\.name)

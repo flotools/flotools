@@ -1,6 +1,6 @@
 import AppKit
 
-/// A window that shows text to read and copy, like Keyboard Maestro's "display results in a window". VoiceOver reads it as a text area. It keeps itself alive until closed, and does not hold up the macro that opened it.
+/// A window that shows text to read and copy, like Keyboard Maestro's "display results in a window". VoiceOver reads it as a text area. It keeps itself alive until closed, and does not hold up the command that opened it.
 @MainActor
 public enum TextWindow {
     /// The open windows, so each stays alive until the user closes it.

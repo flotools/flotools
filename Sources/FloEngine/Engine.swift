@@ -1,7 +1,7 @@
 import FloSystem
 import Foundation
 
-/// A reason Flo Tools pauses by itself, apart from the user's on/off switch, for example while VoiceOver is not running. The reasons are declared by the macros that set them.
+/// A reason Flo Tools pauses by itself, apart from the user's on/off switch, for example while VoiceOver is not running. The reasons are declared by the commands that set them.
 public struct Suspension: Hashable, Sendable, CustomStringConvertible {
     /// Says why, for the status menu and the log, for example "VoiceOver is not running".
     public let reason: String
@@ -13,15 +13,15 @@ public struct Suspension: Hashable, Sendable, CustomStringConvertible {
     public var description: String { reason }
 }
 
-/// Connects hotkeys to installed macros, honoring each macro's scope (front window) and mode condition, and runs the macros.
-/// Only installed macros take keys, so other keys stay free.
+/// Connects hotkeys to installed commands, honoring each command's scope (front window) and mode condition, and runs the commands.
+/// Only installed commands take keys, so other keys stay free.
 ///
-/// All state is owned by the main actor; macro bodies run off it (see `MacroBody`). Top-level runs go through one serial queue, so two macros never interleave across an `await`. Holds (`MacroAction.hold`) bypass the queue.
+/// All state is owned by the main actor; command bodies run off it (see `CommandBody`). Top-level runs go through one serial queue, so two commands never interleave across an `await`. Holds (`CommandAction.hold`) bypass the queue.
 @MainActor
-public final class MacroEngine {
-    /// Watches that macros start and stop, such as the level meter monitor. Stopped with the engine.
-    public let monitors = Monitors()
-    public private(set) var macros: [Macro] = []
+public final class Engine {
+    /// Watches that commands start and stop, such as the level meter monitor. Stopped with the engine.
+    public let monitors = Watches()
+    public private(set) var commands: [Command] = []
     public var isEnabled = true {
         didSet {
             Log.info(.engine, isEnabled ? "Flo Tools enabled" : "Flo Tools disabled")
@@ -44,7 +44,7 @@ public final class MacroEngine {
         }
     }
 
-    /// The front app and window, refreshed before each hotkey runs its macro.
+    /// The front app and window, refreshed before each hotkey runs its command.
     public private(set) var context = FrontContext()
 
     /// App state that decides which keys apply, such as whether the Inspector is on. Starts with the Inspector off.
@@ -52,25 +52,25 @@ public final class MacroEngine {
 
     private let hotKeys: HotKeyCenter
     private let contextMonitor: ContextMonitor
-    private var macroIndex: [MacroID: Int] = [:]
-    /// Macros by hotkey, so a key press does not scan every macro.
-    private var macrosByCombo: [KeyCombo: [MacroID]] = [:]
-    private var macroEnabled: [MacroID: Bool] = [:]
+    private var commandIndex: [CommandID: Int] = [:]
+    /// Commands by hotkey, so a key press does not scan every command.
+    private var commandsByCombo: [KeyCombo: [CommandID]] = [:]
+    private var commandEnabled: [CommandID: Bool] = [:]
     private var started = false
     /// True while `updateHotKeys` ends holds, so a release that changes state does not update the hotkeys from inside the update.
     private var endingHolds = false
 
     private var doublePress = DoublePressDecider(timeout: .milliseconds(200))
-    private var pendingSingles: [MacroID: Task<Void, Never>] = [:]
+    private var pendingSingles: [CommandID: Task<Void, Never>] = [:]
     /// The last queued top-level run; the next one waits for it.
     private var queueTail: Task<Void, Never>?
     /// Queued and running top-level runs, so `stop` can cancel them. Keyed by queue position, not run number, because a delayed single press joins the queue after later runs.
     private var runs: [Int: Task<Void, Never>] = [:]
     private var queuedCount = 0
-    /// Numbers macro runs for the log's invocation IDs.
+    /// Numbers command runs for the log's invocation IDs.
     private var runCount = 0
     /// Keys whose hold has started and not ended, with the run that started it and its invocation ID.
-    private var holds: [KeyCombo: (run: MacroRun, release: HoldRelease, invocation: String)] = [:]
+    private var holds: [KeyCombo: (run: CommandRun, release: HoldRelease, invocation: String)] = [:]
 
     public init(hotKeys: HotKeyCenter, contextMonitor: ContextMonitor) {
         self.hotKeys = hotKeys
@@ -79,28 +79,28 @@ public final class MacroEngine {
 
     // MARK: Setup
 
-    /// Adds a macro. Stops the app if its ID is taken or one of its keys ties with an installed macro's; the tests install every macro, so they catch both first.
-    public func install(_ macro: Macro) {
-        precondition(macroIndex[macro.id] == nil, "macro \(macro.id) installed twice")
-        if let tie = tie(with: macro) { preconditionFailure(tie) }
-        macroIndex[macro.id] = macros.count
-        macros.append(macro)
-        macroEnabled[macro.id] = macro.enabledByDefault
-        for combo in Set(macro.hotKeys.map(\.combo)) { macrosByCombo[combo, default: []].append(macro.id) }
+    /// Adds a command. Stops the app if its ID is taken or one of its keys ties with an installed command's; the tests install every command, so they catch both first.
+    public func install(_ command: Command) {
+        precondition(commandIndex[command.id] == nil, "command \(command.id) installed twice")
+        if let tie = tie(with: command) { preconditionFailure(tie) }
+        commandIndex[command.id] = commands.count
+        commands.append(command)
+        commandEnabled[command.id] = command.enabledByDefault
+        for combo in Set(command.hotKeys.map(\.combo)) { commandsByCombo[combo, default: []].append(command.id) }
         updateHotKeys()
     }
 
-    public func macro(_ id: MacroID) -> Macro? { macroIndex[id].map { macros[$0] } }
+    public func command(_ id: CommandID) -> Command? { commandIndex[id].map { commands[$0] } }
 
-    /// Why `macro` cannot be installed beside the installed macros, or nil. Two macros tie when one key and phase could start both in the same window and mode with the same precedence, so neither would be the clear choice. A preference that turns one off does not count: both can be on.
-    func tie(with macro: Macro) -> String? {
-        for (combo, phase) in macro.hotKeys {
-            for other in (macrosByCombo[combo] ?? []).compactMap(self.macro) where other.id != macro.id
+    /// Why `command` cannot be installed beside the installed commands, or nil. Two commands tie when one key and phase could start both in the same window and mode with the same precedence, so neither would be the clear choice. A preference that turns one off does not count: both can be on.
+    func tie(with command: Command) -> String? {
+        for (combo, phase) in command.hotKeys {
+            for other in (commandsByCombo[combo] ?? []).compactMap(self.command) where other.id != command.id
                 && other.hotKeys.contains(where: { $0 == (combo, phase) })
-                && other.scope.precedence == macro.scope.precedence
-                && other.scope.overlaps(macro.scope)
-                && other.mode.overlaps(macro.mode) {
-                return "\(combo) \(phase) is bound by both \(other.id) and \(macro.id) in the same windows and mode"
+                && other.scope.precedence == command.scope.precedence
+                && other.scope.overlaps(command.scope)
+                && other.mode.overlaps(command.mode) {
+                return "\(combo) \(phase) is bound by both \(other.id) and \(command.id) in the same windows and mode"
             }
         }
         return nil
@@ -116,7 +116,7 @@ public final class MacroEngine {
         updateHotKeys()
     }
 
-    /// Cancels pending, queued and running macros and releases the hotkeys and observers.
+    /// Cancels pending, queued and running commands and releases the hotkeys and observers.
     public func stop() {
         cancelAll()
         guard started else { return }
@@ -125,11 +125,11 @@ public final class MacroEngine {
         contextMonitor.stop()
     }
 
-    /// Cancels pending, queued and running macros, ends holds and stops watches, but keeps the hotkeys and observers. Like Keyboard Maestro's Cancel All Macros, used when Pro Tools quits.
+    /// Cancels pending, queued and running commands, ends holds and stops watches, but keeps the hotkeys and observers. Like Keyboard Maestro's Cancel All Macros, used when Pro Tools quits.
     /// Cancelling only asks the work to stop, and a run may still write remembered state before it notices. The returned task ends once every cancelled run and watch has ended, so a caller that resets such state waits for it first.
     @discardableResult
     public func cancelAll() -> Task<Void, Never> {
-        Log.info(.engine, "cancelling all macros")
+        Log.info(.engine, "cancelling all commands")
         endHolds { _ in true }
         cancelPendingSingles()
         let cancelledRuns = Array(runs.values)
@@ -171,12 +171,12 @@ public final class MacroEngine {
         stateChanged(voidsPendingSingles: false)
     }
 
-    public func isMacroEnabled(_ id: MacroID) -> Bool { macroEnabled[id] ?? false }
+    public func isCommandEnabled(_ id: CommandID) -> Bool { commandEnabled[id] ?? false }
 
-    public func setMacro(_ id: MacroID, enabled: Bool) {
-        precondition(macroEnabled[id] != nil, "unknown macro \(id)")
-        macroEnabled[id] = enabled
-        Log.info(.engine, "macro \(id) \(enabled ? "enabled" : "disabled")")
+    public func setCommand(_ id: CommandID, enabled: Bool) {
+        precondition(commandEnabled[id] != nil, "unknown command \(id)")
+        commandEnabled[id] = enabled
+        Log.info(.engine, "command \(id) \(enabled ? "enabled" : "disabled")")
         stateChanged(voidsPendingSingles: true)
     }
 
@@ -196,26 +196,26 @@ public final class MacroEngine {
 
     // MARK: Matching
 
-    private func isActive(_ macro: Macro, in context: FrontContext) -> Bool {
-        macroEnabled[macro.id] == true && macro.scope.applies(to: context) && macro.mode.holds(in: mode)
+    private func isActive(_ command: Command, in context: FrontContext) -> Bool {
+        commandEnabled[command.id] == true && command.scope.applies(to: context) && command.mode.holds(in: mode)
     }
 
-    /// Macros that would fire for this key in this context, best match first. `tie(with:)` keeps two from having the same precedence.
-    public func candidates(for combo: KeyCombo, phase: KeyPhase, in context: FrontContext) -> [Macro] {
-        (macrosByCombo[combo] ?? [])
-            .compactMap(macro)
-            .filter { macro in isActive(macro, in: context) && macro.hotKeys.contains { $0.combo == combo && $0.phase == phase } }
+    /// Commands that would fire for this key in this context, best match first. `tie(with:)` keeps two from having the same precedence.
+    public func candidates(for combo: KeyCombo, phase: KeyPhase, in context: FrontContext) -> [Command] {
+        (commandsByCombo[combo] ?? [])
+            .compactMap(command)
+            .filter { command in isActive(command, in: context) && command.hotKeys.contains { $0.combo == combo && $0.phase == phase } }
             .sorted { $0.scope.precedence > $1.scope.precedence }
     }
 
-    /// The macros that offer themselves in the status menu now, like Keyboard Maestro's status menu, which listed the macros of the groups active for the front window: those whose scope and mode apply now.
-    public func statusMenuMacros(in context: FrontContext) -> [Macro] {
+    /// The commands that offer themselves in the status menu now, like Keyboard Maestro's status menu, which listed the commands of the groups active for the front window: those whose scope and mode apply now.
+    public func statusMenuCommands(in context: FrontContext) -> [Command] {
         guard takesKeys else { return [] }
-        return macros.filter { macro in macro.triggers.contains(.statusMenu) && isActive(macro, in: context) }
+        return commands.filter { command in command.triggers.contains(.statusMenu) && isActive(command, in: context) }
     }
 
     public func activeCombos(in context: FrontContext) -> Set<KeyCombo> {
-        Set(macrosByCombo.filter { _, ids in ids.contains { id in macro(id).map { isActive($0, in: context) } ?? false } }.keys)
+        Set(commandsByCombo.filter { _, ids in ids.contains { id in command(id).map { isActive($0, in: context) } ?? false } }.keys)
     }
 
     /// Ends the holds whose key stopped being a hotkey and, once started, registers the hotkeys. Holds end before `start()` too, so the tests, which dispatch keys without registering them, cover it.
@@ -239,15 +239,15 @@ public final class MacroEngine {
         context = contextMonitor.refreshIfFrontAppChanged()
         if dispatch(combo, phase, in: context) == nil {
             if phase == .pressed && candidates(for: combo, phase: .released, in: context).isEmpty {
-                // The key is not named: keys no macro matched must not appear in the log.
-                Log.info(.engine, "no macro for this key in \(context), passing it on")
+                // The key is not named: keys no command matched must not appear in the log.
+                Log.info(.engine, "no command for this key in \(context), passing it on")
                 passThrough(combo, to: context)
             }
             updateHotKeys()
         }
     }
 
-    /// Starts the best macro for this key in this context, which becomes the engine's current one: queued runs are checked against it. Returns the run's invocation ID, or nil when no macro takes the key.
+    /// Starts the best command for this key in this context, which becomes the engine's current one: queued runs are checked against it. Returns the run's invocation ID, or nil when no command takes the key.
     @discardableResult
     func dispatch(_ combo: KeyCombo, _ phase: KeyPhase, in context: FrontContext) -> String? {
         self.context = context
@@ -255,41 +255,41 @@ public final class MacroEngine {
             endHolds { $0 == combo }
             return hold.invocation
         }
-        guard takesKeys, let macro = candidates(for: combo, phase: phase, in: context).first else { return nil }
-        return start(macro, trigger: .hotKey(combo, phase), context: context, reason: "\(combo) \(phase) in \(context)")
+        guard takesKeys, let command = candidates(for: combo, phase: phase, in: context).first else { return nil }
+        return start(command, trigger: .hotKey(combo, phase), context: context, reason: "\(combo) \(phase) in \(context)")
     }
 
-    /// Runs a macro from the app, for example a status menu item. Errors are spoken like those of hotkey runs.
-    public func run(_ id: MacroID) {
-        guard let macro = macro(id) else {
-            Log.error(.engine, "macro \(id) is not installed")
+    /// Runs a command from the app, for example a status menu item. Errors are spoken like those of hotkey runs.
+    public func run(_ id: CommandID) {
+        guard let command = command(id) else {
+            Log.error(.engine, "command \(id) is not installed")
             return
         }
-        _ = start(macro, trigger: .direct, context: context, reason: "run by the app")
+        _ = start(command, trigger: .direct, context: context, reason: "run by the app")
     }
 
-    /// Runs a macro because `event` happened, if it could run from a hotkey now: Flo Tools is on and not suspended, and the macro is on and its scope and mode apply. Checked again when the run reaches the front of the queue, like a hotkey run.
-    public func fire(_ id: MacroID, on event: String) {
-        guard let macro = macro(id) else {
-            Log.error(.engine, "macro \(id) is not installed")
+    /// Runs a command because `event` happened, if it could run from a hotkey now: Flo Tools is on and not suspended, and the command is on and its scope and mode apply. Checked again when the run reaches the front of the queue, like a hotkey run.
+    public func fire(_ id: CommandID, on event: String) {
+        guard let command = command(id) else {
+            Log.error(.engine, "command \(id) is not installed")
             return
         }
-        guard takesKeys, isActive(macro, in: context) else {
+        guard takesKeys, isActive(command, in: context) else {
             Log.info(.engine, "\(event): \(id) is not active in \(context)")
             return
         }
-        _ = start(macro, trigger: .event(event), context: context, reason: event)
+        _ = start(command, trigger: .event(event), context: context, reason: event)
     }
 
-    /// Gives the run an invocation ID and starts it, waiting first for a double press where the macro has one.
-    private func start(_ macro: Macro, trigger: MacroRun.Trigger, context: FrontContext, reason: String) -> String {
+    /// Gives the run an invocation ID and starts it, waiting first for a double press where the command has one.
+    private func start(_ command: Command, trigger: CommandRun.Trigger, context: FrontContext, reason: String) -> String {
         runCount += 1
         let invocation = "run\(runCount)"
         // Tasks created in this scope inherit the invocation ID, so delayed single presses carry it too.
         Log.$invocation.withValue(invocation) {
-            Log.info(.engine, "\(reason) -> \(macro.id) \"\(macro.name)\"")
-            let run = MacroRun(macro: macro, trigger: trigger, context: context, engine: self)
-            switch macro.action {
+            Log.info(.engine, "\(reason) -> \(command.id) \"\(command.name)\"")
+            let run = CommandRun(command: command, trigger: trigger, context: context, engine: self)
+            switch command.action {
             case .body(let body):
                 enqueue(run, body)
             case .hold(let press, let release):
@@ -297,17 +297,17 @@ public final class MacroEngine {
                 guard case .hotKey(let combo, .pressed) = trigger else { return }
                 if press(run) { holds[combo] = (run, release, invocation) }
             case .singleOrDouble(let single, let double, let doneSound):
-                switch doublePress.press(macro.id, at: .now) {
+                switch doublePress.press(command.id, at: .now) {
                 case .double:
-                    pendingSingles.removeValue(forKey: macro.id)?.cancel()
+                    pendingSingles.removeValue(forKey: command.id)?.cancel()
                     Log.info(.engine, "double press")
                     enqueue(run, Self.withDoneSound(double, doneSound))
                 case .single(let generation):
                     let wait = doublePress.timeout
-                    pendingSingles[macro.id] = Task { @MainActor [weak self] in
+                    pendingSingles[command.id] = Task { @MainActor [weak self] in
                         try? await Task.sleep(for: wait)
-                        guard let self, !Task.isCancelled, self.doublePress.singleIsDue(macro.id, generation: generation) else { return }
-                        self.pendingSingles[macro.id] = nil
+                        guard let self, !Task.isCancelled, self.doublePress.singleIsDue(command.id, generation: generation) else { return }
+                        self.pendingSingles[command.id] = nil
                         Log.info(.engine, "single press")
                         self.enqueue(run, single)
                     }
@@ -317,7 +317,7 @@ public final class MacroEngine {
         return invocation
     }
 
-    private static func withDoneSound(_ double: @escaping MacroBody, _ doneSound: DoneSoundTiming) -> MacroBody {
+    private static func withDoneSound(_ double: @escaping CommandBody, _ doneSound: DoneSoundTiming) -> CommandBody {
         switch doneSound {
         case .beforeDouble:
             return { run in
@@ -335,7 +335,7 @@ public final class MacroEngine {
     }
 
     /// Adds a top-level run to the serial queue. Its errors end here: logged, and spoken through `SpokenError`.
-    private func enqueue(_ run: MacroRun, _ body: @escaping MacroBody) {
+    private func enqueue(_ run: CommandRun, _ body: @escaping CommandBody) {
         queuedCount += 1
         let number = queuedCount
         let previous = queueTail
@@ -343,18 +343,18 @@ public final class MacroEngine {
             await previous?.value
             let start = ContinuousClock.now
             if let reason = self?.invalidReason(run) {
-                Log.info(.engine, "\(run.macro.id) dropped: \(reason)")
+                Log.info(.engine, "\(run.command.id) dropped: \(reason)")
                 self?.runs[number] = nil
                 return
             }
             do {
                 try Task.checkCancellation()
                 try await body(run)
-                Log.info(.engine, "\(run.macro.id) finished (\(Log.elapsed(since: start)))")
+                Log.info(.engine, "\(run.command.id) finished (\(Log.elapsed(since: start)))")
             } catch is CancellationError {
-                Log.info(.engine, "\(run.macro.id) cancelled (\(Log.elapsed(since: start)))")
+                Log.info(.engine, "\(run.command.id) cancelled (\(Log.elapsed(since: start)))")
             } catch {
-                Log.error(.engine, "\(run.macro.id) failed: \(error) (\(Log.elapsed(since: start)))")
+                Log.error(.engine, "\(run.command.id) failed: \(error) (\(Log.elapsed(since: start)))")
                 if let text = SpokenError.text(for: error) { VoiceOver.sayOrLog(text) }
             }
             self?.runs[number] = nil
@@ -363,18 +363,18 @@ public final class MacroEngine {
         queueTail = task
     }
 
-    /// Why a queued hotkey or event run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the macro or the front app may have changed while it waited. Of the mode, only the Inspector turning on is checked, because the keys of an Inspector-off macro (track view) now pan. An Inspector-on macro is not dropped when the Inspector turns off: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
-    private func invalidReason(_ run: MacroRun) -> String? {
+    /// Why a queued hotkey or event run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the command or the front app may have changed while it waited. Of the mode, only the Inspector turning on is checked, because the keys of an Inspector-off command (track view) now pan. An Inspector-on command is not dropped when the Inspector turns off: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
+    private func invalidReason(_ run: CommandRun) -> String? {
         switch run.trigger {
         case .hotKey, .event: break
         case .direct: return nil
         }
         if !isEnabled { return "Flo Tools is disabled" }
         if let suspension = suspensions.first { return "suspended: \(suspension)" }
-        if macroEnabled[run.macro.id] != true { return "macro disabled" }
+        if commandEnabled[run.command.id] != true { return "command disabled" }
         if context.processID != run.context.processID { return "another app is in front" }
-        if !run.macro.scope.applies(to: context) { return "not in its windows: \(context)" }
-        if run.macro.mode == .inspectorOff && mode.inspector { return "the Inspector is on" }
+        if !run.command.scope.applies(to: context) { return "not in its windows: \(context)" }
+        if run.command.mode == .inspectorOff && mode.inspector { return "the Inspector is on" }
         return nil
     }
 
@@ -383,8 +383,8 @@ public final class MacroEngine {
         for combo in holds.keys.filter(ends) {
             guard let hold = holds.removeValue(forKey: combo) else { continue }
             Log.$invocation.withValue(hold.invocation) {
-                Log.info(.engine, "\(hold.run.macro.id) hold of \(combo) ended")
-                let release = MacroRun(macro: hold.run.macro, trigger: .hotKey(combo, .released), context: context, engine: self)
+                Log.info(.engine, "\(hold.run.command.id) hold of \(combo) ended")
+                let release = CommandRun(command: hold.run.command, trigger: .hotKey(combo, .released), context: context, engine: self)
                 hold.release(release)
             }
         }

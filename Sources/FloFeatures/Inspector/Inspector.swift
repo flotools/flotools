@@ -5,7 +5,7 @@ import FloSystem
 /// The Flo Tools Inspector keys work on the Mix window track under the VoiceOver cursor.
 enum Inspector {
     @MainActor
-    static var macros: [Macro] { (0..<10).flatMap { [slot(.insert, $0), assign(.insert, $0), slot(.send, $0), assign(.send, $0)] } + [
+    static var commands: [Command] { (0..<10).flatMap { [slot(.insert, $0), assign(.insert, $0), slot(.send, $0), assign(.send, $0)] } + [
         toggle("inspector.speakToggleSolo", "Speak/Toggle Solo", key: "S", .solo),
         toggle("inspector.speakToggleMute", "Speak/Toggle Mute", key: "M", .mute),
         toggle("inspector.speakToggleRecordState", "Speak/Toggle Record State", key: "R", .recordEnable),
@@ -23,8 +23,8 @@ enum Inspector {
 
     /// Single press speaks the toggle's state; double press presses the button and speaks the new state, then plays the done sound, as the JXA played Tink. The JXA waited a fixed 0.1 s before reading (Record State did not wait); this waits until the state changes.
     @MainActor
-    static func toggle(_ id: MacroID, _ name: String, key: String, _ toggle: TrackStrip.Toggle) -> Macro {
-        Macro(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
+    static func toggle(_ id: CommandID, _ name: String, key: String, _ toggle: TrackStrip.Toggle) -> Command {
+        Command(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(stateText(toggle, track.state(of: toggle)))
         }, double: { _ in
@@ -49,11 +49,11 @@ enum Inspector {
 
     /// Speak/Open Insert A to J on 1 to 0, and Speak/Open Send A to J on Ctrl+1 to Ctrl+0; `slot` counts from 0. Single press speaks the slot and its assignment. Double press clicks the assignment button, then plays the done sound, as the JXA played Tink. The KM names spelled H "h"; here it is "H".
     @MainActor
-    static func slot(_ kind: TrackStrip.SlotKind, _ slot: Int) -> Macro {
+    static func slot(_ kind: TrackStrip.SlotKind, _ slot: Int) -> Command {
         let letter = TrackStrip.slotLetter(slot)
         let digit = "\((slot + 1) % 10)"
         let key = kind == .send ? "Ctrl+" + digit : digit
-        return Macro(MacroID("inspector.speakOpen\(kind.rawValue)\(letter)"), "Speak/Open \(kind.rawValue) \(letter)", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
+        return Command(CommandID("inspector.speakOpen\(kind.rawValue)\(letter)"), "Speak/Open \(kind.rawValue) \(letter)", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(slotText(kind, slot, in: track))
         }, double: { _ in
@@ -64,10 +64,10 @@ enum Inspector {
 
     /// Assign Insert A to J on Cmd+1 to Cmd+0, and Assign Send A to J on Ctrl+Cmd+1 to Ctrl+Cmd+0: clicks the slot's selector button, which opens Pro Tools' assignment menu. Silent, as in the JXA; VoiceOver reads the menu.
     @MainActor
-    static func assign(_ kind: TrackStrip.SlotKind, _ slot: Int) -> Macro {
+    static func assign(_ kind: TrackStrip.SlotKind, _ slot: Int) -> Command {
         let letter = TrackStrip.slotLetter(slot)
         let key = (kind == .send ? "Ctrl+Cmd+" : "Cmd+") + "\((slot + 1) % 10)"
-        return Macro(MacroID("inspector.assign\(kind.rawValue)\(letter)"), "Assign \(kind.rawValue) \(letter)", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
+        return Command(CommandID("inspector.assign\(kind.rawValue)\(letter)"), "Assign \(kind.rawValue) \(letter)", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await track.slotButtons(kind, slot: slot).selector.pressOpeningMenu()
         }
@@ -90,8 +90,8 @@ enum Inspector {
 
     /// Moves one pan control a step and speaks its new position.
     @MainActor
-    static func pan(_ id: MacroID, _ name: String, key: String, _ control: TrackStrip.PanControl, _ direction: SliderStep) -> Macro {
-        Macro(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
+    static func pan(_ id: CommandID, _ name: String, key: String, _ control: TrackStrip.PanControl, _ direction: SliderStep) -> Command {
+        Command(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(step(control, direction, on: track))
         }

@@ -16,7 +16,7 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 ## Rules that must not change
 
 - Flo Tools for Keyboard Maestro is retired (legacy, no more support); all development happens here, and the Swift code is the source of truth. The KM export is a frozen porting reference.
-- Macros keep their hotkeys and windows unless a change is decided on purpose; record it in plan.md section 11. `KeymapTests` pins every binding and the routing of shared keys in `Tests/Baselines/`; regenerate them with `FLO_WRITE_BASELINES=1 swift test --filter KeymapTests` and read the diff.
+- Commands keep their hotkeys and windows unless a change is decided on purpose; record it in plan.md section 11. `KeymapTests` pins every binding and the routing of shared keys in `Tests/Baselines/`; regenerate them with `FLO_WRITE_BASELINES=1 swift test --filter KeymapTests` and read the diff.
 - Flo Mouse is not part of this app; it moves to a separate project. Do not port the Flo Mouse group or Toggle Flo Mouse.
 - VoiceOver speech (`output`) and reading the VoiceOver cursor stay on Apple events to VoiceOver, sent directly from Swift without AppleScript source (VoiceOver does not speak accessibility announcements from a background app). Everything that touches Pro Tools uses the Accessibility API, not System Events.
 - Spoken text should match the JXA version unless there is a stated reason to change it. Unit tests pin the text.
@@ -26,16 +26,16 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 
 ## Layout
 
-- `Sources/FloSystem/`: generic macOS infrastructure (Accessibility, VoiceOver, hotkeys and synthetic keys, synthetic mouse moves and clicks, Flo Tools' own windows (the chooser and the text window), sounds, the `Log`, and `FloError`, the one error model). `KeyNames.swift` is the one key-name table. Knows nothing about Pro Tools or macros.
-- `Sources/FloEngine/`: the macro model and runtime (the engine also holds suspension reasons and `cancelAll()`). `Macro.swift` is the macro model; `Scope.swift` holds the windows a macro works in (`Scope`), the app mode (`Mode`, the Inspector on or off) and a macro's mode condition; `MacroRun.swift` is what a macro body gets; `Engine.swift` routes hotkeys to macros, tells single from double presses and runs macros through one serial queue; `DoublePressDecider.swift` is the pure double-press logic; `Monitors.swift` holds watches that macros start and stop, such as the level meter monitor, outside the queue; `SpokenError.swift` is the one table of failure wording; `Context.swift` tracks the front app and window (moves to `FloSystem` as an observer in plan step 7); `Preferences.swift`. Depends on `FloSystem` and `FloProTools` (for `ProToolsWindowKind`, plan.md section 11).
+- `Sources/FloSystem/`: generic macOS infrastructure (Accessibility, VoiceOver, hotkeys and synthetic keys, synthetic mouse moves and clicks, Flo Tools' own windows (the chooser and the text window), sounds, the `Log`, and `FloError`, the one error model). `KeyNames.swift` is the one key-name table. Knows nothing about Pro Tools or commands.
+- `Sources/FloEngine/`: the command model and runtime (the engine also holds suspension reasons and `cancelAll()`). `Command.swift` is the command model: ID, name, scope, mode condition, triggers and action; `Scope.swift` holds the windows a command works in (`Scope`), the app mode (`Mode`, the Inspector on or off) and a command's mode condition; `CommandRun.swift` is what a command body gets; `Engine.swift` indexes the commands by key, routes hotkeys to them, tells single from double presses and runs commands through one serial queue; `DoublePressDecider.swift` is the pure double-press logic; `Watches.swift` holds watches that commands start and stop, such as the level meter monitor, outside the queue, and the shared poll interval and failure streak; `SpokenError.swift` is the one table of failure wording; `Context.swift` tracks the front app and window (moves to `FloSystem` as an observer in plan step 7); `Preferences.swift`. Depends on `FloSystem` and `FloProTools` (for `ProToolsWindowKind`, plan.md section 11).
 - `Sources/FloProTools/`: Pro Tools knowledge (windows, the track under the VoiceOver cursor). `ProToolsWindowKind.swift` classifies each front window title as exactly one kind. Depends on `FloSystem` only.
-- `Sources/FloMacros/`: `Lifecycle.swift` (what happens on VoiceOver and Pro Tools launch and quit and on window changes, replacing the KM Global group) and the macros, one file per area, each declaring its ID, name, scope, mode condition, triggers and action. `FloMacros.all` lists them.
+- `Sources/FloFeatures/`: the commands, one folder per feature (`Inspector/`, `Tracks/`, `Counters/`, `MIDIEvents/`, `Settings/`, `Shortcuts/`, `Fades/`, `PlugIns/`, `AudioSuite/`, `Windows/`, `ClipDrag/`, `Preferences/`), each file declaring its commands' IDs, names, scopes, mode conditions, triggers and actions. At the top: `FloFeatures.swift` (`FloFeatures.all` lists the commands), `SessionState.swift` (what commands remember about the session) and `Lifecycle.swift` (what happens on VoiceOver and Pro Tools launch and quit and on window changes, replacing the KM Global group).
 - `Sources/FloTools/`: the app (status menu, permission prompts).
 - `Tests/FloToolsTests/`: Swift Testing unit tests.
 - `scripts/build-app.sh`: builds and signs `build/Flo Tools.app`.
 - `Resources/`: `Info.plist`, entitlements, and `Sounds/` with the feedback sounds (`Done.aiff`, `Progress.aiff`; for now copies of the macOS Tink and Pop), which `build-app.sh` copies into the app.
 
-Dependencies point one way: `FloTools` -> `FloMacros` -> `FloEngine` -> `FloProTools` -> `FloSystem`. This layout changes further with the refactor in `plan.md`. Update this section when it does.
+Dependencies point one way: `FloTools` -> `FloFeatures` -> `FloEngine` -> `FloProTools` -> `FloSystem`. This layout changes further with the refactor in `plan.md`. Update this section when it does.
 
 ## Commands
 
@@ -47,10 +47,10 @@ Run from the repository root.
 - Relaunch: `pkill -x FloTools; scripts/build-app.sh && open "build/Flo Tools.app"`
 - App log: turn on the diagnostic log from the menu bar menu ("Turn On Log") and read the newest file in `~/Library/Logs/Flo Tools/`. The unified log (`log show --last 1m --predicate 'subsystem == "com.chikim.FloTools"' --style compact`) has only warnings and errors.
 
-## Adding or changing a macro
+## Adding or changing a command
 
 1. For behavior that came from KM, read its file in `reference/macros/<group>/<macro>.md` for the original wording and steps.
-2. Declare it in its feature file in `Sources/FloMacros/` with an ID, name, scope, mode condition and hotkeys (`.key("Ctrl+2")`). Share code with macros of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
+2. Declare it in its feature folder in `Sources/FloFeatures/` with an ID, name, scope, mode condition and hotkeys (`.key("Ctrl+2")`). Share code with commands of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
 3. Add unit tests for pure logic: message text, value parsing, filters.
 4. Regenerate the baselines (`FLO_WRITE_BASELINES=1 swift test --filter KeymapTests`) and check that the diff shows only the intended bindings and routing.
 5. Build, run tests, rebuild the app and test it live (below).
@@ -61,7 +61,7 @@ Run from the repository root.
 - Pro Tools must be running with a session open. Keyboard Maestro Engine must not be running, or its Flo Tools macros take the same keys.
 - Front window: System Events `value of attribute "AXFocusedWindow"` of the Pro Tools process. VoiceOver cursor: `tell application "VoiceOver" to return text under cursor of vo cursor`.
 - Press a hotkey: `osascript -e 'tell application "System Events" to key code 19 using control down'`. For a double press, send two key codes 0.05 s apart in one script.
-- Check speech: `osascript -e 'tell application "VoiceOver" to return content of last phrase'`. Check which macro ran in the diagnostic log (`<combo> pressed in <context> -> <macro ID>`).
+- Check speech: `osascript -e 'tell application "VoiceOver" to return content of last phrase'`. Check which command ran in the diagnostic log (`<combo> pressed in <context> -> <command ID>`).
 - Restore any session state a test changes (solo, mute, record arm, selection, open windows and menus), and record what was changed and restored in the journal.
 - Key presses from System Events go through the same hotkey path as physical keys, but say so when a result was not checked with a physical keyboard.
 
@@ -77,17 +77,17 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 
 - Prefer simple, cohesive designs over clever or highly abstract ones. A shorter design is not automatically better, and a more abstract one is not either.
 - Give every module, type and function one clear responsibility. A reader should be able to say what it owns, what it depends on, what depends on it, what contract it exposes, and why it lives where it does.
-- Keep separate concerns apart: Pro Tools knowledge, macro behavior, the engine (triggers, context, enable state), macOS infrastructure (Accessibility, VoiceOver, hotkeys, input events, sounds, dialogs, files) and the app UI. Split files when it clarifies ownership, not mechanically.
-- Keep dependencies pointing one way: app -> macros -> core and infrastructure. Infrastructure never knows about specific macros. No circular dependencies.
+- Keep separate concerns apart: Pro Tools knowledge, command behavior, the engine (triggers, context, enable state), macOS infrastructure (Accessibility, VoiceOver, hotkeys, input events, sounds, dialogs, files) and the app UI. Split files when it clarifies ownership, not mechanically.
+- Keep dependencies pointing one way: app -> features -> core and infrastructure. Infrastructure never knows about specific commands. No circular dependencies.
 - Make dependencies explicit through initializers or parameters where that helps testing and clarity. Avoid hidden global state; when a shared instance is needed, say why. No dependency injection frameworks.
 - Every abstraction must reduce duplication, coupling, ambiguity or testing difficulty for a current need. Do not add protocols with one implementation, factories, managers, generic helpers, plugin systems or extension points for hypothetical futures. Do not add wrappers that only forward calls or rename things.
 - Prefer a direct design when it keeps the separation clean.
 
 ### One source of truth
 
-- Each concept has one representation and one implementation: one model of a macro, one of a hotkey, one of a window condition, one double-press mechanism, one way to find a track, one preferences reader and writer.
-- KM UIDs appear only in `reference/`. App code uses `MacroID`, never KM UIDs or display names, to find a macro.
-- When several macros share a pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs), implement the pattern once and parameterize it. Do not copy 20 near-identical macros.
+- Each concept has one representation and one implementation: one model of a command, one of a hotkey, one of a window condition, one double-press mechanism, one way to find a track, one preferences reader and writer.
+- KM UIDs appear only in `reference/`. App code uses `CommandID`, never KM UIDs or display names, to find a command.
+- When several commands share a pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs), implement the pattern once and parameterize it. Do not copy 20 near-identical macros.
 - No duplicate constants, repeated parsing or repeated formatting rules.
 
 ### One current implementation
@@ -100,31 +100,31 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 
 - Use narrow interfaces with explicit inputs and outputs, domain names, and domain types where they prevent mistakes. Make invalid use hard, without chasing theoretical type purity.
 - Avoid boolean-heavy APIs and long lists of optional parameters; name the operation or model the choice instead.
-- Keep data flow traceable: trigger -> context check -> macro logic -> Accessibility, speech or input side effect -> spoken result. Do not convert the same data between several near-identical shapes.
-- Validate at boundaries: macro installation (duplicate ID, a key that ties with another macro's in the same windows and mode), reference generation, preferences loading, Accessibility reads.
+- Keep data flow traceable: trigger -> context check -> command logic -> Accessibility, speech or input side effect -> spoken result. Do not convert the same data between several near-identical shapes.
+- Validate at boundaries: command installation (duplicate ID, a key that ties with another command's in the same windows and mode), reference generation, preferences loading, Accessibility reads.
 
 ### Errors and logging
 
 - Use one error model. Core code returns or throws meaningful errors (Pro Tools not running, window missing, element missing, timeout); it does not silently return nil when the caller needs to know why.
-- Decide what the user hears in one place, not separately in each macro. Failures are spoken (KM showed a notification instead), with the wording in one table in the engine. Cancellation is silent.
+- Decide what the user hears in one place, not separately in each command. Failures are spoken (KM showed a notification instead), with the wording in one table in the engine. Cancellation is silent.
 - No broad catch-and-ignore except at a deliberate boundary, and log it there.
 - Log where the context is, once per failure. Do not log secrets or identifiers (see Diagnostic log for what is allowed).
 
 ### Diagnostic log
 
-Users must be able to send the developer a log that shows where a macro failed. All logging goes through one logger, `Log` in `FloSystem/Log.swift`; do not call `Logger` or `print` directly.
+Users must be able to send the developer a log that shows where a command failed. All logging goes through one logger, `Log` in `FloSystem/Log.swift`; do not call `Logger` or `print` directly.
 
 - The menu bar menu has one item whose title switches between "Turn On Log" and "Turn Off Log". Logging is off by default.
 - "Turn On Log" starts a new log file in `~/Library/Logs/Flo Tools/` and the title becomes "Turn Off Log". The on state is remembered across launches, so a relaunch or crash while reproducing a problem keeps logging. The file is needed because an app can only read back its own unified log for the current process, so earlier runs would be lost.
 - "Turn Off Log" stops logging, closes the file, and reveals one file in Finder, selected, that the user can send as is. Use the macOS 13 `NSWorkspace.activateFileViewerSelecting`.
 - That file starts with a header: app version and build, macOS version, Pro Tools version, whether VoiceOver is running, permission status, preferences, suspension, and whether the Inspector is on. Then the log entries. If Flo Tools crash reports from `~/Library/Logs/DiagnosticReports` were written while logging was on, append them at the end, with the values that identify the Mac (`crashReporterKey`, `deviceIdentifierForVendor`, `bootSessionUUID`) redacted. Nothing is uploaded automatically.
 - While logging is on, write every entry at full detail, except debug entries inside a watch's polls (`Log.skipsDebug`), which at ten polls a second would fill the cap in minutes; their changes, speech and failures are still logged. Cap the file at about 20 MB by dropping the oldest entries, and log that entries were dropped. While logging is off, write nothing to a file; only warnings and errors go to the unified log (subsystem `com.chikim.FloTools`, one category per area).
-- One line per entry: timestamp with milliseconds, level, category, invocation ID, message. Every macro run gets an invocation ID that appears on every line it causes, including the tasks it starts, so one run can be followed from start to end.
-- Trace each run: trigger (key, gesture, or event) and routing decision (context, chosen macro UID and name, or why it passed through); each Accessibility step with its selector path, result, `AXError` and duration; speech requests and VoiceOver errors; the final result, error or cancellation with total duration.
+- One line per entry: timestamp with milliseconds, level, category, invocation ID, message. Every command run gets an invocation ID that appears on every line it causes, including the tasks it starts, so one run can be followed from start to end.
+- Trace each run: trigger (key, gesture, or event) and routing decision (context, chosen command ID and name, or why it passed through); each Accessibility step with its selector path, result, `AXError` and duration; speech requests and VoiceOver errors; the final result, error or cancellation with total duration.
 - When a required element is missing, log the bounded subtree where the lookup stopped (role, title, description, index, a few levels deep). This shows what Pro Tools actually had in place of the expected element.
 - Also log app start and stop, permission status changes, context changes, enable and suspension changes, preferences loads, and helper or event-tap failures.
 - Track names, window titles, session names and spoken text may be logged; the user approved this (2026-11-02) because they help locate failures.
-- Never log typed keys that no macro matched, the clipboard, hardware identifiers, serial numbers or the user name. Write home paths as `~`.
+- Never log typed keys that no command matched, the clipboard, hardware identifiers, serial numbers or the user name. Write home paths as `~`.
 - Logging must not block the caller: file writes happen on a serial background queue, and the event-tap callback only enqueues.
 
 ### Security
@@ -137,7 +137,7 @@ Users must be able to send the developer a log that shows where a macro failed. 
 ### Efficiency
 
 - Avoid repeated work that matters: re-walking the Accessibility tree per element, polling faster than needed, blocking the main thread on a busy Pro Tools.
-- Choose fitting data structures (for example index hotkeys instead of scanning all macros). Do not micro-optimize at the cost of clarity, and explain real tradeoffs in `plan.md`.
+- Choose fitting data structures (for example index hotkeys instead of scanning all commands). Do not micro-optimize at the cost of clarity, and explain real tradeoffs in `plan.md`.
 
 ### Swift style
 

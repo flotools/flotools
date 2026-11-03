@@ -1,7 +1,7 @@
 import ApplicationServices
 import Foundation
 import Testing
-@testable import FloMacros
+@testable import FloFeatures
 @testable import FloEngine
 @testable import FloProTools
 @testable import FloSystem
@@ -29,19 +29,19 @@ import Testing
         #expect(ModeCondition.any.holds(in: Mode(inspector: true)))
     }
 
-    /// Two macros may share a key only if one has the higher precedence or they can never apply together.
+    /// Two commands may share a key only if one has the higher precedence or they can never apply together.
     @MainActor @Test func tiesAreFound() {
-        func macro(_ id: MacroID, _ scope: Scope, _ mode: ModeCondition = .any, key: String = "Cmd+1") -> Macro {
-            Macro(id, "Test", scope: scope, mode: mode, triggers: [.key(key)]) { _ in }
+        func command(_ id: CommandID, _ scope: Scope, _ mode: ModeCondition = .any, key: String = "Cmd+1") -> Command {
+            Command(id, "Test", scope: scope, mode: mode, triggers: [.key(key)]) { _ in }
         }
-        let engine = FloMacros.makeEngine(macros: [macro("test.any", .anyProToolsWindow), macro("test.plugIn", .windows([.plugIn])), macro("test.inspector", .mixOrEdit, .inspectorOn)])
-        #expect(engine.tie(with: macro("test.any2", .anyProToolsWindow)) != nil)
-        #expect(engine.tie(with: macro("test.plugIn2", .windows([.plugIn, .audioSuite]))) != nil)
-        #expect(engine.tie(with: macro("test.edit", .windows([.edit]))) != nil, "overlaps the Inspector macro in Edit, and .any overlaps .inspectorOn")
-        #expect(engine.tie(with: macro("test.trackView", .mixOrEdit, .inspectorOff)) == nil, "the Inspector is either on or off")
-        #expect(engine.tie(with: macro("test.audioSuite", .windows([.audioSuite]))) == nil)
-        #expect(engine.tie(with: macro("test.otherKey", .anyProToolsWindow, key: "Cmd+2")) == nil)
-        #expect(engine.tie(with: Macro("test.released", "Test", scope: .anyProToolsWindow, triggers: [.key("Cmd+1", .released)]) { _ in }) == nil)
+        let engine = FloFeatures.makeEngine(commands: [command("test.any", .anyProToolsWindow), command("test.plugIn", .windows([.plugIn])), command("test.inspector", .mixOrEdit, .inspectorOn)])
+        #expect(engine.tie(with: command("test.any2", .anyProToolsWindow)) != nil)
+        #expect(engine.tie(with: command("test.plugIn2", .windows([.plugIn, .audioSuite]))) != nil)
+        #expect(engine.tie(with: command("test.edit", .windows([.edit]))) != nil, "overlaps the Inspector command in Edit, and .any overlaps .inspectorOn")
+        #expect(engine.tie(with: command("test.trackView", .mixOrEdit, .inspectorOff)) == nil, "the Inspector is either on or off")
+        #expect(engine.tie(with: command("test.audioSuite", .windows([.audioSuite]))) == nil)
+        #expect(engine.tie(with: command("test.otherKey", .anyProToolsWindow, key: "Cmd+2")) == nil)
+        #expect(engine.tie(with: Command("test.released", "Test", scope: .anyProToolsWindow, triggers: [.key("Cmd+1", .released)]) { _ in }) == nil)
     }
 }
 
@@ -50,34 +50,34 @@ import Testing
     let mix = FrontContext(bundleID: proTools, windowTitle: "Mix: Session")
     let plugin = FrontContext(bundleID: proTools, windowTitle: "Plug-in: EQ3 7-Band")
 
-    @Test func allMacrosInstall() {
-        let engine = FloMacros.makeEngine()
-        #expect(engine.macros.count == FloMacros.all().count)
-        #expect(engine.macro("inspector.speakOpenSendB")?.hotKeys.map(\.combo.description) == ["Ctrl+2"])
+    @Test func allCommandsInstall() {
+        let engine = FloFeatures.makeEngine()
+        #expect(engine.commands.count == FloFeatures.all().count)
+        #expect(engine.command("inspector.speakOpenSendB")?.hotKeys.map(\.combo.description) == ["Ctrl+2"])
     }
 
-    @Test func onlyMacrosInMatchingContextAreActive() {
-        let engine = FloMacros.makeEngine(macros: [])
+    @Test func onlyCommandsInMatchingContextAreActive() {
+        let engine = FloFeatures.makeEngine(commands: [])
         engine.setInspector(true)
         let ctrl2 = KeyCombo(keyCode: 19, modifiers: KeyCombo.control)
         #expect(engine.activeCombos(in: mix).isEmpty)
 
-        engine.install(Macro("test.sendB", "Send B", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Ctrl+2")]) { _ in })
+        engine.install(Command("test.sendB", "Send B", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Ctrl+2")]) { _ in })
         #expect(engine.activeCombos(in: mix) == [ctrl2])
         #expect(engine.candidates(for: ctrl2, phase: .pressed, in: mix).map(\.id) == ["test.sendB"])
         #expect(engine.candidates(for: ctrl2, phase: .released, in: mix).isEmpty)
         #expect(engine.activeCombos(in: plugin).isEmpty)
 
-        engine.setMacro("test.sendB", enabled: false)
+        engine.setCommand("test.sendB", enabled: false)
         #expect(engine.activeCombos(in: mix).isEmpty)
     }
 
     @Test func windowScopeWinsOverAnyWindow() {
         // Cmd+1 is "Tab 1" in setup windows, "Assign Insert A" in the Inspector and "Load Plugin Parameters for View 1" in plug-in windows; here an any-window binding stands in for a general key.
-        let engine = FloMacros.makeEngine(macros: [])
+        let engine = FloFeatures.makeEngine(commands: [])
         engine.setInspector(true)
         for (id, scope, mode) in [("test.any", Scope.anyProToolsWindow, ModeCondition.any), ("test.inspector", .mixOrEdit, .inspectorOn), ("test.plugIn", .windows([.plugIn]), .any)] {
-            engine.install(Macro(MacroID(id), "Cmd+1", scope: scope, mode: mode, triggers: [.key("Cmd+1")]) { _ in })
+            engine.install(Command(CommandID(id), "Cmd+1", scope: scope, mode: mode, triggers: [.key("Cmd+1")]) { _ in })
         }
         let cmd1 = KeyCombo(keyCode: 18, modifiers: KeyCombo.command)
         #expect(engine.candidates(for: cmd1, phase: .pressed, in: plugin).first?.id == "test.plugIn")
@@ -87,8 +87,8 @@ import Testing
     }
 
     @Test func inspectorModeGatesKeys() {
-        let engine = FloMacros.makeEngine(macros: [])
-        engine.install(Macro("test.solo", "Solo", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("S")]) { _ in })
+        let engine = FloFeatures.makeEngine(commands: [])
+        engine.install(Command("test.solo", "Solo", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("S")]) { _ in })
         let s = KeyCombo("S")!
         #expect(engine.activeCombos(in: mix).isEmpty, "the Inspector starts off")
         engine.setInspector(true)
@@ -98,7 +98,7 @@ import Testing
     }
 
     @Test func inspectorSwapsCtrlCmdArrowsWithTrackView() {
-        let engine = FloMacros.makeEngine()
+        let engine = FloFeatures.makeEngine()
         let right = KeyCombo("Ctrl+Cmd+Right")!
         let edit = FrontContext(bundleID: Self.proTools, windowTitle: "Edit: Session")
         #expect(engine.candidates(for: right, phase: .pressed, in: edit).map(\.id) == [InspectorMode.nextTrackView])
@@ -108,18 +108,18 @@ import Testing
         #expect(engine.candidates(for: KeyCombo("S")!, phase: .pressed, in: edit).map(\.id) == ["inspector.speakToggleSolo"])
     }
 
-    @Test func preferencesControlInspectorMacros() {
-        let engine = FloMacros.makeEngine()
+    @Test func preferencesControlInspectorCommands() {
+        let engine = FloFeatures.makeEngine()
         var preferences = Preferences()
-        FloMacros.apply(preferences, to: engine)
-        FloMacros.setStartState(preferences, in: engine)
-        #expect(!engine.isMacroEnabled(InspectorMode.toggleTemporaryInspector))
+        FloFeatures.apply(preferences, to: engine)
+        FloFeatures.setStartState(preferences, in: engine)
+        #expect(!engine.isCommandEnabled(InspectorMode.toggleTemporaryInspector))
         #expect(!engine.mode.inspector)
         preferences.temporaryInspector = true
         preferences.startsWithInspector = true
-        FloMacros.apply(preferences, to: engine)
-        FloMacros.setStartState(preferences, in: engine)
-        #expect(engine.isMacroEnabled(InspectorMode.toggleTemporaryInspector))
+        FloFeatures.apply(preferences, to: engine)
+        FloFeatures.setStartState(preferences, in: engine)
+        #expect(engine.isCommandEnabled(InspectorMode.toggleTemporaryInspector))
         #expect(engine.mode.inspector)
     }
 }
@@ -130,7 +130,7 @@ import Testing
         let events: AsyncStream<String>
         let continuation: AsyncStream<String>.Continuation
         init() { (events, continuation) = AsyncStream.makeStream() }
-        var body: Monitors.Body {
+        var body: Watches.Body {
             { [continuation] in
                 continuation.yield("started")
                 while !Task.isCancelled { try? await Task.sleep(for: .seconds(60)) }
@@ -140,7 +140,7 @@ import Testing
     }
 
     @Test func toggleStartsAndStops() async {
-        let monitors = Monitors()
+        let monitors = Watches()
         let probe = Probe()
         var events = probe.events.makeAsyncIterator()
         #expect(monitors.toggle("inspector.a", probe.body))
@@ -152,7 +152,7 @@ import Testing
     }
 
     @Test func aStoppedWatchEndingLateDoesNotForgetItsReplacement() async {
-        let monitors = Monitors()
+        let monitors = Watches()
         let first = Probe(), second = Probe()
         var firstEvents = first.events.makeAsyncIterator(), secondEvents = second.events.makeAsyncIterator()
         monitors.toggle("inspector.a", first.body)
@@ -169,7 +169,7 @@ import Testing
     }
 
     @Test func aWatchThatEndsByItselfIsForgotten() async {
-        let monitors = Monitors()
+        let monitors = Watches()
         let (ended, continuation) = AsyncStream<Void>.makeStream()
         monitors.toggle("inspector.a") { continuation.yield() }
         var iterator = ended.makeAsyncIterator()
@@ -206,7 +206,7 @@ import Testing
         #expect(!secondRunsAgain)
     }
 
-    @Test func differentMacrosDoNotCombine() {
+    @Test func differentCommandsDoNotCombine() {
         var decider = DoublePressDecider(timeout: .milliseconds(200))
         _ = decider.press("a", at: start)
         let other = decider.press("b", at: start + .milliseconds(10))
@@ -226,27 +226,27 @@ import Testing
     }
 }
 
-/// Runs macros through the engine without hotkeys: `dispatch` is what a hotkey press calls after reading the context.
-@MainActor @Suite struct MacroRunTests {
+/// Runs commands through the engine without hotkeys: `dispatch` is what a hotkey press calls after reading the context.
+@MainActor @Suite struct CommandRunTests {
     let mix = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session")
 
     @MainActor final class Events {
         var list: [String] = []
     }
 
-    func engine(_ macros: [Macro]) -> MacroEngine {
-        let engine = FloMacros.makeEngine(macros: macros)
+    func engine(_ commands: [Command]) -> Engine {
+        let engine = FloFeatures.makeEngine(commands: commands)
         engine.doublePressTimeout = .milliseconds(50)
         return engine
     }
 
-    func doubleMacro(_ events: Events) -> Macro {
-        Macro("test.speak", "Speak", scope: .anyProToolsWindow, triggers: [.key("F1")], single: { @MainActor _ in events.list.append("single") }, double: { @MainActor _ in events.list.append("double") })
+    func doubleCommand(_ events: Events) -> Command {
+        Command("test.speak", "Speak", scope: .anyProToolsWindow, triggers: [.key("F1")], single: { @MainActor _ in events.list.append("single") }, double: { @MainActor _ in events.list.append("double") })
     }
 
     @Test func singlePressRunsAfterTimeout() async throws {
         let events = Events()
-        let engine = engine([doubleMacro(events)])
+        let engine = engine([doubleCommand(events)])
         #expect(engine.dispatch(KeyCombo("F1")!, .pressed, in: mix) != nil)
         #expect(events.list.isEmpty)
         await engine.waitUntilIdle()
@@ -255,18 +255,18 @@ import Testing
 
     @Test func secondPressInTimeRunsDoubleOnly() async throws {
         let events = Events()
-        let engine = engine([doubleMacro(events)])
+        let engine = engine([doubleCommand(events)])
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         await engine.waitUntilIdle()
         #expect(events.list == ["double"])
     }
 
-    @Test func disablingAMacroVoidsPendingSingles() async throws {
+    @Test func disablingACommandVoidsPendingSingles() async throws {
         let events = Events()
-        let engine = engine([doubleMacro(events), Macro("test.other", "Other", scope: .anyProToolsWindow, triggers: []) { @MainActor _ in }])
+        let engine = engine([doubleCommand(events), Command("test.other", "Other", scope: .anyProToolsWindow, triggers: []) { @MainActor _ in }])
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        engine.setMacro("test.other", enabled: false)
+        engine.setCommand("test.other", enabled: false)
         await engine.waitUntilIdle()
         #expect(events.list.isEmpty)
     }
@@ -274,12 +274,12 @@ import Testing
     @Test func topLevelRunsDoNotInterleave() async throws {
         let events = Events()
         let engine = engine([
-            Macro("test.slow", "Slow", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor _ in
+            Command("test.slow", "Slow", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor _ in
                 events.list.append("slow start")
                 try await Task.sleep(for: .milliseconds(50))
                 events.list.append("slow end")
             },
-            Macro("test.fast", "Fast", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
+            Command("test.fast", "Fast", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
         ])
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
@@ -287,21 +287,21 @@ import Testing
         #expect(events.list == ["slow start", "slow end", "fast"])
     }
 
-    func slowThenFast(_ events: Events) -> [Macro] {
+    func slowThenFast(_ events: Events) -> [Command] {
         [
-            Macro("test.slow", "Slow", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor _ in
+            Command("test.slow", "Slow", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor _ in
                 events.list.append("slow start")
                 try await Task.sleep(for: .milliseconds(50))
                 events.list.append("slow end")
             },
-            Macro("test.fast", "Fast", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
+            Command("test.fast", "Fast", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
         ]
     }
 
-    /// An event, such as a plug-in window coming to front, starts a macro only when a hotkey could: not while suspended, and not outside its scope.
+    /// An event, such as a plug-in window coming to front, starts a command only when a hotkey could: not while suspended, and not outside its scope.
     @Test func eventRunsOnlyWhereAHotkeyWould() async throws {
         let events = Events()
-        let engine = engine([Macro("test.event", "Event", scope: .anyProToolsWindow, triggers: []) { @MainActor _ in events.list.append("ran") }])
+        let engine = engine([Command("test.event", "Event", scope: .anyProToolsWindow, triggers: []) { @MainActor _ in events.list.append("ran") }])
         engine.dispatch(KeyCombo("F9")!, .pressed, in: FrontContext(bundleID: "com.apple.finder", windowTitle: "Desktop"))
         engine.fire("test.event", on: "test event")
         engine.dispatch(KeyCombo("F9")!, .pressed, in: mix)
@@ -314,12 +314,12 @@ import Testing
         #expect(events.list == ["ran"])
     }
 
-    @Test func queuedRunIsDroppedWhenItsMacroIsDisabled() async throws {
+    @Test func queuedRunIsDroppedWhenItsCommandIsDisabled() async throws {
         let events = Events()
         let engine = engine(slowThenFast(events))
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
-        engine.setMacro("test.fast", enabled: false)
+        engine.setCommand("test.fast", enabled: false)
         await engine.waitUntilIdle()
         #expect(events.list == ["slow start", "slow end"])
     }
@@ -327,9 +327,9 @@ import Testing
     /// A track view press queued while the Inspector was off must not run after `/` turned it on, because its key now pans.
     @Test func queuedInspectorOffRunIsDroppedWhenTheInspectorTurnsOn() async throws {
         let events = Events()
-        var macros = slowThenFast(events)
-        macros[1] = Macro("test.trackView", "Track View", scope: .anyProToolsWindow, mode: .inspectorOff, triggers: [.key("F2")]) { @MainActor _ in events.list.append("track view") }
-        let engine = engine(macros)
+        var commands = slowThenFast(events)
+        commands[1] = Command("test.trackView", "Track View", scope: .anyProToolsWindow, mode: .inspectorOff, triggers: [.key("F2")]) { @MainActor _ in events.list.append("track view") }
+        let engine = engine(commands)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
         engine.setInspector(true)
@@ -344,26 +344,26 @@ import Testing
         var signalFinish: AsyncStream<Void>.Continuation?
         let finish = AsyncStream<Void> { signalFinish = $0 }
         let engine = engine([
-            Macro("test.slow", "Slow", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
+            Command("test.slow", "Slow", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
                 signalStarted?.yield()
                 for await _ in finish { break }
                 events.list.append("slow")
             },
-            Macro("test.fast", "Fast", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
+            Command("test.fast", "Fast", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
         ])
         let proTools = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session", processID: 100)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: proTools)
         engine.dispatch(KeyCombo("F2")!, .pressed, in: proTools)
         for await _ in started { break }
-        // While the slow macro runs, Finder comes to front and a key no macro takes is pressed.
+        // While the slow command runs, Finder comes to front and a key no command takes is pressed.
         #expect(engine.dispatch(KeyCombo("F9")!, .pressed, in: FrontContext(bundleID: "com.apple.finder", processID: 200)) == nil)
         signalFinish?.yield()
         await engine.waitUntilIdle()
         #expect(events.list == ["slow"])
     }
 
-    func holdMacro(_ events: Events, accepts: Bool = true) -> Macro {
-        Macro("test.hold", "Hold", scope: .anyProToolsWindow, triggers: [.key("F3"), .key("F3", .released)], press: { _ in
+    func holdCommand(_ events: Events, accepts: Bool = true) -> Command {
+        Command("test.hold", "Hold", scope: .anyProToolsWindow, triggers: [.key("F3"), .key("F3", .released)], press: { _ in
             events.list.append("press")
             return accepts
         }, release: { _ in
@@ -373,11 +373,11 @@ import Testing
 
     @Test func holdEndsOnReleaseWithoutTheQueue() async throws {
         let events = Events()
-        let engine = engine(slowThenFast(events) + [holdMacro(events)])
+        let engine = engine(slowThenFast(events) + [holdCommand(events)])
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F3")!, .released, in: mix)
-        // Both ran at once, before the queued slow macro started.
+        // Both ran at once, before the queued slow command started.
         #expect(events.list == ["press", "release"])
         await engine.waitUntilIdle()
         engine.dispatch(KeyCombo("F3")!, .released, in: mix)
@@ -386,7 +386,7 @@ import Testing
 
     @Test func declinedHoldGetsNoRelease() {
         let events = Events()
-        let engine = engine([holdMacro(events, accepts: false)])
+        let engine = engine([holdCommand(events, accepts: false)])
         engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F3")!, .released, in: mix)
         #expect(events.list == ["press"])
@@ -394,8 +394,8 @@ import Testing
 
     @Test func inspectorSingleStillRunsAfterTheTemporaryHoldEnds() async throws {
         let events = Events()
-        let engine = engine(InspectorMode.macros + [
-            Macro("test.inspectorKey", "Inspector key", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("F1")], single: { @MainActor _ in events.list.append("single") }, double: { @MainActor _ in events.list.append("double") }),
+        let engine = engine(InspectorMode.commands + [
+            Command("test.inspectorKey", "Inspector key", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("F1")], single: { @MainActor _ in events.list.append("single") }, double: { @MainActor _ in events.list.append("double") }),
         ])
         #expect(engine.dispatch(KeyCombo("`")!, .pressed, in: mix) != nil)
         #expect(engine.mode.inspector)
@@ -409,7 +409,7 @@ import Testing
 
     /// With the Inspector off, Ctrl+Cmd+Right is Pro Tools' track view key; while the temporary Inspector is held it pans, and after release it is the track view key again.
     @Test func temporaryInspectorHoldPansWithCtrlCmdArrows() {
-        let engine = engine(InspectorMode.macros + Inspector.macros)
+        let engine = engine(InspectorMode.commands + Inspector.commands)
         let right = KeyCombo("Ctrl+Cmd+Right")!
         #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == [InspectorMode.nextTrackView])
         #expect(engine.dispatch(KeyCombo("`")!, .pressed, in: mix) != nil)
@@ -418,16 +418,16 @@ import Testing
         #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == [InspectorMode.nextTrackView])
     }
 
-    /// A held key that stops being a hotkey never reports its release, so the engine ends the hold itself: when Flo Tools is suspended or turned off, when the macro is turned off, and when the front window is one where the key does not apply. The temporary Inspector then turns off.
-    @Test(arguments: ["suspended", "disabled", "macro turned off", "window changed"])
+    /// A held key that stops being a hotkey never reports its release, so the engine ends the hold itself: when Flo Tools is suspended or turned off, when the command is turned off, and when the front window is one where the key does not apply. The temporary Inspector then turns off.
+    @Test(arguments: ["suspended", "disabled", "command turned off", "window changed"])
     func temporaryInspectorEndsWhenItsKeyStopsBeingAHotkey(_ cause: String) {
-        let engine = engine(InspectorMode.macros)
+        let engine = engine(InspectorMode.commands)
         engine.dispatch(KeyCombo("`")!, .pressed, in: mix)
         #expect(engine.mode.inspector)
         switch cause {
         case "suspended": engine.suspend(Suspension("test"))
         case "disabled": engine.isEnabled = false
-        case "macro turned off": engine.setMacro(InspectorMode.toggleTemporaryInspector, enabled: false)
+        case "command turned off": engine.setCommand(InspectorMode.toggleTemporaryInspector, enabled: false)
         default: engine.contextChanged(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Memory Locations"))
         }
         #expect(!engine.mode.inspector)
@@ -435,7 +435,7 @@ import Testing
 
     @Test func holdOutlivesChangesThatKeepItsKey() {
         let events = Events()
-        let engine = engine([holdMacro(events)])
+        let engine = engine([holdCommand(events)])
         engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
         engine.contextChanged(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Edit: Session"))
         #expect(events.list == ["press"])
@@ -445,19 +445,19 @@ import Testing
 
     @Test func stopEndsHolds() {
         let events = Events()
-        let engine = engine([holdMacro(events)])
+        let engine = engine([holdCommand(events)])
         engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
         engine.stop()
         engine.dispatch(KeyCombo("F3")!, .released, in: mix)
         #expect(events.list == ["press", "release"])
     }
 
-    @Test func stopCancelsARunningMacro() async throws {
+    @Test func stopCancelsARunningCommand() async throws {
         let events = Events()
         var signalStarted: AsyncStream<Void>.Continuation?
         let started = AsyncStream<Void> { signalStarted = $0 }
         let engine = engine([
-            Macro("test.long", "Long", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
+            Command("test.long", "Long", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
                 signalStarted?.yield()
                 do {
                     try await Task.sleep(for: .seconds(5))
@@ -468,7 +468,7 @@ import Testing
             },
         ])
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        // Stop only once the body runs, so the test checks cancellation of a running macro, not of a queued one.
+        // Stop only once the body runs, so the test checks cancellation of a running command, not of a queued one.
         for await _ in started { break }
         engine.stop()
         await engine.waitUntilIdle()
@@ -477,7 +477,7 @@ import Testing
 
     @Test func suspensionTakesNoKeysAndKeepsTheUserChoice() async throws {
         let events = Events()
-        let engine = engine([Macro("test.a", "A", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor _ in events.list.append("a") }])
+        let engine = engine([Command("test.a", "A", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor _ in events.list.append("a") }])
         let voiceOverOff = Suspension("VoiceOver is not running")
         engine.suspend(voiceOverOff)
         #expect(engine.dispatch(KeyCombo("F1")!, .pressed, in: mix) == nil)
@@ -495,7 +495,7 @@ import Testing
         var signalStarted: AsyncStream<Void>.Continuation?
         let started = AsyncStream<Void> { signalStarted = $0 }
         let engine = engine([
-            Macro("test.long", "Long", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
+            Command("test.long", "Long", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
                 signalStarted?.yield()
                 do {
                     try await Task.sleep(for: .seconds(5))
@@ -504,7 +504,7 @@ import Testing
                     events.list.append("cancelled")
                 }
             },
-            Macro("test.short", "Short", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("short") },
+            Command("test.short", "Short", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("short") },
         ])
         engine.monitors.toggle("test.watch") { try? await Task.sleep(for: .seconds(5)) }
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
@@ -522,7 +522,7 @@ import Testing
         var signalStarted: AsyncStream<Void>.Continuation?
         let started = AsyncStream<Void> { signalStarted = $0 }
         let engine = engine([
-            Macro("test.long", "Long", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
+            Command("test.long", "Long", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
                 signalStarted?.yield()
                 try? await Task.sleep(for: .seconds(5))
                 // Work a run does after it was cancelled, like writing remembered state, still comes before the end of cancelAll.
@@ -543,19 +543,19 @@ import Testing
         #expect(events.list.last == "reset")
     }
 
-    @Test func statusMenuListsMacrosThatApply() {
-        let engine = FloMacros.makeEngine()
+    @Test func statusMenuListsCommandsThatApply() {
+        let engine = FloFeatures.makeEngine()
         let plugIn = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3 7-Band")
-        #expect(engine.statusMenuMacros(in: plugIn).map(\.id) == ["plugin.displayPluginViewTemplate"])
-        #expect(engine.statusMenuMacros(in: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session")).isEmpty)
+        #expect(engine.statusMenuCommands(in: plugIn).map(\.id) == ["plugin.displayPluginViewTemplate"])
+        #expect(engine.statusMenuCommands(in: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session")).isEmpty)
         engine.isEnabled = false
-        #expect(engine.statusMenuMacros(in: plugIn).isEmpty)
+        #expect(engine.statusMenuCommands(in: plugIn).isEmpty)
     }
 
     @Test func doneSoundTimingMatchesJXA() throws {
-        func doneSound(_ id: MacroID) throws -> DoneSoundTiming? {
-            let macro = try #require(FloMacros.all().first { $0.id == id })
-            guard case .singleOrDouble(_, _, let doneSound) = macro.action else { return nil }
+        func doneSound(_ id: CommandID) throws -> DoneSoundTiming? {
+            let command = try #require(FloFeatures.all().first { $0.id == id })
+            guard case .singleOrDouble(_, _, let doneSound) = command.action else { return nil }
             return doneSound
         }
         #expect(try doneSound("inspector.speakOpenSendB") == .afterDouble)
@@ -644,15 +644,15 @@ import Testing
     }
 
     @Test func applySetsDoublePressTimeout() {
-        let engine = FloMacros.makeEngine()
+        let engine = FloFeatures.makeEngine()
         var preferences = Preferences()
         preferences.timeout = 500
-        FloMacros.apply(preferences, to: engine)
+        FloFeatures.apply(preferences, to: engine)
         #expect(engine.doublePressTimeout == .milliseconds(500))
     }
 }
 
-@Suite struct MacroTextTests {
+@Suite struct CommandTextTests {
     @Test func keyComboParsesItsDescription() {
         for code in KeyCombo.keyNames.keys {
             for modifiers: UInt32 in [0, KeyCombo.command, KeyCombo.control | KeyCombo.option | KeyCombo.shift] {

@@ -16,7 +16,7 @@ public struct Preferences: Equatable, Sendable {
     public init() {}
 }
 
-/// Preferences kept in UserDefaults, and the ones now in effect. The app creates one and passes it to whoever needs the values. Main actor: the menu, the preferences panel and macro setup read and change it.
+/// Preferences kept in UserDefaults, and the ones now in effect. The app creates one and passes it to whoever needs the values. Main actor: the menu, the preferences panel and command setup read and change it.
 @MainActor
 public final class PreferencesStore {
     /// Not `.standard` in tests, so they never touch the user's settings.

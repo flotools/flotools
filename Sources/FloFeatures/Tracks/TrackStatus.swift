@@ -3,33 +3,33 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// Flo Tools macros that speak which tracks have a state, and on a double press reset it on all of them: solo, mute, record arm, input monitoring, the safe states, selection, shown and hidden tracks, and tracks that reached 0 dB.
+/// Flo Tools commands that speak which tracks have a state, and on a double press reset it on all of them: solo, mute, record arm, input monitoring, the safe states, selection, shown and hidden tracks, and tracks that reached 0 dB.
 enum TrackStatus {
     @MainActor
-    static var macros: [Macro] { [
-        flagMacro("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", key: "Opt+Shift+S", .soloed, Wording(none: "No tracks are soloed.", heading: "Soloed:"),
+    static var commands: [Command] { [
+        flagCommand("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", key: "Opt+Shift+S", .soloed, Wording(none: "No tracks are soloed.", heading: "Soloed:"),
                   reset: Reset(suspendsGroups: true, verb: "unsolo", partly: "Unsoloed", done: "unsoloed all tracks.")),
-        flagMacro("floTools.speakMutedTracksUnmuteAllTracks", "Speak Muted Tracks, Unmute All Tracks", key: "Opt+Shift+M", .muted, Wording(none: "No tracks are muted.", heading: "Muted:"),
+        flagCommand("floTools.speakMutedTracksUnmuteAllTracks", "Speak Muted Tracks, Unmute All Tracks", key: "Opt+Shift+M", .muted, Wording(none: "No tracks are muted.", heading: "Muted:"),
                   reset: Reset(suspendsGroups: true, verb: "unmute", partly: "Unmuted", done: "unmuted all tracks.")),
-        flagMacro("floTools.speakInputMonitorEnabledTracksDisableInputMonitorOnAllTracks", "Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks", key: "Opt+Shift+K", .inputMonitored, Wording(none: "No track has input monitor on", heading: "Input on:"),
+        flagCommand("floTools.speakInputMonitorEnabledTracksDisableInputMonitorOnAllTracks", "Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks", key: "Opt+Shift+K", .inputMonitored, Wording(none: "No track has input monitor on", heading: "Input on:"),
                   reset: Reset(suspendsGroups: false, verb: "turn off input monitor on", partly: "Turned off input monitor on", done: "Turned Off Input Monitor for all tracks")),
         recordArmed,
-        flagMacro("floTools.speakRecordSafeTracks", "Speak Record Safe Tracks", key: "Opt+Shift+Cmd+R", .recordSafe, Wording(none: "No tracks are disarmed safe.", heading: "Disarmed safe:")),
-        flagMacro("floTools.speakSoloSafeTracks", "Speak Solo Safe Tracks", key: "Opt+Shift+Cmd+S", .soloSafe, Wording(none: "No tracks are solo safe.", heading: "Solo safe:")),
-        Macro("floTools.speakTracksWith0DbLevel", "Speak Tracks With 0DB Level", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+0")]) { _ in
+        flagCommand("floTools.speakRecordSafeTracks", "Speak Record Safe Tracks", key: "Opt+Shift+Cmd+R", .recordSafe, Wording(none: "No tracks are disarmed safe.", heading: "Disarmed safe:")),
+        flagCommand("floTools.speakSoloSafeTracks", "Speak Solo Safe Tracks", key: "Opt+Shift+Cmd+S", .soloSafe, Wording(none: "No tracks are solo safe.", heading: "Solo safe:")),
+        Command("floTools.speakTracksWith0DbLevel", "Speak Tracks With 0DB Level", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+0")]) { _ in
             try await speakTracksAt0dB()
         },
-        Macro("floTools.speakSelectedTracksDeselectAllTracks", "Speak Selected Tracks, Deselect All Tracks", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+L")], single: { _ in
+        Command("floTools.speakSelectedTracksDeselectAllTracks", "Speak Selected Tracks, Deselect All Tracks", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+L")], single: { _ in
             try await speak(.trackList(.selected, on: true), Wording(none: "No tracks are selected.", heading: "selected."))
         }, double: { _ in
             try await deselectAll()
         }),
-        Macro("floTools.speakHiddenTracksShowTrackListPopUpMenu", "Speak Hidden Tracks, Show Track List Pop-up Menu", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+H")], single: { _ in
+        Command("floTools.speakHiddenTracksShowTrackListPopUpMenu", "Speak Hidden Tracks, Show Track List Pop-up Menu", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+H")], single: { _ in
             try await speak(.trackList(.shown, on: false), Wording(none: "No tracks are hidden.", heading: "Hidden:"))
         }, double: { _ in
             try await ProToolsApp.running().mixWindow().openTrackListMenu()
         }),
-        Macro("floTools.speakShownTracksShowTrackListPopUpMenu", "Speak Shown Tracks, Show Track List Pop-up Menu", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+W")], single: { _ in
+        Command("floTools.speakShownTracksShowTrackListPopUpMenu", "Speak Shown Tracks, Show Track List Pop-up Menu", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+W")], single: { _ in
             try await speak(.trackList(.shown, on: true), Wording(none: "No tracks are currently shown.", heading: "Shown:"))
         }, double: { _ in
             try await ProToolsApp.running().mixWindow().openTrackListMenu()
@@ -69,12 +69,12 @@ enum TrackStatus {
     }
 
     @MainActor
-    private static func flagMacro(_ id: MacroID, _ name: String, key: String, _ flag: TrackFlag, _ wording: Wording, reset: Reset? = nil) -> Macro {
-        let speak: MacroBody = { _ in try await TrackStatus.speak(.strips(flag, on: true), wording) }
+    private static func flagCommand(_ id: CommandID, _ name: String, key: String, _ flag: TrackFlag, _ wording: Wording, reset: Reset? = nil) -> Command {
+        let speak: CommandBody = { _ in try await TrackStatus.speak(.strips(flag, on: true), wording) }
         guard let reset else {
-            return Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], body: speak)
+            return Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], body: speak)
         }
-        return Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], single: speak, double: { _ in
+        return Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], single: speak, double: { _ in
             try await resetAll(flag, reset)
             try await VoiceOver.say(reset.done)
         })
@@ -87,8 +87,8 @@ enum TrackStatus {
 
     /// Record arm has two extra cases: armed tracks can be hidden, which only the Edit window's record status shows, as the JXA checked. The JXA disarmed in a loop until that status cleared, which never ended while a hidden track was armed; this disarms the shown tracks once and says when hidden ones stay armed.
     @MainActor
-    private static var recordArmed: Macro {
-        Macro("floTools.speakRecordEnabledTracksDisarmAllRecordEnabledTracks", "Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+R")], single: { _ in
+    private static var recordArmed: Command {
+        Command("floTools.speakRecordEnabledTracksDisarmAllRecordEnabledTracks", "Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+R")], single: { _ in
             let proTools = try ProToolsApp.running()
             let names = try await proTools.mixWindow().tracks(.recordArmed, on: true).map(\.name)
             try await VoiceOver.say(names.isEmpty ? noArmedTracksText(proTools) : "\(names.count) Armed: " + list(names))

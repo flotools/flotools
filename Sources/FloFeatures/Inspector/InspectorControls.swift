@@ -2,10 +2,10 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// Inspector macros for a track's menus, faders, comments and freeze state. Each works on the track under the VoiceOver cursor, in the Mix window unless the control is only in the Edit window, as in the JXA.
+/// Inspector commands for a track's menus, faders, comments and freeze state. Each works on the track under the VoiceOver cursor, in the Mix window unless the control is only in the Edit window, as in the JXA.
 enum InspectorControls {
     @MainActor
-    static var macros: [Macro] { [
+    static var commands: [Command] { [
         menu("inspector.speakSelectAutomationMode", "Speak/Select Automation Mode", key: "A", .mix, .automationMode),
         menu("inspector.speakSelectGroup", "Speak/Select Group", key: "G", .mix, .group),
         menu("inspector.speakSelectTrackInput", "Speak/Select Track Input", key: "I", .mix, .input),
@@ -38,9 +38,9 @@ enum InspectorControls {
 
     /// Single press speaks the control's `spokenText`. Double press presses the control in `opening` (the same control by default), which opens its Pro Tools menu; VoiceOver reads the menu, so there is no done sound, as in the JXA.
     @MainActor
-    static func menu(_ id: MacroID, _ name: String, key: String, _ window: ProToolsApp.TrackWindow, _ control: TrackStrip.Control, opening: Place? = nil) -> Macro {
+    static func menu(_ id: CommandID, _ name: String, key: String, _ window: ProToolsApp.TrackWindow, _ control: TrackStrip.Control, opening: Place? = nil) -> Command {
         let open = opening ?? (window, control)
-        return Macro(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .none, single: { _ in
+        return Command(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .none, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor(in: window)
             try await VoiceOver.say(readout(control, of: track))
         }, double: { _ in
@@ -72,8 +72,8 @@ enum InspectorControls {
 
     /// Speak And Select Track/Show Right-Click Menu: single press presses the track name button, which selects the track, and says so; double press opens the track name's context menu. No done sound, as in the JXA.
     @MainActor
-    static var selectTrack: Macro {
-        Macro("inspector.speakAndSelectTrackShowRightClickMenu", "Speak And Select Track/Show Right-Click Menu", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("T")], doneSound: .none, single: { _ in
+    static var selectTrack: Command {
+        Command("inspector.speakAndSelectTrackShowRightClickMenu", "Speak And Select Track/Show Right-Click Menu", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("T")], doneSound: .none, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             let name = try await selectTrack(track)
             try await VoiceOver.say(name + " selected")
@@ -93,8 +93,8 @@ enum InspectorControls {
 
     /// Speak/Edit Comments: single press speaks the comment or "No Comment"; double press clicks the comments field so it can be typed into, then plays the done sound, as in the JXA.
     @MainActor
-    static var comments: Macro {
-        Macro("inspector.speakEditComments", "Speak/Edit Comments", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("C")], doneSound: .afterDouble, single: { _ in
+    static var comments: Command {
+        Command("inspector.speakEditComments", "Speak/Edit Comments", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("C")], doneSound: .afterDouble, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(readout(.comments, of: track))
         }, double: { _ in
@@ -108,10 +108,10 @@ enum InspectorControls {
     /// Freezing renders the track, which can take a while, so the wait has no short limit. Pro Tools may not answer Accessibility while it works.
     static let freezeTimeout: Duration = .seconds(600)
 
-    /// Speak/Toggle Freeze Status: single press speaks the freeze button's name, such as "Not Frozen". Double press presses it, plays the done sound, then plays the progress sound until the name changes and speaks the new name. The JXA waited without a limit and played Pop every 0.1 s; this plays it once a second, like Unsolo All, and gives up after `freezeTimeout`, because every other macro waits in the queue meanwhile.
+    /// Speak/Toggle Freeze Status: single press speaks the freeze button's name, such as "Not Frozen". Double press presses it, plays the done sound, then plays the progress sound until the name changes and speaks the new name. The JXA waited without a limit and played Pop every 0.1 s; this plays it once a second, like Unsolo All, and gives up after `freezeTimeout`, because every other command waits in the queue meanwhile.
     @MainActor
-    static var freeze: Macro {
-        Macro("inspector.speakToggleFreezeStatus", "Speak/Toggle Freeze Status", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("F")], doneSound: .none, single: { _ in
+    static var freeze: Command {
+        Command("inspector.speakToggleFreezeStatus", "Speak/Toggle Freeze Status", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("F")], doneSound: .none, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor(in: .edit)
             try await VoiceOver.say(readout(.freeze, of: track))
         }, double: { _ in
@@ -149,21 +149,21 @@ enum InspectorControls {
 
     // MARK: Faders and pan
 
-    /// Speak/Reset macros for one slider: single press speaks its value; double press clicks it, which resets it in Pro Tools (unity gain, peak hold cleared), speaks the new value and plays the done sound, as in the JXA.
+    /// Speak/Reset commands for one slider: single press speaks its value; double press clicks it, which resets it in Pro Tools (unity gain, peak hold cleared), speaks the new value and plays the done sound, as in the JXA.
     @MainActor
-    static func fader(_ id: MacroID, _ name: String, key: String, _ fader: TrackStrip.Fader) -> Macro {
+    static func fader(_ id: CommandID, _ name: String, key: String, _ fader: TrackStrip.Fader) -> Command {
         sliderReset(id, name, key: key, .value) { track in [try track.fader(fader)] }
     }
 
     /// Speak/Reset Pan: every pan knob of the track, "Centered. " on a mono track and two values on a stereo one.
     @MainActor
-    static var resetPan: Macro {
+    static var resetPan: Command {
         sliderReset("inspector.speakResetPan", "Speak/Reset Pan", key: "N", .panList) { track in try track.panKnobs() }
     }
 
     /// Speak/Reset Instrument Pan: the MIDI pan of an instrument track, spoken without the ". " that Speak/Reset Pan puts after each knob, as in the JXA.
     @MainActor
-    static var resetInstrumentPan: Macro {
+    static var resetInstrumentPan: Command {
         sliderReset("inspector.speakResetInstrumentPan", "Speak/Reset Instrument Pan", key: "Opt+N", .value) { track in [try track.pan(.instrument)] }
     }
 
@@ -177,9 +177,9 @@ enum InspectorControls {
 
     /// The shared Speak/Reset body.
     @MainActor
-    private static func sliderReset(_ id: MacroID, _ name: String, key: String, _ readout: SliderReadout, sliders: @escaping @AccessibilityActor @Sendable (TrackStrip) throws -> [AXElement]) -> Macro {
+    private static func sliderReset(_ id: CommandID, _ name: String, key: String, _ readout: SliderReadout, sliders: @escaping @AccessibilityActor @Sendable (TrackStrip) throws -> [AXElement]) -> Command {
         let isPan = readout == .panList
-        return Macro(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
+        return Command(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             let values = try await values(of: sliders(track))
             try await VoiceOver.say(isPan ? panList(values.map { $0.orIfEmpty("No Pan") }) : values.joined())
@@ -213,8 +213,8 @@ enum InspectorControls {
 
     /// Increase and Decrease Volume and Instrument Volume: moves the fader one step and speaks its value, as in the JXA.
     @MainActor
-    static func volumeStep(_ id: MacroID, _ name: String, key: String, _ fader: TrackStrip.Fader, _ step: SliderStep) -> Macro {
-        Macro(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
+    static func volumeStep(_ id: CommandID, _ name: String, key: String, _ fader: TrackStrip.Fader, _ step: SliderStep) -> Command {
+        Command(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(move(fader, step, on: track))
         }

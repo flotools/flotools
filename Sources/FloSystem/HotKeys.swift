@@ -34,7 +34,7 @@ public enum KeyPhase: Sendable, Equatable {
 }
 
 /// Registers global hotkeys with Carbon `RegisterEventHotKey`, like Keyboard Maestro does.
-/// The set of registered keys changes with the front window, so a key only gets taken from other apps while a macro is active for it.
+/// The set of registered keys changes with the front window, so a key only gets taken from other apps while a command is active for it.
 /// The app owns one instance for its lifetime; `stop()` removes every registration and the event handler.
 @MainActor
 public final class HotKeyCenter {
@@ -143,18 +143,18 @@ public enum Keyboard {
             queue.async { done.resume(returning: pressNow(combo, pid: pid)) }
         }
         guard posted else { throw FloError.couldNot("send a key to Pro Tools") }
-        // Only keys a macro sends are logged here; `post`, which also passes on keys no macro matched, logs none.
+        // Only keys a command sends are logged here; `post`, which also passes on keys no command matched, logs none.
         Log.info(.hotkeys, "sent \(combo)")
     }
 
-    /// Presses and releases `combo` in app `pid` without waiting, for the hotkey callback, which has no caller to report to. A failure is logged without the key, since this also passes on keys no macro matched.
+    /// Presses and releases `combo` in app `pid` without waiting, for the hotkey callback, which has no caller to report to. A failure is logged without the key, since this also passes on keys no command matched.
     public static func post(_ combo: KeyCombo, pid: pid_t) {
         queue.async {
             if !pressNow(combo, pid: pid) { Log.error(.hotkeys, "could not make keyboard events to pass a key on") }
         }
     }
 
-    /// Waits until the user lets go of Command, Shift, Option and Control, like Keyboard Maestro's Pause Until modifiers are up, so a macro's own clicks do not carry the hotkey's modifiers. Throws `FloError.couldNot` after `limit`.
+    /// Waits until the user lets go of Command, Shift, Option and Control, like Keyboard Maestro's Pause Until modifiers are up, so a command's own clicks do not carry the hotkey's modifiers. Throws `FloError.couldNot` after `limit`.
     public static func waitForModifiersReleased(within limit: Duration = .seconds(10)) async throws {
         let held: CGEventFlags = [.maskCommand, .maskShift, .maskAlternate, .maskControl]
         let start = ContinuousClock.now

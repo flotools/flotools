@@ -2,30 +2,30 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// Inspector macros for the level and gain reduction meters of the track under the VoiceOver cursor. A double press starts or stops a watch (`Monitors`) that follows the VoiceOver cursor from track to track and reports meter changes until stopped.
+/// Inspector commands for the level and gain reduction meters of the track under the VoiceOver cursor. A double press starts or stops a watch (`Watches`) that follows the VoiceOver cursor from track to track and reports meter changes until stopped.
 enum InspectorMeters {
     /// `deepest` is shared by the gain reduction watch, which records the deepest reading, and Speak Gain Reduction Meter Maximum Value, which reports it. The KM version kept it in the FTGRMax variable.
     @MainActor
-    static func macros(_ deepest: GainReductionPeak) -> [Macro] {
+    static func commands(_ deepest: GainReductionPeak) -> [Command] {
         [level, gainReduction(deepest), speakGainReductionMaximum(deepest)]
     }
 
-    static let levelMacro: MacroID = "inspector.speakLevelMeterToggleLevelMeterMonitor"
-    static let gainReductionMacro: MacroID = "inspector.speakGainReductionMeterToggleGainReductionMeterMonitor"
+    static let levelCommand: CommandID = "inspector.speakLevelMeterToggleLevelMeterMonitor"
+    static let gainReductionCommand: CommandID = "inspector.speakGainReductionMeterToggleGainReductionMeterMonitor"
 
     /// Stops both meter watches, like the KM Deactivate Level and Gain Reduction Monitors macro when the Pro Tools window changes.
     @MainActor
-    static func stopWatches(in engine: MacroEngine) {
-        engine.monitors.stop(levelMacro)
-        engine.monitors.stop(gainReductionMacro)
+    static func stopWatches(in engine: Engine) {
+        engine.monitors.stop(levelCommand)
+        engine.monitors.stop(gainReductionCommand)
     }
 
     // MARK: Level meter
 
     /// Speak Level Meter, Toggle Level Meter Monitor: single press speaks the level or "No Signal"; double press starts or stops a watch that speaks each new level.
     @MainActor
-    static var level: Macro {
-        Macro(levelMacro, "Speak Level Meter, Toggle Level Meter Monitor", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("L")], single: { _ in
+    static var level: Command {
+        Command(levelCommand, "Speak Level Meter, Toggle Level Meter Monitor", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("L")], single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(reading(.level, of: track).orIfEmpty("No Signal"))
         }, double: { run in
@@ -42,8 +42,8 @@ enum InspectorMeters {
 
     /// Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor: single press speaks the gain reduction; double press starts or stops a watch that plays the progress sound on each change and records the deepest reduction.
     @MainActor
-    static func gainReduction(_ deepest: GainReductionPeak) -> Macro {
-        Macro(gainReductionMacro, "Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(";")], single: { _ in
+    static func gainReduction(_ deepest: GainReductionPeak) -> Command {
+        Command(gainReductionCommand, "Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(";")], single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(reading(.gainReduction, of: track))
         }, double: { run in
@@ -60,18 +60,18 @@ enum InspectorMeters {
 
     /// Speak Gain Reduction Meter Maximum Value: speaks the deepest reduction since the watch started or since the last time this was spoken, then starts over from 0, as in the JXA.
     @MainActor
-    static func speakGainReductionMaximum(_ deepest: GainReductionPeak) -> Macro {
-        Macro("inspector.speakGainReductionMeterMaximumValue", "Speak Gain Reduction Meter Maximum Value", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Shift+;")]) { _ in
+    static func speakGainReductionMaximum(_ deepest: GainReductionPeak) -> Command {
+        Command("inspector.speakGainReductionMeterMaximumValue", "Speak Gain Reduction Meter Maximum Value", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Shift+;")]) { _ in
             try await VoiceOver.say(String(deepest.take()))
         }
     }
 
     // MARK: Watching
 
-    /// Starts the watch for the run's macro, or stops it if it runs. Says `started` when it starts; the watch says `stopped` when it ends.
+    /// Starts the watch for the run's command, or stops it if it runs. Says `started` when it starts; the watch says `stopped` when it ends.
     @MainActor
-    private static func toggleWatch(_ run: MacroRun, started: String, stopped: String, _ body: @escaping @Sendable () async -> Void) {
-        let isRunning = run.engine.monitors.toggle(run.macro.id) {
+    private static func toggleWatch(_ run: CommandRun, started: String, stopped: String, _ body: @escaping @Sendable () async -> Void) {
+        let isRunning = run.engine.monitors.toggle(run.command.id) {
             await body()
             await VoiceOver.sayOrLog(stopped)
         }
@@ -105,7 +105,7 @@ enum InspectorMeters {
                 track = nil
                 last = nil
             }
-            try? await Task.sleep(for: Monitors.pollInterval)
+            try? await Task.sleep(for: Watches.pollInterval)
         }
     }
 

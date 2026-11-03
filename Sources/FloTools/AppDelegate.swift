@@ -1,5 +1,5 @@
 import AppKit
-import FloMacros
+import FloFeatures
 import FloEngine
 import FloSystem
 
@@ -9,14 +9,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     /// Read once here and passed down; the preferences panel is the only writer.
     private let preferences = PreferencesStore()
     /// The app owns the input and context sources and hands them to the engine, which starts and stops them.
-    /// Shared by the macros and `lifecycle`, which resets it when Pro Tools quits.
+    /// Shared by the commands and `lifecycle`, which resets it when Pro Tools quits.
     private let session = SessionState()
-    private lazy var engine: MacroEngine = FloMacros.makeEngine(session: session, hotKeys: HotKeyCenter(), contextMonitor: ContextMonitor(), openPreferences: { [weak self] in
+    private lazy var engine: Engine = FloFeatures.makeEngine(session: session, hotKeys: HotKeyCenter(), contextMonitor: ContextMonitor(), openPreferences: { [weak self] in
         self?.preferencesPanel.show()
     })
     private lazy var preferencesPanel: PreferencesPanel = PreferencesPanel(store: preferences) { [weak self] preferences in
         guard let self else { return }
-        FloMacros.apply(preferences, to: self.engine)
+        FloFeatures.apply(preferences, to: self.engine)
     }
     private lazy var lifecycle = Lifecycle(engine: engine, session: session, workspace: WorkspaceEvents()) { [weak self] in
         self?.preferences.current ?? Preferences()
@@ -84,20 +84,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         menu.addItem(.separator())
 
-        let macroItems = engine.statusMenuMacros(in: engine.context)
-        for macro in macroItems {
-            let item = NSMenuItem(title: macro.name, action: #selector(runMacro), keyEquivalent: "")
-            item.representedObject = macro.id
+        let commandItems = engine.statusMenuCommands(in: engine.context)
+        for command in commandItems {
+            let item = NSMenuItem(title: command.name, action: #selector(runCommand), keyEquivalent: "")
+            item.representedObject = command.id
             menu.addItem(item)
         }
-        if !macroItems.isEmpty { menu.addItem(.separator()) }
+        if !commandItems.isEmpty { menu.addItem(.separator()) }
 
         if Accessibility.isTrusted() {
             menu.addItem(disabled("Accessibility access granted"))
         } else {
             menu.addItem(NSMenuItem(title: "Grant Accessibility Access…", action: #selector(grantAccessibility), keyEquivalent: ""))
         }
-        menu.addItem(disabled("\(engine.macros.count) macros"))
+        menu.addItem(disabled("\(engine.commands.count) commands"))
         menu.addItem(NSMenuItem(title: "Preferences…", action: #selector(showPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem(title: Log.isRecording ? "Turn Off Log" : "Turn On Log", action: #selector(toggleLog), keyEquivalent: ""))
         menu.addItem(.separator())
@@ -118,8 +118,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         VoiceOver.sayOrLog(engine.isEnabled ? "Flo Tools enabled." : "Flo Tools disabled.")
     }
 
-    @objc private func runMacro(_ sender: NSMenuItem) {
-        guard let id = sender.representedObject as? MacroID else { return }
+    @objc private func runCommand(_ sender: NSMenuItem) {
+        guard let id = sender.representedObject as? CommandID else { return }
         engine.run(id)
     }
 

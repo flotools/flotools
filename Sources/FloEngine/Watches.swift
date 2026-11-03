@@ -1,22 +1,22 @@
 import FloSystem
 
-/// Watches started by macros that keep running after the macro returns, such as the level meter monitor. They run outside the macro queue, so other macros keep working while one watches. Each is keyed by the macro that starts and stops it, so one macro has at most one watch.
+/// Watches started by commands that keep running after the command returns, such as the level meter monitor. They run outside the command queue, so other commands keep working while one watches. Each is keyed by the command that starts and stops it, so one command has at most one watch.
 ///
-/// Owned by the main actor. A watch ends when its macro toggles it off, when its body returns, or with `stopAll()`, which the engine calls when it cancels all macros or stops. Ending a watch cancels its task, so the body hears about it as `CancellationError` and can say goodbye.
+/// Owned by the main actor. A watch ends when its command toggles it off, when its body returns, or with `stopAll()`, which the engine calls when it cancels all commands or stops. Ending a watch cancels its task, so the body hears about it as `CancellationError` and can say goodbye.
 @MainActor
-public final class Monitors {
+public final class Watches {
     public typealias Body = @Sendable () async -> Void
 
-    private var tasks: [MacroID: (number: Int, task: Task<Void, Never>)] = [:]
+    private var tasks: [CommandID: (number: Int, task: Task<Void, Never>)] = [:]
     private var count = 0
 
     public init() {}
 
-    public func isRunning(_ id: MacroID) -> Bool { tasks[id] != nil }
+    public func isRunning(_ id: CommandID) -> Bool { tasks[id] != nil }
 
     /// Stops the watch of `id` if it runs, otherwise starts `body` as that watch. Returns whether a watch runs now.
     @discardableResult
-    public func toggle(_ id: MacroID, _ body: @escaping Body) -> Bool {
+    public func toggle(_ id: CommandID, _ body: @escaping Body) -> Bool {
         if isRunning(id) {
             stop(id)
             return false
@@ -35,7 +35,7 @@ public final class Monitors {
     }
 
     /// Stops the watch of `id`, if it runs.
-    public func stop(_ id: MacroID) {
+    public func stop(_ id: CommandID) {
         guard let watch = tasks.removeValue(forKey: id) else { return }
         Log.info(.engine, "\(id) watch stopped")
         watch.task.cancel()
@@ -54,7 +54,7 @@ public final class Monitors {
     }
 }
 
-extension Monitors {
+extension Watches {
     /// How often a watch reads Pro Tools, as the JXA monitors waited 0.1 s between reads. Its gain reduction monitor did not wait at all.
     public nonisolated static let pollInterval: Duration = .milliseconds(100)
 }

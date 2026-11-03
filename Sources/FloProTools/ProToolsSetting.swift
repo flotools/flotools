@@ -8,7 +8,7 @@ public enum ProToolsSetting: Sendable, Equatable {
     case menuItem(menu: String, NameMatch)
 }
 
-/// The element that shows and switches a `ProToolsSetting`, found once per macro step. Everything here messages Pro Tools, so it runs on `AccessibilityActor`.
+/// The element that shows and switches a `ProToolsSetting`, found once per command step. Everything here messages Pro Tools, so it runs on `AccessibilityActor`.
 @AccessibilityActor
 public struct SettingControl {
     public let setting: ProToolsSetting

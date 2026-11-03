@@ -6,20 +6,20 @@ import FloSystem
 ///
 /// The KM version kept the column in the variable FTEventIndex, and the Report macro ran one of six Monitor macros, each polling while FTEventIndex still had its number. Here one watch follows the column.
 enum MidiEvents {
-    /// The one watch, keyed by this ID because both column macros start it.
-    static let watch: MacroID = "floTools.report"
+    /// The one watch, keyed by this ID because both column commands start it.
+    static let watch: CommandID = "floTools.report"
 
     @MainActor
-    static func macros(_ cursor: EventColumnCursor) -> [Macro] {
+    static func commands(_ cursor: EventColumnCursor) -> [Command] {
         [
-            Macro("floTools.nextColumn", "Next Column", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+]")]) { run in
+            Command("floTools.nextColumn", "Next Column", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+]")]) { run in
                 guard let column = await cursor.next() else {
                     try await VoiceOver.say("End")
                     return
                 }
                 await startWatch(column, in: run.engine)
             },
-            Macro("floTools.previousColumn", "Previous Column", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+[")]) { run in
+            Command("floTools.previousColumn", "Previous Column", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+[")]) { run in
                 guard let column = await cursor.previous() else {
                     await run.engine.monitors.stop(watch)
                     try await VoiceOver.say("No report")
@@ -27,7 +27,7 @@ enum MidiEvents {
                 }
                 await startWatch(column, in: run.engine)
             },
-            Macro("floTools.editEvent", "Edit Event", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Cmd+Return")]) { _ in
+            Command("floTools.editEvent", "Edit Event", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Cmd+Return")]) { _ in
                 // Before the first column there is nothing to edit, and the JXA said nothing.
                 guard let column = await cursor.column else { return }
                 _ = try await ProToolsApp.running().openForTyping(column.control)
@@ -80,7 +80,7 @@ enum MidiEvents {
 
     /// Replaces the watch with one for `column`.
     @MainActor
-    private static func startWatch(_ column: Column, in engine: MacroEngine) {
+    private static func startWatch(_ column: Column, in engine: Engine) {
         engine.monitors.stop(watch)
         engine.monitors.toggle(watch) { await follow(column) }
     }
@@ -116,7 +116,7 @@ enum MidiEvents {
         }
         await VoiceOver.sayOrLog(column.spoken(last))
         while !Task.isCancelled {
-            try? await Task.sleep(for: Monitors.pollInterval)
+            try? await Task.sleep(for: Watches.pollInterval)
             guard !Task.isCancelled else { return }
             let now: String
             do {
@@ -133,7 +133,7 @@ enum MidiEvents {
     }
 }
 
-/// Which event column the column macros are on: before the first (-1, "No report"), or one of the six. Starts on the first, as the KM variable did once Cleanup Variables deleted it.
+/// Which event column the column commands are on: before the first (-1, "No report"), or one of the six. Starts on the first, as the KM variable did once Cleanup Variables deleted it.
 actor EventColumnCursor {
     private var index = 0
 

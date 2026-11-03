@@ -3,7 +3,7 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// The track lists: each shows the tracks in one state in a chooser, and changes the chosen ones, for example List Muted Tracks unmutes the chosen tracks. "List Tracks with Flo Tools" (Ctrl+Opt+Shift+L) offers them in a chooser, as the KM version showed them in a palette. In the KM version each list was a macro without a hotkey; here they are only the chooser's choices.
+/// The track lists: each shows the tracks in one state in a chooser, and changes the chosen ones, for example List Muted Tracks unmutes the chosen tracks. "List Tracks with Flo Tools" (Ctrl+Opt+Shift+L) offers them in a chooser, as the KM version showed them in a palette. In the KM version each list was a command without a hotkey; here they are only the chooser's choices.
 enum TrackLists {
     /// One list, named as its KM macro was. The words are the JXA's.
     struct Listing: Sendable {
@@ -37,12 +37,12 @@ enum TrackLists {
     ]
 
     @MainActor
-    static var macros: [Macro] { [chooseList] }
+    static var commands: [Command] { [chooseList] }
 
     /// The KM version spoke "Choose what to list.", paused 1 s and showed a palette. The chooser's prompt says the same and VoiceOver reads it when the window opens, so there is no separate speech or pause.
     @MainActor
-    private static var chooseList: Macro {
-        Macro("floTools.listTracksWithFloTools", "List Tracks with Flo Tools", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Opt+Shift+L")]) { _ in
+    private static var chooseList: Command {
+        Command("floTools.listTracksWithFloTools", "List Tracks with Flo Tools", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Opt+Shift+L")]) { _ in
             let request = Chooser.Request(title: "List Tracks with Flo Tools", prompt: "Choose what to list.", items: listings.map(\.name), okTitle: "List", allowsMultipleSelection: false)
             // The chosen list opens a second chooser; holding the focus keeps it from going back to Pro Tools in between.
             try await BorrowedFocus.holding {

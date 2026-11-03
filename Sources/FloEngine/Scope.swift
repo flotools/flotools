@@ -1,6 +1,6 @@
 import FloProTools
 
-/// Where a macro's keys work: in any Pro Tools window, or only in windows of some kinds. Every key is taken only while Pro Tools is in front.
+/// Where a command's keys work: in any Pro Tools window, or only in windows of some kinds. Every key is taken only while Pro Tools is in front.
 public enum Scope: Sendable, Equatable {
     /// Any Pro Tools window, also while no window or no title is known.
     case anyProToolsWindow
@@ -44,7 +44,7 @@ public struct Mode: Sendable, Equatable {
     }
 }
 
-/// The mode a macro's keys need.
+/// The mode a command's keys need.
 public enum ModeCondition: Sendable, Equatable {
     case any
     case inspectorOn

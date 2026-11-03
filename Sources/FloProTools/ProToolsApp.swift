@@ -7,12 +7,12 @@ public struct ProToolsApp: Sendable {
 
     public let pid: pid_t
 
-    /// The running Pro Tools, or `FloError.notFound("Pro Tools")`. Steps of one macro run use the same instance, so keys and clicks go to one process.
+    /// The running Pro Tools, or `FloError.notFound("Pro Tools")`. Steps of one command run use the same instance, so keys and clicks go to one process.
     public static func running() throws -> ProToolsApp {
         ProToolsApp(pid: try runningApplication.required("Pro Tools").processIdentifier)
     }
 
-    /// Whether this Pro Tools process is still running, for watches that outlive a macro run.
+    /// Whether this Pro Tools process is still running, for watches that outlive a command run.
     public var isRunning: Bool {
         NSRunningApplication(processIdentifier: pid).map { !$0.isTerminated } ?? false
     }

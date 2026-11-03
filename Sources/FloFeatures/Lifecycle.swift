@@ -17,7 +17,7 @@ public final class Lifecycle {
     /// Spoken by the system voice, as in the KM Check for Automatic Update macro.
     static let cannotControlVoiceOver = "Alert! Flo Tools cannot control VoiceOver. Please allow VoiceOver to be controlled with AppleScript in Voiceover Utility."
 
-    private let engine: MacroEngine
+    private let engine: Engine
     private let session: SessionState
     private let workspace: WorkspaceEvents
     private let preferences: @MainActor () -> Preferences
@@ -26,7 +26,7 @@ public final class Lifecycle {
     /// Numbers the checks for a still open Keyboard Shortcuts window, so only the latest result counts.
     private var shortcutsCheck = 0
 
-    public init(engine: MacroEngine, session: SessionState, workspace: WorkspaceEvents, preferences: @escaping @MainActor () -> Preferences) {
+    public init(engine: Engine, session: SessionState, workspace: WorkspaceEvents, preferences: @escaping @MainActor () -> Preferences) {
         self.engine = engine
         self.session = session
         self.workspace = workspace
@@ -49,8 +49,8 @@ public final class Lifecycle {
 
     /// Applies what the preferences control and the start state, like KM Refresh Preference and the Inspector step of Check for Automatic Update. At Flo Tools start and Pro Tools launch.
     private func applyPreferences() {
-        FloMacros.apply(preferences(), to: engine)
-        FloMacros.setStartState(preferences(), in: engine)
+        FloFeatures.apply(preferences(), to: engine)
+        FloFeatures.setStartState(preferences(), in: engine)
     }
 
     /// Speaks `text` and, if VoiceOver is on but does not take it, warns through the system voice that Flo Tools cannot control VoiceOver. An empty text only checks, as the KM version did with `vo.output("")`.

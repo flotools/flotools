@@ -2,7 +2,7 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// Flo Tools macros that speak and switch an on/off Pro Tools setting: edit modes, MIDI and cursor tool buttons of the Edit window, and checked items of the Options and View menus. One table, three behaviors.
+/// Flo Tools commands that speak and switch an on/off Pro Tools setting: edit modes, MIDI and cursor tool buttons of the Edit window, and checked items of the Options and View menus. One table, three behaviors.
 enum SettingToggles {
     /// What is spoken for each state, as in the JXA.
     struct Wording: Sendable {
@@ -11,7 +11,7 @@ enum SettingToggles {
     }
 
     @MainActor
-    static var macros: [Macro] { [
+    static var commands: [Command] { [
         button("floTools.speakSelectShuffleMode", "Speak/Select Shuffle Mode", key: "F1", .editMode, "EditModeShuffle", Wording(on: "Shuffle Mode, On", off: "Shuffle Mode, Off")),
         button("floTools.speakSelectSlipMode", "Speak/Select Slip Mode", key: "F2", .editMode, "EditModeSlip", Wording(on: "Slip Mode, On", off: "Slip Mode, Off")),
         button("floTools.speakSelectSpotMode", "Speak/Select Spot Mode", key: "F3", .editMode, "EditModeSpot", Wording(on: "Spot Mode, On", off: "Spot Mode, Off")),
@@ -44,19 +44,19 @@ enum SettingToggles {
     }
 
     @MainActor
-    private static func button(_ id: MacroID, _ name: String, key: String, _ cluster: Cluster, _ button: String, _ wording: Wording) -> Macro {
+    private static func button(_ id: CommandID, _ name: String, key: String, _ cluster: Cluster, _ button: String, _ wording: Wording) -> Command {
         toggle(id, name, key: key, .editWindowButton(cluster: cluster.rawValue, .is(button))) { control in try wording.text(control.isOn) }
     }
 
     @MainActor
-    private static func menuItem(_ id: MacroID, _ name: String, key: String, _ menu: String, _ item: String, _ wording: Wording) -> Macro {
+    private static func menuItem(_ id: CommandID, _ name: String, key: String, _ menu: String, _ item: String, _ wording: Wording) -> Command {
         toggle(id, name, key: key, .menuItem(menu: menu, .is(item))) { control in try wording.text(control.isOn) }
     }
 
     /// Single press speaks the setting; double press plays the done sound, switches it and speaks the new state. The JXA waited a fixed 0.1 s before reading the new state of a button and spoke nothing after choosing a menu item; this waits until the state changes, and speaks menu items too, so every double press confirms what it did.
     @MainActor
-    private static func toggle(_ id: MacroID, _ name: String, key: String, _ setting: ProToolsSetting, spoken: @escaping @Sendable @AccessibilityActor (SettingControl) throws -> String) -> Macro {
-        Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
+    private static func toggle(_ id: CommandID, _ name: String, key: String, _ setting: ProToolsSetting, spoken: @escaping @Sendable @AccessibilityActor (SettingControl) throws -> String) -> Command {
+        Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
             let control = try await ProToolsApp.running().control(setting)
             try await VoiceOver.say(spoken(control))
         }, double: { _ in
@@ -79,18 +79,18 @@ enum SettingToggles {
 
     /// The hotkey is Pro Tools' own shortcut for the Options menu item, so it goes on to Pro Tools, which switches the setting, and the new state is spoken if the guard allows it, as in the KM version. The wait is longer than `ProToolsUpdate.timeout` because the key travels through the event system first.
     @MainActor
-    private static func link(_ id: MacroID, _ name: String, key: String, _ item: String, _ wording: Wording) -> Macro {
+    private static func link(_ id: CommandID, _ name: String, key: String, _ item: String, _ wording: Wording) -> Command {
         let setting = ProToolsSetting.menuItem(menu: "Options", .is(item))
-        return Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
+        return Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
             try await KeyAnnouncements.announceChange(run, when: .outsideListedDialogsAndText, within: .milliseconds(500), find: { try ProToolsApp.running().control(setting) }, read: { try wording.text($0.isOn) })
         }
     }
 
     /// Toggle Input Monitor (Opt+K): chooses Track > Set Record Tracks to Input Only or Auto Input, whichever Pro Tools offers, and speaks the mode it switched to. The item names the other mode, so after the switch it names the mode that was left.
     @MainActor
-    static var toggleInputMonitor: Macro {
+    static var toggleInputMonitor: Command {
         let setting = ProToolsSetting.menuItem(menu: "Track", .contains("Set Record Tracks to"))
-        return Macro("floTools.toggleInputMonitor", "Toggle Input Monitor", scope: .anyProToolsWindow, triggers: [.key("Opt+K")]) { _ in
+        return Command("floTools.toggleInputMonitor", "Toggle Input Monitor", scope: .anyProToolsWindow, triggers: [.key("Opt+K")]) { _ in
             let control = try await ProToolsApp.running().control(setting)
             guard try await control.isEnabled else {
                 try await VoiceOver.say("Set Record Tracks to is Dimmed")

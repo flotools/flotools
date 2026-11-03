@@ -7,7 +7,7 @@ import FloSystem
 /// No hardware identifiers, serial numbers or user name.
 @MainActor
 enum DiagnosticHeader {
-    static func text(engine: MacroEngine, preferences: Preferences) -> String {
+    static func text(engine: Engine, preferences: Preferences) -> String {
         let info = Bundle.main.infoDictionary ?? [:]
         let version = info["CFBundleShortVersionString"] as? String ?? "?"
         let build = info["CFBundleVersion"] as? String ?? "?"

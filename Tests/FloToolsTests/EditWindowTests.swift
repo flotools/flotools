@@ -2,7 +2,7 @@ import CoreGraphics
 import FloSystem
 import Foundation
 import Testing
-@testable import FloMacros
+@testable import FloFeatures
 @testable import FloProTools
 
 @Suite struct MidiEventTests {

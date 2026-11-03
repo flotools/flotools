@@ -18,7 +18,7 @@ extension ProToolsApp {
         return closed
     }
 
-    /// Where the table is on screen, for macros that put the mouse on its edge.
+    /// Where the table is on screen, for commands that put the mouse on its edge.
     public enum Table: Sendable {
         /// The Edit window's clip list.
         case editClips

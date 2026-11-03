@@ -6,9 +6,9 @@ import FloSystem
 /// The KM version's beta clip drag: Mark Clip for Drag remembers the clip under the VoiceOver cursor and Option-clicks it; Drag Clip, with the VoiceOver cursor on a track name in the Edit window, Control-drags the marked clip to the right end of that track, and checks the edit selection to tell whether it worked. Mouse steps and modifiers are the KM version's.
 enum ClipDrag {
     @MainActor
-    static func macros(_ mark: ClipDragMark) -> [Macro] {
+    static func commands(_ mark: ClipDragMark) -> [Command] {
         [
-            Macro("floTools.betaMarkClipForDrag", "Beta: Mark Clip for Drag", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+,")]) { _ in
+            Command("floTools.betaMarkClipForDrag", "Beta: Mark Clip for Drag", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+,")]) { _ in
                 let point = grabPoint(of: try await VoiceOver.cursorBounds())
                 await mark.set(point)
                 try await VoiceOver.say("Marked for drag.")
@@ -17,7 +17,7 @@ enum ClipDrag {
                 defer { Mouse.releaseButton(at: point, modifiers: .maskAlternate) }
                 try await Keyboard.waitForModifiersReleased()
             },
-            Macro("floTools.betaDragClip", "Beta: Drag Clip", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+.")]) { _ in
+            Command("floTools.betaDragClip", "Beta: Drag Clip", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+.")]) { _ in
                 try await Keyboard.waitForModifiersReleased()
                 guard let start = await mark.point else { throw FloError.notFound("a clip marked for drag") }
                 await Sound.done.play()

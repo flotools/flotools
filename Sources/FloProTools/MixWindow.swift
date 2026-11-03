@@ -80,7 +80,7 @@ public struct TrackStrip {
 
     // MARK: Toggle buttons
 
-    /// The track buttons that Speak/Toggle macros read and press.
+    /// The track buttons that Speak/Toggle commands read and press.
     public enum Toggle: Sendable {
         case solo, mute, recordEnable, inputMonitor
         /// "MIDI Mute" in the Instrument section of an instrument track.
@@ -248,7 +248,7 @@ public struct TrackStrip {
 
     // MARK: Menus and fields
 
-    /// Pop-up buttons, buttons and fields that macros read and press. Names were checked live on 2026-11-02 (Pro Tools 2025); several end in a line break and the current setting, for example "Audio Input Path selector\n\"no input\"".
+    /// Pop-up buttons, buttons and fields that commands read and press. Names were checked live on 2026-11-02 (Pro Tools 2025); several end in a line break and the current setting, for example "Audio Input Path selector\n\"no input\"".
     public enum Control: Sendable {
         case automationMode, group, input, output, instrumentInput, instrumentOutput, trackName, comments
         /// Edit window only.

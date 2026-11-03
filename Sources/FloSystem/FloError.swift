@@ -1,7 +1,7 @@
-/// The one error model. Core code throws these so the engine can log why a macro stopped and tell the user (`SpokenError` in `FloEngine`).
+/// The one error model. Core code throws these so the engine can log why a command stopped and tell the user (`SpokenError` in `FloEngine`).
 /// Cancellation is Swift's own `CancellationError`, which the engine treats as silent.
 public enum FloError: Error, Equatable, Sendable, CustomStringConvertible {
-    /// Something a macro needs is not there: a window, a track, a button. `what` is a noun phrase, for example "the Mix window".
+    /// Something a command needs is not there: a window, a track, a button. `what` is a noun phrase, for example "the Mix window".
     case notFound(String)
     /// VoiceOver did not take an Apple event: not running, not answering, or not permitted. `reason` says which, for the log.
     case voiceOver(String)
@@ -27,7 +27,7 @@ public enum FloError: Error, Equatable, Sendable, CustomStringConvertible {
 }
 
 extension Optional {
-    /// The value, or `FloError.notFound(what)` when it is missing. For lookups a macro cannot continue without.
+    /// The value, or `FloError.notFound(what)` when it is missing. For lookups a command cannot continue without.
     public func required(_ what: @autoclosure () -> String) throws -> Wrapped {
         guard let self else { throw FloError.notFound(what()) }
         return self

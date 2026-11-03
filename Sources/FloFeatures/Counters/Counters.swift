@@ -2,10 +2,10 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// Flo Tools macros for the Edit window's counters and time values: the main and sub counters, the edit selection, pre- and post-roll, nudge, grid, tempo and the selected MIDI note. They speak a value in words, open it for typing, open its selector menu, or step the grid or nudge value.
+/// Flo Tools commands for the Edit window's counters and time values: the main and sub counters, the edit selection, pre- and post-roll, nudge, grid, tempo and the selected MIDI note. They speak a value in words, open it for typing, open its selector menu, or step the grid or nudge value.
 enum Counters {
     @MainActor
-    static var macros: [Macro] { [
+    static var commands: [Command] { [
         speakEdit("floTools.speakEditMainCounter", "Speak/Edit main counter", key: "Cmd+F4", .mainCounter, .position, label: ". main.", prompts: Prompts(time: "Press Delete, then type Main Counter value", other: "Type main counter value")),
         speakEdit("floTools.speakEditSubCounter", "Speak/Edit Sub Counter", key: "Cmd+F6", .subCounter, .position, label: ". Sub.", prompts: Prompts(time: "Press Delete, then type Sub Counter value", other: "Type sub counter value.")),
         speakEdit("floTools.speakEditSelectionStart", "speak/Edit selection start", key: "Cmd+F1", .selectionStart, .position, label: ". start.", prompts: Prompts(time: "Press delete, then type Start value", other: "Type start value")),
@@ -18,7 +18,7 @@ enum Counters {
         speakEdit("floTools.speakEditPitchForSelectedNote", "Speak/Edit Pitch for Selected Note", key: "Opt+P", .notePitch, .notePitch, label: ". Pitch", prompts: Prompts("Type note pitch")),
         speakEdit("floTools.speakEditAttackVelocityForSelectedNote", "Speak/Edit Attack Velocity for Selected Note", key: "Opt+A", .attackVelocity, .asShown, label: ". Attack", prompts: Prompts("Type attack velocity")),
         speakEdit("floTools.speakEditReleaseVelocityForSelectedNote", "Speak/Edit Release Velocity for Selected Note", key: "Opt+E", .releaseVelocity, .asShown, label: ". Release", prompts: Prompts("Type release velocity")),
-        Macro("floTools.speakGridValue", "Speak Grid Value", scope: .anyProToolsWindow, triggers: [.key("Cmd+F8")]) { _ in
+        Command("floTools.speakGridValue", "Speak Grid Value", scope: .anyProToolsWindow, triggers: [.key("Cmd+F8")]) { _ in
             try await VoiceOver.say(read(.gridValue, .duration) + ". grid.")
         },
         openMenu("floTools.selectMainCounter", "Select main counter", key: "Opt+Cmd+F4", .mainCounterSelector),
@@ -35,7 +35,7 @@ enum Counters {
         step("floTools.decreaseNudgeValueWithQwerty", "Decrease Nudge Value with Qwerty", key: "Opt+Shift+-", sends: "Opt+Shift+-", .nudgeValue, when: .outsideDialogsAndText, label: ". Nudge."),
     ] }
 
-    // MARK: Macros
+    // MARK: Commands
 
     /// What the double press of Speak/Edit says after opening the value for typing: a value in minutes and seconds must be cleared first.
     struct Prompts: Sendable {
@@ -55,8 +55,8 @@ enum Counters {
 
     /// Single press speaks the value in words followed by `label`; double press clicks the field, so typing replaces the value, and says what to type.
     @MainActor
-    private static func speakEdit(_ id: MacroID, _ name: String, key: String, _ control: EditWindowControl, _ format: CounterText.Format, label: String, prompts: Prompts) -> Macro {
-        Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
+    private static func speakEdit(_ id: CommandID, _ name: String, key: String, _ control: EditWindowControl, _ format: CounterText.Format, label: String, prompts: Prompts) -> Command {
+        Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
             try await VoiceOver.say(read(control, format) + label)
         }, double: { _ in
             let value = try await ProToolsApp.running().openForTyping(control)
@@ -65,8 +65,8 @@ enum Counters {
     }
 
     @MainActor
-    private static var speakEditTempo: Macro {
-        Macro("floTools.speakEditTempo", "Speak/Edit Tempo", scope: .anyProToolsWindow, triggers: [.key("Cmd+F11")], single: { _ in
+    private static var speakEditTempo: Command {
+        Command("floTools.speakEditTempo", "Speak/Edit Tempo", scope: .anyProToolsWindow, triggers: [.key("Cmd+F11")], single: { _ in
             let tempo = try await ProToolsApp.running().value(of: .tempo)
             try await VoiceOver.say(tempo.trimmingCharacters(in: .whitespaces) + ": Tempo")
         }, double: { _ in
@@ -77,17 +77,17 @@ enum Counters {
 
     /// Presses a counter selector or a value pop-up button, which opens its menu for VoiceOver to read.
     @MainActor
-    private static func openMenu(_ id: MacroID, _ name: String, key: String, _ control: EditWindowControl) -> Macro {
-        Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { _ in
+    private static func openMenu(_ id: CommandID, _ name: String, key: String, _ control: EditWindowControl) -> Command {
+        Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { _ in
             try await ProToolsApp.running().element(control).pressOpeningMenu()
         }
     }
 
     /// Sends Pro Tools its own key for the next or previous grid or nudge value, then speaks the new value if the guard allows it. The KM grid and Qwerty nudge macros checked for a text field and a dialog; the keypad nudge macros did not.
     @MainActor
-    private static func step(_ id: MacroID, _ name: String, key: String, sends: String, _ control: EditWindowControl, when guarding: AnnouncementGuard, label: String) -> Macro {
+    private static func step(_ id: CommandID, _ name: String, key: String, sends: String, _ control: EditWindowControl, when guarding: AnnouncementGuard, label: String) -> Command {
         let combo = KeyCombo(sends)!
-        return Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
+        return Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
             try await KeyAnnouncements.announceChange(run, sending: combo, when: guarding, find: { try ProToolsApp.running().element(control) }, read: { try $0.value ?? "" }, spoken: { CounterText.spoken($0, as: .duration) + label })
         }
     }

@@ -5,7 +5,7 @@ import FloSystem
 /// Pro Tools shortcuts that Flo Tools passes on to Pro Tools and then announces, because Pro Tools changes nothing VoiceOver reads: selecting playlists, switching track views and heights, and choosing the keyboard focus.
 enum KeyAnnouncements {
     @MainActor
-    static var macros: [Macro] { [
+    static var commands: [Command] { [
         speakSelectedTracks("floTools.speakAndSelectNextPlaylist", "Speak And Select Next Playlist", key: "Shift+Down"),
         speakSelectedTracks("floTools.speakAndSelectPreviousPlaylist", "Speak And Select Previous Playlist", key: "Shift+Up"),
         speakSelectedTracks("floTools.speakAndMoveAhead5Playlists", "Speak And Move Ahead 5 Playlists", key: "Shift+Page Down"),
@@ -25,9 +25,9 @@ enum KeyAnnouncements {
 
     /// Sends the key, or `sends` instead, to Pro Tools and speaks `text` if the guard allows it.
     @MainActor
-    private static func announce(_ id: MacroID, _ name: String, keys: [String], sends: String? = nil, _ text: String, when guarding: AnnouncementGuard) -> Macro {
+    private static func announce(_ id: CommandID, _ name: String, keys: [String], sends: String? = nil, _ text: String, when guarding: AnnouncementGuard) -> Command {
         let replacement = sends.map { KeyCombo($0)! }
-        return Macro(id, name, scope: .anyProToolsWindow, triggers: keys.map { .key($0) }) { run in
+        return Command(id, name, scope: .anyProToolsWindow, triggers: keys.map { .key($0) }) { run in
             if let replacement {
                 try await ProToolsApp.running().keystroke(replacement)
             } else {
@@ -39,8 +39,8 @@ enum KeyAnnouncements {
 
     /// Sends the key, which in Pro Tools selects another playlist on the selected tracks, and speaks the selected tracks from the Mix window's Track List, as the JXA did. The wait is longer than `ProToolsUpdate.timeout` because the passed key travels through the event system first.
     @MainActor
-    private static func speakSelectedTracks(_ id: MacroID, _ name: String, key: String) -> Macro {
-        Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
+    private static func speakSelectedTracks(_ id: CommandID, _ name: String, key: String) -> Command {
+        Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
             try await announceChange(run, when: .outsideListedDialogsAndText, within: .milliseconds(500), find: { try ProToolsApp.running() }, read: selectedTracksText)
         }
     }
@@ -48,7 +48,7 @@ enum KeyAnnouncements {
     /// The shared order of a shortcut whose effect Flo Tools reads back: read the value, pass the run's key on to Pro Tools (or send `replacement`), and if the guard allows it, speak the value once Pro Tools shows a change, or as it is after `limit`.
     /// The reading before the key is only for that wait, so its failure does not keep the key from Pro Tools. After the key, `find` locates the source once and `read` polls it.
     @AccessibilityActor
-    static func announceChange<Source>(_ run: MacroRun, sending replacement: KeyCombo? = nil, when guarding: AnnouncementGuard, within limit: Duration = ProToolsUpdate.timeout, find: @AccessibilityActor () throws -> Source, read: @AccessibilityActor (Source) throws -> String, spoken: (String) -> String = { $0 }) async throws {
+    static func announceChange<Source>(_ run: CommandRun, sending replacement: KeyCombo? = nil, when guarding: AnnouncementGuard, within limit: Duration = ProToolsUpdate.timeout, find: @AccessibilityActor () throws -> Source, read: @AccessibilityActor (Source) throws -> String, spoken: (String) -> String = { $0 }) async throws {
         let before = try? read(find())
         if let replacement {
             try await ProToolsApp.running().keystroke(replacement)

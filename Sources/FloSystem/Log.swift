@@ -14,7 +14,7 @@ public enum LogLevel: String, Sendable {
 ///
 /// Warnings and errors always go to the unified log (subsystem `com.chikim.FloTools`). While the user has turned on the diagnostic log, every entry also goes to a file in `~/Library/Logs/Flo Tools/` that they can send to the developer. See "Diagnostic log" in `AGENTS.md` for what may and may not be logged.
 public enum Log {
-    /// The current macro run. The engine sets it around each run; tasks started by the run inherit it, so every line a run causes carries the same ID.
+    /// The current command run. The engine sets it around each run; tasks started by the run inherit it, so every line a run causes carries the same ID.
     @TaskLocal public static var invocation: String?
 
     /// Set around each poll of a watch, such as the level meter monitor, whose per-step traces at ten polls a second would fill the file's size cap in minutes. Info and above are still written, except the missing-element dumps of `AXElement.required`.

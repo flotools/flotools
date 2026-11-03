@@ -11,7 +11,7 @@ public actor AccessibilityActor {
 ///
 /// System Events terms map to AX like this: `name` is `AXTitle`, `value` is `AXValue`, `groups` are children with role `AXGroup`, `buttons` are `AXButton`, `popUpButtons` are `AXPopUpButton`, `uiElements` are all children.
 ///
-/// Reads return nil only when the element has no such attribute or no value. Every other failure throws `FloError.accessibility`, so a macro never mistakes a busy or closed window for an empty value.
+/// Reads return nil only when the element has no such attribute or no value. Every other failure throws `FloError.accessibility`, so a command never mistakes a busy or closed window for an empty value.
 @AccessibilityActor
 public struct AXElement {
     /// Kept private and actor-isolated: `AXUIElement` is not `Sendable`, and Apple does not document concurrent use.
@@ -44,7 +44,7 @@ public struct AXElement {
             Log.debug(.accessibility, "read \(name): none, AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
             return nil
         case .failure:
-            // Debug, not warning: the thrown error carries the same operation and code, and whoever handles it logs it once, the engine for a macro and the context monitor for its repeating window reads.
+            // Debug, not warning: the thrown error carries the same operation and code, and whoever handles it logs it once, the engine for a command and the context monitor for its repeating window reads.
             Log.debug(.accessibility, "read \(name) failed: AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
             throw FloError.accessibility(operation: "read \(name)", code: result.rawValue)
         }
