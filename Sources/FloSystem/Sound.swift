@@ -22,7 +22,7 @@ public struct ProgressTicker: Sendable {
     private let interval: Duration
     private var lastSound: ContinuousClock.Instant
 
-    public init(every interval: Duration, startingAt start: ContinuousClock.Instant = .now) {
+    public init(every interval: Duration = .seconds(1), startingAt start: ContinuousClock.Instant = .now) {
         self.interval = interval
         self.lastSound = start
     }

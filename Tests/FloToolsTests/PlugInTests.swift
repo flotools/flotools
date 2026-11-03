@@ -6,6 +6,9 @@ import Testing
 @testable import FloSystem
 
 @Suite struct PlugInViewTests {
+    /// The view files the app ships, read where they live in the repository.
+    static let shippedViews = URL(fileURLWithPath: #filePath).deletingLastPathComponent().appending(path: "../../reference/Plug-In Views")
+
     /// The shipped Dyn3 view, as the KM installer put it in the Plug-In Views folder.
     static let dyn3 = """
     {"view":"Default", "click":[-1,-1], "parameters":[
@@ -41,7 +44,7 @@ import Testing
     }
 
     @Test func shippedViewFilesAreReadable() throws {
-        let folder = URL(fileURLWithPath: #filePath).deletingLastPathComponent().appending(path: "../../reference/Plug-In Views")
+        let folder = Self.shippedViews
         for name in ["Dyn3 Compressor Limiter", "EQ3 7-Band", "Channel Strip"] {
             let view = try #require(try PlugInView.load(plugIn: name, view: nil, from: folder))
             #expect(!view.rows.isEmpty)
@@ -59,7 +62,7 @@ import Testing
 
     /// First-launch install: every shipped file lands in a new folder, and a file the user already has is not overwritten.
     @Test func installsShippedViewsWithoutOverwriting() throws {
-        let shipped = URL(fileURLWithPath: #filePath).deletingLastPathComponent().appending(path: "../../reference/Plug-In Views")
+        let shipped = Self.shippedViews
         let temp = FileManager.default.temporaryDirectory.appending(path: "flo-views-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: temp) }
         let folder = temp.appending(path: "Flo Tools/Plug-In Views")

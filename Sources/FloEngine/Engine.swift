@@ -273,21 +273,24 @@ public final class Engine {
         return start(command, origin: .hotKey(combo, phase), context: context, reason: "\(combo) \(phase) in \(context)")
     }
 
-    /// Runs a command from the app, for example a status menu item. Errors are spoken like those of hotkey runs.
-    public func run(_ id: CommandID) {
+    /// The command with `id`, or nil after logging that it is missing. App code names commands by ID, so a missing one is a programming error, not a user's.
+    private func installedCommand(_ id: CommandID) -> Command? {
         guard let command = command(id) else {
             Log.error(.engine, "command \(id) is not installed")
-            return
+            return nil
         }
+        return command
+    }
+
+    /// Runs a command from the app, for example a status menu item. Errors are spoken like those of hotkey runs.
+    public func run(_ id: CommandID) {
+        guard let command = installedCommand(id) else { return }
         _ = start(command, origin: .direct, context: context, reason: "run by the app")
     }
 
     /// Runs a command because `event` happened, if it could run from a hotkey now: Flo Tools is on and not suspended, and the command is on and its scope and mode apply. Checked again when the run reaches the front of the queue, like a hotkey run.
     public func fire(_ id: CommandID, on event: String) {
-        guard let command = command(id) else {
-            Log.error(.engine, "command \(id) is not installed")
-            return
-        }
+        guard let command = installedCommand(id) else { return }
         guard takesKeys, isActive(command, in: context) else {
             Log.info(.engine, "\(event): \(id) is not active in \(context)")
             return

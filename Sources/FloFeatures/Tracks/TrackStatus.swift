@@ -24,17 +24,19 @@ enum TrackStatus {
         }, double: { _ in
             try await deselectAll()
         }),
-        Command("floTools.speakHiddenTracksShowTrackListPopUpMenu", "Speak Hidden Tracks, Show Track List Pop-up Menu", summary: "Single press speaks the hidden tracks; double press opens the Track List menu.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+H")], single: { _ in
-            try await speak(.trackList(.shown, on: false), Wording(none: NoTracks.hidden, heading: "Hidden:"))
-        }, double: { _ in
-            try await ProToolsApp.running().mixWindow().openTrackListMenu()
-        }),
-        Command("floTools.speakShownTracksShowTrackListPopUpMenu", "Speak Shown Tracks, Show Track List Pop-up Menu", summary: "Single press speaks the shown tracks; double press opens the Track List menu.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+W")], single: { _ in
-            try await speak(.trackList(.shown, on: true), Wording(none: NoTracks.shown, heading: "Shown:"))
-        }, double: { _ in
-            try await ProToolsApp.running().mixWindow().openTrackListMenu()
-        }),
+        visibilityCommand("floTools.speakHiddenTracksShowTrackListPopUpMenu", "Speak Hidden Tracks, Show Track List Pop-up Menu", which: "hidden", key: "Opt+Shift+H", shown: false, Wording(none: NoTracks.hidden, heading: "Hidden:")),
+        visibilityCommand("floTools.speakShownTracksShowTrackListPopUpMenu", "Speak Shown Tracks, Show Track List Pop-up Menu", which: "shown", key: "Opt+Shift+W", shown: true, Wording(none: NoTracks.shown, heading: "Shown:")),
     ] }
+
+    /// Speak Hidden Tracks and Speak Shown Tracks: a single press speaks the tracks whose Track List show button is `shown`, a double press opens the Track List menu.
+    @MainActor
+    private static func visibilityCommand(_ id: CommandID, _ name: String, which: String, key: String, shown: Bool, _ wording: Wording) -> Command {
+        Command(id, name, summary: "Single press speaks the \(which) tracks; double press opens the Track List menu.", scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
+            try await speak(.trackList(.shown, on: shown), wording)
+        }, double: { _ in
+            try await ProToolsApp.running().mixWindow().openTrackListMenu()
+        })
+    }
 
     // MARK: Speaking a list of tracks
 
@@ -51,7 +53,7 @@ enum TrackStatus {
     }
 
     static func list(_ names: [String]) -> String {
-        names.map { $0 + ". " }.joined().replacingOccurrences(of: " Track . ", with: ". ")
+        SpokenList.sentences(names).replacingOccurrences(of: " Track . ", with: ". ")
     }
 
     // MARK: Strip flags
@@ -127,7 +129,7 @@ enum TrackStatus {
                 }
                 groupsSuspended = true
             }
-            var progress = ProgressTicker(every: .seconds(1))
+            var progress = ProgressTicker()
             for track in ordered {
                 // A stop request ends the loop between clicks.
                 try Task.checkCancellation()

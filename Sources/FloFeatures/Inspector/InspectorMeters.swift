@@ -105,7 +105,7 @@ enum InspectorMeters {
                 track = nil
                 last = nil
             }
-            try? await Task.sleep(for: Watches.pollInterval)
+            guard await Watches.waitForNextPoll() else { return }
         }
     }
 

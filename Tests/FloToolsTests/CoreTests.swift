@@ -148,6 +148,16 @@ import Testing
 }
 
 @MainActor @Suite struct WatchesTests {
+    /// A cancelled watch makes no further read, whether it was cancelled before or during the wait.
+    @Test func waitForNextPollStopsOnCancellation() async {
+        let before = Task { withUnsafeCurrentTask { $0?.cancel() }; return await Watches.waitForNextPoll() }
+        #expect(await before.value == false)
+        let during = Task { await Watches.waitForNextPoll() }
+        during.cancel()
+        #expect(await during.value == false)
+        #expect(await Watches.waitForNextPoll() == true)
+    }
+
     /// A watch body that reports when it starts and when it ends, and runs until cancelled.
     final class Probe: Sendable {
         let events: AsyncStream<String>
@@ -441,13 +451,11 @@ private actor Flag {
 
     @Test func queuedRunIsDroppedWhenAnotherAppIsInFront() async throws {
         let events = Events()
-        var signalStarted: AsyncStream<Void>.Continuation?
-        let started = AsyncStream<Void> { signalStarted = $0 }
-        var signalFinish: AsyncStream<Void>.Continuation?
-        let finish = AsyncStream<Void> { signalFinish = $0 }
+        let (started, signalStarted) = AsyncStream<Void>.makeStream()
+        let (finish, signalFinish) = AsyncStream<Void>.makeStream()
         let engine = engine([
             Command("test.slow", "Slow", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
-                signalStarted?.yield()
+                signalStarted.yield()
                 for await _ in finish { break }
                 events.list.append("slow")
             },
@@ -459,7 +467,7 @@ private actor Flag {
         for await _ in started { break }
         // While the slow command runs, Finder comes to front and a key no command takes is pressed.
         #expect(engine.dispatch(KeyCombo("F9")!, .pressed, in: FrontContext(bundleID: "com.apple.finder", processID: 200)) == nil)
-        signalFinish?.yield()
+        signalFinish.yield()
         await engine.waitUntilIdle()
         #expect(events.list == ["slow"])
     }
@@ -567,10 +575,9 @@ private actor Flag {
 
     /// A command on F1 that signals `started` when its body runs, then sleeps 5 s and records whether it finished or was cancelled.
     func longCommand(_ events: Events) -> (command: Command, started: AsyncStream<Void>) {
-        var signalStarted: AsyncStream<Void>.Continuation?
-        let started = AsyncStream<Void> { signalStarted = $0 }
+        let (started, signalStarted) = AsyncStream<Void>.makeStream()
         let command = Command("test.long", "Long", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
-            signalStarted?.yield()
+            signalStarted.yield()
             do {
                 try await Task.sleep(for: .seconds(5))
                 events.list.append("finished")
@@ -628,11 +635,10 @@ private actor Flag {
 
     @Test func cancelAllEndsAfterTheCancelledWorkHasEnded() async {
         let events = Events()
-        var signalStarted: AsyncStream<Void>.Continuation?
-        let started = AsyncStream<Void> { signalStarted = $0 }
+        let (started, signalStarted) = AsyncStream<Void>.makeStream()
         let engine = engine([
             Command("test.long", "Long", scope: .anyProToolsWindow, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
-                signalStarted?.yield()
+                signalStarted.yield()
                 try? await Task.sleep(for: .seconds(5))
                 // Work a run does after it was cancelled, like writing remembered state, still comes before the end of cancelAll.
                 await Task.yield()
@@ -937,6 +943,13 @@ private actor Flag {
         #expect(InspectorControls.spokenText(.comments, name: "Comments \"\"", value: "") == "No Comment")
         #expect(InspectorControls.spokenText(.freeze, name: "Not Frozen", value: "") == "Not Frozen")
         #expect(InspectorControls.panList(["100 to the left", "100 to the right"]) == "100 to the left. 100 to the right. ")
+    }
+
+    /// Every item ends with ". ", the last one too; an empty list is empty.
+    @Test func spokenListEndsEveryItem() {
+        #expect(SpokenList.sentences([]) == "")
+        #expect(SpokenList.sentences(["Kick"]) == "Kick. ")
+        #expect(SpokenList.sentences(["Kick", "Snare"]) == "Kick. Snare. ")
     }
 
     @Test func gridModeTextLikeJXA() {

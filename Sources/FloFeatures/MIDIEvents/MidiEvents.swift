@@ -115,9 +115,7 @@ enum MidiEvents {
             streak.failed(error)
         }
         await VoiceOver.sayOrLog(column.spoken(last))
-        while !Task.isCancelled {
-            try? await Task.sleep(for: Watches.pollInterval)
-            guard !Task.isCancelled else { return }
+        while await Watches.waitForNextPoll() {
             let now: String
             do {
                 now = try Log.$skipsDebug.withValue(true) { try read() }

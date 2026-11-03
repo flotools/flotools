@@ -67,6 +67,13 @@ public final class Watches {
 extension Watches {
     /// How often a watch reads Pro Tools, as the JXA monitors waited 0.1 s between reads. Its gain reduction monitor did not wait at all.
     public nonisolated static let pollInterval: Duration = .milliseconds(100)
+
+    /// Waits `pollInterval` before a watch's next read. False when the watch was cancelled before or during the wait, so the loop ends without another read.
+    public nonisolated static func waitForNextPoll() async -> Bool {
+        guard !Task.isCancelled else { return false }
+        try? await Task.sleep(for: pollInterval)
+        return !Task.isCancelled
+    }
 }
 
 /// A run of failed reads by a loop that polls Pro Tools ten times a second, such as a watch or the freeze wait, so it logs only the first failure of a run and the first good read after it. What a failure does to the loop, such as dropping a watch's baseline or ending it, stays with the loop.

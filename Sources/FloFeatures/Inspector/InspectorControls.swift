@@ -131,7 +131,7 @@ enum InspectorControls {
     /// Reads the freeze button's name until it differs from `before`. Pro Tools answers slowly or not at all while it renders, so a busy read (`cannotComplete`, which includes the messaging timeout) only means "not yet". Any other failure, such as a track that is gone, ends the wait rather than holding the queue for `freezeTimeout`.
     private static func waitForFreeze(_ track: TrackStrip, changedFrom before: String) async throws -> String {
         let start = ContinuousClock.now
-        var progress = ProgressTicker(every: .seconds(1), startingAt: start)
+        var progress = ProgressTicker(startingAt: start)
         var streak = ReadFailureStreak(reading: "the freeze button")
         while true {
             do {
@@ -206,7 +206,7 @@ enum InspectorControls {
 
     /// Same text as the JXA version, for example "100 to the left. 100 to the right. ".
     static func panList(_ values: [String]) -> String {
-        values.map { $0 + ". " }.joined()
+        SpokenList.sentences(values)
     }
 
     /// Increase and Decrease Volume and Instrument Volume: moves the fader one step and speaks its value, as in the JXA.
