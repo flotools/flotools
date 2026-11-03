@@ -46,6 +46,7 @@ Run from the repository root.
 - App bundle: `scripts/build-app.sh` (universal release build, signed with the first "Apple Development" identity, or `FLO_SIGN_IDENTITY`). Always sign with the same identity, because Accessibility and Automation permissions are tied to the signature.
 - Relaunch: `pkill -x FloTools; scripts/build-app.sh && open "build/Flo Tools.app"`
 - Regenerate macro reference files: `.venv/bin/python -I tools/km_export.py` (`--check` to only compare).
+- Test the generator: `.venv/bin/python -I -m unittest discover -s tools`.
 - App log: turn on the diagnostic log from the menu bar menu ("Turn On Log") and read the newest file in `~/Library/Logs/Flo Tools/`. The unified log (`log show --last 1m --predicate 'subsystem == "com.chikim.FloTools"' --style compact`) has only warnings and errors.
 
 ## Porting a macro
