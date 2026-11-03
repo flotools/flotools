@@ -20,7 +20,7 @@ extension ProToolsApp {
 
     /// Where the table is on screen, for macros that put the mouse on its edge.
     public enum Table: Sendable {
-        /// The Edit window's Clips table.
+        /// The Edit window's clip list.
         case editClips
         /// The Track List table of the front window, the Mix or Edit window.
         case frontTrackList
@@ -31,7 +31,7 @@ extension ProToolsApp {
         let element: AXElement
         switch table {
         case .editClips:
-            element = try window(titlePrefix: "Edit:", "the Edit window").required("the Clips table") { try $0.table("Clips") }
+            element = try clipList()
         case .frontTrackList:
             let front = try AXElement.application(pid: pid).required("the front window") { try $0.focusedWindow }
             element = try front.required("the Track List table") { try $0.table("Track List") }
@@ -44,12 +44,17 @@ extension ProToolsApp {
     /// The names of the clips selected in the Edit window's clip list, quoted as Pro Tools shows them, for example "\"Kick_01\"". A clip row's second cell holds one element whose name is like `Audio clip "Kick_01" ...`.
     @AccessibilityActor
     public func selectedClipNames() throws -> [String] {
-        let table = try window(titlePrefix: "Edit:", "the Edit window").required("the clip list") { try $0.table("clip list") }
-        return try table.rows.filter { try $0.bool("AXSelected") == true }.compactMap { row in
+        return try clipList().rows.filter { try $0.bool("AXSelected") == true }.compactMap { row in
             let cells = try row.children
             guard cells.count > 1, let name = try cells[1].children.first?.name else { return nil }
             return Self.quotedClipName(name)
         }
+    }
+
+    /// The Edit window's clip list. The KM Resize Clips Table looked for a table named "Clips", which Pro Tools no longer has (checked live 2026-11-02); its Speak Selected Clips used "clip list".
+    @AccessibilityActor
+    private func clipList() throws -> AXElement {
+        try window(titlePrefix: "Edit:", "the Edit window").required("the clip list") { try $0.table("clip list") }
     }
 
     /// The first quoted part of a clip element's name, quotes included, like the JXA's `/(\".*?\")/`.
