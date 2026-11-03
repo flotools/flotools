@@ -28,19 +28,18 @@ public struct PlugInWindow {
             case .audioSuite: "Preset"
             }
         }
-
-        func presetButton(_ step: PresetStep) -> String {
-            switch (self, step) {
-            case (.plugIn, .next): "Next setting"
-            case (.plugIn, .previous): "Previous setting"
-            case (.audioSuite, .next): "Next Setting"
-            case (.audioSuite, .previous): "Previous Setting"
-            }
-        }
     }
 
     public enum PresetStep: Sendable {
         case next, previous
+
+        /// The same in both window kinds in Pro Tools 26.10 (checked live 2026-11-03). The JXA used "Next Setting" for AudioSuite, which no longer matches.
+        var buttonTitle: String {
+            switch self {
+            case .next: "Next setting"
+            case .previous: "Previous setting"
+            }
+        }
     }
 
     /// A control of the plug-in itself: a slider in the window's "FXTDMEditView" group. `value` is what VoiceOver reads, such as "-3.0 dB".
@@ -88,7 +87,7 @@ public struct PlugInWindow {
     /// Goes to the next or previous preset and returns its name, once Pro Tools shows it.
     public func step(_ step: PresetStep) async throws -> String {
         let before = try preset
-        try press(kind.presetButton(step))
+        try press(step.buttonTitle)
         return try await ProToolsUpdate.reading(changedFrom: before) { try preset }
     }
 

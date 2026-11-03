@@ -98,6 +98,9 @@ public final class FrontWindowObserver {
             attachFailed(pid: pid, failures.joined(separator: ", "))
             return
         }
+        // Pro Tools changes a plug-in or AudioSuite window's title in place, without AXTitleChanged, when another plug-in is chosen from a menu; by AXMenuClosed the title is new (checked live 2026-11-03). Optional: the window notifications above still follow everything else.
+        let menuResult = AXObserverAddNotification(created, app, "AXMenuClosed" as CFString, refcon)
+        if menuResult != .success { Log.debug(.context, "watch AXMenuClosed failed: AXError \(menuResult.rawValue)") }
         CFRunLoopAddSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(created), .commonModes)
         observer = created
         observedPid = pid
