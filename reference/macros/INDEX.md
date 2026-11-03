@@ -77,7 +77,7 @@
 | Flo Tools | [List Unmuted Tracks](<Flo Tools/List Unmuted Tracks.md>) |  | True | 35D75B3E-439E-4692-BC02-5E90F862F421 | yes |
 | Flo Tools | [List Unselected Tracks](<Flo Tools/List Unselected Tracks.md>) |  | True | 55DD1145-A398-4F55-8395-B60E701170C3 | yes |
 | Flo Tools | [List Unsoloed Tracks](<Flo Tools/List Unsoloed Tracks.md>) |  | True | 943B53A6-0CB8-484E-8A3F-B5B101F138C0 | yes |
-| Flo Tools | [Load Plugin Parameters for Default View](<Flo Tools/Load Plugin Parameters for Default View.md>) | focused window: FocussedWindowChanges | True | 9E527A76-E233-41E9-9B66-A17747F42646 |  |
+| Flo Tools | [Load Plugin Parameters for Default View](<Flo Tools/Load Plugin Parameters for Default View.md>) | focused window: FocussedWindowChanges | True | 9E527A76-E233-41E9-9B66-A17747F42646 | absorbed (Lifecycle: a plug-in window loads its default view) |
 | Flo Tools | [Monitor Attack](<Flo Tools/Monitor Attack.md>) |  | True | D7EE1801-A2E8-4FFF-B4BD-A4C8305CE671 |  |
 | Flo Tools | [Monitor End](<Flo Tools/Monitor End.md>) |  | True | 2ED91EBB-3D9D-47A8-AB4A-58681E8CAC9B |  |
 | Flo Tools | [Monitor Length](<Flo Tools/Monitor Length.md>) |  | True | 3452EDAF-2EA5-4546-A6DF-69C56207EB3C |  |
@@ -157,13 +157,13 @@
 | Flo Tools | [Toggle Temporary INspector](<Flo Tools/Toggle Temporary INspector.md>) | `; ` (released) | True | E63048EB-FBD0-41A9-A4C7-8922216F11D3 | yes |
 | Flo Tools | [Track view toggled on all tracks](<Flo Tools/Track view toggled on all tracks.md>) | Opt+- | True | B5FFCC82-ADE7-4A3C-9D77-7EADC3E1BE64 |  |
 | Flo Tools | [speak/Edit selection start](<Flo Tools/speak_Edit selection start.md>) | Cmd+F1 | True | EE98B23A-8EEC-4DB2-A4EE-D7D2406DCA8A | yes |
-| Flo Tools Audio Suite | [Analyze](<Flo Tools Audio Suite/Analyze.md>) | Ctrl+Opt+Shift+Cmd+N | True | 1B41CD91-E8C7-4789-872D-A3C6AFDB5358 |  |
-| Flo Tools Audio Suite | [Bypass](<Flo Tools Audio Suite/Bypass.md>) | Ctrl+Opt+Shift+Cmd+B | True | 71C6DD25-25C5-4B89-8C1F-6E9C82C4B487 |  |
-| Flo Tools Audio Suite | [Next Preset](<Flo Tools Audio Suite/Next Preset.md>) | ] | True | C8B042AA-40F4-43CC-A8A9-D0BA6CFB1EAF |  |
-| Flo Tools Audio Suite | [Preview Processing](<Flo Tools Audio Suite/Preview Processing.md>) | Ctrl+Opt+Shift+Cmd+P | True | 79D8B668-39CE-4934-A135-B31F81EEE798 |  |
-| Flo Tools Audio Suite | [Previous Preset](<Flo Tools Audio Suite/Previous Preset.md>) | [ | True | 18D68121-4D3D-43DB-A50B-14495539D29F |  |
-| Flo Tools Audio Suite | [Render](<Flo Tools Audio Suite/Render.md>) | Ctrl+Opt+Shift+Cmd+R | True | C26162A5-D033-4B70-A89C-DF7F7DA139E1 |  |
-| Flo Tools Audio Suite | [Speak/Choose Audio Suite Preset](<Flo Tools Audio Suite/Speak_Choose Audio Suite Preset.md>) | Opt+Cmd+P | True | CEAA11A1-6E5F-4F6A-B630-A68B2BFC1346 |  |
+| Flo Tools Audio Suite | [Analyze](<Flo Tools Audio Suite/Analyze.md>) | Ctrl+Opt+Shift+Cmd+N | True | 1B41CD91-E8C7-4789-872D-A3C6AFDB5358 | yes |
+| Flo Tools Audio Suite | [Bypass](<Flo Tools Audio Suite/Bypass.md>) | Ctrl+Opt+Shift+Cmd+B | True | 71C6DD25-25C5-4B89-8C1F-6E9C82C4B487 | yes |
+| Flo Tools Audio Suite | [Next Preset](<Flo Tools Audio Suite/Next Preset.md>) | ] | True | C8B042AA-40F4-43CC-A8A9-D0BA6CFB1EAF | yes |
+| Flo Tools Audio Suite | [Preview Processing](<Flo Tools Audio Suite/Preview Processing.md>) | Ctrl+Opt+Shift+Cmd+P | True | 79D8B668-39CE-4934-A135-B31F81EEE798 | yes |
+| Flo Tools Audio Suite | [Previous Preset](<Flo Tools Audio Suite/Previous Preset.md>) | [ | True | 18D68121-4D3D-43DB-A50B-14495539D29F | yes |
+| Flo Tools Audio Suite | [Render](<Flo Tools Audio Suite/Render.md>) | Ctrl+Opt+Shift+Cmd+R | True | C26162A5-D033-4B70-A89C-DF7F7DA139E1 | yes |
+| Flo Tools Audio Suite | [Speak/Choose Audio Suite Preset](<Flo Tools Audio Suite/Speak_Choose Audio Suite Preset.md>) | Opt+Cmd+P | True | CEAA11A1-6E5F-4F6A-B630-A68B2BFC1346 | yes |
 | Flo Tools Batch Fades | [Next Crossfade In Shape Curve](<Flo Tools Batch Fades/Next Crossfade In Shape Curve.md>) | Opt+Right | True | FD840406-E744-441C-BE7C-01AD00774D85 | yes |
 | Flo Tools Batch Fades | [Next Crossfade In Shape Parameter](<Flo Tools Batch Fades/Next Crossfade In Shape Parameter.md>) | Opt+Down | True | 420ECF4B-CD66-4F2A-BBCA-9B9B1CFC5714 | yes |
 | Flo Tools Batch Fades | [Next Crossfade Link,](<Flo Tools Batch Fades/Next Crossfade Link_.md>) | Opt+Cmd+Down | True | D65B8F56-D100-44AA-8D9D-10CC96B4F3FE | yes |
@@ -293,26 +293,26 @@
 | Flo Tools Inspector | [pan left on right channel](<Flo Tools Inspector/pan left on right channel.md>) | Ctrl+Shift+Cmd+Left | True | A22F2199-FA1E-480D-AB0C-87DF9159B485 | yes |
 | Flo Tools Inspector | [pan right on mono/Left channel](<Flo Tools Inspector/pan right on mono_Left channel.md>) | Ctrl+Cmd+Right | True | 38AC5CB1-9C5F-4973-B8D1-20259CF38989 | yes |
 | Flo Tools Inspector | [pan right on right channel](<Flo Tools Inspector/pan right on right channel.md>) | Ctrl+Shift+Cmd+Right | True | 7549F3CC-362E-4A2A-AB47-9CA0F30F7BB4 | yes |
-| Flo Tools Plugin | [Display Plugin View Template](<Flo Tools Plugin/Display Plugin View Template.md>) | status menu | True | A7A67CAF-F0DE-4563-99C8-1AB611B9FF93 |  |
-| Flo Tools Plugin | [Load Plugin Parameters for Default View](<Flo Tools Plugin/Load Plugin Parameters for Default View.md>) | Cmd+0 | True | 703E2B8E-556F-4BBF-95B5-C447F55F1968 |  |
-| Flo Tools Plugin | [Load Plugin Parameters for View 1](<Flo Tools Plugin/Load Plugin Parameters for View 1.md>) | Cmd+1 | True | 35D488DB-5ED0-4138-B757-39893A412779 |  |
-| Flo Tools Plugin | [Load Plugin Parameters for View 2](<Flo Tools Plugin/Load Plugin Parameters for View 2.md>) | Cmd+2 | True | D6D55397-4DAE-415C-8A91-F5405351158C |  |
-| Flo Tools Plugin | [Load Plugin Parameters for View 3](<Flo Tools Plugin/Load Plugin Parameters for View 3.md>) | Cmd+3 | True | 099FBE47-5B80-41E9-9A9B-2FCF33B4F736 |  |
-| Flo Tools Plugin | [Load Plugin Parameters for View 4](<Flo Tools Plugin/Load Plugin Parameters for View 4.md>) | Cmd+4 | True | 872C14C3-F081-4FDA-AA1A-D1FBA60040E3 |  |
-| Flo Tools Plugin | [Load Plugin Parameters for View 5](<Flo Tools Plugin/Load Plugin Parameters for View 5.md>) | Cmd+5 | True | B591491E-9701-4636-AED7-B2A10B7A517D |  |
-| Flo Tools Plugin | [Load Plugin Parameters for View 6](<Flo Tools Plugin/Load Plugin Parameters for View 6.md>) | Cmd+6 | True | 1C58FD08-0448-4BDD-A954-33167EDF5EF1 |  |
-| Flo Tools Plugin | [Load Plugin Parameters for View 7](<Flo Tools Plugin/Load Plugin Parameters for View 7.md>) | Cmd+7 | True | 109C3740-24AD-483D-9131-BD09A53E06B3 |  |
-| Flo Tools Plugin | [Load Plugin Parameters for View 8](<Flo Tools Plugin/Load Plugin Parameters for View 8.md>) | Cmd+8 | True | B0F90725-AE5E-42A3-A3C9-EF9A5FE9D8E2 |  |
-| Flo Tools Plugin | [Load Plugin Parameters for View 9](<Flo Tools Plugin/Load Plugin Parameters for View 9.md>) | Cmd+9 | True | 7FC536D0-79A7-4E2B-822B-385D76B9B38A |  |
-| Flo Tools Plugin | [Next Column Parameter](<Flo Tools Plugin/Next Column Parameter.md>) | Ctrl+Right | True | DDDB0735-106A-4AC3-8450-B24ACB61C379 |  |
-| Flo Tools Plugin | [Next Preset](<Flo Tools Plugin/Next Preset.md>) | ] | True | C6FD72CC-0CBB-467D-BB95-7EE74CE69965 |  |
-| Flo Tools Plugin | [Next Row Parameter](<Flo Tools Plugin/Next Row Parameter.md>) | Ctrl+Down | True | 8FD5FC78-AEF7-4BED-82AF-E178124E8996 |  |
-| Flo Tools Plugin | [Previous Column Parameter](<Flo Tools Plugin/Previous Column Parameter.md>) | Ctrl+Left | True | 7554D587-CC96-4A94-AA1F-ADBDFA396543 |  |
-| Flo Tools Plugin | [Previous Preset](<Flo Tools Plugin/Previous Preset.md>) | [ | True | C2C7EACB-9C71-4961-8436-FA99062249CC |  |
-| Flo Tools Plugin | [Previous Row Parameter](<Flo Tools Plugin/Previous Row Parameter.md>) | Ctrl+Up | True | 8812AC4E-CAF6-45DA-8D19-A9684713E028 |  |
-| Flo Tools Plugin | [Speak/Choose Preset](<Flo Tools Plugin/Speak_Choose Preset.md>) | Opt+Cmd+P | True | 800D2F46-7C27-4892-AA7C-6F90F0DC5EB0 |  |
-| Flo Tools Plugin | [Speak/Toggle Bypass](<Flo Tools Plugin/Speak_Toggle Bypass.md>) | Opt+B | True | DAC44B3D-0948-4D6C-92FE-006AE0EB934C |  |
-| Flo Tools Plugin | [Toggle Plugin Monitor](<Flo Tools Plugin/Toggle Plugin Monitor.md>) | Opt+/ | True | B54D31B8-DFAE-41A0-BD25-837A879C40D0 |  |
+| Flo Tools Plugin | [Display Plugin View Template](<Flo Tools Plugin/Display Plugin View Template.md>) | status menu | True | A7A67CAF-F0DE-4563-99C8-1AB611B9FF93 | yes |
+| Flo Tools Plugin | [Load Plugin Parameters for Default View](<Flo Tools Plugin/Load Plugin Parameters for Default View.md>) | Cmd+0 | True | 703E2B8E-556F-4BBF-95B5-C447F55F1968 | yes |
+| Flo Tools Plugin | [Load Plugin Parameters for View 1](<Flo Tools Plugin/Load Plugin Parameters for View 1.md>) | Cmd+1 | True | 35D488DB-5ED0-4138-B757-39893A412779 | yes |
+| Flo Tools Plugin | [Load Plugin Parameters for View 2](<Flo Tools Plugin/Load Plugin Parameters for View 2.md>) | Cmd+2 | True | D6D55397-4DAE-415C-8A91-F5405351158C | yes |
+| Flo Tools Plugin | [Load Plugin Parameters for View 3](<Flo Tools Plugin/Load Plugin Parameters for View 3.md>) | Cmd+3 | True | 099FBE47-5B80-41E9-9A9B-2FCF33B4F736 | yes |
+| Flo Tools Plugin | [Load Plugin Parameters for View 4](<Flo Tools Plugin/Load Plugin Parameters for View 4.md>) | Cmd+4 | True | 872C14C3-F081-4FDA-AA1A-D1FBA60040E3 | yes |
+| Flo Tools Plugin | [Load Plugin Parameters for View 5](<Flo Tools Plugin/Load Plugin Parameters for View 5.md>) | Cmd+5 | True | B591491E-9701-4636-AED7-B2A10B7A517D | yes |
+| Flo Tools Plugin | [Load Plugin Parameters for View 6](<Flo Tools Plugin/Load Plugin Parameters for View 6.md>) | Cmd+6 | True | 1C58FD08-0448-4BDD-A954-33167EDF5EF1 | yes |
+| Flo Tools Plugin | [Load Plugin Parameters for View 7](<Flo Tools Plugin/Load Plugin Parameters for View 7.md>) | Cmd+7 | True | 109C3740-24AD-483D-9131-BD09A53E06B3 | yes |
+| Flo Tools Plugin | [Load Plugin Parameters for View 8](<Flo Tools Plugin/Load Plugin Parameters for View 8.md>) | Cmd+8 | True | B0F90725-AE5E-42A3-A3C9-EF9A5FE9D8E2 | yes |
+| Flo Tools Plugin | [Load Plugin Parameters for View 9](<Flo Tools Plugin/Load Plugin Parameters for View 9.md>) | Cmd+9 | True | 7FC536D0-79A7-4E2B-822B-385D76B9B38A | yes |
+| Flo Tools Plugin | [Next Column Parameter](<Flo Tools Plugin/Next Column Parameter.md>) | Ctrl+Right | True | DDDB0735-106A-4AC3-8450-B24ACB61C379 | yes |
+| Flo Tools Plugin | [Next Preset](<Flo Tools Plugin/Next Preset.md>) | ] | True | C6FD72CC-0CBB-467D-BB95-7EE74CE69965 | yes |
+| Flo Tools Plugin | [Next Row Parameter](<Flo Tools Plugin/Next Row Parameter.md>) | Ctrl+Down | True | 8FD5FC78-AEF7-4BED-82AF-E178124E8996 | yes |
+| Flo Tools Plugin | [Previous Column Parameter](<Flo Tools Plugin/Previous Column Parameter.md>) | Ctrl+Left | True | 7554D587-CC96-4A94-AA1F-ADBDFA396543 | yes |
+| Flo Tools Plugin | [Previous Preset](<Flo Tools Plugin/Previous Preset.md>) | [ | True | C2C7EACB-9C71-4961-8436-FA99062249CC | yes |
+| Flo Tools Plugin | [Previous Row Parameter](<Flo Tools Plugin/Previous Row Parameter.md>) | Ctrl+Up | True | 8812AC4E-CAF6-45DA-8D19-A9684713E028 | yes |
+| Flo Tools Plugin | [Speak/Choose Preset](<Flo Tools Plugin/Speak_Choose Preset.md>) | Opt+Cmd+P | True | 800D2F46-7C27-4892-AA7C-6F90F0DC5EB0 | yes |
+| Flo Tools Plugin | [Speak/Toggle Bypass](<Flo Tools Plugin/Speak_Toggle Bypass.md>) | Opt+B | True | DAC44B3D-0948-4D6C-92FE-006AE0EB934C | yes |
+| Flo Tools Plugin | [Toggle Plugin Monitor](<Flo Tools Plugin/Toggle Plugin Monitor.md>) | Opt+/ | True | B54D31B8-DFAE-41A0-BD25-837A879C40D0 | yes |
 | Flo Tools Selected Tab | [Tab 1](<Flo Tools Selected Tab/Tab 1.md>) | Cmd+1 | True | 8ADB9D7E-7928-4685-9B03-951B883F29A4 | yes |
 | Flo Tools Selected Tab | [Tab 2](<Flo Tools Selected Tab/Tab 2.md>) | Cmd+2 | True | 656463B9-2F24-4E3C-B064-0EDD916AF0B6 | yes |
 | Flo Tools Selected Tab | [Tab 3](<Flo Tools Selected Tab/Tab 3.md>) | Cmd+3 | True | 1480A1D4-E82F-4F37-A2FC-C9A22E73BDB8 | yes |

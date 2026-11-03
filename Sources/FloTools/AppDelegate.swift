@@ -80,6 +80,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         menu.addItem(.separator())
 
+        let macroItems = engine.statusMenuMacros(in: engine.context)
+        for macro in macroItems {
+            let item = NSMenuItem(title: macro.name, action: #selector(runMacro), keyEquivalent: "")
+            item.representedObject = macro.id
+            menu.addItem(item)
+        }
+        if !macroItems.isEmpty { menu.addItem(.separator()) }
+
         if Accessibility.isTrusted() {
             menu.addItem(disabled("Accessibility access granted"))
         } else {
@@ -103,6 +111,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @objc private func toggleEnabled() {
         engine.isEnabled.toggle()
         VoiceOver.sayOrLog(engine.isEnabled ? "Flo Tools enabled." : "Flo Tools disabled.")
+    }
+
+    @objc private func runMacro(_ sender: NSMenuItem) {
+        guard let id = sender.representedObject as? MacroID else { return }
+        engine.run(id)
     }
 
     @objc private func grantAccessibility() {

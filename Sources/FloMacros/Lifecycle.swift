@@ -4,7 +4,7 @@ import FloSystem
 
 /// What Flo Tools does on events rather than hotkeys: VoiceOver turning on and off, Pro Tools launching and quitting, and Pro Tools window changes.
 ///
-/// In the KM version these were macros: Auto Toggle Flo Tools, Enable and Disable Flo Tools, Bypass Flo Tools in Keyboard Shortcuts window, Cancel Macros, Cleanup Variables, the launch duties of Check for Automatic Update (its update check is dropped), Refresh Preference, and Deactivate Level and Gain Reduction Monitors. Here they are one policy, because they change Flo Tools itself rather than act in Pro Tools, and they must work while Flo Tools is suspended.
+/// In the KM version these were macros: Auto Toggle Flo Tools, Enable and Disable Flo Tools, Bypass Flo Tools in Keyboard Shortcuts window, Cancel Macros, Cleanup Variables, the launch duties of Check for Automatic Update (its update check is dropped), Refresh Preference, Deactivate Level and Gain Reduction Monitors, and the window trigger of Load Plugin Parameters for Default View. Here they are one policy, because they change Flo Tools itself rather than act in Pro Tools, and they must work while Flo Tools is suspended.
 ///
 /// Owned by the main actor. The app creates one and calls `start()` before starting the engine.
 @MainActor
@@ -108,6 +108,10 @@ public final class Lifecycle {
         }
         if let last = lastProToolsTitle, last != title {
             InspectorMeters.stopWatches(in: engine)
+        }
+        // Like KM Load Plugin Parameters for Default View on a focused window change. A plug-in window showing another plug-in changes its title, which loads that plug-in's view too.
+        if title != lastProToolsTitle, title.hasPrefix(PlugInWindow.Kind.plugIn.titlePrefix) {
+            engine.run(PlugIns.loadDefaultView)
         }
         lastProToolsTitle = title
     }

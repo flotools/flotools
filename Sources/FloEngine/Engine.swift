@@ -209,6 +209,12 @@ public final class MacroEngine {
             .sorted { (groups[$0.group]?.specificity ?? 0) > (groups[$1.group]?.specificity ?? 0) }
     }
 
+    /// The macros that offer themselves in the status menu now, like Keyboard Maestro's status menu, which listed the macros of the groups active for the front window.
+    public func statusMenuMacros(in context: FrontContext) -> [Macro] {
+        guard takesKeys else { return [] }
+        return macros.filter { macro in macro.triggers.contains(.statusMenu) && isActive(macro, in: context) }
+    }
+
     public func activeCombos(in context: FrontContext) -> Set<KeyCombo> {
         Set(macrosByCombo.filter { _, ids in ids.contains { id in macro(id).map { isActive($0, in: context) } ?? false } }.keys)
     }

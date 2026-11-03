@@ -7,7 +7,7 @@ public enum FloMacros {
     /// All macros. `openPreferences` shows the app's preferences panel.
     @MainActor
     public static func all(openPreferences: @escaping @MainActor @Sendable () -> Void = {}) -> [Macro] {
-        Inspector.macros + InspectorControls.macros + InspectorMeters.macros + SettingToggles.macros + Counters.macros + InspectorMode.macros + TrackStatus.macros + TrackLists.macros + FadeDialogs.macros + SelectedTab.macros + PreferenceMacros.macros(openPreferences: openPreferences)
+        Inspector.macros + InspectorControls.macros + InspectorMeters.macros + SettingToggles.macros + Counters.macros + InspectorMode.macros + TrackStatus.macros + TrackLists.macros + FadeDialogs.macros + SelectedTab.macros + PlugIns.macros + AudioSuite.macros + PreferenceMacros.macros(openPreferences: openPreferences)
     }
 
     /// Applies what the preferences control, like the KM Refresh Preference macro: the double-press timeout and whether Toggle Temporary Inspector works. Called at launch and after the preferences panel saves.

@@ -493,6 +493,15 @@ import Testing
         #expect(events.list == ["cancelled", "short"])
     }
 
+    @Test func statusMenuListsMacrosOfActiveGroups() {
+        let engine = FloMacros.makeEngine()
+        let plugIn = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3 7-Band")
+        #expect(engine.statusMenuMacros(in: plugIn).map(\.id) == ["plugin.displayPluginViewTemplate"])
+        #expect(engine.statusMenuMacros(in: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session")).isEmpty)
+        engine.isEnabled = false
+        #expect(engine.statusMenuMacros(in: plugIn).isEmpty)
+    }
+
     @Test func batchedChangesAreAllApplied() {
         let engine = FloMacros.makeEngine()
         InspectorMode.setInspector(false, in: engine)

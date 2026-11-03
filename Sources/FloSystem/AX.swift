@@ -107,6 +107,18 @@ public struct AXElement {
     /// What VoiceOver reads for a slider, for example "70 to the left" for a pan knob.
     public var valueDescription: String? { get throws { try string("AXValueDescription") } }
 
+    /// The top-left corner in global screen coordinates (origin at the top left of the main display), the coordinates mouse events use.
+    public var position: CGPoint? {
+        get throws {
+            guard let value = try attribute("AXPosition") else { return nil }
+            var point = CGPoint.zero
+            guard CFGetTypeID(value) == AXValueGetTypeID(), AXValueGetValue(unsafeDowncast(value, to: AXValue.self), .cgPoint, &point) else {
+                throw FloError.unexpectedValue("AXPosition is not a point")
+            }
+            return point
+        }
+    }
+
     /// False for a dimmed menu item or button; an element without `AXEnabled` counts as enabled.
     public var isEnabled: Bool { get throws { try bool("AXEnabled") ?? true } }
 
