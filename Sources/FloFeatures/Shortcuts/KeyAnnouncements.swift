@@ -34,20 +34,16 @@ enum KeyAnnouncements {
     private static func announce(_ id: CommandID, _ name: String, does effect: String, keys: [String], sends: String? = nil, _ text: String, when guarding: AnnouncementGuard, mode: ModeCondition = .any) -> Command {
         let replacement = sends.map { KeyCombo(literal: $0) }
         return Command(id, name, summary: "Passes the key to Pro Tools, which \(effect), and says so.", scope: .anyProToolsWindow, mode: mode, triggers: keys.map { .key($0) }) { run in
-            if let replacement {
-                try await ProToolsApp.running().keystroke(replacement)
-            } else {
-                try await run.passThrough()
-            }
+            try await passOn(run, replacement: replacement)
             if try await speaks(after: guarding) { try await VoiceOver.say(text) }
         }
     }
 
-    /// Sends the key, which in Pro Tools selects another playlist on the selected tracks, and speaks the selected tracks from the Mix window's Track List, as the JXA did. The wait is longer than `ProToolsUpdate.timeout` because the passed key travels through the event system first.
+    /// Sends the key, which in Pro Tools selects another playlist on the selected tracks, and speaks the selected tracks from the Mix window's Track List, as the JXA did.
     @MainActor
     private static func speakSelectedTracks(_ id: CommandID, _ name: String, key: String, _ playlist: String) -> Command {
         Command(id, name, summary: "Passes the key to Pro Tools, which selects \(playlist) on the selected tracks, then speaks the selected tracks, which are named after their playlists.", scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
-            try await announceChange(run, when: .outsideListedDialogsAndText, within: .milliseconds(500), find: { try ProToolsApp.running().mixWindow().trackList() }, read: selectedTracksText)
+            try await announceChange(run, when: .outsideListedDialogsAndText, within: ProToolsUpdate.passedKeyTimeout, find: { try ProToolsApp.running().mixWindow().trackList() }, read: selectedTracksText)
         }
     }
 
@@ -56,15 +52,20 @@ enum KeyAnnouncements {
     @AccessibilityActor
     static func announceChange<Source>(_ run: CommandRun, sending replacement: KeyCombo? = nil, when guarding: AnnouncementGuard, within limit: Duration = ProToolsUpdate.timeout, find: @AccessibilityActor () throws -> Source, read: @AccessibilityActor (Source) throws -> String, spoken: (String) -> String = { $0 }) async throws {
         let before = try? read(find())
+        try await passOn(run, replacement: replacement)
+        guard try await speaks(after: guarding) else { return }
+        let source = try find()
+        let after = try await ProToolsUpdate.reading(changedFrom: before ?? "", within: limit) { try read(source) }
+        try await VoiceOver.say(spoken(after))
+    }
+
+    /// Sends `replacement` to Pro Tools, or passes the run's own key on when there is none.
+    private static func passOn(_ run: CommandRun, replacement: KeyCombo?) async throws {
         if let replacement {
             try await ProToolsApp.running().keystroke(replacement)
         } else {
             try await run.passThrough()
         }
-        guard try await speaks(after: guarding) else { return }
-        let source = try find()
-        let after = try await ProToolsUpdate.reading(changedFrom: before ?? "", within: limit) { try read(source) }
-        try await VoiceOver.say(spoken(after))
     }
 
     /// Whether to speak after a shortcut went to Pro Tools, read now, after the key, as the KM versions did.

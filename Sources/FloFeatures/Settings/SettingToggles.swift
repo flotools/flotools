@@ -75,12 +75,12 @@ enum SettingToggles {
         isOn ? "Grid mode, " + SettingControl.gridKind(buttonName: buttonName) : "Grid mode, off"
     }
 
-    /// The hotkey is Pro Tools' own shortcut for the Options menu item, so it goes on to Pro Tools, which switches the setting, and the new state is spoken if the guard allows it, as in the KM version. The wait is longer than `ProToolsUpdate.timeout` because the key travels through the event system first.
+    /// The hotkey is Pro Tools' own shortcut for the Options menu item, so it goes on to Pro Tools, which switches the setting, and the new state is spoken if the guard allows it, as in the KM version.
     @MainActor
     private static func link(_ id: CommandID, _ name: String, key: String, _ item: String, _ wording: Wording) -> Command {
         let setting = ProToolsSetting.menuItem(menu: "Options", .is(item))
         return Command(id, name, summary: "Passes the key to Pro Tools, which switches Options > \(item), then speaks the new state.", scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
-            try await KeyAnnouncements.announceChange(run, when: .outsideListedDialogsAndText, within: .milliseconds(500), find: { try ProToolsApp.running().control(setting) }, read: { try wording.text($0.isOn) })
+            try await KeyAnnouncements.announceChange(run, when: .outsideListedDialogsAndText, within: ProToolsUpdate.passedKeyTimeout, find: { try ProToolsApp.running().control(setting) }, read: { try wording.text($0.isOn) })
         }
     }
 

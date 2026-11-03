@@ -4,6 +4,9 @@ import FloSystem
 public enum ProToolsUpdate {
     public static let timeout: Duration = .milliseconds(200)
 
+    /// The wait after a hotkey passed on to Pro Tools. It is longer than `timeout` because the passed key travels through the event system before Pro Tools sees it.
+    public static let passedKeyTimeout: Duration = .milliseconds(500)
+
     /// Reads until the reading differs from `before` or `limit` passes, and returns the last reading. Some actions change nothing, such as a key at the end of a list or arming a track without an input, so an unchanged reading is not an error.
     @AccessibilityActor
     public static func reading<Value: Equatable>(changedFrom before: Value, within limit: Duration = timeout, _ read: @AccessibilityActor () throws -> Value) async throws -> Value {

@@ -36,7 +36,7 @@ public final class Engine {
     /// Called after each change of the front app or window, once the engine has updated its hotkeys.
     public var onContextChange: ((FrontContext) -> Void)?
 
-    /// The double-press window, from the "timeout" preference. Changing it voids pending single presses.
+    /// The double-press window, from the "timeout" preference. Changing it voids pending single presses. It starts at the preference default until the app applies the preferences.
     public var doublePressTimeout: Duration {
         get { doublePress.timeout }
         set {
@@ -61,7 +61,7 @@ public final class Engine {
     /// True while `updateHotKeys` ends holds, so a release that changes state does not update the hotkeys from inside the update.
     private var endingHolds = false
 
-    private var doublePress = DoublePressDecider(timeout: .milliseconds(200))
+    private var doublePress = DoublePressDecider(timeout: .milliseconds(Preferences().timeout))
     private var pendingSingles: [CommandID: Task<Void, Never>] = [:]
     /// The last queued top-level run; the next one waits for it.
     private var queueTail: Task<Void, Never>?
