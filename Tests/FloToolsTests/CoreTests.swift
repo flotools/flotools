@@ -726,3 +726,29 @@ import Testing
         #expect(!FadeDialogs.settings.contains { $0.suffix.contains("Crossffade") })
     }
 }
+
+@Suite struct CounterTextTests {
+    @Test func positionsInBarsAndBeats() {
+        #expect(CounterText.spoken("    1| 1| 000", as: .position) == "Bar 1, Beat 1")
+        #expect(CounterText.spoken("   12| 3| 240", as: .position) == "Bar 12, Beat 3, Tick 240")
+    }
+
+    @Test func durationsInBarsAndBeats() {
+        #expect(CounterText.spoken("    0| 0| 000", as: .duration) == "0 ticks")
+        #expect(CounterText.spoken("    1| 0| 000", as: .duration) == "1 bar")
+        #expect(CounterText.spoken("    0| 0| 480", as: .duration) == "480 ticks")
+        #expect(CounterText.spoken("    2| 1| 001", as: .duration) == "2 bars, 1 beat, 1 tick")
+    }
+
+    @Test func minutesAndSeconds() {
+        #expect(CounterText.spoken("   0:00.000", as: .duration) == "0 seconds")
+        #expect(CounterText.spoken("   0:00.250", as: .position) == "250 milliseconds")
+        #expect(CounterText.spoken("   1:01.005", as: .duration) == "1 minute, 1 second, 5 milliseconds")
+        #expect(CounterText.spoken("  12:30.000", as: .duration) == "12 minutes, 30 seconds")
+    }
+
+    @Test func otherFormatsAsShown() {
+        #expect(CounterText.spoken(" 00:00:01:12", as: .position) == "00:00:01:12")
+        #expect(CounterText.spoken("  48000", as: .duration) == "48000")
+    }
+}

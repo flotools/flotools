@@ -6,26 +6,6 @@ public enum ProToolsSetting: Sendable, Equatable {
     case editWindowButton(cluster: String, NameMatch)
     /// An item of the menu bar menu `menu`. On when it has a check mark.
     case menuItem(menu: String, NameMatch)
-
-    /// How an element is picked by its name. Some names change with the setting, such as the Grid mode button ("Absolute Grid mode", "Relative Grid mode") or Track > "Set Record Tracks to Input Only".
-    public enum NameMatch: Sendable, Equatable {
-        case `is`(String)
-        case contains(String)
-
-        func matches(_ name: String?) -> Bool {
-            guard let name else { return false }
-            return switch self {
-            case .is(let text): name == text
-            case .contains(let text): name.contains(text)
-            }
-        }
-
-        var text: String {
-            switch self {
-            case .is(let text), .contains(let text): text
-            }
-        }
-    }
 }
 
 /// The element that shows and switches a `ProToolsSetting`, found once per macro step. Everything here messages Pro Tools, so it runs on `AccessibilityActor`.
@@ -64,10 +44,7 @@ extension ProToolsApp {
     public func control(_ setting: ProToolsSetting) throws -> SettingControl {
         switch setting {
         case .editWindowButton(let cluster, let match):
-            let edit = try window(titlePrefix: "Edit:", "the Edit window")
-            let group = try edit.required("the \(cluster)") { try $0.group(cluster) }
-            let button = try group.required("the \(match.text) button") { try $0.buttons.first { try match.matches($0.name) } }
-            return SettingControl(setting, button)
+            return SettingControl(setting, try element(EditWindowControl([cluster], role: "AXButton", match)))
         case .menuItem(let menu, let match):
             let app = AXElement.application(pid: pid)
             let bar = try app.required("the menu bar") { try $0.element("AXMenuBar") }

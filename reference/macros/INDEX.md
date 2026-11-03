@@ -54,16 +54,16 @@
 | Flo Tools | [Beta: Mark Clip for Drag](<Flo Tools/Beta_ Mark Clip for Drag.md>) | Opt+Shift+Cmd+, | True | B2507D35-5F04-4159-9594-05F6ED5A9077 |  |
 | Flo Tools | [Close All Floating Windows](<Flo Tools/Close All Floating Windows.md>) | Opt+Cmd+W | True | F94D2326-4E17-4F5C-8A08-C06CF944F61F |  |
 | Flo Tools | [Deactivate Level and Gain Reduction Monitors](<Flo Tools/Deactivate Level and Gain Reduction Monitors.md>) | focused window: FocussedWindowTitleChanges | True | 4C259C70-2924-4F17-AA74-C35B6FD8F556 |  |
-| Flo Tools | [Decrease Grid Value](<Flo Tools/Decrease Grid Value.md>) | Ctrl+Opt+Keypad - | True | 00FB32E1-1741-4020-9AC2-48F0933F4DAF |  |
-| Flo Tools | [Decrease Grid Value with Qwerty](<Flo Tools/Decrease Grid Value with Qwerty.md>) | Shift+- | True | E95D0D70-5746-453A-8A28-AA5BA23CD9E8 |  |
-| Flo Tools | [Decrease Nudge Value](<Flo Tools/Decrease Nudge Value.md>) | Opt+Cmd+Keypad - | True | A0312F1D-C175-4A69-8992-A362365AE5B9 |  |
-| Flo Tools | [Decrease Nudge Value with Qwerty](<Flo Tools/Decrease Nudge Value with Qwerty.md>) | Opt+Shift+- | True | 2627EB98-6BC0-4F5B-8A78-5FCD4F9DDEFE |  |
+| Flo Tools | [Decrease Grid Value](<Flo Tools/Decrease Grid Value.md>) | Ctrl+Opt+Keypad - | True | 00FB32E1-1741-4020-9AC2-48F0933F4DAF | yes |
+| Flo Tools | [Decrease Grid Value with Qwerty](<Flo Tools/Decrease Grid Value with Qwerty.md>) | Shift+- | True | E95D0D70-5746-453A-8A28-AA5BA23CD9E8 | yes |
+| Flo Tools | [Decrease Nudge Value](<Flo Tools/Decrease Nudge Value.md>) | Opt+Cmd+Keypad - | True | A0312F1D-C175-4A69-8992-A362365AE5B9 | yes |
+| Flo Tools | [Decrease Nudge Value with Qwerty](<Flo Tools/Decrease Nudge Value with Qwerty.md>) | Opt+Shift+- | True | 2627EB98-6BC0-4F5B-8A78-5FCD4F9DDEFE | yes |
 | Flo Tools | [Edit Event](<Flo Tools/Edit Event.md>) | Ctrl+Cmd+Return | True | 2E052137-AB4B-41B0-A27F-1CA97EDA1D39 |  |
 | Flo Tools | [Flo Tools Preferences](<Flo Tools/Flo Tools Preferences.md>) | Ctrl+Cmd+, | True | 4958F0C0-2806-4D1F-A1DA-C0124F1AD759 | yes |
-| Flo Tools | [Increase Grid Value](<Flo Tools/Increase Grid Value.md>) | Ctrl+Opt+Keypad + | True | D0E18C9A-BC7B-47BB-9671-0A6E79CA3F88 |  |
-| Flo Tools | [Increase Grid Value with Qwerty](<Flo Tools/Increase Grid Value with Qwerty.md>) | Shift+= | True | 9B41F36F-DD1A-4F6F-A584-E0FD15EE1280 |  |
-| Flo Tools | [Increase Nudge Value](<Flo Tools/Increase Nudge Value.md>) | Opt+Cmd+Keypad + | True | 040FB4C6-1F48-4861-9CAF-FB19EEBE1148 |  |
-| Flo Tools | [Increase Nudge Value With Qwerty](<Flo Tools/Increase Nudge Value With Qwerty.md>) | Opt+Shift+= | True | 9AAC770A-C514-4369-9622-4EAE8C910092 |  |
+| Flo Tools | [Increase Grid Value](<Flo Tools/Increase Grid Value.md>) | Ctrl+Opt+Keypad + | True | D0E18C9A-BC7B-47BB-9671-0A6E79CA3F88 | yes |
+| Flo Tools | [Increase Grid Value with Qwerty](<Flo Tools/Increase Grid Value with Qwerty.md>) | Shift+= | True | 9B41F36F-DD1A-4F6F-A584-E0FD15EE1280 | yes |
+| Flo Tools | [Increase Nudge Value](<Flo Tools/Increase Nudge Value.md>) | Opt+Cmd+Keypad + | True | 040FB4C6-1F48-4861-9CAF-FB19EEBE1148 | yes |
+| Flo Tools | [Increase Nudge Value With Qwerty](<Flo Tools/Increase Nudge Value With Qwerty.md>) | Opt+Shift+= | True | 9AAC770A-C514-4369-9622-4EAE8C910092 | yes |
 | Flo Tools | [List Hidden Tracks](<Flo Tools/List Hidden Tracks.md>) |  | True | 8707D170-ADDA-46FA-A29E-7F98449F4A38 |  |
 | Flo Tools | [List Input Monitor-Disabled  Tracks](<Flo Tools/List Input Monitor-Disabled  Tracks.md>) |  | True | A06B8ECE-792B-48A5-A3E2-BA979594C1FA |  |
 | Flo Tools | [List Input Monitor-Enabled Tracks](<Flo Tools/List Input Monitor-Enabled Tracks.md>) |  | True | B885D11D-EB9B-4F6D-8312-00BEAE8FB669 |  |
@@ -97,18 +97,18 @@
 | Flo Tools | [Resize Track LIst Table](<Flo Tools/Resize Track LIst Table.md>) | Ctrl+Shift+Cmd+T | True | D46E6FCE-E517-4775-A4E3-30FBE17F4F9D |  |
 | Flo Tools | [Select Clips Keyboard Focus](<Flo Tools/Select Clips Keyboard Focus.md>) | Opt+Cmd+2 | True | DBDE27F3-52D3-4E14-B6A6-596831F0261E |  |
 | Flo Tools | [Select Edit Keyboard Focus](<Flo Tools/Select Edit Keyboard Focus.md>) | Opt+Cmd+1 | True | B0B81561-D3AE-47C0-B9BF-F17DA4A63D7A |  |
-| Flo Tools | [Select Grid Value](<Flo Tools/Select Grid Value.md>) | Opt+Cmd+F8 | True | 3E8EB020-8956-4CBC-8C42-0833286D55F4 |  |
+| Flo Tools | [Select Grid Value](<Flo Tools/Select Grid Value.md>) | Opt+Cmd+F8 | True | 3E8EB020-8956-4CBC-8C42-0833286D55F4 | yes |
 | Flo Tools | [Select Groups Keyboard Focus](<Flo Tools/Select Groups Keyboard Focus.md>) | Opt+Cmd+3 | True | 2C851642-5FEA-49DD-9532-B8EAC403D111 |  |
-| Flo Tools | [Select Nudge Value](<Flo Tools/Select Nudge Value.md>) | Opt+Cmd+F7 | True | 6BD51E8B-0600-4469-86C3-0FFDC5FFE017 |  |
-| Flo Tools | [Select Sub Counter](<Flo Tools/Select Sub Counter.md>) | Opt+Cmd+F6 | True | 79A74652-734F-4F8F-9409-30B663A77457 |  |
-| Flo Tools | [Select main counter](<Flo Tools/Select main counter.md>) | Opt+Cmd+F4 | True | 4E3AFEFC-3AB6-400E-87C6-8BC0AA1A3F51 |  |
+| Flo Tools | [Select Nudge Value](<Flo Tools/Select Nudge Value.md>) | Opt+Cmd+F7 | True | 6BD51E8B-0600-4469-86C3-0FFDC5FFE017 | yes |
+| Flo Tools | [Select Sub Counter](<Flo Tools/Select Sub Counter.md>) | Opt+Cmd+F6 | True | 79A74652-734F-4F8F-9409-30B663A77457 | yes |
+| Flo Tools | [Select main counter](<Flo Tools/Select main counter.md>) | Opt+Cmd+F4 | True | 4E3AFEFC-3AB6-400E-87C6-8BC0AA1A3F51 | yes |
 | Flo Tools | [Speak And Move Ahead 5 Playlists](<Flo Tools/Speak And Move Ahead 5 Playlists.md>) | Shift+Page Down | True | CA7C53DD-6000-4A6C-B7E4-2D7BEB400AA6 |  |
 | Flo Tools | [Speak And Move Back 5 Playlists](<Flo Tools/Speak And Move Back 5 Playlists.md>) | Shift+Page Up | True | 6FE53814-0288-4606-9228-1992F9BD7557 |  |
 | Flo Tools | [Speak And Navigate to First Playlist](<Flo Tools/Speak And Navigate to First Playlist.md>) | Shift+Home | True | 712B47E0-AE37-4BF3-954C-761F0793D874 |  |
 | Flo Tools | [Speak And Navigate to Last Playlist](<Flo Tools/Speak And Navigate to Last Playlist.md>) | Shift+End | True | 8E471415-19CA-483E-82A6-09A9DF222EF7 |  |
 | Flo Tools | [Speak And Select Next Playlist](<Flo Tools/Speak And Select Next Playlist.md>) | Shift+Down | True | 2B84BD4D-351A-43DA-90AC-189C8BC7B7B9 |  |
 | Flo Tools | [Speak And Select Previous Playlist](<Flo Tools/Speak And Select Previous Playlist.md>) | Shift+Up | True | B1D8EF63-1F31-4C68-B619-394E6A3C718C |  |
-| Flo Tools | [Speak Grid Value](<Flo Tools/Speak Grid Value.md>) | Cmd+F8 | True | 48DEE0DA-19B2-4029-BCAA-AD7D5C14340E |  |
+| Flo Tools | [Speak Grid Value](<Flo Tools/Speak Grid Value.md>) | Cmd+F8 | True | 48DEE0DA-19B2-4029-BCAA-AD7D5C14340E | yes |
 | Flo Tools | [Speak Hidden Tracks, Show Track List Pop-up Menu](<Flo Tools/Speak Hidden Tracks_ Show Track List Pop-up Menu.md>) | Opt+Shift+H | True | 2AC2F1D3-BAAC-4FAF-9BD6-7564D095010F |  |
 | Flo Tools | [Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks](<Flo Tools/Speak Input Monitor-Enabled Tracks_ Disable Input Monitor On All Tracks.md>) | Opt+Shift+K | True | CF7CAA29-052E-4BEC-910F-757E788CCBC2 |  |
 | Flo Tools | [Speak Muted Tracks, Unmute All Tracks](<Flo Tools/Speak Muted Tracks_ Unmute All Tracks.md>) | Opt+Shift+M | True | BE81CE62-6368-4549-AD3F-38BCEB5DED1D |  |
@@ -121,16 +121,16 @@
 | Flo Tools | [Speak Soloed Tracks, Unsolo All Tracks](<Flo Tools/Speak Soloed Tracks_ Unsolo All Tracks.md>) | Opt+Shift+S | True | 2727205D-51F2-49D2-B1B0-66BA8D4D6F06 | yes |
 | Flo Tools | [Speak Tracks With 0DB Level](<Flo Tools/Speak Tracks With 0DB Level.md>) | Opt+Shift+0 | True | 7053D5DD-60A3-444A-AB18-A54AA32DF625 |  |
 | Flo Tools | [Speak/Edit Attack Velocity for Selected Note](<Flo Tools/Speak_Edit Attack Velocity for Selected Note.md>) | Opt+A | True | A09642E3-1015-4049-8788-0D827A6565FB |  |
-| Flo Tools | [Speak/Edit Nudge Value](<Flo Tools/Speak_Edit Nudge Value.md>) | Cmd+F7 | True | 347B48AC-0E8F-4631-90C1-D3AB3617AEDA |  |
+| Flo Tools | [Speak/Edit Nudge Value](<Flo Tools/Speak_Edit Nudge Value.md>) | Cmd+F7 | True | 347B48AC-0E8F-4631-90C1-D3AB3617AEDA | yes |
 | Flo Tools | [Speak/Edit Pitch for Selected Note](<Flo Tools/Speak_Edit Pitch for Selected Note.md>) | Opt+P | True | E5D2500D-0E04-494C-A049-94A51C5A6519 |  |
-| Flo Tools | [Speak/Edit Post-Roll Amount](<Flo Tools/Speak_Edit Post-Roll Amount.md>) | Cmd+F10 | True | 04803258-2062-4496-A1DD-213752CBCAF4 |  |
-| Flo Tools | [Speak/Edit Pre-Roll Amount](<Flo Tools/Speak_Edit Pre-Roll Amount.md>) | Cmd+F9 | True | A274B37A-CA55-44D9-8307-C150BCB1C37B |  |
+| Flo Tools | [Speak/Edit Post-Roll Amount](<Flo Tools/Speak_Edit Post-Roll Amount.md>) | Cmd+F10 | True | 04803258-2062-4496-A1DD-213752CBCAF4 | yes |
+| Flo Tools | [Speak/Edit Pre-Roll Amount](<Flo Tools/Speak_Edit Pre-Roll Amount.md>) | Cmd+F9 | True | A274B37A-CA55-44D9-8307-C150BCB1C37B | yes |
 | Flo Tools | [Speak/Edit Release Velocity for Selected Note](<Flo Tools/Speak_Edit Release Velocity for Selected Note.md>) | Opt+E | True | 24F69B79-B025-4395-82E6-7B032E6121AA |  |
-| Flo Tools | [Speak/Edit Selection End](<Flo Tools/Speak_Edit Selection End.md>) | Cmd+F2 | True | BA15DD35-8B44-4294-BBB7-C8E49835ED91 |  |
-| Flo Tools | [Speak/Edit Selection Length](<Flo Tools/Speak_Edit Selection Length.md>) | Cmd+F3 | True | 6D81DB50-0CF7-4A66-89BD-5BBE50F6CF2A |  |
-| Flo Tools | [Speak/Edit Sub Counter](<Flo Tools/Speak_Edit Sub Counter.md>) | Cmd+F6 | True | D6541BED-44E6-43BA-8217-A482DBF46C3D |  |
-| Flo Tools | [Speak/Edit Tempo](<Flo Tools/Speak_Edit Tempo.md>) | Cmd+F11 | True | F5200DB5-3855-4AD2-B90A-4382DD363247 |  |
-| Flo Tools | [Speak/Edit main counter](<Flo Tools/Speak_Edit main counter.md>) | Cmd+F4 | True | 749BC3D0-FDAD-4FB5-883D-807887087C79 |  |
+| Flo Tools | [Speak/Edit Selection End](<Flo Tools/Speak_Edit Selection End.md>) | Cmd+F2 | True | BA15DD35-8B44-4294-BBB7-C8E49835ED91 | yes |
+| Flo Tools | [Speak/Edit Selection Length](<Flo Tools/Speak_Edit Selection Length.md>) | Cmd+F3 | True | 6D81DB50-0CF7-4A66-89BD-5BBE50F6CF2A | yes |
+| Flo Tools | [Speak/Edit Sub Counter](<Flo Tools/Speak_Edit Sub Counter.md>) | Cmd+F6 | True | D6541BED-44E6-43BA-8217-A482DBF46C3D | yes |
+| Flo Tools | [Speak/Edit Tempo](<Flo Tools/Speak_Edit Tempo.md>) | Cmd+F11 | True | F5200DB5-3855-4AD2-B90A-4382DD363247 | yes |
+| Flo Tools | [Speak/Edit main counter](<Flo Tools/Speak_Edit main counter.md>) | Cmd+F4 | True | 749BC3D0-FDAD-4FB5-883D-807887087C79 | yes |
 | Flo Tools | [Speak/Select Shuffle Mode](<Flo Tools/Speak_Select Shuffle Mode.md>) | F1 | True | A7B3EDA0-DC5C-410C-AAE2-C1A4DBA7A2AB | yes |
 | Flo Tools | [Speak/Select Slip Mode](<Flo Tools/Speak_Select Slip Mode.md>) | F2 | True | 675FE3D4-7D7C-4A9C-B5A2-649A8E3ED74E | yes |
 | Flo Tools | [Speak/Select Spot Mode](<Flo Tools/Speak_Select Spot Mode.md>) | F3 | True | D41A7D40-EC3F-490E-A38E-33563B9E6DF6 | yes |
@@ -156,7 +156,7 @@
 | Flo Tools | [Toggle Inspector](<Flo Tools/Toggle Inspector.md>) | / | True | 8F157FEB-069E-465B-9AA5-92C4A59D23C4 | yes |
 | Flo Tools | [Toggle Temporary INspector](<Flo Tools/Toggle Temporary INspector.md>) | `; ` (released) | True | E63048EB-FBD0-41A9-A4C7-8922216F11D3 | yes |
 | Flo Tools | [Track view toggled on all tracks](<Flo Tools/Track view toggled on all tracks.md>) | Opt+- | True | B5FFCC82-ADE7-4A3C-9D77-7EADC3E1BE64 |  |
-| Flo Tools | [speak/Edit selection start](<Flo Tools/speak_Edit selection start.md>) | Cmd+F1 | True | EE98B23A-8EEC-4DB2-A4EE-D7D2406DCA8A |  |
+| Flo Tools | [speak/Edit selection start](<Flo Tools/speak_Edit selection start.md>) | Cmd+F1 | True | EE98B23A-8EEC-4DB2-A4EE-D7D2406DCA8A | yes |
 | Flo Tools Audio Suite | [Analyze](<Flo Tools Audio Suite/Analyze.md>) | Ctrl+Opt+Shift+Cmd+N | True | 1B41CD91-E8C7-4789-872D-A3C6AFDB5358 |  |
 | Flo Tools Audio Suite | [Bypass](<Flo Tools Audio Suite/Bypass.md>) | Ctrl+Opt+Shift+Cmd+B | True | 71C6DD25-25C5-4B89-8C1F-6E9C82C4B487 |  |
 | Flo Tools Audio Suite | [Next Preset](<Flo Tools Audio Suite/Next Preset.md>) | ] | True | C8B042AA-40F4-43CC-A8A9-D0BA6CFB1EAF |  |
