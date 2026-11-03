@@ -313,13 +313,13 @@
 | Flo Tools Plugin | [Speak/Choose Preset](<Flo Tools Plugin/Speak_Choose Preset.md>) | Opt+Cmd+P | True | 800D2F46-7C27-4892-AA7C-6F90F0DC5EB0 |  |
 | Flo Tools Plugin | [Speak/Toggle Bypass](<Flo Tools Plugin/Speak_Toggle Bypass.md>) | Opt+B | True | DAC44B3D-0948-4D6C-92FE-006AE0EB934C |  |
 | Flo Tools Plugin | [Toggle Plugin Monitor](<Flo Tools Plugin/Toggle Plugin Monitor.md>) | Opt+/ | True | B54D31B8-DFAE-41A0-BD25-837A879C40D0 |  |
-| Flo Tools Selected Tab | [Tab 1](<Flo Tools Selected Tab/Tab 1.md>) | Cmd+1 | True | 8ADB9D7E-7928-4685-9B03-951B883F29A4 |  |
-| Flo Tools Selected Tab | [Tab 2](<Flo Tools Selected Tab/Tab 2.md>) | Cmd+2 | True | 656463B9-2F24-4E3C-B064-0EDD916AF0B6 |  |
-| Flo Tools Selected Tab | [Tab 3](<Flo Tools Selected Tab/Tab 3.md>) | Cmd+3 | True | 1480A1D4-E82F-4F37-A2FC-C9A22E73BDB8 |  |
-| Flo Tools Selected Tab | [Tab 4](<Flo Tools Selected Tab/Tab 4.md>) | Cmd+4 | True | 08CDB9D4-F8C7-483D-A806-FA5C622A04C7 |  |
-| Flo Tools Selected Tab | [Tab 5](<Flo Tools Selected Tab/Tab 5.md>) | Cmd+5 | True | C7AA19FE-CA82-48A7-9421-E43298342E17 |  |
-| Flo Tools Selected Tab | [Tab 6](<Flo Tools Selected Tab/Tab 6.md>) | Cmd+6 | True | 5D9F693F-572D-409C-9AB5-DF32ECE8410B |  |
-| Flo Tools Selected Tab | [Tab 7](<Flo Tools Selected Tab/Tab 7.md>) | Cmd+7 | True | 8A85443B-00D3-4A66-9677-B842130375C7 |  |
-| Flo Tools Selected Tab | [Tab 8](<Flo Tools Selected Tab/Tab 8.md>) | Cmd+8 | True | 08026A87-90D9-46B7-8992-618EDA5DBDDF |  |
-| Flo Tools Selected Tab | [Tab 9](<Flo Tools Selected Tab/Tab 9.md>) | Cmd+9 | True | 169C20E8-AC0C-4348-93C0-88B154BE93BB |  |
+| Flo Tools Selected Tab | [Tab 1](<Flo Tools Selected Tab/Tab 1.md>) | Cmd+1 | True | 8ADB9D7E-7928-4685-9B03-951B883F29A4 | yes |
+| Flo Tools Selected Tab | [Tab 2](<Flo Tools Selected Tab/Tab 2.md>) | Cmd+2 | True | 656463B9-2F24-4E3C-B064-0EDD916AF0B6 | yes |
+| Flo Tools Selected Tab | [Tab 3](<Flo Tools Selected Tab/Tab 3.md>) | Cmd+3 | True | 1480A1D4-E82F-4F37-A2FC-C9A22E73BDB8 | yes |
+| Flo Tools Selected Tab | [Tab 4](<Flo Tools Selected Tab/Tab 4.md>) | Cmd+4 | True | 08CDB9D4-F8C7-483D-A806-FA5C622A04C7 | yes |
+| Flo Tools Selected Tab | [Tab 5](<Flo Tools Selected Tab/Tab 5.md>) | Cmd+5 | True | C7AA19FE-CA82-48A7-9421-E43298342E17 | yes |
+| Flo Tools Selected Tab | [Tab 6](<Flo Tools Selected Tab/Tab 6.md>) | Cmd+6 | True | 5D9F693F-572D-409C-9AB5-DF32ECE8410B | yes |
+| Flo Tools Selected Tab | [Tab 7](<Flo Tools Selected Tab/Tab 7.md>) | Cmd+7 | True | 8A85443B-00D3-4A66-9677-B842130375C7 | yes |
+| Flo Tools Selected Tab | [Tab 8](<Flo Tools Selected Tab/Tab 8.md>) | Cmd+8 | True | 08026A87-90D9-46B7-8992-618EDA5DBDDF | yes |
+| Flo Tools Selected Tab | [Tab 9](<Flo Tools Selected Tab/Tab 9.md>) | Cmd+9 | True | 169C20E8-AC0C-4348-93C0-88B154BE93BB | yes |
 | Global Macro Group | [Toggle Flo Mouse](<Global Macro Group/Toggle Flo Mouse.md>) | Cmd+/ | True | 0D1179E6-67B7-4B3F-AF22-8220E83AABA1 | excluded (Flo Mouse) |

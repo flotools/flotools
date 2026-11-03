@@ -52,6 +52,18 @@ public struct ProToolsApp: Sendable {
         FadeDialog(try AXElement.application(pid: pid).required("the \(kind.rawValue) dialog") { app in try app.windows.first { try $0.title == kind.rawValue } })
     }
 
+    /// Presses tab `number` (from 1) of the focused window, such as Preferences or I/O Setup, whose tabs are its radio buttons, and returns the tab's name. The JXA used `windows[0]`, the front window.
+    @AccessibilityActor
+    public func selectTab(_ number: Int) throws -> String {
+        let window = try AXElement.application(pid: pid).required("the front window") { try $0.focusedWindow }
+        let tab = try window.required("tab \(number)") { window in
+            let tabs = try window.children(role: "AXRadioButton")
+            return tabs.indices.contains(number - 1) ? tabs[number - 1] : nil
+        }
+        try tab.press()
+        return try tab.name ?? ""
+    }
+
     /// The Mix window track strip whose name is under the VoiceOver cursor, like `mix.groups.byName(vo.voCursor.textUnderCursor())` in the JXA. The one place the VoiceOver cursor is joined to a strip.
     public func trackUnderVoiceOverCursor() async throws -> TrackStrip {
         let mix = try await mixWindow()
