@@ -16,7 +16,7 @@ enum InspectorMode {
             try await VoiceOver.say(on ? "Inspector On" : "Inspector Off")
         },
         // A hold, so the Inspector turns off on release even if the key stops being a hotkey meanwhile. The KM version read the key state on press and release instead. Release always turns it off, also when `/` had turned it on.
-        Command(toggleTemporaryInspector, "Toggle Temporary INspector", summary: "Turns the Inspector on while the key is held, and off when it is released. Works only with the \"temporary inspector\" preference on.", scope: .mixOrEdit, triggers: [.key("`"), .key("`", .released)], press: { run in
+        Command(toggleTemporaryInspector, "Toggle Temporary Inspector", summary: "Turns the Inspector on while the key is held, and off when it is released. Works only with the \"temporary inspector\" preference on.", scope: .mixOrEdit, triggers: [.key("`"), .key("`", .released)], press: { run in
             run.engine.setInspector(true)
             return true
         }, release: { run in

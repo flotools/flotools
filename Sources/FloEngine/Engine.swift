@@ -45,7 +45,7 @@ public final class Engine {
         }
     }
 
-    /// The front app and window, refreshed before each hotkey runs its command.
+    /// The front app and window that keys are routed on, kept current by the context monitor. A key press refreshes only the front app, because reading the window could block while Pro Tools is busy.
     public private(set) var context = FrontContext()
 
     /// App state that decides which keys apply, such as whether the Inspector is on. Starts with the Inspector off.

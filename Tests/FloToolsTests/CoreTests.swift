@@ -960,7 +960,7 @@ private actor Flag {
     }
 
     @Test func chooserTypeSelectFindsTheFirstMatch() {
-        let items = ["List Hidden Tracks", "List Input Monitor-Disabled  Tracks", "List Muted Tracks"]
+        let items = ["List Hidden Tracks", "List Input Monitor-Disabled Tracks", "List Muted Tracks"]
         #expect(Chooser.firstMatch("List Hid", in: items) == 0)
         #expect(Chooser.firstMatch("list m", in: items) == 2)
         #expect(Chooser.firstMatch("Hid", in: items) == nil)

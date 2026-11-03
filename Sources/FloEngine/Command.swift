@@ -30,7 +30,7 @@ public enum Trigger: Sendable, Equatable {
     }
 }
 
-/// What a command does. It is nonisolated, so it never runs on the main actor and a slow Pro Tools cannot block hotkeys: Pro Tools reads are `await`s on `AccessibilityActor`, and speech and engine state are `await`s on the main actor. A body that only changes Flo Tools state can be written `{ @MainActor run in ... }`. Throwing stops the command; the engine logs the error and says what went wrong.
+/// What a command does. It is nonisolated, so it never runs on the main actor and a slow Pro Tools cannot block hotkeys: Pro Tools reads are `await`s on `AccessibilityActor`, speech is an `await` on `VoiceOverActor`, and engine state is an `await` on the main actor. A body that only changes Flo Tools state can be written `{ @MainActor run in ... }`. Throwing stops the command; the engine logs the error and says what went wrong.
 public typealias CommandBody = @Sendable (CommandRun) async throws -> Void
 
 /// Starts a hold when its key is pressed; returns whether it did. See `CommandAction.hold`.

@@ -27,7 +27,7 @@ enum TrackLists {
 
     static let listings: [Listing] = [
         Listing(name: "List Hidden Tracks", source: .trackList(.shown, on: false), none: .says(NoTracks.hidden), heading: "hidden", prompt: "Choose tracks to show.", okTitle: "Show"),
-        Listing(name: "List Input Monitor-Disabled  Tracks", source: .strips(.inputMonitored, on: false), none: .says("No tracks are input monitor disabled."), heading: "input monitor Disabled", prompt: "Choose tracks to enable input monitor.", okTitle: "Enable Input Monitor"),
+        Listing(name: "List Input Monitor-Disabled Tracks", source: .strips(.inputMonitored, on: false), none: .says("No tracks are input monitor disabled."), heading: "input monitor Disabled", prompt: "Choose tracks to enable input monitor.", okTitle: "Enable Input Monitor"),
         Listing(name: "List Input Monitor-Enabled Tracks", source: .strips(.inputMonitored, on: true), none: .says("No tracks are input monitor enabled."), heading: "Input Monitor Enabled.", prompt: "Choose tracks to disable input monitor.", okTitle: "Disable Input Monitor"),
         Listing(name: "List Muted Tracks", source: .strips(.muted, on: true), none: .says(NoTracks.muted), heading: "Muted", prompt: "Choose tracks to unmute.", okTitle: "Unmute"),
         // The JXA put "<n> disarmed. Choose tracks to arm." in the prompt, with no title or OK name, and spoke nothing for an empty list; this follows the other lists.

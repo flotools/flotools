@@ -9,7 +9,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
 | `/` | Toggle Inspector | Mix, Edit | Turns the Inspector on or off and says which. |
-| `` ` `` (hold) | Toggle Temporary INspector | Mix, Edit | Turns the Inspector on while the key is held, and off when it is released. Works only with the "temporary inspector" preference on. |
+| `` ` `` (hold) | Toggle Temporary Inspector | Mix, Edit | Turns the Inspector on while the key is held, and off when it is released. Works only with the "temporary inspector" preference on. |
 | `1` | Speak/Open Insert A | Mix, Edit, Inspector on | Single press speaks insert A: whether it is active, and what is assigned. Double press opens the plug-in window. |
 | `2` | Speak/Open Insert B | Mix, Edit, Inspector on | Single press speaks insert B: whether it is active, and what is assigned. Double press opens the plug-in window. |
 | `3` | Speak/Open Insert C | Mix, Edit, Inspector on | Single press speaks insert C: whether it is active, and what is assigned. Double press opens the plug-in window. |
@@ -152,10 +152,10 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+Shift+S` | Speak Soloed Tracks, Unsolo All Tracks | Any | Single press speaks the soloed tracks; double press unsolos them all. |
 | `Opt+Shift+M` | Speak Muted Tracks, Unmute All Tracks | Any | Single press speaks the muted tracks; double press unmutes them all. |
 | `Opt+Shift+K` | Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks | Any | Single press speaks the tracks with input monitoring on; double press turns it off on all of them. |
-| `Opt+Shift+R` | Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks | Any | Single press speaks the record-armed tracks, and says when hidden tracks are armed; double press disarms them all. |
+| `Opt+Shift+R` | Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks | Any | Single press speaks the record-armed tracks, and says when only hidden tracks are armed; double press disarms the shown tracks, and says when hidden tracks stay armed. |
 | `Opt+Shift+Cmd+R` | Speak Record Safe Tracks | Any | Speaks the tracks that are record safe. |
 | `Opt+Shift+Cmd+S` | Speak Solo Safe Tracks | Any | Speaks the tracks that are solo safe. |
-| `Opt+Shift+0` | Speak Tracks With 0DB Level | Any | Speaks the tracks whose volume fader is at 0 dB. |
+| `Opt+Shift+0` | Speak Tracks With 0DB Level | Any | Speaks the tracks whose peak hold reached 0 dB or more. MIDI tracks are left out. |
 | `Opt+Shift+L` | Speak Selected Tracks, Deselect All Tracks | Any | Single press speaks the selected tracks; double press deselects them all. |
 | `Opt+Shift+H` | Speak Hidden Tracks, Show Track List Pop-up Menu | Any | Single press speaks the hidden tracks; double press opens the Track List menu. |
 | `Opt+Shift+W` | Speak Shown Tracks, Show Track List Pop-up Menu | Any | Single press speaks the shown tracks; double press opens the Track List menu. |
@@ -293,10 +293,10 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
-| `Opt+Cmd+W` | Close All Floating Windows | Any | Closes every Pro Tools window except the Mix and Edit windows. |
+| `Opt+Cmd+W` | Close All Floating Windows | Any | Presses the close button of every Pro Tools window except the Mix and Edit windows. Windows without one, such as dialogs, stay open. |
 | `Opt+Cmd+,` | Open Preferences Dialog | Any | Opens Setup > Preferences in Pro Tools. |
 | `Ctrl+Shift+Cmd+C` | Resize Clips Table | Any | Speaks the width of the Edit window's clip list and moves the mouse onto its resize edge, ready to drag. |
-| `Ctrl+Shift+Cmd+T` | Resize Track LIst Table | Any | Speaks the width of the front window's Track List and moves the mouse onto its resize edge, ready to drag. |
+| `Ctrl+Shift+Cmd+T` | Resize Track List Table | Any | Speaks the width of the front window's Track List and moves the mouse onto its resize edge, ready to drag. |
 | `Opt+Shift+,` | Speak Selected Clips | Any | Speaks the clips selected in the clip list. |
 
 ## Clip drag

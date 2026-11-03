@@ -16,7 +16,7 @@ enum TrackStatus {
         recordArmed,
         flagCommand("floTools.speakRecordSafeTracks", "Speak Record Safe Tracks", key: "Opt+Shift+Cmd+R", "Speaks the tracks that are record safe.", .recordSafe, Wording(none: "No tracks are disarmed safe.", heading: "Disarmed safe:")),
         flagCommand("floTools.speakSoloSafeTracks", "Speak Solo Safe Tracks", key: "Opt+Shift+Cmd+S", "Speaks the tracks that are solo safe.", .soloSafe, Wording(none: "No tracks are solo safe.", heading: "Solo safe:")),
-        Command("floTools.speakTracksWith0DbLevel", "Speak Tracks With 0DB Level", summary: "Speaks the tracks whose volume fader is at 0 dB.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+0")]) { _ in
+        Command("floTools.speakTracksWith0DbLevel", "Speak Tracks With 0DB Level", summary: "Speaks the tracks whose peak hold reached 0 dB or more. MIDI tracks are left out.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+0")]) { _ in
             try await speakTracksAt0dB()
         },
         Command("floTools.speakSelectedTracksDeselectAllTracks", "Speak Selected Tracks, Deselect All Tracks", summary: "Single press speaks the selected tracks; double press deselects them all.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+L")], single: { _ in
@@ -88,7 +88,7 @@ enum TrackStatus {
     /// Record arm has two extra cases: armed tracks can be hidden, which only the Edit window's record status shows, as the JXA checked. The JXA disarmed in a loop until that status cleared, which never ended while a hidden track was armed; this disarms the shown tracks once and says when hidden ones stay armed.
     @MainActor
     private static var recordArmed: Command {
-        Command("floTools.speakRecordEnabledTracksDisarmAllRecordEnabledTracks", "Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks", summary: "Single press speaks the record-armed tracks, and says when hidden tracks are armed; double press disarms them all.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+R")], single: { _ in
+        Command("floTools.speakRecordEnabledTracksDisarmAllRecordEnabledTracks", "Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks", summary: "Single press speaks the record-armed tracks, and says when only hidden tracks are armed; double press disarms the shown tracks, and says when hidden tracks stay armed.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+R")], single: { _ in
             let proTools = try ProToolsApp.running()
             let names = try await proTools.mixWindow().tracks(.recordArmed, on: true).map(\.name)
             try await VoiceOver.say(names.isEmpty ? noArmedTracksText(proTools) : "\(names.count) Armed: " + list(names))

@@ -2,7 +2,7 @@ import AppKit
 import FloEngine
 import FloSystem
 
-/// The preferences window: the settings of the KM preferences dialog, with OK and Cancel. Opened from the menu and by the Flo Tools Preferences macro. OK saves to the store, then calls `onSave` so the app applies the new values.
+/// The preferences window: the settings of the KM preferences dialog, with OK and Cancel. Opened from the menu and by the Flo Tools Preferences command. OK saves to the store, then calls `onSave` so the app applies the new values.
 @MainActor
 final class PreferencesPanel: NSObject, NSWindowDelegate {
     private let store: PreferencesStore

@@ -8,9 +8,9 @@ import FloSystem
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     /// Read once here and passed down; the preferences panel is the only writer.
     private let preferences = PreferencesStore()
-    /// The app owns the input and context sources and hands them to the engine, which starts and stops them.
     /// Shared by the commands and `lifecycle`, which resets it when Pro Tools quits.
     private let session = SessionState()
+    /// The app owns the input and context sources and hands them to the engine, which starts and stops them.
     private lazy var engine: Engine = FloFeatures.makeEngine(session: session, hotKeys: HotKeyCenter(), contextMonitor: ContextMonitor(), openPreferences: { [weak self] in
         self?.preferencesPanel.show()
     })

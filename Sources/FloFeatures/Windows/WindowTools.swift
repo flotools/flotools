@@ -7,14 +7,14 @@ import FloSystem
 enum WindowTools {
     @MainActor
     static var commands: [Command] { [
-        Command("floTools.closeAllFloatingWindows", "Close All Floating Windows", summary: "Closes every Pro Tools window except the Mix and Edit windows.", scope: .anyProToolsWindow, triggers: [.key("Opt+Cmd+W")]) { _ in
+        Command("floTools.closeAllFloatingWindows", "Close All Floating Windows", summary: "Presses the close button of every Pro Tools window except the Mix and Edit windows. Windows without one, such as dialogs, stay open.", scope: .anyProToolsWindow, triggers: [.key("Opt+Cmd+W")]) { _ in
             try await ProToolsApp.running().closeFloatingWindows()
         },
         Command("floTools.openPreferencesDialog", "Open Preferences Dialog", summary: "Opens Setup > Preferences in Pro Tools.", scope: .anyProToolsWindow, triggers: [.key("Opt+Cmd+,")]) { _ in
             try await ProToolsApp.running().control(.menuItem(menu: "Setup", .contains("Preferences"))).press()
         },
         resizeTable("floTools.resizeClipsTable", "Resize Clips Table", "the Edit window's clip list", key: "Ctrl+Shift+Cmd+C", .editClips),
-        resizeTable("floTools.resizeTrackListTable", "Resize Track LIst Table", "the front window's Track List", key: "Ctrl+Shift+Cmd+T", .frontTrackList),
+        resizeTable("floTools.resizeTrackListTable", "Resize Track List Table", "the front window's Track List", key: "Ctrl+Shift+Cmd+T", .frontTrackList),
         Command("floTools.speakSelectedClips", "Speak Selected Clips", summary: "Speaks the clips selected in the clip list.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+,")]) { _ in
             try await VoiceOver.say(selectedClipsText(try await ProToolsApp.running().selectedClipNames()))
         },
