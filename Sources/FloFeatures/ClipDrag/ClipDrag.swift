@@ -12,8 +12,9 @@ enum ClipDrag {
         [
             Command("floTools.betaMarkClipForDrag", "Beta: Mark Clip for Drag", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+,")]) { _ in
                 let cursor = try await VoiceOver.cursorBounds()
-                let clip = try await ProToolsApp.running().listedClip(at: CGPoint(x: cursor.midX, y: cursor.midY)).required("a clip list item under the VoiceOver cursor")
-                await mark.set(clip.name)
+                let app = try ProToolsApp.running()
+                let clip = try await app.listedClip(at: CGPoint(x: cursor.midX, y: cursor.midY)).required("a clip list item under the VoiceOver cursor")
+                try await mark.set(clip.name, in: app)
                 try await VoiceOver.say("Marked for drag.")
                 // The KM version held the button until the hotkey's modifiers were up. It is released however the wait ends.
                 let point = grabPoint(of: clip.frame)
@@ -23,9 +24,9 @@ enum ClipDrag {
             },
             Command("floTools.betaDragClip", "Beta: Drag Clip", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+.")]) { _ in
                 try await Keyboard.waitForModifiersReleased()
-                guard let name = await mark.clipName else { throw FloError.notFound("a clip marked for drag") }
-                await Sound.done.play()
                 let app = try ProToolsApp.running()
+                guard let name = try await mark.clipName(in: app) else { throw FloError.notFound("a clip marked for drag") }
+                await Sound.done.play()
                 let clip = try await app.listedClip(named: name).required("the marked clip in the clip list")
                 let start = grabPoint(of: clip.frame)
                 let track = try await app.trackUnderVoiceOverCursor(in: .edit)
@@ -57,11 +58,44 @@ enum ClipDrag {
     }
 }
 
-/// The clip marked for drag, between Mark Clip for Drag and Drag Clip, by its clip list name. Replaces the KM variable point1.
-actor ClipDragMark {
-    private(set) var clipName: String?
+/// The clip marked for drag, between Mark Clip for Drag and Drag Clip, by its clip list name and the Edit window it was marked in. Replaces the KM variable point1, which lived until Pro Tools quit: a mark made in one session must not drag a same-named clip of the next session opened in the same Pro Tools.
+/// On `AccessibilityActor`, which owns the window element it keeps.
+@AccessibilityActor
+final class ClipDragMark {
+    private var clipName: String?
+    private var window: ProToolsApp.EditWindowIdentity?
 
-    func set(_ clipName: String) { self.clipName = clipName }
+    nonisolated init() {}
 
-    func clear() { clipName = nil }
+    // The app-taking forms find the Edit window on this actor: its identity holds an element, which cannot be passed from a command body.
+    func set(_ clipName: String, in app: ProToolsApp) throws {
+        set(clipName, in: try app.editWindowIdentity())
+    }
+
+    func set(_ clipName: String, in window: ProToolsApp.EditWindowIdentity) {
+        self.window = window
+        self.clipName = clipName
+    }
+
+    /// The marked clip, nil when none is marked or it was marked in an Edit window that is gone, which also clears the mark.
+    func clipName(in app: ProToolsApp) throws -> String? {
+        // Nothing marked is "nothing marked", even without an Edit window to compare with.
+        guard clipName != nil else { return nil }
+        return clipName(in: try app.editWindowIdentity())
+    }
+
+    func clipName(in current: ProToolsApp.EditWindowIdentity) -> String? {
+        guard let clipName, let window else { return nil }
+        guard window.isSame(as: current) else {
+            Log.info(.engine, "clip mark dropped: it was made in another session's Edit window")
+            clear()
+            return nil
+        }
+        return clipName
+    }
+
+    func clear() {
+        clipName = nil
+        window = nil
+    }
 }

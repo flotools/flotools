@@ -81,17 +81,34 @@ import Testing
 
 @Suite struct SessionStateTests {
     /// Like KM Cleanup Variables on Pro Tools quit: no marked clip, view, gain reduction or event column carries into the next session.
+    @AccessibilityActor
     @Test func resetForgetsTheSession() async throws {
         let session = SessionState()
-        await session.clipMark.set("Audio Clip \"Guitar_01\"")
+        session.clipMark.set("Audio Clip \"Guitar_01\"", in: Self.window(pid: 1))
         await session.plugInView.load(try PlugInView(json: Data(#"{"view":"Default","click":[-1,-1],"parameters":[[["Gain",1,2]]]}"#.utf8)))
         await session.gainReduction.record("minus 6 db")
         _ = await session.eventColumn.next()
         await session.reset()
-        #expect(await session.clipMark.clipName == nil)
+        #expect(session.clipMark.clipName(in: Self.window(pid: 1)) == nil)
         await #expect(throws: FloError.self) { try await session.plugInView.move(rows: 1, columns: 0) }
         #expect(await session.gainReduction.take() == 0)
         #expect(await session.eventColumn.column == .start)
+    }
+
+    /// A mark made in one session's Edit window is not used, and is dropped, once another Edit window is the current one.
+    @AccessibilityActor
+    @Test func clipMarkBelongsToItsEditWindow() {
+        let mark = ClipDragMark()
+        mark.set("Audio Clip \"Guitar_01\"", in: Self.window(pid: 1))
+        #expect(mark.clipName(in: Self.window(pid: 1)) == "Audio Clip \"Guitar_01\"")
+        #expect(mark.clipName(in: Self.window(pid: 2)) == nil)
+        #expect(mark.clipName(in: Self.window(pid: 1)) == nil)
+    }
+
+    /// Stands in for an Edit window: application elements of different processes are different elements, and creating one needs no Accessibility access.
+    @AccessibilityActor
+    private static func window(pid: pid_t) -> ProToolsApp.EditWindowIdentity {
+        ProToolsApp.EditWindowIdentity(AXElement.application(pid: pid))
     }
 }
 

@@ -45,6 +45,19 @@ extension ProToolsApp {
         try clipRows().filter { try $0.row.bool("AXSelected") == true }.compactMap { try $0.label.name.flatMap(Self.quotedClipName) }
     }
 
+    /// The Edit window as an identity, to tell whether something found in it belongs to the session open now. This assumes Pro Tools gives each session its own Edit window element and keeps it while the session is open, so a mark from a closed session does not match the next one, even one with the same name. Not yet checked live (2026-11-03).
+    @AccessibilityActor
+    public struct EditWindowIdentity {
+        private let window: AXElement
+
+        init(_ window: AXElement) { self.window = window }
+
+        public func isSame(as other: EditWindowIdentity) -> Bool { window.isSame(as: other.window) }
+    }
+
+    @AccessibilityActor
+    public func editWindowIdentity() throws -> EditWindowIdentity { EditWindowIdentity(try trackWindow(.edit)) }
+
     /// A clip as the clip list shows it now. Pro Tools exposes clips only as clip list rows, not on the timeline, and only the rows scrolled into view (checked live 2026-11-03).
     public struct ListedClip: Sendable, Equatable {
         /// The row's text without the "Selected. " that Pro Tools puts before a selected clip, for example `Audio Clip "Guitar_01"  Timebase selector (samples)`, so it stays the same when the selection changes.
