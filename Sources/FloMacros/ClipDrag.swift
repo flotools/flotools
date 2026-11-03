@@ -41,9 +41,7 @@ enum ClipDrag {
     /// Whether the edit selection starts where it ends, which the JXA took as a failed drag.
     @AccessibilityActor
     private static func selectionIsEmpty(_ app: ProToolsApp) throws -> Bool {
-        let start = try app.element(Counters.counter("Edit Selection Start")).value
-        let end = try app.element(Counters.counter("Edit Selection End")).value
-        return start == end
+        try app.value(of: .selectionStart) == app.value(of: .selectionEnd)
     }
 }
 

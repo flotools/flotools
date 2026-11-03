@@ -30,7 +30,7 @@ enum MidiEvents {
             Macro("floTools.editEvent", "Edit Event", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Cmd+Return")]) { _ in
                 // Before the first column there is nothing to edit, and the JXA said nothing.
                 guard let column = await cursor.column else { return }
-                _ = try await Counters.openForTyping(column.control)
+                _ = try await ProToolsApp.running().openForTyping(column.control)
                 try await VoiceOver.say(column.typingPrompt)
             },
         ]
@@ -40,18 +40,19 @@ enum MidiEvents {
     enum Column: Int, CaseIterable, Sendable {
         case start, pitch, attack, release, length, end
 
-        var control: EditWindowControl { Counters.counter(fieldName) }
-
-        var fieldName: String {
+        var control: EditWindowControl {
             switch self {
-            case .start: "Edit Selection Start"
-            case .pitch: "MIDI Note Pitch"
-            case .attack: "MIDI Note Attack Velocity"
-            case .release: "MIDI Note Release Velocity"
-            case .length: "Edit Selection Length"
-            case .end: "Edit Selection End"
+            case .start: .selectionStart
+            case .pitch: .notePitch
+            case .attack: .attackVelocity
+            case .release: .releaseVelocity
+            case .length: .selectionLength
+            case .end: .selectionEnd
             }
         }
+
+        /// For the log.
+        var fieldName: String { control.name.text }
 
         /// The value in words and the column's name, as each Monitor macro spoke it. An empty velocity or pitch, with no note selected, is "No".
         func spoken(_ value: String) -> String {
@@ -88,12 +89,24 @@ enum MidiEvents {
     static let pollInterval: Duration = .milliseconds(100)
 
     /// Speaks the value now, then each change, until the watch is replaced or stopped. A failed read, for example while the Edit window is closed or no note is selected, counts as an empty value at first and is skipped later, as in the JXA. The first failure of a streak and the recovery go to the log, as in the meter watch.
+    /// The field is found once and kept, so each poll is one read; after a failed read it is found again, because a closed window or a new session leaves the kept element invalid. Runs on `AccessibilityActor`, which owns the element, and leaves it free between polls.
+    @AccessibilityActor
     private static func follow(_ column: Column) async {
-        let read: @AccessibilityActor () throws -> String = { try ProToolsApp.running().element(column.control).value ?? "" }
+        var field: AXElement?
+        func read() throws -> String {
+            do {
+                let found = try field ?? ProToolsApp.running().element(column.control)
+                field = found
+                return try found.value ?? ""
+            } catch {
+                field = nil
+                throw error
+            }
+        }
         var last = ""
         var failing = false
         do {
-            last = try await read()
+            last = try read()
         } catch {
             Log.info(.engine, "watch could not read \(column.fieldName): \(error)")
             failing = true
@@ -104,7 +117,7 @@ enum MidiEvents {
             guard !Task.isCancelled else { return }
             let now: String
             do {
-                now = try await Log.$skipsDebug.withValue(true) { try await read() }
+                now = try Log.$skipsDebug.withValue(true) { try read() }
             } catch {
                 if !failing { Log.info(.engine, "watch could not read \(column.fieldName): \(error)") }
                 failing = true

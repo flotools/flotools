@@ -13,7 +13,8 @@ public enum NameMatch: Sendable, Equatable {
         }
     }
 
-    var text: String {
+    /// The name, or the part of it, that is matched.
+    public var text: String {
         switch self {
         case .is(let text), .contains(let text): text
         }
@@ -35,6 +36,37 @@ public struct EditWindowControl: Sendable, Equatable {
     }
 }
 
+/// The Edit window's counters, time values and their selectors, as Pro Tools 26.10 names them.
+extension EditWindowControl {
+    private static let counterCluster = "Counter Display Cluster"
+    private static let gridNudgeCluster = "Grid/Nudge Cluster"
+
+    private static func counter(_ name: String) -> EditWindowControl {
+        EditWindowControl([counterCluster], role: "AXTextField", .is(name))
+    }
+
+    private static func transport(_ name: String) -> EditWindowControl {
+        EditWindowControl(["Transport View Cluster", "Transport Display"], role: "AXTextField", .is(name))
+    }
+
+    public static let mainCounter = counter("Main Counter")
+    public static let subCounter = counter("Sub Counter")
+    public static let selectionStart = counter("Edit Selection Start")
+    public static let selectionEnd = counter("Edit Selection End")
+    public static let selectionLength = counter("Edit Selection Length")
+    public static let notePitch = counter("MIDI Note Pitch")
+    public static let attackVelocity = counter("MIDI Note Attack Velocity")
+    public static let releaseVelocity = counter("MIDI Note Release Velocity")
+    public static let mainCounterSelector = EditWindowControl([counterCluster], role: "AXButton", .is("Main Counter selector"))
+    public static let subCounterSelector = EditWindowControl([counterCluster], role: "AXButton", .is("Sub Counter selector"))
+    public static let preRoll = transport("Pre-roll Amount")
+    public static let postRoll = transport("Post-roll Amount")
+    public static let nudgeValue = EditWindowControl([gridNudgeCluster], role: "AXTextField", .is("Nudge Custom Value"))
+    public static let nudgeSelector = EditWindowControl([gridNudgeCluster], role: "AXPopUpButton", .is("Nudge value"))
+    public static let gridValue = EditWindowControl([gridNudgeCluster], role: "AXPopUpButton", .is("Grid Value"))
+    public static let tempo = EditWindowControl(["MIDI Control Cluster"], role: "AXTextField", .is("Tempo value"))
+}
+
 extension ProToolsApp {
     /// The element of `control` in the Edit window, or `FloError.notFound` naming the missing step.
     @AccessibilityActor
@@ -44,6 +76,28 @@ extension ProToolsApp {
             parent = try parent.required("the \(group)") { try $0.group(group) }
         }
         return try parent.required("the \(control.name.text)") { try $0.children(role: control.role).first { try control.name.matches($0.name) } }
+    }
+
+    /// The value `control` shows, empty when it has none.
+    @AccessibilityActor
+    public func value(of control: EditWindowControl) throws -> String {
+        try element(control).value ?? ""
+    }
+
+    /// Reads the value of `control` until it differs from `before`, as `ProToolsUpdate.reading` does. The control is found once, not on every read.
+    @AccessibilityActor
+    public func value(of control: EditWindowControl, changedFrom before: String) async throws -> String {
+        let field = try element(control)
+        return try await ProToolsUpdate.reading(changedFrom: before) { try field.value ?? "" }
+    }
+
+    /// Clicks the field so the next typed digits replace its value, and returns the value it had.
+    @AccessibilityActor
+    public func openForTyping(_ control: EditWindowControl) throws -> String {
+        let field = try element(control)
+        let value = try field.value ?? ""
+        try field.press()
+        return value
     }
 
     /// The title of the front window and whether it has a close button, which document windows have and dialogs do not. Nil when no window is in front.
