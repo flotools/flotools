@@ -43,6 +43,24 @@ enum PlugIns {
     /// "value: name", as the JXA monitor spoke a changed parameter.
     static func changeText(_ parameter: PlugInWindow.Parameter) -> String { "\(parameter.value): \(parameter.name)" }
 
+    /// The parameters in `now` whose value differs from the same parameter in `last`, in `now`'s order. A parameter is matched by name, and a repeated name by which occurrence it is, so parameters with distinct names that move or appear are not read as changes; position-wise comparison reported every shifted one. Controls that share a name and swap places, or another plug-in reusing a name, can still count as changes. A parameter new in `now` only sets its baseline.
+    static func changedParameters(from last: [PlugInWindow.Parameter], to now: [PlugInWindow.Parameter]) -> [PlugInWindow.Parameter] {
+        struct Key: Hashable { let name: String, occurrence: Int }
+        func keyed(_ parameters: [PlugInWindow.Parameter]) -> [(key: Key, parameter: PlugInWindow.Parameter)] {
+            var seen: [String: Int] = [:]
+            return parameters.map { parameter in
+                let occurrence = seen[parameter.name, default: 0]
+                seen[parameter.name] = occurrence + 1
+                return (Key(name: parameter.name, occurrence: occurrence), parameter)
+            }
+        }
+        let before = Dictionary(uniqueKeysWithValues: keyed(last).map { ($0.key, $0.parameter.value) })
+        return keyed(now).compactMap { entry in
+            guard let old = before[entry.key], old != entry.parameter.value else { return nil }
+            return entry.parameter
+        }
+    }
+
     /// Starts or stops a watch of the plug-in window's parameters that speaks each one that changes, for example while automation plays. It ends by itself when the window closes.
     @MainActor
     static var toggleMonitor: Command {
@@ -81,8 +99,8 @@ enum PlugIns {
             guard !Task.isCancelled else { return }
             do {
                 let now = try await Log.$skipsDebug.withValue(true) { try await window.parameters() }
-                for (old, new) in zip(last, now) where old != new {
-                    await VoiceOver.sayOrLog(changeText(new))
+                for changed in changedParameters(from: last, to: now) {
+                    await VoiceOver.sayOrLog(changeText(changed))
                 }
                 last = now
             } catch {

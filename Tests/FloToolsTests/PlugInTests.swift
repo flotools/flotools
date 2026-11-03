@@ -126,4 +126,20 @@ import Testing
         #expect(PlugIns.bypassText(false) == "Off")
         #expect(PlugIns.changeText(PlugInWindow.Parameter(name: "Gain", value: "3.0 dB")) == "3.0 dB: Gain")
     }
+
+    @Test func changedParametersMatchByName() {
+        func p(_ name: String, _ value: String) -> PlugInWindow.Parameter { PlugInWindow.Parameter(name: name, value: value) }
+        let last = [p("Gain", "0 dB"), p("Freq", "1 kHz"), p("Q", "1.0")]
+        // A stable list reports what changed, in window order.
+        #expect(PlugIns.changedParameters(from: last, to: [p("Gain", "3 dB"), p("Freq", "1 kHz"), p("Q", "2.0")]) == [p("Gain", "3 dB"), p("Q", "2.0")])
+        // Reordering is not a change; position-wise comparison would have reported all three.
+        #expect(PlugIns.changedParameters(from: last, to: [p("Q", "1.0"), p("Gain", "0 dB"), p("Freq", "1 kHz")]).isEmpty)
+        // Reordered with a value change: only the change, in the new order.
+        #expect(PlugIns.changedParameters(from: last, to: [p("Q", "3.0"), p("Gain", "0 dB"), p("Freq", "2 kHz")]) == [p("Q", "3.0"), p("Freq", "2 kHz")])
+        // A new parameter only sets its baseline; a gone one is not reported.
+        #expect(PlugIns.changedParameters(from: last, to: [p("Mix", "50%"), p("Gain", "1 dB")]) == [p("Gain", "1 dB")])
+        // Repeated names match by occurrence.
+        let twice = [p("Gain", "0 dB"), p("Gain", "0 dB")]
+        #expect(PlugIns.changedParameters(from: twice, to: [p("Gain", "0 dB"), p("Gain", "2 dB")]) == [p("Gain", "2 dB")])
+    }
 }
