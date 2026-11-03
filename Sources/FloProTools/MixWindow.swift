@@ -72,7 +72,7 @@ public struct TrackStrip {
     /// Selector and assignment buttons of send slot 0 (A) to 9 (J). Sends A-E and F-J are two groups of ten buttons, a selector and an assignment per slot.
     public func sendButtons(slot: Int) throws -> (selector: AXElement, assignment: AXElement) {
         let groupName = slot < 5 ? "Sends A-E" : "Sends F-J"
-        let buttons = try element.required("the \(groupName) sends") { try $0.group(groupName) }.buttons
+        let buttons = try element.required("the \(groupName) view") { try $0.group(groupName) }.buttons
         let index = (slot % 5) * 2
         guard buttons.count > index + 1 else { throw FloError.notFound("the send \(Self.sendLetter(slot)) buttons") }
         return (buttons[index], buttons[index + 1])

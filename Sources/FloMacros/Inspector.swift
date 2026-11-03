@@ -5,8 +5,7 @@ import FloSystem
 /// Flo Tools Inspector group: works on the Mix window track under the VoiceOver cursor.
 enum Inspector {
     @MainActor
-    static var macros: [Macro] { [
-        send("inspector.speakOpenSendB", "Speak/Open Send B", slot: 1, key: "Ctrl+2"),
+    static var macros: [Macro] { (0..<10).map(send) + [
         // The JXA played Tink, now the done sound, after speaking the new Solo state.
         Macro("inspector.speakToggleSolo", "Speak/Toggle Solo", group: .inspector, triggers: [.key("S")], doneSound: .afterDouble, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
@@ -44,10 +43,11 @@ enum Inspector {
 
     // MARK: Sends
 
-    /// Single press speaks the send slot and its assignment. Double press clicks the assignment button, then plays the done sound, as the JXA played Tink.
+    /// Speak/Open Send A to J on Ctrl+1 to Ctrl+0; `slot` counts from 0. Single press speaks the send slot and its assignment. Double press clicks the assignment button, then plays the done sound, as the JXA played Tink. The KM names spelled send H "h"; here it is "H".
     @MainActor
-    static func send(_ id: MacroID, _ name: String, slot: Int, key: String) -> Macro {
-        Macro(id, name, group: .inspector, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
+    static func send(slot: Int) -> Macro {
+        let letter = TrackStrip.sendLetter(slot)
+        return Macro(MacroID("inspector.speakOpenSend\(letter)"), "Speak/Open Send \(letter)", group: .inspector, triggers: [.key("Ctrl+\((slot + 1) % 10)")], doneSound: .afterDouble, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(sendText(slot: slot, in: track))
         }, double: { _ in

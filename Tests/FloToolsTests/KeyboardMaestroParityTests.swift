@@ -25,6 +25,15 @@ import Testing
     /// Swift macro to the KM macro it was ported from. Every macro needs an entry; a new macro with no KM original maps to nil.
     static let macroOrigins: [MacroID: String?] = [
         "inspector.speakOpenSendB": "F9ED77CC-B335-4608-BDBE-C560B3AC30F9",
+        "inspector.speakOpenSendA": "5C041461-3A68-400D-B8A1-B689CB38D6F8",
+        "inspector.speakOpenSendC": "4C032CCB-AECD-4C7C-94CB-6B231222BEC7",
+        "inspector.speakOpenSendD": "2BABC2F0-1F23-4F38-BE62-547445FDBECF",
+        "inspector.speakOpenSendE": "1E895B5D-9C60-49DE-AF50-4A0CB186C7BD",
+        "inspector.speakOpenSendF": "5FBCBDCB-48DA-449F-B41E-5946D8C56951",
+        "inspector.speakOpenSendG": "5444DA62-4082-472A-B3B5-B104996A4346",
+        "inspector.speakOpenSendH": "D1E605F3-8712-49B4-866C-96FD0EBC1159",
+        "inspector.speakOpenSendI": "E5A4BF4F-8338-4E18-892A-6503E719FE84",
+        "inspector.speakOpenSendJ": "0B0F935C-CEB5-40E5-87C7-2E95F304B4D2",
         "floTools.speakSoloedTracksUnsoloAllTracks": "2727205D-51F2-49D2-B1B0-66BA8D4D6F06",
         "inspector.speakToggleSolo": "57957B28-6D66-4BEF-85B9-48406E95FB18",
         "inspector.panRightOnMonoLeftChannel": "38AC5CB1-9C5F-4973-B8D1-20259CF38989",

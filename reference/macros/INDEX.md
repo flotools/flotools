@@ -255,16 +255,16 @@
 | Flo Tools Inspector | [Speak/Open Insert I](<Flo Tools Inspector/Speak_Open Insert I.md>) | 9 | True | C0A25523-D14C-4639-928F-6CE252F3EC50 |  |
 | Flo Tools Inspector | [Speak/Open Insert J](<Flo Tools Inspector/Speak_Open Insert J.md>) | 0 | True | 3F5059EA-018E-4AAA-AFC9-BE6B58E79152 |  |
 | Flo Tools Inspector | [Speak/Open Insert h](<Flo Tools Inspector/Speak_Open Insert h.md>) | 8 | True | 9DEAD364-0562-46AF-BE1E-62812AF81B9C |  |
-| Flo Tools Inspector | [Speak/Open Send A](<Flo Tools Inspector/Speak_Open Send A.md>) | Ctrl+1 | True | 5C041461-3A68-400D-B8A1-B689CB38D6F8 |  |
+| Flo Tools Inspector | [Speak/Open Send A](<Flo Tools Inspector/Speak_Open Send A.md>) | Ctrl+1 | True | 5C041461-3A68-400D-B8A1-B689CB38D6F8 | yes |
 | Flo Tools Inspector | [Speak/Open Send B](<Flo Tools Inspector/Speak_Open Send B.md>) | Ctrl+2 | True | F9ED77CC-B335-4608-BDBE-C560B3AC30F9 | yes |
-| Flo Tools Inspector | [Speak/Open Send C](<Flo Tools Inspector/Speak_Open Send C.md>) | Ctrl+3 | True | 4C032CCB-AECD-4C7C-94CB-6B231222BEC7 |  |
-| Flo Tools Inspector | [Speak/Open Send D](<Flo Tools Inspector/Speak_Open Send D.md>) | Ctrl+4 | True | 2BABC2F0-1F23-4F38-BE62-547445FDBECF |  |
-| Flo Tools Inspector | [Speak/Open Send E](<Flo Tools Inspector/Speak_Open Send E.md>) | Ctrl+5 | True | 1E895B5D-9C60-49DE-AF50-4A0CB186C7BD |  |
-| Flo Tools Inspector | [Speak/Open Send F](<Flo Tools Inspector/Speak_Open Send F.md>) | Ctrl+6 | True | 5FBCBDCB-48DA-449F-B41E-5946D8C56951 |  |
-| Flo Tools Inspector | [Speak/Open Send G](<Flo Tools Inspector/Speak_Open Send G.md>) | Ctrl+7 | True | 5444DA62-4082-472A-B3B5-B104996A4346 |  |
-| Flo Tools Inspector | [Speak/Open Send I](<Flo Tools Inspector/Speak_Open Send I.md>) | Ctrl+9 | True | E5A4BF4F-8338-4E18-892A-6503E719FE84 |  |
-| Flo Tools Inspector | [Speak/Open Send J](<Flo Tools Inspector/Speak_Open Send J.md>) | Ctrl+0 | True | 0B0F935C-CEB5-40E5-87C7-2E95F304B4D2 |  |
-| Flo Tools Inspector | [Speak/Open Send h](<Flo Tools Inspector/Speak_Open Send h.md>) | Ctrl+8 | True | D1E605F3-8712-49B4-866C-96FD0EBC1159 |  |
+| Flo Tools Inspector | [Speak/Open Send C](<Flo Tools Inspector/Speak_Open Send C.md>) | Ctrl+3 | True | 4C032CCB-AECD-4C7C-94CB-6B231222BEC7 | yes |
+| Flo Tools Inspector | [Speak/Open Send D](<Flo Tools Inspector/Speak_Open Send D.md>) | Ctrl+4 | True | 2BABC2F0-1F23-4F38-BE62-547445FDBECF | yes |
+| Flo Tools Inspector | [Speak/Open Send E](<Flo Tools Inspector/Speak_Open Send E.md>) | Ctrl+5 | True | 1E895B5D-9C60-49DE-AF50-4A0CB186C7BD | yes |
+| Flo Tools Inspector | [Speak/Open Send F](<Flo Tools Inspector/Speak_Open Send F.md>) | Ctrl+6 | True | 5FBCBDCB-48DA-449F-B41E-5946D8C56951 | yes |
+| Flo Tools Inspector | [Speak/Open Send G](<Flo Tools Inspector/Speak_Open Send G.md>) | Ctrl+7 | True | 5444DA62-4082-472A-B3B5-B104996A4346 | yes |
+| Flo Tools Inspector | [Speak/Open Send I](<Flo Tools Inspector/Speak_Open Send I.md>) | Ctrl+9 | True | E5A4BF4F-8338-4E18-892A-6503E719FE84 | yes |
+| Flo Tools Inspector | [Speak/Open Send J](<Flo Tools Inspector/Speak_Open Send J.md>) | Ctrl+0 | True | 0B0F935C-CEB5-40E5-87C7-2E95F304B4D2 | yes |
+| Flo Tools Inspector | [Speak/Open Send h](<Flo Tools Inspector/Speak_Open Send h.md>) | Ctrl+8 | True | D1E605F3-8712-49B4-866C-96FD0EBC1159 | yes |
 | Flo Tools Inspector | [Speak/Reset Instrument Pan](<Flo Tools Inspector/Speak_Reset Instrument Pan.md>) | Opt+N | True | 6165EE6F-CFDB-4F95-B309-C0BE011BA511 |  |
 | Flo Tools Inspector | [Speak/Reset Instrument Volume](<Flo Tools Inspector/Speak_Reset Instrument Volume.md>) | Opt+V | True | 72146C65-FD10-4EF8-87E9-AF354AC7C72C |  |
 | Flo Tools Inspector | [Speak/Reset Pan](<Flo Tools Inspector/Speak_Reset Pan.md>) | N | True | B7196BF6-FE59-4DF8-AE2F-7603E8569D3B |  |
