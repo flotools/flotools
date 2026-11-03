@@ -217,6 +217,8 @@ public struct AXElement {
 
     private func performOpeningMenu(_ action: String) throws {
         AXUIElementSetMessagingTimeout(ref, 0.25)
+        // 0 puts the element back on the global timeout, in case the caller uses it again.
+        defer { AXUIElementSetMessagingTimeout(ref, 0) }
         try perform(action, menuMayOpen: true)
     }
 
