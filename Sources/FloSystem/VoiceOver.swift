@@ -35,28 +35,28 @@ public enum VoiceOver {
     }
 
     /// Text under the VoiceOver cursor, like `vo.voCursor.textUnderCursor()`. Nil when the item under the cursor has no text.
-    public static func cursorText() throws -> String? { try text(under: "vocu", named: "VoiceOver cursor") }
-
-    /// `text under cursor` (`votx`) of the cursor property `cursor` of the application.
-    private static func text(under cursor: String, named name: String) throws -> String? {
+    public static func cursorText() throws -> String? {
         let start = ContinuousClock.now
-        let event = voiceOverEvent(eventClass: "core", id: "getd")
-        event.setParam(property("votx", of: property(cursor, of: .null())), forKeyword: keyDirectObject)
-        let text = try send(event, doing: "read the \(name)").paramDescriptor(forKeyword: keyDirectObject)?.stringValue
-        Log.debug(.voiceover, "\(name): \(text.map { "\"\($0)\"" } ?? "no text") (\(Log.elapsed(since: start)))")
+        let text = try cursorProperty("votx", doing: "read the VoiceOver cursor")?.stringValue
+        Log.debug(.voiceover, "VoiceOver cursor: \(text.map { "\"\($0)\"" } ?? "no text") (\(Log.elapsed(since: start)))")
         return text
     }
 
     /// The screen frame of the item in the VoiceOver cursor, like `vo.voCursor.bounds()`, in the global coordinates mouse events use. VoiceOver answers with a QuickDraw rectangle (`'qdrt'`), which does not coerce to a list (checked live 2026-11-03).
     public static func cursorBounds() throws -> CGRect {
-        let event = voiceOverEvent(eventClass: "core", id: "getd")
-        event.setParam(property("pbnd", of: property("vocu", of: .null())), forKeyword: keyDirectObject)
-        let reply = try send(event, doing: "read the VoiceOver cursor bounds").paramDescriptor(forKeyword: keyDirectObject)
+        let reply = try cursorProperty("pbnd", doing: "read the VoiceOver cursor bounds")
         guard let reply, reply.descriptorType == typeQDRectangle, let frame = frame(quickDrawRect: reply.data) else {
             throw FloError.unexpectedValue("VoiceOver cursor bounds of type \(reply.map { String(describing: $0.descriptorType) } ?? "none")")
         }
         Log.debug(.voiceover, "VoiceOver cursor bounds: \(frame)")
         return frame
+    }
+
+    /// The property `code` of the VoiceOver cursor (`vocu`), as VoiceOver answers it.
+    private static func cursorProperty(_ code: String, doing what: String) throws -> NSAppleEventDescriptor? {
+        let event = voiceOverEvent(eventClass: "core", id: "getd")
+        event.setParam(property(code, of: property("vocu", of: .null())), forKeyword: keyDirectObject)
+        return try send(event, doing: what).paramDescriptor(forKeyword: keyDirectObject)
     }
 
     /// A QuickDraw `Rect`: four Int16 in host byte order, top, left, bottom, right. Nil when the data is not 8 bytes.

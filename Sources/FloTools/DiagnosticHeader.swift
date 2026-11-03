@@ -1,4 +1,4 @@
-import AppKit
+import Foundation
 import FloEngine
 import FloProTools
 import FloSystem
@@ -15,7 +15,7 @@ enum DiagnosticHeader {
             "Flo Tools \(version) (\(build)) diagnostic log",
             "macOS: \(ProcessInfo.processInfo.operatingSystemVersionString)",
             "Pro Tools: \(ProToolsApp.version)",
-            "VoiceOver running: \(NSWorkspace.shared.isVoiceOverEnabled ? "yes" : "no")",
+            "VoiceOver running: \(WorkspaceEvents.isVoiceOverRunning ? "yes" : "no")",
             "Accessibility permission: \(Accessibility.isTrusted() ? "granted" : "not granted")",
             "VoiceOver automation permission: \(VoiceOver.automationPermission())",
             "Flo Tools enabled: \(engine.isEnabled ? "yes" : "no")",

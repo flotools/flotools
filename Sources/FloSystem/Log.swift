@@ -161,12 +161,10 @@ final class LogFile: @unchecked Sendable {
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd 'at' HH.mm.ss"
         let url = directory.appendingPathComponent("Flo Tools \(formatter.string(from: Date())).log")
-        let directory = directory
         try await withCheckedThrowingContinuation { (done: CheckedContinuation<Void, Error>) in
             queue.async {
                 done.resume(with: Result {
-                    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-                    try Data().write(to: url)
+                    try Self.createEmptyFile(at: url)
                     try self.open(url, header: header)
                 })
             }
@@ -175,15 +173,18 @@ final class LogFile: @unchecked Sendable {
         defaults.set(Date(), forKey: Self.startedKey)
     }
 
+    /// A new empty log file, with its folder if that is missing.
+    private static func createEmptyFile(at url: URL) throws {
+        try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try Data().write(to: url)
+    }
+
     func resume() -> Bool {
         guard let path = defaults.string(forKey: Self.fileKey) else { return false }
         let url = URL(fileURLWithPath: path)
         do {
             try queue.sync {
-                if !FileManager.default.fileExists(atPath: path) {
-                    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-                    try Data().write(to: url)
-                }
+                if !FileManager.default.fileExists(atPath: path) { try Self.createEmptyFile(at: url) }
                 try open(url, header: "\nFlo Tools started again while logging was on.\n")
             }
             return true
