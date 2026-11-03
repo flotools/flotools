@@ -5,6 +5,9 @@ import FloSystem
 
 /// Plug-in window keys: presets, bypass and parameters of the plug-in window, including the user's plug-in views (`PlugInView`). The preset commands are in `Presets`, shared with the AudioSuite window.
 enum PlugIns {
+    /// Spoken when the plug-in monitor cannot start or stops by itself, as in the JXA.
+    private static let monitorOffText = "Plugin monitor off"
+
     static let loadDefaultView: CommandID = "plugin.loadPluginParametersForDefaultView"
     static let monitor: CommandID = "plugin.togglePluginMonitor"
 
@@ -82,7 +85,7 @@ enum PlugIns {
                 throw CancellationError()
             } catch {
                 Log.info(.engine, "plug-in monitor could not start: \(error)")
-                try await VoiceOver.say("Plugin monitor off")
+                try await VoiceOver.say(monitorOffText)
                 return
             }
             // Not running, as checked above: runs are serial, and a watch only ends by itself.
@@ -105,7 +108,7 @@ enum PlugIns {
                 last = now
             } catch {
                 Log.info(.engine, "plug-in monitor ends: \(error)")
-                await VoiceOver.sayOrLog("Plugin monitor off")
+                await VoiceOver.sayOrLog(monitorOffText)
                 return
             }
         }

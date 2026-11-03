@@ -77,6 +77,6 @@ extension ProToolsApp {
         let app = AXElement.application(pid: pid)
         let bar = try app.required("the menu bar") { try $0.element("AXMenuBar") }
         let menuElement = try bar.required("the \(menu) menu") { try $0.child(role: "AXMenuBarItem", name: menu)?.children.first }
-        return try menuElement.required("the \(menu) menu item \(match.text)") { try $0.children(role: "AXMenuItem").first { try match.matches($0.name) } }
+        return try menuElement.required("the \(menu) menu item \(match.text)") { try $0.child(role: "AXMenuItem", matching: match) }
     }
 }

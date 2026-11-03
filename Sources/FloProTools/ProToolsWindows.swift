@@ -34,9 +34,7 @@ extension ProToolsApp {
         case .frontTrackList:
             element = try TrackList.table(in: frontWindow(), requiredAs: "the Track List table")
         }
-        let origin = try element.position.required("the position of the table")
-        let size = try element.size.required("the size of the table")
-        return CGRect(origin: origin, size: size)
+        return try element.requiredFrame(of: "the table")
     }
 
     /// The names of the clips selected in the Edit window's clip list, quoted as Pro Tools shows them, for example "\"Kick_01\"".
@@ -70,7 +68,7 @@ extension ProToolsApp {
     @AccessibilityActor
     public func listedClip(at point: CGPoint) throws -> ListedClip? {
         for entry in try clipRows() {
-            guard let origin = try entry.row.position, let size = try entry.row.size, CGRect(origin: origin, size: size).contains(point) else { continue }
+            guard let frame = try entry.row.frame, frame.contains(point) else { continue }
             return try listedClip(entry.label)
         }
         return nil
@@ -89,8 +87,8 @@ extension ProToolsApp {
 
     @AccessibilityActor
     private func listedClip(_ label: AXElement) throws -> ListedClip? {
-        guard let text = try label.name, let origin = try label.position, let size = try label.size else { return nil }
-        return ListedClip(name: Self.clipName(rowText: text), frame: CGRect(origin: origin, size: size))
+        guard let text = try label.name, let frame = try label.frame else { return nil }
+        return ListedClip(name: Self.clipName(rowText: text), frame: frame)
     }
 
     /// The clip list's rows with the element that holds each row's text. A clip row's second cell holds one element whose name is like `Audio Clip "Kick_01" ...`; rows without it are left out.
@@ -98,7 +96,7 @@ extension ProToolsApp {
     private func clipRows() throws -> [(row: AXElement, label: AXElement)] {
         try clipList().rows.compactMap { row in
             let cells = try row.children
-            guard cells.count > 1, let label = try cells[1].children.first else { return nil }
+            guard let label = try secondCellContent(of: cells) else { return nil }
             return (row, label)
         }
     }

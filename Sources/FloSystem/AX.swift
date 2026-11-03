@@ -124,6 +124,19 @@ public struct AXElement {
     /// The width and height in screen points.
     public var size: CGSize? { get throws { try geometry("AXSize", .cgSize, CGSize.zero) } }
 
+    /// Position and size as one rectangle, nil when either is absent. A failed read throws.
+    public var frame: CGRect? {
+        get throws {
+            guard let origin = try position, let size = try size else { return nil }
+            return CGRect(origin: origin, size: size)
+        }
+    }
+
+    /// Position and size as one rectangle, or `FloError.notFound` naming the position or size of `what` that is missing.
+    public func requiredFrame(of what: String) throws -> CGRect {
+        CGRect(origin: try position.required("the position of \(what)"), size: try size.required("the size of \(what)"))
+    }
+
     private func geometry<T: BitwiseCopyable>(_ name: String, _ type: AXValueType, _ empty: T) throws -> T? {
         guard let value = try attribute(name) else { return nil }
         var result = empty

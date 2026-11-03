@@ -47,7 +47,7 @@ public struct MixWindow {
         guard let rows = try element.table("Group List")?.rows else { return false }
         return try rows.contains { row in
             let cells = try row.children
-            guard cells.count > 1, let name = try cells[1].buttons.first?.name else { return false }
+            guard let name = try secondCellContent(of: cells, role: "AXButton")?.name else { return false }
             // JXA's `_beginsWith` ignores case.
             return name.lowercased().hasPrefix("active ")
         }
@@ -72,7 +72,7 @@ public struct TrackStrip {
 
     /// Where the track's group is on screen.
     public func frame() throws -> CGRect {
-        CGRect(origin: try element.position.required("the position of the track \(name)"), size: try element.size.required("the size of the track \(name)"))
+        try element.requiredFrame(of: "the track \(name)")
     }
 
     public nonisolated var kind: TrackKind { TrackKind(trackName: name) }
@@ -101,13 +101,16 @@ public struct TrackStrip {
         }
     }
 
+    /// The start of the input monitoring button's name, which goes on to describe its state.
+    private static let inputMonitoringName = "Input monitoring"
+
     /// The button for `toggle`, or nil when the track has none. The input monitoring button is named for its state, for example "Input monitoring disabled" or, on an instrument track, "Input monitoring is enabled, but delay compensation is disabled. ..." (seen 2026-11-02); the JXA also handled a button named "TrackInput Monitor" that shows its state as its value.
     private func findButton(_ toggle: Toggle) throws -> AXElement? {
         switch toggle {
         case .solo: try element.button("Solo")
         case .mute: try element.button("Mute")
         case .recordEnable: try element.button("Track Record Enable")
-        case .inputMonitor: try element.buttons.first { try $0.name?.contains("Input monitoring") == true } ?? element.button("TrackInput Monitor")
+        case .inputMonitor: try element.buttons.first { try $0.name?.contains(Self.inputMonitoringName) == true } ?? element.button("TrackInput Monitor")
         case .instrumentMute:
             try instrumentSection().button("MIDI Mute")
         }
@@ -139,7 +142,7 @@ public struct TrackStrip {
     }
 
     private static func state(of toggle: Toggle, button: AXElement) throws -> String {
-        if toggle == .inputMonitor, let name = try button.name, name.contains("Input monitoring") { return name }
+        if toggle == .inputMonitor, let name = try button.name, name.contains(Self.inputMonitoringName) { return name }
         return try button.value ?? ""
     }
 
@@ -215,7 +218,7 @@ public struct TrackStrip {
             guard knobs.count > index else { throw FloError.notFound("the pan knob") }
             return knobs[index]
         case .instrument:
-            return try instrumentSection().required("the MIDI pan") { try $0.sliders.first { try $0.name?.contains("MIDI Pan indicator") == true } }
+            return try instrumentSlider("MIDI Pan indicator", requiredAs: "the MIDI pan")
         }
     }
 
@@ -238,7 +241,7 @@ public struct TrackStrip {
         switch fader {
         case .volume: try element.required("the volume fader") { try $0.child(role: "AXSlider", name: "Volume") }
         case .peak: try element.required("the peak meter") { _ in try peakMeter() }
-        case .instrumentVolume: try instrumentSection().required("the MIDI volume") { try $0.sliders.first { try $0.name?.contains("MIDI Volume indicator") == true } }
+        case .instrumentVolume: try instrumentSlider("MIDI Volume indicator", requiredAs: "the MIDI volume")
         }
     }
 
@@ -272,13 +275,16 @@ public struct TrackStrip {
         case gainReduction
     }
 
+    /// The title of the gain reduction meter, the one meter button that has a title.
+    private static let gainReductionTitle = "Gain Reduction"
+
     /// Both meters are buttons whose role description is "Level Meter"; only the gain reduction one has a title (checked live on the Master track, 2026-11-02). The JXA took the first "Level Meter" button for the level meter, which comes first.
     public func meter(_ meter: Meter) throws -> AXElement {
         switch meter {
         case .level:
-            try element.required("the level meter") { try $0.buttons.first { try $0.roleDescription == "Level Meter" && $0.title != "Gain Reduction" } }
+            try element.required("the level meter") { try $0.buttons.first { try $0.roleDescription == "Level Meter" && $0.title != Self.gainReductionTitle } }
         case .gainReduction:
-            try element.required("the gain reduction meter") { try $0.button("Gain Reduction") }
+            try element.required("the gain reduction meter") { try $0.button(Self.gainReductionTitle) }
         }
     }
 
@@ -297,12 +303,12 @@ public struct TrackStrip {
         return switch control {
         case .automationMode: try first("the automation mode selector", role: "AXPopUpButton") { $0.contains("automation mode selector") }
         case .group: try first("the group selector", role: "AXButton") { $0.hasPrefix("group id indicator") }
-        case .input where isMIDI: try first("the MIDI input selector", role: "AXButton") { $0.contains("midi input selector") }
+        case .input where isMIDI: try midiSelector("input")
         case .input: try first("the input path selector", role: "AXPopUpButton") { $0.contains("input path") }
-        case .output where isMIDI: try first("the MIDI output selector", role: "AXButton") { $0.contains("midi output selector") }
+        case .output where isMIDI: try midiSelector("output")
         case .output: try first("the output path selector", role: "AXPopUpButton") { $0.contains("output path") }
-        case .instrumentInput: try first("the MIDI input selector", role: "AXButton", in: instrumentSection()) { $0.contains("midi input selector") }
-        case .instrumentOutput: try first("the MIDI output selector", role: "AXButton", in: instrumentSection()) { $0.contains("midi output selector") }
+        case .instrumentInput: try midiSelector("input", in: instrumentSection())
+        case .instrumentOutput: try midiSelector("output", in: instrumentSection())
         case .trackName: try first("the track name button", role: "AXPopUpButton") { $0.contains("track name") }
         case .comments: try first("the comments field", role: "AXTextField") { $0.hasPrefix("comments") }
         case .playlist: try first("the playlist selector", role: "AXPopUpButton") { $0.contains("playlist selector") }
@@ -331,6 +337,16 @@ public struct TrackStrip {
 
     private func instrumentSection() throws -> AXElement {
         try element.required("the Instrument section") { try $0.group("Instrument") }
+    }
+
+    /// The Instrument section's slider whose name contains `indicator`, such as "MIDI Pan indicator".
+    private func instrumentSlider(_ indicator: String, requiredAs what: String) throws -> AXElement {
+        try instrumentSection().required(what) { try $0.sliders.first { try $0.name?.contains(indicator) == true } }
+    }
+
+    /// The MIDI "input" or "output" selector button, on a MIDI track's strip or in `parent`, an instrument track's Instrument section.
+    private func midiSelector(_ direction: String, in parent: AXElement? = nil) throws -> AXElement {
+        try first("the MIDI \(direction) selector", role: "AXButton", in: parent) { $0.contains("midi \(direction) selector") }
     }
 
     /// The first child of `parent` (the strip by default) with `role` (any role if nil) whose lowercased name passes `matches`.

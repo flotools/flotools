@@ -48,6 +48,13 @@ public struct EditWindowControl: Sendable, Equatable {
     }
 }
 
+extension AXElement {
+    /// The first child with `role` whose name `match` picks. Lives here rather than beside `child(role:name:)` in FloSystem because `NameMatch` is Pro Tools vocabulary.
+    func child(role: String, matching match: NameMatch) throws -> AXElement? {
+        try children(role: role).first { try match.matches($0.name) }
+    }
+}
+
 /// The Edit window's counters, time values and their selectors, as Pro Tools 26.10 names them.
 extension EditWindowControl {
     private static func counter(_ name: String) -> EditWindowControl {
@@ -80,11 +87,18 @@ extension ProToolsApp {
     /// The element of `control` in the Edit window, or `FloError.notFound` naming the missing step.
     @AccessibilityActor
     public func element(_ control: EditWindowControl) throws -> AXElement {
+        let parent = try editGroup(control.cluster, subgroups: control.subgroups)
+        return try parent.required("the \(control.name.text)") { try $0.child(role: control.role, matching: control.name) }
+    }
+
+    /// The Edit window's toolbar group `cluster`, then each of `subgroups` inside it, or `FloError.notFound` naming the missing step.
+    @AccessibilityActor
+    func editGroup(_ cluster: EditWindowControl.Cluster, subgroups: [String] = []) throws -> AXElement {
         var parent = try trackWindow(.edit)
-        for group in [control.cluster.rawValue] + control.subgroups {
+        for group in [cluster.rawValue] + subgroups {
             parent = try parent.required("the \(group)") { try $0.group(group) }
         }
-        return try parent.required("the \(control.name.text)") { try $0.children(role: control.role).first { try control.name.matches($0.name) } }
+        return parent
     }
 
     /// The value `control` shows, empty when it has none.

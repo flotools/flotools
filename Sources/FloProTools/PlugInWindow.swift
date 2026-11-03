@@ -16,7 +16,7 @@ public struct PlugInWindow {
         }
 
         /// How `ProToolsWindowKind` classifies a window of this kind.
-        var windowKind: ProToolsWindowKind {
+        public var windowKind: ProToolsWindowKind {
             switch self {
             case .plugIn: .plugIn
             case .audioSuite: .audioSuite

@@ -7,12 +7,12 @@ enum Presets {
     /// The three preset commands for one kind of window, with the IDs and names they had in each KM group.
     @MainActor
     static func commands(_ kind: PlugInWindow.Kind) -> [Command] {
-        let prefix: String, speakChooseID: String, speakChooseName: String, window: ProToolsWindowKind
+        let prefix: String, speakChooseID: String, speakChooseName: String
         switch kind {
-        case .plugIn: (prefix, speakChooseID, speakChooseName, window) = ("plugin", "speakChoosePreset", "Speak/Choose Preset", .plugIn)
-        case .audioSuite: (prefix, speakChooseID, speakChooseName, window) = ("audioSuite", "speakChooseAudioSuitePreset", "Speak/Choose Audio Suite Preset", .audioSuite)
+        case .plugIn: (prefix, speakChooseID, speakChooseName) = ("plugin", "speakChoosePreset", "Speak/Choose Preset")
+        case .audioSuite: (prefix, speakChooseID, speakChooseName) = ("audioSuite", "speakChooseAudioSuitePreset", "Speak/Choose Audio Suite Preset")
         }
-        let scope: Scope = .windows([window])
+        let scope: Scope = .windows([kind.windowKind])
         return [
             step(CommandID("\(prefix).nextPreset"), "Next Preset", "Loads the next preset and speaks its name.", kind, scope, .next, key: "]"),
             step(CommandID("\(prefix).previousPreset"), "Previous Preset", "Loads the previous preset and speaks its name.", kind, scope, .previous, key: "["),

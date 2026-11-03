@@ -3,6 +3,9 @@ import FloSystem
 /// The Mix window's Track List table: one row per track, hidden ones included. Each row has two buttons: the first shows or hides the track ("Shown. Kick", "Hidden. Kick"), the second selects or deselects it ("Selected. Kick - Audio Track ", "Kick - Audio Track "). Pressing either toggles only that track (checked live 2026-11-02).
 @AccessibilityActor
 public struct TrackList {
+    /// What a failure names when a row lacks its show or selection button.
+    private static let rowButtons = "the buttons of a Track List row"
+
     private let element: AXElement
 
     init(_ element: AXElement) { self.element = element }
@@ -54,7 +57,7 @@ public struct TrackList {
             let cells = try row.children
             // The selection button first: its lookup checks that the row has both cells.
             let select = try Self.selectionButton(in: cells)
-            guard let show = try cells[0].buttons.first else { throw FloError.notFound("the buttons of a Track List row") }
+            guard let show = try cells[0].buttons.first else { throw FloError.notFound(Self.rowButtons) }
             let selection = Self.selection(selectButtonName: try select.name ?? "")
             return Row(name: selection.name,
                        isSelected: selection.isSelected,
@@ -74,7 +77,7 @@ public struct TrackList {
 
     /// The selection button of a row with `cells`, the row's children: the first button of the second cell.
     private static func selectionButton(in cells: [AXElement]) throws -> AXElement {
-        guard cells.count > 1, let button = try cells[1].buttons.first else { throw FloError.notFound("the buttons of a Track List row") }
+        guard let button = try secondCellContent(of: cells, role: "AXButton") else { throw FloError.notFound(Self.rowButtons) }
         return button
     }
 
@@ -94,4 +97,11 @@ public struct TrackList {
     nonisolated static func selection(selectButtonName name: String) -> (name: String, isSelected: Bool) {
         (trackName(selectButtonName: name), isSelected(selectButtonName: name))
     }
+}
+
+/// The first child with `role` (any role if nil) of the second of `cells`, a table row's children, or nil when there is none. The Track List, the Group List and the clip list keep a row's name in its second cell. Callers decide what a missing one means.
+@AccessibilityActor
+func secondCellContent(of cells: [AXElement], role: String? = nil) throws -> AXElement? {
+    guard cells.count > 1 else { return nil }
+    return try role.map { try cells[1].children(role: $0).first } ?? cells[1].children.first
 }

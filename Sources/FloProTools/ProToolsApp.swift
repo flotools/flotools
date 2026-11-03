@@ -75,9 +75,7 @@ public struct ProToolsApp: Sendable {
     /// Whether any track is armed, hidden ones included. The Edit window's record status LED is named "Track Record Enabled" while a track is armed and "Record Enable status LED" otherwise (checked live 2026-11-02).
     @AccessibilityActor
     public func hasArmedTracks() throws -> Bool {
-        let buttons = try trackWindow(.edit)
-            .required("the Transport View Cluster") { try $0.group(EditWindowControl.Cluster.transportView.rawValue) }
-            .required("the Normal Transport Buttons") { try $0.group("Normal Transport Buttons") }
+        let buttons = try editGroup(.transportView, subgroups: ["Normal Transport Buttons"])
         return try buttons.button("Track Record Enabled") != nil
     }
 
