@@ -157,7 +157,8 @@ public struct AXElement {
     public func required(_ what: @autoclosure () -> String, _ find: (AXElement) throws -> AXElement?) throws -> AXElement {
         if let found = try find(self) { return found }
         let what = what()
-        if Log.isRecording { Log.info(.accessibility, "\(what) not found in:\n\(dump())") }
+        // Not inside a watch's poll: a watch on a missing element would dump it ten times a second (seen live 2026-11-03: 1762 dumps in five minutes). The watch logs its own failures.
+        if Log.isRecording, !Log.skipsDebug { Log.info(.accessibility, "\(what) not found in:\n\(dump())") }
         throw FloError.notFound(what)
     }
 
