@@ -6,18 +6,26 @@ import FloSystem
 /// Menu bar app with no Dock icon. The menu shows status and lets the user turn Flo Tools off.
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
+    /// Read once here and passed down; the preferences panel is the only writer.
+    private let preferences = PreferencesStore()
     /// The app owns the input and context sources and hands them to the engine, which starts and stops them.
-    private let engine = FloMacros.makeEngine(hotKeys: HotKeyCenter(), contextMonitor: ContextMonitor())
+    private lazy var engine: MacroEngine = FloMacros.makeEngine(hotKeys: HotKeyCenter(), contextMonitor: ContextMonitor(), openPreferences: { [weak self] in
+        self?.preferencesPanel.show()
+    })
+    private lazy var preferencesPanel: PreferencesPanel = PreferencesPanel(store: preferences) { [weak self] preferences in
+        guard let self else { return }
+        FloMacros.apply(preferences, to: self.engine)
+    }
     private var statusItem: NSStatusItem?
     private var accessibilityTask: Task<Void, Never>?
     private var launchObserver: NSObjectProtocol?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         AXElement.setGlobalMessagingTimeout(1.0)
-        applyPreferences()
-        FloMacros.setStartState(Preferences.load(), in: engine)
+        FloMacros.apply(preferences.current, to: engine)
+        FloMacros.setStartState(preferences.current, in: engine)
         // A relaunch or crash while the user reproduces a problem keeps logging into the same file.
-        Log.resumeRecording(header: DiagnosticHeader.text(engine: engine))
+        Log.resumeRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current))
         Log.info(.app, "Flo Tools started")
         observeProToolsLaunch()
         engine.start()
@@ -35,17 +43,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         Log.info(.app, "Flo Tools quitting")
     }
 
-    private func applyPreferences() {
-        let preferences = Preferences.load()
-        engine.doublePressTimeout = .milliseconds(preferences.timeout)
-        FloMacros.apply(preferences, to: engine)
-    }
-
     private func observeProToolsLaunch() {
         launchObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didLaunchApplicationNotification, object: nil, queue: .main) { notification in
             let bundleID = (notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication)?.bundleIdentifier
             MainActor.assumeIsolated {
-                FloMacros.applicationLaunched(bundleID: bundleID, in: self.engine)
+                FloMacros.applicationLaunched(bundleID: bundleID, preferences: self.preferences.current, in: self.engine)
             }
         }
     }
@@ -89,7 +91,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             menu.addItem(NSMenuItem(title: "Grant Accessibility Access…", action: #selector(grantAccessibility), keyEquivalent: ""))
         }
         menu.addItem(disabled("\(engine.macros.count) macros"))
-        menu.addItem(NSMenuItem(title: "Reload Preferences", action: #selector(reloadPreferences), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "Preferences…", action: #selector(showPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem(title: Log.isRecording ? "Turn Off Log" : "Turn On Log", action: #selector(toggleLog), keyEquivalent: ""))
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: "Quit Flo Tools", action: #selector(quit), keyEquivalent: "q"))
@@ -114,8 +116,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         waitForAccessibility()
     }
 
-    @objc private func reloadPreferences() {
-        applyPreferences()
+    @objc private func showPreferences() {
+        preferencesPanel.show()
     }
 
     /// Turning the log off shows the finished file in Finder, selected, so the user can send it as is.
@@ -126,7 +128,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             NSWorkspace.shared.activateFileViewerSelecting([file])
         } else {
             do {
-                try Log.startRecording(header: DiagnosticHeader.text(engine: engine))
+                try Log.startRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current))
                 Log.info(.app, "log turned on")
                 VoiceOver.sayOrLog("Log turned on.")
             } catch {

@@ -1,50 +1,61 @@
 import FloSystem
 import Foundation
 
-/// The preferences file shared with the Keyboard Maestro version: `~/Library/Application Support/Flo Tools/flotools.json`.
+/// The user's preferences, the three settings of the KM preferences dialog.
 public struct Preferences: Equatable, Sendable {
+    /// Whether holding backtick turns the Inspector on while held (Toggle Temporary Inspector).
     public var temporaryInspector = false
+    /// Whether the Inspector is on when Flo Tools or Pro Tools starts.
     public var startsWithInspector = false
-    /// Double-press timeout in milliseconds.
+    /// Double-press timeout in milliseconds, one of `timeoutChoices`.
     public var timeout = 200
 
+    /// The values the KM preferences dialog offered.
+    public static let timeoutChoices = [200, 300, 400, 500]
+
     public init() {}
+}
 
-    public static var defaultURL: URL {
-        FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Application Support/Flo Tools/flotools.json")
+/// Preferences kept in UserDefaults, and the ones now in effect. The app creates one and passes it to whoever needs the values. Main actor: the menu, the preferences panel and macro setup read and change it.
+@MainActor
+public final class PreferencesStore {
+    /// Not `.standard` in tests, so they never touch the user's settings.
+    private let defaults: UserDefaults
+    public private(set) var current: Preferences
+
+    enum Key {
+        static let temporaryInspector = "temporaryInspector"
+        static let startsWithInspector = "startsWithInspector"
+        static let timeout = "doublePressTimeout"
     }
 
-    public static func load(from url: URL = defaultURL) -> Preferences {
-        guard let data = try? Data(contentsOf: url) else {
-            Log.info(.preferences, "no preferences file, using defaults")
-            return Preferences()
+    public init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        current = Self.read(defaults)
+        Log.info(.preferences, "loaded \(current)")
+    }
+
+    public func save(_ preferences: Preferences) {
+        defaults.set(preferences.temporaryInspector, forKey: Key.temporaryInspector)
+        defaults.set(preferences.startsWithInspector, forKey: Key.startsWithInspector)
+        defaults.set(preferences.timeout, forKey: Key.timeout)
+        current = preferences
+        Log.info(.preferences, "saved \(preferences)")
+    }
+
+    /// Missing values are defaults. A timeout outside `timeoutChoices`, which only `defaults write` can set, is logged and replaced by the default, so double presses stay usable.
+    private static func read(_ defaults: UserDefaults) -> Preferences {
+        var preferences = Preferences()
+        preferences.temporaryInspector = defaults.bool(forKey: Key.temporaryInspector)
+        preferences.startsWithInspector = defaults.bool(forKey: Key.startsWithInspector)
+        if defaults.object(forKey: Key.timeout) != nil {
+            let timeout = defaults.integer(forKey: Key.timeout)
+            if Preferences.timeoutChoices.contains(timeout) {
+                preferences.timeout = timeout
+            } else {
+                Log.warning(.preferences, "timeout \(timeout) is not one of \(Preferences.timeoutChoices), using \(preferences.timeout)")
+            }
         }
-        let preferences = decode(data)
-        Log.info(.preferences, "loaded \(preferences)")
         return preferences
-    }
-
-    static func decode(_ data: Data) -> Preferences {
-        var prefs = Preferences()
-        guard let json = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] else { return prefs }
-        prefs.temporaryInspector = json["temporary inspector"] as? Bool ?? false
-        prefs.startsWithInspector = json["starts with Flo Tools inspector"] as? Bool ?? false
-        if let text = json["timeout"] as? String, let ms = Int(text) {
-            prefs.timeout = ms
-        } else if let ms = json["timeout"] as? Int {
-            prefs.timeout = ms
-        }
-        return prefs
-    }
-
-    /// Writes the same JSON shape as the Keyboard Maestro version, with the timeout as a string.
-    public func save(to url: URL = defaultURL) throws {
-        let json: [String: Any] = [
-            "temporary inspector": temporaryInspector,
-            "starts with Flo Tools inspector": startsWithInspector,
-            "timeout": String(timeout),
-        ]
-        try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
-        try JSONSerialization.data(withJSONObject: json, options: [.sortedKeys]).write(to: url)
     }
 }

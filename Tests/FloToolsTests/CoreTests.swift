@@ -30,7 +30,7 @@ import Testing
 
     @Test func allMacrosInstall() {
         let engine = FloMacros.makeEngine()
-        #expect(engine.macros.count == FloMacros.all.count)
+        #expect(engine.macros.count == FloMacros.all().count)
         #expect(engine.macro("inspector.speakOpenSendB")?.hotKeys.map(\.combo.description) == ["Ctrl+2"])
     }
 
@@ -406,7 +406,7 @@ import Testing
 
     @Test func doneSoundTimingMatchesJXA() throws {
         func doneSound(_ id: MacroID) throws -> DoneSoundTiming? {
-            let macro = try #require(FloMacros.all.first { $0.id == id })
+            let macro = try #require(FloMacros.all().first { $0.id == id })
             guard case .singleOrDouble(_, _, let doneSound) = macro.action else { return nil }
             return doneSound
         }
@@ -450,23 +450,41 @@ import Testing
     }
 }
 
-@Suite struct PreferencesTests {
-    @Test func readsKeyboardMaestroFormat() {
-        let json = #"{"temporary inspector":true,"starts with Flo Tools inspector":true,"timeout":"300"}"#
-        let prefs = Preferences.decode(Data(json.utf8))
-        #expect(prefs.temporaryInspector)
-        #expect(prefs.startsWithInspector)
-        #expect(prefs.timeout == 300)
+@Suite @MainActor struct PreferencesTests {
+    /// A throwaway suite, so tests never touch the user's settings.
+    private func makeDefaults() -> UserDefaults {
+        let name = "FloToolsTests-" + UUID().uuidString
+        let defaults = UserDefaults(suiteName: name)!
+        defaults.removePersistentDomain(forName: name)
+        return defaults
     }
 
-    @Test func roundTrip() throws {
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".json")
-        defer { try? FileManager.default.removeItem(at: url) }
-        var prefs = Preferences()
-        prefs.timeout = 400
-        prefs.temporaryInspector = true
-        try prefs.save(to: url)
-        #expect(Preferences.load(from: url) == prefs)
+    @Test func missingValuesAreDefaults() {
+        #expect(PreferencesStore(defaults: makeDefaults()).current == Preferences())
+    }
+
+    @Test func savedPreferencesAreReadBack() {
+        let defaults = makeDefaults()
+        var preferences = Preferences()
+        preferences.temporaryInspector = true
+        preferences.startsWithInspector = true
+        preferences.timeout = 400
+        PreferencesStore(defaults: defaults).save(preferences)
+        #expect(PreferencesStore(defaults: defaults).current == preferences)
+    }
+
+    @Test func unsupportedTimeoutFallsBackToDefault() {
+        let defaults = makeDefaults()
+        defaults.set(50, forKey: PreferencesStore.Key.timeout)
+        #expect(PreferencesStore(defaults: defaults).current.timeout == 200)
+    }
+
+    @Test func applySetsDoublePressTimeout() {
+        let engine = FloMacros.makeEngine()
+        var preferences = Preferences()
+        preferences.timeout = 500
+        FloMacros.apply(preferences, to: engine)
+        #expect(engine.doublePressTimeout == .milliseconds(500))
     }
 }
 

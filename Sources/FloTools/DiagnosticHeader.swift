@@ -7,11 +7,10 @@ import FloSystem
 /// No hardware identifiers, serial numbers or user name.
 @MainActor
 enum DiagnosticHeader {
-    static func text(engine: MacroEngine) -> String {
+    static func text(engine: MacroEngine, preferences: Preferences) -> String {
         let info = Bundle.main.infoDictionary ?? [:]
         let version = info["CFBundleShortVersionString"] as? String ?? "?"
         let build = info["CFBundleVersion"] as? String ?? "?"
-        let preferences = Preferences.load()
         let groups = engine.groups.values.sorted { $0.name < $1.name }.map { group in
             let enabled = engine.isGroupEnabled(group.id) ? "enabled" : "disabled"
             let activated = engine.isGroupActivated(group.id) ? "activated" : "deactivated"

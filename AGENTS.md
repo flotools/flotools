@@ -95,7 +95,7 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 ### One current implementation
 
 - Keep exactly one current implementation. Do not leave old code beside new code, fallbacks, compatibility aliases, deprecated parameters, migration code or version branches. Git history keeps the old code.
-- The one deliberate exception is the preferences file `~/Library/Application Support/Flo Tools/flotools.json`, whose format is shared with the KM version and is the current format.
+- Preferences live in UserDefaults (`com.chikim.FloTools`), owned by `PreferencesStore`. The KM `flotools.json` file is not read or migrated (decided 2026-11-02).
 - Remove dead code, unused parameters, stale comments and unreachable branches as you find them.
 
 ### Interfaces and data flow
@@ -150,7 +150,7 @@ Users must be able to send the developer a log that shows where a macro failed. 
 
 ### Tests
 
-- Test behavior at the right level: message text, value parsing, filters, hotkey resolution, enable state, double-press timing, parity with the KM export, preferences format.
+- Test behavior at the right level: message text, value parsing, filters, hotkey resolution, enable state, double-press timing, parity with the KM export, preferences reading and validation.
 - Keep tests deterministic. Prefer designs where side effects can be supplied naturally over heavy mocking, and do not add abstractions only to mock them.
 - Never weaken a test to make a change pass. If behavior changes on purpose, update the test and say why.
 - Live Pro Tools checks complement unit tests; record them in the journal.

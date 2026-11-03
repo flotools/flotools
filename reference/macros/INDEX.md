@@ -59,7 +59,7 @@
 | Flo Tools | [Decrease Nudge Value](<Flo Tools/Decrease Nudge Value.md>) | Opt+Cmd+Keypad - | True | A0312F1D-C175-4A69-8992-A362365AE5B9 |  |
 | Flo Tools | [Decrease Nudge Value with Qwerty](<Flo Tools/Decrease Nudge Value with Qwerty.md>) | Opt+Shift+- | True | 2627EB98-6BC0-4F5B-8A78-5FCD4F9DDEFE |  |
 | Flo Tools | [Edit Event](<Flo Tools/Edit Event.md>) | Ctrl+Cmd+Return | True | 2E052137-AB4B-41B0-A27F-1CA97EDA1D39 |  |
-| Flo Tools | [Flo Tools Preferences](<Flo Tools/Flo Tools Preferences.md>) | Ctrl+Cmd+, | True | 4958F0C0-2806-4D1F-A1DA-C0124F1AD759 |  |
+| Flo Tools | [Flo Tools Preferences](<Flo Tools/Flo Tools Preferences.md>) | Ctrl+Cmd+, | True | 4958F0C0-2806-4D1F-A1DA-C0124F1AD759 | yes |
 | Flo Tools | [Increase Grid Value](<Flo Tools/Increase Grid Value.md>) | Ctrl+Opt+Keypad + | True | D0E18C9A-BC7B-47BB-9671-0A6E79CA3F88 |  |
 | Flo Tools | [Increase Grid Value with Qwerty](<Flo Tools/Increase Grid Value with Qwerty.md>) | Shift+= | True | 9B41F36F-DD1A-4F6F-A584-E0FD15EE1280 |  |
 | Flo Tools | [Increase Nudge Value](<Flo Tools/Increase Nudge Value.md>) | Opt+Cmd+Keypad + | True | 040FB4C6-1F48-4861-9CAF-FB19EEBE1148 |  |

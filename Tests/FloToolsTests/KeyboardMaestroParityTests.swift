@@ -37,6 +37,7 @@ import Testing
         "floTools.toggleTemporaryInspector": "E63048EB-FBD0-41A9-A4C7-8922216F11D3",
         "floTools.nextTrackViewOnSelectedTracks": "C035969D-E50C-4671-AFBA-CFF648FD3A48",
         "floTools.previousTrackViewOnSelectedTracks": "1FF40247-C860-471D-BACC-DFB16C9A65A1",
+        "floTools.floToolsPreferences": "4958F0C0-2806-4D1F-A1DA-C0124F1AD759",
     ]
 
     /// Macros whose triggers, group or default state differ from KM on purpose, with the reason.
@@ -121,8 +122,8 @@ import Testing
     @Test func macrosMatchKeyboardMaestro() throws {
         let export = try Self.loadExport()
         let kmGroupToSwift = Dictionary(uniqueKeysWithValues: Self.groupOrigins.map { ($0.value, $0.key) })
-        #expect(Set(FloMacros.all.map(\.id)) == Set(Self.macroOrigins.keys), "every macro needs an entry in macroOrigins")
-        for macro in FloMacros.all where Self.changedOnPurpose[macro.id] == nil {
+        #expect(Set(FloMacros.all().map(\.id)) == Set(Self.macroOrigins.keys), "every macro needs an entry in macroOrigins")
+        for macro in FloMacros.all() where Self.changedOnPurpose[macro.id] == nil {
             guard let uid = Self.macroOrigins[macro.id] ?? nil else { continue }
             let km = try #require(export.macros[uid], "no KM macro \(uid) for \(macro.id)")
             #expect(kmGroupToSwift[km.group] == macro.group, "\(macro.id) group")
