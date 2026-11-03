@@ -86,6 +86,23 @@ import Testing
         #expect(engine.candidates(for: cmd1, phase: .pressed, in: mix).map(\.id) == ["test.any"])
     }
 
+    /// While the window is not known yet, a key that some window gives to its own command is not taken, so the any-window command cannot run in the wrong window; a key no window overrides still works.
+    @Test func unknownWindowLeavesWindowDecidedKeysToProTools() {
+        let engine = FloFeatures.makeEngine(commands: [])
+        engine.install(Command("test.playlist", "Shift+Up", scope: .anyProToolsWindow, triggers: [.key("Shift+Up")]) { _ in })
+        engine.install(Command("test.batchFades", "Shift+Up", scope: .windows([.fade(.batchFades)]), triggers: [.key("Shift+Up")]) { _ in })
+        engine.install(Command("test.grid", "Cmd+F8", scope: .anyProToolsWindow, triggers: [.key("Cmd+F8")]) { _ in })
+        let unknown = FrontContext(bundleID: Self.proTools, windowTitle: nil)
+        let shiftUp = KeyCombo("Shift+Up")!, cmdF8 = KeyCombo("Cmd+F8")!
+        #expect(engine.candidates(for: shiftUp, phase: .pressed, in: unknown).isEmpty)
+        #expect(engine.activeCombos(in: unknown) == [cmdF8])
+        #expect(engine.candidates(for: shiftUp, phase: .pressed, in: mix).map(\.id) == ["test.playlist"])
+        #expect(engine.candidates(for: shiftUp, phase: .pressed, in: FrontContext(bundleID: Self.proTools, windowTitle: "Batch Fades")).first?.id == "test.batchFades")
+        // A disabled window command decides nothing.
+        engine.setCommand("test.batchFades", enabled: false)
+        #expect(engine.activeCombos(in: unknown) == [cmdF8, shiftUp])
+    }
+
     @Test func inspectorModeGatesKeys() {
         let engine = FloFeatures.makeEngine(commands: [])
         engine.install(Command("test.solo", "Solo", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("S")]) { _ in })

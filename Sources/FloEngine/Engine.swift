@@ -1,3 +1,4 @@
+import FloProTools
 import FloSystem
 import Foundation
 
@@ -202,7 +203,8 @@ public final class Engine {
 
     /// Commands that would fire for this key in this context, best match first. `tie(with:)` keeps two from having the same precedence.
     public func candidates(for combo: KeyCombo, phase: KeyPhase, in context: FrontContext) -> [Command] {
-        (commandsByCombo[combo] ?? [])
+        guard !waitsForWindow(combo, in: context) else { return [] }
+        return (commandsByCombo[combo] ?? [])
             .compactMap(command)
             .filter { command in isActive(command, in: context) && command.hotKeys.contains { $0.combo == combo && $0.phase == phase } }
             .sorted { $0.scope.precedence > $1.scope.precedence }
@@ -215,7 +217,19 @@ public final class Engine {
     }
 
     public func activeCombos(in context: FrontContext) -> Set<KeyCombo> {
-        Set(commandsByCombo.filter { _, ids in ids.contains { id in command(id).map { isActive($0, in: context) } ?? false } }.keys)
+        Set(commandsByCombo.filter { combo, ids in
+            !waitsForWindow(combo, in: context) && ids.contains { id in command(id).map { isActive($0, in: context) } ?? false }
+        }.keys)
+    }
+
+    /// Whether this key's command depends on a Pro Tools window that is not known yet, as for a moment after Pro Tools is activated, before its window title is read: some window kind has a command of its own for the key. Its any-window command would then be a guess, for example Shift+Up announcing a playlist in Batch Fades, so the key goes on to Pro Tools instead.
+    private func waitsForWindow(_ combo: KeyCombo, in context: FrontContext) -> Bool {
+        guard context.bundleID == ProToolsApp.bundleID, context.proToolsWindowKind == nil else { return false }
+        return (commandsByCombo[combo] ?? []).contains { id in
+            guard let command = command(id), commandEnabled[id] == true, command.mode.holds(in: mode) else { return false }
+            if case .windows = command.scope { return true }
+            return false
+        }
     }
 
     /// Ends the holds whose key stopped being a hotkey and, once started, registers the hotkeys. Holds end before `start()` too, so the tests, which dispatch keys without registering them, cover it.
