@@ -737,10 +737,12 @@ import Testing
     }
 
     @Test func peakText() {
-        #expect(TrackStrip.decibels(peakText: "minus 3.1") == -3.1)
-        #expect(TrackStrip.decibels(peakText: "3.0") == 3.0)
-        #expect(TrackStrip.decibels(peakText: "0.0") == 0)
-        #expect(TrackStrip.decibels(peakText: "minus ∞") == nil)
+        #expect(TrackStrip.decibels(meterReading: "minus 3.1") == -3.1)
+        #expect(TrackStrip.decibels(meterReading: "3.0") == 3.0)
+        #expect(TrackStrip.decibels(meterReading: "0.0") == 0)
+        #expect(TrackStrip.decibels(meterReading: "minus ∞") == nil)
+        #expect(TrackStrip.decibels(meterReading: "minus 3.5 db") == -3.5)
+        #expect(TrackStrip.decibels(meterReading: "minus inf db") == nil)
     }
 
     @Test func chooserNamesTracksProToolsRefused() {

@@ -132,10 +132,8 @@ actor GainReductionPeak {
         return deepest
     }
 
-    /// Whole decibels from a meter reading such as "minus 3 db", truncated toward zero like the JXA's `parseInt`. Nil for a reading without a number, and for one `Int` cannot hold, such as "inf", on which `Int(_:)` would trap.
+    /// Whole decibels from a meter reading such as "minus 3 db", truncated toward zero like the JXA's `parseInt`. Nil for a reading without a number, and for one `Int` cannot hold, on which `Int(_:)` would trap.
     static func decibels(_ reading: String) -> Int? {
-        let number = reading.replacingFirst(" db", with: "").replacingFirst("minus ", with: "-")
-        guard let value = Double(number), value.isFinite else { return nil }
-        return Int(exactly: value.rounded(.towardZero))
+        TrackStrip.decibels(meterReading: reading).flatMap { Int(exactly: $0.rounded(.towardZero)) }
     }
 }

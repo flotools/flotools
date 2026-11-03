@@ -219,12 +219,17 @@ public struct TrackStrip {
     /// The peak hold level in dB, for example -3.1 for "minus 3.1"; nil for "minus ∞" and for a track without a peak meter.
     public func peakDecibels() throws -> Double? {
         guard let peak = try element.child(role: "AXSlider", name: "Peak"), let text = try peak.valueDescription else { return nil }
-        return Self.decibels(peakText: text)
+        return Self.decibels(meterReading: text)
     }
 
-    nonisolated static func decibels(peakText text: String) -> Double? {
-        let number = text.hasPrefix("minus ") ? "-" + text.dropFirst("minus ".count) : text
-        return Double(number).flatMap { $0.isFinite ? $0 : nil }
+    /// A level as Pro Tools reads it out, "minus 3.1" for the peak hold or "minus 3 db" for gain reduction, in dB. Nil for a reading without a finite number, such as "minus ∞".
+    public nonisolated static func decibels(meterReading text: String) -> Double? {
+        var number = Substring(text)
+        if number.hasSuffix(" db") { number = number.dropLast(" db".count) }
+        let negative = number.hasPrefix("minus ")
+        if negative { number = number.dropFirst("minus ".count) }
+        guard let value = Double(number), value.isFinite else { return nil }
+        return negative ? -value : value
     }
 
     // MARK: Meters
