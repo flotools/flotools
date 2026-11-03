@@ -142,6 +142,8 @@ public struct AXElement {
     public var children: [AXElement] { get throws { try elements("AXChildren") } }
     public var windows: [AXElement] { get throws { try elements("AXWindows") } }
     public var focusedWindow: AXElement? { get throws { try element("AXFocusedWindow") } }
+    /// Read on the application element: the element that has the keyboard focus.
+    public var focusedElement: AXElement? { get throws { try element("AXFocusedUIElement") } }
 
     // MARK: Queries
 

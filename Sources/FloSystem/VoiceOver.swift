@@ -37,9 +37,6 @@ public enum VoiceOver {
     /// Text under the VoiceOver cursor, like `vo.voCursor.textUnderCursor()`. Nil when the item under the cursor has no text.
     public static func cursorText() throws -> String? { try text(under: "vocu", named: "VoiceOver cursor") }
 
-    /// Text under VoiceOver's keyboard cursor, like `vo.keyboardCursor.textUnderCursor()`. Ends with "edit text" on a text field.
-    public static func keyboardCursorText() throws -> String? { try text(under: "kbcu", named: "keyboard cursor") }
-
     /// `text under cursor` (`votx`) of the cursor property `cursor` of the application.
     private static func text(under cursor: String, named name: String) throws -> String? {
         let start = ContinuousClock.now

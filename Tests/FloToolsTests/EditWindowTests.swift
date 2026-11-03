@@ -139,26 +139,35 @@ import Testing
         #expect(!AnnouncementGuard.isListedDialog("Bounce Settings"))
     }
 
-    @Test func textFieldsSilenceTheKeyboardCursorGuards() {
+    @Test func textFieldsSilenceTheTextGuards() {
         for guarding in [AnnouncementGuard.outsideListedDialogsAndText, .outsideDialogsAndText] {
-            #expect(guarding.allows(edit, keyboardCursorText: "Main Counter, 1| 1| 000"))
-            #expect(!guarding.allows(edit, keyboardCursorText: "Name, Kick, edit text"))
+            #expect(guarding.readsTextFocus)
+            #expect(guarding.allows(edit, hasTextEntryFocus: false))
+            #expect(!guarding.allows(edit, hasTextEntryFocus: true))
         }
+        #expect(AnnouncementGuard.inEditWindow.allows(edit, hasTextEntryFocus: true))
+    }
+
+    @Test func textEntryRolesAreTheFocusedRolesSeenLive() {
+        #expect(ProToolsApp.textEntryRoles == ["AXTextArea", "AXTextField"])
+        #expect(!ProToolsApp.textEntryRoles.contains("AXUnknown"))
+        #expect(!ProToolsApp.textEntryRoles.contains("AXGroup"))
     }
 
     /// Only listed dialogs silence the playlist and link keys; any window without a close button silences the grid steps.
     @Test func dialogsAreCheckedTheTwoKeyboardMaestroWays() {
-        #expect(!AnnouncementGuard.outsideListedDialogsAndText.allows(saveDialog, keyboardCursorText: nil))
-        #expect(AnnouncementGuard.outsideListedDialogsAndText.allows(otherDialog, keyboardCursorText: nil))
-        #expect(!AnnouncementGuard.outsideDialogsAndText.allows(otherDialog, keyboardCursorText: nil))
-        #expect(!AnnouncementGuard.outsideDialogsAndText.allows(nil, keyboardCursorText: nil))
+        #expect(!AnnouncementGuard.outsideListedDialogsAndText.allows(saveDialog, hasTextEntryFocus: false))
+        #expect(AnnouncementGuard.outsideListedDialogsAndText.allows(otherDialog, hasTextEntryFocus: false))
+        #expect(!AnnouncementGuard.outsideDialogsAndText.allows(otherDialog, hasTextEntryFocus: false))
+        #expect(!AnnouncementGuard.outsideDialogsAndText.allows(nil, hasTextEntryFocus: false))
     }
 
     @Test func editWindowGuardAndAlways() {
-        #expect(AnnouncementGuard.inEditWindow.allows(edit, keyboardCursorText: nil))
-        #expect(!AnnouncementGuard.inEditWindow.allows(mix, keyboardCursorText: nil))
-        #expect(AnnouncementGuard.always.allows(nil, keyboardCursorText: "edit text"))
-        #expect(!AnnouncementGuard.inEditWindow.readsKeyboardCursor)
+        #expect(AnnouncementGuard.inEditWindow.allows(edit, hasTextEntryFocus: false))
+        #expect(!AnnouncementGuard.inEditWindow.allows(mix, hasTextEntryFocus: false))
+        #expect(AnnouncementGuard.always.allows(nil, hasTextEntryFocus: true))
+        #expect(!AnnouncementGuard.inEditWindow.readsTextFocus)
+        #expect(!AnnouncementGuard.always.readsTextFocus)
     }
 }
 

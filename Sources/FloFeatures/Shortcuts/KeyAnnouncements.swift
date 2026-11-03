@@ -70,9 +70,9 @@ enum KeyAnnouncements {
     /// Whether to speak after a shortcut went to Pro Tools, read now, after the key, as the KM versions did.
     static func speaks(after guarding: AnnouncementGuard) async throws -> Bool {
         guard guarding != .always else { return true }
-        let cursorText = guarding.readsKeyboardCursor ? try await VoiceOver.keyboardCursorText() : nil
-        let window = try await ProToolsApp.running().frontWindowFacts()
-        return guarding.allows(window, keyboardCursorText: cursorText)
+        let app = try ProToolsApp.running()
+        let inText = guarding.readsTextFocus ? try await app.hasTextEntryFocus() : false
+        return guarding.allows(try await app.frontWindowFacts(), hasTextEntryFocus: inText)
     }
 
     @AccessibilityActor
