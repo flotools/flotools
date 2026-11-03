@@ -23,10 +23,18 @@ public struct PlugInWindow {
             }
         }
 
+        /// "plug-in window" or "AudioSuite window", as in "the position of the plug-in window".
+        var windowName: String {
+            switch self {
+            case .plugIn: "plug-in window"
+            case .audioSuite: "AudioSuite window"
+            }
+        }
+
         var what: String {
             switch self {
-            case .plugIn: "a plug-in window"
-            case .audioSuite: "an AudioSuite window"
+            case .plugIn: "a " + windowName
+            case .audioSuite: "an " + windowName
             }
         }
 
@@ -79,7 +87,7 @@ public struct PlugInWindow {
 
     /// The window's top-left corner on screen, which positions in view files are relative to.
     public var origin: CGPoint {
-        get throws { try element.position.required("the position of the \(kind == .plugIn ? "plug-in" : "AudioSuite") window") }
+        get throws { try element.position.required("the position of the \(kind.windowName)") }
     }
 
     /// Presses the window's button called `name`, such as "Render".
