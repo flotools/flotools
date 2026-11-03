@@ -7,23 +7,23 @@ import FloSystem
 enum WindowTools {
     @MainActor
     static var commands: [Command] { [
-        Command("floTools.closeAllFloatingWindows", "Close All Floating Windows", scope: .anyProToolsWindow, triggers: [.key("Opt+Cmd+W")]) { _ in
+        Command("floTools.closeAllFloatingWindows", "Close All Floating Windows", summary: "Closes every Pro Tools window except the Mix and Edit windows.", scope: .anyProToolsWindow, triggers: [.key("Opt+Cmd+W")]) { _ in
             try await ProToolsApp.running().closeFloatingWindows()
         },
-        Command("floTools.openPreferencesDialog", "Open Preferences Dialog", scope: .anyProToolsWindow, triggers: [.key("Opt+Cmd+,")]) { _ in
+        Command("floTools.openPreferencesDialog", "Open Preferences Dialog", summary: "Opens Setup > Preferences in Pro Tools.", scope: .anyProToolsWindow, triggers: [.key("Opt+Cmd+,")]) { _ in
             try await ProToolsApp.running().control(.menuItem(menu: "Setup", .contains("Preferences"))).press()
         },
-        resizeTable("floTools.resizeClipsTable", "Resize Clips Table", key: "Ctrl+Shift+Cmd+C", .editClips),
-        resizeTable("floTools.resizeTrackListTable", "Resize Track LIst Table", key: "Ctrl+Shift+Cmd+T", .frontTrackList),
-        Command("floTools.speakSelectedClips", "Speak Selected Clips", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+,")]) { _ in
+        resizeTable("floTools.resizeClipsTable", "Resize Clips Table", "the Edit window's clip list", key: "Ctrl+Shift+Cmd+C", .editClips),
+        resizeTable("floTools.resizeTrackListTable", "Resize Track LIst Table", "the front window's Track List", key: "Ctrl+Shift+Cmd+T", .frontTrackList),
+        Command("floTools.speakSelectedClips", "Speak Selected Clips", summary: "Speaks the clips selected in the clip list.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+,")]) { _ in
             try await VoiceOver.say(selectedClipsText(try await ProToolsApp.running().selectedClipNames()))
         },
     ] }
 
     /// Speaks the table's width and moves the mouse onto its resize edge, so the user can drag it: just left of the Clips table's top-left corner, or right of the Track List, as the KM version placed it.
     @MainActor
-    private static func resizeTable(_ id: CommandID, _ name: String, key: String, _ table: ProToolsApp.Table) -> Command {
-        Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { _ in
+    private static func resizeTable(_ id: CommandID, _ name: String, _ what: String, key: String, _ table: ProToolsApp.Table) -> Command {
+        Command(id, name, summary: "Speaks the width of \(what) and moves the mouse onto its resize edge, ready to drag.", scope: .anyProToolsWindow, triggers: [.key(key)]) { _ in
             let frame = try await ProToolsApp.running().frame(of: table)
             try await VoiceOver.say(resizeText(table, width: frame.width))
             try Mouse.move(to: resizeEdge(table, frame))

@@ -13,10 +13,10 @@ enum PlugIns {
         Presets.commands(.plugIn) + [
             speakToggleBypass,
             toggleMonitor,
-            moveParameter("plugin.nextRowParameter", "Next Row Parameter", key: "Ctrl+Down", rows: 1, columns: 0, cursor),
-            moveParameter("plugin.previousRowParameter", "Previous Row Parameter", key: "Ctrl+Up", rows: -1, columns: 0, cursor),
-            moveParameter("plugin.nextColumnParameter", "Next Column Parameter", key: "Ctrl+Right", rows: 0, columns: 1, cursor),
-            moveParameter("plugin.previousColumnParameter", "Previous Column Parameter", key: "Ctrl+Left", rows: 0, columns: -1, cursor),
+            moveParameter("plugin.nextRowParameter", "Next Row Parameter", "next row", key: "Ctrl+Down", rows: 1, columns: 0, cursor),
+            moveParameter("plugin.previousRowParameter", "Previous Row Parameter", "previous row", key: "Ctrl+Up", rows: -1, columns: 0, cursor),
+            moveParameter("plugin.nextColumnParameter", "Next Column Parameter", "next column", key: "Ctrl+Right", rows: 0, columns: 1, cursor),
+            moveParameter("plugin.previousColumnParameter", "Previous Column Parameter", "previous column", key: "Ctrl+Left", rows: 0, columns: -1, cursor),
             loadView(nil, cursor),
             displayViewTemplate,
         ] + (1...9).map { loadView($0, cursor) }
@@ -29,7 +29,7 @@ enum PlugIns {
     /// Single press speaks whether the plug-in is bypassed ("On" or "Off"); double press switches it and speaks the new state.
     @MainActor
     static var speakToggleBypass: Command {
-        Command("plugin.speakToggleBypass", "Speak/Toggle Bypass", scope: .windows([.plugIn]), triggers: [.key("Opt+B")], single: { _ in
+        Command("plugin.speakToggleBypass", "Speak/Toggle Bypass", summary: "Single press speaks whether the plug-in is bypassed; double press switches bypass and speaks the new state.", scope: .windows([.plugIn]), triggers: [.key("Opt+B")], single: { _ in
             let bypassed = try await ProToolsApp.running().plugInWindow(.plugIn).isBypassed
             try await VoiceOver.say(bypassText(bypassed))
         }, double: { _ in
@@ -64,7 +64,7 @@ enum PlugIns {
     /// Starts or stops a watch of the plug-in window's parameters that speaks each one that changes, for example while automation plays. It ends by itself when the window closes.
     @MainActor
     static var toggleMonitor: Command {
-        Command(monitor, "Toggle Plugin Monitor", scope: .windows([.plugIn]), triggers: [.key("Opt+/")]) { run in
+        Command(monitor, "Toggle Plugin Monitor", summary: "Starts or stops a watch that speaks each plug-in parameter that changes, for example while automation plays. It stops by itself when the window closes.", scope: .windows([.plugIn]), triggers: [.key("Opt+/")]) { run in
             let monitors = await run.engine.monitors
             if await monitors.isRunning(monitor) {
                 await monitors.stop(monitor)
@@ -118,7 +118,9 @@ enum PlugIns {
     static func loadView(_ number: Int?, _ cursor: PlugInViewCursor) -> Command {
         let id = number.map { CommandID("plugin.loadPluginParametersForView\($0)") } ?? loadDefaultView
         let name = "Load Plugin Parameters for " + (number.map { "View \($0)" } ?? "Default View")
-        return Command(id, name, scope: .windows([.plugIn]), triggers: [.key("Cmd+\(number ?? 0)")]) { _ in
+        let file = number.map { "view \($0)" } ?? "the default view"
+        let summary = "Loads \(file) from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view." + (number == nil ? " Also runs when a plug-in window comes to front." : "")
+        return Command(id, name, summary: summary, scope: .windows([.plugIn]), triggers: [.key("Cmd+\(number ?? 0)")]) { _ in
             let window = try await ProToolsApp.running().plugInWindow(.plugIn)
             let plugIn = try await window.plugInName
             let view: PlugInView?
@@ -142,8 +144,8 @@ enum PlugIns {
 
     /// Moves the parameter cursor, speaks "name: value" (just the name when the plug-in shows no slider of that name), and moves the mouse over the control.
     @MainActor
-    static func moveParameter(_ id: CommandID, _ name: String, key: String, rows: Int, columns: Int, _ cursor: PlugInViewCursor) -> Command {
-        Command(id, name, scope: .windows([.plugIn]), triggers: [.key(key)]) { _ in
+    static func moveParameter(_ id: CommandID, _ name: String, _ place: String, key: String, rows: Int, columns: Int, _ cursor: PlugInViewCursor) -> Command {
+        Command(id, name, summary: "Moves to the parameter in the \(place) of the loaded plug-in view, speaks its name and value, and moves the mouse over its control.", scope: .windows([.plugIn]), triggers: [.key(key)]) { _ in
             let window = try await ProToolsApp.running().plugInWindow(.plugIn)
             let parameter = try await cursor.move(rows: rows, columns: columns)
             // Nil when the plug-in has no slider of that name; a failed read throws to the engine.
@@ -159,7 +161,7 @@ enum PlugIns {
     /// A status menu item: shows a view file template for the front plug-in, listing its parameters, for the user to arrange and save in the Plug-In Views folder.
     @MainActor
     static var displayViewTemplate: Command {
-        Command("plugin.displayPluginViewTemplate", "Display Plugin View Template", scope: .windows([.plugIn]), triggers: [.statusMenu]) { _ in
+        Command("plugin.displayPluginViewTemplate", "Display Plugin View Template", summary: "Shows a view file template that lists the front plug-in's parameters, to arrange and save in the Plug-In Views folder.", scope: .windows([.plugIn]), triggers: [.statusMenu]) { _ in
             let window = try await ProToolsApp.running().plugInWindow(.plugIn)
             let plugIn = try await window.plugInName
             let names = try await window.parameters().map(\.name)

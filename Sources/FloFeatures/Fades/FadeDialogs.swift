@@ -66,7 +66,7 @@ enum FadeDialogs {
     @MainActor
     static func command(_ setting: FadeSetting) -> Command {
         let combo = KeyCombo(setting.key)!
-        return Command(setting.id, setting.name, scope: .windows([.fade(setting.dialog)]), triggers: [.key(setting.key)]) { _ in
+        return Command(setting.id, setting.name, summary: setting.summary, scope: .windows([.fade(setting.dialog)]), triggers: [.key(setting.key)]) { _ in
             let proTools = try ProToolsApp.running()
             let dialog = try await proTools.fadeDialog(setting.dialog)
             let before = try await read(setting.reading, setting.section, in: dialog)
@@ -105,5 +105,13 @@ struct FadeSetting: Sendable {
         self.reading = reading
         self.section = section
         self.suffix = suffix
+    }
+
+    /// For `COMMANDS.md`, for example "Passes the key to the dialog, which selects the next curve in the "In Shape" section, and speaks it."
+    var summary: String {
+        let direction = name.hasPrefix("Next") ? "next" : "previous"
+        let thing = reading == .curve ? "curve" : "option"
+        let place = (section.occurrence == 0 ? "the" : "the second") + " \"\(section.title)\" section"
+        return "Passes the key to the dialog, which selects the \(direction) \(thing) in \(place), and speaks it."
     }
 }

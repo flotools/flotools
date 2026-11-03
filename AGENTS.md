@@ -31,7 +31,7 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 - `Sources/FloProTools/`: Pro Tools knowledge: finding the app, its windows (Mix, Edit toolbar controls, plug-in and AudioSuite windows, fade dialogs), tracks and their states, settings, and waiting for Pro Tools to show a change. `ProToolsWindowKind.swift` classifies each front window title as exactly one kind. Depends on `FloSystem` only.
 - `Sources/FloFeatures/`: the commands, one folder per feature (`Inspector/`, `Tracks/`, `Counters/`, `MIDIEvents/`, `Settings/`, `Shortcuts/`, `Fades/`, `PlugIns/`, `Presets/` (shared by plug-in and AudioSuite windows), `AudioSuite/`, `Windows/`, `ClipDrag/`, `Preferences/`), each file declaring its commands' IDs, names, scopes, mode conditions, triggers and actions. At the top: `FloFeatures.swift` (`FloFeatures.all` lists the commands), `SessionState.swift` (what commands remember about the session) and `Lifecycle.swift` (what happens on VoiceOver and Pro Tools launch and quit and on window changes, replacing the KM Global group).
 - `Sources/FloTools/`: the app (status menu, permission prompts, the preferences panel, the diagnostic log header).
-- `Tests/FloToolsTests/`: Swift Testing unit tests. `Tests/Baselines/` holds `Keymap.txt` and `Routing.txt`, the keymap baselines `KeymapTests` compares against.
+- `Tests/FloToolsTests/`: Swift Testing unit tests. `Tests/Baselines/` holds `Keymap.txt` and `Routing.txt`, the keymap baselines `KeymapTests` compares against. `CommandReferenceTests` generates `COMMANDS.md` at the root, the user's list of commands with their keys, windows and summaries, from the declarations.
 - `reference/`: frozen Keyboard Maestro material: the export, `macros/` with `INDEX.md`, the key set preset, the KM README, and `Plug-In Views/`, the plug-in view files that ship with Flo Tools: `build-app.sh` puts them in the app, and the app copies them into `~/Library/Application Support/Flo Tools/Plug-In Views/` on first launch, without overwriting the user's files.
 - `scripts/build-app.sh`: builds and signs `build/Flo Tools.app`, with the sounds and plug-in views in its Resources.
 - `Resources/`: `Info.plist`, entitlements, and `Sounds/` with the feedback sounds (`Done.aiff`, `Progress.aiff`; for now copies of the macOS Tink and Pop), which `build-app.sh` copies into the app.
@@ -51,9 +51,9 @@ Run from the repository root.
 ## Adding or changing a command
 
 1. For behavior that came from KM, read its file in `reference/macros/<group>/<macro>.md` for the original wording and steps.
-2. Declare it in its feature folder in `Sources/FloFeatures/` with an ID, name, scope, mode condition and hotkeys (`.key("Ctrl+2")`). Share code with commands of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
+2. Declare it in its feature folder in `Sources/FloFeatures/` with an ID, name, summary (one or two sentences for users, for `COMMANDS.md`), scope, mode condition and hotkeys (`.key("Ctrl+2")`). Share code with commands of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
 3. Add unit tests for pure logic: message text, value parsing, filters.
-4. Regenerate the baselines (`FLO_WRITE_BASELINES=1 swift test --filter KeymapTests`) and check that the diff shows only the intended bindings and routing.
+4. Regenerate the baselines and `COMMANDS.md` (`FLO_WRITE_BASELINES=1 swift test --filter "KeymapTests|CommandReferenceTests"`) and check that the diff shows only the intended bindings, routing and summaries.
 5. Build, run tests, rebuild the app and test it live (below).
 6. Update `.pi/HANDOFF.md` and commit, with a message that says what was tested live.
 

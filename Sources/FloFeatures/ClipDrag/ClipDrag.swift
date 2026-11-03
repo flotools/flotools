@@ -10,7 +10,7 @@ enum ClipDrag {
     @MainActor
     static func commands(_ mark: ClipDragMark) -> [Command] {
         [
-            Command("floTools.betaMarkClipForDrag", "Beta: Mark Clip for Drag", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+,")]) { _ in
+            Command("floTools.betaMarkClipForDrag", "Beta: Mark Clip for Drag", summary: "Marks the clip under the VoiceOver cursor in the clip list for Drag Clip.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+,")]) { _ in
                 let cursor = try await VoiceOver.cursorBounds()
                 let app = try ProToolsApp.running()
                 let clip = try await app.listedClip(at: CGPoint(x: cursor.midX, y: cursor.midY)).required("a clip list item under the VoiceOver cursor")
@@ -22,7 +22,7 @@ enum ClipDrag {
                 defer { Mouse.releaseButton(at: point, modifiers: .maskAlternate) }
                 try await Keyboard.waitForModifiersReleased()
             },
-            Command("floTools.betaDragClip", "Beta: Drag Clip", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+.")]) { _ in
+            Command("floTools.betaDragClip", "Beta: Drag Clip", summary: "Drags the marked clip onto the track under the VoiceOver cursor in the Edit window and says whether Pro Tools took it.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+.")]) { _ in
                 try await Keyboard.waitForModifiersReleased()
                 let app = try ProToolsApp.running()
                 guard let name = try await mark.clipName(in: app) else { throw FloError.notFound("a clip marked for drag") }

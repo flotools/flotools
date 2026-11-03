@@ -5,26 +5,26 @@ import FloSystem
 /// The Flo Tools Inspector keys work on the Mix window track under the VoiceOver cursor.
 enum Inspector {
     @MainActor
-    static var commands: [Command] { (0..<10).flatMap { [slot(.insert, $0), assign(.insert, $0), slot(.send, $0), assign(.send, $0)] } + [
-        toggle("inspector.speakToggleSolo", "Speak/Toggle Solo", key: "S", .solo),
-        toggle("inspector.speakToggleMute", "Speak/Toggle Mute", key: "M", .mute),
-        toggle("inspector.speakToggleRecordState", "Speak/Toggle Record State", key: "R", .recordEnable),
-        toggle("inspector.speakToggleInputMonitor", "Speak/Toggle Input Monitor", key: "K", .inputMonitor),
-        toggle("inspector.speakToggleInstrumentMute", "Speak/Toggle Instrument Mute", key: "Opt+M", .instrumentMute),
-        pan("inspector.panRightOnMonoLeftChannel", "pan right on mono/Left channel", key: "Ctrl+Cmd+Right", .monoOrLeft, .increase),
-        pan("inspector.panLeftOnMonoLeftChannel", "pan left on mono/Left channel", key: "Ctrl+Cmd+Left", .monoOrLeft, .decrease),
-        pan("inspector.panRightOnRightChannel", "pan right on right channel", key: "Ctrl+Shift+Cmd+Right", .right, .increase),
-        pan("inspector.panLeftOnRightChannel", "pan left on right channel", key: "Ctrl+Shift+Cmd+Left", .right, .decrease),
-        pan("inspector.panInstrumentRight", "pan Instrument Right", key: "Ctrl+Opt+Right", .instrument, .increase),
-        pan("inspector.panInstrumentLeft", "pan Instrument left", key: "Ctrl+Opt+Left", .instrument, .decrease),
+    static var commands: [Command] { [TrackStrip.SlotKind.insert, .send].flatMap { kind in (0..<10).map { slot(kind, $0) } + (0..<10).map { assign(kind, $0) } } + [
+        toggle("inspector.speakToggleSolo", "Speak/Toggle Solo", key: "S", .solo, state: "solo"),
+        toggle("inspector.speakToggleMute", "Speak/Toggle Mute", key: "M", .mute, state: "mute"),
+        toggle("inspector.speakToggleRecordState", "Speak/Toggle Record State", key: "R", .recordEnable, state: "record arm"),
+        toggle("inspector.speakToggleInputMonitor", "Speak/Toggle Input Monitor", key: "K", .inputMonitor, state: "input monitor"),
+        toggle("inspector.speakToggleInstrumentMute", "Speak/Toggle Instrument Mute", key: "Opt+M", .instrumentMute, state: "instrument mute"),
+        pan("inspector.panRightOnMonoLeftChannel", "pan right on mono/Left channel", key: "Ctrl+Cmd+Right", .monoOrLeft, .increase, "Moves the pan of a mono track, or the left pan of a stereo track, one step right and speaks it."),
+        pan("inspector.panLeftOnMonoLeftChannel", "pan left on mono/Left channel", key: "Ctrl+Cmd+Left", .monoOrLeft, .decrease, "Moves the pan of a mono track, or the left pan of a stereo track, one step left and speaks it."),
+        pan("inspector.panRightOnRightChannel", "pan right on right channel", key: "Ctrl+Shift+Cmd+Right", .right, .increase, "Moves the right pan of a stereo track one step right and speaks it."),
+        pan("inspector.panLeftOnRightChannel", "pan left on right channel", key: "Ctrl+Shift+Cmd+Left", .right, .decrease, "Moves the right pan of a stereo track one step left and speaks it."),
+        pan("inspector.panInstrumentRight", "pan Instrument Right", key: "Ctrl+Opt+Right", .instrument, .increase, "Moves the MIDI pan of an instrument track one step right and speaks it."),
+        pan("inspector.panInstrumentLeft", "pan Instrument left", key: "Ctrl+Opt+Left", .instrument, .decrease, "Moves the MIDI pan of an instrument track one step left and speaks it."),
     ] }
 
     // MARK: Toggles
 
     /// Single press speaks the toggle's state; double press presses the button and speaks the new state, then plays the done sound, as the JXA played Tink. The JXA waited a fixed 0.1 s before reading (Record State did not wait); this waits until the state changes.
     @MainActor
-    static func toggle(_ id: CommandID, _ name: String, key: String, _ toggle: TrackStrip.Toggle) -> Command {
-        Command(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
+    static func toggle(_ id: CommandID, _ name: String, key: String, _ toggle: TrackStrip.Toggle, state: String) -> Command {
+        Command(id, name, summary: "Single press speaks the track's \(state) state; double press switches it and speaks the new state.", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(stateText(toggle, track.state(of: toggle)))
         }, double: { _ in
@@ -53,7 +53,9 @@ enum Inspector {
         let letter = TrackStrip.slotLetter(slot)
         let digit = "\((slot + 1) % 10)"
         let key = kind == .send ? "Ctrl+" + digit : digit
-        return Command(CommandID("inspector.speakOpen\(kind.rawValue)\(letter)"), "Speak/Open \(kind.rawValue) \(letter)", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
+        let opens = kind == .insert ? "the plug-in window" : "the send window"
+        let summary = "Single press speaks \(kind.rawValue.lowercased()) \(letter): whether it is active, and what is assigned. Double press opens \(opens)."
+        return Command(CommandID("inspector.speakOpen\(kind.rawValue)\(letter)"), "Speak/Open \(kind.rawValue) \(letter)", summary: summary, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(slotText(kind, slot, in: track))
         }, double: { _ in
@@ -67,7 +69,7 @@ enum Inspector {
     static func assign(_ kind: TrackStrip.SlotKind, _ slot: Int) -> Command {
         let letter = TrackStrip.slotLetter(slot)
         let key = (kind == .send ? "Ctrl+Cmd+" : "Cmd+") + "\((slot + 1) % 10)"
-        return Command(CommandID("inspector.assign\(kind.rawValue)\(letter)"), "Assign \(kind.rawValue) \(letter)", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
+        return Command(CommandID("inspector.assign\(kind.rawValue)\(letter)"), "Assign \(kind.rawValue) \(letter)", summary: "Opens the menu to assign \(kind.rawValue.lowercased()) \(letter).", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await track.slotButtons(kind, slot: slot).selector.pressOpeningMenu()
         }
@@ -88,8 +90,8 @@ enum Inspector {
 
     /// Moves one pan control a step and speaks its new position.
     @MainActor
-    static func pan(_ id: CommandID, _ name: String, key: String, _ control: TrackStrip.PanControl, _ direction: SliderStep) -> Command {
-        Command(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
+    static func pan(_ id: CommandID, _ name: String, key: String, _ control: TrackStrip.PanControl, _ direction: SliderStep, _ summary: String) -> Command {
+        Command(id, name, summary: summary, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(step(control, direction, on: track))
         }

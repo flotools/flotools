@@ -48,7 +48,7 @@ enum TrackLists {
     /// The KM version spoke "Choose what to list.", paused 1 s and showed a palette. The chooser's prompt says the same and VoiceOver reads it when the window opens, so there is no separate speech or pause.
     @MainActor
     private static var chooseList: Command {
-        Command("floTools.listTracksWithFloTools", "List Tracks with Flo Tools", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Opt+Shift+L")]) { _ in
+        Command("floTools.listTracksWithFloTools", "List Tracks with Flo Tools", summary: "Opens a chooser of track lists, such as soloed or unmuted tracks. The chosen list opens in a second chooser, where the chosen tracks can be changed, for example unsoloed or muted.", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Opt+Shift+L")]) { _ in
             // Looked up while Pro Tools is in front. Right after a chooser closes, macOS can briefly report no running Pro Tools while the front app changes (checked live 2026-11-03: 3 of 19 runs said "Could not find Pro Tools.").
             let proTools = try ProToolsApp.running()
             let request = Chooser.Request(title: "List Tracks with Flo Tools", prompt: "Choose what to list.", items: listings.map(\.name), okTitle: "List", allowsMultipleSelection: false)

@@ -7,8 +7,26 @@ public enum FloFeatures {
     /// All commands. `session` is what they remember about the Pro Tools session; `openPreferences` shows the app's preferences panel.
     @MainActor
     public static func all(session: SessionState = SessionState(), openPreferences: @escaping @MainActor @Sendable () -> Void = {}) -> [Command] {
-        Inspector.commands + InspectorControls.commands + InspectorMeters.commands(session.gainReduction) + SettingToggles.commands + Counters.commands + InspectorMode.commands + TrackStatus.commands + TrackLists.commands + FadeDialogs.commands + SelectedTab.commands + PlugIns.commands(session.plugInView) + AudioSuite.commands + KeyAnnouncements.commands + MidiEvents.commands(session.eventColumn) + WindowTools.commands + ClipDrag.commands(session.clipMark) + PreferenceCommands.commands(openPreferences: openPreferences)
+        sections(session: session, openPreferences: openPreferences).flatMap(\.commands)
     }
+
+    /// The commands grouped by feature, in the order `COMMANDS.md` lists them.
+    @MainActor
+    static func sections(session: SessionState = SessionState(), openPreferences: @escaping @MainActor @Sendable () -> Void = {}) -> [(title: String, commands: [Command])] { [
+        ("Inspector", InspectorMode.commands + Inspector.commands + InspectorControls.commands + InspectorMeters.commands(session.gainReduction)),
+        ("Settings", SettingToggles.commands),
+        ("Counters", Counters.commands),
+        ("Tracks", TrackStatus.commands + TrackLists.commands),
+        ("Fade dialogs", FadeDialogs.commands),
+        ("Tabs", SelectedTab.commands),
+        ("Plug-in windows", PlugIns.commands(session.plugInView)),
+        ("AudioSuite", AudioSuite.commands),
+        ("Key announcements", KeyAnnouncements.commands),
+        ("MIDI events", MidiEvents.commands(session.eventColumn)),
+        ("Windows", WindowTools.commands),
+        ("Clip drag", ClipDrag.commands(session.clipMark)),
+        ("Preferences", PreferenceCommands.commands(openPreferences: openPreferences)),
+    ] }
 
     /// Applies what the preferences control, like the KM Refresh Preference macro: the double-press timeout and whether Toggle Temporary Inspector works. Called at launch and after the preferences panel saves.
     @MainActor

@@ -59,6 +59,8 @@ public struct Command: Sendable {
     public let id: CommandID
     /// Display name, for menus and the log.
     public let name: String
+    /// What the command does, in a sentence or two for users, for `COMMANDS.md`. Every shipped command has one (`CommandReferenceTests`); test commands may leave it empty.
+    public let summary: String
     /// The windows its keys work in.
     public let scope: Scope
     /// The mode its keys need.
@@ -68,21 +70,22 @@ public struct Command: Sendable {
     public let triggers: [Trigger]
     public let action: CommandAction
 
-    public init(_ id: CommandID, _ name: String, scope: Scope, mode: ModeCondition = .any, enabledByDefault: Bool = true, triggers: [Trigger], body: @escaping CommandBody) {
-        self.init(id, name, scope: scope, mode: mode, enabledByDefault: enabledByDefault, triggers: triggers, action: .body(body))
+    public init(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, enabledByDefault: Bool = true, triggers: [Trigger], body: @escaping CommandBody) {
+        self.init(id, name, summary: summary, scope: scope, mode: mode, enabledByDefault: enabledByDefault, triggers: triggers, action: .body(body))
     }
 
-    public init(_ id: CommandID, _ name: String, scope: Scope, mode: ModeCondition = .any, enabledByDefault: Bool = true, triggers: [Trigger], doneSound: DoneSoundTiming = .beforeDouble, single: @escaping CommandBody, double: @escaping CommandBody) {
-        self.init(id, name, scope: scope, mode: mode, enabledByDefault: enabledByDefault, triggers: triggers, action: .singleOrDouble(single: single, double: double, doneSound: doneSound))
+    public init(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, enabledByDefault: Bool = true, triggers: [Trigger], doneSound: DoneSoundTiming = .beforeDouble, single: @escaping CommandBody, double: @escaping CommandBody) {
+        self.init(id, name, summary: summary, scope: scope, mode: mode, enabledByDefault: enabledByDefault, triggers: triggers, action: .singleOrDouble(single: single, double: double, doneSound: doneSound))
     }
 
-    public init(_ id: CommandID, _ name: String, scope: Scope, mode: ModeCondition = .any, enabledByDefault: Bool = true, triggers: [Trigger], press: @escaping HoldPress, release: @escaping HoldRelease) {
-        self.init(id, name, scope: scope, mode: mode, enabledByDefault: enabledByDefault, triggers: triggers, action: .hold(press: press, release: release))
+    public init(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, enabledByDefault: Bool = true, triggers: [Trigger], press: @escaping HoldPress, release: @escaping HoldRelease) {
+        self.init(id, name, summary: summary, scope: scope, mode: mode, enabledByDefault: enabledByDefault, triggers: triggers, action: .hold(press: press, release: release))
     }
 
-    private init(_ id: CommandID, _ name: String, scope: Scope, mode: ModeCondition, enabledByDefault: Bool, triggers: [Trigger], action: CommandAction) {
+    private init(_ id: CommandID, _ name: String, summary: String, scope: Scope, mode: ModeCondition, enabledByDefault: Bool, triggers: [Trigger], action: CommandAction) {
         self.id = id
         self.name = name
+        self.summary = summary
         self.scope = scope
         self.mode = mode
         self.enabledByDefault = enabledByDefault

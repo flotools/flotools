@@ -14,9 +14,9 @@ enum Presets {
         }
         let scope: Scope = .windows([window])
         return [
-            step(CommandID("\(prefix).nextPreset"), "Next Preset", kind, scope, .next, key: "]"),
-            step(CommandID("\(prefix).previousPreset"), "Previous Preset", kind, scope, .previous, key: "["),
-            Command(CommandID("\(prefix).\(speakChooseID)"), speakChooseName, scope: scope, triggers: [.key("Opt+Cmd+P")], single: { _ in
+            step(CommandID("\(prefix).nextPreset"), "Next Preset", "Loads the next preset and speaks its name.", kind, scope, .next, key: "]"),
+            step(CommandID("\(prefix).previousPreset"), "Previous Preset", "Loads the previous preset and speaks its name.", kind, scope, .previous, key: "["),
+            Command(CommandID("\(prefix).\(speakChooseID)"), speakChooseName, summary: "Single press speaks the preset; double press opens the preset menu.", scope: scope, triggers: [.key("Opt+Cmd+P")], single: { _ in
                 let preset = try await ProToolsApp.running().plugInWindow(kind).preset
                 try await VoiceOver.say(preset)
             }, double: { _ in
@@ -26,8 +26,8 @@ enum Presets {
     }
 
     @MainActor
-    private static func step(_ id: CommandID, _ name: String, _ kind: PlugInWindow.Kind, _ scope: Scope, _ step: PlugInWindow.PresetStep, key: String) -> Command {
-        Command(id, name, scope: scope, triggers: [.key(key)]) { _ in
+    private static func step(_ id: CommandID, _ name: String, _ summary: String, _ kind: PlugInWindow.Kind, _ scope: Scope, _ step: PlugInWindow.PresetStep, key: String) -> Command {
+        Command(id, name, summary: summary, scope: scope, triggers: [.key(key)]) { _ in
             let preset = try await ProToolsApp.running().plugInWindow(kind).step(step)
             try await VoiceOver.say(preset)
         }

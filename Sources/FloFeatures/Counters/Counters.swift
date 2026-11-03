@@ -6,33 +6,33 @@ import FloSystem
 enum Counters {
     @MainActor
     static var commands: [Command] { [
-        speakEdit("floTools.speakEditMainCounter", "Speak/Edit main counter", key: "Cmd+F4", .mainCounter, .position, label: ". main.", prompts: Prompts(time: "Press Delete, then type Main Counter value", other: "Type main counter value")),
-        speakEdit("floTools.speakEditSubCounter", "Speak/Edit Sub Counter", key: "Cmd+F6", .subCounter, .position, label: ". Sub.", prompts: Prompts(time: "Press Delete, then type Sub Counter value", other: "Type sub counter value.")),
-        speakEdit("floTools.speakEditSelectionStart", "speak/Edit selection start", key: "Cmd+F1", .selectionStart, .position, label: ". start.", prompts: Prompts(time: "Press delete, then type Start value", other: "Type start value")),
-        speakEdit("floTools.speakEditSelectionEnd", "Speak/Edit Selection End", key: "Cmd+F2", .selectionEnd, .position, label: ". end", prompts: Prompts(time: "Press Delete, then type End value", other: "Type end value")),
-        speakEdit("floTools.speakEditSelectionLength", "Speak/Edit Selection Length", key: "Cmd+F3", .selectionLength, .duration, label: ". length.", prompts: Prompts(time: "Press Delete, then type Length value", other: "Type length value")),
-        speakEdit("floTools.speakEditPreRollAmount", "Speak/Edit Pre-Roll Amount", key: "Cmd+F9", .preRoll, .duration, label: ". Pre-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Pre-Roll amount", other: "Type Pre-Roll Amount.")),
-        speakEdit("floTools.speakEditPostRollAmount", "Speak/Edit Post-Roll Amount", key: "Cmd+F10", .postRoll, .duration, label: ". Post-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Post-Roll amount", other: "Type Post-Roll Amount.")),
-        speakEdit("floTools.speakEditNudgeValue", "Speak/Edit Nudge Value", key: "Cmd+F7", .nudgeValue, .duration, label: ". Nudge.", prompts: Prompts(time: "Press Delete, then type Nudge value", other: "Type nudge value.")),
-        speakEdit("floTools.speakEditTempo", "Speak/Edit Tempo", key: "Cmd+F11", .tempo, .asShown, label: ": Tempo", prompts: Prompts("Type a Tempo value.")),
-        speakEdit("floTools.speakEditPitchForSelectedNote", "Speak/Edit Pitch for Selected Note", key: "Opt+P", .notePitch, .notePitch, label: ". Pitch", prompts: Prompts("Type note pitch")),
-        speakEdit("floTools.speakEditAttackVelocityForSelectedNote", "Speak/Edit Attack Velocity for Selected Note", key: "Opt+A", .attackVelocity, .asShown, label: ". Attack", prompts: Prompts("Type attack velocity")),
-        speakEdit("floTools.speakEditReleaseVelocityForSelectedNote", "Speak/Edit Release Velocity for Selected Note", key: "Opt+E", .releaseVelocity, .asShown, label: ". Release", prompts: Prompts("Type release velocity")),
-        Command("floTools.speakGridValue", "Speak Grid Value", scope: .anyProToolsWindow, triggers: [.key("Cmd+F8")]) { _ in
+        speakEdit("floTools.speakEditMainCounter", "Speak/Edit main counter", what: "main counter", key: "Cmd+F4", .mainCounter, .position, label: ". main.", prompts: Prompts(time: "Press Delete, then type Main Counter value", other: "Type main counter value")),
+        speakEdit("floTools.speakEditSubCounter", "Speak/Edit Sub Counter", what: "sub counter", key: "Cmd+F6", .subCounter, .position, label: ". Sub.", prompts: Prompts(time: "Press Delete, then type Sub Counter value", other: "Type sub counter value.")),
+        speakEdit("floTools.speakEditSelectionStart", "speak/Edit selection start", what: "edit selection start", key: "Cmd+F1", .selectionStart, .position, label: ". start.", prompts: Prompts(time: "Press delete, then type Start value", other: "Type start value")),
+        speakEdit("floTools.speakEditSelectionEnd", "Speak/Edit Selection End", what: "edit selection end", key: "Cmd+F2", .selectionEnd, .position, label: ". end", prompts: Prompts(time: "Press Delete, then type End value", other: "Type end value")),
+        speakEdit("floTools.speakEditSelectionLength", "Speak/Edit Selection Length", what: "edit selection length", key: "Cmd+F3", .selectionLength, .duration, label: ". length.", prompts: Prompts(time: "Press Delete, then type Length value", other: "Type length value")),
+        speakEdit("floTools.speakEditPreRollAmount", "Speak/Edit Pre-Roll Amount", what: "pre-roll amount", key: "Cmd+F9", .preRoll, .duration, label: ". Pre-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Pre-Roll amount", other: "Type Pre-Roll Amount.")),
+        speakEdit("floTools.speakEditPostRollAmount", "Speak/Edit Post-Roll Amount", what: "post-roll amount", key: "Cmd+F10", .postRoll, .duration, label: ". Post-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Post-Roll amount", other: "Type Post-Roll Amount.")),
+        speakEdit("floTools.speakEditNudgeValue", "Speak/Edit Nudge Value", what: "nudge value", key: "Cmd+F7", .nudgeValue, .duration, label: ". Nudge.", prompts: Prompts(time: "Press Delete, then type Nudge value", other: "Type nudge value.")),
+        speakEdit("floTools.speakEditTempo", "Speak/Edit Tempo", what: "tempo", key: "Cmd+F11", .tempo, .asShown, label: ": Tempo", prompts: Prompts("Type a Tempo value.")),
+        speakEdit("floTools.speakEditPitchForSelectedNote", "Speak/Edit Pitch for Selected Note", what: "pitch of the selected MIDI note", key: "Opt+P", .notePitch, .notePitch, label: ". Pitch", prompts: Prompts("Type note pitch")),
+        speakEdit("floTools.speakEditAttackVelocityForSelectedNote", "Speak/Edit Attack Velocity for Selected Note", what: "attack velocity of the selected MIDI note", key: "Opt+A", .attackVelocity, .asShown, label: ". Attack", prompts: Prompts("Type attack velocity")),
+        speakEdit("floTools.speakEditReleaseVelocityForSelectedNote", "Speak/Edit Release Velocity for Selected Note", what: "release velocity of the selected MIDI note", key: "Opt+E", .releaseVelocity, .asShown, label: ". Release", prompts: Prompts("Type release velocity")),
+        Command("floTools.speakGridValue", "Speak Grid Value", summary: "Speaks the grid value.", scope: .anyProToolsWindow, triggers: [.key("Cmd+F8")]) { _ in
             try await VoiceOver.say(read(.gridValue, .duration) + ". grid.")
         },
-        openMenu("floTools.selectMainCounter", "Select main counter", key: "Opt+Cmd+F4", .mainCounterSelector),
-        openMenu("floTools.selectSubCounter", "Select Sub Counter", key: "Opt+Cmd+F6", .subCounterSelector),
-        openMenu("floTools.selectNudgeValue", "Select Nudge Value", key: "Opt+Cmd+F7", .nudgeSelector),
-        openMenu("floTools.selectGridValue", "Select Grid Value", key: "Opt+Cmd+F8", .gridValue),
-        step("floTools.increaseGridValue", "Increase Grid Value", key: "Ctrl+Opt+Keypad +", sends: "Shift+=", .gridValue, when: .outsideDialogsAndText, label: ". Grid."),
-        step("floTools.increaseGridValueWithQwerty", "Increase Grid Value with Qwerty", key: "Shift+=", sends: "Shift+=", .gridValue, when: .outsideDialogsAndText, label: ". Grid."),
-        step("floTools.decreaseGridValue", "Decrease Grid Value", key: "Ctrl+Opt+Keypad -", sends: "Shift+-", .gridValue, when: .outsideDialogsAndText, label: ". Grid."),
-        step("floTools.decreaseGridValueWithQwerty", "Decrease Grid Value with Qwerty", key: "Shift+-", sends: "Shift+-", .gridValue, when: .outsideDialogsAndText, label: ". Grid."),
-        step("floTools.increaseNudgeValue", "Increase Nudge Value", key: "Opt+Cmd+Keypad +", sends: "Opt+Cmd+Keypad +", .nudgeValue, when: .always, label: ". Nudge."),
-        step("floTools.increaseNudgeValueWithQwerty", "Increase Nudge Value With Qwerty", key: "Opt+Shift+=", sends: "Opt+Shift+=", .nudgeValue, when: .outsideDialogsAndText, label: ". Nudge."),
-        step("floTools.decreaseNudgeValue", "Decrease Nudge Value", key: "Opt+Cmd+Keypad -", sends: "Opt+Cmd+Keypad -", .nudgeValue, when: .always, label: ". Nudge."),
-        step("floTools.decreaseNudgeValueWithQwerty", "Decrease Nudge Value with Qwerty", key: "Opt+Shift+-", sends: "Opt+Shift+-", .nudgeValue, when: .outsideDialogsAndText, label: ". Nudge."),
+        openMenu("floTools.selectMainCounter", "Select main counter", what: "main counter selector", key: "Opt+Cmd+F4", .mainCounterSelector),
+        openMenu("floTools.selectSubCounter", "Select Sub Counter", what: "sub counter selector", key: "Opt+Cmd+F6", .subCounterSelector),
+        openMenu("floTools.selectNudgeValue", "Select Nudge Value", what: "nudge value", key: "Opt+Cmd+F7", .nudgeSelector),
+        openMenu("floTools.selectGridValue", "Select Grid Value", what: "grid value", key: "Opt+Cmd+F8", .gridValue),
+        step("floTools.increaseGridValue", "Increase Grid Value", what: "grid value", key: "Ctrl+Opt+Keypad +", sends: "Shift+=", .gridValue, when: .outsideDialogsAndText, label: ". Grid."),
+        step("floTools.increaseGridValueWithQwerty", "Increase Grid Value with Qwerty", what: "grid value", key: "Shift+=", sends: "Shift+=", .gridValue, when: .outsideDialogsAndText, label: ". Grid."),
+        step("floTools.decreaseGridValue", "Decrease Grid Value", what: "grid value", key: "Ctrl+Opt+Keypad -", sends: "Shift+-", .gridValue, when: .outsideDialogsAndText, label: ". Grid."),
+        step("floTools.decreaseGridValueWithQwerty", "Decrease Grid Value with Qwerty", what: "grid value", key: "Shift+-", sends: "Shift+-", .gridValue, when: .outsideDialogsAndText, label: ". Grid."),
+        step("floTools.increaseNudgeValue", "Increase Nudge Value", what: "nudge value", key: "Opt+Cmd+Keypad +", sends: "Opt+Cmd+Keypad +", .nudgeValue, when: .always, label: ". Nudge."),
+        step("floTools.increaseNudgeValueWithQwerty", "Increase Nudge Value With Qwerty", what: "nudge value", key: "Opt+Shift+=", sends: "Opt+Shift+=", .nudgeValue, when: .outsideDialogsAndText, label: ". Nudge."),
+        step("floTools.decreaseNudgeValue", "Decrease Nudge Value", what: "nudge value", key: "Opt+Cmd+Keypad -", sends: "Opt+Cmd+Keypad -", .nudgeValue, when: .always, label: ". Nudge."),
+        step("floTools.decreaseNudgeValueWithQwerty", "Decrease Nudge Value with Qwerty", what: "nudge value", key: "Opt+Shift+-", sends: "Opt+Shift+-", .nudgeValue, when: .outsideDialogsAndText, label: ". Nudge."),
     ] }
 
     // MARK: Commands
@@ -55,8 +55,8 @@ enum Counters {
 
     /// Single press speaks the value in words followed by `label`; double press clicks the field, so typing replaces the value, and says what to type.
     @MainActor
-    private static func speakEdit(_ id: CommandID, _ name: String, key: String, _ control: EditWindowControl, _ format: CounterText.Format, label: String, prompts: Prompts) -> Command {
-        Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
+    private static func speakEdit(_ id: CommandID, _ name: String, what: String, key: String, _ control: EditWindowControl, _ format: CounterText.Format, label: String, prompts: Prompts) -> Command {
+        Command(id, name, summary: "Single press speaks the \(what) in words; double press opens it for typing a new value.", scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
             try await VoiceOver.say(read(control, format) + label)
         }, double: { _ in
             let value = try await ProToolsApp.running().openForTyping(control)
@@ -66,17 +66,18 @@ enum Counters {
 
     /// Presses a counter selector or a value pop-up button, which opens its menu for VoiceOver to read.
     @MainActor
-    private static func openMenu(_ id: CommandID, _ name: String, key: String, _ control: EditWindowControl) -> Command {
-        Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { _ in
+    private static func openMenu(_ id: CommandID, _ name: String, what: String, key: String, _ control: EditWindowControl) -> Command {
+        Command(id, name, summary: "Opens the \(what) menu.", scope: .anyProToolsWindow, triggers: [.key(key)]) { _ in
             try await ProToolsApp.running().element(control).pressOpeningMenu()
         }
     }
 
     /// Sends Pro Tools its own key for the next or previous grid or nudge value, then speaks the new value if the guard allows it. The KM grid and Qwerty nudge macros checked for a text field and a dialog; the keypad nudge macros did not.
     @MainActor
-    private static func step(_ id: CommandID, _ name: String, key: String, sends: String, _ control: EditWindowControl, when guarding: AnnouncementGuard, label: String) -> Command {
+    private static func step(_ id: CommandID, _ name: String, what: String, key: String, sends: String, _ control: EditWindowControl, when guarding: AnnouncementGuard, label: String) -> Command {
         let combo = KeyCombo(sends)!
-        return Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
+        let direction = sends.hasSuffix("-") ? "previous" : "next"
+        return Command(id, name, summary: "Changes the \(what) to the \(direction) one and speaks it.", scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
             try await KeyAnnouncements.announceChange(run, sending: combo, when: guarding, find: { try ProToolsApp.running().element(control) }, read: { try $0.value ?? "" }, spoken: { CounterText.spoken($0, as: .duration) + label })
         }
     }

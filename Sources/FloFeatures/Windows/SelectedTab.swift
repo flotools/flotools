@@ -10,7 +10,7 @@ enum SelectedTab {
     /// Presses tab `number` and speaks "<tab name> selected", as the JXA did.
     @MainActor
     static func tab(_ number: Int) -> Command {
-        Command(CommandID("selectedTab.tab\(number)"), "Tab \(number)", scope: .windows([.tabbedSetup]), triggers: [.key("Cmd+\(number)")]) { _ in
+        Command(CommandID("selectedTab.tab\(number)"), "Tab \(number)", summary: "Selects tab \(number) of a tabbed window, such as Preferences or I/O Setup, and speaks its name.", scope: .windows([.tabbedSetup]), triggers: [.key("Cmd+\(number)")]) { _ in
             let name = try await ProToolsApp.running().selectTab(number)
             try await VoiceOver.say(name + " selected")
         }
