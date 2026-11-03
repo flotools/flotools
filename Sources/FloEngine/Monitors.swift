@@ -17,9 +17,8 @@ public final class Monitors {
     /// Stops the watch of `id` if it runs, otherwise starts `body` as that watch. Returns whether a watch runs now.
     @discardableResult
     public func toggle(_ id: MacroID, _ body: @escaping Body) -> Bool {
-        if let watch = tasks.removeValue(forKey: id) {
-            Log.info(.engine, "\(id) watch stopped")
-            watch.task.cancel()
+        if isRunning(id) {
+            stop(id)
             return false
         }
         Log.info(.engine, "\(id) watch started")
@@ -33,6 +32,13 @@ public final class Monitors {
         }
         tasks[id] = (number, task)
         return true
+    }
+
+    /// Stops the watch of `id`, if it runs.
+    public func stop(_ id: MacroID) {
+        guard let watch = tasks.removeValue(forKey: id) else { return }
+        Log.info(.engine, "\(id) watch stopped")
+        watch.task.cancel()
     }
 
     public func stopAll() {

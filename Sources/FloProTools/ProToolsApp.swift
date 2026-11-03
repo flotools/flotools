@@ -102,6 +102,12 @@ public struct ProToolsApp: Sendable {
         try self.window(titlePrefix: window.rawValue + ":", "the \(window.rawValue) window")
     }
 
+    /// Whether Pro Tools has a window with exactly this title, focused or not.
+    @AccessibilityActor
+    public func hasWindow(titled title: String) throws -> Bool {
+        try AXElement.application(pid: pid).windows.contains { try $0.title == title }
+    }
+
     /// The first window whose title starts with `titlePrefix`. `what` names it for the user, for example "the Mix window".
     @AccessibilityActor
     func window(titlePrefix: String, _ what: String) throws -> AXElement {

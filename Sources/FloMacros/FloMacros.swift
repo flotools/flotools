@@ -17,17 +17,10 @@ public enum FloMacros {
         InspectorMode.apply(preferences, to: engine)
     }
 
-    /// Sets the start state that the KM version set on Pro Tools launch. Called when Flo Tools starts and when Pro Tools launches.
+    /// Sets the start state that the KM version set on Pro Tools launch. `Lifecycle` calls it when Flo Tools starts and when Pro Tools launches.
     @MainActor
-    public static func setStartState(_ preferences: Preferences, in engine: MacroEngine) {
+    static func setStartState(_ preferences: Preferences, in engine: MacroEngine) {
         InspectorMode.applyStartState(preferences, to: engine)
-    }
-
-    /// Called for every app launch; acts only on Pro Tools.
-    @MainActor
-    public static func applicationLaunched(bundleID: String?, preferences: Preferences, in engine: MacroEngine) {
-        guard bundleID == ProToolsApp.bundleID else { return }
-        setStartState(preferences, in: engine)
     }
 
     /// An engine with all groups and macros installed, using the app's hotkeys and context monitor.

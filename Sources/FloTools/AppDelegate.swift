@@ -16,18 +16,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         guard let self else { return }
         FloMacros.apply(preferences, to: self.engine)
     }
+    private lazy var lifecycle = Lifecycle(engine: engine, workspace: WorkspaceEvents()) { [weak self] in
+        self?.preferences.current ?? Preferences()
+    }
     private var statusItem: NSStatusItem?
     private var accessibilityTask: Task<Void, Never>?
-    private var launchObserver: NSObjectProtocol?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         AXElement.setGlobalMessagingTimeout(1.0)
-        FloMacros.apply(preferences.current, to: engine)
-        FloMacros.setStartState(preferences.current, in: engine)
+        lifecycle.start()
         // A relaunch or crash while the user reproduces a problem keeps logging into the same file.
         Log.resumeRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current))
         Log.info(.app, "Flo Tools started")
-        observeProToolsLaunch()
         engine.start()
         setUpStatusItem()
 
@@ -35,21 +35,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             waitForAccessibility()
         }
         // Also makes macOS ask for permission to control VoiceOver on first launch.
-        VoiceOver.sayOrLog("Flo Tools started.")
+        lifecycle.checkVoiceOver(saying: "Flo Tools started.")
     }
 
     func applicationWillTerminate(_ notification: Notification) {
+        lifecycle.stop()
         engine.stop()
         Log.info(.app, "Flo Tools quitting")
-    }
-
-    private func observeProToolsLaunch() {
-        launchObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didLaunchApplicationNotification, object: nil, queue: .main) { notification in
-            let bundleID = (notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication)?.bundleIdentifier
-            MainActor.assumeIsolated {
-                FloMacros.applicationLaunched(bundleID: bundleID, preferences: self.preferences.current, in: self.engine)
-            }
-        }
     }
 
     private func waitForAccessibility() {
@@ -83,6 +75,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         let enabled = NSMenuItem(title: "Flo Tools Enabled", action: #selector(toggleEnabled), keyEquivalent: "")
         enabled.state = engine.isEnabled ? .on : .off
         menu.addItem(enabled)
+        for suspension in engine.suspensions.sorted(by: { $0.reason < $1.reason }) {
+            menu.addItem(disabled("Paused: \(suspension.reason)"))
+        }
         menu.addItem(.separator())
 
         if Accessibility.isTrusted() {

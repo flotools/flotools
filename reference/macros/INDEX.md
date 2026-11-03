@@ -53,7 +53,7 @@
 | Flo Tools | [Beta: Drag Clip](<Flo Tools/Beta_ Drag Clip.md>) | Opt+Shift+Cmd+. | True | B3E2505A-C8C5-48EF-9E76-2500CBA36AB7 |  |
 | Flo Tools | [Beta: Mark Clip for Drag](<Flo Tools/Beta_ Mark Clip for Drag.md>) | Opt+Shift+Cmd+, | True | B2507D35-5F04-4159-9594-05F6ED5A9077 |  |
 | Flo Tools | [Close All Floating Windows](<Flo Tools/Close All Floating Windows.md>) | Opt+Cmd+W | True | F94D2326-4E17-4F5C-8A08-C06CF944F61F |  |
-| Flo Tools | [Deactivate Level and Gain Reduction Monitors](<Flo Tools/Deactivate Level and Gain Reduction Monitors.md>) | focused window: FocussedWindowTitleChanges | True | 4C259C70-2924-4F17-AA74-C35B6FD8F556 |  |
+| Flo Tools | [Deactivate Level and Gain Reduction Monitors](<Flo Tools/Deactivate Level and Gain Reduction Monitors.md>) | focused window: FocussedWindowTitleChanges | True | 4C259C70-2924-4F17-AA74-C35B6FD8F556 | absorbed (Lifecycle: window change stops meter watches) |
 | Flo Tools | [Decrease Grid Value](<Flo Tools/Decrease Grid Value.md>) | Ctrl+Opt+Keypad - | True | 00FB32E1-1741-4020-9AC2-48F0933F4DAF | yes |
 | Flo Tools | [Decrease Grid Value with Qwerty](<Flo Tools/Decrease Grid Value with Qwerty.md>) | Shift+- | True | E95D0D70-5746-453A-8A28-AA5BA23CD9E8 | yes |
 | Flo Tools | [Decrease Nudge Value](<Flo Tools/Decrease Nudge Value.md>) | Opt+Cmd+Keypad - | True | A0312F1D-C175-4A69-8992-A362365AE5B9 | yes |
@@ -91,7 +91,7 @@
 | Flo Tools | [Previous Column](<Flo Tools/Previous Column.md>) | Opt+Shift+[ | True | 9725F627-F2C9-4CC4-8244-771E5793A8A8 |  |
 | Flo Tools | [Previous track view on All tracks](<Flo Tools/Previous track view on All tracks.md>) | Ctrl+Opt+Cmd+Left | True | 90507E7D-9DFD-4BF4-A697-6BA2F29C848D |  |
 | Flo Tools | [Previous track view on selected tracks](<Flo Tools/Previous track view on selected tracks.md>) | Ctrl+Cmd+Left | False | 1FF40247-C860-471D-BACC-DFB16C9A65A1 | yes |
-| Flo Tools | [Refresh Preference](<Flo Tools/Refresh Preference.md>) |  | True | 6F1D7002-0C9A-43CE-A540-B01795448B53 |  |
+| Flo Tools | [Refresh Preference](<Flo Tools/Refresh Preference.md>) |  | True | 6F1D7002-0C9A-43CE-A540-B01795448B53 | absorbed (Lifecycle and preferences panel apply preferences) |
 | Flo Tools | [Report](<Flo Tools/Report.md>) |  | True | 0FCAC0B8-1482-4A8F-A388-280908A39AE6 |  |
 | Flo Tools | [Resize Clips Table](<Flo Tools/Resize Clips Table.md>) | Ctrl+Shift+Cmd+C | True | 1BDAA1BB-6545-416F-8706-7C9C6128FC8C |  |
 | Flo Tools | [Resize Track LIst Table](<Flo Tools/Resize Track LIst Table.md>) | Ctrl+Shift+Cmd+T | True | D46E6FCE-E517-4775-A4E3-30FBE17F4F9D |  |
@@ -208,14 +208,14 @@
 | Flo Tools Fade Out | [Previous Fade Out Shape Curve](<Flo Tools Fade Out/Previous Fade Out Shape Curve.md>) | Cmd+Left | True | B54D3D63-BECF-4D96-A354-2CE80E858AB3 | yes |
 | Flo Tools Fade Out | [Previous Fade Out Shape Parameter](<Flo Tools Fade Out/Previous Fade Out Shape Parameter.md>) | Up | True | 421B1B80-21EE-4142-951E-750750EFEBDC | yes |
 | Flo Tools Fade Out | [Previous Link Out/In](<Flo Tools Fade Out/Previous Link Out_In.md>) | Opt+Cmd+Up | True | FCD20C29-0233-456B-85D5-5CB9BAE573D9 | yes |
-| Flo Tools Global | [* Flo Tools 2026.8.2. Check for Automatic Update](<Flo Tools Global/_ Flo Tools 2026.8.2. Check for Automatic Update.md>) | Pro Tools launch | True | FFEBF9D7-1F2C-409B-9E63-7C52B04B8EBF |  |
-| Flo Tools Global | [Auto Toggle Flo Tools](<Flo Tools Global/Auto Toggle Flo Tools.md>) | VoiceOver quit; VoiceOver launch | True | 025B4AFD-5340-492B-A7DF-6F526BE1252E |  |
-| Flo Tools Global | [Bypass Flo Tools in Keyboard Shortcuts window](<Flo Tools Global/Bypass Flo Tools in Keyboard Shortcuts window.md>) | focused window: FocussedWindowChanges | True | 631D4577-668D-469E-AFA1-5D6535EB2B83 |  |
-| Flo Tools Global | [Cancel Macros](<Flo Tools Global/Cancel Macros.md>) | Pro Tools quit | True | 0FCEBE52-50EF-45D0-9FC6-6FBFBA3DD447 |  |
-| Flo Tools Global | [Cleanup Variables](<Flo Tools Global/Cleanup Variables.md>) |  | True | 4285E9A2-24B6-4A7C-B65F-E0295B60D3B9 |  |
-| Flo Tools Global | [Disable Flo Tools](<Flo Tools Global/Disable Flo Tools.md>) |  | True | C4A644CE-1DF7-4925-B364-679E00AB9E63 |  |
-| Flo Tools Global | [Enable Flo Tools](<Flo Tools Global/Enable Flo Tools.md>) |  | True | CDB03324-1E21-47E2-A96F-316AB5E737A3 |  |
-| Flo Tools Global | [Toggle Macros for Batch Fades Dialog](<Flo Tools Global/Toggle Macros for Batch Fades Dialog.md>) | focused window: FocussedWindowsTitleChanged | True | D31EAE62-2F59-4FBC-BC6F-F91D71F05DA3 |  |
+| Flo Tools Global | [* Flo Tools 2026.8.2. Check for Automatic Update](<Flo Tools Global/_ Flo Tools 2026.8.2. Check for Automatic Update.md>) | Pro Tools launch | True | FFEBF9D7-1F2C-409B-9E63-7C52B04B8EBF | absorbed (Lifecycle launch duties; update check dropped) |
+| Flo Tools Global | [Auto Toggle Flo Tools](<Flo Tools Global/Auto Toggle Flo Tools.md>) | VoiceOver quit; VoiceOver launch | True | 025B4AFD-5340-492B-A7DF-6F526BE1252E | absorbed (Lifecycle: VoiceOver off suspends) |
+| Flo Tools Global | [Bypass Flo Tools in Keyboard Shortcuts window](<Flo Tools Global/Bypass Flo Tools in Keyboard Shortcuts window.md>) | focused window: FocussedWindowChanges | True | 631D4577-668D-469E-AFA1-5D6535EB2B83 | absorbed (Lifecycle: Keyboard Shortcuts window suspends) |
+| Flo Tools Global | [Cancel Macros](<Flo Tools Global/Cancel Macros.md>) | Pro Tools quit | True | 0FCEBE52-50EF-45D0-9FC6-6FBFBA3DD447 | absorbed (Lifecycle: Pro Tools quit cancels all) |
+| Flo Tools Global | [Cleanup Variables](<Flo Tools Global/Cleanup Variables.md>) |  | True | 4285E9A2-24B6-4A7C-B65F-E0295B60D3B9 | absorbed (Lifecycle: no KM variables) |
+| Flo Tools Global | [Disable Flo Tools](<Flo Tools Global/Disable Flo Tools.md>) |  | True | C4A644CE-1DF7-4925-B364-679E00AB9E63 | absorbed (engine suspensions) |
+| Flo Tools Global | [Enable Flo Tools](<Flo Tools Global/Enable Flo Tools.md>) |  | True | CDB03324-1E21-47E2-A96F-316AB5E737A3 | absorbed (engine suspensions) |
+| Flo Tools Global | [Toggle Macros for Batch Fades Dialog](<Flo Tools Global/Toggle Macros for Batch Fades Dialog.md>) | focused window: FocussedWindowsTitleChanged | True | D31EAE62-2F59-4FBC-BC6F-F91D71F05DA3 | absorbed (Batch Fades group wins by specificity) |
 | Flo Tools Inspector | [Assign Insert A](<Flo Tools Inspector/Assign Insert A.md>) | Cmd+1 | True | A913784B-20F4-465C-BEEE-060DB4CE1B08 | yes |
 | Flo Tools Inspector | [Assign Insert B](<Flo Tools Inspector/Assign Insert B.md>) | Cmd+2 | True | E7C506D4-F2CF-4032-BE01-B7A2DBDE4098 | yes |
 | Flo Tools Inspector | [Assign Insert C](<Flo Tools Inspector/Assign Insert C.md>) | Cmd+3 | True | EF605A53-014F-4FD5-9C1B-14E2220383C1 | yes |

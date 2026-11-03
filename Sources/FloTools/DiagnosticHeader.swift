@@ -24,6 +24,7 @@ enum DiagnosticHeader {
             "Accessibility permission: \(Accessibility.isTrusted() ? "granted" : "not granted")",
             "VoiceOver automation permission: \(VoiceOver.automationPermission())",
             "Flo Tools enabled: \(engine.isEnabled ? "yes" : "no")",
+            "Suspended: \(engine.suspensions.isEmpty ? "no" : engine.suspensions.map(\.reason).sorted().joined(separator: "; "))",
             "Preferences: temporary inspector \(preferences.temporaryInspector), starts with Flo Tools inspector \(preferences.startsWithInspector), timeout \(preferences.timeout) ms",
             "Groups:",
         ] + groups).joined(separator: "\n") + "\n"

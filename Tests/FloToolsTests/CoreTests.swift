@@ -451,6 +451,48 @@ import Testing
         #expect(events.list == ["cancelled"])
     }
 
+    @Test func suspensionTakesNoKeysAndKeepsTheUserChoice() async throws {
+        let events = Events()
+        let engine = engine([Macro("test.a", "A", group: .floTools, triggers: [.key("F1")]) { @MainActor _ in events.list.append("a") }])
+        let voiceOverOff = Suspension("VoiceOver is not running")
+        engine.suspend(voiceOverOff)
+        #expect(engine.dispatch(KeyCombo("F1")!, .pressed, in: mix) == nil)
+        engine.isEnabled = false
+        engine.resume(voiceOverOff)
+        #expect(engine.dispatch(KeyCombo("F1")!, .pressed, in: mix) == nil, "resuming must not undo the user's off switch")
+        engine.isEnabled = true
+        #expect(engine.dispatch(KeyCombo("F1")!, .pressed, in: mix) != nil)
+        await engine.waitUntilIdle()
+        #expect(events.list == ["a"])
+    }
+
+    @Test func cancelAllStopsRunsAndWatchesButKeepsTheEngine() async throws {
+        let events = Events()
+        var signalStarted: AsyncStream<Void>.Continuation?
+        let started = AsyncStream<Void> { signalStarted = $0 }
+        let engine = engine([
+            Macro("test.long", "Long", group: .floTools, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
+                signalStarted?.yield()
+                do {
+                    try await Task.sleep(for: .seconds(5))
+                    events.list.append("finished")
+                } catch {
+                    events.list.append("cancelled")
+                }
+            },
+            Macro("test.short", "Short", group: .floTools, triggers: [.key("F2")]) { @MainActor _ in events.list.append("short") },
+        ])
+        engine.monitors.toggle("test.watch") { try? await Task.sleep(for: .seconds(5)) }
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        for await _ in started { break }
+        engine.cancelAll()
+        await engine.waitUntilIdle()
+        #expect(!engine.monitors.isRunning("test.watch"))
+        engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
+        await engine.waitUntilIdle()
+        #expect(events.list == ["cancelled", "short"])
+    }
+
     @Test func batchedChangesAreAllApplied() {
         let engine = FloMacros.makeEngine()
         InspectorMode.setInspector(false, in: engine)

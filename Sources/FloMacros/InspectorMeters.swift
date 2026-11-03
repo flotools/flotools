@@ -11,12 +11,22 @@ enum InspectorMeters {
         return [level, gainReduction(deepest), speakGainReductionMaximum(deepest)]
     }
 
+    static let levelMacro: MacroID = "inspector.speakLevelMeterToggleLevelMeterMonitor"
+    static let gainReductionMacro: MacroID = "inspector.speakGainReductionMeterToggleGainReductionMeterMonitor"
+
+    /// Stops both meter watches, like the KM Deactivate Level and Gain Reduction Monitors macro when the Pro Tools window changes.
+    @MainActor
+    static func stopWatches(in engine: MacroEngine) {
+        engine.monitors.stop(levelMacro)
+        engine.monitors.stop(gainReductionMacro)
+    }
+
     // MARK: Level meter
 
     /// Speak Level Meter, Toggle Level Meter Monitor: single press speaks the level or "No Signal"; double press starts or stops a watch that speaks each new level.
     @MainActor
     static var level: Macro {
-        Macro("inspector.speakLevelMeterToggleLevelMeterMonitor", "Speak Level Meter, Toggle Level Meter Monitor", group: .inspector, triggers: [.key("L")], single: { _ in
+        Macro(levelMacro, "Speak Level Meter, Toggle Level Meter Monitor", group: .inspector, triggers: [.key("L")], single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(reading(.level, of: track).orIfEmpty("No Signal"))
         }, double: { run in
@@ -34,7 +44,7 @@ enum InspectorMeters {
     /// Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor: single press speaks the gain reduction; double press starts or stops a watch that plays the progress sound on each change and records the deepest reduction.
     @MainActor
     static func gainReduction(_ deepest: GainReductionPeak) -> Macro {
-        Macro("inspector.speakGainReductionMeterToggleGainReductionMeterMonitor", "Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor", group: .inspector, triggers: [.key(";")], single: { _ in
+        Macro(gainReductionMacro, "Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor", group: .inspector, triggers: [.key(";")], single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(reading(.gainReduction, of: track))
         }, double: { run in

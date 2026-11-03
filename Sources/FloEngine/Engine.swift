@@ -1,6 +1,18 @@
 import FloSystem
 import Foundation
 
+/// A reason Flo Tools pauses by itself, apart from the user's on/off switch, for example while VoiceOver is not running. The reasons are declared by the macros that set them.
+public struct Suspension: Hashable, Sendable, CustomStringConvertible {
+    /// Says why, for the status menu and the log, for example "VoiceOver is not running".
+    public let reason: String
+
+    public init(_ reason: String) {
+        self.reason = reason
+    }
+
+    public var description: String { reason }
+}
+
 /// Connects hotkeys to installed macros, honoring group app and window conditions like Keyboard Maestro, and runs the macros.
 /// Only installed macros take keys, so other keys stay free.
 ///
@@ -17,6 +29,12 @@ public final class MacroEngine {
             stateChanged(voidsPendingSingles: true)
         }
     }
+
+    /// Why Flo Tools is paused by itself. While any reason holds, no hotkey is taken, as while `isEnabled` is false; the two are kept apart so a suspension ending never turns on a Flo Tools the user turned off.
+    public private(set) var suspensions: Set<Suspension> = []
+
+    /// Called after each change of the front app or window, once the engine has updated its hotkeys.
+    public var onContextChange: ((FrontContext) -> Void)?
 
     /// The double-press window, from the "timeout" preference. Changing it voids pending single presses.
     public var doublePressTimeout: Duration {
@@ -85,6 +103,7 @@ public final class MacroEngine {
             self?.context = context
             // A single press waiting for its timeout belongs to the window it was pressed in.
             self?.stateChanged(voidsPendingSingles: true)
+            self?.onContextChange?(context)
         }
         contextMonitor.start()
         context = contextMonitor.current
@@ -93,14 +112,20 @@ public final class MacroEngine {
 
     /// Cancels pending, queued and running macros and releases the hotkeys and observers.
     public func stop() {
-        endHolds { _ in true }
-        cancelPendingSingles()
-        runs.values.forEach { $0.cancel() }
-        monitors.stopAll()
+        cancelAll()
         guard started else { return }
         started = false
         hotKeys.stop()
         contextMonitor.stop()
+    }
+
+    /// Cancels pending, queued and running macros, ends holds and stops watches, but keeps the hotkeys and observers. Like Keyboard Maestro's Cancel All Macros, used when Pro Tools quits.
+    public func cancelAll() {
+        Log.info(.engine, "cancelling all macros")
+        endHolds { _ in true }
+        cancelPendingSingles()
+        runs.values.forEach { $0.cancel() }
+        monitors.stopAll()
     }
 
     /// Reads the front app and window again, for example after Accessibility access was granted.
@@ -117,6 +142,21 @@ public final class MacroEngine {
         batchDepth -= 1
         updateHotKeys()
     }
+
+    public func suspend(_ suspension: Suspension) {
+        guard suspensions.insert(suspension).inserted else { return }
+        Log.info(.engine, "suspended: \(suspension)")
+        stateChanged(voidsPendingSingles: true)
+    }
+
+    public func resume(_ suspension: Suspension) {
+        guard suspensions.remove(suspension) != nil else { return }
+        Log.info(.engine, "resumed: \(suspension)")
+        stateChanged(voidsPendingSingles: true)
+    }
+
+    /// Whether hotkeys work at all: Flo Tools is on and nothing suspends it.
+    private var takesKeys: Bool { isEnabled && suspensions.isEmpty }
 
     public func isGroupEnabled(_ id: MacroGroupID) -> Bool { groupEnabled[id] ?? false }
 
@@ -175,13 +215,13 @@ public final class MacroEngine {
 
     private func updateHotKeys() {
         guard started, batchDepth == 0 else { return }
-        var combos = isEnabled ? activeCombos(in: context) : []
+        var combos = takesKeys ? activeCombos(in: context) : []
         // A held key that is no longer a hotkey would never report its release, so its hold ends now. A release can change state, for example deactivate the Inspector, so the keys are worked out again after it. Ends because every pass removes a hold.
         while holds.keys.contains(where: { !combos.contains($0) }) {
             batchDepth += 1
             endHolds { !combos.contains($0) }
             batchDepth -= 1
-            combos = isEnabled ? activeCombos(in: context) : []
+            combos = takesKeys ? activeCombos(in: context) : []
         }
         hotKeys.setActive(combos)
     }
@@ -209,7 +249,7 @@ public final class MacroEngine {
             endHolds { $0 == combo }
             return hold.invocation
         }
-        guard isEnabled, let macro = candidates(for: combo, phase: phase, in: context).first else { return nil }
+        guard takesKeys, let macro = candidates(for: combo, phase: phase, in: context).first else { return nil }
         return start(macro, trigger: .hotKey(combo, phase), context: context, reason: "\(combo) \(phase) in \(context)")
     }
 
@@ -325,6 +365,7 @@ public final class MacroEngine {
     private func invalidReason(_ run: MacroRun) -> String? {
         guard case .hotKey = run.trigger else { return nil }
         if !isEnabled { return "Flo Tools is disabled" }
+        if let suspension = suspensions.first { return "suspended: \(suspension)" }
         if macroEnabled[run.macro.id] != true { return "macro disabled" }
         if groupEnabled[run.macro.group] != true { return "group disabled" }
         if context.processID != run.context.processID { return "another app is in front" }
