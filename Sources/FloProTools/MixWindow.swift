@@ -47,10 +47,34 @@ public struct TrackStrip {
     /// Folder tracks are unsoloed after the others, as in the JXA.
     public nonisolated var isFolder: Bool { name.contains("Folder Track") }
 
-    // MARK: Solo
+    // MARK: Toggle buttons
 
-    public func soloButton() throws -> AXElement {
-        try element.required("the Solo button") { try $0.button("Solo") }
+    /// The track buttons that Speak/Toggle macros read and press.
+    public enum Toggle: Sendable {
+        case solo, mute, recordEnable, inputMonitor
+        /// "MIDI Mute" in the Instrument section of an instrument track.
+        case instrumentMute
+    }
+
+    /// The button for `toggle`. The input monitoring button is named for its state, for example "Input monitoring disabled" or, on an instrument track, "Input monitoring is enabled, but delay compensation is disabled. ..." (seen 2026-11-02); the JXA also handled a button named "TrackInput Monitor" that shows its state as its value.
+    public func button(_ toggle: Toggle) throws -> AXElement {
+        switch toggle {
+        case .solo: try element.required("the Solo button") { try $0.button("Solo") }
+        case .mute: try element.required("the Mute button") { try $0.button("Mute") }
+        case .recordEnable: try element.required("the Track Record Enable button") { try $0.button("Track Record Enable") }
+        case .inputMonitor: try element.required("the input monitoring button") { strip in
+            try strip.buttons.first { try $0.name?.contains("Input monitoring") == true } ?? strip.button("TrackInput Monitor")
+        }
+        case .instrumentMute:
+            try element.required("the Instrument section") { try $0.group("Instrument") }.required("the MIDI Mute button") { try $0.button("MIDI Mute") }
+        }
+    }
+
+    /// The toggle's state as Pro Tools shows it: the name of a named input monitoring button, otherwise the button's value, empty when off.
+    public func state(of toggle: Toggle) throws -> String {
+        let button = try button(toggle)
+        if toggle == .inputMonitor, let name = try button.name, name.contains("Input monitoring") { return name }
+        return try button.value ?? ""
     }
 
     /// Whether the track is soloed now. False without a Solo button.

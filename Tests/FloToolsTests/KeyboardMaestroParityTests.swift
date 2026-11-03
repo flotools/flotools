@@ -25,6 +25,10 @@ import Testing
     /// Swift macro to the KM macro it was ported from. Every macro needs an entry; a new macro with no KM original maps to nil.
     static let macroOrigins: [MacroID: String?] = [
         "inspector.speakOpenSendB": "F9ED77CC-B335-4608-BDBE-C560B3AC30F9",
+        "inspector.speakToggleMute": "708123E8-4C4A-4AF1-B102-9076D922CFD9",
+        "inspector.speakToggleRecordState": "800A0740-6F7A-46F0-BDCF-B2481B01FB02",
+        "inspector.speakToggleInputMonitor": "6B397B91-A570-47FD-91B7-807C30511E69",
+        "inspector.speakToggleInstrumentMute": "D614E7B9-1A9B-4A7A-9100-D57C38D7B45A",
         "inspector.assignInsertA": "A913784B-20F4-465C-BEEE-060DB4CE1B08",
         "inspector.assignInsertB": "E7C506D4-F2CF-4032-BE01-B7A2DBDE4098",
         "inspector.assignInsertC": "EF605A53-014F-4FD5-9C1B-14E2220383C1",

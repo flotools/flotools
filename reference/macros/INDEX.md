@@ -281,10 +281,10 @@
 | Flo Tools Inspector | [Speak/Select Track Output](<Flo Tools Inspector/Speak_Select Track Output.md>) | O | True | AC68B729-FACE-40B3-B44E-75D060D4E6F1 |  |
 | Flo Tools Inspector | [Speak/Select Track View](<Flo Tools Inspector/Speak_Select Track View.md>) | W | True | 6A53AF54-B897-4B37-9CF8-5F15D19B1CE4 |  |
 | Flo Tools Inspector | [Speak/Toggle Freeze Status](<Flo Tools Inspector/Speak_Toggle Freeze Status.md>) | F | True | DF394380-80A1-4B45-950F-8EFCB3C940A3 |  |
-| Flo Tools Inspector | [Speak/Toggle Input Monitor](<Flo Tools Inspector/Speak_Toggle Input Monitor.md>) | K | True | 6B397B91-A570-47FD-91B7-807C30511E69 |  |
-| Flo Tools Inspector | [Speak/Toggle Instrument Mute](<Flo Tools Inspector/Speak_Toggle Instrument Mute.md>) | Opt+M | True | D614E7B9-1A9B-4A7A-9100-D57C38D7B45A |  |
-| Flo Tools Inspector | [Speak/Toggle Mute](<Flo Tools Inspector/Speak_Toggle Mute.md>) | M | True | 708123E8-4C4A-4AF1-B102-9076D922CFD9 |  |
-| Flo Tools Inspector | [Speak/Toggle Record State](<Flo Tools Inspector/Speak_Toggle Record State.md>) | R | True | 800A0740-6F7A-46F0-BDCF-B2481B01FB02 |  |
+| Flo Tools Inspector | [Speak/Toggle Input Monitor](<Flo Tools Inspector/Speak_Toggle Input Monitor.md>) | K | True | 6B397B91-A570-47FD-91B7-807C30511E69 | yes |
+| Flo Tools Inspector | [Speak/Toggle Instrument Mute](<Flo Tools Inspector/Speak_Toggle Instrument Mute.md>) | Opt+M | True | D614E7B9-1A9B-4A7A-9100-D57C38D7B45A | yes |
+| Flo Tools Inspector | [Speak/Toggle Mute](<Flo Tools Inspector/Speak_Toggle Mute.md>) | M | True | 708123E8-4C4A-4AF1-B102-9076D922CFD9 | yes |
+| Flo Tools Inspector | [Speak/Toggle Record State](<Flo Tools Inspector/Speak_Toggle Record State.md>) | R | True | 800A0740-6F7A-46F0-BDCF-B2481B01FB02 | yes |
 | Flo Tools Inspector | [Speak/Toggle Solo](<Flo Tools Inspector/Speak_Toggle Solo.md>) | S | True | 57957B28-6D66-4BEF-85B9-48406E95FB18 | yes |
 | Flo Tools Inspector | [Track Options Menu](<Flo Tools Inspector/Track Options Menu.md>) | H | True | 93C746D3-9062-423E-857F-E95F06F6E300 |  |
 | Flo Tools Inspector | [pan Instrument Right](<Flo Tools Inspector/pan Instrument Right.md>) | Ctrl+Opt+Right | True | AC85B840-27F7-4476-9EC2-9B25E615052D | yes |

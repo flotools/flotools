@@ -519,10 +519,22 @@ import Testing
         #expect(Inspector.slotMessage(.insert, selectorName: "Insert selector B", selectorValue: "unassigned", assignmentValue: "unassigned") == " B. : unassigned")
     }
 
-    @Test func soloStateTextMatchesJXA() {
-        #expect(Inspector.soloStateText("Selected") == "On")
-        #expect(Inspector.soloStateText("") == "Off")
-        #expect(Inspector.soloStateText("off safe") == "off safe")
+    @Test func toggleStateTextMatchesJXA() {
+        #expect(Inspector.stateText(.solo, "Selected") == "On")
+        #expect(Inspector.stateText(.solo, "") == "Off")
+        #expect(Inspector.stateText(.solo, "off safe") == "off safe")
+        // The JXA mapped Mute's "on state". On 2026-11-02 a muted track showed "on", which the JXA spoke as is; MIDI Mute and record values were seen on Synth Lead.
+        #expect(Inspector.stateText(.mute, "on state") == "On")
+        #expect(Inspector.stateText(.mute, "on") == "on")
+        #expect(Inspector.stateText(.mute, "") == "Off")
+        #expect(Inspector.stateText(.instrumentMute, "on state") == "On")
+        #expect(Inspector.stateText(.instrumentMute, "") == "Off")
+        #expect(Inspector.stateText(.recordEnable, "") == "Not Armed")
+        #expect(Inspector.stateText(.recordEnable, "armed") == "armed")
+        #expect(Inspector.stateText(.inputMonitor, "Input monitoring disabled") == "Input monitoring disabled")
+        #expect(Inspector.stateText(.inputMonitor, "") == "Off")
+        // The JXA mapped only "Selected" for Solo, so a soloed track's "on" is spoken as is.
+        #expect(Inspector.stateText(.solo, "on") == "on")
     }
 
     @Test func soloFilter() {

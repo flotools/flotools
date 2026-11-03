@@ -77,6 +77,6 @@ enum TrackStatus {
     @AccessibilityActor
     private static func unsoloIfSoloed(_ track: TrackStrip) throws {
         guard try track.isSoloed() else { return }
-        try track.soloButton().press()
+        try track.button(.solo).press()
     }
 }

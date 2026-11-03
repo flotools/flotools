@@ -6,17 +6,11 @@ import FloSystem
 enum Inspector {
     @MainActor
     static var macros: [Macro] { (0..<10).flatMap { [slot(.insert, $0), assign(.insert, $0), slot(.send, $0), assign(.send, $0)] } + [
-        // The JXA played Tink, now the done sound, after speaking the new Solo state.
-        Macro("inspector.speakToggleSolo", "Speak/Toggle Solo", group: .inspector, triggers: [.key("S")], doneSound: .afterDouble, single: { _ in
-            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
-            try await VoiceOver.say(soloStateText(soloValue(of: track)))
-        }, double: { _ in
-            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
-            try await track.soloButton().press()
-            // The JXA waited 0.1 s for Pro Tools to update the button before reading it.
-            try await Task.sleep(for: .milliseconds(100))
-            try await VoiceOver.say(soloStateText(soloValue(of: track)))
-        }),
+        toggle("inspector.speakToggleSolo", "Speak/Toggle Solo", key: "S", .solo),
+        toggle("inspector.speakToggleMute", "Speak/Toggle Mute", key: "M", .mute),
+        toggle("inspector.speakToggleRecordState", "Speak/Toggle Record State", key: "R", .recordEnable),
+        toggle("inspector.speakToggleInputMonitor", "Speak/Toggle Input Monitor", key: "K", .inputMonitor),
+        toggle("inspector.speakToggleInstrumentMute", "Speak/Toggle Instrument Mute", key: "Opt+M", .instrumentMute),
         pan("inspector.panRightOnMonoLeftChannel", "pan right on mono/Left channel", key: "Ctrl+Cmd+Right", .monoOrLeft, .right),
         pan("inspector.panLeftOnMonoLeftChannel", "pan left on mono/Left channel", key: "Ctrl+Cmd+Left", .monoOrLeft, .left),
         pan("inspector.panRightOnRightChannel", "pan right on right channel", key: "Ctrl+Shift+Cmd+Right", .right, .right),
@@ -25,19 +19,31 @@ enum Inspector {
         pan("inspector.panInstrumentLeft", "pan Instrument left", key: "Ctrl+Opt+Left", .instrument, .left),
     ] }
 
-    // MARK: Solo
+    // MARK: Toggles
 
-    @AccessibilityActor
-    static func soloValue(of track: TrackStrip) throws -> String {
-        try track.soloButton().value ?? ""
+    /// Single press speaks the toggle's state; double press presses the button and speaks the new state, then plays the done sound, as the JXA played Tink. The JXA waited a fixed 0.1 s before reading (Record State did not wait); this waits until the state changes.
+    @MainActor
+    static func toggle(_ id: MacroID, _ name: String, key: String, _ toggle: TrackStrip.Toggle) -> Macro {
+        Macro(id, name, group: .inspector, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
+            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+            try await VoiceOver.say(stateText(toggle, track.state(of: toggle)))
+        }, double: { _ in
+            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+            let before = try await track.state(of: toggle)
+            try await track.button(toggle).press()
+            // A track without an input and output cannot be armed or monitored; Pro Tools shows a dialog and the state stays as it was.
+            let after = try await ProToolsUpdate.reading(changedFrom: before) { try track.state(of: toggle) }
+            try await VoiceOver.say(stateText(toggle, after))
+        })
     }
 
-    /// Same text as the JXA version: "Selected" is "On", empty is "Off", anything else ("off safe") is spoken as is.
-    static func soloStateText(_ value: String) -> String {
-        switch value {
-        case "Selected": "On"
-        case "": "Off"
-        default: value
+    /// Same text as the JXA version. Off is an empty state; other states not listed (such as "off safe" or "armed") are spoken as Pro Tools shows them.
+    static func stateText(_ toggle: TrackStrip.Toggle, _ state: String) -> String {
+        switch (toggle, state) {
+        case (.solo, "Selected"), (.mute, "on state"), (.instrumentMute, "on state"): "On"
+        case (.recordEnable, ""): "Not Armed"
+        case (_, ""): "Off"
+        default: state
         }
     }
 

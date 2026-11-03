@@ -62,9 +62,6 @@ enum FadeDialogs {
     /// What a macro reads after its key: the shape curve pop-up button, or the selected radio button of the section.
     enum Reading: Sendable { case curve, option }
 
-    /// Pro Tools updated the setting 27 to 58 ms after the key (measured 2026-11-02 in Batch Fades). Radio buttons stop at the first and last choice, so a key there changes nothing and the macro speaks the unchanged setting after this wait.
-    static let updateWait: Duration = .milliseconds(200)
-
     @MainActor
     static func macro(_ setting: FadeSetting) -> Macro {
         let combo = KeyCombo(setting.key)!
@@ -73,12 +70,8 @@ enum FadeDialogs {
             let dialog = try await proTools.fadeDialog(setting.dialog)
             let before = try await read(setting.reading, setting.section, in: dialog)
             await proTools.keystroke(combo)
-            let start = ContinuousClock.now
-            var now = try await read(setting.reading, setting.section, in: dialog)
-            while now == before, ContinuousClock.now - start < updateWait {
-                try await Task.sleep(for: .milliseconds(10))
-                now = try await read(setting.reading, setting.section, in: dialog)
-            }
+            // Radio buttons stop at the first and last choice; there the key changes nothing and the unchanged setting is spoken.
+            let now = try await ProToolsUpdate.reading(changedFrom: before) { try read(setting.reading, setting.section, in: dialog) }
             try await VoiceOver.say(now + setting.suffix)
         }
     }
