@@ -76,14 +76,12 @@ enum Inspector {
     /// What a single press says. Absent names and values are empty, as in the JXA; failed reads throw.
     @AccessibilityActor
     static func slotText(_ kind: TrackStrip.SlotKind, _ slot: Int, in track: TrackStrip) throws -> String {
-        let (selector, assignment) = try track.slotButtons(kind, slot: slot)
-        return slotMessage(kind, selectorName: try selector.name ?? "", selectorValue: try selector.value ?? "", assignmentValue: try assignment.value ?? "")
+        slotMessage(try track.slotReading(kind, slot: slot))
     }
 
     /// Same text as the JXA version, for example " B. : unassigned" or " A. inactive: SSL Native Channelstrip v6".
-    static func slotMessage(_ kind: TrackStrip.SlotKind, selectorName: String, selectorValue: String, assignmentValue: String) -> String {
-        let slot = selectorName.replacingFirst("\(kind.rawValue) selector", with: "") + ". " + selectorValue.replacingFirst("unassigned", with: "")
-        return slot + ": " + assignmentValue.replacingFirst("\(kind.rawValue) Assignment ", with: "")
+    static func slotMessage(_ reading: TrackStrip.SlotReading) -> String {
+        reading.letter + ". " + reading.state + ": " + reading.assignment
     }
 
     // MARK: Pan
@@ -110,13 +108,5 @@ enum Inspector {
     static func panMessage(valueDescription: String, knobName: String?) -> String {
         guard let knobName else { return valueDescription }
         return valueDescription + ", " + knobName
-    }
-}
-
-extension String {
-    /// JavaScript's `String.replace` with a string pattern only replaces the first match.
-    func replacingFirst(_ target: String, with replacement: String) -> String {
-        guard let range = range(of: target) else { return self }
-        return replacingCharacters(in: range, with: replacement)
     }
 }

@@ -785,11 +785,11 @@ private actor Flag {
     }
 
     @Test func slotMessageMatchesJXA() {
-        #expect(Inspector.slotMessage(.send, selectorName: "Send selector B", selectorValue: "unassigned", assignmentValue: "unassigned") == " B. : unassigned")
-        #expect(Inspector.slotMessage(.send, selectorName: "Send selector B", selectorValue: "Bus 1", assignmentValue: "Send Assignment Reverb") == " B. Bus 1: Reverb")
+        #expect(Inspector.slotMessage(TrackStrip.SlotReading(.send, selectorName: "Send selector B", selectorValue: "unassigned", assignmentValue: "unassigned")) == " B. : unassigned")
+        #expect(Inspector.slotMessage(TrackStrip.SlotReading(.send, selectorName: "Send selector B", selectorValue: "Bus 1", assignmentValue: "Send Assignment Reverb")) == " B. Bus 1: Reverb")
         // Values seen on Kick on 2026-11-02.
-        #expect(Inspector.slotMessage(.insert, selectorName: "Insert selector A", selectorValue: "inactive", assignmentValue: "SSL Native Channelstrip v6") == " A. inactive: SSL Native Channelstrip v6")
-        #expect(Inspector.slotMessage(.insert, selectorName: "Insert selector B", selectorValue: "unassigned", assignmentValue: "unassigned") == " B. : unassigned")
+        #expect(Inspector.slotMessage(TrackStrip.SlotReading(.insert, selectorName: "Insert selector A", selectorValue: "inactive", assignmentValue: "SSL Native Channelstrip v6")) == " A. inactive: SSL Native Channelstrip v6")
+        #expect(Inspector.slotMessage(TrackStrip.SlotReading(.insert, selectorName: "Insert selector B", selectorValue: "unassigned", assignmentValue: "unassigned")) == " B. : unassigned")
     }
 
     @Test func toggleStateTextMatchesJXA() {

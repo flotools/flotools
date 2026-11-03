@@ -175,6 +175,27 @@ public struct TrackStrip {
         String(UnicodeScalar(UInt8(ascii: "A") + UInt8(slot)))
     }
 
+    /// What one slot's two buttons show, with Pro Tools' labels removed as the JXA did (first match only, spaces kept).
+    public struct SlotReading: Sendable, Equatable {
+        /// The letter after the selector's label, for example " B".
+        public let letter: String
+        /// The selector's value, such as a send's bus or "inactive"; empty when unassigned.
+        public let state: String
+        /// The plug-in or send the slot holds, or "unassigned".
+        public let assignment: String
+
+        public init(_ kind: SlotKind, selectorName: String, selectorValue: String, assignmentValue: String) {
+            letter = selectorName.replacingFirst("\(kind.rawValue) selector", with: "")
+            state = selectorValue.replacingFirst("unassigned", with: "")
+            assignment = assignmentValue.replacingFirst("\(kind.rawValue) Assignment ", with: "")
+        }
+    }
+
+    public func slotReading(_ kind: SlotKind, slot: Int) throws -> SlotReading {
+        let (selector, assignment) = try slotButtons(kind, slot: slot)
+        return SlotReading(kind, selectorName: try selector.name ?? "", selectorValue: try selector.value ?? "", assignmentValue: try assignment.value ?? "")
+    }
+
     // MARK: Pan
 
     public enum PanControl: Sendable {
@@ -288,6 +309,19 @@ public struct TrackStrip {
         // The JXA looked for "Plug-in"; this Pro Tools says "Plugin", so both spellings match.
         case .elasticAudioPlugIn: try first("the Elastic Audio plug-in") { $0.hasPrefix("current elastic audio or ara plug") }
         case .elasticAudioSelector: try first("the Elastic Audio selector") { $0.contains("elastic audio or ara plug") && $0.contains("selector") }
+        }
+    }
+
+    /// The setting `control` shows, from its name and value. Some controls show it as their value; the others put it after their own label in their name, and the label is removed as the JXA did, which keeps the line break and quotes before the setting. Empty when the control shows none.
+    public nonisolated static func shownSetting(_ control: Control, name: String, value: String) -> String {
+        switch control {
+        case .automationMode, .trackView, .elasticAudioPlugIn, .comments: value
+        case .group: name.replacingFirst("Group ID indicator/pop-up", with: "")
+        case .input, .instrumentInput: name.replacingFirst("MIDI Input selector", with: "").replacingFirst("Audio Input Path selector", with: "")
+        case .output, .instrumentOutput: name.replacingFirst("MIDI Output selector", with: "").replacingFirst("Audio Output Path selector", with: "")
+        case .trackName: name.replacingFirst("Track name", with: "")
+        case .timebase: name.replacingFirst("Timebase selector", with: "")
+        case .trackOptions, .freeze, .playlist, .elasticAudioSelector: name
         }
     }
 

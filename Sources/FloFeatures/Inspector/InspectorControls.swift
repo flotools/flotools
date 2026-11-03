@@ -55,18 +55,14 @@ enum InspectorControls {
         return spokenText(control, name: try element.name ?? "", value: try element.value ?? "")
     }
 
-    /// What a single press says for a control, from its name and value. Same text as the JXA version: some controls are spoken by value, others by name without the control's own label, which leaves the line break and quoted setting that Pro Tools appends.
+    /// What a single press says for a control, from its name and value: the setting it shows (`TrackStrip.shownSetting`), with words for an empty group, Elastic Audio plug-in or comment, as in the JXA.
     static func spokenText(_ control: TrackStrip.Control, name: String, value: String) -> String {
-        switch control {
-        case .automationMode, .trackView: value
-        case .group: name.replacingFirst("Group ID indicator/pop-up", with: "").orIfEmpty("No Group")
-        case .input, .instrumentInput: name.replacingFirst("MIDI Input selector", with: "").replacingFirst("Audio Input Path selector", with: "")
-        case .output, .instrumentOutput: name.replacingFirst("MIDI Output selector", with: "").replacingFirst("Audio Output Path selector", with: "")
-        case .trackName: name.replacingFirst("Track name", with: "")
-        case .timebase: name.replacingFirst("Timebase selector", with: "")
-        case .elasticAudioPlugIn: value.orIfEmpty("None")
-        case .comments: value.orIfEmpty("No Comment")
-        case .trackOptions, .freeze, .playlist, .elasticAudioSelector: name
+        let shown = TrackStrip.shownSetting(control, name: name, value: value)
+        return switch control {
+        case .group: shown.orIfEmpty("No Group")
+        case .elasticAudioPlugIn: shown.orIfEmpty("None")
+        case .comments: shown.orIfEmpty("No Comment")
+        default: shown
         }
     }
 
