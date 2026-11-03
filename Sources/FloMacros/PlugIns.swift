@@ -9,9 +9,8 @@ enum PlugIns {
     static let monitor: MacroID = "plugin.togglePluginMonitor"
 
     @MainActor
-    static var macros: [Macro] {
-        let cursor = PlugInViewCursor()
-        return [
+    static func macros(_ cursor: PlugInViewCursor) -> [Macro] {
+        [
             stepPreset("plugin.nextPreset", "Next Preset", .plugIn, .next, key: "]"),
             stepPreset("plugin.previousPreset", "Previous Preset", .plugIn, .previous, key: "["),
             speakChoosePreset("plugin.speakChoosePreset", "Speak/Choose Preset", .plugIn),

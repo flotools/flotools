@@ -18,6 +18,7 @@ public final class Lifecycle {
     static let cannotControlVoiceOver = "Alert! Flo Tools cannot control VoiceOver. Please allow VoiceOver to be controlled with AppleScript in Voiceover Utility."
 
     private let engine: MacroEngine
+    private let session: SessionState
     private let workspace: WorkspaceEvents
     private let preferences: @MainActor () -> Preferences
     /// The last Pro Tools window title, so a change of window can stop the meter watches.
@@ -25,8 +26,9 @@ public final class Lifecycle {
     /// Numbers the checks for a still open Keyboard Shortcuts window, so only the latest result counts.
     private var shortcutsCheck = 0
 
-    public init(engine: MacroEngine, workspace: WorkspaceEvents, preferences: @escaping @MainActor () -> Preferences) {
+    public init(engine: MacroEngine, session: SessionState, workspace: WorkspaceEvents, preferences: @escaping @MainActor () -> Preferences) {
         self.engine = engine
+        self.session = session
         self.workspace = workspace
         self.preferences = preferences
     }
@@ -76,9 +78,10 @@ public final class Lifecycle {
             checkVoiceOver(saying: "")
             applyPreferences()
         case .quit(bundleID: ProToolsApp.bundleID):
-            // Like KM Cancel Macros and Cleanup Variables: nothing that was going on in Pro Tools can go on.
+            // Like KM Cancel Macros and Cleanup Variables: nothing that was going on in Pro Tools can go on, and nothing remembered about its session applies to the next. KM also cleaned up on launch because its variables outlived the engine; here they start empty with Flo Tools.
             Log.info(.app, "Pro Tools quit")
             engine.cancelAll()
+            Task { [session] in await session.reset() }
             engine.resume(Self.keyboardShortcuts)
             lastProToolsTitle = nil
         case .launched, .quit:

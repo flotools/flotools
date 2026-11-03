@@ -4,10 +4,10 @@ import FloSystem
 
 /// All macros. Each file declares the macros of one area.
 public enum FloMacros {
-    /// All macros. `openPreferences` shows the app's preferences panel.
+    /// All macros. `session` is what they remember about the Pro Tools session; `openPreferences` shows the app's preferences panel.
     @MainActor
-    public static func all(openPreferences: @escaping @MainActor @Sendable () -> Void = {}) -> [Macro] {
-        Inspector.macros + InspectorControls.macros + InspectorMeters.macros + SettingToggles.macros + Counters.macros + InspectorMode.macros + TrackStatus.macros + TrackLists.macros + FadeDialogs.macros + SelectedTab.macros + PlugIns.macros + AudioSuite.macros + KeyAnnouncements.macros + MidiEvents.macros + WindowTools.macros + ClipDrag.macros + PreferenceMacros.macros(openPreferences: openPreferences)
+    public static func all(session: SessionState = SessionState(), openPreferences: @escaping @MainActor @Sendable () -> Void = {}) -> [Macro] {
+        Inspector.macros + InspectorControls.macros + InspectorMeters.macros(session.gainReduction) + SettingToggles.macros + Counters.macros + InspectorMode.macros + TrackStatus.macros + TrackLists.macros + FadeDialogs.macros + SelectedTab.macros + PlugIns.macros(session.plugInView) + AudioSuite.macros + KeyAnnouncements.macros + MidiEvents.macros(session.eventColumn) + WindowTools.macros + ClipDrag.macros(session.clipMark) + PreferenceMacros.macros(openPreferences: openPreferences)
     }
 
     /// Applies what the preferences control, like the KM Refresh Preference macro: the double-press timeout and whether Toggle Temporary Inspector works. Called at launch and after the preferences panel saves.
@@ -25,8 +25,8 @@ public enum FloMacros {
 
     /// An engine with all groups and macros installed, using the app's hotkeys and context monitor.
     @MainActor
-    public static func makeEngine(hotKeys: HotKeyCenter, contextMonitor: ContextMonitor, openPreferences: @escaping @MainActor @Sendable () -> Void) -> MacroEngine {
-        makeEngine(macros: all(openPreferences: openPreferences), hotKeys: hotKeys, contextMonitor: contextMonitor)
+    public static func makeEngine(session: SessionState, hotKeys: HotKeyCenter, contextMonitor: ContextMonitor, openPreferences: @escaping @MainActor @Sendable () -> Void) -> MacroEngine {
+        makeEngine(macros: all(session: session, openPreferences: openPreferences), hotKeys: hotKeys, contextMonitor: contextMonitor)
     }
 
     /// An engine with all groups and the given macros. Tests never start it, so the default hotkeys and monitor stay unused.

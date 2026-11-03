@@ -4,11 +4,10 @@ import FloSystem
 
 /// Inspector macros for the level and gain reduction meters of the track under the VoiceOver cursor. A double press starts or stops a watch (`Monitors`) that follows the VoiceOver cursor from track to track and reports meter changes until stopped.
 enum InspectorMeters {
+    /// `deepest` is shared by the gain reduction watch, which records the deepest reading, and Speak Gain Reduction Meter Maximum Value, which reports it. The KM version kept it in the FTGRMax variable.
     @MainActor
-    static var macros: [Macro] {
-        // Shared by the gain reduction watch, which records the deepest reading, and Speak Gain Reduction Meter Maximum Value, which reports it. The KM version kept it in the FTGRMax variable.
-        let deepest = GainReductionPeak()
-        return [level, gainReduction(deepest), speakGainReductionMaximum(deepest)]
+    static func macros(_ deepest: GainReductionPeak) -> [Macro] {
+        [level, gainReduction(deepest), speakGainReductionMaximum(deepest)]
     }
 
     static let levelMacro: MacroID = "inspector.speakLevelMeterToggleLevelMeterMonitor"

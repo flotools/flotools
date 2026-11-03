@@ -1,4 +1,6 @@
 import CoreGraphics
+import FloSystem
+import Foundation
 import Testing
 @testable import FloMacros
 @testable import FloProTools
@@ -58,6 +60,22 @@ import Testing
     @Test func selectedTracks() {
         #expect(KeyAnnouncements.selectedTracksText(names: []) == "No tracks are selected.")
         #expect(KeyAnnouncements.selectedTracksText(names: ["Kick - Audio Track ", "Bass - MIDI Track "]) == "Kick - Audio. Bass - MIDI. ")
+    }
+}
+
+@Suite struct SessionStateTests {
+    /// Like KM Cleanup Variables on Pro Tools quit: no clip position, view, gain reduction or event column carries into the next session.
+    @Test func resetForgetsTheSession() async throws {
+        let session = SessionState()
+        await session.clipMark.set(CGPoint(x: 10, y: 20))
+        await session.plugInView.load(try PlugInView(json: Data(#"{"view":"Default","click":[-1,-1],"parameters":[[["Gain",1,2]]]}"#.utf8)))
+        await session.gainReduction.record("minus 6 db")
+        _ = await session.eventColumn.next()
+        await session.reset()
+        #expect(await session.clipMark.point == nil)
+        await #expect(throws: FloError.self) { try await session.plugInView.move(rows: 1, columns: 0) }
+        #expect(await session.gainReduction.take() == 0)
+        #expect(await session.eventColumn.column == .start)
     }
 }
 

@@ -10,9 +10,8 @@ enum MidiEvents {
     static let watch: MacroID = "floTools.report"
 
     @MainActor
-    static var macros: [Macro] {
-        let cursor = EventColumnCursor()
-        return [
+    static func macros(_ cursor: EventColumnCursor) -> [Macro] {
+        [
             Macro("floTools.nextColumn", "Next Column", group: .floTools, triggers: [.key("Opt+Shift+]")]) { run in
                 guard let column = await cursor.next() else {
                     try await VoiceOver.say("End")
@@ -108,6 +107,8 @@ actor EventColumnCursor {
     private var index = 0
 
     var column: MidiEvents.Column? { MidiEvents.Column(rawValue: index) }
+
+    func reset() { index = 0 }
 
     /// Moves right; nil at the last column, where the cursor stays.
     func next() -> MidiEvents.Column? {

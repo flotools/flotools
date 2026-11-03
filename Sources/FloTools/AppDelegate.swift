@@ -9,14 +9,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     /// Read once here and passed down; the preferences panel is the only writer.
     private let preferences = PreferencesStore()
     /// The app owns the input and context sources and hands them to the engine, which starts and stops them.
-    private lazy var engine: MacroEngine = FloMacros.makeEngine(hotKeys: HotKeyCenter(), contextMonitor: ContextMonitor(), openPreferences: { [weak self] in
+    /// Shared by the macros and `lifecycle`, which resets it when Pro Tools quits.
+    private let session = SessionState()
+    private lazy var engine: MacroEngine = FloMacros.makeEngine(session: session, hotKeys: HotKeyCenter(), contextMonitor: ContextMonitor(), openPreferences: { [weak self] in
         self?.preferencesPanel.show()
     })
     private lazy var preferencesPanel: PreferencesPanel = PreferencesPanel(store: preferences) { [weak self] preferences in
         guard let self else { return }
         FloMacros.apply(preferences, to: self.engine)
     }
-    private lazy var lifecycle = Lifecycle(engine: engine, workspace: WorkspaceEvents()) { [weak self] in
+    private lazy var lifecycle = Lifecycle(engine: engine, session: session, workspace: WorkspaceEvents()) { [weak self] in
         self?.preferences.current ?? Preferences()
     }
     private var statusItem: NSStatusItem?
