@@ -13,6 +13,7 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp "$BIN" "$APP/Contents/MacOS/FloTools"
 cp Resources/Info.plist "$APP/Contents/Info.plist"
+cp Resources/Sounds/*.aiff "$APP/Contents/Resources/"
 
 IDENTITY="${FLO_SIGN_IDENTITY:-$(security find-identity -v -p codesigning | awk -F'"' '/Apple Development/ { print $2; exit }')}"
 if [ -z "$IDENTITY" ]; then

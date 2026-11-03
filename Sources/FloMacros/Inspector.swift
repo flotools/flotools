@@ -7,8 +7,8 @@ enum Inspector {
     @MainActor
     static var macros: [Macro] { [
         send("inspector.speakOpenSendB", "Speak/Open Send B", slot: 1, key: "Ctrl+2"),
-        // The JXA played Tink after speaking the new Solo state.
-        Macro("inspector.speakToggleSolo", "Speak/Toggle Solo", group: .inspector, triggers: [.key("S")], tink: .afterDouble, single: { _ in
+        // The JXA played Tink, now the done sound, after speaking the new Solo state.
+        Macro("inspector.speakToggleSolo", "Speak/Toggle Solo", group: .inspector, triggers: [.key("S")], doneSound: .afterDouble, single: { _ in
             let solo = try await soloButton(in: Tracks.underVoiceOverCursor())
             try await VoiceOver.say(soloStateText(solo.value ?? ""))
         }, double: { _ in
@@ -38,10 +38,10 @@ enum Inspector {
 
     // MARK: Sends
 
-    /// Single press speaks the send slot and its assignment. Double press clicks the assignment button, then plays Tink as the JXA did.
+    /// Single press speaks the send slot and its assignment. Double press clicks the assignment button, then plays the done sound, as the JXA played Tink.
     @MainActor
     static func send(_ id: MacroID, _ name: String, slot: Int, key: String) -> Macro {
-        Macro(id, name, group: .inspector, triggers: [.key(key)], tink: .afterDouble, single: { _ in
+        Macro(id, name, group: .inspector, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
             let strip = try await Tracks.underVoiceOverCursor()
             try await VoiceOver.say(sendText(slot: slot, in: strip))
         }, double: { _ in

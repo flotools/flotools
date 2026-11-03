@@ -34,6 +34,7 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 - `Tests/FloToolsTests/`: Swift Testing unit tests.
 - `tools/km_export.py`: regenerates `reference/macros/` from `reference/Flo Tools.kmmacros`, keeping the Ported column.
 - `scripts/build-app.sh`: builds and signs `build/Flo Tools.app`.
+- `Resources/`: `Info.plist`, entitlements, and `Sounds/` with the feedback sounds (`Done.aiff`, `Progress.aiff`; for now copies of the macOS Tink and Pop), which `build-app.sh` copies into the app.
 
 Dependencies point one way: `FloTools` -> `FloMacros` -> `FloEngine`, `FloProTools` -> `FloSystem`. This layout changes further with the refactor in `plan.md`. Update this section when it does.
 

@@ -230,12 +230,12 @@ public final class MacroEngine {
                 // Only a press starts a hold; a release reaching here belongs to a press that did not.
                 guard case .hotKey(let combo, .pressed) = trigger else { return }
                 if press(run) { holds[combo] = (run, release, invocation) }
-            case .singleOrDouble(let single, let double, let tink):
+            case .singleOrDouble(let single, let double, let doneSound):
                 switch doublePress.press(macro.id, at: .now) {
                 case .double:
                     pendingSingles.removeValue(forKey: macro.id)?.cancel()
                     Log.info(.engine, "double press")
-                    enqueue(run, Self.withTink(double, tink))
+                    enqueue(run, Self.withDoneSound(double, doneSound))
                 case .single(let generation):
                     let wait = doublePress.timeout
                     pendingSingles[macro.id] = Task { @MainActor [weak self] in
@@ -251,17 +251,17 @@ public final class MacroEngine {
         return invocation
     }
 
-    private static func withTink(_ double: @escaping MacroBody, _ tink: TinkTiming) -> MacroBody {
-        switch tink {
+    private static func withDoneSound(_ double: @escaping MacroBody, _ doneSound: DoneSoundTiming) -> MacroBody {
+        switch doneSound {
         case .beforeDouble:
             return { run in
-                await Sound.play("Tink")
+                await Sound.done.play()
                 try await double(run)
             }
         case .afterDouble:
             return { run in
                 try await double(run)
-                await Sound.play("Tink")
+                await Sound.done.play()
             }
         }
     }

@@ -67,7 +67,7 @@ enum TrackStatus {
                 try Task.checkCancellation()
                 try await track.solo.press()
                 if ContinuousClock.now - lastSound > .seconds(1) {
-                    await Sound.play("Pop")
+                    await Sound.progress.play()
                     lastSound = .now
                 }
             }

@@ -372,15 +372,15 @@ import Testing
         #expect(engine.isMacroEnabled(InspectorMode.previousTrackView))
     }
 
-    @Test func tinkTimingMatchesJXA() throws {
-        func tink(_ id: MacroID) throws -> TinkTiming? {
+    @Test func doneSoundTimingMatchesJXA() throws {
+        func doneSound(_ id: MacroID) throws -> DoneSoundTiming? {
             let macro = try #require(FloMacros.all.first { $0.id == id })
-            guard case .singleOrDouble(_, _, let tink) = macro.action else { return nil }
-            return tink
+            guard case .singleOrDouble(_, _, let doneSound) = macro.action else { return nil }
+            return doneSound
         }
-        #expect(try tink("inspector.speakOpenSendB") == .afterDouble)
-        #expect(try tink("inspector.speakToggleSolo") == .afterDouble)
-        #expect(try tink("floTools.speakSoloedTracksUnsoloAllTracks") == .beforeDouble)
+        #expect(try doneSound("inspector.speakOpenSendB") == .afterDouble)
+        #expect(try doneSound("inspector.speakToggleSolo") == .afterDouble)
+        #expect(try doneSound("floTools.speakSoloedTracksUnsoloAllTracks") == .beforeDouble)
     }
 }
 

@@ -129,8 +129,8 @@ public typealias HoldPress = @MainActor @Sendable (MacroRun) -> Bool
 /// Ends a hold. See `MacroAction.hold`.
 public typealias HoldRelease = @MainActor @Sendable (MacroRun) -> Void
 
-/// When the Tink feedback sound plays for a double press. Almost every JXA macro played it before the double action; a few, such as Speak/Toggle Solo, played it after.
-public enum TinkTiming: Sendable {
+/// When `Sound.done` plays for a double press (Tink in the JXA). Almost every JXA macro played it before the double action; a few, such as Speak/Toggle Solo, played it after.
+public enum DoneSoundTiming: Sendable {
     case beforeDouble
     case afterDouble
 }
@@ -138,7 +138,7 @@ public enum TinkTiming: Sendable {
 public enum MacroAction: Sendable {
     case body(MacroBody)
     /// Keyboard Maestro's "single press speaks, double press acts" pattern. The engine tells the two apart with the preferences timeout.
-    case singleOrDouble(single: MacroBody, double: MacroBody, tink: TinkTiming)
+    case singleOrDouble(single: MacroBody, double: MacroBody, doneSound: DoneSoundTiming)
     /// Changes only Flo Tools state while a key is held, like the temporary Inspector. Both closures run on the main actor as soon as the key event arrives, outside the macro queue, so a busy Pro Tools cannot delay them. If `press` returns true, `release` runs when the key is released, or when the key stops being a hotkey (another app in front, Flo Tools disabled or stopped), so a hold always ends.
     case hold(press: HoldPress, release: HoldRelease)
 }
@@ -157,8 +157,8 @@ public struct Macro: Sendable {
         self.init(id, name, group: group, enabledByDefault: enabledByDefault, triggers: triggers, action: .body(body))
     }
 
-    public init(_ id: MacroID, _ name: String, group: MacroGroupID, enabledByDefault: Bool = true, triggers: [MacroTrigger], tink: TinkTiming = .beforeDouble, single: @escaping MacroBody, double: @escaping MacroBody) {
-        self.init(id, name, group: group, enabledByDefault: enabledByDefault, triggers: triggers, action: .singleOrDouble(single: single, double: double, tink: tink))
+    public init(_ id: MacroID, _ name: String, group: MacroGroupID, enabledByDefault: Bool = true, triggers: [MacroTrigger], doneSound: DoneSoundTiming = .beforeDouble, single: @escaping MacroBody, double: @escaping MacroBody) {
+        self.init(id, name, group: group, enabledByDefault: enabledByDefault, triggers: triggers, action: .singleOrDouble(single: single, double: double, doneSound: doneSound))
     }
 
     public init(_ id: MacroID, _ name: String, group: MacroGroupID, enabledByDefault: Bool = true, triggers: [MacroTrigger], press: @escaping HoldPress, release: @escaping HoldRelease) {
