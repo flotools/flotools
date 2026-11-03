@@ -80,7 +80,7 @@ extension ProToolsApp {
     /// The element of `control` in the Edit window, or `FloError.notFound` naming the missing step.
     @AccessibilityActor
     public func element(_ control: EditWindowControl) throws -> AXElement {
-        var parent = try window(titlePrefix: "Edit:", "the Edit window")
+        var parent = try trackWindow(.edit)
         for group in [control.cluster.rawValue] + control.subgroups {
             parent = try parent.required("the \(group)") { try $0.group(group) }
         }

@@ -54,7 +54,7 @@ public struct ProToolsApp: Sendable {
 
     @AccessibilityActor
     public func fadeDialog(_ kind: FadeDialog.Kind) throws -> FadeDialog {
-        FadeDialog(try AXElement.application(pid: pid).required("the \(kind.rawValue) dialog") { app in try app.windows.first { try $0.title == kind.rawValue } })
+        FadeDialog(try window(.fade(kind), "the \(kind.rawValue) dialog"))
     }
 
     /// Presses tab `number` (from 1) of the focused window, such as Preferences or I/O Setup, whose tabs are its radio buttons, and returns the tab's name. The JXA used `windows[0]`, the front window.
@@ -72,7 +72,7 @@ public struct ProToolsApp: Sendable {
     /// Whether any track is armed, hidden ones included. The Edit window's record status LED is named "Track Record Enabled" while a track is armed and "Record Enable status LED" otherwise (checked live 2026-11-02).
     @AccessibilityActor
     public func hasArmedTracks() throws -> Bool {
-        let buttons = try window(titlePrefix: "Edit:", "the Edit window")
+        let buttons = try trackWindow(.edit)
             .required("the Transport View Cluster") { try $0.group(EditWindowControl.Cluster.transportView.rawValue) }
             .required("the Normal Transport Buttons") { try $0.group("Normal Transport Buttons") }
         return try buttons.button("Track Record Enabled") != nil
@@ -82,6 +82,13 @@ public struct ProToolsApp: Sendable {
     public enum TrackWindow: String, Sendable {
         case mix = "Mix"
         case edit = "Edit"
+
+        var kind: ProToolsWindowKind {
+            switch self {
+            case .mix: .mix
+            case .edit: .edit
+            }
+        }
     }
 
     /// The track whose name is under the VoiceOver cursor, as shown in `window`, like `mix.groups.byName(vo.voCursor.textUnderCursor())` in the JXA. Both windows name a track's group the same way, so the cursor can be in either. The one place the VoiceOver cursor is joined to a track.
@@ -98,8 +105,8 @@ public struct ProToolsApp: Sendable {
     }
 
     @AccessibilityActor
-    private func trackWindow(_ window: TrackWindow) throws -> AXElement {
-        try self.window(titlePrefix: window.rawValue + ":", "the \(window.rawValue) window")
+    func trackWindow(_ window: TrackWindow) throws -> AXElement {
+        try self.window(window.kind, "the \(window.rawValue) window")
     }
 
     /// Whether Pro Tools has a window with exactly this title, focused or not.
@@ -108,9 +115,9 @@ public struct ProToolsApp: Sendable {
         try AXElement.application(pid: pid).windows.contains { try $0.title == title }
     }
 
-    /// The first window whose title starts with `titlePrefix`. `what` names it for the user, for example "the Mix window".
+    /// The first window of `kind`, by the title rule that also decides which commands apply, so a window a command was allowed in is the one it finds. `what` names it for the user, for example "the Mix window".
     @AccessibilityActor
-    func window(titlePrefix: String, _ what: String) throws -> AXElement {
-        try AXElement.application(pid: pid).required(what) { app in try app.windows.first { try $0.title?.hasPrefix(titlePrefix) == true } }
+    func window(_ kind: ProToolsWindowKind, _ what: String) throws -> AXElement {
+        try AXElement.application(pid: pid).required(what) { app in try app.windows.first { try $0.title.map(ProToolsWindowKind.init(title:)) == kind } }
     }
 }

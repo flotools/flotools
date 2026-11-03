@@ -53,7 +53,7 @@ extension ProToolsApp {
     /// The Edit window's clip list. The KM Resize Clips Table looked for a table named "Clips", which Pro Tools no longer has (checked live 2026-11-02); its Speak Selected Clips used "clip list".
     @AccessibilityActor
     private func clipList() throws -> AXElement {
-        try window(titlePrefix: "Edit:", "the Edit window").required("the clip list") { try $0.table("clip list") }
+        try trackWindow(.edit).required("the clip list") { try $0.table("clip list") }
     }
 
     /// The first quoted part of a clip element's name, quotes included, like the JXA's `/(\".*?\")/`.
