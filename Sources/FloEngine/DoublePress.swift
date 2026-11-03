@@ -1,3 +1,4 @@
+import FloSystem
 import Foundation
 
 /// Tells a single press from a double press of the same command.
@@ -19,6 +20,7 @@ public final class DoublePress {
         let now = ContinuousClock.now
         if let previous = pending.removeValue(forKey: command), now - previous.time < timeout {
             previous.task.cancel()
+            Log.info(.engine, "double press of \(command)")
             double()
             return
         }
@@ -27,6 +29,7 @@ public final class DoublePress {
             try? await Task.sleep(for: wait)
             guard !Task.isCancelled else { return }
             self.pending[command] = nil
+            Log.info(.engine, "single press of \(command)")
             single()
         }
         pending[command] = (now, task)

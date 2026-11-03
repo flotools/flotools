@@ -1,3 +1,4 @@
+import FloSystem
 import Foundation
 
 /// The preferences file shared with the Keyboard Maestro version: `~/Library/Application Support/Flo Tools/flotools.json`.
@@ -14,8 +15,13 @@ public struct Preferences: Equatable, Sendable {
     }
 
     public static func load(from url: URL = defaultURL) -> Preferences {
-        guard let data = try? Data(contentsOf: url) else { return Preferences() }
-        return decode(data)
+        guard let data = try? Data(contentsOf: url) else {
+            Log.info(.preferences, "no preferences file, using defaults")
+            return Preferences()
+        }
+        let preferences = decode(data)
+        Log.info(.preferences, "loaded \(preferences)")
+        return preferences
     }
 
     static func decode(_ data: Data) -> Preferences {

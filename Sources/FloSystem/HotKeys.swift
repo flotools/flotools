@@ -1,6 +1,5 @@
 import Carbon.HIToolbox
 import CoreGraphics
-import os
 
 /// A key code plus modifiers. Modifier bits are the Carbon ones, which Keyboard Maestro also uses: Cmd 256, Shift 512, Option 2048, Control 4096.
 public struct KeyCombo: Hashable, Sendable, CustomStringConvertible {
@@ -37,7 +36,6 @@ public final class HotKeyCenter {
 
     public var handler: ((KeyCombo, HotKeyEvent) -> Void)?
 
-    private let log = Logger(subsystem: "com.chikim.FloTools", category: "hotkeys")
     private var registered: [KeyCombo: (ref: EventHotKeyRef, id: UInt32)] = [:]
     private var combosByID: [UInt32: KeyCombo] = [:]
     private var nextID: UInt32 = 1
@@ -52,7 +50,7 @@ public final class HotKeyCenter {
         let wanted = combos.subtracting(suspended)
         for combo in registeredCombos.subtracting(wanted) { unregister(combo) }
         for combo in wanted.subtracting(registeredCombos) { register(combo) }
-        log.debug("registered: \(self.registered.keys.map(\.description).sorted().joined(separator: ", "), privacy: .public)")
+        Log.debug(.hotkeys, "registered: \(registered.keys.map(\.description).sorted().joined(separator: ", "))")
     }
 
     /// Sends a hotkey that no macro wanted on to the front app.
@@ -76,7 +74,7 @@ public final class HotKeyCenter {
         var ref: EventHotKeyRef?
         let status = RegisterEventHotKey(combo.keyCode, combo.modifiers, EventHotKeyID(signature: 0x466C_6F54, id: id), GetApplicationEventTarget(), 0, &ref)
         guard status == noErr, let ref else {
-            log.error("could not register \(combo.description, privacy: .public): \(status)")
+            Log.error(.hotkeys, "could not register \(combo): OSStatus \(status)")
             return
         }
         registered[combo] = (ref, id)

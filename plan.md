@@ -34,7 +34,7 @@ Both plans found these independently, by reading the code. They are not yet repr
 | `FloEngine` | Macro model and runtime: `MacroID`, `MacroGroupID`, `MacroTrigger`, `FrontContext`, `MacroGroup`, `Macro`, `MacroRun`, `MacroEngine`, `DoublePressDecider`, `Monitors`, preferences | `FloSystem` |
 | `FloProTools` | Pro Tools knowledge: `ProToolsApp`, `MixWindow`, `EditWindow`, `TrackStrip`, `PlugInWindow`, `AudioSuiteWindow`, `FadeDialog`, `ProToolsMenuBar`, counter and value parsing | `FloSystem` |
 | `FloMacros` | Ported macros, one folder per KM group or pattern, their state, the preferences window | `FloEngine`, `FloProTools` |
-| `FloTools` | App: `AppDelegate`, status menu, permission prompts, wiring | `FloEngine`, `FloMacros` |
+| `FloTools` | App: `AppDelegate`, status menu, permission prompts, wiring, the diagnostic log header | `FloEngine`, `FloMacros`, `FloProTools` (only for the Pro Tools version in the log header) |
 
 `FloEngine` never imports `FloProTools`; nothing below `FloMacros` knows a macro by name. No protocols for mocking; dependencies are concrete instances passed through initializers or captured by closures. All `.shared` singletons go.
 
@@ -103,9 +103,9 @@ Unsolo All Tracks is hardened as the model for multi-step mutations: validate th
 Each step ends with `swift build`, `swift test`, a journal entry and a commit. Steps marked live end with a live re-test of the two ported macros.
 
 1. Macro model and reference generator: `tools/km_export.py` (reference files only, `--check`, Ported-column preservation), `MacroID`, `MacroGroupID`, Swift-declared groups and macros, typed `MacroTrigger`, `KeyCombo("Ctrl+2")` parsing, `KeyboardMaestroParityTests`. Python tests deferred.
-2. Target split as a pure move: `FloSystem`, `FloEngine`, `FloProTools`; split `Support.swift`; remove `FloToolsCore` (done 2026-11-02; `ContextMonitor` stays in `FloEngine` until step 7 turns it into `FrontWindowObserver`). Add `Log` with the file log and menu item. Update the `AGENTS.md` layout.
+2. Target split as a pure move: `FloSystem`, `FloEngine`, `FloProTools`; split `Support.swift`; remove `FloToolsCore` (done 2026-11-02; `ContextMonitor` stays in `FloEngine` until step 7 turns it into `FrontWindowObserver`). Add `Log` with the file log and menu item (done 2026-11-02: AX actions and sets, VoiceOver, hotkeys, engine runs with invocation IDs, context, enable state and preferences are logged; crash reports are appended with device identifiers redacted). Update the `AGENTS.md` layout.
 3. Engine: `Macro`, `MacroRun`, `FloError`, `SpokenError`, `DoublePressDecider`, `Monitors`, foreground queue, `install` validation, nested `run`, combo index, injected instances, no singletons: `HotKeyCenter`, `ContextMonitor` and observers become instances with explicit lifetimes here, while their input mechanics change in steps 6 and 7. Port both macros to the new shape. Live.
-4. Accessibility: `AccessibilityActor`, typed values, role lists and filters, throwing actions, subtree dumps for the log. Live.
+4. Accessibility: `AccessibilityActor`, typed values, role lists and filters, throwing actions, subtree dumps for the log, and logging of attribute reads (step 2 logs only actions and sets). Live.
 5. VoiceOver: compiled handlers, parameters, `FloError` on failure, durations logged. Live, including a track name containing a quote and an unresponsive VoiceOver.
 6. Hotkeys and input: instance `HotKeyCenter`, `postToPid` pass-through, synthetic-event marker, `Keyboard.isDown`, `MacroRun.passThrough()`, and a minimal Toggle Temporary Inspector with its startup preference so hold and release are tested on the real macro. Live: the checks listed under "Key input" in section 9.
 7. Context and triggers: observers with start and stop, window identity, three focused-window kinds, launch and quit, status menu, enabled versus active, suspension reasons, persisted user choices. Live.

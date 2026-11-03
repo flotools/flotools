@@ -17,7 +17,7 @@ let package = Package(
         // Ported Keyboard Maestro macros.
         .target(name: "FloMacros", dependencies: ["FloSystem", "FloEngine", "FloProTools"]),
         // Menu bar app.
-        .executableTarget(name: "FloTools", dependencies: ["FloSystem", "FloEngine", "FloMacros"]),
+        .executableTarget(name: "FloTools", dependencies: ["FloSystem", "FloEngine", "FloProTools", "FloMacros"]),
         .testTarget(name: "FloToolsTests", dependencies: ["FloSystem", "FloEngine", "FloProTools", "FloMacros"]),
     ]
 )

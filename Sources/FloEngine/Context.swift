@@ -3,13 +3,18 @@ import ApplicationServices
 import FloSystem
 
 /// Which app is in front and the title of its focused window. Macro groups are active or not based on this.
-public struct FrontContext: Equatable, Sendable {
+public struct FrontContext: Equatable, Sendable, CustomStringConvertible {
     public var bundleID: String?
     public var windowTitle: String?
 
     public init(bundleID: String? = nil, windowTitle: String? = nil) {
         self.bundleID = bundleID
         self.windowTitle = windowTitle
+    }
+
+    /// For the log, for example `com.avid.ProTools "Mix: Session"`.
+    public var description: String {
+        "\(bundleID ?? "no app") \(windowTitle.map { "\"\($0)\"" } ?? "no window")"
     }
 }
 

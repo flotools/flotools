@@ -26,7 +26,7 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 
 ## Layout
 
-- `Sources/FloSystem/`: generic macOS infrastructure (Accessibility, VoiceOver, hotkeys and synthetic keys, sounds). `KeyNames.swift` is the one key-name table. Knows nothing about Pro Tools or macros.
+- `Sources/FloSystem/`: generic macOS infrastructure (Accessibility, VoiceOver, hotkeys and synthetic keys, sounds, the `Log`). `KeyNames.swift` is the one key-name table. Knows nothing about Pro Tools or macros.
 - `Sources/FloEngine/`: the macro model and runtime. `Macro.swift` is the macro and group model; `Engine.swift` routes hotkeys to macros; `Context.swift` tracks the front app and window (moves to `FloSystem` as an observer in plan step 7); `DoublePress.swift`; `Preferences.swift`. Depends on `FloSystem` only.
 - `Sources/FloProTools/`: Pro Tools knowledge (windows, the track under the VoiceOver cursor). Depends on `FloSystem` only.
 - `Sources/FloMacros/`: `Groups.swift` (the groups and their conditions) and the macros, one file per area, each declaring its ID, name, group, triggers and action. `FloMacros.all` lists them.
@@ -112,12 +112,12 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 
 ### Diagnostic log
 
-Users must be able to send the developer a log that shows where a macro failed. All logging goes through one logger in the core; do not call `Logger` or `print` directly.
+Users must be able to send the developer a log that shows where a macro failed. All logging goes through one logger, `Log` in `FloSystem/Log.swift`; do not call `Logger` or `print` directly.
 
 - The menu bar menu has one item whose title switches between "Turn On Log" and "Turn Off Log". Logging is off by default.
 - "Turn On Log" starts a new log file in `~/Library/Logs/Flo Tools/` and the title becomes "Turn Off Log". The on state is remembered across launches, so a relaunch or crash while reproducing a problem keeps logging. The file is needed because an app can only read back its own unified log for the current process, so earlier runs would be lost.
 - "Turn Off Log" stops logging, closes the file, and reveals one file in Finder, selected, that the user can send as is. Use the macOS 13 `NSWorkspace.activateFileViewerSelecting`.
-- That file starts with a header: app version and build, macOS version, Pro Tools version, whether VoiceOver is running, permission status, preferences, and enabled and suspended groups. Then the log entries. If Flo Tools crash reports from `~/Library/Logs/DiagnosticReports` were written while logging was on, append them at the end. Nothing is uploaded automatically.
+- That file starts with a header: app version and build, macOS version, Pro Tools version, whether VoiceOver is running, permission status, preferences, and enabled and suspended groups. Then the log entries. If Flo Tools crash reports from `~/Library/Logs/DiagnosticReports` were written while logging was on, append them at the end, with the values that identify the Mac (`crashReporterKey`, `deviceIdentifierForVendor`, `bootSessionUUID`) redacted. Nothing is uploaded automatically.
 - While logging is on, write every entry at full detail. Cap the file at about 20 MB by dropping the oldest entries, and log that entries were dropped. While logging is off, write nothing to a file; only warnings and errors go to the unified log (subsystem `com.chikim.FloTools`, one category per area).
 - One line per entry: timestamp with milliseconds, level, category, invocation ID, message. Every macro run gets an invocation ID that appears on every line it causes, including nested calls, so one run can be followed from start to end.
 - Trace each run: trigger (key, gesture, or event) and routing decision (context, chosen macro UID and name, or why it passed through); each Accessibility step with its selector path, result, `AXError` and duration; speech requests and VoiceOver errors; the final result, error or cancellation with total duration.

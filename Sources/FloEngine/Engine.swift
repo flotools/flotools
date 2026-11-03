@@ -1,5 +1,4 @@
 import Foundation
-import os
 import FloSystem
 
 /// Connects hotkeys to installed macros, honoring group app and window conditions like Keyboard Maestro.
@@ -9,10 +8,14 @@ public final class MacroEngine {
     public let groups: [MacroGroupID: MacroGroup]
     public private(set) var macros: [Macro] = []
     public var isEnabled = true {
-        didSet { updateHotKeys() }
+        didSet {
+            Log.info(.engine, isEnabled ? "Flo Tools enabled" : "Flo Tools disabled")
+            updateHotKeys()
+        }
     }
 
-    private let log = Logger(subsystem: "com.chikim.FloTools", category: "engine")
+    /// Numbers macro runs for the log's invocation IDs.
+    private var runCount = 0
     private var macroIndex: [MacroID: Int] = [:]
     private var groupEnabled: [MacroGroupID: Bool]
     private var groupActivated: [MacroGroupID: Bool]
@@ -46,6 +49,7 @@ public final class MacroEngine {
         HotKeyCenter.shared.handler = { [weak self] combo, event in self?.handle(combo, event) }
         let monitor = ContextMonitor.shared
         monitor.onChange = { [weak self] context in
+            Log.info(.context, "front: \(context)")
             self?.context = context
             self?.updateHotKeys()
         }
@@ -61,6 +65,7 @@ public final class MacroEngine {
     public func setGroup(_ id: MacroGroupID, enabled: Bool) {
         precondition(groups[id] != nil, "unknown group \(id)")
         groupEnabled[id] = enabled
+        Log.info(.engine, "group \(id) \(enabled ? "enabled" : "disabled")")
         updateHotKeys()
     }
 
@@ -70,6 +75,7 @@ public final class MacroEngine {
     public func setGroup(_ id: MacroGroupID, activated: Bool) {
         precondition(groups[id] != nil, "unknown group \(id)")
         groupActivated[id] = activated
+        Log.info(.engine, "group \(id) \(activated ? "activated" : "deactivated")")
         updateHotKeys()
     }
 
@@ -78,15 +84,17 @@ public final class MacroEngine {
     public func setMacro(_ id: MacroID, enabled: Bool) {
         precondition(macroEnabled[id] != nil, "unknown macro \(id)")
         macroEnabled[id] = enabled
+        Log.info(.engine, "macro \(id) \(enabled ? "enabled" : "disabled")")
         updateHotKeys()
     }
 
     /// Runs a macro directly, like Keyboard Maestro's Execute Macro action.
     public func run(_ id: MacroID) {
         guard let macro = macro(id) else {
-            log.error("macro \(id.value, privacy: .public) is not installed")
+            Log.error(.engine, "macro \(id) is not installed")
             return
         }
+        Log.info(.engine, "run \(macro.id) \"\(macro.name)\" (nested)")
         macro.action(self)
     }
 
@@ -124,13 +132,19 @@ public final class MacroEngine {
         let phase: KeyPhase = event == .released ? .released : .pressed
         guard isEnabled, let macro = candidates(for: combo, phase: phase, in: context).first else {
             if phase == .pressed && candidates(for: combo, phase: .released, in: context).isEmpty {
-                log.notice("no macro for \(combo.description, privacy: .public), passing it on")
+                // The key is not named: keys no macro matched must not appear in the log.
+                Log.info(.engine, "no macro for this key in \(context), passing it on")
                 HotKeyCenter.shared.passThrough(combo)
             }
             updateHotKeys()
             return
         }
-        log.notice("\(combo.description, privacy: .public) -> \(macro.id.value, privacy: .public)")
-        macro.action(self)
+        runCount += 1
+        Log.$invocation.withValue("run\(runCount)") {
+            let start = ContinuousClock.now
+            Log.info(.engine, "\(combo) \(phase) in \(context) -> \(macro.id) \"\(macro.name)\"")
+            macro.action(self)
+            Log.info(.engine, "\(macro.id) returned (\(Log.elapsed(since: start)))")
+        }
     }
 }

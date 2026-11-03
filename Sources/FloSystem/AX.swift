@@ -90,7 +90,10 @@ public struct AXElement: Equatable, CustomStringConvertible {
 
     @discardableResult
     public func perform(_ action: String) -> Bool {
-        AXUIElementPerformAction(ref, action as CFString) == .success
+        let start = ContinuousClock.now
+        let result = AXUIElementPerformAction(ref, action as CFString)
+        logAction("\(action) on \(self)", result, start)
+        return result == .success
     }
 
     /// Same as `click()` on a System Events button.
@@ -99,7 +102,20 @@ public struct AXElement: Equatable, CustomStringConvertible {
 
     @discardableResult
     public func set(_ attribute: String, to value: CFTypeRef) -> Bool {
-        AXUIElementSetAttributeValue(ref, attribute as CFString, value) == .success
+        let start = ContinuousClock.now
+        let result = AXUIElementSetAttributeValue(ref, attribute as CFString, value)
+        logAction("set \(attribute) of \(self)", result, start)
+        return result == .success
+    }
+
+    /// Attribute reads are not traced yet; plan step 4 adds that with the typed lookups.
+    /// `what` is built only when it is logged, because describing an element reads its attributes.
+    private func logAction(_ what: @autoclosure () -> String, _ result: AXError, _ start: ContinuousClock.Instant) {
+        if result == .success {
+            Log.info(.accessibility, "\(what()) (\(Log.elapsed(since: start)))")
+        } else {
+            Log.warning(.accessibility, "\(what()) failed: AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
+        }
     }
 
     // MARK: Debugging
