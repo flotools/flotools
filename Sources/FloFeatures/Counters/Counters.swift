@@ -14,7 +14,7 @@ enum Counters {
         speakEdit("floTools.speakEditPreRollAmount", "Speak/Edit Pre-Roll Amount", key: "Cmd+F9", .preRoll, .duration, label: ". Pre-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Pre-Roll amount", other: "Type Pre-Roll Amount.")),
         speakEdit("floTools.speakEditPostRollAmount", "Speak/Edit Post-Roll Amount", key: "Cmd+F10", .postRoll, .duration, label: ". Post-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Post-Roll amount", other: "Type Post-Roll Amount.")),
         speakEdit("floTools.speakEditNudgeValue", "Speak/Edit Nudge Value", key: "Cmd+F7", .nudgeValue, .duration, label: ". Nudge.", prompts: Prompts(time: "Press Delete, then type Nudge value", other: "Type nudge value.")),
-        speakEditTempo,
+        speakEdit("floTools.speakEditTempo", "Speak/Edit Tempo", key: "Cmd+F11", .tempo, .asShown, label: ": Tempo", prompts: Prompts("Type a Tempo value.")),
         speakEdit("floTools.speakEditPitchForSelectedNote", "Speak/Edit Pitch for Selected Note", key: "Opt+P", .notePitch, .notePitch, label: ". Pitch", prompts: Prompts("Type note pitch")),
         speakEdit("floTools.speakEditAttackVelocityForSelectedNote", "Speak/Edit Attack Velocity for Selected Note", key: "Opt+A", .attackVelocity, .asShown, label: ". Attack", prompts: Prompts("Type attack velocity")),
         speakEdit("floTools.speakEditReleaseVelocityForSelectedNote", "Speak/Edit Release Velocity for Selected Note", key: "Opt+E", .releaseVelocity, .asShown, label: ". Release", prompts: Prompts("Type release velocity")),
@@ -61,17 +61,6 @@ enum Counters {
         }, double: { _ in
             let value = try await ProToolsApp.running().openForTyping(control)
             try await VoiceOver.say(value.contains(".") ? prompts.time : prompts.other)
-        })
-    }
-
-    @MainActor
-    private static var speakEditTempo: Command {
-        Command("floTools.speakEditTempo", "Speak/Edit Tempo", scope: .anyProToolsWindow, triggers: [.key("Cmd+F11")], single: { _ in
-            let tempo = try await ProToolsApp.running().value(of: .tempo)
-            try await VoiceOver.say(tempo.trimmingCharacters(in: .whitespaces) + ": Tempo")
-        }, double: { _ in
-            _ = try await ProToolsApp.running().openForTyping(.tempo)
-            try await VoiceOver.say("Type a Tempo value.")
         })
     }
 
