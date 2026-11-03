@@ -1,3 +1,4 @@
+import CoreGraphics
 import FloSystem
 
 /// The Mix window: its track strips and the Group List. Everything here messages Pro Tools, so it runs on `AccessibilityActor`.
@@ -67,6 +68,11 @@ public struct TrackStrip {
     /// The group named `name` among the immediate children of a Mix or Edit window.
     init(named name: String, in window: AXElement, window kind: ProToolsApp.TrackWindow) throws {
         self.init(name: name, element: try window.required("the track \(name) in the \(kind.rawValue) window") { try $0.group(name) })
+    }
+
+    /// Where the track's group is on screen.
+    public func frame() throws -> CGRect {
+        CGRect(origin: try element.position.required("the position of the track \(name)"), size: try element.size.required("the size of the track \(name)"))
     }
 
     /// Folder tracks are unsoloed after the others, as in the JXA.

@@ -137,6 +137,16 @@ public enum Keyboard {
         queue.async { pressNow(combo, pid: pid) }
     }
 
+    /// Waits until the user lets go of Command, Shift, Option and Control, like Keyboard Maestro's Pause Until modifiers are up, so a macro's own clicks do not carry the hotkey's modifiers. Throws `FloError.couldNot` after `limit`.
+    public static func waitForModifiersReleased(within limit: Duration = .seconds(10)) async throws {
+        let held: CGEventFlags = [.maskCommand, .maskShift, .maskAlternate, .maskControl]
+        let start = ContinuousClock.now
+        while !CGEventSource.flagsState(.combinedSessionState).intersection(held).isEmpty {
+            guard ContinuousClock.now - start < limit else { throw FloError.couldNot("go on while modifier keys are held down") }
+            try await Task.sleep(for: .milliseconds(20))
+        }
+    }
+
     private static func pressNow(_ combo: KeyCombo, pid: pid_t) {
         let source = CGEventSource(stateID: .hidSystemState)
         for down in [true, false] {

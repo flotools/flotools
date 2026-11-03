@@ -37,6 +37,20 @@ public enum VoiceOver {
         return text
     }
 
+    /// The screen frame of the item in the VoiceOver cursor, like `vo.voCursor.bounds()`, in the global coordinates mouse events use. VoiceOver's `bounds` is a rectangle, which coerces to a list of left, top, right and bottom.
+    public static func cursorBounds() throws -> CGRect {
+        let event = voiceOverEvent(eventClass: "core", id: "getd")
+        event.setParam(cursorBoundsSpecifier, forKeyword: keyDirectObject)
+        let reply = try send(event, doing: "read the VoiceOver cursor bounds").paramDescriptor(forKeyword: keyDirectObject)
+        guard let list = reply?.coerce(toDescriptorType: typeAEList), list.numberOfItems == 4 else {
+            throw FloError.unexpectedValue("VoiceOver cursor bounds of type \(reply.map { String(describing: $0.descriptorType) } ?? "none")")
+        }
+        let edges = (1...4).map { CGFloat(list.atIndex($0)?.doubleValue ?? 0) }
+        let frame = CGRect(x: edges[0], y: edges[1], width: edges[2] - edges[0], height: edges[3] - edges[1])
+        Log.debug(.voiceover, "VoiceOver cursor bounds: \(frame)")
+        return frame
+    }
+
     /// Whether macOS lets Flo Tools control VoiceOver with Apple events, checked without asking the user. For the diagnostic log header.
     public static func automationPermission() -> String {
         guard let desc = target.aeDesc else { return "unknown" }
@@ -66,6 +80,7 @@ public enum VoiceOver {
 
     /// `text under cursor of vo cursor`, as an object specifier: property `votx` of property `vocu` of the application.
     private static let cursorTextSpecifier = property("votx", of: property("vocu", of: .null()))
+    private static let cursorBoundsSpecifier = property("pbnd", of: property("vocu", of: .null()))
 
     private static func voiceOverEvent(eventClass: String, id: String) -> NSAppleEventDescriptor {
         NSAppleEventDescriptor(eventClass: fourCharCode(eventClass), eventID: fourCharCode(id), targetDescriptor: target,

@@ -108,15 +108,18 @@ public struct AXElement {
     public var valueDescription: String? { get throws { try string("AXValueDescription") } }
 
     /// The top-left corner in global screen coordinates (origin at the top left of the main display), the coordinates mouse events use.
-    public var position: CGPoint? {
-        get throws {
-            guard let value = try attribute("AXPosition") else { return nil }
-            var point = CGPoint.zero
-            guard CFGetTypeID(value) == AXValueGetTypeID(), AXValueGetValue(unsafeDowncast(value, to: AXValue.self), .cgPoint, &point) else {
-                throw FloError.unexpectedValue("AXPosition is not a point")
-            }
-            return point
+    public var position: CGPoint? { get throws { try geometry("AXPosition", .cgPoint, CGPoint.zero) } }
+
+    /// The width and height in screen points.
+    public var size: CGSize? { get throws { try geometry("AXSize", .cgSize, CGSize.zero) } }
+
+    private func geometry<T: BitwiseCopyable>(_ name: String, _ type: AXValueType, _ empty: T) throws -> T? {
+        guard let value = try attribute(name) else { return nil }
+        var result = empty
+        guard CFGetTypeID(value) == AXValueGetTypeID(), AXValueGetValue(unsafeDowncast(value, to: AXValue.self), type, &result) else {
+            throw FloError.unexpectedValue("\(name) is not a \(T.self)")
         }
+        return result
     }
 
     /// False for a dimmed menu item or button; an element without `AXEnabled` counts as enabled.

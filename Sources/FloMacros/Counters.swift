@@ -40,7 +40,7 @@ enum Counters {
     private static let counterCluster = "Counter Display Cluster"
     private static let gridNudgeCluster = "Grid/Nudge Cluster"
 
-    private static func counter(_ name: String) -> EditWindowControl {
+    static func counter(_ name: String) -> EditWindowControl {
         EditWindowControl([counterCluster], role: "AXTextField", .is(name))
     }
 
@@ -125,7 +125,7 @@ enum Counters {
 
     /// Clicks the field so the next typed digits replace its value, and returns the value it had.
     @AccessibilityActor
-    private static func openForTyping(_ control: EditWindowControl) throws -> String {
+    static func openForTyping(_ control: EditWindowControl) throws -> String {
         let field = try ProToolsApp.running().element(control)
         let value = try field.value ?? ""
         try field.press()

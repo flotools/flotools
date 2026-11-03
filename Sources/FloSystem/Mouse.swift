@@ -13,21 +13,45 @@ public enum Mouse {
         Log.info(.hotkeys, "mouse moved to \(Int(point.x)), \(Int(point.y))")
     }
 
-    /// Moves the pointer and clicks the left button there.
-    public static func click(at point: CGPoint) async {
+    /// Moves the pointer and clicks the left button there, with `modifiers` held, such as `.maskControl`.
+    public static func click(at point: CGPoint, modifiers: CGEventFlags = []) async {
         post(.mouseMoved, at: point)
-        post(.leftMouseDown, at: point)
+        post(.leftMouseDown, at: point, modifiers: modifiers)
         try? await Task.sleep(for: holdTime)
         // Always released, even when the caller is cancelled during the hold.
-        post(.leftMouseUp, at: point)
+        post(.leftMouseUp, at: point, modifiers: modifiers)
         Log.info(.hotkeys, "mouse clicked at \(Int(point.x)), \(Int(point.y))")
     }
 
-    private static func post(_ type: CGEventType, at point: CGPoint) {
+    /// Moves the pointer and holds the left button down there, until `releaseButton(at:modifiers:)`. The caller must release it, also when it is cancelled.
+    public static func pressButton(at point: CGPoint, modifiers: CGEventFlags = []) {
+        post(.mouseMoved, at: point)
+        post(.leftMouseDown, at: point, modifiers: modifiers)
+        Log.info(.hotkeys, "mouse button down at \(Int(point.x)), \(Int(point.y))")
+    }
+
+    public static func releaseButton(at point: CGPoint, modifiers: CGEventFlags = []) {
+        post(.leftMouseUp, at: point, modifiers: modifiers)
+        Log.info(.hotkeys, "mouse button up at \(Int(point.x)), \(Int(point.y))")
+    }
+
+    /// Presses the left button at `start`, drags to `end` and releases it there, with `modifiers` held, like Keyboard Maestro's click and drag.
+    public static func drag(from start: CGPoint, to end: CGPoint, modifiers: CGEventFlags = []) async {
+        post(.mouseMoved, at: start)
+        post(.leftMouseDown, at: start, modifiers: modifiers)
+        try? await Task.sleep(for: holdTime)
+        post(.leftMouseDragged, at: end, modifiers: modifiers)
+        try? await Task.sleep(for: holdTime)
+        post(.leftMouseUp, at: end, modifiers: modifiers)
+        Log.info(.hotkeys, "mouse dragged from \(Int(start.x)), \(Int(start.y)) to \(Int(end.x)), \(Int(end.y))")
+    }
+
+    private static func post(_ type: CGEventType, at point: CGPoint, modifiers: CGEventFlags = []) {
         guard let event = CGEvent(mouseEventSource: CGEventSource(stateID: .hidSystemState), mouseType: type, mouseCursorPosition: point, mouseButton: .left) else {
             Log.warning(.hotkeys, "could not make a mouse event")
             return
         }
+        event.flags = modifiers
         event.setIntegerValueField(.eventSourceUserData, value: Keyboard.syntheticMarker)
         event.post(tap: .cghidEventTap)
     }
