@@ -36,7 +36,7 @@ This is the diagnosis of the two-macro proof, kept for the reasoning behind the 
 | `FloMacros` | Ported macros, one folder per KM group or pattern, their state | `FloEngine`, `FloProTools` |
 | `FloTools` | App: `AppDelegate`, status menu, permission prompts, the preferences panel, wiring, the diagnostic log header | `FloEngine`, `FloMacros`, `FloProTools` (only for the Pro Tools version in the log header) |
 
-`FloEngine` never imports `FloProTools`; nothing below `FloMacros` knows a macro by name. No protocols for mocking; dependencies are concrete instances passed through initializers or captured by closures. All `.shared` singletons go.
+Nothing below `FloMacros` knows a macro by name. Superseded by section 11 (2026-11-03): `FloEngine` imports `FloProTools`, because binding scopes name Pro Tools window kinds. No protocols for mocking; dependencies are concrete instances passed through initializers or captured by closures. All `.shared` singletons go.
 
 ## 4. Macro model
 
@@ -114,6 +114,45 @@ Each step ends with `swift build`, `swift test`, a journal entry and a commit. S
 9. Preferences: UserDefaults store, `apply`, preferences panel (in `FloTools`) and macro, loaded once and passed down, timeout limited to the supported values, invalid values logged. Live.
 10. Port by pattern, adding `Dialogs`, `Mouse` and `Clipboard` with the first macro that needs each: fade dialogs, Selected Tab, Inspector (sends, inserts, solo, mute, arm, input, name, volume, pan, comments, meters), transport and menu toggles, counters and grid/nudge, track lists and playlists, Global enable/disable and window-triggered macros (including the launch duties of Check for Automatic Update), Plug-in and Audio Suite, event monitors. (Global group done 2026-11-02 as `FloMacros/Lifecycle.swift`, not as macros: they change Flo Tools itself and must work while it is suspended. `WorkspaceEvents` in `FloSystem` reports app launch and quit and VoiceOver on and off; `MacroEngine.suspend(_:)` and `resume(_:)` hold the reasons "VoiceOver is not running" and "the Pro Tools Keyboard Shortcuts window is open", the second kept while that window exists behind another, as in KM; Pro Tools quit calls `cancelAll()`; a Pro Tools window change stops the meter watches; Pro Tools launch checks that VoiceOver takes Apple events, warning through the system voice if not, and applies the preferences and Inspector start state. Toggle Macros for Batch Fades Dialog needs no code, because the Batch Fades group's window condition outranks the Flo Tools group on Shift+Up and Shift+Down. INDEX.md marks these "absorbed (...)". Persisting the user's on/off switch is still open.) (Plugin and Audio Suite groups done 2026-11-02: `PlugInWindow` in `FloProTools` covers both kinds of window, whose preset buttons differ only in names; `PlugInView` in `FloMacros` reads the KM view files unchanged from `~/Library/Application Support/Flo Tools/Plug-In Views/`, and `PlugInViewCursor` replaces the KM variables; `Mouse` and `TextWindow` were added to `FloSystem`; status menu macros are listed by `MacroEngine.statusMenuMacros(in:)` for the front context. A plug-in window coming to front, or changing its title to another plug-in, loads that plug-in's default view from `Lifecycle`.) (Flo Tools group done 2026-11-02, which completes the port: `KeyAnnouncements` passes Pro Tools shortcuts on and speaks what changed, `MidiEvents` replaces Report and the six Monitor macros with one watch that follows the event column, `WindowTools` and `ClipDrag` cover windows, tables, clips and the beta drag. `VoiceOver.cursorBounds()`, `Keyboard.waitForModifiersReleased()` and mouse presses and drags with modifiers were added to `FloSystem`.)
 
-## 11. Not done on purpose
+## 11. Native redesign (decided 2026-11-03)
+
+The port is complete, but its structure still copies Keyboard Maestro: groups with title conditions, macros enabled and disabled to swap keys, "specificity" with no tie rule, and macros calling macros by ID. Codex (`.pi/jobs/native-design-codex/response1.md`) and Fable (`.pi/jobs/native-design-fable/response1.md`) reviewed it; the owner decided the open questions on 2026-11-03 (journal J-89). The redesign keeps every shortcut's behavior except the deliberate changes below, which the keymap baseline shows as diffs.
+
+### Model
+
+- `Command`: what a key does (ID, name, action). Feature files declare commands and their bindings; "macro" is used only for Keyboard Maestro artifacts.
+- `Binding`: key and phase, scope, mode condition, command. A scope is "any Pro Tools window" or a set of `ProToolsWindow.Kind`s.
+- `ProToolsWindow.Kind` in `FloProTools`: one kind per window, from one classification function over the title (Mix, Edit, Plug-in, AudioSuite, Fade In, Fade Out, Crossfade, Batch Fades, setup tab, other). The order of checks lives only there; a title starting with "Plug-in:" is a plug-in window even if it also contains "Audio Suite:". With one kind per window, ties can be proved absent.
+- `Keymap`: all bindings, indexed by key. Precedence: a binding for specific window kinds beats an any-window binding. Two bindings for the same key, phase, window kind and mode are an error at install time and in the tests, instead of depending on declaration order.
+- `Mode`: app state the keymap reads, so far only the Inspector (on or off). The temporary Inspector is a hold that turns it on and, on release, always off. Track view keys are bindings that apply while the Inspector is off, so nothing enables or disables commands to swap keys.
+- Shared behavior is shared Swift functions, not one command running another by ID; nested runs and their cycle check go.
+- `FloEngine` imports `FloProTools` for `ProToolsWindow.Kind`. A protocol in the engine with one Pro Tools implementation would only add a layer; Flo Tools drives only Pro Tools.
+
+### Behavior changes on purpose
+
+- Ctrl+Cmd+Left/Right run track view from launch whenever the Inspector is off (done `292a877`; the KM version needed one `/` first).
+- `/` and backtick work only in Mix and Edit windows, `^(Mix|Edit):` (done `292a877` inside the command; with scopes they also stop taking the key elsewhere).
+- Releasing backtick always turns the Inspector off, as today.
+
+### Cleanup
+
+- Drop group enable state, which has no user, and the empty Global group.
+- `KeymapTests` (`Tests/Baselines/Keymap.txt`, `Routing.txt`) replaces `KeyboardMaestroParityTests`. Once the engine has no KM groups, the parity test, `tools/km_export.py` with its tests, and the Ported column check are removed; `reference/` stays as a frozen record.
+- `AGENTS.md` said the parity test checks `reference/Flo Tools Key Set.ptpreset`; no test reads it. Corrected with the docs update.
+
+### Sequence
+
+Each step: build, full tests, baseline diff reviewed, journal entry, commit; Codex reviews the larger steps.
+
+1. Keymap and routing baselines (done `b58fa20`).
+2. The two behavior changes above (done `292a877`, live-checked for track view).
+3. `ProToolsWindow.Kind` and its classification, with tests; `FrontContext` carries the kind.
+4. Scopes replace groups and specificity; the tie check.
+5. Inspector as a mode; track view and Inspector bindings use mode conditions; no command enables another.
+6. Remove nested runs in favor of shared functions.
+7. Rename to `Command`, `Binding`, `Keymap`, `Engine`, `Watches`; feature folders.
+8. Remove the KM parity tooling; update `AGENTS.md` and this plan.
+
+## 12. Not done on purpose
 
 No KM action interpreter, no plugin system for macros, no protocols for mocking AX or VoiceOver, no compatibility path for the old `register(uid)` API, no shell commands at runtime, no telemetry.
