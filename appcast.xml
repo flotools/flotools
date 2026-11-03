@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sparkle update feed for the native Flo Tools app (SUFeedURL https://flotools.org/flotools/appcast.xml). Each release is one <item>, signed with sign_update; betas carry <sparkle:channel>beta</sparkle:channel>. -->
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+    <channel>
+        <title>Flo Tools</title>
+        <link>https://flotools.org/flotools/appcast.xml</link>
+        <description>Flo Tools updates</description>
+        <language>en</language>
+    </channel>
+</rss>
