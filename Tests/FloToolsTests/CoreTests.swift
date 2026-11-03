@@ -595,6 +595,14 @@ import Testing
         #expect(PreferencesStore(defaults: defaults).current == preferences)
     }
 
+    /// The user's off switch survives a relaunch; a first launch starts enabled.
+    @Test func floToolsEnabledIsRemembered() {
+        let defaults = makeDefaults()
+        #expect(PreferencesStore(defaults: defaults).floToolsEnabled)
+        PreferencesStore(defaults: defaults).floToolsEnabled = false
+        #expect(!PreferencesStore(defaults: defaults).floToolsEnabled)
+    }
+
     @Test func unsupportedTimeoutFallsBackToDefault() {
         let defaults = makeDefaults()
         defaults.set(50, forKey: PreferencesStore.Key.timeout)

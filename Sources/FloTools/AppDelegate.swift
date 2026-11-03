@@ -26,6 +26,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         AXElement.setGlobalMessagingTimeout(1.0)
+        engine.isEnabled = preferences.floToolsEnabled
         lifecycle.start()
         // A relaunch or crash while the user reproduces a problem keeps logging into the same file.
         Log.resumeRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current))
@@ -112,6 +113,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     @objc private func toggleEnabled() {
         engine.isEnabled.toggle()
+        preferences.floToolsEnabled = engine.isEnabled
         VoiceOver.sayOrLog(engine.isEnabled ? "Flo Tools enabled." : "Flo Tools disabled.")
     }
 

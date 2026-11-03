@@ -27,6 +27,7 @@ public final class PreferencesStore {
         static let temporaryInspector = "temporaryInspector"
         static let startsWithInspector = "startsWithInspector"
         static let timeout = "doublePressTimeout"
+        static let floToolsEnabled = "floToolsEnabled"
     }
 
     public init(defaults: UserDefaults = .standard) {
@@ -41,6 +42,15 @@ public final class PreferencesStore {
         defaults.set(preferences.timeout, forKey: Key.timeout)
         current = preferences
         Log.info(.preferences, "saved \(preferences)")
+    }
+
+    /// The "Flo Tools Enabled" switch of the menu bar menu, remembered across launches as KM remembered a disabled group. Kept apart from `Preferences` because the preferences panel does not edit it. On when never set.
+    public var floToolsEnabled: Bool {
+        get { defaults.object(forKey: Key.floToolsEnabled) as? Bool ?? true }
+        set {
+            defaults.set(newValue, forKey: Key.floToolsEnabled)
+            Log.info(.preferences, "saved Flo Tools \(newValue ? "enabled" : "disabled")")
+        }
     }
 
     /// Missing values are defaults. A timeout outside `timeoutChoices`, which only `defaults write` can set, is logged and replaced by the default, so double presses stay usable.
