@@ -22,11 +22,13 @@ extension KeyCombo {
 
     private static let keyCodes = Dictionary(uniqueKeysWithValues: keyNames.map { ($0.value, $0.key) })
 
-    /// Parses the `description` format, for example "Ctrl+Opt+Keypad -" or "Keypad +". Returns nil for unknown names.
+    /// Parses the `description` format, for example "Ctrl+Opt+Keypad -" or "Keypad +". Modifiers may come in any order, each once. Returns nil for unknown or repeated names.
     public init?(_ text: String) {
         var rest = Substring(text)
         var modifiers: UInt32 = 0
-        for (bit, name) in Self.modifierNames where rest.hasPrefix(name + "+") && rest.count > name.count + 1 {
+        // The key name itself may contain "+", as in "Keypad +", so modifiers are taken off the front one at a time.
+        while let (bit, name) = Self.modifierNames.first(where: { rest.hasPrefix($0.name + "+") && rest.count > $0.name.count + 1 }) {
+            guard modifiers & bit == 0 else { return nil }
             modifiers |= bit
             rest = rest.dropFirst(name.count + 1)
         }

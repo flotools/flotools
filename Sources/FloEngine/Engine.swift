@@ -77,7 +77,7 @@ public final class MacroEngine {
     public func start() {
         guard !started else { return }
         started = true
-        hotKeys.handler = { [weak self] combo, event in self?.handle(combo, event) }
+        hotKeys.handler = { [weak self] combo, phase in self?.handle(combo, phase) }
         contextMonitor.onChange = { [weak self] context in
             Log.info(.context, "front: \(context)")
             self?.context = context
@@ -185,15 +185,14 @@ public final class MacroEngine {
 
     // MARK: Running
 
-    private func handle(_ combo: KeyCombo, _ event: HotKeyEvent) {
+    private func handle(_ combo: KeyCombo, _ phase: KeyPhase) {
         // Route on the cached context: reading the window here would block every key while Pro Tools is busy. Only a change of front app, which needs no Accessibility call to notice, is checked first.
         context = contextMonitor.refreshIfFrontAppChanged()
-        let phase: KeyPhase = event == .released ? .released : .pressed
         if dispatch(combo, phase, in: context) == nil {
             if phase == .pressed && candidates(for: combo, phase: .released, in: context).isEmpty {
                 // The key is not named: keys no macro matched must not appear in the log.
                 Log.info(.engine, "no macro for this key in \(context), passing it on")
-                hotKeys.passThrough(combo)
+                passThrough(combo, to: context)
             }
             updateHotKeys()
         }
@@ -346,8 +345,13 @@ public final class MacroEngine {
         while let tail = queueTail, runs.isEmpty == false { await tail.value }
     }
 
-    func passThrough(_ combo: KeyCombo) {
-        hotKeys.passThrough(combo)
+    /// Sends a key Carbon took from the front app on to it. Posted to the process, so the key is not caught as a hotkey again.
+    func passThrough(_ combo: KeyCombo, to context: FrontContext) {
+        guard context.processID > 0 else {
+            Log.warning(.engine, "no front app to pass a key on to, the key is lost")
+            return
+        }
+        Keyboard.post(combo, pid: context.processID)
     }
 
     private func cancelPendingSingles() {

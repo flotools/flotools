@@ -1,5 +1,6 @@
 import Carbon.HIToolbox
 import CoreGraphics
+import Foundation
 
 /// A key code plus modifiers. Modifier bits are the Carbon ones, which Keyboard Maestro also uses: Cmd 256, Shift 512, Option 2048, Control 4096.
 public struct KeyCombo: Hashable, Sendable, CustomStringConvertible {
@@ -26,30 +27,29 @@ public struct KeyCombo: Hashable, Sendable, CustomStringConvertible {
     }
 }
 
-public enum HotKeyEvent: Sendable { case pressed, released }
+public enum KeyPhase: Sendable, Equatable {
+    case pressed
+    /// Keyboard Maestro's "is released" fire type.
+    case released
+}
 
 /// Registers global hotkeys with Carbon `RegisterEventHotKey`, like Keyboard Maestro does.
 /// The set of registered keys changes with the front window, so a key only gets taken from other apps while a macro is active for it.
 /// The app owns one instance for its lifetime; `stop()` removes every registration and the event handler.
 @MainActor
 public final class HotKeyCenter {
-    public var handler: ((KeyCombo, HotKeyEvent) -> Void)?
+    public var handler: ((KeyCombo, KeyPhase) -> Void)?
 
     private var registered: [KeyCombo: (ref: EventHotKeyRef, id: UInt32)] = [:]
     private var combosByID: [UInt32: KeyCombo] = [:]
     private var nextID: UInt32 = 1
     private var eventHandler: EventHandlerRef?
-    /// What the engine wants registered, from the last `setActive`.
-    private var wanted: Set<KeyCombo> = []
-    /// Keys left unregistered for a moment while their pass-through copy is posted.
-    private var suspended: Set<KeyCombo> = []
 
     public init() {}
 
-    public var registeredCombos: Set<KeyCombo> { Set(registered.keys) }
+    private var registeredCombos: Set<KeyCombo> { Set(registered.keys) }
 
     public func stop() {
-        wanted = []
         for combo in registeredCombos { unregister(combo) }
         if let eventHandler { RemoveEventHandler(eventHandler) }
         eventHandler = nil
@@ -58,25 +58,9 @@ public final class HotKeyCenter {
     /// Registers exactly `combos`, adding and removing registrations as needed.
     public func setActive(_ combos: Set<KeyCombo>) {
         installHandlerIfNeeded()
-        wanted = combos
-        let toRegister = combos.subtracting(suspended)
-        for combo in registeredCombos.subtracting(toRegister) { unregister(combo) }
-        for combo in toRegister.subtracting(registeredCombos) { register(combo) }
+        for combo in registeredCombos.subtracting(combos) { unregister(combo) }
+        for combo in combos.subtracting(registeredCombos) { register(combo) }
         Log.debug(.hotkeys, "registered: \(registered.keys.map(\.description).sorted().joined(separator: ", "))")
-    }
-
-    /// Sends a hotkey that no macro wanted on to the front app.
-    /// The key is unregistered while the copy is posted so it doesn't trigger again. The copy is posted even when the key is already unregistered, because Carbon has consumed the original either way.
-    /// Afterwards the key is registered again only if it is still wanted: the context or enable state may have changed meanwhile.
-    public func passThrough(_ combo: KeyCombo) {
-        unregister(combo)
-        suspended.insert(combo)
-        Keyboard.press(keyCode: CGKeyCode(combo.keyCode), flags: combo.cgFlags)
-        Task { @MainActor in
-            try? await Task.sleep(for: .milliseconds(100))
-            self.suspended.remove(combo)
-            if self.wanted.contains(combo) { self.register(combo) }
-        }
     }
 
     private func register(_ combo: KeyCombo) {
@@ -99,9 +83,9 @@ public final class HotKeyCenter {
         combosByID[entry.id] = nil
     }
 
-    fileprivate func dispatch(id: UInt32, event: HotKeyEvent) {
+    fileprivate func dispatch(id: UInt32, phase: KeyPhase) {
         guard let combo = combosByID[id] else { return }
-        handler?(combo, event)
+        handler?(combo, phase)
     }
 
     private func installHandlerIfNeeded() {
@@ -118,9 +102,9 @@ public final class HotKeyCenter {
             let status = GetEventParameter(event, EventParamName(kEventParamDirectObject), EventParamType(typeEventHotKeyID), nil, MemoryLayout<EventHotKeyID>.size, nil, &hotKeyID)
             guard status == noErr else { return status }
             let id = hotKeyID.id
-            let kind: HotKeyEvent = GetEventKind(event) == UInt32(kEventHotKeyPressed) ? .pressed : .released
+            let phase: KeyPhase = GetEventKind(event) == UInt32(kEventHotKeyPressed) ? .pressed : .released
             MainActor.assumeIsolated {
-                Unmanaged<HotKeyCenter>.fromOpaque(userData).takeUnretainedValue().dispatch(id: id, event: kind)
+                Unmanaged<HotKeyCenter>.fromOpaque(userData).takeUnretainedValue().dispatch(id: id, phase: phase)
             }
             return noErr
         }, types.count, &types, userData, &eventHandler)
@@ -128,18 +112,39 @@ public final class HotKeyCenter {
 }
 
 /// Synthetic keystrokes, like Keyboard Maestro's Simulate Keystroke or `System Events.keystroke`.
+///
+/// Keys are posted to one process with `postToPid`, which does not trigger global hotkeys, so a key passed on is not caught again by Flo Tools. Presses go through one serial queue, so they arrive in order and a key down always gets its key up, even when the caller is cancelled.
 public enum Keyboard {
-    /// Presses and releases a key. With a pid the events go straight to that app and bypass global hotkeys.
-    public static func press(keyCode: CGKeyCode, flags: CGEventFlags = [], pid: pid_t? = nil) {
-        let source = CGEventSource(stateID: .hidSystemState)
-        for down in [true, false] {
-            guard let event = CGEvent(keyboardEventSource: source, virtualKey: keyCode, keyDown: down) else { continue }
-            event.flags = flags
-            if let pid { event.postToPid(pid) } else { event.post(tap: .cghidEventTap) }
+    /// In `eventSourceUserData` of every event Flo Tools posts ("FloT"), so logs and event taps can tell them from typed keys.
+    public static let syntheticMarker: Int64 = 0x466C_6F54
+
+    /// Pro Tools ignores a key down followed at once by its key up (measured 2026-11-02 with Cmd+= posted to Pro Tools: no gap failed 3 of 3, gaps from 1 to 30 ms worked 3 of 3), so the key is held this long.
+    private static let holdTime: useconds_t = 10_000
+    private static let queue = DispatchQueue(label: "com.chikim.FloTools.keyboard")
+
+    /// Presses and releases `combo` in app `pid` and returns once both events are posted, so the next step sees the key's effect.
+    public static func press(_ combo: KeyCombo, pid: pid_t) async {
+        await withCheckedContinuation { done in
+            queue.async {
+                pressNow(combo, pid: pid)
+                done.resume()
+            }
         }
     }
 
-    public static func press(_ combo: KeyCombo, pid: pid_t? = nil) {
-        press(keyCode: CGKeyCode(combo.keyCode), flags: combo.cgFlags, pid: pid)
+    /// Presses and releases `combo` in app `pid` without waiting, for the hotkey callback.
+    public static func post(_ combo: KeyCombo, pid: pid_t) {
+        queue.async { pressNow(combo, pid: pid) }
+    }
+
+    private static func pressNow(_ combo: KeyCombo, pid: pid_t) {
+        let source = CGEventSource(stateID: .hidSystemState)
+        for down in [true, false] {
+            guard let event = CGEvent(keyboardEventSource: source, virtualKey: CGKeyCode(combo.keyCode), keyDown: down) else { continue }
+            event.flags = combo.cgFlags
+            event.setIntegerValueField(.eventSourceUserData, value: syntheticMarker)
+            event.postToPid(pid)
+            if down { usleep(holdTime) }
+        }
     }
 }

@@ -55,12 +55,12 @@ enum TrackStatus {
         let mix = try await ProTools.mixWindow()
         let tracks = try await soloedTracks(in: mix)
         let suspendGroups = tracks.isEmpty ? false : try await hasActiveGroups(in: mix)
-        let suspendKey = KeyCombo(keyCode: 5, modifiers: KeyCombo.command | KeyCombo.shift) // Cmd+Shift+G
+        let suspendKey = KeyCombo("Cmd+Shift+G")!
         let ordered = tracks.filter { !$0.name.contains("Folder Track") } + tracks.filter { $0.name.contains("Folder Track") }
+        if suspendGroups { try await ProTools.keystroke(suspendKey) }
+        // The groups are resumed however the loop ends, before anything is spoken. `defer` cannot await the keystroke, so the loop's error is kept and thrown afterwards; it wins over a failure to resume.
+        var loopError: (any Error)?
         do {
-            if suspendGroups { ProTools.keystroke(suspendKey) }
-            // Scoped to this block, so groups are resumed before the result is spoken.
-            defer { if suspendGroups { ProTools.keystroke(suspendKey) } }
             var lastSound = ContinuousClock.now
             for track in ordered {
                 // A stop request ends the loop between clicks.
@@ -71,7 +71,15 @@ enum TrackStatus {
                     lastSound = .now
                 }
             }
+        } catch {
+            loopError = error
         }
+        if suspendGroups {
+            do { try await ProTools.keystroke(suspendKey) } catch where loopError != nil {
+                Log.error(.engine, "could not resume mix groups after a failed Unsolo All: \(error)")
+            }
+        }
+        if let loopError { throw loopError }
         // A stop request during the last click must not be announced as success.
         try Task.checkCancellation()
         try await VoiceOver.say("unsoloed all tracks.")

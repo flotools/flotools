@@ -27,6 +27,6 @@ public struct MacroRun: Sendable {
     @MainActor
     public func passThrough() {
         guard case .hotKey(let combo, .pressed) = trigger else { return }
-        engine.passThrough(combo)
+        engine.passThrough(combo, to: context)
     }
 }

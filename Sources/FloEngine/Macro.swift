@@ -85,12 +85,6 @@ public struct MacroGroup: Sendable, Equatable {
     }
 }
 
-public enum KeyPhase: Sendable, Equatable {
-    case pressed
-    /// Keyboard Maestro's "is released" fire type.
-    case released
-}
-
 /// What starts a macro.
 public enum MacroTrigger: Sendable, Equatable {
     case hotKey(KeyCombo, KeyPhase)

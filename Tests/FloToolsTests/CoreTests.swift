@@ -465,6 +465,13 @@ import Testing
         #expect(KeyCombo("Ctrl+Nope") == nil)
     }
 
+    @Test func keyComboModifiersInAnyOrder() {
+        #expect(KeyCombo("Shift+Cmd+G") == KeyCombo("Cmd+Shift+G"))
+        #expect(KeyCombo("Opt+Ctrl+Keypad +") == KeyCombo(keyCode: 69, modifiers: KeyCombo.control | KeyCombo.option))
+        #expect(KeyCombo("Cmd+Cmd+G") == nil)
+        #expect(KeyCombo("Cmd+") == nil)
+    }
+
     @Test func keyComboNames() {
         #expect(KeyCombo(keyCode: 1, modifiers: KeyCombo.option | KeyCombo.shift).description == "Opt+Shift+S")
         #expect(KeyCombo(keyCode: 78, modifiers: KeyCombo.control | KeyCombo.option).description == "Ctrl+Opt+Keypad -")

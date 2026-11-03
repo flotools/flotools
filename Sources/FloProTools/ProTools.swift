@@ -32,9 +32,8 @@ public enum ProTools {
     @AccessibilityActor
     public static func mixWindow() throws -> AXElement { try window(titlePrefix: "Mix:", "the Mix window") }
 
-    /// Sends a keystroke to Pro Tools without going through global hotkeys.
-    public static func keystroke(_ combo: KeyCombo) {
-        guard let pid else { return }
-        Keyboard.press(combo, pid: pid)
+    /// Sends a keystroke to Pro Tools without going through global hotkeys, and returns once it is posted.
+    public static func keystroke(_ combo: KeyCombo) async throws {
+        await Keyboard.press(combo, pid: try pid.required("Pro Tools"))
     }
 }
