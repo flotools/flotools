@@ -65,15 +65,12 @@ enum FadeDialogs {
 
     @MainActor
     static func command(_ setting: FadeSetting) -> Command {
-        let combo = KeyCombo(literal: setting.key)
-        return Command(setting.id, setting.name, summary: setting.summary, scope: .windows([.fade(setting.dialog)]), triggers: [.key(setting.key)]) { _ in
-            let proTools = try ProToolsApp.running()
-            let dialog = try await proTools.fadeDialog(setting.dialog)
-            let before = try await read(setting.reading, setting.section, in: dialog)
-            try await proTools.keystroke(combo)
-            // Radio buttons stop at the first and last choice; there the key changes nothing and the unchanged setting is spoken.
-            let now = try await ProToolsUpdate.reading(changedFrom: before) { try read(setting.reading, setting.section, in: dialog) }
-            try await VoiceOver.say(now + setting.suffix)
+        Command(setting.id, setting.name, summary: setting.summary, scope: .windows([.fade(setting.dialog)]), triggers: [.key(setting.key)]) { run in
+            // The KM macros sent the key first, so the key reaches Pro Tools even when the setting cannot be read. Radio buttons stop at the first and last choice; there the key changes nothing and the unchanged setting is spoken.
+            try await KeyAnnouncements.announceChange(run, when: .always,
+                find: { try ProToolsApp.running().fadeDialog(setting.dialog) },
+                read: { try read(setting.reading, setting.section, in: $0) },
+                spoken: { $0 + setting.suffix })
         }
     }
 

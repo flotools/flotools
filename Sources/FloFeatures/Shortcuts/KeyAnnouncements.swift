@@ -47,7 +47,7 @@ enum KeyAnnouncements {
         }
     }
 
-    /// The shared order of a shortcut whose effect Flo Tools reads back: read the value, pass the run's key on to Pro Tools (or send `replacement`), and if the guard allows it, speak the value once Pro Tools shows a change, or as it is after `limit`.
+    /// The shared order of a shortcut whose effect Flo Tools reads back, used by the counters, the setting links, the playlist keys and the fade dialogs: read the value, pass the run's key on to Pro Tools (or send `replacement`), and if the guard allows it, speak the value once Pro Tools shows a change, or as it is after `limit`.
     /// The reading before the key is only for that wait, so its failure does not keep the key from Pro Tools. After the key, `find` locates the source once and `read` polls it.
     @AccessibilityActor
     static func announceChange<Source>(_ run: CommandRun, sending replacement: KeyCombo? = nil, when guarding: AnnouncementGuard, within limit: Duration = ProToolsUpdate.timeout, find: @AccessibilityActor () throws -> Source, read: @AccessibilityActor (Source) throws -> String, spoken: (String) -> String = { $0 }) async throws {
