@@ -179,7 +179,7 @@ enum TrackStatus {
 
     // MARK: Track List
 
-    /// Deselects each selected track in the Track List, after expanding the list if it is collapsed, as the JXA did. Pro Tools may take a moment to show the change, so the check waits briefly.
+    /// Deselects each selected track in the Track List, after expanding the list if it is collapsed, as the JXA did. Pro Tools may take a moment to show the change, so the check waits briefly; a track still selected after it is a failure.
     @AccessibilityActor
     static func deselectAll() async throws {
         let mix = try ProToolsApp.running().mixWindow()
@@ -190,6 +190,8 @@ enum TrackStatus {
             try row.toggle(.selected)
         }
         let stillSelected = try await ProToolsUpdate.reading(changedFrom: true) { try list.rows().contains(where: \.isSelected) }
-        try await VoiceOver.say(stillSelected ? "Please expand track list table." : "Deselected All Tracks.")
+        // The JXA said "Please expand track list table." here, but the list was just expanded, so the cause is unknown.
+        guard !stillSelected else { throw FloError.couldNot("deselect all tracks") }
+        try await VoiceOver.say("Deselected All Tracks.")
     }
 }
