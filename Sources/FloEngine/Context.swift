@@ -89,6 +89,8 @@ public final class ContextMonitor {
     private var poll: Task<Void, Never>?
     /// Whether the last window read found the observer attached to the front app. While it is, the poll reads no windows: notifications report every change (checked live 2026-11-02: Mix/Edit, dialog, floating window, app switch), and a poll read blocks `AccessibilityActor` for up to the messaging timeout when Pro Tools is busy.
     private var observing = false
+    /// The app the last window read failed for, so a failure that the poll repeats every second, as while Pro Tools starts, is logged once, and its end once.
+    private var failingReadPid: pid_t = 0
 
     public init() {}
 
@@ -116,6 +118,7 @@ public final class ContextMonitor {
         poll?.cancel()
         poll = nil
         observing = false
+        failingReadPid = 0
         reads.reset()
         if let activationObserver { NSWorkspace.shared.notificationCenter.removeObserver(activationObserver) }
         activationObserver = nil
@@ -159,17 +162,17 @@ public final class ContextMonitor {
         guard let observer = windowObserver else { return }
         let context = current
         Task { @MainActor in
-            let (window, observing): (FocusedWindow?, Bool) = await Task { @AccessibilityActor in
-                guard context.processID > 0 else { return (FocusedWindow(title: nil, number: 0), false) }
+            let (window, observing, failure): (FocusedWindow?, Bool, String?) = await Task { @AccessibilityActor in
+                guard context.processID > 0 else { return (FocusedWindow(title: nil, number: 0), false, nil) }
                 do {
                     let window = try observer.focusedWindow(pid: context.processID)
-                    return (window, observer.isObserving(pid: context.processID))
+                    return (window, observer.isObserving(pid: context.processID), nil)
                 } catch {
                     // Keep the last title. Reported as not observing, so the poll tries again even when no further notification comes.
-                    Log.debug(.context, "window read failed: \(error)")
-                    return (nil, false)
+                    return (nil, false, "\(error)")
                 }
             }.value
+            self.logReadOutcome(pid: context.processID, failure: failure)
             switch self.reads.readEnded(id: id) {
             case .publish:
                 // Only for the app the read was for; a read for an app no longer in front says nothing about the new one.
@@ -185,6 +188,17 @@ public final class ContextMonitor {
             case .ignore:
                 break
             }
+        }
+    }
+
+    private func logReadOutcome(pid: pid_t, failure: String?) {
+        if let failure {
+            guard failingReadPid != pid else { return }
+            failingReadPid = pid
+            Log.warning(.context, "could not read the focused window of pid \(pid), will retry: \(failure)")
+        } else if failingReadPid == pid {
+            failingReadPid = 0
+            Log.info(.context, "read the focused window of pid \(pid) after an earlier failure")
         }
     }
 

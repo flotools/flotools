@@ -44,7 +44,8 @@ public struct AXElement {
             Log.debug(.accessibility, "read \(name): none, AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
             return nil
         case .failure:
-            Log.warning(.accessibility, "read \(name) failed: AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
+            // Debug, not warning: the thrown error carries the same operation and code, and whoever handles it logs it once, the engine for a macro and the context monitor for its repeating window reads.
+            Log.debug(.accessibility, "read \(name) failed: AXError \(result.rawValue) (\(Log.elapsed(since: start)))")
             throw FloError.accessibility(operation: "read \(name)", code: result.rawValue)
         }
     }
