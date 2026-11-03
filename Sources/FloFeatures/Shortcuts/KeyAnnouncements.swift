@@ -76,6 +76,6 @@ enum KeyAnnouncements {
 
     /// "Kick - Audio. Snare - Audio. ", as the JXA spoke the selected tracks.
     static func selectedTracksText(names: [String]) -> String {
-        names.isEmpty ? "No tracks are selected." : TrackStatus.list(names)
+        names.isEmpty ? NoTracks.selected : TrackStatus.list(names)
     }
 }

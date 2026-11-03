@@ -7,9 +7,9 @@ import FloSystem
 enum TrackStatus {
     @MainActor
     static var commands: [Command] { [
-        flagCommand("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", key: "Opt+Shift+S", .soloed, Wording(none: "No tracks are soloed.", heading: "Soloed:"),
+        flagCommand("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", key: "Opt+Shift+S", .soloed, Wording(none: NoTracks.soloed, heading: "Soloed:"),
                   reset: Reset(suspendsGroups: true, verb: "unsolo", partly: "Unsoloed", done: "unsoloed all tracks.")),
-        flagCommand("floTools.speakMutedTracksUnmuteAllTracks", "Speak Muted Tracks, Unmute All Tracks", key: "Opt+Shift+M", .muted, Wording(none: "No tracks are muted.", heading: "Muted:"),
+        flagCommand("floTools.speakMutedTracksUnmuteAllTracks", "Speak Muted Tracks, Unmute All Tracks", key: "Opt+Shift+M", .muted, Wording(none: NoTracks.muted, heading: "Muted:"),
                   reset: Reset(suspendsGroups: true, verb: "unmute", partly: "Unmuted", done: "unmuted all tracks.")),
         flagCommand("floTools.speakInputMonitorEnabledTracksDisableInputMonitorOnAllTracks", "Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks", key: "Opt+Shift+K", .inputMonitored, Wording(none: "No track has input monitor on", heading: "Input on:"),
                   reset: Reset(suspendsGroups: false, verb: "turn off input monitor on", partly: "Turned off input monitor on", done: "Turned Off Input Monitor for all tracks")),
@@ -20,17 +20,17 @@ enum TrackStatus {
             try await speakTracksAt0dB()
         },
         Command("floTools.speakSelectedTracksDeselectAllTracks", "Speak Selected Tracks, Deselect All Tracks", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+L")], single: { _ in
-            try await speak(.trackList(.selected, on: true), Wording(none: "No tracks are selected.", heading: "selected."))
+            try await speak(.trackList(.selected, on: true), Wording(none: NoTracks.selected, heading: "selected."))
         }, double: { _ in
             try await deselectAll()
         }),
         Command("floTools.speakHiddenTracksShowTrackListPopUpMenu", "Speak Hidden Tracks, Show Track List Pop-up Menu", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+H")], single: { _ in
-            try await speak(.trackList(.shown, on: false), Wording(none: "No tracks are hidden.", heading: "Hidden:"))
+            try await speak(.trackList(.shown, on: false), Wording(none: NoTracks.hidden, heading: "Hidden:"))
         }, double: { _ in
             try await ProToolsApp.running().mixWindow().openTrackListMenu()
         }),
         Command("floTools.speakShownTracksShowTrackListPopUpMenu", "Speak Shown Tracks, Show Track List Pop-up Menu", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+W")], single: { _ in
-            try await speak(.trackList(.shown, on: true), Wording(none: "No tracks are currently shown.", heading: "Shown:"))
+            try await speak(.trackList(.shown, on: true), Wording(none: NoTracks.shown, heading: "Shown:"))
         }, double: { _ in
             try await ProToolsApp.running().mixWindow().openTrackListMenu()
         }),
@@ -102,7 +102,7 @@ enum TrackStatus {
 
     /// For an empty list of armed tracks: whether hidden tracks are armed.
     static func noArmedTracksText(_ proTools: ProToolsApp) async throws -> String {
-        try await proTools.hasArmedTracks() ? "Some tracks are armed." : "No tracks are armed."
+        try await proTools.hasArmedTracks() ? "Some tracks are armed." : NoTracks.armed
     }
 
     /// Turns `flag` off on every track that has it, folders last, as the JXA did for solo. Each track is checked again before its click, because a click on a folder or a grouped track can change others, and the click waits for the button to change before the next one. A track whose flag stays on stops the loop with `FloError.couldNot`. Mix groups are suspended meanwhile if `reset` says so, and resumed however the loop ends: done, failed or cancelled. A failure part way says how far it got.

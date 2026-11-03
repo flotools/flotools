@@ -945,3 +945,19 @@ import Testing
         #expect(CounterText.spoken("  48000", as: .duration) == "48000")
     }
 }
+
+@Suite struct NoTracksTests {
+    /// The JXA's words, shared by the reports, the track lists and the playlist announcement.
+    @Test func sentencesAreTheJXAs() {
+        #expect([NoTracks.soloed, NoTracks.muted, NoTracks.armed, NoTracks.selected, NoTracks.hidden, NoTracks.shown]
+            == ["No tracks are soloed.", "No tracks are muted.", "No tracks are armed.", "No tracks are selected.", "No tracks are hidden.", "No tracks are currently shown."])
+    }
+
+    /// Only List Record-Enabled Tracks checks for armed hidden tracks; every other list says its own sentence.
+    @Test func onlyTheArmedListChecksHiddenTracks() {
+        for listing in TrackLists.listings {
+            let checks = if case .armedCheck = listing.none { true } else { false }
+            #expect(checks == (listing.name == "List Record-Enabled Tracks"), "\(listing.name)")
+        }
+    }
+}
