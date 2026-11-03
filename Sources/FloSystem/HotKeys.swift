@@ -61,6 +61,8 @@ public final class HotKeyCenter {
     /// Without the event handler no key is registered: a registered key would be taken from Pro Tools and do nothing. The next call tries again.
     public func setActive(_ combos: Set<KeyCombo>) {
         guard installHandlerIfNeeded() else { return }
+        // The engine recomputes the keys after every state change; most leave them as they were, and the full list is long.
+        guard combos != registeredCombos else { return }
         for combo in registeredCombos.subtracting(combos) { unregister(combo) }
         for combo in combos.subtracting(registeredCombos) { register(combo) }
         Log.debug(.hotkeys, "registered: \(registered.keys.map(\.description).sorted().joined(separator: ", "))")
