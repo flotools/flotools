@@ -79,7 +79,9 @@ enum PlugIns {
     @MainActor
     static var toggleMonitor: Macro {
         Macro(monitor, "Toggle Plugin Monitor", group: .plugin, triggers: [.key("Opt+/")]) { run in
-            if await stopMonitor(in: run.engine) {
+            let monitors = await run.engine.monitors
+            if await monitors.isRunning(monitor) {
+                await monitors.stop(monitor)
                 try await VoiceOver.say("Deactivate plugin monitor.")
                 return
             }
@@ -97,22 +99,10 @@ enum PlugIns {
                 try await VoiceOver.say("Plugin monitor off")
                 return
             }
-            await startMonitor(in: run.engine) { await watch(window, from: first) }
+            // Not running, as checked above: runs are serial, and a watch only ends by itself.
+            await monitors.toggle(monitor) { await watch(window, from: first) }
             try await VoiceOver.say("Watching " + title)
         }
-    }
-
-    /// Stops the monitor if it runs, and says whether it did.
-    @MainActor
-    private static func stopMonitor(in engine: MacroEngine) -> Bool {
-        guard engine.monitors.isRunning(monitor) else { return false }
-        engine.monitors.stop(monitor)
-        return true
-    }
-
-    @MainActor
-    private static func startMonitor(in engine: MacroEngine, _ body: @escaping Monitors.Body) {
-        if !engine.monitors.isRunning(monitor) { _ = engine.monitors.toggle(monitor, body) }
     }
 
     /// How often the monitor reads the parameters, as in the JXA.

@@ -89,8 +89,9 @@ import Testing
         // Everything after the first line is a readable view file.
         let file = text.split(separator: "\n", maxSplits: 1)[1]
         #expect(try PlugInView(json: Data(file.utf8)).rows[0].count == 2)
-        let quoted = PlugInView.template(plugIn: "X", parameters: [#"Say "hi""#])
-        #expect(try PlugInView(json: Data(quoted.split(separator: "\n", maxSplits: 1)[1].utf8)).rows[0][0].name == #"Say "hi""#)
+        let odd = [#"Say "hi""#, "Tab\there", #"Back\slash"#, "In/Out"]
+        let quoted = PlugInView.template(plugIn: "X", parameters: odd)
+        #expect(try PlugInView(json: Data(quoted.split(separator: "\n", maxSplits: 1)[1].utf8)).rows[0].map(\.name) == odd)
     }
 
     @Test func spokenText() {

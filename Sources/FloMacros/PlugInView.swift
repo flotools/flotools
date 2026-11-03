@@ -105,13 +105,15 @@ struct PlugInView: Sendable, Equatable {
 
     /// The text of Display Plugin View Template: the file name to save as, then a default view listing every parameter in one row with placeholder positions, as in the JXA.
     static func template(plugIn: String, parameters: [String]) -> String {
-        let entries = parameters.map { "[\"\(jsonEscaped($0))\",0,0]" }.joined(separator: ",\n")
+        let entries = parameters.map { "[\(jsonString($0)),0,0]" }.joined(separator: ",\n")
         return "\(plugIn)\n{\"view\":\"Default\", \"click\":[-1,-1], \"parameters\":[\n[\n\(entries)\n]\n]}"
     }
 
-    /// The JXA did not escape names; a quote or backslash in a parameter name would have made the file unreadable.
-    private static func jsonEscaped(_ text: String) -> String {
-        text.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"")
+    /// `text` as a quoted JSON string. The JXA did not escape names; a quote, backslash or tab in a parameter name would have made the file unreadable.
+    static func jsonString(_ text: String) -> String {
+        // A string always serializes; the fallback only satisfies the type.
+        guard let data = try? JSONSerialization.data(withJSONObject: text, options: [.fragmentsAllowed, .withoutEscapingSlashes]) else { return "\"\"" }
+        return String(decoding: data, as: UTF8.self)
     }
 }
 
