@@ -157,7 +157,8 @@ public final class ContextMonitor {
             Log.info(.context, "the poll found a front app change no notification reported")
             refresh()
         } else if !observing, let id = reads.pollTicked() {
-            readWindowTitle(id: id)
+            // Like a watch's polls: without notifications, as while Accessibility access is missing, this read repeats every second, and its debug lines filled the log (3902 in 70 minutes, seen 2026-11-03). The read task inherits the flag; failures and changes are still logged.
+            Log.$skipsDebug.withValue(true) { readWindowTitle(id: id) }
         }
     }
 
