@@ -86,9 +86,10 @@ public struct PlugInWindow {
 
     /// Goes to the next or previous preset and returns its name, once Pro Tools shows it.
     public func step(_ step: PresetStep) async throws -> String {
-        let before = try preset
+        let menu = try presetMenu()
+        let before = try menu.value ?? ""
         try press(step.buttonTitle)
-        return try await ProToolsUpdate.reading(changedFrom: before) { try preset }
+        return try await ProToolsUpdate.reading(changedFrom: before) { try menu.value ?? "" }
     }
 
     /// Opens the preset menu, for VoiceOver to choose from.

@@ -114,11 +114,12 @@ public struct TrackStrip {
         }
     }
 
-    /// Presses the toggle's button and returns its state once Pro Tools shows the change. A track that cannot change, such as one without an input to arm, shows a dialog and keeps its state, which is returned after the bounded wait.
+    /// Presses the toggle's button and returns its state once Pro Tools shows the change. A track that cannot change, such as one without an input to arm, shows a dialog and keeps its state, which is returned after the bounded wait. The button is found once and then reread, as the bypass toggle does.
     public func press(_ toggle: Toggle) async throws -> String {
-        let before = try state(of: toggle)
-        try button(toggle).press()
-        return try await ProToolsUpdate.reading(changedFrom: before) { try state(of: toggle) }
+        let button = try button(toggle)
+        let before = try Self.state(of: toggle, button: button)
+        try button.press()
+        return try await ProToolsUpdate.reading(changedFrom: before) { try Self.state(of: toggle, button: button) }
     }
 
     /// Gives the track `flag` (`on`) or takes it away, unless it already is so or does not take part. Returns whether the track ends as asked (`TrackFlag.isSettled`), for example false when Pro Tools refused to arm it.

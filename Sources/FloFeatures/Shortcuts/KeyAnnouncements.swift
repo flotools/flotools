@@ -41,7 +41,7 @@ enum KeyAnnouncements {
     @MainActor
     private static func speakSelectedTracks(_ id: CommandID, _ name: String, key: String) -> Command {
         Command(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
-            try await announceChange(run, when: .outsideListedDialogsAndText, within: .milliseconds(500), find: { try ProToolsApp.running() }, read: selectedTracksText)
+            try await announceChange(run, when: .outsideListedDialogsAndText, within: .milliseconds(500), find: { try ProToolsApp.running().mixWindow().trackList() }, read: selectedTracksText)
         }
     }
 
@@ -70,8 +70,8 @@ enum KeyAnnouncements {
     }
 
     @AccessibilityActor
-    private static func selectedTracksText(_ app: ProToolsApp) throws -> String {
-        selectedTracksText(names: try app.mixWindow().trackList().rows().filter(\.isSelected).map(\.name))
+    private static func selectedTracksText(_ trackList: TrackList) throws -> String {
+        selectedTracksText(names: try trackList.rows().filter(\.isSelected).map(\.name))
     }
 
     /// "Kick - Audio. Snare - Audio. ", as the JXA spoke the selected tracks.
