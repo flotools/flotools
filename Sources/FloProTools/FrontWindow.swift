@@ -6,7 +6,7 @@ extension ProToolsApp {
     @AccessibilityActor
     public func frontWindowFacts() throws -> FrontWindowFacts? {
         guard let window = try AXElement.application(pid: pid).focusedWindow else { return nil }
-        return FrontWindowFacts(title: try window.title ?? "", hasCloseButton: try window.element("AXCloseButton") != nil)
+        return FrontWindowFacts(title: try window.title ?? "", hasCloseButton: try window.closeButton != nil)
     }
 
     /// Whether the focused element has a text entry role. This is the focus, not proof that a key was typed: a counter being typed into does not take the focus.

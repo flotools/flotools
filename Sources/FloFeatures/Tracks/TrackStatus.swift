@@ -92,8 +92,8 @@ enum TrackStatus {
     private static var recordArmed: Command {
         Command("floTools.speakRecordEnabledTracksDisarmAllRecordEnabledTracks", "Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks", summary: "Single press speaks the record-armed tracks, and says when only hidden tracks are armed; double press disarms the shown tracks, and says when hidden tracks stay armed.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+R")], single: { _ in
             let proTools = try ProToolsApp.running()
-            let names = try await proTools.mixWindow().tracks(.recordArmed, on: true).map(\.name)
-            try await VoiceOver.say(names.isEmpty ? noArmedTracksText(proTools) : "\(names.count) Armed: " + list(names))
+            let names = try await proTools.mixWindow().names(.strips(.recordArmed, on: true))
+            try await VoiceOver.say(names.isEmpty ? noArmedTracksText(proTools) : message(names: names, armed))
         }, double: { _ in
             let reset = Reset(suspendsGroups: false, verb: "disarm", partly: "Disarmed", done: "Disarmed all tracks.")
             try await resetAll(.recordArmed, reset)
@@ -101,6 +101,9 @@ enum TrackStatus {
             try await VoiceOver.say(hiddenStillArmed ? "Disarmed all shown tracks. Some hidden tracks are still armed." : reset.done)
         })
     }
+
+    /// The armed-tracks report. Its empty case is `noArmedTracksText`, which also checks hidden tracks.
+    static let armed = Wording(none: NoTracks.armed, heading: "Armed:")
 
     /// For an empty list of armed tracks: whether hidden tracks are armed.
     static func noArmedTracksText(_ proTools: ProToolsApp) async throws -> String {

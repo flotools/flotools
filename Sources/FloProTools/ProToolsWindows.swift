@@ -10,7 +10,7 @@ extension ProToolsApp {
         var pressed = 0
         for window in try app.windows {
             let title = try window.title ?? ""
-            guard !ProToolsWindowKind(title: title).isTrackWindow, let close = try window.element("AXCloseButton") else { continue }
+            guard !ProToolsWindowKind(title: title).isTrackWindow, let close = try window.closeButton else { continue }
             try close.press()
             pressed += 1
         }

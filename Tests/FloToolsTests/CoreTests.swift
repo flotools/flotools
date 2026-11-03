@@ -46,7 +46,7 @@ import Testing
 }
 
 @MainActor @Suite struct EngineTests {
-    static let proTools = "com.avid.ProTools"
+    static let proTools = ProToolsApp.bundleID
     let mix = FrontContext(bundleID: proTools, windowTitle: "Mix: Session")
     let plugin = FrontContext(bundleID: proTools, windowTitle: "Plug-in: EQ3 7-Band")
 
@@ -315,7 +315,7 @@ private actor Flag {
 
 /// Runs commands through the engine without hotkeys: `dispatch` is what a hotkey press calls after reading the context.
 @MainActor @Suite struct CommandRunTests {
-    let mix = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session")
+    let mix = FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Mix: Session")
 
     @MainActor final class Events {
         var list: [String] = []
@@ -368,7 +368,7 @@ private actor Flag {
         engine.dispatch(KeyCombo("F1")!, .pressed, in: first)
         engine.dispatch(KeyCombo("F3")!, .pressed, in: first)
         engine.dispatch(KeyCombo("F2")!, .pressed, in: first)
-        engine.contextChanged(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: nextTitle, windowNumber: 2, processID: 100))
+        engine.contextChanged(to: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: nextTitle, windowNumber: 2, processID: 100))
         await engine.waitUntilIdle()
         #expect(events.list == ["slow start", "slow end", "fast"])
     }
@@ -384,7 +384,7 @@ private actor Flag {
         #expect(events.list == ["slow start", "slow end", "plug-in"])
     }
 
-    let plugInWindow = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3", windowNumber: 1, processID: 100)
+    let plugInWindow = FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Plug-in: EQ3", windowNumber: 1, processID: 100)
 
     func plugInCommand(_ events: Events) -> Command {
         Command("test.plugIn", "Plug-in", scope: .windows([.plugIn]), triggers: [.key("F3")]) { @MainActor _ in events.list.append("plug-in") }
@@ -461,7 +461,7 @@ private actor Flag {
             },
             Command("test.fast", "Fast", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
         ])
-        let proTools = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session", processID: 100)
+        let proTools = FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Mix: Session", processID: 100)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: proTools)
         engine.dispatch(KeyCombo("F2")!, .pressed, in: proTools)
         for await _ in started { break }
@@ -538,7 +538,7 @@ private actor Flag {
         case "suspended": engine.suspend(Suspension("test"))
         case "disabled": engine.isEnabled = false
         case "command turned off": engine.setCommand(InspectorMode.toggleTemporaryInspector, enabled: false)
-        default: engine.contextChanged(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Memory Locations"))
+        default: engine.contextChanged(to: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Memory Locations"))
         }
         #expect(!engine.mode.inspector)
     }
@@ -547,7 +547,7 @@ private actor Flag {
         let events = Events()
         let engine = engine([holdCommand(events)])
         engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
-        engine.contextChanged(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Edit: Session"))
+        engine.contextChanged(to: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Edit: Session"))
         #expect(events.list == ["press"])
         engine.dispatch(KeyCombo("F3")!, .released, in: mix)
         #expect(events.list == ["press", "release"])
@@ -558,9 +558,9 @@ private actor Flag {
         let events = Events()
         let engine = engine([holdCommand(events), Command("test.batchFadesF3", "F3", scope: .windows([.fade(.batchFades)]), triggers: [.key("F3")]) { _ in }])
         engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
-        engine.contextChanged(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: nil))
+        engine.contextChanged(to: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: nil))
         #expect(events.list == ["press", "release"])
-        engine.dispatch(KeyCombo("F3")!, .released, in: FrontContext(bundleID: "com.avid.ProTools", windowTitle: nil))
+        engine.dispatch(KeyCombo("F3")!, .released, in: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: nil))
         #expect(events.list == ["press", "release"])
     }
 
@@ -660,9 +660,9 @@ private actor Flag {
 
     @Test func statusMenuListsCommandsThatApply() {
         let engine = FloFeatures.makeEngine()
-        let plugIn = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3 7-Band")
+        let plugIn = FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Plug-in: EQ3 7-Band")
         #expect(engine.statusMenuCommands(in: plugIn).map(\.id) == ["plugin.displayPluginViewTemplate"])
-        #expect(engine.statusMenuCommands(in: FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Mix: Session")).isEmpty)
+        #expect(engine.statusMenuCommands(in: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Mix: Session")).isEmpty)
         engine.isEnabled = false
         #expect(engine.statusMenuCommands(in: plugIn).isEmpty)
     }
@@ -987,6 +987,7 @@ private actor Flag {
         #expect(TrackStatus.message(names: [], soloed) == "No tracks are soloed.")
         #expect(TrackStatus.message(names: ["Kick - Audio Track ", "Snare - Audio Track "], soloed) == "2 Soloed: Kick - Audio. Snare - Audio. ")
         #expect(TrackStatus.message(names: ["Kick - Audio Track "], .init(none: "", heading: "selected.")) == "1 selected. Kick - Audio. ")
+        #expect(TrackStatus.message(names: ["Kick - Audio Track ", "Snare - Audio Track "], TrackStatus.armed) == "2 Armed: Kick - Audio. Snare - Audio. ")
     }
 
     @Test func chooserTypeSelectFindsTheFirstMatch() {
