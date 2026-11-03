@@ -1024,8 +1024,15 @@ private actor Flag {
 @Suite struct FadeDialogTests {
     /// The JXA read the first "Slope" group for both; the second one belongs to the fade out.
     @Test func outSlopeReadsTheSecondSlopeGroup() {
-        let slopes = Dictionary(uniqueKeysWithValues: FadeDialogs.settings.filter { $0.section.title == "Slope" }.map { ($0.name, $0.section.occurrence) })
+        let slopes = Dictionary(uniqueKeysWithValues: FadeDialogs.settings.filter { $0.dialog == .batchFades && $0.section.title == "Slope" }.map { ($0.name, $0.section.occurrence) })
         #expect(slopes == ["Next In Slope": 0, "Previous In Slope": 0, "Next Out Slope": 1, "Previous Out Slope": 1])
+    }
+
+    /// The Crossfade dialog's Down and Up step its one "Slope" group, which the JXA called "Link Out / In" (checked live 2026-11-03).
+    @Test func crossfadeLinkReadsTheSlopeGroup() {
+        let links = FadeDialogs.settings.filter { $0.dialog == .crossfade && $0.suffix == ", Link Out/In." }
+        #expect(links.map(\.key).sorted() == ["Down", "Up"])
+        #expect(links.allSatisfy { $0.section == FadeDialog.Section("Slope") })
     }
 
     /// Batch Fades group titles as Pro Tools showed them on 2026-11-02.
