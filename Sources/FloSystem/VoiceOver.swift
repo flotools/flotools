@@ -1,13 +1,20 @@
 import Carbon
 import Foundation
 
+/// Where Apple events to VoiceOver are sent and waited for, off the main actor.
+@globalActor
+public actor VoiceOverActor {
+    public static let shared = VoiceOverActor()
+}
+
 /// VoiceOver through the Apple events of its scripting dictionary, sent directly rather than through AppleScript source.
 /// There is no public API for the VoiceOver cursor, and VoiceOver does not speak accessibility announcements from a background app (tested 2026-11-02), so `output` is the way to speak.
 /// Sending the events directly takes about 3 ms instead of about 30 ms for compiling and running AppleScript, passes text as a parameter so nothing needs escaping, and sets a timeout per call.
-@MainActor
+/// Owned by `VoiceOverActor`: an event waits for VoiceOver's reply, up to `timeout`, and an unresponsive VoiceOver must not hold up the main actor, which routes hotkeys and runs the menu. One actor also keeps speech in the order it was asked for.
+@VoiceOverActor
 public enum VoiceOver {
     /// How long to wait for VoiceOver to answer. Without a limit, an Apple event to a VoiceOver that is not answering (for example while its welcome dialog is open) waits about two minutes.
-    static let timeout: TimeInterval = 2
+    nonisolated static let timeout: TimeInterval = 2
 
     /// Speaks text through VoiceOver, like `vo.output(...)` in JXA.
     public static func say(_ text: String) throws {
@@ -57,9 +64,9 @@ public enum VoiceOver {
         return frame
     }
 
-    /// Whether macOS lets Flo Tools control VoiceOver with Apple events, checked without asking the user. For the diagnostic log header.
-    public static func automationPermission() -> String {
-        guard let desc = target.aeDesc else { return "unknown" }
+    /// Whether macOS lets Flo Tools control VoiceOver with Apple events, checked without asking the user. For the diagnostic log header. Nonisolated because it sends no event and so cannot wait for VoiceOver; it has its own target descriptor, which is not Sendable.
+    public nonisolated static func automationPermission() -> String {
+        guard let desc = NSAppleEventDescriptor(bundleIdentifier: bundleID).aeDesc else { return "unknown" }
         let status = AEDeterminePermissionToAutomateTarget(desc, typeWildCard, typeWildCard, false)
         switch status {
         case noErr: return "granted"
@@ -71,7 +78,7 @@ public enum VoiceOver {
     }
 
     /// Why an Apple event to VoiceOver failed, in words for the log. `status` is the Apple Event Manager error code.
-    static func failureReason(status: Int) -> String {
+    nonisolated static func failureReason(status: Int) -> String {
         switch status {
         case Int(procNotFound), Int(connectionInvalid): "VoiceOver is not running"
         case Int(errAETimeout): "VoiceOver did not answer within \(Int(timeout)) seconds"
@@ -82,7 +89,8 @@ public enum VoiceOver {
 
     // MARK: Apple events
 
-    private static let target = NSAppleEventDescriptor(bundleIdentifier: "com.apple.VoiceOver")
+    private nonisolated static let bundleID = "com.apple.VoiceOver"
+    private static let target = NSAppleEventDescriptor(bundleIdentifier: bundleID)
 
     private static func voiceOverEvent(eventClass: String, id: String) -> NSAppleEventDescriptor {
         NSAppleEventDescriptor(eventClass: fourCharCode(eventClass), eventID: fourCharCode(id), targetDescriptor: target,

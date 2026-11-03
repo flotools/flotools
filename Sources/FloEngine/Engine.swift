@@ -355,7 +355,7 @@ public final class Engine {
                 Log.info(.engine, "\(run.command.id) cancelled (\(Log.elapsed(since: start)))")
             } catch {
                 Log.error(.engine, "\(run.command.id) failed: \(error) (\(Log.elapsed(since: start)))")
-                if let text = SpokenError.text(for: error) { VoiceOver.sayOrLog(text) }
+                if let text = SpokenError.text(for: error) { await VoiceOver.sayOrLog(text) }
             }
             self?.runs[number] = nil
         }

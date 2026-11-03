@@ -70,12 +70,12 @@ enum InspectorMeters {
 
     /// Starts the watch for the run's command, or stops it if it runs. Says `started` when it starts; the watch says `stopped` when it ends.
     @MainActor
-    private static func toggleWatch(_ run: CommandRun, started: String, stopped: String, _ body: @escaping @Sendable () async -> Void) {
+    private static func toggleWatch(_ run: CommandRun, started: String, stopped: String, _ body: @escaping @Sendable () async -> Void) async {
         let isRunning = run.engine.monitors.toggle(run.command.id) {
             await body()
             await VoiceOver.sayOrLog(stopped)
         }
-        if isRunning { VoiceOver.sayOrLog(started) }
+        if isRunning { await VoiceOver.sayOrLog(started) }
     }
 
     /// Reads `meter` of the track under the VoiceOver cursor every `Monitors.pollInterval` until cancelled, calling `changed` with each reading that differs from the one before. Moving the cursor to another track compares with the last reading, so a different level there is reported. The first reading, and the first after a failed one, only sets the baseline (passed to `first`), as in the JXA.

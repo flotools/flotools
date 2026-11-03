@@ -39,7 +39,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             waitForAccessibility()
         }
         // Also makes macOS ask for permission to control VoiceOver on first launch.
-        lifecycle.checkVoiceOver(saying: "Flo Tools started.")
+        Task { await lifecycle.checkVoiceOver(saying: "Flo Tools started.") }
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -57,7 +57,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             guard !Task.isCancelled else { return }
             Log.info(.app, "Accessibility permission granted")
             self.engine.refreshContext()
-            VoiceOver.sayOrLog("Flo Tools has accessibility access.")
+            await VoiceOver.sayOrLog("Flo Tools has accessibility access.")
         }
     }
 
@@ -115,7 +115,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @objc private func toggleEnabled() {
         engine.isEnabled.toggle()
         preferences.floToolsEnabled = engine.isEnabled
-        VoiceOver.sayOrLog(engine.isEnabled ? "Flo Tools enabled." : "Flo Tools disabled.")
+        let text = engine.isEnabled ? "Flo Tools enabled." : "Flo Tools disabled."
+        Task { await VoiceOver.sayOrLog(text) }
     }
 
     @objc private func runCommand(_ sender: NSMenuItem) {
@@ -147,10 +148,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 do {
                     try await Log.startRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current))
                     Log.info(.app, "log turned on")
-                    VoiceOver.sayOrLog("Log turned on.")
+                    await VoiceOver.sayOrLog("Log turned on.")
                 } catch {
                     Log.error(.app, "could not start the log file: \(error)")
-                    VoiceOver.sayOrLog("Could not start the log.")
+                    await VoiceOver.sayOrLog("Could not start the log.")
                 }
             }
         }

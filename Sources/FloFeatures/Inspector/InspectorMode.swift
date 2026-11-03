@@ -13,7 +13,7 @@ enum InspectorMode {
         Command("floTools.toggleInspector", "Toggle Inspector", scope: .mixOrEdit, triggers: [.key("/")]) { @MainActor run in
             let on = !run.engine.mode.inspector
             run.engine.setInspector(on)
-            try VoiceOver.say(on ? "Inspector On" : "Inspector Off")
+            try await VoiceOver.say(on ? "Inspector On" : "Inspector Off")
         },
         // A hold, so the Inspector turns off on release even if the key stops being a hotkey meanwhile. The KM version read the key state on press and release instead. Release always turns it off, also when `/` had turned it on.
         Command(toggleTemporaryInspector, "Toggle Temporary INspector", scope: .mixOrEdit, triggers: [.key("`"), .key("`", .released)], press: { run in

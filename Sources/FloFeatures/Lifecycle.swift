@@ -54,13 +54,13 @@ public final class Lifecycle {
     }
 
     /// Speaks `text` and, if VoiceOver is on but does not take it, warns through the system voice that Flo Tools cannot control VoiceOver. An empty text only checks, as the KM version did with `vo.output("")`.
-    public func checkVoiceOver(saying text: String) {
+    public func checkVoiceOver(saying text: String) async {
         guard WorkspaceEvents.isVoiceOverRunning else {
             Log.info(.voiceover, "VoiceOver is off, not checking that Flo Tools can control it")
             return
         }
         do {
-            try VoiceOver.say(text)
+            try await VoiceOver.say(text)
         } catch {
             Log.warning(.voiceover, "Flo Tools cannot control VoiceOver: \(error)")
             SystemSpeech.say(Self.cannotControlVoiceOver)
@@ -75,7 +75,7 @@ public final class Lifecycle {
             voiceOverChanged(running: running)
         case .launched(bundleID: ProToolsApp.bundleID):
             Log.info(.app, "Pro Tools launched")
-            checkVoiceOver(saying: "")
+            Task { await checkVoiceOver(saying: "") }
             applyPreferences()
         case .quit(bundleID: ProToolsApp.bundleID):
             // Like KM Cancel Macros and Cleanup Variables: nothing that was going on in Pro Tools can go on, and nothing remembered about its session applies to the next. KM also cleaned up on launch because its variables outlived the engine; here they start empty with Flo Tools.
