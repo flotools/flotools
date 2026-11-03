@@ -15,6 +15,14 @@ public struct PlugInWindow {
             }
         }
 
+        /// How `ProToolsWindowKind` classifies a window of this kind.
+        var windowKind: ProToolsWindowKind {
+            switch self {
+            case .plugIn: .plugIn
+            case .audioSuite: .audioSuite
+            }
+        }
+
         var what: String {
             switch self {
             case .plugIn: "a plug-in window"
@@ -139,9 +147,11 @@ public struct PlugInWindow {
 }
 
 extension ProToolsApp {
-    /// The first plug-in or AudioSuite window, front or not, as the JXA took the first window with the title prefix.
+    /// The front window, which must be a plug-in or AudioSuite window as `ProToolsWindowKind` classifies it. The commands that use it run only while such a window is in front, and the front one is the instance the user is working in, also when two windows of one plug-in have the same title. The JXA took the first window with the title prefix instead.
     @AccessibilityActor
     public func plugInWindow(_ kind: PlugInWindow.Kind) throws -> PlugInWindow {
-        PlugInWindow(kind, try window(titlePrefix: kind.titlePrefix, kind.what))
+        let front = try AXElement.application(pid: pid).required(kind.what) { try $0.focusedWindow }
+        guard ProToolsWindowKind(title: try front.title ?? "") == kind.windowKind else { throw FloError.notFound(kind.what) }
+        return PlugInWindow(kind, front)
     }
 }
