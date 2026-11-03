@@ -9,22 +9,28 @@ enum Inspector {
         send("inspector.speakOpenSendB", "Speak/Open Send B", slot: 1, key: "Ctrl+2"),
         // The JXA played Tink, now the done sound, after speaking the new Solo state.
         Macro("inspector.speakToggleSolo", "Speak/Toggle Solo", group: .inspector, triggers: [.key("S")], doneSound: .afterDouble, single: { _ in
-            let solo = try await soloButton(in: Tracks.underVoiceOverCursor())
-            try await VoiceOver.say(soloStateText(solo.value ?? ""))
+            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+            try await VoiceOver.say(soloStateText(soloValue(of: track)))
         }, double: { _ in
-            let solo = try await soloButton(in: Tracks.underVoiceOverCursor())
-            try await solo.press()
+            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+            try await track.soloButton().press()
             // The JXA waited 0.1 s for Pro Tools to update the button before reading it.
             try await Task.sleep(for: .milliseconds(100))
-            try await VoiceOver.say(soloStateText(solo.value ?? ""))
+            try await VoiceOver.say(soloStateText(soloValue(of: track)))
         }),
+        pan("inspector.panRightOnMonoLeftChannel", "pan right on mono/Left channel", key: "Ctrl+Cmd+Right", .monoOrLeft, .right),
+        pan("inspector.panLeftOnMonoLeftChannel", "pan left on mono/Left channel", key: "Ctrl+Cmd+Left", .monoOrLeft, .left),
+        pan("inspector.panRightOnRightChannel", "pan right on right channel", key: "Ctrl+Shift+Cmd+Right", .right, .right),
+        pan("inspector.panLeftOnRightChannel", "pan left on right channel", key: "Ctrl+Shift+Cmd+Left", .right, .left),
+        pan("inspector.panInstrumentRight", "pan Instrument Right", key: "Ctrl+Opt+Right", .instrument, .right),
+        pan("inspector.panInstrumentLeft", "pan Instrument left", key: "Ctrl+Opt+Left", .instrument, .left),
     ] }
 
     // MARK: Solo
 
     @AccessibilityActor
-    static func soloButton(in strip: AXElement) throws -> AXElement {
-        try strip.required("the Solo button") { try $0.button("Solo") }
+    static func soloValue(of track: TrackStrip) throws -> String {
+        try track.soloButton().value ?? ""
     }
 
     /// Same text as the JXA version: "Selected" is "On", empty is "Off", anything else ("off safe") is spoken as is.
@@ -42,39 +48,56 @@ enum Inspector {
     @MainActor
     static func send(_ id: MacroID, _ name: String, slot: Int, key: String) -> Macro {
         Macro(id, name, group: .inspector, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
-            let strip = try await Tracks.underVoiceOverCursor()
-            try await VoiceOver.say(sendText(slot: slot, in: strip))
+            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+            try await VoiceOver.say(sendText(slot: slot, in: track))
         }, double: { _ in
-            let strip = try await Tracks.underVoiceOverCursor()
-            try await sendButtons(slot: slot, in: strip).assignment.press()
+            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+            try await track.sendButtons(slot: slot).assignment.press()
         })
-    }
-
-    /// Selector and assignment buttons of send slot 0 (A) to 9 (J).
-    @AccessibilityActor
-    static func sendButtons(slot: Int, in strip: AXElement) throws -> (selector: AXElement, assignment: AXElement) {
-        let groupName = slot < 5 ? "Sends A-E" : "Sends F-J"
-        let buttons = try strip.required("the \(groupName) sends") { try $0.group(groupName) }.buttons
-        let index = (slot % 5) * 2
-        guard buttons.count > index + 1 else { throw FloError.notFound("the send \(sendLetter(slot)) buttons") }
-        return (buttons[index], buttons[index + 1])
     }
 
     /// What a single press says. Absent names and values are empty, as in the JXA; failed reads throw.
     @AccessibilityActor
-    static func sendText(slot: Int, in strip: AXElement) throws -> String {
-        let (selector, assignment) = try sendButtons(slot: slot, in: strip)
+    static func sendText(slot: Int, in track: TrackStrip) throws -> String {
+        let (selector, assignment) = try track.sendButtons(slot: slot)
         return sendMessage(selectorName: try selector.name ?? "", selectorValue: try selector.value ?? "", assignmentValue: try assignment.value ?? "")
-    }
-
-    static func sendLetter(_ slot: Int) -> String {
-        String(UnicodeScalar(UInt8(ascii: "A") + UInt8(slot)))
     }
 
     /// Same text as the JXA version, for example " B. : unassigned".
     static func sendMessage(selectorName: String, selectorValue: String, assignmentValue: String) -> String {
         let slot = selectorName.replacingFirst("Send selector", with: "") + ". " + selectorValue.replacingFirst("unassigned", with: "")
         return slot + ": " + assignmentValue.replacingFirst("Send Assignment ", with: "")
+    }
+
+    // MARK: Pan
+
+    enum PanDirection: Sendable { case left, right }
+
+    /// Moves one pan control a step and speaks its new position.
+    @MainActor
+    static func pan(_ id: MacroID, _ name: String, key: String, _ control: TrackStrip.PanControl, _ direction: PanDirection) -> Macro {
+        Macro(id, name, group: .inspector, triggers: [.key(key)]) { _ in
+            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+            try await VoiceOver.say(step(control, direction, on: track))
+        }
+    }
+
+    @AccessibilityActor
+    static func step(_ control: TrackStrip.PanControl, _ direction: PanDirection, on track: TrackStrip) throws -> String {
+        let slider = try track.pan(control)
+        switch direction {
+        case .right: try slider.increment()
+        case .left: try slider.decrement()
+        }
+        // The JXA spoke the knob's name too, which tells left and right apart; the instrument pan has one control.
+        let name = control == .instrument ? nil : try slider.name ?? ""
+        return panMessage(valueDescription: try slider.valueDescription ?? "", knobName: name)
+    }
+
+    /// Same text as the JXA version, for example "70 to the left, Pan Knob", or "Centered" for an instrument.
+    static func panMessage(valueDescription: String, knobName: String?) -> String {
+        guard let knobName else { return valueDescription }
+        return valueDescription + ", " + knobName
     }
 }
 

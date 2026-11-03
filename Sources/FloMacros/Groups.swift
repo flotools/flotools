@@ -16,7 +16,7 @@ extension MacroGroupID {
 }
 
 extension FloMacros {
-    static let proTools = ProTools.bundleID
+    static let proTools = ProToolsApp.bundleID
 
     /// The macro groups, with the app and window conditions of the Keyboard Maestro groups they came from.
     public static let groups: [MacroGroup] = [

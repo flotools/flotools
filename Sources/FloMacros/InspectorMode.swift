@@ -55,7 +55,7 @@ enum InspectorMode {
             if await run.engine.isGroupActivated(.inspector) {
                 try await run.run(inspectorMacro)
             } else {
-                try await ProTools.keystroke(KeyCombo(key)!)
+                try await ProToolsApp.running().keystroke(KeyCombo(key)!)
                 try await VoiceOver.say(name + ".")
             }
         }

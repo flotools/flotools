@@ -20,7 +20,7 @@ enum DiagnosticHeader {
         return ([
             "Flo Tools \(version) (\(build)) diagnostic log",
             "macOS: \(ProcessInfo.processInfo.operatingSystemVersionString)",
-            "Pro Tools: \(ProTools.version)",
+            "Pro Tools: \(ProToolsApp.version)",
             "VoiceOver running: \(NSWorkspace.shared.isVoiceOverEnabled ? "yes" : "no")",
             "Accessibility permission: \(Accessibility.isTrusted() ? "granted" : "not granted")",
             "VoiceOver automation permission: \(VoiceOver.automationPermission())",

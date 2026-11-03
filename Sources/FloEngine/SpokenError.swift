@@ -10,6 +10,11 @@ public enum SpokenError {
             return nil
         case FloError.notFound(let what):
             return "Could not find \(what)."
+        case FloError.couldNot(let what):
+            return "Could not \(what)."
+        case FloError.incomplete(let done, let cause):
+            // The cause is never cancellation: a stopped job is silent.
+            return "\(done). " + (text(for: cause) ?? "")
         case FloError.cycle:
             return "Flo Tools macro error."
         case FloError.voiceOver:

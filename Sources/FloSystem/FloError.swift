@@ -11,6 +11,10 @@ public enum FloError: Error, Equatable, Sendable, CustomStringConvertible {
     case accessibility(operation: String, code: Int32)
     /// An Accessibility read worked but gave a value of an unexpected type.
     case unexpectedValue(String)
+    /// A step ran but did not have its effect. `what` is a verb phrase, for example "suspend the mix groups".
+    case couldNot(String)
+    /// A multi-step job stopped part way. `done` says what was done, for example "Unsoloed 2 of 5 tracks"; `cause` is why it stopped.
+    indirect case incomplete(done: String, cause: FloError)
 
     public var description: String {
         switch self {
@@ -19,6 +23,8 @@ public enum FloError: Error, Equatable, Sendable, CustomStringConvertible {
         case .voiceOver(let reason): "VoiceOver: \(reason)"
         case .accessibility(let operation, let code): "Accessibility: \(operation) failed with AXError \(code)"
         case .unexpectedValue(let what): "unexpected value: \(what)"
+        case .couldNot(let what): "could not \(what)"
+        case .incomplete(let done, let cause): "\(done), then \(cause)"
         }
     }
 }

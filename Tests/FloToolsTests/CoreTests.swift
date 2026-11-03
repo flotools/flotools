@@ -89,7 +89,7 @@ import Testing
         #expect(engine.candidates(for: right, phase: .pressed, in: edit).map(\.id) == [InspectorMode.nextTrackView])
         #expect(engine.candidates(for: KeyCombo("S")!, phase: .pressed, in: edit).isEmpty)
         InspectorMode.setInspector(true, in: engine)
-        #expect(engine.candidates(for: right, phase: .pressed, in: edit).isEmpty)
+        #expect(engine.candidates(for: right, phase: .pressed, in: edit).map(\.id) == ["inspector.panRightOnMonoLeftChannel"])
         #expect(engine.candidates(for: KeyCombo("S")!, phase: .pressed, in: edit).map(\.id) == ["inspector.speakToggleSolo"])
     }
 
@@ -316,6 +316,19 @@ import Testing
         #expect(events.list == ["single"])
     }
 
+    /// With the Inspector off, Ctrl+Cmd+Right is Pro Tools' track view key; while the temporary Inspector is held it pans, and after release it is the track view key again.
+    @Test func temporaryInspectorHoldPansWithCtrlCmdArrows() {
+        let engine = engine(InspectorMode.macros + Inspector.macros)
+        let right = KeyCombo("Ctrl+Cmd+Right")!
+        InspectorMode.setInspector(false, in: engine)
+        #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == [InspectorMode.nextTrackView])
+        #expect(engine.dispatch(KeyCombo("`")!, .pressed, in: mix) != nil)
+        // The track view macro stays a candidate, but the Inspector group's window condition makes the pan macro the one that runs.
+        #expect(engine.candidates(for: right, phase: .pressed, in: mix).first?.id == "inspector.panRightOnMonoLeftChannel")
+        engine.dispatch(KeyCombo("`")!, .released, in: mix)
+        #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == [InspectorMode.nextTrackView])
+    }
+
     @Test func stopEndsHolds() {
         let events = Events()
         let engine = engine([holdMacro(events)])
@@ -410,6 +423,9 @@ import Testing
         #expect(SpokenError.text(for: FloError.voiceOver("could not speak: VoiceOver is not running")) == "VoiceOver did not respond.")
         #expect(SpokenError.text(for: FloError.accessibility(operation: "read AXChildren", code: AXError.cannotComplete.rawValue)) == "Pro Tools did not respond.")
         #expect(SpokenError.text(for: FloError.accessibility(operation: "read AXChildren", code: AXError.apiDisabled.rawValue)) == "Flo Tools needs Accessibility access.")
+        #expect(SpokenError.text(for: FloError.couldNot("resume the mix groups")) == "Could not resume the mix groups.")
+        let partial = FloError.incomplete(done: "Unsoloed 2 of 5 tracks", cause: .accessibility(operation: "AXPress", code: AXError.cannotComplete.rawValue))
+        #expect(SpokenError.text(for: partial) == "Unsoloed 2 of 5 tracks. Pro Tools did not respond.")
     }
 }
 
@@ -489,11 +505,16 @@ import Testing
     }
 
     @Test func soloFilter() {
-        #expect(TrackStatus.isSoloed(trackName: "Kick - Audio Track ", soloValue: "on"))
-        #expect(!TrackStatus.isSoloed(trackName: "Kick - Audio Track ", soloValue: ""))
-        #expect(!TrackStatus.isSoloed(trackName: "Kick - Audio Track ", soloValue: "on, solo safe"))
-        #expect(!TrackStatus.isSoloed(trackName: "Kick - Audio Track ", soloValue: "Inactive"))
-        #expect(!TrackStatus.isSoloed(trackName: "Master 1 - Master Track ", soloValue: "on"))
+        #expect(TrackStrip.isSoloed(trackName: "Kick - Audio Track ", soloValue: "on"))
+        #expect(!TrackStrip.isSoloed(trackName: "Kick - Audio Track ", soloValue: ""))
+        #expect(!TrackStrip.isSoloed(trackName: "Kick - Audio Track ", soloValue: "on, solo safe"))
+        #expect(!TrackStrip.isSoloed(trackName: "Kick - Audio Track ", soloValue: "Inactive"))
+        #expect(!TrackStrip.isSoloed(trackName: "Master 1 - Master Track ", soloValue: "on"))
+    }
+
+    @Test func panMessageMatchesJXA() {
+        #expect(Inspector.panMessage(valueDescription: "70 to the left", knobName: "Pan Knob") == "70 to the left, Pan Knob")
+        #expect(Inspector.panMessage(valueDescription: "Centered", knobName: nil) == "Centered")
     }
 
     @Test func soloedMessageMatchesJXA() {

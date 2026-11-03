@@ -287,12 +287,12 @@
 | Flo Tools Inspector | [Speak/Toggle Record State](<Flo Tools Inspector/Speak_Toggle Record State.md>) | R | True | 800A0740-6F7A-46F0-BDCF-B2481B01FB02 |  |
 | Flo Tools Inspector | [Speak/Toggle Solo](<Flo Tools Inspector/Speak_Toggle Solo.md>) | S | True | 57957B28-6D66-4BEF-85B9-48406E95FB18 | yes |
 | Flo Tools Inspector | [Track Options Menu](<Flo Tools Inspector/Track Options Menu.md>) | H | True | 93C746D3-9062-423E-857F-E95F06F6E300 |  |
-| Flo Tools Inspector | [pan Instrument Right](<Flo Tools Inspector/pan Instrument Right.md>) | Ctrl+Opt+Right | True | AC85B840-27F7-4476-9EC2-9B25E615052D |  |
-| Flo Tools Inspector | [pan Instrument left](<Flo Tools Inspector/pan Instrument left.md>) | Ctrl+Opt+Left | True | 30F5DC4E-61A4-415A-8E44-1465EFD13573 |  |
-| Flo Tools Inspector | [pan left on mono/Left channel](<Flo Tools Inspector/pan left on mono_Left channel.md>) | Ctrl+Cmd+Left | True | 9C149078-8675-401D-9CD7-E1457E482328 |  |
-| Flo Tools Inspector | [pan left on right channel](<Flo Tools Inspector/pan left on right channel.md>) | Ctrl+Shift+Cmd+Left | True | A22F2199-FA1E-480D-AB0C-87DF9159B485 |  |
-| Flo Tools Inspector | [pan right on mono/Left channel](<Flo Tools Inspector/pan right on mono_Left channel.md>) | Ctrl+Cmd+Right | True | 38AC5CB1-9C5F-4973-B8D1-20259CF38989 |  |
-| Flo Tools Inspector | [pan right on right channel](<Flo Tools Inspector/pan right on right channel.md>) | Ctrl+Shift+Cmd+Right | True | 7549F3CC-362E-4A2A-AB47-9CA0F30F7BB4 |  |
+| Flo Tools Inspector | [pan Instrument Right](<Flo Tools Inspector/pan Instrument Right.md>) | Ctrl+Opt+Right | True | AC85B840-27F7-4476-9EC2-9B25E615052D | yes |
+| Flo Tools Inspector | [pan Instrument left](<Flo Tools Inspector/pan Instrument left.md>) | Ctrl+Opt+Left | True | 30F5DC4E-61A4-415A-8E44-1465EFD13573 | yes |
+| Flo Tools Inspector | [pan left on mono/Left channel](<Flo Tools Inspector/pan left on mono_Left channel.md>) | Ctrl+Cmd+Left | True | 9C149078-8675-401D-9CD7-E1457E482328 | yes |
+| Flo Tools Inspector | [pan left on right channel](<Flo Tools Inspector/pan left on right channel.md>) | Ctrl+Shift+Cmd+Left | True | A22F2199-FA1E-480D-AB0C-87DF9159B485 | yes |
+| Flo Tools Inspector | [pan right on mono/Left channel](<Flo Tools Inspector/pan right on mono_Left channel.md>) | Ctrl+Cmd+Right | True | 38AC5CB1-9C5F-4973-B8D1-20259CF38989 | yes |
+| Flo Tools Inspector | [pan right on right channel](<Flo Tools Inspector/pan right on right channel.md>) | Ctrl+Shift+Cmd+Right | True | 7549F3CC-362E-4A2A-AB47-9CA0F30F7BB4 | yes |
 | Flo Tools Plugin | [Display Plugin View Template](<Flo Tools Plugin/Display Plugin View Template.md>) | status menu | True | A7A67CAF-F0DE-4563-99C8-1AB611B9FF93 |  |
 | Flo Tools Plugin | [Load Plugin Parameters for Default View](<Flo Tools Plugin/Load Plugin Parameters for Default View.md>) | Cmd+0 | True | 703E2B8E-556F-4BBF-95B5-C447F55F1968 |  |
 | Flo Tools Plugin | [Load Plugin Parameters for View 1](<Flo Tools Plugin/Load Plugin Parameters for View 1.md>) | Cmd+1 | True | 35D488DB-5ED0-4138-B757-39893A412779 |  |

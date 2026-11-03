@@ -97,6 +97,9 @@ public struct AXElement {
         }
     }
 
+    /// What VoiceOver reads for a slider, for example "70 to the left" for a pan knob.
+    public var valueDescription: String? { get throws { try string("AXValueDescription") } }
+
     public var children: [AXElement] { get throws { try elements("AXChildren") } }
     public var windows: [AXElement] { get throws { try elements("AXWindows") } }
     public var focusedWindow: AXElement? { get throws { try element("AXFocusedWindow") } }
@@ -115,6 +118,7 @@ public struct AXElement {
     public var groups: [AXElement] { get throws { try children(role: "AXGroup") } }
     public var buttons: [AXElement] { get throws { try children(role: "AXButton") } }
     public var rows: [AXElement] { get throws { try children(role: "AXRow") } }
+    public var sliders: [AXElement] { get throws { try children(role: "AXSlider") } }
 
     public func group(_ name: String) throws -> AXElement? { try child(role: "AXGroup", name: name) }
     public func button(_ name: String) throws -> AXElement? { try child(role: "AXButton", name: name) }
@@ -143,6 +147,10 @@ public struct AXElement {
 
     /// Same as `click()` on a System Events button.
     public func press() throws { try perform("AXPress") }
+
+    /// Same as `increment()` and `decrement()` on a System Events slider.
+    public func increment() throws { try perform("AXIncrement") }
+    public func decrement() throws { try perform("AXDecrement") }
 
     // MARK: Notifications, for FrontWindowObserver
 

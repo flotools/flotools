@@ -16,23 +16,6 @@ enum TrackStatus {
 
     // MARK: Solo
 
-    /// A track counts as soloed when its Solo button value is not empty and not "safe" or "inactive". The master track is skipped.
-    static func isSoloed(trackName: String, soloValue: String) -> Bool {
-        !trackName.localizedCaseInsensitiveContains(" - Master Track")
-            && !soloValue.isEmpty
-            && !soloValue.localizedCaseInsensitiveContains("safe")
-            && !soloValue.localizedCaseInsensitiveContains("inactive")
-    }
-
-    /// A strip without a name or Solo button (the Group List and the like) is skipped. A Solo button without a value counts as not soloed, as in the JXA; a failed read throws, so a busy Pro Tools is never reported as "No tracks are soloed".
-    @AccessibilityActor
-    static func soloedTracks(in mix: AXElement) throws -> [(name: String, solo: AXElement)] {
-        try mix.groups.compactMap { track in
-            guard let name = try track.name, let solo = try track.button("Solo") else { return nil }
-            return isSoloed(trackName: name, soloValue: try solo.value ?? "") ? (name, solo) : nil
-        }
-    }
-
     /// Same text as the JXA version: "2 Soloed: Kick - Audio. Snare - Audio. "
     static func soloedMessage(names: [String]) -> String {
         guard !names.isEmpty else { return "No tracks are soloed." }
@@ -41,31 +24,29 @@ enum TrackStatus {
     }
 
     static func speakSoloed() async throws {
-        let names = try await soloedTrackNames()
+        let mix = try await ProToolsApp.running().mixWindow()
+        let names = try await mix.soloedTracks().map(\.name)
         try await VoiceOver.say(soloedMessage(names: names))
     }
 
-    @AccessibilityActor
-    static func soloedTrackNames() throws -> [String] {
-        try soloedTracks(in: ProTools.mixWindow()).map(\.name)
-    }
-
-    /// Clicks every soloed track's Solo button, folders last. Active mix groups are suspended meanwhile so one click doesn't toggle a whole group, and resumed however the loop ends: done, failed or cancelled. Success is spoken only when every click worked.
+    /// Unsolos every soloed track, folders last, as the JXA did. Active mix groups are suspended meanwhile, so one click does not toggle a whole group, and resumed however the loop ends: done, failed or cancelled. Each track is checked again before its click, because unsoloing a folder or a grouped track can unsolo others. Success is spoken only when every track was handled; a failure part way says how far it got.
     static func unsoloAll() async throws {
-        let mix = try await ProTools.mixWindow()
-        let tracks = try await soloedTracks(in: mix)
-        let suspendGroups = tracks.isEmpty ? false : try await hasActiveGroups(in: mix)
-        let suspendKey = KeyCombo("Cmd+Shift+G")!
-        let ordered = tracks.filter { !$0.name.contains("Folder Track") } + tracks.filter { $0.name.contains("Folder Track") }
-        if suspendGroups { try await ProTools.keystroke(suspendKey) }
-        // The groups are resumed however the loop ends, before anything is spoken. `defer` cannot await the keystroke, so the loop's error is kept and thrown afterwards; it wins over a failure to resume.
+        let proTools = try ProToolsApp.running()
+        let mix = try await proTools.mixWindow()
+        let soloed = try await mix.soloedTracks()
+        let ordered = soloed.filter { !$0.isFolder } + soloed.filter(\.isFolder)
+        let suspendGroups = ordered.isEmpty ? false : try await mix.hasActiveGroups()
+        if suspendGroups { try await proTools.setGroups(suspended: true, in: mix) }
+        // `defer` cannot await, so the loop's error is kept and thrown after the groups are resumed.
+        var handled = 0
         var loopError: (any Error)?
         do {
             var lastSound = ContinuousClock.now
             for track in ordered {
                 // A stop request ends the loop between clicks.
                 try Task.checkCancellation()
-                try await track.solo.press()
+                try await unsoloIfSoloed(track)
+                handled += 1
                 if ContinuousClock.now - lastSound > .seconds(1) {
                     await Sound.progress.play()
                     lastSound = .now
@@ -75,24 +56,27 @@ enum TrackStatus {
             loopError = error
         }
         if suspendGroups {
-            do { try await ProTools.keystroke(suspendKey) } catch where loopError != nil {
-                Log.error(.engine, "could not resume mix groups after a failed Unsolo All: \(error)")
+            do {
+                try await proTools.setGroups(suspended: false, in: mix)
+            } catch {
+                // The loop's error is what the user hears; this one goes to the log.
+                if loopError == nil { loopError = error } else { Log.error(.engine, "after a failed Unsolo All: \(error)") }
             }
         }
-        if let loopError { throw loopError }
+        if let loopError {
+            if let cause = loopError as? FloError, handled > 0 {
+                throw FloError.incomplete(done: "Unsoloed \(handled) of \(ordered.count) tracks", cause: cause)
+            }
+            throw loopError
+        }
         // A stop request during the last click must not be announced as success.
         try Task.checkCancellation()
         try await VoiceOver.say("unsoloed all tracks.")
     }
 
-    /// Whether any row in the Group List has its first button named "Active ...". No Group List means no active groups.
     @AccessibilityActor
-    static func hasActiveGroups(in mix: AXElement) throws -> Bool {
-        guard let rows = try mix.table("Group List")?.rows else { return false }
-        return try rows.contains { row in
-            let cells = try row.children
-            guard cells.count > 1, let name = try cells[1].buttons.first?.name else { return false }
-            return name.lowercased().hasPrefix("active ")
-        }
+    private static func unsoloIfSoloed(_ track: TrackStrip) throws {
+        guard try track.isSoloed() else { return }
+        try track.soloButton().press()
     }
 }

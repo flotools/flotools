@@ -24,7 +24,7 @@ public enum FloMacros {
     /// Called for every app launch; acts only on Pro Tools.
     @MainActor
     public static func applicationLaunched(bundleID: String?, in engine: MacroEngine) {
-        guard bundleID == ProTools.bundleID else { return }
+        guard bundleID == ProToolsApp.bundleID else { return }
         setStartState(Preferences.load(), in: engine)
     }
 
