@@ -6,20 +6,20 @@ import FloSystem
 enum Counters {
     @MainActor
     static var commands: [Command] { [
-        speakEdit("floTools.speakEditMainCounter", "Speak/Edit main counter", what: "main counter", key: "Cmd+F4", .mainCounter, .position, label: ". main.", prompts: Prompts(time: "Press Delete, then type Main Counter value", other: "Type main counter value")),
-        speakEdit("floTools.speakEditSubCounter", "Speak/Edit Sub Counter", what: "sub counter", key: "Cmd+F6", .subCounter, .position, label: ". Sub.", prompts: Prompts(time: "Press Delete, then type Sub Counter value", other: "Type sub counter value.")),
-        speakEdit("floTools.speakEditSelectionStart", "speak/Edit selection start", what: "edit selection start", key: "Cmd+F1", .selectionStart, .position, label: ". start.", prompts: Prompts(time: "Press delete, then type Start value", other: "Type start value")),
-        speakEdit("floTools.speakEditSelectionEnd", "Speak/Edit Selection End", what: "edit selection end", key: "Cmd+F2", .selectionEnd, .position, label: ". end", prompts: Prompts(time: "Press Delete, then type End value", other: "Type end value")),
-        speakEdit("floTools.speakEditSelectionLength", "Speak/Edit Selection Length", what: "edit selection length", key: "Cmd+F3", .selectionLength, .duration, label: ". length.", prompts: Prompts(time: "Press Delete, then type Length value", other: "Type length value")),
-        speakEdit("floTools.speakEditPreRollAmount", "Speak/Edit Pre-Roll Amount", what: "pre-roll amount", key: "Cmd+F9", .preRoll, .duration, label: ". Pre-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Pre-Roll amount", other: "Type Pre-Roll Amount.")),
-        speakEdit("floTools.speakEditPostRollAmount", "Speak/Edit Post-Roll Amount", what: "post-roll amount", key: "Cmd+F10", .postRoll, .duration, label: ". Post-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Post-Roll amount", other: "Type Post-Roll Amount.")),
-        speakEdit("floTools.speakEditNudgeValue", "Speak/Edit Nudge Value", what: "nudge value", key: "Cmd+F7", .nudgeValue, .duration, label: ". Nudge.", prompts: Prompts(time: "Press Delete, then type Nudge value", other: "Type nudge value.")),
-        speakEdit("floTools.speakEditTempo", "Speak/Edit Tempo", what: "tempo", key: "Cmd+F11", .tempo, .asShown, label: ": Tempo", prompts: Prompts("Type a Tempo value.")),
-        speakEdit("floTools.speakEditPitchForSelectedNote", "Speak/Edit Pitch for Selected Note", what: "pitch of the selected MIDI note", key: "Opt+P", .notePitch, .notePitch, label: ". Pitch", prompts: Prompts("Type note pitch")),
-        speakEdit("floTools.speakEditAttackVelocityForSelectedNote", "Speak/Edit Attack Velocity for Selected Note", what: "attack velocity of the selected MIDI note", key: "Opt+A", .attackVelocity, .asShown, label: ". Attack", prompts: Prompts("Type attack velocity")),
-        speakEdit("floTools.speakEditReleaseVelocityForSelectedNote", "Speak/Edit Release Velocity for Selected Note", what: "release velocity of the selected MIDI note", key: "Opt+E", .releaseVelocity, .asShown, label: ". Release", prompts: Prompts("Type release velocity")),
+        speakEdit("floTools.speakEditMainCounter", "Speak/Edit main counter", what: "main counter", key: "Cmd+F4", .mainCounter, label: ". main.", prompts: Prompts(time: "Press Delete, then type Main Counter value", other: "Type main counter value")),
+        speakEdit("floTools.speakEditSubCounter", "Speak/Edit Sub Counter", what: "sub counter", key: "Cmd+F6", .subCounter, label: ". Sub.", prompts: Prompts(time: "Press Delete, then type Sub Counter value", other: "Type sub counter value.")),
+        speakEdit("floTools.speakEditSelectionStart", "speak/Edit selection start", what: "edit selection start", key: "Cmd+F1", .selectionStart, label: ". start.", prompts: Prompts(time: "Press delete, then type Start value", other: "Type start value")),
+        speakEdit("floTools.speakEditSelectionEnd", "Speak/Edit Selection End", what: "edit selection end", key: "Cmd+F2", .selectionEnd, label: ". end", prompts: Prompts(time: "Press Delete, then type End value", other: "Type end value")),
+        speakEdit("floTools.speakEditSelectionLength", "Speak/Edit Selection Length", what: "edit selection length", key: "Cmd+F3", .selectionLength, label: ". length.", prompts: Prompts(time: "Press Delete, then type Length value", other: "Type length value")),
+        speakEdit("floTools.speakEditPreRollAmount", "Speak/Edit Pre-Roll Amount", what: "pre-roll amount", key: "Cmd+F9", .preRoll, label: ". Pre-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Pre-Roll amount", other: "Type Pre-Roll Amount.")),
+        speakEdit("floTools.speakEditPostRollAmount", "Speak/Edit Post-Roll Amount", what: "post-roll amount", key: "Cmd+F10", .postRoll, label: ". Post-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Post-Roll amount", other: "Type Post-Roll Amount.")),
+        speakEdit("floTools.speakEditNudgeValue", "Speak/Edit Nudge Value", what: "nudge value", key: "Cmd+F7", .nudgeValue, label: ". Nudge.", prompts: Prompts(time: "Press Delete, then type Nudge value", other: "Type nudge value.")),
+        speakEdit("floTools.speakEditTempo", "Speak/Edit Tempo", what: "tempo", key: "Cmd+F11", .tempo, label: ": Tempo", prompts: Prompts("Type a Tempo value.")),
+        speakEdit("floTools.speakEditPitchForSelectedNote", "Speak/Edit Pitch for Selected Note", what: "pitch of the selected MIDI note", key: "Opt+P", .notePitch, label: ". Pitch", prompts: Prompts("Type note pitch")),
+        speakEdit("floTools.speakEditAttackVelocityForSelectedNote", "Speak/Edit Attack Velocity for Selected Note", what: "attack velocity of the selected MIDI note", key: "Opt+A", .attackVelocity, label: ". Attack", prompts: Prompts("Type attack velocity")),
+        speakEdit("floTools.speakEditReleaseVelocityForSelectedNote", "Speak/Edit Release Velocity for Selected Note", what: "release velocity of the selected MIDI note", key: "Opt+E", .releaseVelocity, label: ". Release", prompts: Prompts("Type release velocity")),
         Command("floTools.speakGridValue", "Speak Grid Value", summary: "Speaks the grid value.", scope: .anyProToolsWindow, triggers: [.key("Cmd+F8")]) { _ in
-            try await VoiceOver.say(read(.gridValue, .duration) + ". grid.")
+            try await VoiceOver.say(read(.gridValue) + ". grid.")
         },
         openMenu("floTools.selectMainCounter", "Select main counter", what: "main counter selector", key: "Opt+Cmd+F4", .mainCounterSelector),
         openMenu("floTools.selectSubCounter", "Select Sub Counter", what: "sub counter selector", key: "Opt+Cmd+F6", .subCounterSelector),
@@ -55,9 +55,9 @@ enum Counters {
 
     /// Single press speaks the value in words followed by `label`; double press clicks the field, so typing replaces the value, and says what to type.
     @MainActor
-    private static func speakEdit(_ id: CommandID, _ name: String, what: String, key: String, _ control: EditWindowControl, _ format: CounterText.Format, label: String, prompts: Prompts) -> Command {
+    private static func speakEdit(_ id: CommandID, _ name: String, what: String, key: String, _ control: EditWindowControl, label: String, prompts: Prompts) -> Command {
         Command(id, name, summary: "Single press speaks the \(what) in words; double press opens it for typing a new value.", scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
-            try await VoiceOver.say(read(control, format) + label)
+            try await VoiceOver.say(read(control) + label)
         }, double: { _ in
             let value = try await ProToolsApp.running().openForTyping(control)
             try await VoiceOver.say(value.contains(".") ? prompts.time : prompts.other)
@@ -78,14 +78,14 @@ enum Counters {
         let combo = KeyCombo(literal: sends)
         let direction = sends.hasSuffix("-") ? "previous" : "next"
         return Command(id, name, summary: "Changes the \(what) to the \(direction) one and speaks it.", scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
-            try await KeyAnnouncements.announceChange(run, sending: combo, when: guarding, find: { try ProToolsApp.running().element(control) }, read: { try $0.value ?? "" }, spoken: { CounterText.spoken($0, as: .duration) + label })
+            try await KeyAnnouncements.announceChange(run, sending: combo, when: guarding, find: { try ProToolsApp.running().element(control) }, read: { try $0.value ?? "" }, spoken: { CounterText.spoken($0, for: control) + label })
         }
     }
 
     // MARK: Steps
 
-    private static func read(_ control: EditWindowControl, _ format: CounterText.Format) async throws -> String {
-        CounterText.spoken(try await ProToolsApp.running().value(of: control), as: format)
+    private static func read(_ control: EditWindowControl) async throws -> String {
+        CounterText.spoken(try await ProToolsApp.running().value(of: control), for: control)
     }
 }
 
@@ -100,6 +100,21 @@ enum CounterText {
         case notePitch
         /// A plain number, such as a velocity.
         case asShown
+    }
+
+    /// How each field's value is spoken, for the counter commands and the MIDI event watch alike. Selectors and other controls that are never spoken are as shown.
+    static func format(of control: EditWindowControl) -> Format {
+        switch control {
+        case .mainCounter, .subCounter, .selectionStart, .selectionEnd: .position
+        case .selectionLength, .preRoll, .postRoll, .nudgeValue, .gridValue: .duration
+        case .notePitch: .notePitch
+        default: .asShown
+        }
+    }
+
+    /// `value` of `control` in words.
+    static func spoken(_ value: String, for control: EditWindowControl) -> String {
+        spoken(value, as: format(of: control))
     }
 
     /// Parts are joined with ", ". The JXA left a trailing ", " when the ticks were 0, and ran minutes, seconds and milliseconds together ("1 minute30 seconds", "2minutes").

@@ -746,16 +746,12 @@ private actor Flag {
 @Suite @MainActor struct PreferencesTests {
     private let suite = TestDefaults("FloToolsTests")
 
-    private func makeDefaults() -> UserDefaults {
-        suite.defaults
-    }
-
     @Test func missingValuesAreDefaults() {
-        #expect(PreferencesStore(defaults: makeDefaults()).current == Preferences())
+        #expect(PreferencesStore(defaults: suite.defaults).current == Preferences())
     }
 
     @Test func savedPreferencesAreReadBack() {
-        let defaults = makeDefaults()
+        let defaults = suite.defaults
         var preferences = Preferences()
         preferences.temporaryInspector = true
         preferences.startsWithInspector = true
@@ -766,14 +762,14 @@ private actor Flag {
 
     /// The user's off switch survives a relaunch; a first launch starts enabled.
     @Test func floToolsEnabledIsRemembered() {
-        let defaults = makeDefaults()
+        let defaults = suite.defaults
         #expect(PreferencesStore(defaults: defaults).floToolsEnabled)
         PreferencesStore(defaults: defaults).floToolsEnabled = false
         #expect(!PreferencesStore(defaults: defaults).floToolsEnabled)
     }
 
     @Test func unsupportedTimeoutFallsBackToDefault() {
-        let defaults = makeDefaults()
+        let defaults = suite.defaults
         defaults.set(50, forKey: PreferencesStore.Key.timeout)
         #expect(PreferencesStore(defaults: defaults).current.timeout == 200)
     }
@@ -1117,6 +1113,14 @@ private actor Flag {
         #expect(CounterText.spoken("Bb-1", as: .notePitch) == "B-Flat -1")
         #expect(CounterText.spoken("Bbb4", as: .notePitch) == "B-DOUBLE Flat4")
         #expect(CounterText.spoken(" 100", as: .asShown) == "100")
+    }
+
+    /// The counter commands and the MIDI event watch take each field's format from here.
+    @Test func eachFieldHasItsFormat() {
+        #expect([EditWindowControl.mainCounter, .subCounter, .selectionStart, .selectionEnd].map(CounterText.format(of:)) == Array(repeating: .position, count: 4))
+        #expect([EditWindowControl.selectionLength, .preRoll, .postRoll, .nudgeValue, .gridValue].map(CounterText.format(of:)) == Array(repeating: .duration, count: 5))
+        #expect(CounterText.format(of: .notePitch) == .notePitch)
+        #expect([EditWindowControl.attackVelocity, .releaseVelocity, .tempo].map(CounterText.format(of:)) == Array(repeating: .asShown, count: 3))
     }
 
     @Test func otherFormatsAsShown() {

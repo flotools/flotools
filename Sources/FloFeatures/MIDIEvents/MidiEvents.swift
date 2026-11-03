@@ -56,13 +56,14 @@ enum MidiEvents {
 
         /// The value in words and the column's name, as each Monitor macro spoke it. An empty velocity or pitch, with no note selected, is "No".
         func spoken(_ value: String) -> String {
-            switch self {
-            case .start: CounterText.spoken(value, as: .position) + ". start."
-            case .pitch: CounterText.spoken(value, as: .notePitch).orIfEmpty("No") + ". Pitch"
-            case .attack: CounterText.spoken(value, as: .asShown).orIfEmpty("no") + ". Attack"
-            case .release: CounterText.spoken(value, as: .asShown).orIfEmpty("No") + ". Release"
-            case .length: CounterText.spoken(value, as: .duration) + ". length."
-            case .end: CounterText.spoken(value, as: .position) + ". End."
+            let text = CounterText.spoken(value, for: control)
+            return switch self {
+            case .start: text + ". start."
+            case .pitch: text.orIfEmpty("No") + ". Pitch"
+            case .attack: text.orIfEmpty("no") + ". Attack"
+            case .release: text.orIfEmpty("No") + ". Release"
+            case .length: text + ". length."
+            case .end: text + ". End."
             }
         }
 
