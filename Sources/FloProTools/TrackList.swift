@@ -50,11 +50,23 @@ public struct TrackList {
             guard cells.count > 1, let show = try cells[0].buttons.first, let select = try cells[1].buttons.first else {
                 throw FloError.notFound("the buttons of a Track List row")
             }
-            let selectName = try select.name ?? ""
-            return Row(name: Self.trackName(selectButtonName: selectName),
-                       isSelected: Self.isSelected(selectButtonName: selectName),
+            let selection = Self.selection(selectButtonName: try select.name ?? "")
+            return Row(name: selection.name,
+                       isSelected: selection.isSelected,
                        isShown: try show.name?.hasPrefix("Shown") == true,
                        showButton: show, selectButton: select)
+        }
+    }
+
+    /// The names of the selected tracks in list order, read from the selection buttons alone, for polls that need neither the show buttons nor the elements. The rows and buttons are found again on each call, because a playlist switch may replace them. A row without its selection button is an error, as in `rows()`.
+    public func selectedNames() throws -> [String] {
+        try element.rows.compactMap { row in
+            let cells = try row.children
+            guard cells.count > 1, let select = try cells[1].buttons.first else {
+                throw FloError.notFound("the buttons of a Track List row")
+            }
+            let selection = Self.selection(selectButtonName: try select.name ?? "")
+            return selection.isSelected ? selection.name : nil
         }
     }
 
@@ -69,5 +81,9 @@ public struct TrackList {
 
     nonisolated static func isSelected(selectButtonName name: String) -> Bool {
         name.hasPrefix("Selected. ")
+    }
+
+    nonisolated static func selection(selectButtonName name: String) -> (name: String, isSelected: Bool) {
+        (trackName(selectButtonName: name), isSelected(selectButtonName: name))
     }
 }

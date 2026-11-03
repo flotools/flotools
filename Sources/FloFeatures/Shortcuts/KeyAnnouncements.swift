@@ -77,7 +77,7 @@ enum KeyAnnouncements {
 
     @AccessibilityActor
     private static func selectedTracksText(_ trackList: TrackList) throws -> String {
-        selectedTracksText(names: try trackList.rows().filter(\.isSelected).map(\.name))
+        selectedTracksText(names: try trackList.selectedNames())
     }
 
     /// "Kick - Audio. Snare - Audio. ", as the JXA spoke the selected tracks.
