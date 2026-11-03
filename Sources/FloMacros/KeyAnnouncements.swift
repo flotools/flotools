@@ -14,7 +14,8 @@ enum KeyAnnouncements {
         speakSelectedTracks("floTools.speakAndNavigateToLastPlaylist", "Speak And Navigate to Last Playlist", key: "Shift+End"),
         announce("floTools.nextTrackViewOnAllTracks", "Next track view on All tracks", keys: ["Ctrl+Opt+Cmd+Right"], "Next track view on All tracks.", when: .always),
         announce("floTools.previousTrackViewOnAllTracks", "Previous track view on All tracks", keys: ["Ctrl+Opt+Cmd+Left"], "Previous track view on All tracks.", when: .always),
-        announce("floTools.trackViewToggledOnAllTracks", "Track view toggled on all tracks", keys: ["Opt+-"], "Track view toggled on all tracks.", when: .outsideListedDialogsAndText),
+        // Pro Tools 26.10 toggles the view of all tracks with Ctrl+Opt+- and ignores the Opt+- the KM version sent (checked live 2026-11-03); the hotkey stays Opt+-.
+        announce("floTools.trackViewToggledOnAllTracks", "Track view toggled on all tracks", keys: ["Opt+-"], sends: "Ctrl+Opt+-", "Track view toggled on all tracks.", when: .outsideListedDialogsAndText),
         // Both keys send Down, as in the KM version.
         announce("floTools.adjustAllTrackHeightsToFitInEditWindow", "Adjust all track heights to fit in Edit window", keys: ["Ctrl+Opt+Cmd+Up", "Ctrl+Opt+Cmd+Down"], sends: "Ctrl+Opt+Cmd+Down", "Adjust all track heights to fit in Edit window..", when: .always),
         announce("floTools.selectEditKeyboardFocus", "Select Edit Keyboard Focus", keys: ["Opt+Cmd+1"], "Edit Keyboard Focus", when: .inEditWindow),
