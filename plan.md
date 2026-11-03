@@ -139,6 +139,7 @@ The port is complete, but its structure still copies Keyboard Maestro: groups wi
 - Releasing backtick always turns the Inspector off, as today.
 - AudioSuite keys work only in AudioSuite windows (step 4). KM's Audio Suite group took any title containing "Audio Suite:", so a plug-in window such as "Plug-in: Audio Suite: X" or a Mix or Edit window of a session with that in its name also got the AudioSuite buttons and presets. Pinned in `Routing.txt`.
 - A track view press queued while the Inspector was off is dropped if the Inspector turns on before it runs (Codex review of `761eb97`); before step 4 the Inspector turning on disabled the track view macros, which had the same effect.
+- A queued press of a command for some windows is dropped if another window comes to front before it runs, also one of the same kind and title, such as a second instance of one plug-in (Codex review, 2026-11-03). Plug-in and Inspector commands act on the front window, so they would otherwise act on a window the user did not press the key in. This includes a switch between Mix and Edit; any-window commands still run.
 - While backtick is held, the track view keys are off in every window, because the Inspector is on (step 4). Before, the temporary Inspector turned on only the Inspector keys, so the track view keys still worked outside Mix and Edit; `/` already turned them off everywhere.
 
 ### Cleanup

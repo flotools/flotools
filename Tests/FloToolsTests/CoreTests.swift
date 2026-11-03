@@ -348,6 +348,36 @@ private actor Flag {
         #expect(events.list.isEmpty)
     }
 
+    /// A queued command for some windows is dropped when another window of the same kind comes to front before it starts, such as a second instance of one plug-in with the same title; an any-window command still runs.
+    @Test(arguments: ["Plug-in: EQ3", "Plug-in: Pro-Q 3"])
+    func queuedWindowCommandDropsWhenAnotherWindowComesToFront(_ nextTitle: String) async throws {
+        let events = Events()
+        let engine = engine(slowThenFast(events) + [
+            Command("test.plugIn", "Plug-in", scope: .windows([.plugIn]), triggers: [.key("F3")]) { @MainActor _ in events.list.append("plug-in") },
+        ])
+        let first = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3", windowNumber: 1, processID: 100)
+        engine.contextChanged(to: first)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: first)
+        engine.dispatch(KeyCombo("F3")!, .pressed, in: first)
+        engine.dispatch(KeyCombo("F2")!, .pressed, in: first)
+        engine.contextChanged(to: FrontContext(bundleID: "com.avid.ProTools", windowTitle: nextTitle, windowNumber: 2, processID: 100))
+        await engine.waitUntilIdle()
+        #expect(events.list == ["slow start", "slow end", "fast"])
+    }
+
+    @Test func queuedWindowCommandRunsWhileItsWindowStaysInFront() async throws {
+        let events = Events()
+        let engine = engine(slowThenFast(events) + [
+            Command("test.plugIn", "Plug-in", scope: .windows([.plugIn]), triggers: [.key("F3")]) { @MainActor _ in events.list.append("plug-in") },
+        ])
+        let front = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3", windowNumber: 1, processID: 100)
+        engine.contextChanged(to: front)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: front)
+        engine.dispatch(KeyCombo("F3")!, .pressed, in: front)
+        await engine.waitUntilIdle()
+        #expect(events.list == ["slow start", "slow end", "plug-in"])
+    }
+
     @Test func topLevelRunsDoNotInterleave() async throws {
         let events = Events()
         let engine = engine([

@@ -388,6 +388,8 @@ public final class Engine {
         if commandEnabled[run.command.id] != true { return "command disabled" }
         if context.processID != run.context.processID { return "another app is in front" }
         if !run.command.scope.applies(to: context) { return "not in its windows: \(context)" }
+        // A command for some windows acts on the front window, which must still be the one it was pressed in: another window of the same kind, such as a second instance of one plug-in, is not that window.
+        if case .windows = run.command.scope, run.context.windowNumber != context.windowNumber { return "another window is in front: \(context)" }
         if run.command.mode == .inspectorOff && mode.inspector { return "the Inspector is on" }
         return nil
     }
