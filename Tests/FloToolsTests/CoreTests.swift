@@ -301,6 +301,16 @@ import Testing
     @Test func wording() {
         #expect(SpokenError.text(for: FloError.notFound("the Mix window")) == "Could not find the Mix window.")
         #expect(SpokenError.text(for: CancellationError()) == nil)
+        #expect(SpokenError.text(for: FloError.voiceOver("could not speak: VoiceOver is not running")) == "VoiceOver did not respond.")
+    }
+}
+
+@MainActor @Suite struct VoiceOverTests {
+    @Test func failureReasons() {
+        #expect(VoiceOver.failureReason(status: -600) == "VoiceOver is not running")
+        #expect(VoiceOver.failureReason(status: -1712) == "VoiceOver did not answer within 2 seconds")
+        #expect(VoiceOver.failureReason(status: -1743) == "Flo Tools may not control VoiceOver (Automation permission)")
+        #expect(VoiceOver.failureReason(status: -1708) == "Apple event error -1708")
     }
 }
 

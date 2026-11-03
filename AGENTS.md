@@ -18,7 +18,7 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 - Flo Tools for Keyboard Maestro is retired (legacy, no more support); all development happens here, and the Swift code is the source of truth. The KM export is a frozen porting reference.
 - Ported macros keep their KM hotkeys, groups and window conditions, compatible with `reference/Flo Tools Key Set.ptpreset`, unless a change is decided on purpose. `KeyboardMaestroParityTests` enforces this; a deliberate change goes in its `changedOnPurpose` list with the reason.
 - Flo Mouse is not part of this app; it moves to a separate project. Do not port the Flo Mouse group or Toggle Flo Mouse.
-- VoiceOver speech (`output`) and reading the VoiceOver cursor stay on AppleScript to VoiceOver. Everything that touches Pro Tools uses the Accessibility API, not System Events.
+- VoiceOver speech (`output`) and reading the VoiceOver cursor stay on Apple events to VoiceOver, sent directly from Swift without AppleScript source (VoiceOver does not speak accessibility announcements from a background app). Everything that touches Pro Tools uses the Accessibility API, not System Events.
 - Spoken text should match the JXA version unless there is a stated reason to change it. Unit tests pin the text.
 - Support the oldest macOS that does not cost current capabilities (currently macOS 13, `Package.swift` and `Resources/Info.plist`). Swift 6 language mode, strict concurrency.
 - Do not edit `development` or anything outside this repository's `swift` branch.
@@ -137,7 +137,7 @@ Users must be able to send the developer a log that shows where a macro failed. 
 
 ### Efficiency
 
-- Avoid repeated work that matters: re-walking the Accessibility tree per element, recompiling AppleScript, polling faster than needed, blocking the main thread on a busy Pro Tools.
+- Avoid repeated work that matters: re-walking the Accessibility tree per element, polling faster than needed, blocking the main thread on a busy Pro Tools.
 - Choose fitting data structures (for example index hotkeys instead of scanning all macros). Do not micro-optimize at the cost of clarity, and explain real tradeoffs in `plan.md`.
 
 ### Swift style

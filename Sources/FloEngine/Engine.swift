@@ -267,7 +267,7 @@ public final class MacroEngine {
                 Log.info(.engine, "\(run.macro.id) cancelled (\(Log.elapsed(since: start)))")
             } catch {
                 Log.error(.engine, "\(run.macro.id) failed: \(error) (\(Log.elapsed(since: start)))")
-                if let text = SpokenError.text(for: error) { VoiceOver.say(text) }
+                if let text = SpokenError.text(for: error) { VoiceOver.sayOrLog(text) }
             }
             self?.runs[number] = nil
         }

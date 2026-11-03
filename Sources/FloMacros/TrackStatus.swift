@@ -42,7 +42,7 @@ enum TrackStatus {
     @MainActor
     static func speakSoloed() throws {
         let mix = try ProTools.mixWindow.required("the Mix window")
-        VoiceOver.say(soloedMessage(names: soloedTracks(in: mix).map(\.name)))
+        try VoiceOver.say(soloedMessage(names: soloedTracks(in: mix).map(\.name)))
     }
 
     /// Clicks every soloed track's Solo button, folders last. Active mix groups are suspended meanwhile so one click doesn't toggle a whole group.
@@ -68,7 +68,7 @@ enum TrackStatus {
 
         if suspendGroups { ProTools.keystroke(suspendKey) }
         try Task.checkCancellation()
-        VoiceOver.say("unsoloed all tracks.")
+        try VoiceOver.say("unsoloed all tracks.")
     }
 
     /// Whether any row in the Group List has its first button named "Active ...".

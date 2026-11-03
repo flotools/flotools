@@ -21,7 +21,7 @@ enum InspectorMode {
             }
             let on = !run.engine.isGroupActivated(.inspector)
             setInspector(on, in: run.engine)
-            VoiceOver.say(on ? "Inspector On" : "Inspector Off")
+            try VoiceOver.say(on ? "Inspector On" : "Inspector Off")
         },
         // Fires on press and release; the KM version read the key state rather than the trigger.
         Macro(toggleTemporaryInspector, "Toggle Temporary INspector", group: .floTools, triggers: [.key("`"), .key("`", .released)]) { run in
@@ -55,7 +55,7 @@ enum InspectorMode {
                 try await run.run(inspectorMacro)
             } else {
                 ProTools.keystroke(KeyCombo(key)!)
-                VoiceOver.say(name + ".")
+                try VoiceOver.say(name + ".")
             }
         }
     }

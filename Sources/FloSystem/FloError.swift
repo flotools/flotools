@@ -5,11 +5,14 @@ public enum FloError: Error, Equatable, Sendable, CustomStringConvertible {
     case notFound(String)
     /// A macro ran itself through nested calls. `path` is the chain of macro IDs, for example "a -> b -> a".
     case cycle(path: String)
+    /// VoiceOver did not take an Apple event: not running, not answering, or not permitted. `reason` says which, for the log.
+    case voiceOver(String)
 
     public var description: String {
         switch self {
         case .notFound(let what): "not found: \(what)"
         case .cycle(let path): "macro cycle: \(path)"
+        case .voiceOver(let reason): "VoiceOver: \(reason)"
         }
     }
 }

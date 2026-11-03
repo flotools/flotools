@@ -11,6 +11,9 @@ public enum SpokenError {
             return "Could not find \(what)."
         case FloError.cycle:
             return "Flo Tools macro error."
+        case FloError.voiceOver:
+            // Speaking this usually fails too; it is still worth trying, because only one call may have timed out.
+            return "VoiceOver did not respond."
         default:
             return "Flo Tools error."
         }

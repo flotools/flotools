@@ -28,8 +28,8 @@ Regenerate the per-macro files with `.venv/bin/python -I tools/km_export.py`.
 |---|---|
 | Hotkey triggers and macro groups | Global hotkeys (Carbon `RegisterEventHotKey` or a `CGEventTap`) with a context check on the frontmost app and focused window title |
 | System Events UI scripting | `AXUIElement` wrapper: attributes, children, search by role and title, `AXPress` |
-| `vo.output` | AppleScript to VoiceOver through `NSAppleScript`, or `NSAccessibility` announcement notifications |
-| `vo.voCursor.textUnderCursor()` | No public AX API exposes the VoiceOver cursor, so this likely stays an AppleScript call to VoiceOver |
+| `vo.output` | VoiceOver's `output` Apple event (`VOAS`/`outp`) sent with `NSAppleEventDescriptor`. Accessibility announcements from a background app are not spoken (tested 2026-11-02) |
+| `vo.voCursor.textUnderCursor()` | No public AX API exposes the VoiceOver cursor; a `get` Apple event for `text under cursor of vo cursor` (`votx` of `vocu`) |
 | KM variables | `UserDefaults` for preferences, in-memory state for the rest |
 | Double-press detection | A small timer-based dispatcher instead of polling a shared variable |
 | `SimulateKeystroke`, `MouseMoveAndClick` | `CGEvent` keyboard and mouse events |

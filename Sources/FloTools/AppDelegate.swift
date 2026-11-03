@@ -26,7 +26,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             waitForAccessibility()
         }
         // Also makes macOS ask for permission to control VoiceOver on first launch.
-        VoiceOver.say("Flo Tools started.")
+        VoiceOver.sayOrLog("Flo Tools started.")
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -58,7 +58,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             guard !Task.isCancelled else { return }
             Log.info(.app, "Accessibility permission granted")
             self.engine.refreshContext()
-            VoiceOver.say("Flo Tools has accessibility access.")
+            VoiceOver.sayOrLog("Flo Tools has accessibility access.")
         }
     }
 
@@ -104,7 +104,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     @objc private func toggleEnabled() {
         engine.isEnabled.toggle()
-        VoiceOver.say(engine.isEnabled ? "Flo Tools enabled." : "Flo Tools disabled.")
+        VoiceOver.sayOrLog(engine.isEnabled ? "Flo Tools enabled." : "Flo Tools disabled.")
     }
 
     @objc private func grantAccessibility() {
@@ -127,10 +127,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             do {
                 try Log.startRecording(header: DiagnosticHeader.text(engine: engine))
                 Log.info(.app, "log turned on")
-                VoiceOver.say("Log turned on.")
+                VoiceOver.sayOrLog("Log turned on.")
             } catch {
                 Log.error(.app, "could not start the log file: \(error)")
-                VoiceOver.say("Could not start the log.")
+                VoiceOver.sayOrLog("Could not start the log.")
             }
         }
     }

@@ -9,13 +9,13 @@ enum Inspector {
         send("inspector.speakOpenSendB", "Speak/Open Send B", slot: 1, key: "Ctrl+2"),
         // The JXA played Tink after speaking the new Solo state.
         Macro("inspector.speakToggleSolo", "Speak/Toggle Solo", group: .inspector, triggers: [.key("S")], tink: .afterDouble, single: { _ in
-            VoiceOver.say(soloStateText(try soloButton().value ?? ""))
+            try VoiceOver.say(soloStateText(try soloButton().value ?? ""))
         }, double: { _ in
             let solo = try soloButton()
             solo.press()
             // The JXA waited 0.1 s for Pro Tools to update the button before reading it.
             try await Task.sleep(for: .milliseconds(100))
-            VoiceOver.say(soloStateText(solo.value ?? ""))
+            try VoiceOver.say(soloStateText(solo.value ?? ""))
         }),
     ] }
 
@@ -42,7 +42,7 @@ enum Inspector {
     static func send(_ id: MacroID, _ name: String, slot: Int, key: String) -> Macro {
         Macro(id, name, group: .inspector, triggers: [.key(key)], tink: .afterDouble, single: { _ in
             let (selector, assignment) = try sendButtons(slot: slot)
-            VoiceOver.say(sendMessage(selectorName: selector.name ?? "", selectorValue: selector.value ?? "", assignmentValue: assignment.value ?? ""))
+            try VoiceOver.say(sendMessage(selectorName: selector.name ?? "", selectorValue: selector.value ?? "", assignmentValue: assignment.value ?? ""))
         }, double: { _ in
             try sendButtons(slot: slot).assignment.press()
         })
