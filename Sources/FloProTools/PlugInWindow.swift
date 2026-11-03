@@ -58,7 +58,7 @@ public struct PlugInWindow {
 
     public var title: String { get throws { try element.title ?? "" } }
 
-    /// The plug-in's name as Flo Tools' view files use it: the title without "Plug-in: ", with "/" replaced so it stays one file name component. The JXA replaced only the first "/".
+    /// The plug-in's name: the window title without "Plug-in: ".
     public var plugInName: String {
         get throws { Self.plugInName(fromTitle: try title, kind: kind) }
     }
@@ -66,7 +66,7 @@ public struct PlugInWindow {
     public nonisolated static func plugInName(fromTitle title: String, kind: Kind) -> String {
         var name = title
         if name.hasPrefix(kind.titlePrefix + " ") { name.removeFirst(kind.titlePrefix.count + 1) }
-        return name.replacingOccurrences(of: "/", with: " ")
+        return name
     }
 
     /// The window's top-left corner on screen, which positions in view files are relative to.

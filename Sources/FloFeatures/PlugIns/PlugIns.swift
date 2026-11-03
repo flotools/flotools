@@ -95,7 +95,7 @@ enum PlugIns {
 
     // MARK: Plug-in views
 
-    /// Load Plugin Parameters for Default View (Cmd+0, and whenever a plug-in window comes to front) and for View 1 to 9 (Cmd+1 to Cmd+9): reads the plug-in's view file, speaks "<view> view for <plug-in>" and clicks the view's click point. Without a file the cursor is emptied silently, as in the JXA.
+    /// Load Plugin Parameters for Default View (Cmd+0, and whenever a plug-in window comes to front) and for View 1 to 9 (Cmd+1 to Cmd+9): reads the plug-in's view file, speaks "<view> view for <plug-in>" and clicks the view's click point. Without a file the cursor is emptied silently, as in the JXA. The plug-in is spoken by its real name; the JXA spoke the file name form, with the first "/" as a space.
     @MainActor
     static func loadView(_ number: Int?, _ cursor: PlugInViewCursor) -> Command {
         let id = number.map { CommandID("plugin.loadPluginParametersForView\($0)") } ?? loadDefaultView

@@ -59,9 +59,15 @@ struct PlugInView: Sendable, Equatable {
         FileManager.default.homeDirectoryForCurrentUser.appending(path: "Library/Application Support/Flo Tools/Plug-In Views", directoryHint: .isDirectory)
     }
 
-    /// "EQ3 7-Band.txt" for the default view, "EQ3 7-Band-3.txt" for view 3. `plugIn` is already one path component (`PlugInWindow.plugInName`).
+    /// The plug-in's name as view file names use it: every "/" replaced by a space, so it stays one path component. The JXA replaced only the first "/".
+    static func fileStem(plugIn: String) -> String {
+        plugIn.replacingOccurrences(of: "/", with: " ")
+    }
+
+    /// "EQ3 7-Band.txt" for the default view, "EQ3 7-Band-3.txt" for view 3.
     static func fileName(plugIn: String, view number: Int?) -> String {
-        number.map { "\(plugIn)-\($0).txt" } ?? "\(plugIn).txt"
+        let stem = fileStem(plugIn: plugIn)
+        return number.map { "\(stem)-\($0).txt" } ?? "\(stem).txt"
     }
 
     /// The view from its file, nil when there is no file, as for most plug-ins.
@@ -107,7 +113,7 @@ struct PlugInView: Sendable, Equatable {
     /// The text of Display Plugin View Template: the file name to save as, then a default view listing every parameter in one row with placeholder positions, as in the JXA.
     static func template(plugIn: String, parameters: [String]) -> String {
         let entries = parameters.map { "[\(jsonString($0)),0,0]" }.joined(separator: ",\n")
-        return "\(plugIn)\n{\"view\":\"Default\", \"click\":[-1,-1], \"parameters\":[\n[\n\(entries)\n]\n]}"
+        return "\(fileStem(plugIn: plugIn))\n{\"view\":\"Default\", \"click\":[-1,-1], \"parameters\":[\n[\n\(entries)\n]\n]}"
     }
 
     /// `text` as a quoted JSON string. The JXA did not escape names; a quote, backslash or tab in a parameter name would have made the file unreadable.

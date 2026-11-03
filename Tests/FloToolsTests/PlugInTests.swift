@@ -53,8 +53,10 @@ import Testing
     @Test func fileNames() {
         #expect(PlugInView.fileName(plugIn: "EQ3 7-Band", view: nil) == "EQ3 7-Band.txt")
         #expect(PlugInView.fileName(plugIn: "EQ3 7-Band", view: 3) == "EQ3 7-Band-3.txt")
-        #expect(PlugInWindow.plugInName(fromTitle: "Plug-in: Pro-Q 3/Stereo", kind: .plugIn) == "Pro-Q 3 Stereo")
-        #expect(PlugInWindow.plugInName(fromTitle: "Plug-in: a/b/c", kind: .plugIn) == "a b c")
+        #expect(PlugInWindow.plugInName(fromTitle: "Plug-in: Pro-Q 3/Stereo", kind: .plugIn) == "Pro-Q 3/Stereo")
+        #expect(PlugInView.fileName(plugIn: "Pro-Q 3/Stereo", view: nil) == "Pro-Q 3 Stereo.txt")
+        #expect(PlugInView.fileName(plugIn: "a/b/c", view: 2) == "a b c-2.txt")
+        #expect(PlugInView.template(plugIn: "a/b", parameters: []).hasPrefix("a b\n"))
     }
 
     /// The JXA clamped the row to the view and the column to the row, starting from -1, -1.
