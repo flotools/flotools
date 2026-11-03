@@ -51,8 +51,21 @@ enum InspectorControls {
 
     @AccessibilityActor
     static func readout(_ control: TrackStrip.Control, of track: TrackStrip) throws -> String {
+        try readout(control, of: track.control(control))
+    }
+
+    /// Presses the track's `control` and returns what a single press said just before, so a wait for the change compares two readouts made the same way.
+    @AccessibilityActor
+    private static func press(_ control: TrackStrip.Control, of track: TrackStrip) throws -> String {
         let element = try track.control(control)
-        return spokenText(control, name: try element.name ?? "", value: try element.value ?? "")
+        let before = try readout(control, of: element)
+        try element.press()
+        return before
+    }
+
+    @AccessibilityActor
+    private static func readout(_ control: TrackStrip.Control, of element: AXElement) throws -> String {
+        spokenText(control, name: try element.name ?? "", value: try element.value ?? "")
     }
 
     /// What a single press says for a control, from its name and value: the setting it shows (`TrackStrip.shownSetting`), with words for an empty group, Elastic Audio plug-in or comment, as in the JXA.
@@ -71,20 +84,12 @@ enum InspectorControls {
     static var selectTrack: Command {
         Inspector.command("inspector.speakAndSelectTrackShowRightClickMenu", "Speak And Select Track/Show Right-Click Menu", summary: "Single press selects the track and says so; double press opens the track name's right-click menu.", key: "T", doneSound: .none, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
-            let name = try await selectTrack(track)
+            let name = try await press(.trackName, of: track)
             try await VoiceOver.say(name + " selected")
         }, double: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await track.control(.trackName).showMenu()
         })
-    }
-
-    @AccessibilityActor
-    private static func selectTrack(_ track: TrackStrip) throws -> String {
-        let button = try track.control(.trackName)
-        let text = spokenText(.trackName, name: try button.name ?? "", value: "")
-        try button.press()
-        return text
     }
 
     /// Speak/Edit Comments: single press speaks the comment or "No Comment"; double press clicks the comments field so it can be typed into, then plays the done sound, as in the JXA.
@@ -112,20 +117,11 @@ enum InspectorControls {
             try await VoiceOver.say(readout(.freeze, of: track))
         }, double: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor(in: .edit)
-            let before = try await toggleFreeze(track)
+            let before = try await press(.freeze, of: track)
             await Sound.done.play()
             let after = try await waitForFreeze(track, changedFrom: before)
             try await VoiceOver.say(after)
         })
-    }
-
-    /// Presses the freeze button and returns its name from before.
-    @AccessibilityActor
-    private static func toggleFreeze(_ track: TrackStrip) throws -> String {
-        let button = try track.control(.freeze)
-        let name = try button.name ?? ""
-        try button.press()
-        return name
     }
 
     /// Reads the freeze button's name until it differs from `before`. Pro Tools answers slowly or not at all while it renders, so a busy read (`cannotComplete`, which includes the messaging timeout) only means "not yet". Any other failure, such as a track that is gone, ends the wait rather than holding the queue for `freezeTimeout`.
