@@ -214,9 +214,13 @@ public struct AXElement {
         return windows.contains { $0[kCGWindowOwnerPID as String] as? pid_t == pid && $0[kCGWindowLayer as String] as? Int == menuLayer }
     }
 
-    /// Same as `increment()` and `decrement()` on a System Events slider.
-    public func increment() throws { try perform("AXIncrement") }
-    public func decrement() throws { try perform("AXDecrement") }
+    /// Moves a slider one step, as `increment()` and `decrement()` on a System Events slider.
+    public func step(_ direction: SliderStep) throws {
+        switch direction {
+        case .increase: try perform("AXIncrement")
+        case .decrease: try perform("AXDecrement")
+        }
+    }
 
     // MARK: Notifications, for FrontWindowObserver
 
@@ -290,4 +294,9 @@ public enum Accessibility {
     public static func isTrusted(prompt: Bool = false) -> Bool {
         AXIsProcessTrustedWithOptions(["AXTrustedCheckOptionPrompt": prompt] as CFDictionary)
     }
+}
+
+/// Which way `AXElement.step(_:)` moves a slider. For a pan knob, increase is to the right.
+public enum SliderStep: Sendable {
+    case increase, decrease
 }

@@ -11,12 +11,12 @@ enum Inspector {
         toggle("inspector.speakToggleRecordState", "Speak/Toggle Record State", key: "R", .recordEnable),
         toggle("inspector.speakToggleInputMonitor", "Speak/Toggle Input Monitor", key: "K", .inputMonitor),
         toggle("inspector.speakToggleInstrumentMute", "Speak/Toggle Instrument Mute", key: "Opt+M", .instrumentMute),
-        pan("inspector.panRightOnMonoLeftChannel", "pan right on mono/Left channel", key: "Ctrl+Cmd+Right", .monoOrLeft, .right),
-        pan("inspector.panLeftOnMonoLeftChannel", "pan left on mono/Left channel", key: "Ctrl+Cmd+Left", .monoOrLeft, .left),
-        pan("inspector.panRightOnRightChannel", "pan right on right channel", key: "Ctrl+Shift+Cmd+Right", .right, .right),
-        pan("inspector.panLeftOnRightChannel", "pan left on right channel", key: "Ctrl+Shift+Cmd+Left", .right, .left),
-        pan("inspector.panInstrumentRight", "pan Instrument Right", key: "Ctrl+Opt+Right", .instrument, .right),
-        pan("inspector.panInstrumentLeft", "pan Instrument left", key: "Ctrl+Opt+Left", .instrument, .left),
+        pan("inspector.panRightOnMonoLeftChannel", "pan right on mono/Left channel", key: "Ctrl+Cmd+Right", .monoOrLeft, .increase),
+        pan("inspector.panLeftOnMonoLeftChannel", "pan left on mono/Left channel", key: "Ctrl+Cmd+Left", .monoOrLeft, .decrease),
+        pan("inspector.panRightOnRightChannel", "pan right on right channel", key: "Ctrl+Shift+Cmd+Right", .right, .increase),
+        pan("inspector.panLeftOnRightChannel", "pan left on right channel", key: "Ctrl+Shift+Cmd+Left", .right, .decrease),
+        pan("inspector.panInstrumentRight", "pan Instrument Right", key: "Ctrl+Opt+Right", .instrument, .increase),
+        pan("inspector.panInstrumentLeft", "pan Instrument left", key: "Ctrl+Opt+Left", .instrument, .decrease),
     ] }
 
     // MARK: Toggles
@@ -90,11 +90,9 @@ enum Inspector {
 
     // MARK: Pan
 
-    enum PanDirection: Sendable { case left, right }
-
     /// Moves one pan control a step and speaks its new position.
     @MainActor
-    static func pan(_ id: MacroID, _ name: String, key: String, _ control: TrackStrip.PanControl, _ direction: PanDirection) -> Macro {
+    static func pan(_ id: MacroID, _ name: String, key: String, _ control: TrackStrip.PanControl, _ direction: SliderStep) -> Macro {
         Macro(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(step(control, direction, on: track))
@@ -102,12 +100,9 @@ enum Inspector {
     }
 
     @AccessibilityActor
-    static func step(_ control: TrackStrip.PanControl, _ direction: PanDirection, on track: TrackStrip) throws -> String {
+    static func step(_ control: TrackStrip.PanControl, _ direction: SliderStep, on track: TrackStrip) throws -> String {
         let slider = try track.pan(control)
-        switch direction {
-        case .right: try slider.increment()
-        case .left: try slider.decrement()
-        }
+        try slider.step(direction)
         // The JXA spoke the knob's name too, which tells left and right apart; the instrument pan has one control.
         let name = control == .instrument ? nil : try slider.name ?? ""
         return panMessage(valueDescription: try slider.valueDescription ?? "", knobName: name)

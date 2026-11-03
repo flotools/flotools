@@ -26,10 +26,10 @@ enum InspectorControls {
         fader("inspector.speakResetPeakMeter", "Speak/Reset Peak Meter", key: "P", .peak),
         resetPan,
         resetInstrumentPan,
-        volumeStep("inspector.increaseVolume", "Increase Volume", key: "Ctrl+Cmd+Up", .volume, .up),
-        volumeStep("inspector.decreaseVolume", "Decrease Volume", key: "Ctrl+Cmd+Down", .volume, .down),
-        volumeStep("inspector.increaseInstrumentVolume", "Increase Instrument Volume", key: "Ctrl+Opt+Up", .instrumentVolume, .up),
-        volumeStep("inspector.decreaseInstrumentVolume", "Decrease Instrument Volume", key: "Ctrl+Opt+Down", .instrumentVolume, .down),
+        volumeStep("inspector.increaseVolume", "Increase Volume", key: "Ctrl+Cmd+Up", .volume, .increase),
+        volumeStep("inspector.decreaseVolume", "Decrease Volume", key: "Ctrl+Cmd+Down", .volume, .decrease),
+        volumeStep("inspector.increaseInstrumentVolume", "Increase Instrument Volume", key: "Ctrl+Opt+Up", .instrumentVolume, .increase),
+        volumeStep("inspector.decreaseInstrumentVolume", "Decrease Instrument Volume", key: "Ctrl+Opt+Down", .instrumentVolume, .decrease),
     ] }
 
     typealias Place = (window: ProToolsApp.TrackWindow, control: TrackStrip.Control)
@@ -211,11 +211,9 @@ enum InspectorControls {
         values.map { $0 + ". " }.joined()
     }
 
-    enum Step: Sendable { case up, down }
-
     /// Increase and Decrease Volume and Instrument Volume: moves the fader one step and speaks its value, as in the JXA.
     @MainActor
-    static func volumeStep(_ id: MacroID, _ name: String, key: String, _ fader: TrackStrip.Fader, _ step: Step) -> Macro {
+    static func volumeStep(_ id: MacroID, _ name: String, key: String, _ fader: TrackStrip.Fader, _ step: SliderStep) -> Macro {
         Macro(id, name, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)]) { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(move(fader, step, on: track))
@@ -223,12 +221,9 @@ enum InspectorControls {
     }
 
     @AccessibilityActor
-    private static func move(_ fader: TrackStrip.Fader, _ step: Step, on track: TrackStrip) throws -> String {
+    private static func move(_ fader: TrackStrip.Fader, _ step: SliderStep, on track: TrackStrip) throws -> String {
         let slider = try track.fader(fader)
-        switch step {
-        case .up: try slider.increment()
-        case .down: try slider.decrement()
-        }
+        try slider.step(step)
         return try slider.valueDescription ?? ""
     }
 }

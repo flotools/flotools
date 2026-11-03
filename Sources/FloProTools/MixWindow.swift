@@ -110,7 +110,7 @@ public struct TrackStrip {
         case .recordEnable: try element.button("Track Record Enable")
         case .inputMonitor: try element.buttons.first { try $0.name?.contains("Input monitoring") == true } ?? element.button("TrackInput Monitor")
         case .instrumentMute:
-            try element.required("the Instrument section") { try $0.group("Instrument") }.button("MIDI Mute")
+            try instrumentSection().button("MIDI Mute")
         }
     }
 
