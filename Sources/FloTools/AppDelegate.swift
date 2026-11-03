@@ -21,16 +21,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private lazy var lifecycle = Lifecycle(engine: engine, session: session, workspace: WorkspaceEvents()) { [weak self] in
         self?.preferences.current ?? Preferences()
     }
+    /// Whether `main` continued the log file of the last launch, which then still needs this launch's header.
+    private let resumedLog: Bool
     private var statusItem: NSStatusItem?
     private var accessibilityTask: Task<Void, Never>?
     private var logToggle: Task<Void, Never>?
+
+    init(resumedLog: Bool) {
+        self.resumedLog = resumedLog
+    }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         AXElement.setGlobalMessagingTimeout(1.0)
         engine.isEnabled = preferences.floToolsEnabled
         lifecycle.start()
-        // A relaunch or crash while the user reproduces a problem keeps logging into the same file.
-        Log.resumeRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current))
+        // After start, so the header shows the suspension and Inspector state that start set; the entries of start are already in the file.
+        if resumedLog { Log.writeHeader(DiagnosticHeader.text(engine: engine, preferences: preferences.current)) }
         Log.info(.app, "Flo Tools started")
         installPlugInViewsOnFirstLaunch()
         engine.start()

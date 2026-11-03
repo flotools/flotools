@@ -54,10 +54,14 @@ public enum Log {
         try await file.start(header: header)
     }
 
-    /// If logging was on when Flo Tools last quit or crashed, continues the same file, adding `header` again. Returns whether it did. Synchronous on purpose: it runs once at launch, before the entries of startup, which would otherwise be lost.
-    @discardableResult
-    public static func resumeRecording(header: String) -> Bool {
-        file.resume(header: header)
+    /// If logging was on when Flo Tools last quit or crashed, continues the same file with a note that Flo Tools started again. Returns whether it did. Synchronous on purpose: it runs first thing at launch, before the entries of startup, which would otherwise be lost. Write the header with `writeHeader` once startup has set the state it shows.
+    public static func resumeRecording() -> Bool {
+        file.resume()
+    }
+
+    /// Writes `header` into the resumed file and keeps it at the top when old entries are dropped.
+    public static func writeHeader(_ header: String) {
+        file.writeHeader(header)
     }
 
     /// Stops logging, appends Flo Tools crash reports written while it was on, and returns the finished file. The file work runs on the log queue, so the caller does not block.
@@ -71,6 +75,11 @@ public enum Log {
     private static let file = LogFile()
     private static let unified: [LogCategory: Logger] = Dictionary(uniqueKeysWithValues:
         LogCategory.allCases.map { ($0, Logger(subsystem: "com.chikim.FloTools", category: $0.rawValue)) })
+
+    /// For `LogFile`'s own failures, which cannot go through `write`: it would append to the file that just failed. Public, unlike other entries: the text is an I/O error with home paths redacted, never track names.
+    fileprivate static func fileFailure(_ what: String, _ error: any Error) {
+        unified[.log]?.error("\(what): \(redactingHome("\(error)"), privacy: .public)")
+    }
 
     private static func write(_ level: LogLevel, _ category: LogCategory, _ message: () -> String) {
         let important = level == .warning || level == .error
@@ -166,7 +175,7 @@ final class LogFile: @unchecked Sendable {
         defaults.set(Date(), forKey: Self.startedKey)
     }
 
-    func resume(header: String) -> Bool {
+    func resume() -> Bool {
         guard let path = defaults.string(forKey: Self.fileKey) else { return false }
         let url = URL(fileURLWithPath: path)
         do {
@@ -175,7 +184,7 @@ final class LogFile: @unchecked Sendable {
                     try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
                     try Data().write(to: url)
                 }
-                try open(url, header: "\nFlo Tools started again while logging was on.\n" + header)
+                try open(url, header: "\nFlo Tools started again while logging was on.\n")
             }
             return true
         } catch {
@@ -202,6 +211,14 @@ final class LogFile: @unchecked Sendable {
         }
     }
 
+    /// Adds `text` to the header kept at the top of the file, and writes it.
+    func writeHeader(_ text: String) {
+        queue.async {
+            self.header += text
+            self.write(text + "\n")
+        }
+    }
+
     func append(_ entry: Entry) {
         queue.async {
             self.write(self.format(entry))
@@ -217,9 +234,7 @@ final class LogFile: @unchecked Sendable {
     // MARK: On the queue
 
     private func open(_ url: URL, header: String) throws {
-        let handle = try FileHandle(forWritingTo: url)
-        size = Int(try handle.seekToEnd())
-        self.handle = handle
+        try openForAppending(url)
         self.url = url
         self.header = header
         write(header + "\n")
@@ -233,8 +248,7 @@ final class LogFile: @unchecked Sendable {
             try handle.write(contentsOf: data)
             size += data.count
         } catch {
-            // Logging the failure to the file would fail the same way.
-            Logger(subsystem: "com.chikim.FloTools", category: LogCategory.log.rawValue).error("log file write failed: \(Log.redactingHome("\(error)"), privacy: .public)")
+            Log.fileFailure("log file write failed", error)
         }
     }
 
@@ -256,14 +270,18 @@ final class LogFile: @unchecked Sendable {
             var rewritten = Data((header + "\n" + note).utf8)
             rewritten.append(tail)
             try rewritten.write(to: url, options: .atomic)
-            let reopened = try FileHandle(forWritingTo: url)
-            size = Int(try reopened.seekToEnd())
-            self.handle = reopened
+            try openForAppending(url)
         } catch {
-            Logger(subsystem: "com.chikim.FloTools", category: LogCategory.log.rawValue).error("could not shorten the log file: \(Log.redactingHome("\(error)"), privacy: .public)")
+            Log.fileFailure("could not shorten the log file", error)
             self.handle = try? FileHandle(forWritingTo: url)
             _ = try? self.handle?.seekToEnd()
         }
+    }
+
+    private func openForAppending(_ url: URL) throws {
+        let handle = try FileHandle(forWritingTo: url)
+        size = Int(try handle.seekToEnd())
+        self.handle = handle
     }
 
     /// Flo Tools crash reports created since logging was turned on, appended in full while they fit under `capBytes`. Old entries are dropped first to make room, as for any entry; a report that still does not fit is cut, with a note.

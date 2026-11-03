@@ -50,14 +50,19 @@ import Testing
         first.waitForWrites()
         // A new instance with the same defaults stands in for the next launch.
         let second = makeFile()
-        #expect(second.resume(header: "SECOND"))
+        #expect(second.resume())
+        second.append(entry("during startup"))
+        second.writeHeader("SECOND")
         second.append(entry("after relaunch"))
         let contents = try text(await second.stop())
         #expect(contents.contains("FIRST"))
         #expect(contents.contains("before relaunch"))
-        #expect(contents.contains("Flo Tools started again while logging was on.\nSECOND"))
+        #expect(contents.contains("Flo Tools started again while logging was on.\n"))
+        let startup = try #require(contents.range(of: "during startup"))
+        let header = try #require(contents.range(of: "\nSECOND\n"))
+        #expect(startup.upperBound <= header.lowerBound, "entries logged before the header are kept")
         #expect(contents.contains("after relaunch"))
-        #expect(!makeFile().resume(header: "THIRD"), "stop clears the remembered file")
+        #expect(!makeFile().resume(), "stop clears the remembered file")
     }
 
     @Test func dropsOldestEntriesPastTheCap() async throws {
