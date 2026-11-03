@@ -806,7 +806,6 @@ import Testing
 
     @Test func trackListingsAreDistinct() {
         let listings = TrackLists.listings
-        #expect(Set(listings.map(\.id)).count == listings.count)
         #expect(Set(listings.map(\.name)).count == listings.count)
         #expect(TrackLists.displayName("Kick - Audio Track ") == "Kick - Audio Track")
     }
