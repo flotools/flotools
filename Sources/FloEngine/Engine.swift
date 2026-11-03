@@ -175,8 +175,8 @@ public final class MacroEngine {
     // MARK: Running
 
     private func handle(_ combo: KeyCombo, _ event: HotKeyEvent) {
-        // The window may have changed since the keys were registered, so check again.
-        context = contextMonitor.refresh()
+        // Route on the cached context: reading the window here would block every key while Pro Tools is busy. Only a change of front app, which needs no Accessibility call to notice, is checked first.
+        context = contextMonitor.refreshIfFrontAppChanged()
         let phase: KeyPhase = event == .released ? .released : .pressed
         if dispatch(combo, phase, in: context) == nil {
             if phase == .pressed && candidates(for: combo, phase: .released, in: context).isEmpty {

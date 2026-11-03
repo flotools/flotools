@@ -74,7 +74,8 @@ public enum Log {
         guard important || recording else { return }
         let text = redactingHome(message())
         if important, let logger = unified[category] {
-            logger.log(level: level == .error ? .error : .default, "\(text, privacy: .public)")
+            // Private: the text can hold track names, which the owner approved only for the opt-in file.
+            logger.log(level: level == .error ? .error : .default, "\(text, privacy: .private)")
         }
         if recording {
             file.append(LogFile.Entry(date: Date(), level: level, category: category, invocation: invocation, message: text))

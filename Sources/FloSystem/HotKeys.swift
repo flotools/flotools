@@ -39,6 +39,9 @@ public final class HotKeyCenter {
     private var combosByID: [UInt32: KeyCombo] = [:]
     private var nextID: UInt32 = 1
     private var eventHandler: EventHandlerRef?
+    /// What the engine wants registered, from the last `setActive`.
+    private var wanted: Set<KeyCombo> = []
+    /// Keys left unregistered for a moment while their pass-through copy is posted.
     private var suspended: Set<KeyCombo> = []
 
     public init() {}
@@ -46,6 +49,7 @@ public final class HotKeyCenter {
     public var registeredCombos: Set<KeyCombo> { Set(registered.keys) }
 
     public func stop() {
+        wanted = []
         for combo in registeredCombos { unregister(combo) }
         if let eventHandler { RemoveEventHandler(eventHandler) }
         eventHandler = nil
@@ -54,23 +58,24 @@ public final class HotKeyCenter {
     /// Registers exactly `combos`, adding and removing registrations as needed.
     public func setActive(_ combos: Set<KeyCombo>) {
         installHandlerIfNeeded()
-        let wanted = combos.subtracting(suspended)
-        for combo in registeredCombos.subtracting(wanted) { unregister(combo) }
-        for combo in wanted.subtracting(registeredCombos) { register(combo) }
+        wanted = combos
+        let toRegister = combos.subtracting(suspended)
+        for combo in registeredCombos.subtracting(toRegister) { unregister(combo) }
+        for combo in toRegister.subtracting(registeredCombos) { register(combo) }
         Log.debug(.hotkeys, "registered: \(registered.keys.map(\.description).sorted().joined(separator: ", "))")
     }
 
     /// Sends a hotkey that no macro wanted on to the front app.
-    /// The key is unregistered while the copy is posted so it doesn't trigger again.
+    /// The key is unregistered while the copy is posted so it doesn't trigger again. The copy is posted even when the key is already unregistered, because Carbon has consumed the original either way.
+    /// Afterwards the key is registered again only if it is still wanted: the context or enable state may have changed meanwhile.
     public func passThrough(_ combo: KeyCombo) {
-        guard registered[combo] != nil else { return }
         unregister(combo)
         suspended.insert(combo)
         Keyboard.press(keyCode: CGKeyCode(combo.keyCode), flags: combo.cgFlags)
         Task { @MainActor in
             try? await Task.sleep(for: .milliseconds(100))
             self.suspended.remove(combo)
-            self.register(combo)
+            if self.wanted.contains(combo) { self.register(combo) }
         }
     }
 
