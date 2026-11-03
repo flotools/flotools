@@ -127,10 +127,10 @@ enum PlugIns {
             do {
                 view = try PlugInView.load(plugIn: plugIn, view: number)
             } catch {
-                await cursor.load(nil)
+                await cursor.clear()
                 throw error
             }
-            await cursor.load(view)
+            await cursor.load(view, for: plugIn)
             guard let view else {
                 Log.info(.engine, "no view file \(PlugInView.fileName(plugIn: plugIn, view: number))")
                 return
@@ -147,7 +147,7 @@ enum PlugIns {
     static func moveParameter(_ id: CommandID, _ name: String, _ place: String, key: String, rows: Int, columns: Int, _ cursor: PlugInViewCursor) -> Command {
         Command(id, name, summary: "Moves to the parameter in the \(place) of the loaded plug-in view, speaks its name and value, and moves the mouse over its control.", scope: .windows([.plugIn]), triggers: [.key(key)]) { _ in
             let window = try await ProToolsApp.running().plugInWindow(.plugIn)
-            let parameter = try await cursor.move(rows: rows, columns: columns)
+            let parameter = try await cursor.move(for: try await window.plugInName, rows: rows, columns: columns)
             // Nil when the plug-in has no slider of that name; a failed read throws to the engine.
             let value = try await window.parameterValue(named: parameter.name)
             try await VoiceOver.say(value.map { "\(parameter.name): \($0)" } ?? parameter.name)

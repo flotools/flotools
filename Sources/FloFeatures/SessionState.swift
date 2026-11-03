@@ -11,7 +11,7 @@ public final class SessionState: Sendable {
 
     func reset() async {
         await clipMark.clear()
-        await plugInView.load(nil)
+        await plugInView.clear()
         await gainReduction.reset()
         await eventColumn.reset()
     }

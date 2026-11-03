@@ -102,12 +102,15 @@ import Testing
 
     @Test func cursorStartsOverOnLoad() async throws {
         let cursor = PlugInViewCursor()
-        await #expect(throws: FloError.self) { try await cursor.move(rows: 1, columns: 0) }
-        await cursor.load(try PlugInView(json: Data(Self.dyn3.utf8)))
-        #expect(try await cursor.move(rows: 0, columns: 1).name == "Knee Width")
-        #expect(try await cursor.move(rows: 0, columns: 1).name == "Ratio")
-        await cursor.load(try PlugInView(json: Data(Self.dyn3.utf8)))
-        #expect(try await cursor.move(rows: 1, columns: 0).name == "Knee Width")
+        await #expect(throws: FloError.self) { try await cursor.move(for: "Dyn3 Compressor/Limiter", rows: 1, columns: 0) }
+        await cursor.load(try PlugInView(json: Data(Self.dyn3.utf8)), for: "Dyn3 Compressor/Limiter")
+        #expect(try await cursor.move(for: "Dyn3 Compressor/Limiter", rows: 0, columns: 1).name == "Knee Width")
+        #expect(try await cursor.move(for: "Dyn3 Compressor/Limiter", rows: 0, columns: 1).name == "Ratio")
+        await cursor.load(try PlugInView(json: Data(Self.dyn3.utf8)), for: "Dyn3 Compressor/Limiter")
+        #expect(try await cursor.move(for: "Dyn3 Compressor/Limiter", rows: 1, columns: 0).name == "Knee Width")
+        // A view loaded for one plug-in is not used in another's window, and is forgotten once asked for there.
+        await #expect(throws: FloError.self) { try await cursor.move(for: "EQ3 7-Band", rows: 1, columns: 0) }
+        await #expect(throws: FloError.self) { try await cursor.move(for: "Dyn3 Compressor/Limiter", rows: 1, columns: 0) }
     }
 
     @Test func templateMatchesTheJXA() throws {

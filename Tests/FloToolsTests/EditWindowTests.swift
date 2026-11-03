@@ -85,12 +85,12 @@ import Testing
     @Test func resetForgetsTheSession() async throws {
         let session = SessionState()
         session.clipMark.set("Audio Clip \"Guitar_01\"", in: Self.window(pid: 1))
-        await session.plugInView.load(try PlugInView(json: Data(#"{"view":"Default","click":[-1,-1],"parameters":[[["Gain",1,2]]]}"#.utf8)))
+        await session.plugInView.load(try PlugInView(json: Data(#"{"view":"Default","click":[-1,-1],"parameters":[[["Gain",1,2]]]}"#.utf8)), for: "EQ3 7-Band")
         await session.gainReduction.record("minus 6 db")
         _ = await session.eventColumn.next()
         await session.reset()
         #expect(session.clipMark.clipName(in: Self.window(pid: 1)) == nil)
-        await #expect(throws: FloError.self) { try await session.plugInView.move(rows: 1, columns: 0) }
+        await #expect(throws: FloError.self) { try await session.plugInView.move(for: "EQ3 7-Band", rows: 1, columns: 0) }
         #expect(await session.gainReduction.take() == 0)
         #expect(await session.eventColumn.column == .start)
     }

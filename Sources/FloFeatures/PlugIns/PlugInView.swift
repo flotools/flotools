@@ -147,18 +147,31 @@ extension FloFeatures {
 }
 
 /// The loaded plug-in view and the parameter the cursor is on. Replaces the KM variables FTPluginControlParameters and FTPluginControlIndex. Loading a view, which happens whenever a plug-in window comes to front, starts over.
+///
+/// The view remembers which plug-in it was loaded for. A window change while Flo Tools is off or suspended loads nothing, so without that the parameter keys could move through one plug-in's view in another plug-in's window.
 actor PlugInViewCursor {
     private var view: PlugInView?
+    /// The plug-in name `view` was loaded for.
+    private var plugIn: String?
     private var position: PlugInView.Position?
 
-    /// Replaces the view, nil for a plug-in without one, and goes back to before the first parameter.
-    func load(_ view: PlugInView?) {
+    /// Replaces the view for `plugIn`, nil for a plug-in without one, and goes back to before the first parameter.
+    func load(_ view: PlugInView?, for plugIn: String) {
         self.view = view
+        self.plugIn = plugIn
         position = nil
     }
 
-    /// Moves and returns the parameter now under the cursor. Throws when no view is loaded.
-    func move(rows: Int, columns: Int) throws -> PlugInView.Parameter {
+    /// Forgets the view, for example when Pro Tools quits.
+    func clear() {
+        view = nil
+        plugIn = nil
+        position = nil
+    }
+
+    /// Moves and returns the parameter now under the cursor. Throws when no view is loaded for `plugIn`, and forgets a view loaded for another one.
+    func move(for plugIn: String, rows: Int, columns: Int) throws -> PlugInView.Parameter {
+        if self.plugIn != plugIn { clear() }
         guard let view else { throw FloError.notFound("a plug-in view for this plug-in") }
         guard let next = view.position(after: position, rows: rows, columns: columns) else { throw FloError.notFound("a parameter in this plug-in view") }
         position = next
