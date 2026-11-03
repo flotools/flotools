@@ -24,9 +24,10 @@ enum WindowTools {
     @MainActor
     private static func resizeTable(_ id: CommandID, _ name: String, _ what: String, key: String, _ table: ProToolsApp.Table) -> Command {
         Command(id, name, summary: "Speaks the width of \(what) and moves the mouse onto its resize edge, ready to drag.", scope: .anyProToolsWindow, triggers: [.key(key)]) { _ in
-            let frame = try await ProToolsApp.running().frame(of: table)
+            let proTools = try ProToolsApp.running()
+            let frame = try await proTools.frame(of: table)
             try await VoiceOver.say(resizeText(table, width: frame.width))
-            try Mouse.move(to: resizeEdge(table, frame))
+            try Mouse.move(to: resizeEdge(table, frame), ifFront: proTools.pid)
         }
     }
 

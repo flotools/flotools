@@ -18,7 +18,7 @@ enum ClipDrag {
                 try await VoiceOver.say("Marked for drag.")
                 // The KM version held the button until the hotkey's modifiers were up. It is released however the wait ends.
                 let point = grabPoint(of: clip.frame)
-                try Mouse.pressButton(at: point, modifiers: .maskAlternate)
+                try Mouse.pressButton(at: point, modifiers: .maskAlternate, ifFront: app.pid)
                 defer { Mouse.releaseButton(at: point, modifiers: .maskAlternate) }
                 try await Keyboard.waitForModifiersReleased()
             },
@@ -32,8 +32,8 @@ enum ClipDrag {
                 let track = try await app.trackUnderVoiceOverCursor(in: .edit)
                 let target = dropPoint(onTrack: try await track.frame())
                 let undoBefore = try await app.undoItemName()
-                try await Mouse.click(at: start, modifiers: .maskControl)
-                try await Mouse.drag(from: start, to: target, modifiers: .maskControl)
+                try await Mouse.click(at: start, modifiers: .maskControl, ifFront: app.pid)
+                try await Mouse.drag(from: start, to: target, modifiers: .maskControl, ifFront: app.pid)
                 // The drop shows in the Undo item after the button is up; a second is ample.
                 let undoAfter = try await ProToolsUpdate.reading(changedFrom: undoBefore, within: .seconds(1)) { try app.undoItemName() }
                 try await VoiceOver.say(resultText(undoBefore: undoBefore, undoAfter: undoAfter))

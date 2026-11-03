@@ -121,7 +121,8 @@ enum PlugIns {
         let file = number.map { "view \($0)" } ?? "the default view"
         let summary = "Loads \(file) from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view." + (number == nil ? " Also runs when a plug-in window comes to front." : "")
         return Command(id, name, summary: summary, scope: .windows([.plugIn]), triggers: [.key("Cmd+\(number ?? 0)")]) { _ in
-            let window = try await ProToolsApp.running().plugInWindow(.plugIn)
+            let proTools = try ProToolsApp.running()
+            let window = try await proTools.plugInWindow(.plugIn)
             let plugIn = try await window.plugInName
             let view: PlugInView?
             do {
@@ -137,7 +138,7 @@ enum PlugIns {
             }
             try await VoiceOver.say("\(view.name) view for \(plugIn)")
             if let click = view.click {
-                try await Mouse.click(at: try await window.origin.offset(by: click))
+                try await Mouse.click(at: try await window.origin.offset(by: click), ifFront: proTools.pid)
             }
         }
     }
@@ -146,14 +147,15 @@ enum PlugIns {
     @MainActor
     static func moveParameter(_ id: CommandID, _ name: String, _ place: String, key: String, rows: Int, columns: Int, _ cursor: PlugInViewCursor) -> Command {
         Command(id, name, summary: "Moves to the parameter in the \(place) of the loaded plug-in view, speaks its name and value, and moves the mouse over its control.", scope: .windows([.plugIn]), triggers: [.key(key)]) { _ in
-            let window = try await ProToolsApp.running().plugInWindow(.plugIn)
+            let proTools = try ProToolsApp.running()
+            let window = try await proTools.plugInWindow(.plugIn)
             let parameter = try await cursor.move(for: try await window.plugInName, rows: rows, columns: columns)
             // Nil when the plug-in has no slider of that name; a failed read throws to the engine.
             let value = try await window.parameterValue(named: parameter.name)
             try await VoiceOver.say(value.map { "\(parameter.name): \($0)" } ?? parameter.name)
             // (0, 0) is the template's placeholder for a control not placed yet; moving there would only put the pointer on the window's corner.
             if parameter.point != .zero {
-                try Mouse.move(to: try await window.origin.offset(by: parameter.point))
+                try Mouse.move(to: try await window.origin.offset(by: parameter.point), ifFront: proTools.pid)
             }
         }
     }

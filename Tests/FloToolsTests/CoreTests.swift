@@ -725,6 +725,18 @@ private actor Flag {
     }
 }
 
+@Suite struct MouseTests {
+    /// The test runner is never the front app, so these must post nothing: the pointer stays where it is.
+    @Test func refusesWhenAnotherAppIsInFront() async {
+        let before = CGEvent(source: nil)?.location
+        #expect(throws: FloError.couldNot("move the mouse, because another app is in front")) { try Mouse.move(to: CGPoint(x: 5, y: 5), ifFront: -1) }
+        await #expect(throws: FloError.couldNot("click, because another app is in front")) { try await Mouse.click(at: CGPoint(x: 5, y: 5), ifFront: -1) }
+        #expect(throws: FloError.self) { try Mouse.pressButton(at: CGPoint(x: 5, y: 5), ifFront: -1) }
+        await #expect(throws: FloError.self) { try await Mouse.drag(from: CGPoint(x: 5, y: 5), to: CGPoint(x: 9, y: 9), ifFront: -1) }
+        #expect(CGEvent(source: nil)?.location == before)
+    }
+}
+
 @Suite @MainActor struct PreferencesTests {
     private let suite = TestDefaults("FloToolsTests")
 
