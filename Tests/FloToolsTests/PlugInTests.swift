@@ -35,6 +35,9 @@ import Testing
     @Test func rejectsABadFile() {
         #expect(throws: FloError.self) { try PlugInView(json: Data("not json".utf8)) }
         #expect(throws: FloError.self) { try PlugInView(json: Data(#"{"view":"V", "click":[-1,-1], "parameters":[[["Gain",1]]]}"#.utf8)) }
+        // A position far off any screen, such as a typing slip, is rejected rather than clicked or trapping a later Int conversion.
+        #expect(throws: FloError.self) { try PlugInView(json: Data(#"{"view":"V", "click":[-1,-1], "parameters":[[["Gain",1e300,2]]]}"#.utf8)) }
+        #expect(throws: FloError.self) { try PlugInView(json: Data(#"{"view":"V", "click":[99999,0], "parameters":[]}"#.utf8)) }
     }
 
     @Test func shippedViewFilesAreReadable() throws {

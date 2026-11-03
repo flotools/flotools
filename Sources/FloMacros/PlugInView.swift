@@ -28,24 +28,30 @@ struct PlugInView: Sendable, Equatable {
     init(json: Data) throws {
         guard let object = try? JSONSerialization.jsonObject(with: json) as? [String: Any] else { throw FloError.unexpectedValue("the view file is not a JSON object") }
         guard let name = object["view"] as? String else { throw FloError.unexpectedValue("the view file has no \"view\" name") }
-        guard let click = Self.point(object["click"]) else { throw FloError.unexpectedValue("the view file's \"click\" is not two numbers") }
+        guard let click = Self.point(object["click"]) else { throw FloError.unexpectedValue("the view file's \"click\" is not two numbers of a window position") }
         guard let rows = object["parameters"] as? [[Any]] else { throw FloError.unexpectedValue("the view file's \"parameters\" is not a list of rows") }
         self.name = name
         self.click = click.x == -1 && click.y == -1 ? nil : click
         self.rows = try rows.map { row in
             try row.map { entry in
                 guard let entry = entry as? [Any], entry.count == 3, let name = entry[0] as? String, let point = Self.point(Array(entry[1...])) else {
-                    throw FloError.unexpectedValue("a parameter in the view file is not [\"name\", x, y]")
+                    throw FloError.unexpectedValue("a parameter in the view file is not [\"name\", x, y] with a window position")
                 }
                 return Parameter(name: name, point: point)
             }
         }
     }
 
+    /// Two numbers within `coordinateLimit` of the window corner, so a typing slip in a view file cannot send the mouse far off any screen.
     private static func point(_ value: Any?) -> CGPoint? {
         guard let pair = value as? [Any], pair.count == 2, let x = pair[0] as? NSNumber, let y = pair[1] as? NSNumber else { return nil }
-        return CGPoint(x: x.doubleValue, y: y.doubleValue)
+        let point = CGPoint(x: x.doubleValue, y: y.doubleValue)
+        guard abs(point.x) <= coordinateLimit, abs(point.y) <= coordinateLimit else { return nil }
+        return point
     }
+
+    /// Larger than any window, so every real position fits.
+    static let coordinateLimit: CGFloat = 20_000
 
     // MARK: Files
 

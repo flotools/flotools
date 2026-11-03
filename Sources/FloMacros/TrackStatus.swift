@@ -8,11 +8,11 @@ enum TrackStatus {
     @MainActor
     static var macros: [Macro] { [
         flagMacro("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", key: "Opt+Shift+S", .soloed, Wording(none: "No tracks are soloed.", heading: "Soloed:"),
-                  reset: Reset(suspendsGroups: true, partly: "Unsoloed", done: "unsoloed all tracks.")),
+                  reset: Reset(suspendsGroups: true, verb: "unsolo", partly: "Unsoloed", done: "unsoloed all tracks.")),
         flagMacro("floTools.speakMutedTracksUnmuteAllTracks", "Speak Muted Tracks, Unmute All Tracks", key: "Opt+Shift+M", .muted, Wording(none: "No tracks are muted.", heading: "Muted:"),
-                  reset: Reset(suspendsGroups: true, partly: "Unmuted", done: "unmuted all tracks.")),
+                  reset: Reset(suspendsGroups: true, verb: "unmute", partly: "Unmuted", done: "unmuted all tracks.")),
         flagMacro("floTools.speakInputMonitorEnabledTracksDisableInputMonitorOnAllTracks", "Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks", key: "Opt+Shift+K", .inputMonitored, Wording(none: "No track has input monitor on", heading: "Input on:"),
-                  reset: Reset(suspendsGroups: false, partly: "Turned off input monitor on", done: "Turned Off Input Monitor for all tracks")),
+                  reset: Reset(suspendsGroups: false, verb: "turn off input monitor on", partly: "Turned off input monitor on", done: "Turned Off Input Monitor for all tracks")),
         recordArmed,
         flagMacro("floTools.speakRecordSafeTracks", "Speak Record Safe Tracks", key: "Opt+Shift+Cmd+R", .recordSafe, Wording(none: "No tracks are disarmed safe.", heading: "Disarmed safe:")),
         flagMacro("floTools.speakSoloSafeTracks", "Speak Solo Safe Tracks", key: "Opt+Shift+Cmd+S", .soloSafe, Wording(none: "No tracks are solo safe.", heading: "Solo safe:")),
@@ -60,6 +60,8 @@ enum TrackStatus {
     struct Reset: Sendable {
         /// Solo and mute suspend the mix groups meanwhile, as the JXA did, so one click does not change a whole group.
         let suspendsGroups: Bool
+        /// What failed on a track whose flag stayed on, for example "unsolo" in "Could not unsolo Kick."
+        let verb: String
         /// Starts the report of a run that failed part way, for example "Unsoloed 2 of 5 tracks".
         let partly: String
         /// Spoken when every track was handled.
@@ -91,7 +93,7 @@ enum TrackStatus {
             let names = try await proTools.mixWindow().tracks(.recordArmed, on: true).map(\.name)
             try await VoiceOver.say(names.isEmpty ? noArmedTracksText(proTools) : "\(names.count) Armed: " + list(names))
         }, double: { _ in
-            let reset = Reset(suspendsGroups: false, partly: "Disarmed", done: "Disarmed all tracks.")
+            let reset = Reset(suspendsGroups: false, verb: "disarm", partly: "Disarmed", done: "Disarmed all tracks.")
             try await resetAll(.recordArmed, reset)
             let hiddenStillArmed = try await ProToolsApp.running().hasArmedTracks()
             try await VoiceOver.say(hiddenStillArmed ? "Disarmed all shown tracks. Some hidden tracks are still armed." : reset.done)
@@ -103,7 +105,7 @@ enum TrackStatus {
         try await proTools.hasArmedTracks() ? "Some tracks are armed." : "No tracks are armed."
     }
 
-    /// Turns `flag` off on every track that has it, folders last, as the JXA did for solo. Each track is checked again before its click, because a click on a folder or a grouped track can change others, and the click waits for the button to change before the next one. Mix groups are suspended meanwhile if `reset` says so, and resumed however the loop ends: done, failed or cancelled. A failure part way says how far it got.
+    /// Turns `flag` off on every track that has it, folders last, as the JXA did for solo. Each track is checked again before its click, because a click on a folder or a grouped track can change others, and the click waits for the button to change before the next one. A track whose flag stays on stops the loop with `FloError.couldNot`. Mix groups are suspended meanwhile if `reset` says so, and resumed however the loop ends: done, failed or cancelled. A failure part way says how far it got.
     static func resetAll(_ flag: TrackFlag, _ reset: Reset) async throws {
         let proTools = try ProToolsApp.running()
         let mix = try await proTools.mixWindow()
@@ -120,6 +122,8 @@ enum TrackStatus {
                 // A stop request ends the loop between clicks.
                 try Task.checkCancellation()
                 try await set(flag, on: track, to: false)
+                // The click waits only so long for the button, so check that the flag is off before counting the track, or success would be spoken for a track still soloed.
+                if try await track.has(flag) == true { throw FloError.couldNot("\(reset.verb) \(track.name)") }
                 handled += 1
                 if ContinuousClock.now - lastSound > .seconds(1) {
                     await Sound.progress.play()

@@ -1,4 +1,5 @@
 import CoreGraphics
+import Foundation
 
 /// Synthetic mouse moves and clicks, like Keyboard Maestro's Move or Click Mouse. Points are global screen coordinates with the origin at the top left of the main display, as `AXElement.position` reports them.
 ///
@@ -10,7 +11,7 @@ public enum Mouse {
     /// Moves the pointer, for example so VoiceOver or a later scroll acts on the control under it.
     public static func move(to point: CGPoint) {
         post(.mouseMoved, at: point)
-        Log.info(.hotkeys, "mouse moved to \(Int(point.x)), \(Int(point.y))")
+        Log.info(.hotkeys, "mouse moved to \(text(point))")
     }
 
     /// Moves the pointer and clicks the left button there, with `modifiers` held, such as `.maskControl`.
@@ -20,19 +21,19 @@ public enum Mouse {
         try? await Task.sleep(for: holdTime)
         // Always released, even when the caller is cancelled during the hold.
         post(.leftMouseUp, at: point, modifiers: modifiers)
-        Log.info(.hotkeys, "mouse clicked at \(Int(point.x)), \(Int(point.y))")
+        Log.info(.hotkeys, "mouse clicked at \(text(point))")
     }
 
     /// Moves the pointer and holds the left button down there, until `releaseButton(at:modifiers:)`. The caller must release it, also when it is cancelled.
     public static func pressButton(at point: CGPoint, modifiers: CGEventFlags = []) {
         post(.mouseMoved, at: point)
         post(.leftMouseDown, at: point, modifiers: modifiers)
-        Log.info(.hotkeys, "mouse button down at \(Int(point.x)), \(Int(point.y))")
+        Log.info(.hotkeys, "mouse button down at \(text(point))")
     }
 
     public static func releaseButton(at point: CGPoint, modifiers: CGEventFlags = []) {
         post(.leftMouseUp, at: point, modifiers: modifiers)
-        Log.info(.hotkeys, "mouse button up at \(Int(point.x)), \(Int(point.y))")
+        Log.info(.hotkeys, "mouse button up at \(text(point))")
     }
 
     /// Presses the left button at `start`, drags to `end` and releases it there, with `modifiers` held, like Keyboard Maestro's click and drag.
@@ -43,7 +44,12 @@ public enum Mouse {
         post(.leftMouseDragged, at: end, modifiers: modifiers)
         try? await Task.sleep(for: holdTime)
         post(.leftMouseUp, at: end, modifiers: modifiers)
-        Log.info(.hotkeys, "mouse dragged from \(Int(start.x)), \(Int(start.y)) to \(Int(end.x)), \(Int(end.y))")
+        Log.info(.hotkeys, "mouse dragged from \(text(start)) to \(text(end))")
+    }
+
+    /// "x, y" in whole points. Formatted rather than converted with `Int(_:)`, which traps on a value out of range, such as one from a user's view file.
+    static func text(_ point: CGPoint) -> String {
+        String(format: "%.0f, %.0f", point.x, point.y)
     }
 
     private static func post(_ type: CGEventType, at point: CGPoint, modifiers: CGEventFlags = []) {
