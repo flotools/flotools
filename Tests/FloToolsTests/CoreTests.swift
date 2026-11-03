@@ -260,8 +260,11 @@ import Testing
 
     @Test func stopCancelsARunningMacro() async throws {
         let events = Events()
+        var signalStarted: AsyncStream<Void>.Continuation?
+        let started = AsyncStream<Void> { signalStarted = $0 }
         let engine = engine([
-            Macro("test.long", "Long", group: .floTools, triggers: [.key("F1")]) { _ in
+            Macro("test.long", "Long", group: .floTools, triggers: [.key("F1")]) { [signalStarted] _ in
+                signalStarted?.yield()
                 do {
                     try await Task.sleep(for: .seconds(5))
                     events.list.append("finished")
@@ -271,7 +274,8 @@ import Testing
             },
         ])
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        try await Task.sleep(for: .milliseconds(20))
+        // Stop only once the body runs, so the test checks cancellation of a running macro, not of a queued one.
+        for await _ in started { break }
         engine.stop()
         await engine.waitUntilIdle()
         #expect(events.list == ["cancelled"])

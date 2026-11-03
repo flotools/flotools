@@ -74,9 +74,10 @@ import Testing
 
     @Test func appendsOnlyFloToolsCrashReportsFromWhileLogging() throws {
         try FileManager.default.createDirectory(at: crashes, withIntermediateDirectories: true)
-        try "old crash".write(to: crashes.appendingPathComponent("FloTools-old.ips"), atomically: true, encoding: .utf8)
-        // Creation dates have one-second precision on some volumes.
-        Thread.sleep(forTimeInterval: 1.1)
+        let old = crashes.appendingPathComponent("FloTools-old.ips")
+        try "old crash".write(to: old, atomically: true, encoding: .utf8)
+        // Dated a minute back rather than waiting, because creation dates have one-second precision on some volumes.
+        try FileManager.default.setAttributes([.creationDate: Date(timeIntervalSinceNow: -60)], ofItemAtPath: old.path)
         let file = makeFile()
         try file.start(header: "HEADER")
         try "new crash in \(NSHomeDirectory())/x".write(to: crashes.appendingPathComponent("FloTools-new.ips"), atomically: true, encoding: .utf8)
