@@ -110,7 +110,7 @@ enum TrackStatus {
         let proTools = try ProToolsApp.running()
         let mix = try await proTools.mixWindow()
         let tracks = try await mix.tracks(flag, on: true)
-        let ordered = tracks.filter { !$0.isFolder } + tracks.filter(\.isFolder)
+        let ordered = tracks.filter { $0.kind != .folder } + tracks.filter { $0.kind == .folder }
         let suspendGroups = reset.suspendsGroups && !ordered.isEmpty ? try await mix.hasActiveGroups() : false
         // `defer` cannot await, so the loop's error is kept and thrown after the groups are resumed.
         var handled = 0
@@ -172,7 +172,7 @@ enum TrackStatus {
     @AccessibilityActor
     private static func tracksAt0dB() throws -> [String] {
         try ProToolsApp.running().mixWindow().trackStrips().filter { strip in
-            guard !strip.name.contains(" - MIDI Track") else { return false }
+            guard strip.kind != .midi else { return false }
             return try strip.peakDecibels().map { $0 >= 0 } ?? false
         }.map(\.name)
     }

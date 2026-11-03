@@ -75,8 +75,7 @@ public struct TrackStrip {
         CGRect(origin: try element.position.required("the position of the track \(name)"), size: try element.size.required("the size of the track \(name)"))
     }
 
-    /// Folder tracks are unsoloed after the others, as in the JXA.
-    public nonisolated var isFolder: Bool { name.contains("Folder Track") }
+    public nonisolated var kind: TrackKind { TrackKind(trackName: name) }
 
     // MARK: Toggle buttons
 
@@ -129,9 +128,9 @@ public struct TrackStrip {
     public func set(_ flag: TrackFlag, to on: Bool) async throws -> Bool {
         guard let button = try findButton(flag.toggle) else { return true }
         let before = try Self.state(of: flag.toggle, button: button)
-        guard let state = TrackFlag.state(of: flag, trackName: name, buttonState: before), state != on else { return true }
+        guard let state = TrackFlag.state(of: flag, track: kind, buttonState: before), state != on else { return true }
         let after = try await Self.press(button, of: flag.toggle, from: before)
-        return TrackFlag.isSettled(TrackFlag.state(of: flag, trackName: name, buttonState: after), on: on)
+        return TrackFlag.isSettled(TrackFlag.state(of: flag, track: kind, buttonState: after), on: on)
     }
 
     /// The toggle's state as Pro Tools shows it: the name of a named input monitoring button, otherwise the button's value, empty when off.
@@ -144,10 +143,10 @@ public struct TrackStrip {
         return try button.value ?? ""
     }
 
-    /// Whether the track has `flag` now, by `TrackFlag.state(of:trackName:buttonState:)`; nil when it does not take part, including when it lacks the button.
+    /// Whether the track has `flag` now, by `TrackFlag.state(of:track:buttonState:)`; nil when it does not take part, including when it lacks the button.
     public func has(_ flag: TrackFlag) throws -> Bool? {
         guard let button = try findButton(flag.toggle) else { return nil }
-        return TrackFlag.state(of: flag, trackName: name, buttonState: try Self.state(of: flag.toggle, button: button))
+        return TrackFlag.state(of: flag, track: kind, buttonState: try Self.state(of: flag.toggle, button: button))
     }
 
     // MARK: Inserts and sends
@@ -289,7 +288,7 @@ public struct TrackStrip {
 
     /// The element for `control`. Matching ignores case, as JXA's `_contains` did. Input and output are the MIDI selectors on a MIDI track and the audio paths on other tracks.
     public func control(_ control: Control) throws -> AXElement {
-        let isMIDI = name.contains(" - MIDI Track")
+        let isMIDI = kind == .midi
         return switch control {
         case .automationMode: try first("the automation mode selector", role: "AXPopUpButton") { $0.contains("automation mode selector") }
         case .group: try first("the group selector", role: "AXButton") { $0.hasPrefix("group id indicator") }

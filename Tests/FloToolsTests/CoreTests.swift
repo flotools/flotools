@@ -812,7 +812,7 @@ private actor Flag {
 
     @Test func trackFlagRulesMatchJXAFilters() {
         let kick = "Kick - Audio Track "
-        func state(_ flag: TrackFlag, _ name: String, _ value: String) -> Bool? { TrackFlag.state(of: flag, trackName: name, buttonState: value) }
+        func state(_ flag: TrackFlag, _ name: String, _ value: String) -> Bool? { TrackFlag.state(of: flag, track: TrackKind(trackName: name), buttonState: value) }
         #expect(state(.soloed, kick, "on") == true)
         #expect(state(.soloed, kick, "") == false)
         #expect(state(.soloed, kick, "on, solo safe") == nil)
@@ -835,6 +835,22 @@ private actor Flag {
         #expect(state(.inputMonitored, kick, "Input monitoring disabled") == false)
         #expect(state(.inputMonitored, kick, "on") == true)
         #expect(state(.inputMonitored, "Synth Lead - Inst Track ", "Input monitoring is enabled, but delay compensation is disabled.") == nil)
+    }
+
+    @Test func trackKindFromStripName() {
+        #expect(TrackKind(trackName: "Kick - Audio Track ") == .audio)
+        #expect(TrackKind(trackName: "Bass - MIDI Track ") == .midi)
+        #expect(TrackKind(trackName: "Synth Lead - Inst Track ") == .instrument)
+        #expect(TrackKind(trackName: "Reverb L - Aux Track ") == .aux)
+        #expect(TrackKind(trackName: "Reverb L - Auxiliary Track ") == .aux)
+        #expect(TrackKind(trackName: "Master 1 - Master Track ") == .master)
+        #expect(TrackKind(trackName: "Drums - Routing Folder Track ") == .folder)
+        #expect(TrackKind(trackName: "Drums - Basic Folder Track ") == .folder)
+        #expect(TrackKind(trackName: "Strings - VCA Track ") == .other)
+        #expect(TrackKind(trackName: "Kick") == .other)
+        // Only the suffix counts, not a kind named in the user's track name.
+        #expect(TrackKind(trackName: "Folder Track Ideas - Audio Track ") == .audio)
+        #expect(TrackKind(trackName: "Keys - MIDI Track Copy - Audio Track ") == .audio)
     }
 
     @Test func trackListRowNames() {
