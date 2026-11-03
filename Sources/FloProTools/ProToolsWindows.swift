@@ -32,8 +32,7 @@ extension ProToolsApp {
         case .editClips:
             element = try clipList()
         case .frontTrackList:
-            let front = try AXElement.application(pid: pid).required("the front window") { try $0.focusedWindow }
-            element = try front.required("the Track List table") { try $0.table("Track List") }
+            element = try frontWindow().required("the Track List table") { try $0.table("Track List") }
         }
         let origin = try element.position.required("the position of the table")
         let size = try element.size.required("the size of the table")

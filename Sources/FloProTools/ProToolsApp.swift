@@ -60,7 +60,7 @@ public struct ProToolsApp: Sendable {
     /// Presses tab `number` (from 1) of the focused window, such as Preferences or I/O Setup, whose tabs are its radio buttons, and returns the tab's name. The JXA used `windows[0]`, the front window.
     @AccessibilityActor
     public func selectTab(_ number: Int) throws -> String {
-        let window = try AXElement.application(pid: pid).required("the front window") { try $0.focusedWindow }
+        let window = try frontWindow()
         let tab = try window.required("tab \(number)") { window in
             let tabs = try window.children(role: "AXRadioButton")
             return tabs.indices.contains(number - 1) ? tabs[number - 1] : nil
@@ -113,6 +113,12 @@ public struct ProToolsApp: Sendable {
     @AccessibilityActor
     public func hasWindow(titled title: String) throws -> Bool {
         try AXElement.application(pid: pid).windows.contains { try $0.title == title }
+    }
+
+    /// The focused window, or `FloError.notFound` naming `what`.
+    @AccessibilityActor
+    func frontWindow(_ what: String = "the front window") throws -> AXElement {
+        try AXElement.application(pid: pid).required(what) { try $0.focusedWindow }
     }
 
     /// The first window of `kind`, by the title rule that also decides which commands apply, so a window a command was allowed in is the one it finds. `what` names it for the user, for example "the Mix window".

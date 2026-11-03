@@ -150,7 +150,7 @@ extension ProToolsApp {
     /// The front window, which must be a plug-in or AudioSuite window as `ProToolsWindowKind` classifies it. The commands that use it run only while such a window is in front, and the front one is the instance the user is working in, also when two windows of one plug-in have the same title. The JXA took the first window with the title prefix instead.
     @AccessibilityActor
     public func plugInWindow(_ kind: PlugInWindow.Kind) throws -> PlugInWindow {
-        let front = try AXElement.application(pid: pid).required(kind.what) { try $0.focusedWindow }
+        let front = try frontWindow(kind.what)
         guard ProToolsWindowKind(title: try front.title ?? "") == kind.windowKind else { throw FloError.notFound(kind.what) }
         return PlugInWindow(kind, front)
     }
