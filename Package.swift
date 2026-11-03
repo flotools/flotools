@@ -7,6 +7,10 @@ let package = Package(
     products: [
         .executable(name: "FloTools", targets: ["FloTools"]),
     ],
+    dependencies: [
+        // The app's self-updater; only the app target links it.
+        .package(url: "https://github.com/sparkle-project/Sparkle", from: "2.10.1"),
+    ],
     targets: [
         // Generic macOS infrastructure: Accessibility, VoiceOver, hotkeys, synthetic keys, sounds.
         .target(name: "FloSystem"),
@@ -17,7 +21,7 @@ let package = Package(
         // The commands, one folder per feature.
         .target(name: "FloFeatures", dependencies: ["FloSystem", "FloEngine", "FloProTools"]),
         // Menu bar app.
-        .executableTarget(name: "FloTools", dependencies: ["FloSystem", "FloEngine", "FloProTools", "FloFeatures"]),
+        .executableTarget(name: "FloTools", dependencies: ["FloSystem", "FloEngine", "FloProTools", "FloFeatures", .product(name: "Sparkle", package: "Sparkle")]),
         .testTarget(name: "FloToolsTests", dependencies: ["FloSystem", "FloEngine", "FloProTools", "FloFeatures"]),
     ]
 )

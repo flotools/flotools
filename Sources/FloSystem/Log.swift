@@ -3,7 +3,7 @@ import os
 
 /// The part of Flo Tools an entry comes from. Also the unified log category.
 public enum LogCategory: String, Sendable, CaseIterable {
-    case app, engine, context, hotkeys, accessibility, voiceover, preferences, log
+    case app, engine, context, hotkeys, accessibility, voiceover, preferences, log, updates
 }
 
 public enum LogLevel: String, Sendable {

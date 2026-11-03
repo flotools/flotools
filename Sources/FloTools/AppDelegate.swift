@@ -21,6 +21,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private lazy var lifecycle = Lifecycle(engine: engine, session: session, workspace: WorkspaceEvents()) { [weak self] in
         self?.preferences.current ?? Preferences()
     }
+    private lazy var updater = Updater(preferences: preferences)
     /// Whether `main` continued the log file of the last launch, which then still needs this launch's header.
     private let resumedLog: Bool
     private var statusItem: NSStatusItem?
@@ -39,6 +40,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if resumedLog { Log.writeHeader(DiagnosticHeader.text(engine: engine, preferences: preferences.current)) }
         Log.info(.app, "Flo Tools started")
         installPlugInViewsOnFirstLaunch()
+        updater.start()
         engine.start()
         setUpStatusItem()
 
@@ -123,6 +125,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         menu.addItem(disabled("\(engine.commands.count) commands"))
         menu.addItem(NSMenuItem(title: "Preferences…", action: #selector(showPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem(title: Log.isRecording ? "Turn Off Log" : "Turn On Log", action: #selector(toggleLog), keyEquivalent: ""))
+        let updates = NSMenuItem(title: "Updates", action: nil, keyEquivalent: "")
+        let updatesMenu = NSMenu(title: "Updates")
+        // The updater dims the settings that depend on one that is off.
+        updatesMenu.autoenablesItems = false
+        updatesMenu.items = updater.menuItems()
+        updates.submenu = updatesMenu
+        menu.addItem(updates)
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: "Quit Flo Tools", action: #selector(quit), keyEquivalent: "q"))
 

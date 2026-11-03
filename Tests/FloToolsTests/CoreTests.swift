@@ -768,6 +768,17 @@ private actor Flag {
         #expect(!PreferencesStore(defaults: defaults).floToolsEnabled)
     }
 
+    /// Flo Tools' two update settings start off and survive a relaunch.
+    @Test func updateSettingsAreRemembered() {
+        let defaults = suite.defaults
+        #expect(!PreferencesStore(defaults: defaults).installsUpdatesAutomatically)
+        #expect(!PreferencesStore(defaults: defaults).includesBetaUpdates)
+        PreferencesStore(defaults: defaults).installsUpdatesAutomatically = true
+        PreferencesStore(defaults: defaults).includesBetaUpdates = true
+        #expect(PreferencesStore(defaults: defaults).installsUpdatesAutomatically)
+        #expect(PreferencesStore(defaults: defaults).includesBetaUpdates)
+    }
+
     @Test func unsupportedTimeoutFallsBackToDefault() {
         let defaults = suite.defaults
         defaults.set(50, forKey: PreferencesStore.Key.timeout)

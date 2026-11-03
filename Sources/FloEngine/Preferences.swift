@@ -29,6 +29,8 @@ public final class PreferencesStore {
         static let timeout = "doublePressTimeout"
         static let floToolsEnabled = "floToolsEnabled"
         static let plugInViewsInstalled = "plugInViewsInstalled"
+        static let installsUpdatesAutomatically = "installsUpdatesAutomatically"
+        static let includesBetaUpdates = "includesBetaUpdates"
     }
 
     public init(defaults: UserDefaults = .standard) {
@@ -58,6 +60,24 @@ public final class PreferencesStore {
     public var plugInViewsInstalled: Bool {
         get { defaults.bool(forKey: Key.plugInViewsInstalled) }
         set { defaults.set(newValue, forKey: Key.plugInViewsInstalled) }
+    }
+
+    /// Whether an update that Sparkle downloaded in the background is installed right away, relaunching Flo Tools, instead of when Flo Tools quits. Sparkle keeps its own check and download settings. Off when never set.
+    public var installsUpdatesAutomatically: Bool {
+        get { defaults.bool(forKey: Key.installsUpdatesAutomatically) }
+        set {
+            defaults.set(newValue, forKey: Key.installsUpdatesAutomatically)
+            Log.info(.preferences, "saved install updates automatically \(newValue)")
+        }
+    }
+
+    /// Whether update checks also offer beta releases, the appcast items in the `beta` channel. Off when never set.
+    public var includesBetaUpdates: Bool {
+        get { defaults.bool(forKey: Key.includesBetaUpdates) }
+        set {
+            defaults.set(newValue, forKey: Key.includesBetaUpdates)
+            Log.info(.preferences, "saved include beta updates \(newValue)")
+        }
     }
 
     /// Missing values are defaults. A timeout outside `timeoutChoices`, which only `defaults write` can set, is logged and replaced by the default, so double presses stay usable.
