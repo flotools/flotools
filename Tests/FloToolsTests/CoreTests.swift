@@ -509,6 +509,32 @@ import Testing
         #expect(events.list == ["cancelled", "short"])
     }
 
+    @Test func cancelAllEndsAfterTheCancelledWorkHasEnded() async {
+        let events = Events()
+        var signalStarted: AsyncStream<Void>.Continuation?
+        let started = AsyncStream<Void> { signalStarted = $0 }
+        let engine = engine([
+            Macro("test.long", "Long", group: .floTools, triggers: [.key("F1")]) { @MainActor [signalStarted] _ in
+                signalStarted?.yield()
+                try? await Task.sleep(for: .seconds(5))
+                // Work a run does after it was cancelled, like writing remembered state, still comes before the end of cancelAll.
+                await Task.yield()
+                events.list.append("run wrote")
+            },
+        ])
+        engine.monitors.toggle("test.watch") { @MainActor in
+            try? await Task.sleep(for: .seconds(5))
+            await Task.yield()
+            events.list.append("watch wrote")
+        }
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        for await _ in started { break }
+        await engine.cancelAll().value
+        events.list.append("reset")
+        #expect(events.list.sorted() == ["reset", "run wrote", "watch wrote"])
+        #expect(events.list.last == "reset")
+    }
+
     @Test func statusMenuListsMacrosOfActiveGroups() {
         let engine = FloMacros.makeEngine()
         let plugIn = FrontContext(bundleID: "com.avid.ProTools", windowTitle: "Plug-in: EQ3 7-Band")

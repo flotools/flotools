@@ -2,7 +2,7 @@ import FloSystem
 
 /// Watches started by macros that keep running after the macro returns, such as the level meter monitor. They run outside the macro queue, so other macros keep working while one watches. Each is keyed by the macro that starts and stops it, so one macro has at most one watch.
 ///
-/// Owned by the main actor. A watch ends when its macro toggles it off, when its body returns, or with `stopAll()`, which the engine calls when it stops. Ending a watch cancels its task, so the body hears about it as `CancellationError` and can say goodbye.
+/// Owned by the main actor. A watch ends when its macro toggles it off, when its body returns, or with `stopAll()`, which the engine calls when it cancels all macros or stops. Ending a watch cancels its task, so the body hears about it as `CancellationError` and can say goodbye.
 @MainActor
 public final class Monitors {
     public typealias Body = @Sendable () async -> Void
@@ -41,10 +41,15 @@ public final class Monitors {
         watch.task.cancel()
     }
 
-    public func stopAll() {
-        guard !tasks.isEmpty else { return }
-        Log.info(.engine, "stopping \(tasks.count) watch(es)")
-        tasks.values.forEach { $0.task.cancel() }
+    /// Stops every watch. The returned task ends once their bodies have returned.
+    @discardableResult
+    public func stopAll() -> Task<Void, Never> {
+        let stopped = tasks.values.map(\.task)
         tasks = [:]
+        if !stopped.isEmpty { Log.info(.engine, "stopping \(stopped.count) watch(es)") }
+        stopped.forEach { $0.cancel() }
+        return Task { @MainActor in
+            for task in stopped { await task.value }
+        }
     }
 }

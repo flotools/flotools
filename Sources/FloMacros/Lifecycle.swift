@@ -80,8 +80,13 @@ public final class Lifecycle {
         case .quit(bundleID: ProToolsApp.bundleID):
             // Like KM Cancel Macros and Cleanup Variables: nothing that was going on in Pro Tools can go on, and nothing remembered about its session applies to the next. KM also cleaned up on launch because its variables outlived the engine; here they start empty with Flo Tools.
             Log.info(.app, "Pro Tools quit")
-            engine.cancelAll()
-            Task { [session] in await session.reset() }
+            // Reset only once the cancelled runs and watches have ended, so none of them writes the old session's state back afterwards. Runs started meanwhile cannot reach Pro Tools, which has quit.
+            let cancelled = engine.cancelAll()
+            Task { [session] in
+                await cancelled.value
+                await session.reset()
+                Log.info(.app, "session state reset")
+            }
             engine.resume(Self.keyboardShortcuts)
             lastProToolsWindow = nil
         case .launched, .quit:

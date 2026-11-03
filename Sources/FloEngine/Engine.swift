@@ -120,12 +120,19 @@ public final class MacroEngine {
     }
 
     /// Cancels pending, queued and running macros, ends holds and stops watches, but keeps the hotkeys and observers. Like Keyboard Maestro's Cancel All Macros, used when Pro Tools quits.
-    public func cancelAll() {
+    /// Cancelling only asks the work to stop, and a run may still write remembered state before it notices. The returned task ends once every cancelled run and watch has ended, so a caller that resets such state waits for it first.
+    @discardableResult
+    public func cancelAll() -> Task<Void, Never> {
         Log.info(.engine, "cancelling all macros")
         endHolds { _ in true }
         cancelPendingSingles()
-        runs.values.forEach { $0.cancel() }
-        monitors.stopAll()
+        let cancelledRuns = Array(runs.values)
+        cancelledRuns.forEach { $0.cancel() }
+        let watchesEnded = monitors.stopAll()
+        return Task { @MainActor in
+            for run in cancelledRuns { await run.value }
+            await watchesEnded.value
+        }
     }
 
     /// Reads the front app and window again, for example after Accessibility access was granted.
