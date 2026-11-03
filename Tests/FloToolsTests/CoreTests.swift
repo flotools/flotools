@@ -100,18 +100,22 @@ import Testing
         FloMacros.setStartState(preferences, in: engine)
         #expect(!engine.isMacroEnabled(InspectorMode.toggleTemporaryInspector))
         #expect(!engine.isGroupActivated(.inspector))
+        // The track view keys work from launch while the Inspector is off.
+        #expect(engine.isMacroEnabled(InspectorMode.nextTrackView))
         preferences.temporaryInspector = true
         preferences.startsWithInspector = true
         FloMacros.apply(preferences, to: engine)
         FloMacros.setStartState(preferences, in: engine)
         #expect(engine.isMacroEnabled(InspectorMode.toggleTemporaryInspector))
         #expect(engine.isGroupActivated(.inspector))
+        #expect(!engine.isMacroEnabled(InspectorMode.nextTrackView))
     }
 
     @Test func toggleInspectorWindowCondition() {
         #expect(InspectorMode.mixOrEdit.matches("Mix: Session"))
         #expect(InspectorMode.mixOrEdit.matches("Edit: Session"))
         #expect(!InspectorMode.mixOrEdit.matches("Plug-in: EQ3"))
+        #expect(!InspectorMode.mixOrEdit.matches("Untitled Edit: Session"))
         #expect(!InspectorMode.mixOrEdit.matches(nil))
     }
 }

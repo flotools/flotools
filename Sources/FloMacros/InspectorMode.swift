@@ -4,8 +4,8 @@ import FloSystem
 
 /// Turning the Flo Tools Inspector group on and off. While it is on, plain keys such as S and Ctrl+Cmd+Right act on the track under the VoiceOver cursor; while it is off, they go to Pro Tools.
 enum InspectorMode {
-    /// Front window condition of Toggle Inspector and Toggle Temporary Inspector. Slightly wider than the Inspector group's `^(Mix|Edit):`, as in the KM version.
-    static let mixOrEdit = TitleCondition.matches("^Mix:|Edit:")
+    /// Front window condition of Toggle Inspector and Toggle Temporary Inspector, the same as the Inspector group's. The KM version's `^Mix:|Edit:` also took `/` in any window with "Edit:" in its title, where the Inspector keys do not work; narrowed on purpose (2026-11-03).
+    static let mixOrEdit = TitleCondition.matches("^(Mix|Edit):")
     static let toggleTemporaryInspector: MacroID = "floTools.toggleTemporaryInspector"
     static let nextTrackView: MacroID = "floTools.nextTrackViewOnSelectedTracks"
     static let previousTrackView: MacroID = "floTools.previousTrackViewOnSelectedTracks"
@@ -67,9 +67,9 @@ enum InspectorMode {
         engine.setMacro(toggleTemporaryInspector, enabled: preferences.temporaryInspector)
     }
 
-    /// The Inspector state at Flo Tools and Pro Tools launch, from "starts with Flo Tools inspector", like the KM Check for Automatic Update macro. As there, only the group changes; the track view macros keep their state.
+    /// The Inspector state at Flo Tools and Pro Tools launch, from "starts with Flo Tools inspector", like the KM Check for Automatic Update macro. The KM version changed only the group, so the track view keys stayed off until `/` was pressed once; here they follow the Inspector from launch (changed on purpose, 2026-11-03).
     @MainActor
     static func applyStartState(_ preferences: Preferences, to engine: MacroEngine) {
-        engine.setGroup(.inspector, activated: preferences.startsWithInspector)
+        setInspector(preferences.startsWithInspector, in: engine)
     }
 }
