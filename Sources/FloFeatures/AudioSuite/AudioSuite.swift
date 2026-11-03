@@ -11,10 +11,7 @@ enum AudioSuite {
             button("bypass", "Bypass", key: "Ctrl+Opt+Shift+Cmd+B"),
             button("previewProcessing", "Preview Processing", key: "Ctrl+Opt+Shift+Cmd+P"),
             button("render", "Render", key: "Ctrl+Opt+Shift+Cmd+R", spoken: "Render"),
-            PlugIns.stepPreset(CommandID("audioSuite.nextPreset"), "Next Preset", .audioSuite, .next, key: "]"),
-            PlugIns.stepPreset(CommandID("audioSuite.previousPreset"), "Previous Preset", .audioSuite, .previous, key: "["),
-            PlugIns.speakChoosePreset(CommandID("audioSuite.speakChooseAudioSuitePreset"), "Speak/Choose Audio Suite Preset", .audioSuite),
-        ]
+        ] + Presets.commands(.audioSuite)
     }
 
     /// Presses the AudioSuite window's button `name` and speaks `spoken` if given, as the JXA did. A missing button is reported through `SpokenError` ("Could not find the Render button.") rather than the JXA's "Can't find render button!".

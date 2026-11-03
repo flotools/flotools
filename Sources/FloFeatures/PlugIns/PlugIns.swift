@@ -3,17 +3,14 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// Plug-in window keys: presets, bypass and parameters of the plug-in window, including the user's plug-in views (`PlugInView`). The preset commands are shared with the AudioSuite window.
+/// Plug-in window keys: presets, bypass and parameters of the plug-in window, including the user's plug-in views (`PlugInView`). The preset commands are in `Presets`, shared with the AudioSuite window.
 enum PlugIns {
     static let loadDefaultView: CommandID = "plugin.loadPluginParametersForDefaultView"
     static let monitor: CommandID = "plugin.togglePluginMonitor"
 
     @MainActor
     static func commands(_ cursor: PlugInViewCursor) -> [Command] {
-        [
-            stepPreset("plugin.nextPreset", "Next Preset", .plugIn, .next, key: "]"),
-            stepPreset("plugin.previousPreset", "Previous Preset", .plugIn, .previous, key: "["),
-            speakChoosePreset("plugin.speakChoosePreset", "Speak/Choose Preset", .plugIn),
+        Presets.commands(.plugIn) + [
             speakToggleBypass,
             toggleMonitor,
             moveParameter("plugin.nextRowParameter", "Next Row Parameter", key: "Ctrl+Down", rows: 1, columns: 0, cursor),
@@ -23,35 +20,6 @@ enum PlugIns {
             loadView(nil, cursor),
             displayViewTemplate,
         ] + (1...9).map { loadView($0, cursor) }
-    }
-
-    // MARK: Presets, shared with Audio Suite
-
-    /// Goes to the next or previous preset and speaks its name.
-    @MainActor
-    static func stepPreset(_ id: CommandID, _ name: String, _ kind: PlugInWindow.Kind, _ step: PlugInWindow.PresetStep, key: String) -> Command {
-        Command(id, name, scope: scope(kind), triggers: [.key(key)]) { _ in
-            let preset = try await ProToolsApp.running().plugInWindow(kind).step(step)
-            try await VoiceOver.say(preset)
-        }
-    }
-
-    /// Single press speaks the preset; double press opens the preset menu.
-    @MainActor
-    static func speakChoosePreset(_ id: CommandID, _ name: String, _ kind: PlugInWindow.Kind) -> Command {
-        Command(id, name, scope: scope(kind), triggers: [.key("Opt+Cmd+P")], single: { _ in
-            let preset = try await ProToolsApp.running().plugInWindow(kind).preset
-            try await VoiceOver.say(preset)
-        }, double: { _ in
-            try await ProToolsApp.running().plugInWindow(kind).openPresetMenu()
-        })
-    }
-
-    private static func scope(_ kind: PlugInWindow.Kind) -> Scope {
-        switch kind {
-        case .plugIn: .windows([.plugIn])
-        case .audioSuite: .windows([.audioSuite])
-        }
     }
 
     // MARK: Bypass
