@@ -9,14 +9,14 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 ## Where state lives
 
 - `.pi/HANDOFF.md` is the work journal. It is not tracked by git (`.pi/` is in `.git/info/exclude`). Part 1 is the current state, the porting tracker and the exact next step; Part 2 is a dated `J-n` journal. Read Part 1 before doing anything. After every plan, code change, commit, live test or decision, append a journal entry and revise Part 1. Never rewrite old entries; add a correction entry instead. Keep observed results separate from inferences.
-- `reference/macros/INDEX.md` is the tracked record of which macros are ported (the "Ported" column).
+- `reference/macros/INDEX.md` is the frozen record of how each KM macro was ported (the "Ported" column): ported, absorbed by shared code, dropped or excluded.
 - `plan.md` at the repository root is the agreed architecture and refactor order. Code changes should match it; if the design changes, update `plan.md` in the same commit.
 - `.pi/jobs/` holds jobs sent to other agents with `lmg ask`, one folder per job, with `task.md` and `responseN.md`.
 
 ## Rules that must not change
 
 - Flo Tools for Keyboard Maestro is retired (legacy, no more support); all development happens here, and the Swift code is the source of truth. The KM export is a frozen porting reference.
-- Ported macros keep their KM hotkeys and the windows their KM group applied to, unless a change is decided on purpose. `KeyboardMaestroParityTests` checks this against the KM export; a deliberate change goes in its `changedOnPurpose` list with the reason. `KeymapTests` pins every binding and the routing of shared keys in `Tests/Baselines/`; regenerate them with `FLO_WRITE_BASELINES=1 swift test --filter KeymapTests` and read the diff.
+- Macros keep their hotkeys and windows unless a change is decided on purpose; record it in plan.md section 11. `KeymapTests` pins every binding and the routing of shared keys in `Tests/Baselines/`; regenerate them with `FLO_WRITE_BASELINES=1 swift test --filter KeymapTests` and read the diff.
 - Flo Mouse is not part of this app; it moves to a separate project. Do not port the Flo Mouse group or Toggle Flo Mouse.
 - VoiceOver speech (`output`) and reading the VoiceOver cursor stay on Apple events to VoiceOver, sent directly from Swift without AppleScript source (VoiceOver does not speak accessibility announcements from a background app). Everything that touches Pro Tools uses the Accessibility API, not System Events.
 - Spoken text should match the JXA version unless there is a stated reason to change it. Unit tests pin the text.
@@ -32,7 +32,6 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 - `Sources/FloMacros/`: `Lifecycle.swift` (what happens on VoiceOver and Pro Tools launch and quit and on window changes, replacing the KM Global group) and the macros, one file per area, each declaring its ID, name, scope, mode condition, triggers and action. `FloMacros.all` lists them.
 - `Sources/FloTools/`: the app (status menu, permission prompts).
 - `Tests/FloToolsTests/`: Swift Testing unit tests.
-- `tools/km_export.py`: regenerates `reference/macros/` from `reference/Flo Tools.kmmacros`, keeping the Ported column.
 - `scripts/build-app.sh`: builds and signs `build/Flo Tools.app`.
 - `Resources/`: `Info.plist`, entitlements, and `Sounds/` with the feedback sounds (`Done.aiff`, `Progress.aiff`; for now copies of the macOS Tink and Pop), which `build-app.sh` copies into the app.
 
@@ -46,17 +45,16 @@ Run from the repository root.
 - Test: `swift test`
 - App bundle: `scripts/build-app.sh` (universal release build, signed with the first "Apple Development" identity, or `FLO_SIGN_IDENTITY`). Always sign with the same identity, because Accessibility and Automation permissions are tied to the signature.
 - Relaunch: `pkill -x FloTools; scripts/build-app.sh && open "build/Flo Tools.app"`
-- Regenerate macro reference files: `.venv/bin/python -I tools/km_export.py` (`--check` to only compare).
-- Test the generator: `.venv/bin/python -I -m unittest discover -s tools`.
 - App log: turn on the diagnostic log from the menu bar menu ("Turn On Log") and read the newest file in `~/Library/Logs/Flo Tools/`. The unified log (`log show --last 1m --predicate 'subsystem == "com.chikim.FloTools"' --style compact`) has only warnings and errors.
 
-## Porting a macro
+## Adding or changing a macro
 
-1. Read its file in `reference/macros/<group>/<macro>.md`, including any macros it calls with ExecuteMacro.
-2. Declare it in `Sources/FloMacros/` with an ID `<group>.<lowerCamelName>`, the KM name, scope (the windows of its KM group) and hotkeys (`.key("Ctrl+2")`), and add its KM UID to `macroOrigins` in `KeyboardMaestroParityTests`. Implement it sharing code with macros of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
+1. For behavior that came from KM, read its file in `reference/macros/<group>/<macro>.md` for the original wording and steps.
+2. Declare it in its feature file in `Sources/FloMacros/` with an ID, name, scope, mode condition and hotkeys (`.key("Ctrl+2")`). Share code with macros of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
 3. Add unit tests for pure logic: message text, value parsing, filters.
-4. Build, run tests, rebuild the app and test it live (below).
-5. Mark it "yes" in the "Ported" column of `reference/macros/INDEX.md`, update the tracker in `.pi/HANDOFF.md`, and commit. Commit per group or per pattern, with a message that says what was tested live.
+4. Regenerate the baselines (`FLO_WRITE_BASELINES=1 swift test --filter KeymapTests`) and check that the diff shows only the intended bindings and routing.
+5. Build, run tests, rebuild the app and test it live (below).
+6. Update `.pi/HANDOFF.md` and commit, with a message that says what was tested live.
 
 ## Testing live in Pro Tools
 
@@ -88,7 +86,7 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 ### One source of truth
 
 - Each concept has one representation and one implementation: one model of a macro, one of a hotkey, one of a window condition, one double-press mechanism, one way to find a track, one preferences reader and writer.
-- KM UIDs appear only in `KeyboardMaestroParityTests`. App code uses `MacroID`, never KM UIDs or display names, to find a macro.
+- KM UIDs appear only in `reference/`. App code uses `MacroID`, never KM UIDs or display names, to find a macro.
 - When several macros share a pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs), implement the pattern once and parameterize it. Do not copy 20 near-identical macros.
 - No duplicate constants, repeated parsing or repeated formatting rules.
 
@@ -150,7 +148,7 @@ Users must be able to send the developer a log that shows where a macro failed. 
 
 ### Tests
 
-- Test behavior at the right level: message text, value parsing, filters, hotkey resolution, enable state, double-press timing, parity with the KM export, preferences reading and validation.
+- Test behavior at the right level: message text, value parsing, filters, hotkey resolution, enable state, double-press timing, the keymap and routing baselines, preferences reading and validation.
 - Keep tests deterministic. Prefer designs where side effects can be supplied naturally over heavy mocking, and do not add abstractions only to mock them.
 - Never weaken a test to make a change pass. If behavior changes on purpose, update the test and say why.
 - Live Pro Tools checks complement unit tests; record them in the journal.

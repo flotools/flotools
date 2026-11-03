@@ -40,8 +40,8 @@ Nothing below `FloMacros` knows a macro by name. Superseded by section 11 (2026-
 
 ## 4. Macro model
 
-- Swift is the source of truth (owner decision, 2026-11-02: KM version retired). Each macro declares `MacroID` (`<group>.<lowerCamelName>`, after its KM group), name, scope, mode condition, triggers and action (section 11). Hotkeys are written as text, `.key("Ctrl+2")`, parsed with the one key-name table. KM UIDs appear only in `KeyboardMaestroParityTests`, which reads the export and checks each ported macro's KM group (through its scope and mode), triggers and default state, and that each window kind matches the KM group conditions, allowing listed deliberate changes. There is no generated Swift catalog.
-- `MacroTrigger`: `.hotKey(KeyCombo, KeyPhase)` (pressed or released) and `.statusMenu`. KM's focused-window and application triggers belong only to macros that Swift absorbed into the window observer and `Lifecycle` or dropped, so they live in `KeyboardMaestroParityTests` (`KMTrigger`), not in the engine (review finding 13, 2026-11-03). The reference generator fails on any unknown trigger, fire type, condition or targeting.
+- Swift is the source of truth (owner decision, 2026-11-02: KM version retired). Each macro declares `MacroID` (`<group>.<lowerCamelName>`, after its KM group), name, scope, mode condition, triggers and action (section 11). Hotkeys are written as text, `.key("Ctrl+2")`, parsed with the one key-name table. KM UIDs appear only in `reference/`. `KeymapTests` pins every binding and the routing of shared keys in `Tests/Baselines/` (step 8 of section 11 removed the KM parity test). There is no generated Swift catalog.
+- `MacroTrigger`: `.hotKey(KeyCombo, KeyPhase)` (pressed or released) and `.statusMenu`. KM's focused-window and application triggers belong only to macros that Swift absorbed into the window observer and `Lifecycle` or dropped, so they are not in the engine (review finding 13, 2026-11-03).
 - `Macro(id, body)` or `Macro(id, single:, double:)`. `MacroBody = @Sendable (MacroRun) async throws -> Void`, nonisolated (decided 2026-11-02, see section 9): Pro Tools reads run on `AccessibilityActor`, and speech and engine state are reached with `await` on the main actor, so no macro body blocks the main thread. `MacroRun` is `Sendable` and carries the record, the trigger, the front context, an invocation ID and the engine.
 - The engine owns double press, keyed by `MacroID`, through a pure `DoublePressDecider` tested with explicit instants. It plays the done sound (Tink in the JXA) before `double`, as almost every JXA macro does; Speak/Toggle Mute calls `double()` first and then Tink, so a macro can choose Tink after. Repeat events are not taps. Pending singles get a generation number and are cancelled on disable, context invalidation, preferences change and stop.
 - `MacroEngine.install(_:)` validates that no ID is installed twice and that no two macros tie: same key and phase, overlapping scopes and mode conditions, and the same precedence (Keyboard Maestro showed a conflict palette; here the winner would otherwise depend on install order). Unported macros are not installed, so their keys stay free.
@@ -75,6 +75,9 @@ Unsolo All Tracks is hardened as the model for multi-step mutations: validate th
 - Plug-in view files keep their JSON-in-`.txt` format and location; filenames from window titles are sanitized to one path component.
 
 ## 8. Tooling, packaging, tests
+
+The reference generator and the parity test described below were removed in section 11, step 8; `reference/` stays as generated.
+
 
 - `tools/km_export.py` replaces `gen_catalog.py` and `extract_macros.py` and only writes `reference/macros/`; `--check` fails on a diff. It keeps the "Ported" column from the existing `INDEX.md` when regenerating, and confines deletion to `reference/macros/`. Add standard-library Python tests.
 - The key-name table exists in Swift (`KeyNames.swift`) and in `km_export.py` for the reference files. They are separate outputs of a frozen export, so a shared generated table is not worth the machinery.
@@ -154,7 +157,7 @@ Each step: build, full tests, baseline diff reviewed, journal entry, commit; Cod
 5. Inspector as a mode; track view and Inspector bindings use mode conditions; no command enables another (done with step 4; `MacroEngine.setInspector`).
 6. Remove nested runs in favor of shared functions (done; List Tracks with Flo Tools was the only caller).
 7. Rename to `Command`, `Binding`, `Keymap`, `Engine`, `Watches`; feature folders.
-8. Remove the KM parity tooling; update `AGENTS.md` and this plan.
+8. Remove the KM parity tooling; update `AGENTS.md` and this plan (done: `KeyboardMaestroParityTests`, `tools/km_export.py` and its tests removed; `reference/` and its Ported column stay frozen).
 
 ## 12. Not done on purpose
 

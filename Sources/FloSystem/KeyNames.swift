@@ -2,7 +2,7 @@ extension KeyCombo {
     /// Modifier names in display order.
     static let modifierNames: [(bit: UInt32, name: String)] = [(control, "Ctrl"), (option, "Opt"), (shift, "Shift"), (command, "Cmd")]
 
-    /// Names of macOS virtual key codes (ANSI layout). `tools/km_export.py` has the same table for the reference files.
+    /// Names of macOS virtual key codes (ANSI layout).
     static let keyNames: [UInt32: String] = [
         0: "A", 1: "S", 2: "D", 3: "F", 4: "H", 5: "G", 6: "Z", 7: "X", 8: "C", 9: "V",
         11: "B", 12: "Q", 13: "W", 14: "E", 15: "R", 16: "Y", 17: "T", 18: "1", 19: "2",
