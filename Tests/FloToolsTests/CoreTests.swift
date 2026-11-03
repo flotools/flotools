@@ -1028,10 +1028,11 @@ private actor Flag {
         #expect(slopes == ["Next In Slope": 0, "Previous In Slope": 0, "Next Out Slope": 1, "Previous Out Slope": 1])
     }
 
-    /// The Crossfade dialog's Down and Up step its one "Slope" group, which the JXA called "Link Out / In" (checked live 2026-11-03).
-    @Test func crossfadeLinkReadsTheSlopeGroup() {
-        let links = FadeDialogs.settings.filter { $0.dialog == .crossfade && $0.suffix == ", Link Out/In." }
-        #expect(links.map(\.key).sorted() == ["Down", "Up"])
+    /// The Crossfade and Fade In dialogs' Link keys step their one "Slope" group, which the JXA called "Link Out / In" (checked live 2026-11-03).
+    @Test(arguments: [(FadeDialog.Kind.crossfade, ["Down", "Up"]), (.fadeIn, ["Opt+Cmd+Down", "Opt+Cmd+Up"])])
+    func linkReadsTheSlopeGroup(dialog: FadeDialog.Kind, keys: [String]) {
+        let links = FadeDialogs.settings.filter { $0.dialog == dialog && $0.suffix == ", Link Out/In." }
+        #expect(links.map(\.key).sorted() == keys)
         #expect(links.allSatisfy { $0.section == FadeDialog.Section("Slope") })
     }
 
