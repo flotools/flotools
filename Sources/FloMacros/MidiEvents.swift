@@ -42,7 +42,7 @@ enum MidiEvents {
 
         var control: EditWindowControl { Counters.counter(fieldName) }
 
-        private var fieldName: String {
+        var fieldName: String {
             switch self {
             case .start: "Edit Selection Start"
             case .pitch: "MIDI Note Pitch"
@@ -87,15 +87,32 @@ enum MidiEvents {
     /// How often the watch reads the value, as in the JXA.
     static let pollInterval: Duration = .milliseconds(100)
 
-    /// Speaks the value now, then each change, until the watch is replaced or stopped. A failed read, for example while the Edit window is closed, counts as an empty value at first and is skipped later, as in the JXA.
+    /// Speaks the value now, then each change, until the watch is replaced or stopped. A failed read, for example while the Edit window is closed or no note is selected, counts as an empty value at first and is skipped later, as in the JXA. The first failure of a streak and the recovery go to the log, as in the meter watch.
     private static func follow(_ column: Column) async {
         let read: @AccessibilityActor () throws -> String = { try ProToolsApp.running().element(column.control).value ?? "" }
-        var last = (try? await read()) ?? ""
+        var last = ""
+        var failing = false
+        do {
+            last = try await read()
+        } catch {
+            Log.info(.engine, "watch could not read \(column.fieldName): \(error)")
+            failing = true
+        }
         await VoiceOver.sayOrLog(column.spoken(last))
         while !Task.isCancelled {
             try? await Task.sleep(for: pollInterval)
             guard !Task.isCancelled else { return }
-            guard let now = try? await Log.$skipsDebug.withValue(true, operation: { try await read() }), now != last else { continue }
+            let now: String
+            do {
+                now = try await Log.$skipsDebug.withValue(true) { try await read() }
+            } catch {
+                if !failing { Log.info(.engine, "watch could not read \(column.fieldName): \(error)") }
+                failing = true
+                continue
+            }
+            if failing { Log.info(.engine, "watch reads \(column.fieldName) again") }
+            failing = false
+            guard now != last else { continue }
             last = now
             await VoiceOver.sayOrLog(column.spoken(now))
         }
