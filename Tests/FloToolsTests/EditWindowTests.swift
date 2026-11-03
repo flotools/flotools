@@ -128,3 +128,40 @@ import Testing
         #expect(!AnnouncementGuard.inEditWindow.readsKeyboardCursor)
     }
 }
+
+/// The Edit window controls as Pro Tools 26.10 names them, written out in full so a wrong cluster, subgroup, role or name in `EditWindowControl` fails here. The keymap baselines cannot see these.
+@Suite struct EditWindowControlTests {
+    static func path(_ control: EditWindowControl) -> String {
+        let name = switch control.name {
+        case .is(let text): "is \(text)"
+        case .contains(let text): "contains \(text)"
+        }
+        return ([control.cluster.rawValue] + control.subgroups + [control.role, name]).joined(separator: " > ")
+    }
+
+    @Test func pathsMatchProTools() {
+        let expected: [(EditWindowControl, String)] = [
+            (.mainCounter, "Counter Display Cluster > AXTextField > is Main Counter"),
+            (.subCounter, "Counter Display Cluster > AXTextField > is Sub Counter"),
+            (.selectionStart, "Counter Display Cluster > AXTextField > is Edit Selection Start"),
+            (.selectionEnd, "Counter Display Cluster > AXTextField > is Edit Selection End"),
+            (.selectionLength, "Counter Display Cluster > AXTextField > is Edit Selection Length"),
+            (.notePitch, "Counter Display Cluster > AXTextField > is MIDI Note Pitch"),
+            (.attackVelocity, "Counter Display Cluster > AXTextField > is MIDI Note Attack Velocity"),
+            (.releaseVelocity, "Counter Display Cluster > AXTextField > is MIDI Note Release Velocity"),
+            (.mainCounterSelector, "Counter Display Cluster > AXButton > is Main Counter selector"),
+            (.subCounterSelector, "Counter Display Cluster > AXButton > is Sub Counter selector"),
+            (.preRoll, "Transport View Cluster > Transport Display > AXTextField > is Pre-roll Amount"),
+            (.postRoll, "Transport View Cluster > Transport Display > AXTextField > is Post-roll Amount"),
+            (.nudgeValue, "Grid/Nudge Cluster > AXTextField > is Nudge Custom Value"),
+            (.nudgeSelector, "Grid/Nudge Cluster > AXPopUpButton > is Nudge value"),
+            (.gridValue, "Grid/Nudge Cluster > AXPopUpButton > is Grid Value"),
+            (.tempo, "MIDI Control Cluster > AXTextField > is Tempo value"),
+        ]
+        for (control, path) in expected {
+            #expect(Self.path(control) == path)
+        }
+        #expect(EditWindowControl.Cluster.editMode.rawValue == "Edit Mode Cluster")
+        #expect(EditWindowControl.Cluster.cursorTool.rawValue == "Cursor Tool Cluster")
+    }
+}
