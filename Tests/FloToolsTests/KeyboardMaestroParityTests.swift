@@ -300,7 +300,16 @@ import Testing
     struct KMMacro {
         let group: String
         let enabled: Bool
-        let triggers: [MacroTrigger]
+        let triggers: [KMTrigger]
+    }
+
+    /// A KM trigger: one Flo Tools also has, or a kind it does not. The focused-window and application triggers belong to KM macros that Swift absorbed into the window observer and `Lifecycle`, so no Swift macro has them and only this comparison needs them.
+    enum KMTrigger: Equatable {
+        case flo(MacroTrigger)
+        /// `ChangeType`, such as `FocussedWindowTitleChanges`.
+        case focusedWindow(String)
+        /// `FireType2` (`Launched` or `Quit`) and the app.
+        case application(String, bundleID: String)
     }
 
     /// The export's groups and macros by UID.
@@ -330,27 +339,26 @@ import Testing
         return (groups, macros)
     }
 
-    static func trigger(_ t: [String: Any]) throws -> MacroTrigger {
+    static func trigger(_ t: [String: Any]) throws -> KMTrigger {
         switch t["MacroTriggerType"] as? String {
         case "HotKey":
             let combo = KeyCombo(keyCode: try #require(t["KeyCode"] as? UInt32), modifiers: try #require(t["Modifiers"] as? UInt32))
-            return .hotKey(combo, t["FireType"] as? String == "Released" ? .released : .pressed)
+            return .flo(.hotKey(combo, t["FireType"] as? String == "Released" ? .released : .pressed))
         case "FocussedWindow":
-            let changes: [String: MacroTrigger.FocusedWindowChange] = ["FocussedWindowChanges": .focusChanges, "FocussedWindowTitleChanges": .titleChanges, "FocussedWindowsTitleChanged": .focusedWindowRetitled]
-            return .focusedWindow(try #require(changes[t["ChangeType"] as? String ?? ""]))
+            return .focusedWindow(try #require(t["ChangeType"] as? String))
         case "Application":
             let bundleID = try #require((t["Application"] as? [String: Any])?["BundleIdentifier"] as? String)
-            return .application(t["FireType2"] as? String == "Quit" ? .quit : .launched, bundleID: bundleID)
+            return .application(try #require(t["FireType2"] as? String), bundleID: bundleID)
         case "StatusMenu":
-            return .statusMenu
+            return .flo(.statusMenu)
         case let other:
             Issue.record("unknown trigger type \(other ?? "nil")")
-            return .statusMenu
+            return .flo(.statusMenu)
         }
     }
 
     /// Order-independent comparison of trigger lists.
-    static func sorted(_ triggers: [MacroTrigger]) -> [String] {
+    static func sorted(_ triggers: [KMTrigger]) -> [String] {
         triggers.map { String(describing: $0) }.sorted()
     }
 
@@ -388,7 +396,7 @@ import Testing
             let km = try #require(export.macros[uid], "no KM macro \(uid) for \(macro.id)")
             #expect(kmGroupToSwift[km.group] == macro.group, "\(macro.id) group")
             #expect(macro.enabledByDefault == km.enabled, "\(macro.id) enabled")
-            #expect(Self.sorted(macro.triggers) == Self.sorted(km.triggers), "\(macro.id) triggers")
+            #expect(Self.sorted(macro.triggers.map(KMTrigger.flo)) == Self.sorted(km.triggers), "\(macro.id) triggers")
         }
     }
 

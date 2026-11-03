@@ -88,8 +88,6 @@ public struct MacroGroup: Sendable, Equatable {
 /// What starts a macro.
 public enum MacroTrigger: Sendable, Equatable {
     case hotKey(KeyCombo, KeyPhase)
-    case focusedWindow(FocusedWindowChange)
-    case application(ApplicationEvent, bundleID: String)
     /// The macro is listed in the status menu.
     case statusMenu
 
@@ -97,21 +95,6 @@ public enum MacroTrigger: Sendable, Equatable {
     public static func key(_ text: String, _ phase: KeyPhase = .pressed) -> MacroTrigger {
         guard let combo = KeyCombo(text) else { preconditionFailure("unknown key \"\(text)\"") }
         return .hotKey(combo, phase)
-    }
-
-    /// Keyboard Maestro's three focused-window triggers fire on different changes.
-    public enum FocusedWindowChange: Sendable, Equatable {
-        /// Another window gets focus, even one with the same title (KM `FocussedWindowChanges`).
-        case focusChanges
-        /// The focused title text differs, whether from a new window or a renamed one (KM `FocussedWindowTitleChanges`).
-        case titleChanges
-        /// The same window stays focused and its title changes (KM `FocussedWindowsTitleChanged`).
-        case focusedWindowRetitled
-    }
-
-    public enum ApplicationEvent: Sendable, Equatable {
-        case launched
-        case quit
     }
 }
 
