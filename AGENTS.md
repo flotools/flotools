@@ -16,20 +16,20 @@ Flo Tools makes Pro Tools usable with the VoiceOver screen reader. The shipped v
 ## Rules that must not change
 
 - Flo Tools for Keyboard Maestro is retired (legacy, no more support); all development happens here, and the Swift code is the source of truth. The KM export is a frozen porting reference.
-- Ported macros keep their KM hotkeys, groups and window conditions, compatible with `reference/Flo Tools Key Set.ptpreset`, unless a change is decided on purpose. `KeyboardMaestroParityTests` enforces this; a deliberate change goes in its `changedOnPurpose` list with the reason.
+- Ported macros keep their KM hotkeys and the windows their KM group applied to, unless a change is decided on purpose. `KeyboardMaestroParityTests` checks this against the KM export; a deliberate change goes in its `changedOnPurpose` list with the reason. `KeymapTests` pins every binding and the routing of shared keys in `Tests/Baselines/`; regenerate them with `FLO_WRITE_BASELINES=1 swift test --filter KeymapTests` and read the diff.
 - Flo Mouse is not part of this app; it moves to a separate project. Do not port the Flo Mouse group or Toggle Flo Mouse.
 - VoiceOver speech (`output`) and reading the VoiceOver cursor stay on Apple events to VoiceOver, sent directly from Swift without AppleScript source (VoiceOver does not speak accessibility announcements from a background app). Everything that touches Pro Tools uses the Accessibility API, not System Events.
 - Spoken text should match the JXA version unless there is a stated reason to change it. Unit tests pin the text.
 - Support the oldest macOS that does not cost current capabilities (currently macOS 13, `Package.swift` and `Resources/Info.plist`). Swift 6 language mode, strict concurrency.
 - Do not edit `development` or anything outside this repository's `swift` branch.
-- Updates will use Sparkle later. Do not port the KM update scripts: "Check for Update" (status menu) is dropped, and so is the update part of "Check for Automatic Update" (hardware profile, serial-number model lookup, sending specs to update.flotools.org). Keep that macro's other duties on Pro Tools launch: warn when VoiceOver cannot be controlled by AppleScript, reset per-session state ("Cleanup Variables"), reload preferences ("Refresh Preference"), and turn the Inspector group on or off from the "starts with Flo Tools inspector" preference.
+- Updates will use Sparkle later. Do not port the KM update scripts: "Check for Update" (status menu) is dropped, and so is the update part of "Check for Automatic Update" (hardware profile, serial-number model lookup, sending specs to update.flotools.org). Keep that macro's other duties on Pro Tools launch: warn when VoiceOver cannot be controlled by AppleScript, reset per-session state ("Cleanup Variables"), reload preferences ("Refresh Preference"), and turn the Inspector on or off from the "starts with Flo Tools inspector" preference.
 
 ## Layout
 
 - `Sources/FloSystem/`: generic macOS infrastructure (Accessibility, VoiceOver, hotkeys and synthetic keys, synthetic mouse moves and clicks, Flo Tools' own windows (the chooser and the text window), sounds, the `Log`, and `FloError`, the one error model). `KeyNames.swift` is the one key-name table. Knows nothing about Pro Tools or macros.
-- `Sources/FloEngine/`: the macro model and runtime (the engine also holds suspension reasons and `cancelAll()`). `Macro.swift` is the macro and group model; `MacroRun.swift` is what a macro body gets; `Engine.swift` routes hotkeys to macros, tells single from double presses and runs macros through one serial queue; `DoublePressDecider.swift` is the pure double-press logic; `Monitors.swift` holds watches that macros start and stop, such as the level meter monitor, outside the queue; `SpokenError.swift` is the one table of failure wording; `Context.swift` tracks the front app and window (moves to `FloSystem` as an observer in plan step 7); `Preferences.swift`. Depends on `FloSystem` and `FloProTools` (for `ProToolsWindowKind`, plan.md section 11).
+- `Sources/FloEngine/`: the macro model and runtime (the engine also holds suspension reasons and `cancelAll()`). `Macro.swift` is the macro model; `Scope.swift` holds the windows a macro works in (`Scope`), the app mode (`Mode`, the Inspector on or off) and a macro's mode condition; `MacroRun.swift` is what a macro body gets; `Engine.swift` routes hotkeys to macros, tells single from double presses and runs macros through one serial queue; `DoublePressDecider.swift` is the pure double-press logic; `Monitors.swift` holds watches that macros start and stop, such as the level meter monitor, outside the queue; `SpokenError.swift` is the one table of failure wording; `Context.swift` tracks the front app and window (moves to `FloSystem` as an observer in plan step 7); `Preferences.swift`. Depends on `FloSystem` and `FloProTools` (for `ProToolsWindowKind`, plan.md section 11).
 - `Sources/FloProTools/`: Pro Tools knowledge (windows, the track under the VoiceOver cursor). `ProToolsWindowKind.swift` classifies each front window title as exactly one kind. Depends on `FloSystem` only.
-- `Sources/FloMacros/`: `Groups.swift` (the groups and their conditions), `Lifecycle.swift` (what happens on VoiceOver and Pro Tools launch and quit and on window changes, replacing the KM Global group) and the macros, one file per area, each declaring its ID, name, group, triggers and action. `FloMacros.all` lists them.
+- `Sources/FloMacros/`: `Lifecycle.swift` (what happens on VoiceOver and Pro Tools launch and quit and on window changes, replacing the KM Global group) and the macros, one file per area, each declaring its ID, name, scope, mode condition, triggers and action. `FloMacros.all` lists them.
 - `Sources/FloTools/`: the app (status menu, permission prompts).
 - `Tests/FloToolsTests/`: Swift Testing unit tests.
 - `tools/km_export.py`: regenerates `reference/macros/` from `reference/Flo Tools.kmmacros`, keeping the Ported column.
@@ -53,7 +53,7 @@ Run from the repository root.
 ## Porting a macro
 
 1. Read its file in `reference/macros/<group>/<macro>.md`, including any macros it calls with ExecuteMacro.
-2. Declare it in `Sources/FloMacros/` with an ID `<group>.<lowerCamelName>`, the KM name, group and hotkeys (`.key("Ctrl+2")`), and add its KM UID to `macroOrigins` in `KeyboardMaestroParityTests`. Implement it sharing code with macros of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
+2. Declare it in `Sources/FloMacros/` with an ID `<group>.<lowerCamelName>`, the KM name, scope (the windows of its KM group) and hotkeys (`.key("Ctrl+2")`), and add its KM UID to `macroOrigins` in `KeyboardMaestroParityTests`. Implement it sharing code with macros of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
 3. Add unit tests for pure logic: message text, value parsing, filters.
 4. Build, run tests, rebuild the app and test it live (below).
 5. Mark it "yes" in the "Ported" column of `reference/macros/INDEX.md`, update the tracker in `.pi/HANDOFF.md`, and commit. Commit per group or per pattern, with a message that says what was tested live.
@@ -88,7 +88,7 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 ### One source of truth
 
 - Each concept has one representation and one implementation: one model of a macro, one of a hotkey, one of a window condition, one double-press mechanism, one way to find a track, one preferences reader and writer.
-- KM UIDs appear only in `KeyboardMaestroParityTests`. App code uses `MacroID` and `MacroGroupID`, never KM UIDs or display names, to find a macro or group.
+- KM UIDs appear only in `KeyboardMaestroParityTests`. App code uses `MacroID`, never KM UIDs or display names, to find a macro.
 - When several macros share a pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs), implement the pattern once and parameterize it. Do not copy 20 near-identical macros.
 - No duplicate constants, repeated parsing or repeated formatting rules.
 
@@ -103,7 +103,7 @@ This summarizes the owner's optimize-codebase standard, adapted to Swift. The ai
 - Use narrow interfaces with explicit inputs and outputs, domain names, and domain types where they prevent mistakes. Make invalid use hard, without chasing theoretical type purity.
 - Avoid boolean-heavy APIs and long lists of optional parameters; name the operation or model the choice instead.
 - Keep data flow traceable: trigger -> context check -> macro logic -> Accessibility, speech or input side effect -> spoken result. Do not convert the same data between several near-identical shapes.
-- Validate at boundaries: macro installation (unknown group, duplicate ID), reference generation, preferences loading, Accessibility reads.
+- Validate at boundaries: macro installation (duplicate ID, a key that ties with another macro's in the same windows and mode), reference generation, preferences loading, Accessibility reads.
 
 ### Errors and logging
 
@@ -119,7 +119,7 @@ Users must be able to send the developer a log that shows where a macro failed. 
 - The menu bar menu has one item whose title switches between "Turn On Log" and "Turn Off Log". Logging is off by default.
 - "Turn On Log" starts a new log file in `~/Library/Logs/Flo Tools/` and the title becomes "Turn Off Log". The on state is remembered across launches, so a relaunch or crash while reproducing a problem keeps logging. The file is needed because an app can only read back its own unified log for the current process, so earlier runs would be lost.
 - "Turn Off Log" stops logging, closes the file, and reveals one file in Finder, selected, that the user can send as is. Use the macOS 13 `NSWorkspace.activateFileViewerSelecting`.
-- That file starts with a header: app version and build, macOS version, Pro Tools version, whether VoiceOver is running, permission status, preferences, and enabled and suspended groups. Then the log entries. If Flo Tools crash reports from `~/Library/Logs/DiagnosticReports` were written while logging was on, append them at the end, with the values that identify the Mac (`crashReporterKey`, `deviceIdentifierForVendor`, `bootSessionUUID`) redacted. Nothing is uploaded automatically.
+- That file starts with a header: app version and build, macOS version, Pro Tools version, whether VoiceOver is running, permission status, preferences, suspension, and whether the Inspector is on. Then the log entries. If Flo Tools crash reports from `~/Library/Logs/DiagnosticReports` were written while logging was on, append them at the end, with the values that identify the Mac (`crashReporterKey`, `deviceIdentifierForVendor`, `bootSessionUUID`) redacted. Nothing is uploaded automatically.
 - While logging is on, write every entry at full detail, except debug entries inside a watch's polls (`Log.skipsDebug`), which at ten polls a second would fill the cap in minutes; their changes, speech and failures are still logged. Cap the file at about 20 MB by dropping the oldest entries, and log that entries were dropped. While logging is off, write nothing to a file; only warnings and errors go to the unified log (subsystem `com.chikim.FloTools`, one category per area).
 - One line per entry: timestamp with milliseconds, level, category, invocation ID, message. Every macro run gets an invocation ID that appears on every line it causes, including nested calls, so one run can be followed from start to end.
 - Trace each run: trigger (key, gesture, or event) and routing decision (context, chosen macro UID and name, or why it passed through); each Accessibility step with its selector path, result, `AXError` and duration; speech requests and VoiceOver errors; the final result, error or cancellation with total duration.

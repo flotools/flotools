@@ -65,7 +65,7 @@ enum FadeDialogs {
     @MainActor
     static func macro(_ setting: FadeSetting) -> Macro {
         let combo = KeyCombo(setting.key)!
-        return Macro(setting.id, setting.name, group: group(of: setting.dialog), triggers: [.key(setting.key)]) { _ in
+        return Macro(setting.id, setting.name, scope: .windows([.fade(setting.dialog)]), triggers: [.key(setting.key)]) { _ in
             let proTools = try ProToolsApp.running()
             let dialog = try await proTools.fadeDialog(setting.dialog)
             let before = try await read(setting.reading, setting.section, in: dialog)
@@ -84,15 +84,6 @@ enum FadeDialogs {
         }
     }
 
-    /// Each fade group's window condition is its dialog's title.
-    static func group(of dialog: FadeDialog.Kind) -> MacroGroupID {
-        switch dialog {
-        case .fadeIn: .fadeIn
-        case .fadeOut: .fadeOut
-        case .crossfade: .crossfade
-        case .batchFades: .batchFades
-        }
-    }
 }
 
 /// One fade dialog macro: its key changes `section` in `dialog`, and it speaks the new value followed by `suffix`.

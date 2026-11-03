@@ -56,7 +56,7 @@ enum SettingToggles {
     /// Single press speaks the setting; double press plays the done sound, switches it and speaks the new state. The JXA waited a fixed 0.1 s before reading the new state of a button and spoke nothing after choosing a menu item; this waits until the state changes, and speaks menu items too, so every double press confirms what it did.
     @MainActor
     private static func toggle(_ id: MacroID, _ name: String, key: String, _ setting: ProToolsSetting, spoken: @escaping @Sendable @AccessibilityActor (SettingControl) throws -> String) -> Macro {
-        Macro(id, name, group: .floTools, triggers: [.key(key)], single: { _ in
+        Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
             let control = try await ProToolsApp.running().control(setting)
             try await VoiceOver.say(spoken(control))
         }, double: { _ in
@@ -81,7 +81,7 @@ enum SettingToggles {
     @MainActor
     private static func link(_ id: MacroID, _ name: String, key: String, _ item: String, _ wording: Wording) -> Macro {
         let setting = ProToolsSetting.menuItem(menu: "Options", .is(item))
-        return Macro(id, name, group: .floTools, triggers: [.key(key)]) { run in
+        return Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
             let before = try? await wording.text(ProToolsApp.running().control(setting).isOn)
             await run.passThrough()
             guard try await KeyAnnouncements.speaks(after: .outsideListedDialogsAndText) else { return }
@@ -95,7 +95,7 @@ enum SettingToggles {
     @MainActor
     static var toggleInputMonitor: Macro {
         let setting = ProToolsSetting.menuItem(menu: "Track", .contains("Set Record Tracks to"))
-        return Macro("floTools.toggleInputMonitor", "Toggle Input Monitor", group: .floTools, triggers: [.key("Opt+K")]) { _ in
+        return Macro("floTools.toggleInputMonitor", "Toggle Input Monitor", scope: .anyProToolsWindow, triggers: [.key("Opt+K")]) { _ in
             let control = try await ProToolsApp.running().control(setting)
             guard try await control.isEnabled else {
                 try await VoiceOver.say("Set Record Tracks to is Dimmed")

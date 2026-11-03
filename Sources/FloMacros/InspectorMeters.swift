@@ -25,7 +25,7 @@ enum InspectorMeters {
     /// Speak Level Meter, Toggle Level Meter Monitor: single press speaks the level or "No Signal"; double press starts or stops a watch that speaks each new level.
     @MainActor
     static var level: Macro {
-        Macro(levelMacro, "Speak Level Meter, Toggle Level Meter Monitor", group: .inspector, triggers: [.key("L")], single: { _ in
+        Macro(levelMacro, "Speak Level Meter, Toggle Level Meter Monitor", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("L")], single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(reading(.level, of: track).orIfEmpty("No Signal"))
         }, double: { run in
@@ -43,7 +43,7 @@ enum InspectorMeters {
     /// Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor: single press speaks the gain reduction; double press starts or stops a watch that plays the progress sound on each change and records the deepest reduction.
     @MainActor
     static func gainReduction(_ deepest: GainReductionPeak) -> Macro {
-        Macro(gainReductionMacro, "Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor", group: .inspector, triggers: [.key(";")], single: { _ in
+        Macro(gainReductionMacro, "Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(";")], single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(reading(.gainReduction, of: track))
         }, double: { run in
@@ -61,7 +61,7 @@ enum InspectorMeters {
     /// Speak Gain Reduction Meter Maximum Value: speaks the deepest reduction since the watch started or since the last time this was spoken, then starts over from 0, as in the JXA.
     @MainActor
     static func speakGainReductionMaximum(_ deepest: GainReductionPeak) -> Macro {
-        Macro("inspector.speakGainReductionMeterMaximumValue", "Speak Gain Reduction Meter Maximum Value", group: .inspector, triggers: [.key("Shift+;")]) { _ in
+        Macro("inspector.speakGainReductionMeterMaximumValue", "Speak Gain Reduction Meter Maximum Value", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Shift+;")]) { _ in
             try await VoiceOver.say(String(deepest.take()))
         }
     }

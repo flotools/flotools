@@ -8,7 +8,7 @@ enum ClipDrag {
     @MainActor
     static func macros(_ mark: ClipDragMark) -> [Macro] {
         [
-            Macro("floTools.betaMarkClipForDrag", "Beta: Mark Clip for Drag", group: .floTools, triggers: [.key("Opt+Shift+Cmd+,")]) { _ in
+            Macro("floTools.betaMarkClipForDrag", "Beta: Mark Clip for Drag", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+,")]) { _ in
                 let point = grabPoint(of: try await VoiceOver.cursorBounds())
                 await mark.set(point)
                 try await VoiceOver.say("Marked for drag.")
@@ -17,7 +17,7 @@ enum ClipDrag {
                 defer { Mouse.releaseButton(at: point, modifiers: .maskAlternate) }
                 try await Keyboard.waitForModifiersReleased()
             },
-            Macro("floTools.betaDragClip", "Beta: Drag Clip", group: .floTools, triggers: [.key("Opt+Shift+Cmd+.")]) { _ in
+            Macro("floTools.betaDragClip", "Beta: Drag Clip", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+.")]) { _ in
                 try await Keyboard.waitForModifiersReleased()
                 guard let start = await mark.point else { throw FloError.notFound("a clip marked for drag") }
                 await Sound.done.play()

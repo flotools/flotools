@@ -47,7 +47,7 @@ Nothing below `FloMacros` knows a macro by name. Superseded by section 11 (2026-
 - `MacroEngine.install(_:)` validates that the group exists, no ID is installed twice, and no two macros in one group share a hotkey and phase (Keyboard Maestro showed a conflict palette; here the winner would depend on install order). Unported macros are not installed, so their keys stay free.
 - Enable state separates group enabled, group activated (KM's Activate/Deactivate Macro Group, used by Toggle Inspector; implemented 2026-11-02 as `setGroup(_:activated:)`), group active (enabled, activated and applies to the context), macro enabled, and automatic suspension reasons (VoiceOver not running, Keyboard Shortcuts window open). Removing one suspension reason does not clear another or override a user choice. Explicit user enable and disable choices persist in `UserDefaults` keyed by `MacroID` and `MacroGroupID`; suspensions do not. The only such choice so far is the "Flo Tools Enabled" switch, kept by `PreferencesStore.floToolsEnabled` (2026-11-02); no UI turns single macros or groups on or off yet, and the macro enables that Inspector mode and the preferences set are derived state, not user choices.
 - `engine.run(_:)` is the one path for nested ExecuteMacro calls, status menu items and palettes. Nested calls run inside the parent, bypass trigger activation filtering, propagate errors and cancellation, and reject cycles.
-- Mutating Pro Tools operations run through one foreground queue so two macros cannot interleave across `await`. A queued hotkey run checks when it starts that Flo Tools, its group and the macro are still enabled, that its group's window condition still matches the current context, and that the front app is still the process it was accepted for; otherwise it is dropped and logged. It does not check group activation, so a single press of S accepted while the temporary Inspector key was held still speaks after the release; and there is no context generation number, because a run accepted in Mix that starts in Edit is still valid for every Inspector macro (Codex, step 4 design check). Nested runs are exempt, because they run inside an accepted run. The temporary Inspector release is cleanup: the hold is recorded when the key event arrives and cleared on release, focus loss, disable and stop, outside the foreground queue. `Monitors` holds one tracked task per monitor; `engine.cancelAll()` implements Cancel Macros.
+- Mutating Pro Tools operations run through one foreground queue so two macros cannot interleave across `await`. A queued hotkey run checks when it starts that Flo Tools and the macro are still enabled, that its scope still applies to the current context, and that the front app is still the process it was accepted for; otherwise it is dropped and logged. It does not check the mode, so a single press of S accepted while the temporary Inspector key was held still speaks after the release; and there is no context generation number, because a run accepted in Mix that starts in Edit is still valid for every Inspector macro (Codex, step 4 design check). Nested runs are exempt, because they run inside an accepted run. The temporary Inspector release is cleanup: the hold is recorded when the key event arrives and cleared on release, focus loss, disable and stop, outside the foreground queue. `Monitors` holds one tracked task per monitor; `engine.cancelAll()` implements Cancel Macros.
 - Macro families share one parameterized implementation (send slots, insert slots, fade dialogs, counters, track lists, plug-in navigation). Sends and inserts keep separate layout rules because their AX layouts differ.
 
 ## 5. System layer
@@ -133,6 +133,7 @@ The port is complete, but its structure still copies Keyboard Maestro: groups wi
 - Ctrl+Cmd+Left/Right run track view from launch whenever the Inspector is off (done `292a877`; the KM version needed one `/` first).
 - `/` and backtick work only in Mix and Edit windows, `^(Mix|Edit):` (done `292a877` inside the command; with scopes they also stop taking the key elsewhere).
 - Releasing backtick always turns the Inspector off, as today.
+- While backtick is held, the track view keys are off in every window, because the Inspector is on (step 4). Before, the temporary Inspector turned on only the Inspector keys, so the track view keys still worked outside Mix and Edit; `/` already turned them off everywhere.
 
 ### Cleanup
 
@@ -146,9 +147,9 @@ Each step: build, full tests, baseline diff reviewed, journal entry, commit; Cod
 
 1. Keymap and routing baselines (done `b58fa20`).
 2. The two behavior changes above (done `292a877`, live-checked for track view).
-3. `ProToolsWindow.Kind` and its classification, with tests; `FrontContext` carries the kind.
-4. Scopes replace groups and specificity; the tie check.
-5. Inspector as a mode; track view and Inspector bindings use mode conditions; no command enables another.
+3. `ProToolsWindow.Kind` and its classification, with tests; `FrontContext` carries the kind (done `e67d348`, named `ProToolsWindowKind`).
+4. Scopes replace groups and specificity; the tie check (done with step 5; `Scope.swift`, `MacroEngine.tie(with:)`, groups and their enable state removed).
+5. Inspector as a mode; track view and Inspector bindings use mode conditions; no command enables another (done with step 4; `MacroEngine.setInspector`).
 6. Remove nested runs in favor of shared functions.
 7. Rename to `Command`, `Binding`, `Keymap`, `Engine`, `Watches`; feature folders.
 8. Remove the KM parity tooling; update `AGENTS.md` and this plan.

@@ -23,16 +23,16 @@ public enum FloMacros {
         InspectorMode.applyStartState(preferences, to: engine)
     }
 
-    /// An engine with all groups and macros installed, using the app's hotkeys and context monitor.
+    /// An engine with all macros installed, using the app's hotkeys and context monitor.
     @MainActor
     public static func makeEngine(session: SessionState, hotKeys: HotKeyCenter, contextMonitor: ContextMonitor, openPreferences: @escaping @MainActor @Sendable () -> Void) -> MacroEngine {
         makeEngine(macros: all(session: session, openPreferences: openPreferences), hotKeys: hotKeys, contextMonitor: contextMonitor)
     }
 
-    /// An engine with all groups and the given macros. Tests never start it, so the default hotkeys and monitor stay unused.
+    /// An engine with the given macros. Tests never start it, so the default hotkeys and monitor stay unused.
     @MainActor
     static func makeEngine(macros: [Macro] = all(), hotKeys: HotKeyCenter = HotKeyCenter(), contextMonitor: ContextMonitor = ContextMonitor()) -> MacroEngine {
-        let engine = MacroEngine(groups: groups, hotKeys: hotKeys, contextMonitor: contextMonitor)
+        let engine = MacroEngine(hotKeys: hotKeys, contextMonitor: contextMonitor)
         macros.forEach(engine.install)
         return engine
     }

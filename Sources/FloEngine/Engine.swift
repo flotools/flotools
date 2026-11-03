@@ -13,13 +13,12 @@ public struct Suspension: Hashable, Sendable, CustomStringConvertible {
     public var description: String { reason }
 }
 
-/// Connects hotkeys to installed macros, honoring group app and window conditions like Keyboard Maestro, and runs the macros.
+/// Connects hotkeys to installed macros, honoring each macro's scope (front window) and mode condition, and runs the macros.
 /// Only installed macros take keys, so other keys stay free.
 ///
 /// All state is owned by the main actor; macro bodies run off it (see `MacroBody`). Top-level runs go through one serial queue, so two macros never interleave across an `await`; nested runs execute inside their parent. Holds (`MacroAction.hold`) bypass the queue.
 @MainActor
 public final class MacroEngine {
-    public let groups: [MacroGroupID: MacroGroup]
     /// Watches that macros start and stop, such as the level meter monitor. Stopped with the engine.
     public let monitors = Monitors()
     public private(set) var macros: [Macro] = []
@@ -48,17 +47,18 @@ public final class MacroEngine {
     /// The front app and window, refreshed before each hotkey runs its macro.
     public private(set) var context = FrontContext()
 
+    /// App state that decides which keys apply, such as whether the Inspector is on. Starts with the Inspector off.
+    public private(set) var mode = Mode()
+
     private let hotKeys: HotKeyCenter
     private let contextMonitor: ContextMonitor
     private var macroIndex: [MacroID: Int] = [:]
     /// Macros by hotkey, so a key press does not scan every macro.
     private var macrosByCombo: [KeyCombo: [MacroID]] = [:]
-    private var groupEnabled: [MacroGroupID: Bool]
-    private var groupActivated: [MacroGroupID: Bool]
     private var macroEnabled: [MacroID: Bool] = [:]
     private var started = false
-    /// Above zero while `batch` runs, so several state changes update the hotkeys once.
-    private var batchDepth = 0
+    /// True while `updateHotKeys` ends holds, so a release that changes state does not update the hotkeys from inside the update.
+    private var endingHolds = false
 
     private var doublePress = DoublePressDecider(timeout: .milliseconds(200))
     private var pendingSingles: [MacroID: Task<Void, Never>] = [:]
@@ -72,19 +72,17 @@ public final class MacroEngine {
     /// Keys whose hold has started and not ended, with the run that started it and its invocation ID.
     private var holds: [KeyCombo: (run: MacroRun, release: HoldRelease, invocation: String)] = [:]
 
-    public init(groups: [MacroGroup], hotKeys: HotKeyCenter, contextMonitor: ContextMonitor) {
-        self.groups = Dictionary(uniqueKeysWithValues: groups.map { ($0.id, $0) })
-        groupEnabled = Dictionary(uniqueKeysWithValues: groups.map { ($0.id, $0.enabledByDefault) })
-        groupActivated = Dictionary(uniqueKeysWithValues: groups.map { ($0.id, true) })
+    public init(hotKeys: HotKeyCenter, contextMonitor: ContextMonitor) {
         self.hotKeys = hotKeys
         self.contextMonitor = contextMonitor
     }
 
     // MARK: Setup
 
+    /// Adds a macro. Stops the app if its ID is taken or one of its keys ties with an installed macro's; the tests install every macro, so they catch both first.
     public func install(_ macro: Macro) {
-        precondition(groups[macro.group] != nil, "macro \(macro.id) has unknown group \(macro.group)")
         precondition(macroIndex[macro.id] == nil, "macro \(macro.id) installed twice")
+        if let tie = tie(with: macro) { preconditionFailure(tie) }
         macroIndex[macro.id] = macros.count
         macros.append(macro)
         macroEnabled[macro.id] = macro.enabledByDefault
@@ -93,6 +91,20 @@ public final class MacroEngine {
     }
 
     public func macro(_ id: MacroID) -> Macro? { macroIndex[id].map { macros[$0] } }
+
+    /// Why `macro` cannot be installed beside the installed macros, or nil. Two macros tie when one key and phase could start both in the same window and mode with the same precedence, so neither would be the clear choice. A preference that turns one off does not count: both can be on.
+    func tie(with macro: Macro) -> String? {
+        for (combo, phase) in macro.hotKeys {
+            for other in (macrosByCombo[combo] ?? []).compactMap(self.macro) where other.id != macro.id
+                && other.hotKeys.contains(where: { $0 == (combo, phase) })
+                && other.scope.precedence == macro.scope.precedence
+                && other.scope.overlaps(macro.scope)
+                && other.mode.overlaps(macro.mode) {
+                return "\(combo) \(phase) is bound by both \(other.id) and \(macro.id) in the same windows and mode"
+            }
+        }
+        return nil
+    }
 
     public func start() {
         guard !started else { return }
@@ -140,15 +152,7 @@ public final class MacroEngine {
         contextMonitor.refresh()
     }
 
-    // MARK: State, like Keyboard Maestro's group and macro enable actions
-
-    /// Makes several state changes with one hotkey update at the end, for example when Toggle Inspector switches a group and two macros.
-    public func batch(_ changes: () -> Void) {
-        batchDepth += 1
-        changes()
-        batchDepth -= 1
-        updateHotKeys()
-    }
+    // MARK: State
 
     public func suspend(_ suspension: Suspension) {
         guard suspensions.insert(suspension).inserted else { return }
@@ -165,28 +169,11 @@ public final class MacroEngine {
     /// Whether hotkeys work at all: Flo Tools is on and nothing suspends it.
     private var takesKeys: Bool { isEnabled && suspensions.isEmpty }
 
-    public func isGroupEnabled(_ id: MacroGroupID) -> Bool { groupEnabled[id] ?? false }
-
-    public func setGroup(_ id: MacroGroupID, enabled: Bool) {
-        precondition(groups[id] != nil, "unknown group \(id)")
-        groupEnabled[id] = enabled
-        Log.info(.engine, "group \(id) \(enabled ? "enabled" : "disabled")")
-        stateChanged(voidsPendingSingles: true)
-    }
-
-    /// Whether the group is activated, like Keyboard Maestro's Activate/Deactivate Macro Group action. This is separate from enabled: Toggle Inspector activates and deactivates the Inspector group, while Flo Tools' own on/off switch enables and disables groups. Groups start activated.
-    public func isGroupActivated(_ id: MacroGroupID) -> Bool { groupActivated[id] ?? false }
-
-    /// Whether the group's macros can run now, like Keyboard Maestro's "macro group is active": enabled, activated and its window condition holds for the front window.
-    public func isGroupActive(_ id: MacroGroupID) -> Bool {
-        groupEnabled[id] == true && groupActivated[id] == true && groups[id]?.applies(to: context) == true
-    }
-
-    /// Activation does not void pending single presses: releasing the temporary Inspector key within the double-press timeout must still let a single press of S speak.
-    public func setGroup(_ id: MacroGroupID, activated: Bool) {
-        precondition(groups[id] != nil, "unknown group \(id)")
-        groupActivated[id] = activated
-        Log.info(.engine, "group \(id) \(activated ? "activated" : "deactivated")")
+    /// Turns the Inspector on or off. A mode change does not void pending single presses: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
+    public func setInspector(_ on: Bool) {
+        guard mode.inspector != on else { return }
+        mode.inspector = on
+        Log.info(.engine, on ? "Inspector on" : "Inspector off")
         stateChanged(voidsPendingSingles: false)
     }
 
@@ -207,21 +194,18 @@ public final class MacroEngine {
     // MARK: Matching
 
     private func isActive(_ macro: Macro, in context: FrontContext) -> Bool {
-        macroEnabled[macro.id] == true
-            && groupEnabled[macro.group] == true
-            && groupActivated[macro.group] == true
-            && groups[macro.group]?.applies(to: context) == true
+        macroEnabled[macro.id] == true && macro.scope.applies(to: context) && macro.mode.holds(in: mode)
     }
 
-    /// Macros that would fire for this key in this context, best match first.
+    /// Macros that would fire for this key in this context, best match first. `tie(with:)` keeps two from having the same precedence.
     public func candidates(for combo: KeyCombo, phase: KeyPhase, in context: FrontContext) -> [Macro] {
         (macrosByCombo[combo] ?? [])
             .compactMap(macro)
             .filter { macro in isActive(macro, in: context) && macro.hotKeys.contains { $0.combo == combo && $0.phase == phase } }
-            .sorted { (groups[$0.group]?.specificity ?? 0) > (groups[$1.group]?.specificity ?? 0) }
+            .sorted { $0.scope.precedence > $1.scope.precedence }
     }
 
-    /// The macros that offer themselves in the status menu now, like Keyboard Maestro's status menu, which listed the macros of the groups active for the front window.
+    /// The macros that offer themselves in the status menu now, like Keyboard Maestro's status menu, which listed the macros of the groups active for the front window: those whose scope and mode apply now.
     public func statusMenuMacros(in context: FrontContext) -> [Macro] {
         guard takesKeys else { return [] }
         return macros.filter { macro in macro.triggers.contains(.statusMenu) && isActive(macro, in: context) }
@@ -232,13 +216,13 @@ public final class MacroEngine {
     }
 
     private func updateHotKeys() {
-        guard started, batchDepth == 0 else { return }
+        guard started, !endingHolds else { return }
         var combos = takesKeys ? activeCombos(in: context) : []
         // A held key that is no longer a hotkey would never report its release, so its hold ends now. A release can change state, for example deactivate the Inspector, so the keys are worked out again after it. Ends because every pass removes a hold.
         while holds.keys.contains(where: { !combos.contains($0) }) {
-            batchDepth += 1
+            endingHolds = true
             endHolds { !combos.contains($0) }
-            batchDepth -= 1
+            endingHolds = false
             combos = takesKeys ? activeCombos(in: context) : []
         }
         hotKeys.setActive(combos)
@@ -280,7 +264,7 @@ public final class MacroEngine {
         _ = start(macro, trigger: .direct, context: context, reason: "run by the app")
     }
 
-    /// Runs a macro because `event` happened, if it could run from a hotkey now: Flo Tools is on and not suspended, and the macro and its group are active for the front window. Checked again when the run reaches the front of the queue, like a hotkey run.
+    /// Runs a macro because `event` happened, if it could run from a hotkey now: Flo Tools is on and not suspended, and the macro is on and its scope and mode apply. Checked again when the run reaches the front of the queue, like a hotkey run.
     public func fire(_ id: MacroID, on event: String) {
         guard let macro = macro(id) else {
             Log.error(.engine, "macro \(id) is not installed")
@@ -392,7 +376,7 @@ public final class MacroEngine {
         }
     }
 
-    /// Why a queued hotkey or event run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the macro or the front app may have changed while it waited. Group activation is not checked: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
+    /// Why a queued hotkey or event run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the macro or the front app may have changed while it waited. The mode is not checked: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
     private func invalidReason(_ run: MacroRun) -> String? {
         switch run.trigger {
         case .hotKey, .event: break
@@ -401,9 +385,8 @@ public final class MacroEngine {
         if !isEnabled { return "Flo Tools is disabled" }
         if let suspension = suspensions.first { return "suspended: \(suspension)" }
         if macroEnabled[run.macro.id] != true { return "macro disabled" }
-        if groupEnabled[run.macro.group] != true { return "group disabled" }
         if context.processID != run.context.processID { return "another app is in front" }
-        if groups[run.macro.group]?.applies(to: context) != true { return "group does not apply in \(context)" }
+        if !run.macro.scope.applies(to: context) { return "not in its windows: \(context)" }
         return nil
     }
 

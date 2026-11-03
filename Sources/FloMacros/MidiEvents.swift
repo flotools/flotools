@@ -12,14 +12,14 @@ enum MidiEvents {
     @MainActor
     static func macros(_ cursor: EventColumnCursor) -> [Macro] {
         [
-            Macro("floTools.nextColumn", "Next Column", group: .floTools, triggers: [.key("Opt+Shift+]")]) { run in
+            Macro("floTools.nextColumn", "Next Column", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+]")]) { run in
                 guard let column = await cursor.next() else {
                     try await VoiceOver.say("End")
                     return
                 }
                 await startWatch(column, in: run.engine)
             },
-            Macro("floTools.previousColumn", "Previous Column", group: .floTools, triggers: [.key("Opt+Shift+[")]) { run in
+            Macro("floTools.previousColumn", "Previous Column", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+[")]) { run in
                 guard let column = await cursor.previous() else {
                     await run.engine.monitors.stop(watch)
                     try await VoiceOver.say("No report")
@@ -27,7 +27,7 @@ enum MidiEvents {
                 }
                 await startWatch(column, in: run.engine)
             },
-            Macro("floTools.editEvent", "Edit Event", group: .floTools, triggers: [.key("Ctrl+Cmd+Return")]) { _ in
+            Macro("floTools.editEvent", "Edit Event", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Cmd+Return")]) { _ in
                 // Before the first column there is nothing to edit, and the JXA said nothing.
                 guard let column = await cursor.column else { return }
                 _ = try await Counters.openForTyping(column.control)

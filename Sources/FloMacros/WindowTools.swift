@@ -7,15 +7,15 @@ import FloSystem
 enum WindowTools {
     @MainActor
     static var macros: [Macro] { [
-        Macro("floTools.closeAllFloatingWindows", "Close All Floating Windows", group: .floTools, triggers: [.key("Opt+Cmd+W")]) { _ in
+        Macro("floTools.closeAllFloatingWindows", "Close All Floating Windows", scope: .anyProToolsWindow, triggers: [.key("Opt+Cmd+W")]) { _ in
             _ = try await ProToolsApp.running().closeFloatingWindows()
         },
-        Macro("floTools.openPreferencesDialog", "Open Preferences Dialog", group: .floTools, triggers: [.key("Opt+Cmd+,")]) { _ in
+        Macro("floTools.openPreferencesDialog", "Open Preferences Dialog", scope: .anyProToolsWindow, triggers: [.key("Opt+Cmd+,")]) { _ in
             try await ProToolsApp.running().control(.menuItem(menu: "Setup", .contains("Preferences"))).press()
         },
         resizeTable("floTools.resizeClipsTable", "Resize Clips Table", key: "Ctrl+Shift+Cmd+C", .editClips),
         resizeTable("floTools.resizeTrackListTable", "Resize Track LIst Table", key: "Ctrl+Shift+Cmd+T", .frontTrackList),
-        Macro("floTools.speakSelectedClips", "Speak Selected Clips", group: .floTools, triggers: [.key("Opt+Shift+,")]) { _ in
+        Macro("floTools.speakSelectedClips", "Speak Selected Clips", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+,")]) { _ in
             try await VoiceOver.say(selectedClipsText(try await ProToolsApp.running().selectedClipNames()))
         },
     ] }
@@ -23,7 +23,7 @@ enum WindowTools {
     /// Speaks the table's width and moves the mouse onto its resize edge, so the user can drag it: just left of the Clips table's top-left corner, or right of the Track List, as the KM version placed it.
     @MainActor
     private static func resizeTable(_ id: MacroID, _ name: String, key: String, _ table: ProToolsApp.Table) -> Macro {
-        Macro(id, name, group: .floTools, triggers: [.key(key)]) { _ in
+        Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { _ in
             let frame = try await ProToolsApp.running().frame(of: table)
             try await VoiceOver.say(resizeText(table, width: frame.width))
             try Mouse.move(to: resizeEdge(table, frame))

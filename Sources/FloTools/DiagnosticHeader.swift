@@ -11,11 +11,6 @@ enum DiagnosticHeader {
         let info = Bundle.main.infoDictionary ?? [:]
         let version = info["CFBundleShortVersionString"] as? String ?? "?"
         let build = info["CFBundleVersion"] as? String ?? "?"
-        let groups = engine.groups.values.sorted { $0.name < $1.name }.map { group in
-            let enabled = engine.isGroupEnabled(group.id) ? "enabled" : "disabled"
-            let activated = engine.isGroupActivated(group.id) ? "activated" : "deactivated"
-            return "  \(group.name): \(enabled), \(activated)"
-        }
         return ([
             "Flo Tools \(version) (\(build)) diagnostic log",
             "macOS: \(ProcessInfo.processInfo.operatingSystemVersionString)",
@@ -26,7 +21,7 @@ enum DiagnosticHeader {
             "Flo Tools enabled: \(engine.isEnabled ? "yes" : "no")",
             "Suspended: \(engine.suspensions.isEmpty ? "no" : engine.suspensions.map(\.reason).sorted().joined(separator: "; "))",
             "Preferences: temporary inspector \(preferences.temporaryInspector), starts with Flo Tools inspector \(preferences.startsWithInspector), timeout \(preferences.timeout) ms",
-            "Groups:",
-        ] + groups).joined(separator: "\n") + "\n"
+            "Inspector: \(engine.mode.inspector ? "on" : "off")",
+        ]).joined(separator: "\n") + "\n"
     }
 }

@@ -27,7 +27,7 @@ enum KeyAnnouncements {
     @MainActor
     private static func announce(_ id: MacroID, _ name: String, keys: [String], sends: String? = nil, _ text: String, when guarding: AnnouncementGuard) -> Macro {
         let replacement = sends.map { KeyCombo($0)! }
-        return Macro(id, name, group: .floTools, triggers: keys.map { .key($0) }) { run in
+        return Macro(id, name, scope: .anyProToolsWindow, triggers: keys.map { .key($0) }) { run in
             if let replacement {
                 try await ProToolsApp.running().keystroke(replacement)
             } else {
@@ -40,7 +40,7 @@ enum KeyAnnouncements {
     /// Sends the key, which in Pro Tools selects another playlist on the selected tracks, and speaks the selected tracks from the Mix window's Track List, as the JXA did. The selection read before the key is only for waiting until Pro Tools shows the new one, so its failure does not keep the key from Pro Tools.
     @MainActor
     private static func speakSelectedTracks(_ id: MacroID, _ name: String, key: String) -> Macro {
-        Macro(id, name, group: .floTools, triggers: [.key(key)]) { run in
+        Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
             let before = try? await selectedTracksText(try ProToolsApp.running())
             await run.passThrough()
             guard try await speaks(after: .outsideListedDialogsAndText) else { return }

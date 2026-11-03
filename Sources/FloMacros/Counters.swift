@@ -18,7 +18,7 @@ enum Counters {
         speakEdit("floTools.speakEditPitchForSelectedNote", "Speak/Edit Pitch for Selected Note", key: "Opt+P", counter("MIDI Note Pitch"), .notePitch, label: ". Pitch", prompts: Prompts("Type note pitch")),
         speakEdit("floTools.speakEditAttackVelocityForSelectedNote", "Speak/Edit Attack Velocity for Selected Note", key: "Opt+A", counter("MIDI Note Attack Velocity"), .asShown, label: ". Attack", prompts: Prompts("Type attack velocity")),
         speakEdit("floTools.speakEditReleaseVelocityForSelectedNote", "Speak/Edit Release Velocity for Selected Note", key: "Opt+E", counter("MIDI Note Release Velocity"), .asShown, label: ". Release", prompts: Prompts("Type release velocity")),
-        Macro("floTools.speakGridValue", "Speak Grid Value", group: .floTools, triggers: [.key("Cmd+F8")]) { _ in
+        Macro("floTools.speakGridValue", "Speak Grid Value", scope: .anyProToolsWindow, triggers: [.key("Cmd+F8")]) { _ in
             try await VoiceOver.say(read(gridValue, .duration) + ". grid.")
         },
         openMenu("floTools.selectMainCounter", "Select main counter", key: "Opt+Cmd+F4", EditWindowControl([counterCluster], role: "AXButton", .is("Main Counter selector"))),
@@ -73,7 +73,7 @@ enum Counters {
     /// Single press speaks the value in words followed by `label`; double press clicks the field, so typing replaces the value, and says what to type.
     @MainActor
     private static func speakEdit(_ id: MacroID, _ name: String, key: String, _ control: EditWindowControl, _ format: CounterText.Format, label: String, prompts: Prompts) -> Macro {
-        Macro(id, name, group: .floTools, triggers: [.key(key)], single: { _ in
+        Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
             try await VoiceOver.say(read(control, format) + label)
         }, double: { _ in
             let value = try await openForTyping(control)
@@ -83,7 +83,7 @@ enum Counters {
 
     @MainActor
     private static var speakEditTempo: Macro {
-        Macro("floTools.speakEditTempo", "Speak/Edit Tempo", group: .floTools, triggers: [.key("Cmd+F11")], single: { _ in
+        Macro("floTools.speakEditTempo", "Speak/Edit Tempo", scope: .anyProToolsWindow, triggers: [.key("Cmd+F11")], single: { _ in
             let app = try ProToolsApp.running()
             let tempo = try await app.element(tempoValue).value ?? ""
             try await VoiceOver.say(tempo.trimmingCharacters(in: .whitespaces) + ": Tempo")
@@ -96,7 +96,7 @@ enum Counters {
     /// Presses a counter selector or a value pop-up button, which opens its menu for VoiceOver to read.
     @MainActor
     private static func openMenu(_ id: MacroID, _ name: String, key: String, _ control: EditWindowControl) -> Macro {
-        Macro(id, name, group: .floTools, triggers: [.key(key)]) { _ in
+        Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { _ in
             try await ProToolsApp.running().element(control).pressOpeningMenu()
         }
     }
@@ -105,7 +105,7 @@ enum Counters {
     @MainActor
     private static func step(_ id: MacroID, _ name: String, key: String, sends: String, _ control: EditWindowControl, when guarding: AnnouncementGuard, label: String) -> Macro {
         let combo = KeyCombo(sends)!
-        return Macro(id, name, group: .floTools, triggers: [.key(key)]) { _ in
+        return Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)]) { _ in
             let app = try ProToolsApp.running()
             // Only for waiting until the value changes; a failed read must not keep the key from Pro Tools.
             let before = try? await app.element(control).value

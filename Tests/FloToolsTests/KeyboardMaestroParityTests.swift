@@ -8,19 +8,30 @@ import Testing
 /// Checks the Swift macros against the retired Keyboard Maestro version, `reference/Flo Tools.kmmacros`, so ports keep their hotkeys and conditions.
 /// The Keyboard Maestro UIDs live only here. A deliberate change from the KM version goes in `changedOnPurpose` with the reason.
 @MainActor @Suite struct KeyboardMaestroParityTests {
-    /// Swift group to KM group UID.
-    static let groupOrigins: [MacroGroupID: String] = [
-        .floTools: "B7E0E6A9-B857-4443-876A-DF90D29C080E",
-        .inspector: "A873DB58-32B1-4730-B0D4-9C89056CB5F7",
-        .global: "FEA49FEF-1551-453B-9E90-02A376C079B6",
-        .selectedTab: "88C41276-86DC-4A29-AA13-EF7B6B8B0FE1",
-        .plugin: "0253756E-75BD-4957-8756-3AEE9A2854D8",
-        .audioSuite: "5FE46DF8-CE3D-4514-8D88-C04914589DCF",
-        .fadeOut: "E6F510E8-6551-4EB8-98B6-8BEC96C2E4AD",
-        .fadeIn: "47666470-7A3F-4690-AF7A-122F856786F5",
-        .batchFades: "00DE7329-102E-4CC6-BB82-F7BA11CABCE6",
-        .crossfade: "92216429-D149-4CEE-9A40-426919A22530",
-    ]
+    /// The KM group UID that each Swift scope and mode came from. The Flo Tools Global group's macros were all absorbed, so no scope maps to it.
+    static func kmGroup(of macro: Macro) -> String? {
+        switch (macro.scope, macro.mode) {
+        case (.anyProToolsWindow, .any): "B7E0E6A9-B857-4443-876A-DF90D29C080E"
+        case (.mixOrEdit, .inspectorOn): "A873DB58-32B1-4730-B0D4-9C89056CB5F7"
+        case (.windows(let kinds), .any) where kinds.count == 1: kmGroup(of: kinds.first!)
+        default: nil
+        }
+    }
+
+    /// The KM group whose window condition a window kind replaces.
+    static func kmGroup(of kind: ProToolsWindowKind) -> String? {
+        switch kind {
+        case .mix, .edit: "A873DB58-32B1-4730-B0D4-9C89056CB5F7"
+        case .tabbedSetup: "88C41276-86DC-4A29-AA13-EF7B6B8B0FE1"
+        case .plugIn: "0253756E-75BD-4957-8756-3AEE9A2854D8"
+        case .audioSuite: "5FE46DF8-CE3D-4514-8D88-C04914589DCF"
+        case .fade(.fadeOut): "E6F510E8-6551-4EB8-98B6-8BEC96C2E4AD"
+        case .fade(.fadeIn): "47666470-7A3F-4690-AF7A-122F856786F5"
+        case .fade(.batchFades): "00DE7329-102E-4CC6-BB82-F7BA11CABCE6"
+        case .fade(.crossfade): "92216429-D149-4CEE-9A40-426919A22530"
+        case .other: nil
+        }
+    }
 
     /// Swift macro to the KM macro it was ported from. Every macro needs an entry; a new macro with no KM original maps to nil.
     static let macroOrigins: [MacroID: String?] = [
@@ -282,11 +293,11 @@ import Testing
     ]
 
     /// Macros whose triggers, group or default state differ from KM on purpose, with the reason.
-    static let changedOnPurpose: [MacroID: String] = [:]
-
-    /// Groups whose window condition differs from KM on purpose, with the reason.
-    static let groupTitlesChangedOnPurpose: [MacroGroupID: String] = [
-        .selectedTab: "KM matched the tab window names anywhere in the title, so Mix, Edit, plug-in and AudioSuite windows named after one (a session called Dashboard) also took Cmd+1 to 9, with no rule for which group wins.",
+    static let changedOnPurpose: [MacroID: String] = [
+        "floTools.toggleInspector": "Scoped to Mix and Edit windows (2026-11-03); the KM macro was in the Flo Tools group and passed the key on elsewhere.",
+        "floTools.toggleTemporaryInspector": "Scoped to Mix and Edit windows (2026-11-03), as Toggle Inspector.",
+        "floTools.nextTrackViewOnSelectedTracks": "On from launch while the Inspector is off (2026-11-03); KM enabled it only after / was pressed once.",
+        "floTools.previousTrackViewOnSelectedTracks": "On from launch while the Inspector is off (2026-11-03), as Next.",
     ]
 
     static let root = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
@@ -295,6 +306,23 @@ import Testing
         let enabled: Bool
         let bundleIDs: [String]
         let title: TitleCondition
+    }
+
+    /// A KM "focused window title" condition. Comparisons are case-insensitive, as in KM.
+    enum TitleCondition: Equatable {
+        case any
+        case `is`(String)
+        case contains(String)
+        case matches(String)
+
+        func matches(_ title: String) -> Bool {
+            switch self {
+            case .any: true
+            case .is(let text): title.caseInsensitiveCompare(text) == .orderedSame
+            case .contains(let text): title.range(of: text, options: .caseInsensitive) != nil
+            case .matches(let pattern): title.range(of: pattern, options: [.regularExpression, .caseInsensitive]) != nil
+            }
+        }
     }
 
     struct KMMacro {
@@ -362,39 +390,40 @@ import Testing
         triggers.map { String(describing: $0) }.sorted()
     }
 
-    @Test func groupsMatchKeyboardMaestro() throws {
+    /// Each window kind is a window the KM group it replaces applied to. A title that several KM groups claimed, which left shared keys to KM's ordering, is one kind; the KM groups it lost are listed.
+    @Test func windowKindsMatchKeyboardMaestroGroups() throws {
         let export = try Self.loadExport()
-        #expect(Set(FloMacros.groups.map(\.id)) == Set(Self.groupOrigins.keys))
-        for group in FloMacros.groups {
-            let km = try #require(Self.groupOrigins[group.id].flatMap { export.groups[$0] }, "no KM group for \(group.id)")
-            #expect(group.enabledByDefault == km.enabled, "\(group.id)")
-            #expect(group.bundleIDs == km.bundleIDs, "\(group.id)")
-            if Self.groupTitlesChangedOnPurpose[group.id] == nil {
-                #expect(group.title == km.title, "\(group.id)")
-            }
-        }
-    }
-
-    /// No title is claimed by two window groups, which would leave a shared hotkey to installation order. The titles are those that overlapped under the KM conditions, then the real tab windows.
-    @Test func windowGroupsDoNotOverlap() {
-        let windowGroups = FloMacros.groups.filter { $0.title != .any }
-        let expected: [String: MacroGroupID] = [
-            "Mix: Dashboard": .inspector, "Edit: Preferences": .inspector, "Plug-in: Preferences": .plugin, "Audio Suite: Dashboard": .audioSuite,
-            "I/O Setup": .selectedTab, "Peripherals": .selectedTab, "Pro Tools Preferences": .selectedTab, "Dashboard": .selectedTab,
+        let lost: [String: [String]] = [
+            "Mix: Dashboard": ["Flo Tools Selected Tab"], "Edit: Preferences": ["Flo Tools Selected Tab"], "Plug-in: Preferences": ["Flo Tools Selected Tab"],
+            "Audio Suite: Dashboard": ["Flo Tools Selected Tab"], "Mix: Audio Suite: odd session name": ["Flo Tools Audio Suite"], "Plug-in: Audio Suite: X": ["Flo Tools Audio Suite"],
         ]
-        for (title, group) in expected {
-            #expect(windowGroups.filter { $0.title.matches(title) }.map(\.id) == [group], "\(title)")
+        let titles = ProToolsWindowKindTests.titles.map(\.0)
+        #expect(Set(lost.keys).isSubset(of: titles))
+        let names: [String: String] = [
+            "A873DB58-32B1-4730-B0D4-9C89056CB5F7": "Flo Tools Inspector", "88C41276-86DC-4A29-AA13-EF7B6B8B0FE1": "Flo Tools Selected Tab",
+            "0253756E-75BD-4957-8756-3AEE9A2854D8": "Flo Tools Plugin", "5FE46DF8-CE3D-4514-8D88-C04914589DCF": "Flo Tools Audio Suite",
+            "E6F510E8-6551-4EB8-98B6-8BEC96C2E4AD": "Flo Tools Fade Out", "47666470-7A3F-4690-AF7A-122F856786F5": "Flo Tools Fade In",
+            "00DE7329-102E-4CC6-BB82-F7BA11CABCE6": "Flo Tools Batch Fades", "92216429-D149-4CEE-9A40-426919A22530": "Flo Tools Crossfade",
+        ]
+        for uid in names.keys {
+            let group = try #require(export.groups[uid])
+            #expect(group.enabled && group.bundleIDs == [ProToolsApp.bundleID], "\(names[uid]!)")
+        }
+        for title in titles {
+            let kind = ProToolsWindowKind(title: title)
+            let claimed = names.filter { export.groups[$0.key]!.title.matches(title) }.map(\.value).sorted()
+            let expected = (Self.kmGroup(of: kind).map { [names[$0]!] } ?? []) + (lost[title] ?? [])
+            #expect(claimed == expected.sorted(), "\(title) is \(kind)")
         }
     }
 
     @Test func macrosMatchKeyboardMaestro() throws {
         let export = try Self.loadExport()
-        let kmGroupToSwift = Dictionary(uniqueKeysWithValues: Self.groupOrigins.map { ($0.value, $0.key) })
         #expect(Set(FloMacros.all().map(\.id)) == Set(Self.macroOrigins.keys), "every macro needs an entry in macroOrigins")
         for macro in FloMacros.all() where Self.changedOnPurpose[macro.id] == nil {
             guard let uid = Self.macroOrigins[macro.id] ?? nil else { continue }
             let km = try #require(export.macros[uid], "no KM macro \(uid) for \(macro.id)")
-            #expect(kmGroupToSwift[km.group] == macro.group, "\(macro.id) group")
+            #expect(Self.kmGroup(of: macro) == km.group, "\(macro.id) group")
             #expect(macro.enabledByDefault == km.enabled, "\(macro.id) enabled")
             #expect(Self.sorted(macro.triggers.map(KMTrigger.flo)) == Self.sorted(km.triggers), "\(macro.id) triggers")
         }

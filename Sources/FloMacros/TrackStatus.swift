@@ -16,20 +16,20 @@ enum TrackStatus {
         recordArmed,
         flagMacro("floTools.speakRecordSafeTracks", "Speak Record Safe Tracks", key: "Opt+Shift+Cmd+R", .recordSafe, Wording(none: "No tracks are disarmed safe.", heading: "Disarmed safe:")),
         flagMacro("floTools.speakSoloSafeTracks", "Speak Solo Safe Tracks", key: "Opt+Shift+Cmd+S", .soloSafe, Wording(none: "No tracks are solo safe.", heading: "Solo safe:")),
-        Macro("floTools.speakTracksWith0DbLevel", "Speak Tracks With 0DB Level", group: .floTools, triggers: [.key("Opt+Shift+0")]) { _ in
+        Macro("floTools.speakTracksWith0DbLevel", "Speak Tracks With 0DB Level", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+0")]) { _ in
             try await speakTracksAt0dB()
         },
-        Macro("floTools.speakSelectedTracksDeselectAllTracks", "Speak Selected Tracks, Deselect All Tracks", group: .floTools, triggers: [.key("Opt+Shift+L")], single: { _ in
+        Macro("floTools.speakSelectedTracksDeselectAllTracks", "Speak Selected Tracks, Deselect All Tracks", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+L")], single: { _ in
             try await speak(.trackList(.selected, on: true), Wording(none: "No tracks are selected.", heading: "selected."))
         }, double: { _ in
             try await deselectAll()
         }),
-        Macro("floTools.speakHiddenTracksShowTrackListPopUpMenu", "Speak Hidden Tracks, Show Track List Pop-up Menu", group: .floTools, triggers: [.key("Opt+Shift+H")], single: { _ in
+        Macro("floTools.speakHiddenTracksShowTrackListPopUpMenu", "Speak Hidden Tracks, Show Track List Pop-up Menu", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+H")], single: { _ in
             try await speak(.trackList(.shown, on: false), Wording(none: "No tracks are hidden.", heading: "Hidden:"))
         }, double: { _ in
             try await ProToolsApp.running().mixWindow().openTrackListMenu()
         }),
-        Macro("floTools.speakShownTracksShowTrackListPopUpMenu", "Speak Shown Tracks, Show Track List Pop-up Menu", group: .floTools, triggers: [.key("Opt+Shift+W")], single: { _ in
+        Macro("floTools.speakShownTracksShowTrackListPopUpMenu", "Speak Shown Tracks, Show Track List Pop-up Menu", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+W")], single: { _ in
             try await speak(.trackList(.shown, on: true), Wording(none: "No tracks are currently shown.", heading: "Shown:"))
         }, double: { _ in
             try await ProToolsApp.running().mixWindow().openTrackListMenu()
@@ -72,9 +72,9 @@ enum TrackStatus {
     private static func flagMacro(_ id: MacroID, _ name: String, key: String, _ flag: TrackFlag, _ wording: Wording, reset: Reset? = nil) -> Macro {
         let speak: MacroBody = { _ in try await TrackStatus.speak(.strips(flag, on: true), wording) }
         guard let reset else {
-            return Macro(id, name, group: .floTools, triggers: [.key(key)], body: speak)
+            return Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], body: speak)
         }
-        return Macro(id, name, group: .floTools, triggers: [.key(key)], single: speak, double: { _ in
+        return Macro(id, name, scope: .anyProToolsWindow, triggers: [.key(key)], single: speak, double: { _ in
             try await resetAll(flag, reset)
             try await VoiceOver.say(reset.done)
         })
@@ -88,7 +88,7 @@ enum TrackStatus {
     /// Record arm has two extra cases: armed tracks can be hidden, which only the Edit window's record status shows, as the JXA checked. The JXA disarmed in a loop until that status cleared, which never ended while a hidden track was armed; this disarms the shown tracks once and says when hidden ones stay armed.
     @MainActor
     private static var recordArmed: Macro {
-        Macro("floTools.speakRecordEnabledTracksDisarmAllRecordEnabledTracks", "Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks", group: .floTools, triggers: [.key("Opt+Shift+R")], single: { _ in
+        Macro("floTools.speakRecordEnabledTracksDisarmAllRecordEnabledTracks", "Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+R")], single: { _ in
             let proTools = try ProToolsApp.running()
             let names = try await proTools.mixWindow().tracks(.recordArmed, on: true).map(\.name)
             try await VoiceOver.say(names.isEmpty ? noArmedTracksText(proTools) : "\(names.count) Armed: " + list(names))

@@ -40,14 +40,14 @@ enum TrackLists {
     @MainActor
     static var macros: [Macro] {
         listings.map { listing in
-            Macro(listing.id, listing.name, group: .floTools, triggers: []) { _ in try await run(listing) }
+            Macro(listing.id, listing.name, scope: .anyProToolsWindow, triggers: []) { _ in try await run(listing) }
         } + [chooseList]
     }
 
     /// The KM version spoke "Choose what to list.", paused 1 s and showed a palette. The chooser's prompt says the same and VoiceOver reads it when the window opens, so there is no separate speech or pause.
     @MainActor
     private static var chooseList: Macro {
-        Macro("floTools.listTracksWithFloTools", "List Tracks with Flo Tools", group: .floTools, triggers: [.key("Ctrl+Opt+Shift+L")]) { run in
+        Macro("floTools.listTracksWithFloTools", "List Tracks with Flo Tools", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Opt+Shift+L")]) { run in
             let request = Chooser.Request(title: "List Tracks with Flo Tools", prompt: "Choose what to list.", items: listings.map(\.name), okTitle: "List", allowsMultipleSelection: false)
             // The chosen list opens a second chooser; holding the focus keeps it from going back to Pro Tools in between.
             try await BorrowedFocus.holding {

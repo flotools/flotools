@@ -1,7 +1,7 @@
 import Foundation
 
 /// What kind of Pro Tools window is in front, decided from its title. Every title is exactly one kind, so two key bindings for different kinds can never both apply, and the order of the checks below is the only rule for titles that fit two descriptions.
-public enum ProToolsWindowKind: Sendable, Equatable, CustomStringConvertible {
+public enum ProToolsWindowKind: Sendable, Hashable, CustomStringConvertible {
     case mix
     case edit
     case plugIn

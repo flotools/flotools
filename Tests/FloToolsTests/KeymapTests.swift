@@ -69,10 +69,10 @@ import Testing
         FloMacros.setStartState(preferences, in: engine)
         switch state {
         case "Inspector on by /":
-            InspectorMode.setInspector(true, in: engine)
+            engine.setInspector(true)
         case "Inspector off by /":
-            InspectorMode.setInspector(true, in: engine)
-            InspectorMode.setInspector(false, in: engine)
+            engine.setInspector(true)
+            engine.setInspector(false)
         case "backtick held":
             engine.dispatch(KeyCombo("`")!, .pressed, in: FrontContext(bundleID: proTools, windowTitle: "Mix: S"))
         default:
@@ -95,7 +95,7 @@ import Testing
 
     static func bindingLines(_ engine: MacroEngine) -> [String] {
         engine.macros.flatMap { macro -> [String] in
-            let rest = "\(scope(macro.group)) | \(mode(macro)) | \(macro.id) | \(action(macro.action)) | \"\(macro.name)\"" + (macro.enabledByDefault ? "" : " | off by default")
+            let rest = "\(scope(macro.scope)) | \(mode(macro.mode)) | \(macro.id) | \(action(macro.action)) | \"\(macro.name)\"" + (macro.enabledByDefault ? "" : " | off by default")
             let triggers = macro.triggers.map { trigger in
                 switch trigger {
                 case .hotKey(let combo, let phase): keyText(combo, phase)
@@ -110,23 +110,22 @@ import Testing
         phase == .released ? "\(combo) released" : "\(combo)"
     }
 
-    static func scope(_ group: MacroGroupID) -> String {
-        switch group {
-        case .floTools: "any Pro Tools window"
-        case .inspector: "Mix, Edit"
-        case .selectedTab: "setup tabs"
-        case .plugin: "Plug-in"
-        case .audioSuite: "AudioSuite"
-        case .fadeIn: "Fade In"
-        case .fadeOut: "Fade Out"
-        case .crossfade: "Crossfade"
-        case .batchFades: "Batch Fades"
-        default: "group \(group)"
+    /// Window kinds in a fixed order, so a scope reads the same every run.
+    static let kindOrder: [ProToolsWindowKind] = [.mix, .edit, .plugIn, .audioSuite, .fade(.fadeIn), .fade(.fadeOut), .fade(.crossfade), .fade(.batchFades), .tabbedSetup, .other]
+
+    static func scope(_ scope: Scope) -> String {
+        switch scope {
+        case .anyProToolsWindow: "any Pro Tools window"
+        case .windows(let kinds): kindOrder.filter(kinds.contains).map(\.description).joined(separator: ", ")
         }
     }
 
-    static func mode(_ macro: Macro) -> String {
-        macro.group == .inspector ? "Inspector on" : "-"
+    static func mode(_ mode: ModeCondition) -> String {
+        switch mode {
+        case .any: "-"
+        case .inspectorOn: "Inspector on"
+        case .inspectorOff: "Inspector off"
+        }
     }
 
     static func action(_ action: MacroAction) -> String {

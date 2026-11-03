@@ -2,7 +2,7 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// Flo Tools Audio Suite group: the buttons and presets of the AudioSuite window.
+/// AudioSuite window keys: the buttons and presets of the AudioSuite window.
 enum AudioSuite {
     @MainActor
     static var macros: [Macro] {
@@ -20,7 +20,7 @@ enum AudioSuite {
     /// Presses the AudioSuite window's button `name` and speaks `spoken` if given, as the JXA did. A missing button is reported through `SpokenError` ("Could not find the Render button.") rather than the JXA's "Can't find render button!".
     @MainActor
     static func button(_ id: String, _ name: String, key: String, spoken: String? = nil) -> Macro {
-        Macro(MacroID("audioSuite.\(id)"), name, group: .audioSuite, triggers: [.key(key)]) { _ in
+        Macro(MacroID("audioSuite.\(id)"), name, scope: .windows([.audioSuite]), triggers: [.key(key)]) { _ in
             try await ProToolsApp.running().plugInWindow(.audioSuite).press(name)
             if let spoken { try await VoiceOver.say(spoken) }
         }
