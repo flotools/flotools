@@ -67,18 +67,28 @@ public struct TrackStrip {
             && !soloValue.localizedCaseInsensitiveContains("inactive")
     }
 
-    // MARK: Sends
+    // MARK: Inserts and sends
 
-    /// Selector and assignment buttons of send slot 0 (A) to 9 (J). Sends A-E and F-J are two groups of ten buttons, a selector and an assignment per slot.
-    public func sendButtons(slot: Int) throws -> (selector: AXElement, assignment: AXElement) {
-        let groupName = slot < 5 ? "Sends A-E" : "Sends F-J"
-        let buttons = try element.required("the \(groupName) view") { try $0.group(groupName) }.buttons
-        let index = (slot % 5) * 2
-        guard buttons.count > index + 1 else { throw FloError.notFound("the send \(Self.sendLetter(slot)) buttons") }
-        return (buttons[index], buttons[index + 1])
+    /// The two kinds of slot rows in a strip. The raw value is the word Pro Tools uses in group and button names, for example "Inserts A-E" and "Send selector B".
+    public enum SlotKind: String, Sendable {
+        case insert = "Insert"
+        case send = "Send"
     }
 
-    public nonisolated static func sendLetter(_ slot: Int) -> String {
+    /// Selector and assignment buttons of slot 0 (A) to 9 (J). Slots A-E and F-J are two groups of ten buttons each. Inserts list the five selectors, then the five assignments; sends alternate selector and assignment.
+    public func slotButtons(_ kind: SlotKind, slot: Int) throws -> (selector: AXElement, assignment: AXElement) {
+        let groupName = "\(kind.rawValue)s \(slot < 5 ? "A-E" : "F-J")"
+        let buttons = try element.required("the \(groupName) view") { try $0.group(groupName) }.buttons
+        let position = slot % 5
+        let (selector, assignment) = switch kind {
+        case .insert: (position, position + 5)
+        case .send: (position * 2, position * 2 + 1)
+        }
+        guard buttons.count > max(selector, assignment) else { throw FloError.notFound("the \(kind.rawValue.lowercased()) \(Self.slotLetter(slot)) buttons") }
+        return (buttons[selector], buttons[assignment])
+    }
+
+    public nonisolated static func slotLetter(_ slot: Int) -> String {
         String(UnicodeScalar(UInt8(ascii: "A") + UInt8(slot)))
     }
 

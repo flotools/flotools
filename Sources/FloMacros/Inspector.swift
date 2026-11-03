@@ -5,7 +5,7 @@ import FloSystem
 /// Flo Tools Inspector group: works on the Mix window track under the VoiceOver cursor.
 enum Inspector {
     @MainActor
-    static var macros: [Macro] { (0..<10).map(send) + [
+    static var macros: [Macro] { (0..<10).map { slot(.insert, $0) } + (0..<10).map { slot(.send, $0) } + [
         // The JXA played Tink, now the done sound, after speaking the new Solo state.
         Macro("inspector.speakToggleSolo", "Speak/Toggle Solo", group: .inspector, triggers: [.key("S")], doneSound: .afterDouble, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
@@ -41,32 +41,34 @@ enum Inspector {
         }
     }
 
-    // MARK: Sends
+    // MARK: Inserts and sends
 
-    /// Speak/Open Send A to J on Ctrl+1 to Ctrl+0; `slot` counts from 0. Single press speaks the send slot and its assignment. Double press clicks the assignment button, then plays the done sound, as the JXA played Tink. The KM names spelled send H "h"; here it is "H".
+    /// Speak/Open Insert A to J on 1 to 0, and Speak/Open Send A to J on Ctrl+1 to Ctrl+0; `slot` counts from 0. Single press speaks the slot and its assignment. Double press clicks the assignment button, then plays the done sound, as the JXA played Tink. The KM names spelled H "h"; here it is "H".
     @MainActor
-    static func send(slot: Int) -> Macro {
-        let letter = TrackStrip.sendLetter(slot)
-        return Macro(MacroID("inspector.speakOpenSend\(letter)"), "Speak/Open Send \(letter)", group: .inspector, triggers: [.key("Ctrl+\((slot + 1) % 10)")], doneSound: .afterDouble, single: { _ in
+    static func slot(_ kind: TrackStrip.SlotKind, _ slot: Int) -> Macro {
+        let letter = TrackStrip.slotLetter(slot)
+        let digit = "\((slot + 1) % 10)"
+        let key = kind == .send ? "Ctrl+" + digit : digit
+        return Macro(MacroID("inspector.speakOpen\(kind.rawValue)\(letter)"), "Speak/Open \(kind.rawValue) \(letter)", group: .inspector, triggers: [.key(key)], doneSound: .afterDouble, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
-            try await VoiceOver.say(sendText(slot: slot, in: track))
+            try await VoiceOver.say(slotText(kind, slot, in: track))
         }, double: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
-            try await track.sendButtons(slot: slot).assignment.press()
+            try await track.slotButtons(kind, slot: slot).assignment.press()
         })
     }
 
     /// What a single press says. Absent names and values are empty, as in the JXA; failed reads throw.
     @AccessibilityActor
-    static func sendText(slot: Int, in track: TrackStrip) throws -> String {
-        let (selector, assignment) = try track.sendButtons(slot: slot)
-        return sendMessage(selectorName: try selector.name ?? "", selectorValue: try selector.value ?? "", assignmentValue: try assignment.value ?? "")
+    static func slotText(_ kind: TrackStrip.SlotKind, _ slot: Int, in track: TrackStrip) throws -> String {
+        let (selector, assignment) = try track.slotButtons(kind, slot: slot)
+        return slotMessage(kind, selectorName: try selector.name ?? "", selectorValue: try selector.value ?? "", assignmentValue: try assignment.value ?? "")
     }
 
-    /// Same text as the JXA version, for example " B. : unassigned".
-    static func sendMessage(selectorName: String, selectorValue: String, assignmentValue: String) -> String {
-        let slot = selectorName.replacingFirst("Send selector", with: "") + ". " + selectorValue.replacingFirst("unassigned", with: "")
-        return slot + ": " + assignmentValue.replacingFirst("Send Assignment ", with: "")
+    /// Same text as the JXA version, for example " B. : unassigned" or " A. inactive: SSL Native Channelstrip v6".
+    static func slotMessage(_ kind: TrackStrip.SlotKind, selectorName: String, selectorValue: String, assignmentValue: String) -> String {
+        let slot = selectorName.replacingFirst("\(kind.rawValue) selector", with: "") + ". " + selectorValue.replacingFirst("unassigned", with: "")
+        return slot + ": " + assignmentValue.replacingFirst("\(kind.rawValue) Assignment ", with: "")
     }
 
     // MARK: Pan

@@ -511,9 +511,12 @@ import Testing
         #expect(KeyCombo(keyCode: 78, modifiers: KeyCombo.control | KeyCombo.option).description == "Ctrl+Opt+Keypad -")
     }
 
-    @Test func sendMessageMatchesJXA() {
-        #expect(Inspector.sendMessage(selectorName: "Send selector B", selectorValue: "unassigned", assignmentValue: "unassigned") == " B. : unassigned")
-        #expect(Inspector.sendMessage(selectorName: "Send selector B", selectorValue: "Bus 1", assignmentValue: "Send Assignment Reverb") == " B. Bus 1: Reverb")
+    @Test func slotMessageMatchesJXA() {
+        #expect(Inspector.slotMessage(.send, selectorName: "Send selector B", selectorValue: "unassigned", assignmentValue: "unassigned") == " B. : unassigned")
+        #expect(Inspector.slotMessage(.send, selectorName: "Send selector B", selectorValue: "Bus 1", assignmentValue: "Send Assignment Reverb") == " B. Bus 1: Reverb")
+        // Values seen on Kick on 2026-11-02.
+        #expect(Inspector.slotMessage(.insert, selectorName: "Insert selector A", selectorValue: "inactive", assignmentValue: "SSL Native Channelstrip v6") == " A. inactive: SSL Native Channelstrip v6")
+        #expect(Inspector.slotMessage(.insert, selectorName: "Insert selector B", selectorValue: "unassigned", assignmentValue: "unassigned") == " B. : unassigned")
     }
 
     @Test func soloStateTextMatchesJXA() {

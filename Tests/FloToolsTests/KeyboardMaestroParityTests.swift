@@ -25,6 +25,16 @@ import Testing
     /// Swift macro to the KM macro it was ported from. Every macro needs an entry; a new macro with no KM original maps to nil.
     static let macroOrigins: [MacroID: String?] = [
         "inspector.speakOpenSendB": "F9ED77CC-B335-4608-BDBE-C560B3AC30F9",
+        "inspector.speakOpenInsertA": "F08671D6-BAA1-455E-8AE1-E9908063345A",
+        "inspector.speakOpenInsertB": "43E15266-F1C0-4131-B6D0-3A068A08288D",
+        "inspector.speakOpenInsertC": "E100309E-77A7-4BDC-9775-11A0EF423C3B",
+        "inspector.speakOpenInsertD": "6F1354E9-E864-4C26-B1F6-DAA75E6538A3",
+        "inspector.speakOpenInsertE": "EEC95BC4-31F9-497F-9679-4BF31E87066F",
+        "inspector.speakOpenInsertF": "F4F9AA33-3B0D-4B09-A1EB-0BEC1C57D2B7",
+        "inspector.speakOpenInsertG": "5094EA2B-D33E-4F60-A490-E36231A30FFF",
+        "inspector.speakOpenInsertH": "9DEAD364-0562-46AF-BE1E-62812AF81B9C",
+        "inspector.speakOpenInsertI": "C0A25523-D14C-4639-928F-6CE252F3EC50",
+        "inspector.speakOpenInsertJ": "3F5059EA-018E-4AAA-AFC9-BE6B58E79152",
         "inspector.speakOpenSendA": "5C041461-3A68-400D-B8A1-B689CB38D6F8",
         "inspector.speakOpenSendC": "4C032CCB-AECD-4C7C-94CB-6B231222BEC7",
         "inspector.speakOpenSendD": "2BABC2F0-1F23-4F38-BE62-547445FDBECF",

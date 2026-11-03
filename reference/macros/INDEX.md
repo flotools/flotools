@@ -245,16 +245,16 @@
 | Flo Tools Inspector | [Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor](<Flo Tools Inspector/Speak Gain Reduction Meter_ Toggle Gain Reduction Meter Monitor.md>) | ; | True | 34DF45E2-F217-4453-9563-210A0BDDF7BE |  |
 | Flo Tools Inspector | [Speak Level Meter, Toggle Level Meter Monitor](<Flo Tools Inspector/Speak Level Meter_ Toggle Level Meter Monitor.md>) | L | True | 252B218D-D108-456B-9DA4-683D3858BC80 |  |
 | Flo Tools Inspector | [Speak/Edit Comments](<Flo Tools Inspector/Speak_Edit Comments.md>) | C | True | BC36AF98-3D2F-45D4-920E-7F61A03AD411 |  |
-| Flo Tools Inspector | [Speak/Open Insert A](<Flo Tools Inspector/Speak_Open Insert A.md>) | 1 | True | F08671D6-BAA1-455E-8AE1-E9908063345A |  |
-| Flo Tools Inspector | [Speak/Open Insert B](<Flo Tools Inspector/Speak_Open Insert B.md>) | 2 | True | 43E15266-F1C0-4131-B6D0-3A068A08288D |  |
-| Flo Tools Inspector | [Speak/Open Insert C](<Flo Tools Inspector/Speak_Open Insert C.md>) | 3 | True | E100309E-77A7-4BDC-9775-11A0EF423C3B |  |
-| Flo Tools Inspector | [Speak/Open Insert D](<Flo Tools Inspector/Speak_Open Insert D.md>) | 4 | True | 6F1354E9-E864-4C26-B1F6-DAA75E6538A3 |  |
-| Flo Tools Inspector | [Speak/Open Insert E](<Flo Tools Inspector/Speak_Open Insert E.md>) | 5 | True | EEC95BC4-31F9-497F-9679-4BF31E87066F |  |
-| Flo Tools Inspector | [Speak/Open Insert F](<Flo Tools Inspector/Speak_Open Insert F.md>) | 6 | True | F4F9AA33-3B0D-4B09-A1EB-0BEC1C57D2B7 |  |
-| Flo Tools Inspector | [Speak/Open Insert G](<Flo Tools Inspector/Speak_Open Insert G.md>) | 7 | True | 5094EA2B-D33E-4F60-A490-E36231A30FFF |  |
-| Flo Tools Inspector | [Speak/Open Insert I](<Flo Tools Inspector/Speak_Open Insert I.md>) | 9 | True | C0A25523-D14C-4639-928F-6CE252F3EC50 |  |
-| Flo Tools Inspector | [Speak/Open Insert J](<Flo Tools Inspector/Speak_Open Insert J.md>) | 0 | True | 3F5059EA-018E-4AAA-AFC9-BE6B58E79152 |  |
-| Flo Tools Inspector | [Speak/Open Insert h](<Flo Tools Inspector/Speak_Open Insert h.md>) | 8 | True | 9DEAD364-0562-46AF-BE1E-62812AF81B9C |  |
+| Flo Tools Inspector | [Speak/Open Insert A](<Flo Tools Inspector/Speak_Open Insert A.md>) | 1 | True | F08671D6-BAA1-455E-8AE1-E9908063345A | yes |
+| Flo Tools Inspector | [Speak/Open Insert B](<Flo Tools Inspector/Speak_Open Insert B.md>) | 2 | True | 43E15266-F1C0-4131-B6D0-3A068A08288D | yes |
+| Flo Tools Inspector | [Speak/Open Insert C](<Flo Tools Inspector/Speak_Open Insert C.md>) | 3 | True | E100309E-77A7-4BDC-9775-11A0EF423C3B | yes |
+| Flo Tools Inspector | [Speak/Open Insert D](<Flo Tools Inspector/Speak_Open Insert D.md>) | 4 | True | 6F1354E9-E864-4C26-B1F6-DAA75E6538A3 | yes |
+| Flo Tools Inspector | [Speak/Open Insert E](<Flo Tools Inspector/Speak_Open Insert E.md>) | 5 | True | EEC95BC4-31F9-497F-9679-4BF31E87066F | yes |
+| Flo Tools Inspector | [Speak/Open Insert F](<Flo Tools Inspector/Speak_Open Insert F.md>) | 6 | True | F4F9AA33-3B0D-4B09-A1EB-0BEC1C57D2B7 | yes |
+| Flo Tools Inspector | [Speak/Open Insert G](<Flo Tools Inspector/Speak_Open Insert G.md>) | 7 | True | 5094EA2B-D33E-4F60-A490-E36231A30FFF | yes |
+| Flo Tools Inspector | [Speak/Open Insert I](<Flo Tools Inspector/Speak_Open Insert I.md>) | 9 | True | C0A25523-D14C-4639-928F-6CE252F3EC50 | yes |
+| Flo Tools Inspector | [Speak/Open Insert J](<Flo Tools Inspector/Speak_Open Insert J.md>) | 0 | True | 3F5059EA-018E-4AAA-AFC9-BE6B58E79152 | yes |
+| Flo Tools Inspector | [Speak/Open Insert h](<Flo Tools Inspector/Speak_Open Insert h.md>) | 8 | True | 9DEAD364-0562-46AF-BE1E-62812AF81B9C | yes |
 | Flo Tools Inspector | [Speak/Open Send A](<Flo Tools Inspector/Speak_Open Send A.md>) | Ctrl+1 | True | 5C041461-3A68-400D-B8A1-B689CB38D6F8 | yes |
 | Flo Tools Inspector | [Speak/Open Send B](<Flo Tools Inspector/Speak_Open Send B.md>) | Ctrl+2 | True | F9ED77CC-B335-4608-BDBE-C560B3AC30F9 | yes |
 | Flo Tools Inspector | [Speak/Open Send C](<Flo Tools Inspector/Speak_Open Send C.md>) | Ctrl+3 | True | 4C032CCB-AECD-4C7C-94CB-6B231222BEC7 | yes |
