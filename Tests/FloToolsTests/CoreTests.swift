@@ -1053,6 +1053,13 @@ private actor Flag {
         #expect(links.allSatisfy { $0.section == FadeDialog.Section("Slope") })
     }
 
+    /// The named sections are the group titles Pro Tools showed (2026-11-02 and 2026-11-03); only Batch Fades' out slope is a second group.
+    @Test func namedSectionsKeepTheirTitles() {
+        let sections: [FadeDialog.Section] = [.inShape, .outShape, .slope, .batchOutSlope, .crossfadeLink, .fadeInShape, .fadeOutShape]
+        #expect(sections.map(\.title) == ["In Shape", "Out Shape", "Slope", "Slope", "<<- Link ->>", "Fade In Shape", "Fade Out Shape"])
+        #expect(sections.map(\.occurrence) == [0, 0, 0, 1, 0, 0, 0])
+    }
+
     /// Batch Fades group titles as Pro Tools showed them on 2026-11-02.
     @Test func batchFadesSectionsExist() {
         let titles: Set = ["Fade In Shape", "Slope", "In Shape", "Out Shape", "<<- Link ->>", "Fade Out Shape"]

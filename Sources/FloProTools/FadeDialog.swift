@@ -20,6 +20,16 @@ public struct FadeDialog {
             self.title = title
             self.occurrence = occurrence
         }
+
+        // The groups the fade commands read, named once so a Pro Tools rename is one change. Fade In and Fade Out call their link group "Slope" too, which the JXA called "Link Out / In" (checked live 2026-11-03).
+        public static let inShape = Section("In Shape")
+        public static let outShape = Section("Out Shape")
+        public static let slope = Section("Slope")
+        /// Batch Fades' second "Slope" group, the fade out slope.
+        public static let batchOutSlope = Section("Slope", occurrence: 1)
+        public static let crossfadeLink = Section("<<- Link ->>")
+        public static let fadeInShape = Section("Fade In Shape")
+        public static let fadeOutShape = Section("Fade Out Shape")
     }
 
     private let element: AXElement
