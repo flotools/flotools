@@ -617,6 +617,16 @@ import Testing
         #expect(InspectorControls.panList(["100 to the left", "100 to the right"]) == "100 to the left. 100 to the right. ")
     }
 
+    @Test func gridModeTextLikeJXA() {
+        #expect(SettingToggles.gridModeText(isOn: true, buttonName: "Absolute Grid mode") == "Grid mode, Absolute ")
+        #expect(SettingToggles.gridModeText(isOn: false, buttonName: "Absolute Grid mode") == "Grid mode, off")
+    }
+
+    @Test func inputMonitorTextNamesTheModeSwitchedTo() {
+        #expect(SettingToggles.inputMonitorText(itemName: "Set Record Tracks to Auto Input") == "Input Only")
+        #expect(SettingToggles.inputMonitorText(itemName: "Set Record Tracks to Input Only") == "Auto Input")
+    }
+
     @Test func gainReductionDecibelsLikeParseInt() {
         #expect(GainReductionPeak.decibels("minus 3 db") == -3)
         #expect(GainReductionPeak.decibels("minus 3.7 db") == -3)

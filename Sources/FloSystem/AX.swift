@@ -81,6 +81,12 @@ public struct AXElement {
         return refs.map(AXElement.init)
     }
 
+    public func bool(_ name: String) throws -> Bool? {
+        guard let value = try attribute(name) else { return nil }
+        guard let number = value as? NSNumber else { throw FloError.unexpectedValue("\(name) is not a Boolean") }
+        return number.boolValue
+    }
+
     public var role: String? { get throws { try string("AXRole") } }
     public var title: String? { get throws { try string("AXTitle") } }
     public var roleDescription: String? { get throws { try string("AXRoleDescription") } }
@@ -100,6 +106,12 @@ public struct AXElement {
 
     /// What VoiceOver reads for a slider, for example "70 to the left" for a pan knob.
     public var valueDescription: String? { get throws { try string("AXValueDescription") } }
+
+    /// False for a dimmed menu item or button; an element without `AXEnabled` counts as enabled.
+    public var isEnabled: Bool { get throws { try bool("AXEnabled") ?? true } }
+
+    /// The check mark of a menu item, nil when it is not checked.
+    public var menuItemMark: String? { get throws { try string("AXMenuItemMarkChar") } }
 
     public var children: [AXElement] { get throws { try elements("AXChildren") } }
     public var windows: [AXElement] { get throws { try elements("AXWindows") } }

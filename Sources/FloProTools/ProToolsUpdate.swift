@@ -4,12 +4,12 @@ import FloSystem
 public enum ProToolsUpdate {
     public static let timeout: Duration = .milliseconds(200)
 
-    /// Reads until the reading differs from `before` or `timeout` passes, and returns the last reading. Some actions change nothing, such as a key at the end of a list or arming a track without an input, so an unchanged reading is not an error.
+    /// Reads until the reading differs from `before` or `limit` passes, and returns the last reading. Some actions change nothing, such as a key at the end of a list or arming a track without an input, so an unchanged reading is not an error.
     @AccessibilityActor
-    public static func reading(changedFrom before: String, _ read: @AccessibilityActor () throws -> String) async throws -> String {
+    public static func reading(changedFrom before: String, within limit: Duration = timeout, _ read: @AccessibilityActor () throws -> String) async throws -> String {
         let start = ContinuousClock.now
         var now = try read()
-        while now == before, ContinuousClock.now - start < timeout {
+        while now == before, ContinuousClock.now - start < limit {
             try await Task.sleep(for: .milliseconds(10))
             now = try read()
         }

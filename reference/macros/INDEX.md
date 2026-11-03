@@ -131,28 +131,28 @@
 | Flo Tools | [Speak/Edit Sub Counter](<Flo Tools/Speak_Edit Sub Counter.md>) | Cmd+F6 | True | D6541BED-44E6-43BA-8217-A482DBF46C3D |  |
 | Flo Tools | [Speak/Edit Tempo](<Flo Tools/Speak_Edit Tempo.md>) | Cmd+F11 | True | F5200DB5-3855-4AD2-B90A-4382DD363247 |  |
 | Flo Tools | [Speak/Edit main counter](<Flo Tools/Speak_Edit main counter.md>) | Cmd+F4 | True | 749BC3D0-FDAD-4FB5-883D-807887087C79 |  |
-| Flo Tools | [Speak/Select Shuffle Mode](<Flo Tools/Speak_Select Shuffle Mode.md>) | F1 | True | A7B3EDA0-DC5C-410C-AAE2-C1A4DBA7A2AB |  |
-| Flo Tools | [Speak/Select Slip Mode](<Flo Tools/Speak_Select Slip Mode.md>) | F2 | True | 675FE3D4-7D7C-4A9C-B5A2-649A8E3ED74E |  |
-| Flo Tools | [Speak/Select Spot Mode](<Flo Tools/Speak_Select Spot Mode.md>) | F3 | True | D41A7D40-EC3F-490E-A38E-33563B9E6DF6 |  |
-| Flo Tools | [Speak/Toggle Conductor](<Flo Tools/Speak_Toggle Conductor.md>) | Opt+F12 | True | CB8785C0-960E-47C6-AE39-1847F3EF5C4E |  |
-| Flo Tools | [Speak/Toggle Count In](<Flo Tools/Speak_Toggle Count In.md>) | Opt+Keypad 8 | True | E9EE3AC3-1BE7-4336-AF97-6146BDFDFDEB |  |
-| Flo Tools | [Speak/Toggle Dynamic Transport](<Flo Tools/Speak_Toggle Dynamic Transport.md>) | Ctrl+Cmd+P | True | 276A1B62-57BA-49E9-AB62-A5F6324A48A7 |  |
-| Flo Tools | [Speak/Toggle Grid Mode](<Flo Tools/Speak_Toggle Grid Mode.md>) | F4 | True | 82910228-592F-4BD4-A08B-A8A9CF779555 |  |
-| Flo Tools | [Speak/Toggle Insertion Follows Playback](<Flo Tools/Speak_Toggle Insertion Follows Playback.md>) | Ctrl+N | True | 20523AE1-876B-4B9A-893D-72F1AC744F78 |  |
-| Flo Tools | [Speak/Toggle Loop Playback](<Flo Tools/Speak_Toggle Loop Playback.md>) | Shift+Cmd+L | True | 61820E5B-BB49-49C0-A1B1-5ACBF8F8D073 |  |
-| Flo Tools | [Speak/Toggle Loop Record](<Flo Tools/Speak_Toggle Loop Record.md>) | Opt+L | True | 17060DFD-4569-4033-92B1-5E3E5D8B22E7 |  |
-| Flo Tools | [Speak/Toggle Metronome](<Flo Tools/Speak_Toggle Metronome.md>) | Opt+Keypad 7 | True | 21C5EE82-9392-4F65-A4CA-D7BA25601DEB |  |
-| Flo Tools | [Speak/Toggle Midi Merge](<Flo Tools/Speak_Toggle Midi Merge.md>) | Opt+Keypad 9 | True | D97C6D65-2802-4541-81C8-14CBEEE2FAE6 |  |
-| Flo Tools | [Speak/Toggle Narrow Mix](<Flo Tools/Speak_Toggle Narrow Mix.md>) | Opt+Cmd+M | True | AF034F47-0C8E-402C-9B8F-A87F7F542079 |  |
-| Flo Tools | [Speak/Toggle Pre/Post Roll](<Flo Tools/Speak_Toggle Pre_Post Roll.md>) | Cmd+K | True | 2782DBF5-F0C6-4155-990E-07B7FFA106ED |  |
-| Flo Tools | [Speak/Toggle Quick Punch](<Flo Tools/Speak_Toggle Quick Punch.md>) | Shift+Cmd+P | True | 228F3B92-0CB0-4459-88F4-976D58CC9011 |  |
-| Flo Tools | [Speak/Toggle Tab to Transients](<Flo Tools/Speak_Toggle Tab to Transients.md>) | Opt+Cmd+Tab | True | 2DCC00FB-9F88-4A22-A546-8B776D1312E9 |  |
-| Flo Tools | [Speak/Toggle Track Punch](<Flo Tools/Speak_Toggle Track Punch.md>) | Shift+Cmd+T | True | EDD9A5D3-2EDA-41FD-A37E-DD673B696A6B |  |
-| Flo Tools | [Speak/Toggle Transport Online](<Flo Tools/Speak_Toggle Transport Online.md>) | Cmd+J | True | 55729D0A-7A78-444D-A0E7-605ED68CE252 |  |
-| Flo Tools | [Speak/Toggle Wait for Note](<Flo Tools/Speak_Toggle Wait for Note.md>) | Opt+F11 | True | C833E106-1095-4829-86C7-903185E9176C |  |
-| Flo Tools | [Toggle And Speak Link Timeline And Edit Selection](<Flo Tools/Toggle And Speak Link Timeline And Edit Selection.md>) | Shift+/ | True | 6EF50BCB-FACB-4B57-807F-17138E576EBC |  |
-| Flo Tools | [Toggle And Speak Link Track and Edit Selection](<Flo Tools/Toggle And Speak Link Track and Edit Selection.md>) | Shift+T | True | 503B8B13-77A3-45BF-BC78-3F8E6EFD6B40 |  |
-| Flo Tools | [Toggle Input Monitor](<Flo Tools/Toggle Input Monitor.md>) | Opt+K | True | 336D9616-EFBD-43D1-98C9-94A173E3D9EB |  |
+| Flo Tools | [Speak/Select Shuffle Mode](<Flo Tools/Speak_Select Shuffle Mode.md>) | F1 | True | A7B3EDA0-DC5C-410C-AAE2-C1A4DBA7A2AB | yes |
+| Flo Tools | [Speak/Select Slip Mode](<Flo Tools/Speak_Select Slip Mode.md>) | F2 | True | 675FE3D4-7D7C-4A9C-B5A2-649A8E3ED74E | yes |
+| Flo Tools | [Speak/Select Spot Mode](<Flo Tools/Speak_Select Spot Mode.md>) | F3 | True | D41A7D40-EC3F-490E-A38E-33563B9E6DF6 | yes |
+| Flo Tools | [Speak/Toggle Conductor](<Flo Tools/Speak_Toggle Conductor.md>) | Opt+F12 | True | CB8785C0-960E-47C6-AE39-1847F3EF5C4E | yes |
+| Flo Tools | [Speak/Toggle Count In](<Flo Tools/Speak_Toggle Count In.md>) | Opt+Keypad 8 | True | E9EE3AC3-1BE7-4336-AF97-6146BDFDFDEB | yes |
+| Flo Tools | [Speak/Toggle Dynamic Transport](<Flo Tools/Speak_Toggle Dynamic Transport.md>) | Ctrl+Cmd+P | True | 276A1B62-57BA-49E9-AB62-A5F6324A48A7 | yes |
+| Flo Tools | [Speak/Toggle Grid Mode](<Flo Tools/Speak_Toggle Grid Mode.md>) | F4 | True | 82910228-592F-4BD4-A08B-A8A9CF779555 | yes |
+| Flo Tools | [Speak/Toggle Insertion Follows Playback](<Flo Tools/Speak_Toggle Insertion Follows Playback.md>) | Ctrl+N | True | 20523AE1-876B-4B9A-893D-72F1AC744F78 | yes |
+| Flo Tools | [Speak/Toggle Loop Playback](<Flo Tools/Speak_Toggle Loop Playback.md>) | Shift+Cmd+L | True | 61820E5B-BB49-49C0-A1B1-5ACBF8F8D073 | yes |
+| Flo Tools | [Speak/Toggle Loop Record](<Flo Tools/Speak_Toggle Loop Record.md>) | Opt+L | True | 17060DFD-4569-4033-92B1-5E3E5D8B22E7 | yes |
+| Flo Tools | [Speak/Toggle Metronome](<Flo Tools/Speak_Toggle Metronome.md>) | Opt+Keypad 7 | True | 21C5EE82-9392-4F65-A4CA-D7BA25601DEB | yes |
+| Flo Tools | [Speak/Toggle Midi Merge](<Flo Tools/Speak_Toggle Midi Merge.md>) | Opt+Keypad 9 | True | D97C6D65-2802-4541-81C8-14CBEEE2FAE6 | yes |
+| Flo Tools | [Speak/Toggle Narrow Mix](<Flo Tools/Speak_Toggle Narrow Mix.md>) | Opt+Cmd+M | True | AF034F47-0C8E-402C-9B8F-A87F7F542079 | yes |
+| Flo Tools | [Speak/Toggle Pre/Post Roll](<Flo Tools/Speak_Toggle Pre_Post Roll.md>) | Cmd+K | True | 2782DBF5-F0C6-4155-990E-07B7FFA106ED | yes |
+| Flo Tools | [Speak/Toggle Quick Punch](<Flo Tools/Speak_Toggle Quick Punch.md>) | Shift+Cmd+P | True | 228F3B92-0CB0-4459-88F4-976D58CC9011 | yes |
+| Flo Tools | [Speak/Toggle Tab to Transients](<Flo Tools/Speak_Toggle Tab to Transients.md>) | Opt+Cmd+Tab | True | 2DCC00FB-9F88-4A22-A546-8B776D1312E9 | yes |
+| Flo Tools | [Speak/Toggle Track Punch](<Flo Tools/Speak_Toggle Track Punch.md>) | Shift+Cmd+T | True | EDD9A5D3-2EDA-41FD-A37E-DD673B696A6B | yes |
+| Flo Tools | [Speak/Toggle Transport Online](<Flo Tools/Speak_Toggle Transport Online.md>) | Cmd+J | True | 55729D0A-7A78-444D-A0E7-605ED68CE252 | yes |
+| Flo Tools | [Speak/Toggle Wait for Note](<Flo Tools/Speak_Toggle Wait for Note.md>) | Opt+F11 | True | C833E106-1095-4829-86C7-903185E9176C | yes |
+| Flo Tools | [Toggle And Speak Link Timeline And Edit Selection](<Flo Tools/Toggle And Speak Link Timeline And Edit Selection.md>) | Shift+/ | True | 6EF50BCB-FACB-4B57-807F-17138E576EBC | yes |
+| Flo Tools | [Toggle And Speak Link Track and Edit Selection](<Flo Tools/Toggle And Speak Link Track and Edit Selection.md>) | Shift+T | True | 503B8B13-77A3-45BF-BC78-3F8E6EFD6B40 | yes |
+| Flo Tools | [Toggle Input Monitor](<Flo Tools/Toggle Input Monitor.md>) | Opt+K | True | 336D9616-EFBD-43D1-98C9-94A173E3D9EB | yes |
 | Flo Tools | [Toggle Inspector](<Flo Tools/Toggle Inspector.md>) | / | True | 8F157FEB-069E-465B-9AA5-92C4A59D23C4 | yes |
 | Flo Tools | [Toggle Temporary INspector](<Flo Tools/Toggle Temporary INspector.md>) | `; ` (released) | True | E63048EB-FBD0-41A9-A4C7-8922216F11D3 | yes |
 | Flo Tools | [Track view toggled on all tracks](<Flo Tools/Track view toggled on all tracks.md>) | Opt+- | True | B5FFCC82-ADE7-4A3C-9D77-7EADC3E1BE64 |  |

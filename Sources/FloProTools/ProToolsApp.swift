@@ -95,7 +95,7 @@ public struct ProToolsApp: Sendable {
 
     /// The first window whose title starts with `titlePrefix`. `what` names it for the user, for example "the Mix window".
     @AccessibilityActor
-    private func window(titlePrefix: String, _ what: String) throws -> AXElement {
+    func window(titlePrefix: String, _ what: String) throws -> AXElement {
         try AXElement.application(pid: pid).required(what) { app in try app.windows.first { try $0.title?.hasPrefix(titlePrefix) == true } }
     }
 }
