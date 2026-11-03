@@ -127,17 +127,14 @@ enum TrackStatus {
                 }
                 groupsSuspended = true
             }
-            var lastSound = ContinuousClock.now
+            var progress = ProgressTicker(every: .seconds(1))
             for track in ordered {
                 // A stop request ends the loop between clicks.
                 try Task.checkCancellation()
                 // The click waits only so long for the button, so a track still soloed must not be counted, or success would be spoken.
                 guard try await track.set(flag, to: false) else { throw FloError.couldNot("\(reset.verb) \(track.name)") }
                 handled += 1
-                if ContinuousClock.now - lastSound > .seconds(1) {
-                    await Sound.progress.play()
-                    lastSound = .now
-                }
+                await progress.tick()
             }
         } catch {
             loopError = error

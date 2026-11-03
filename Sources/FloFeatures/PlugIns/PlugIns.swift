@@ -91,7 +91,7 @@ enum PlugIns {
         }
     }
 
-    /// Reads the parameters every `Monitors.pollInterval` until cancelled, speaking each changed one. A failed read, usually the window closing, ends the watch with "Plugin monitor off", as in the JXA.
+    /// Reads the parameters every `Watches.pollInterval` until cancelled, speaking each changed one. A failed read, usually the window closing, ends the watch with "Plugin monitor off", as in the JXA.
     private static func watch(_ window: PlugInWindow, from first: [PlugInWindow.Parameter]) async {
         var last = first
         while !Task.isCancelled {

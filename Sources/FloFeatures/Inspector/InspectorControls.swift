@@ -131,14 +131,11 @@ enum InspectorControls {
     /// Reads the freeze button's name until it differs from `before`. Failed reads are expected while Pro Tools renders, so they only mean "not yet".
     private static func waitForFreeze(_ track: TrackStrip, changedFrom before: String) async throws -> String {
         let start = ContinuousClock.now
-        var lastSound = start
+        var progress = ProgressTicker(every: .seconds(1), startingAt: start)
         while true {
             if let name = try? await readout(.freeze, of: track), name != before { return name }
             guard ContinuousClock.now - start < freezeTimeout else { throw FloError.couldNot("see the freeze finish") }
-            if ContinuousClock.now - lastSound > .seconds(1) {
-                await Sound.progress.play()
-                lastSound = .now
-            }
+            await progress.tick()
             try await Task.sleep(for: .milliseconds(100))
         }
     }

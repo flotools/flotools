@@ -28,7 +28,7 @@ public struct MixWindow {
 
     /// The Track List table at the left of the window.
     public func trackList() throws -> TrackList {
-        TrackList(try element.required("the Track List") { try $0.table("Track List") })
+        TrackList(try TrackList.table(in: element, requiredAs: "the Track List"))
     }
 
     /// Opens the Track List pop-up menu (show and hide, sort and so on).
@@ -237,15 +237,20 @@ public struct TrackStrip {
     public func fader(_ fader: Fader) throws -> AXElement {
         switch fader {
         case .volume: try element.required("the volume fader") { try $0.child(role: "AXSlider", name: "Volume") }
-        case .peak: try element.required("the peak meter") { try $0.child(role: "AXSlider", name: "Peak") }
+        case .peak: try element.required("the peak meter") { _ in try peakMeter() }
         case .instrumentVolume: try instrumentSection().required("the MIDI volume") { try $0.sliders.first { try $0.name?.contains("MIDI Volume indicator") == true } }
         }
     }
 
     /// The peak hold level in dB, for example -3.1 for "minus 3.1"; nil for "minus ∞" and for a track without a peak meter.
     public func peakDecibels() throws -> Double? {
-        guard let peak = try element.child(role: "AXSlider", name: "Peak"), let text = try peak.valueDescription else { return nil }
+        guard let peak = try peakMeter(), let text = try peak.valueDescription else { return nil }
         return Self.decibels(meterReading: text)
+    }
+
+    /// The peak hold slider, nil for a track without one, such as a MIDI track.
+    private func peakMeter() throws -> AXElement? {
+        try element.child(role: "AXSlider", name: "Peak")
     }
 
     /// A level as Pro Tools reads it out, "minus 3.1" for the peak hold or "minus 3 db" for gain reduction, in dB. Nil for a reading without a finite number, such as "minus ∞".

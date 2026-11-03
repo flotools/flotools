@@ -7,6 +7,11 @@ public struct TrackList {
 
     init(_ element: AXElement) { self.element = element }
 
+    /// The Track List table among the children of a Mix or Edit window. `what` names it in the error when it is missing.
+    static func table(in window: AXElement, requiredAs what: String) throws -> AXElement {
+        try window.required(what) { try $0.table("Track List") }
+    }
+
     /// The two states a row shows and toggles.
     public enum Property: Sendable { case selected, shown }
 
@@ -47,9 +52,9 @@ public struct TrackList {
     public func rows() throws -> [Row] {
         try element.rows.map { row in
             let cells = try row.children
-            guard cells.count > 1, let show = try cells[0].buttons.first, let select = try cells[1].buttons.first else {
-                throw FloError.notFound("the buttons of a Track List row")
-            }
+            // The selection button first: its lookup checks that the row has both cells.
+            let select = try Self.selectionButton(in: cells)
+            guard let show = try cells[0].buttons.first else { throw FloError.notFound("the buttons of a Track List row") }
             let selection = Self.selection(selectButtonName: try select.name ?? "")
             return Row(name: selection.name,
                        isSelected: selection.isSelected,
@@ -62,25 +67,28 @@ public struct TrackList {
     public func selectedNames() throws -> [String] {
         try element.rows.compactMap { row in
             let cells = try row.children
-            guard cells.count > 1, let select = try cells[1].buttons.first else {
-                throw FloError.notFound("the buttons of a Track List row")
-            }
-            let selection = Self.selection(selectButtonName: try select.name ?? "")
+            let selection = Self.selection(selectButtonName: try Self.selectionButton(in: cells).name ?? "")
             return selection.isSelected ? selection.name : nil
         }
+    }
+
+    /// The selection button of a row with `cells`, the row's children: the first button of the second cell.
+    private static func selectionButton(in cells: [AXElement]) throws -> AXElement {
+        guard cells.count > 1, let button = try cells[1].buttons.first else { throw FloError.notFound("the buttons of a Track List row") }
+        return button
     }
 
     /// "Selected. Open. Drums - Routing Folder Track " -> "Drums - Routing Folder Track ". Folder rows say whether the folder is open or closed.
     nonisolated static func trackName(selectButtonName name: String) -> String {
         var name = Substring(name)
-        for prefix in ["Selected. ", "Open. ", "Closed. "] where name.hasPrefix(prefix) {
+        for prefix in [selectedRowPrefix, "Open. ", "Closed. "] where name.hasPrefix(prefix) {
             name = name.dropFirst(prefix.count)
         }
         return String(name)
     }
 
     nonisolated static func isSelected(selectButtonName name: String) -> Bool {
-        name.hasPrefix("Selected. ")
+        name.hasPrefix(selectedRowPrefix)
     }
 
     nonisolated static func selection(selectButtonName name: String) -> (name: String, isSelected: Bool) {

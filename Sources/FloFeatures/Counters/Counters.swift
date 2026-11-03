@@ -130,7 +130,7 @@ enum CounterText {
     private static func notePitch(_ value: String) -> String {
         var text = value
         for (mark, words) in [("x", "-DOUBLE Sharp"), ("#", "-Sharp "), ("bb", "-DOUBLE Flat"), ("b", "-Flat ")] {
-            if let range = text.range(of: mark) { text.replaceSubrange(range, with: words) }
+            text = text.replacingFirst(mark, with: words)
         }
         return text
     }

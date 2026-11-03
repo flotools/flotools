@@ -32,7 +32,7 @@ extension ProToolsApp {
         case .editClips:
             element = try clipList()
         case .frontTrackList:
-            element = try frontWindow().required("the Track List table") { try $0.table("Track List") }
+            element = try TrackList.table(in: frontWindow(), requiredAs: "the Track List table")
         }
         let origin = try element.position.required("the position of the table")
         let size = try element.size.required("the size of the table")
@@ -105,7 +105,7 @@ extension ProToolsApp {
 
     /// "Selected. Audio Clip \"Kick_01\" ..." -> "Audio Clip \"Kick_01\" ...".
     nonisolated static func clipName(rowText: String) -> String {
-        rowText.hasPrefix("Selected. ") ? String(rowText.dropFirst("Selected. ".count)) : rowText
+        rowText.hasPrefix(selectedRowPrefix) ? String(rowText.dropFirst(selectedRowPrefix.count)) : rowText
     }
 
     /// The Edit window's clip list. The KM Resize Clips Table looked for a table named "Clips", which Pro Tools no longer has (checked live 2026-11-02); its Speak Selected Clips used "clip list".

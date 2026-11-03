@@ -1102,3 +1102,20 @@ private actor Flag {
         }
     }
 }
+
+@Suite struct ReplacingFirstTests {
+    @Test func replacesOnlyTheFirstMatch() {
+        #expect("a-b-c".replacingFirst("-", with: "+") == "a+b-c")
+        #expect("abc".replacingFirst("x", with: "+") == "abc")
+        #expect("Track nameKick".replacingFirst("Track name", with: "") == "Kick")
+    }
+}
+
+@Suite struct ProgressTickerTests {
+    @Test func duePastTheIntervalThenWaitsAgain() {
+        let start = ContinuousClock.now
+        var ticker = ProgressTicker(every: .seconds(1), startingAt: start)
+        let due = [500, 1000, 1100, 1900, 2200].map { ticker.isDue(at: start + .milliseconds($0)) }
+        #expect(due == [false, false, true, false, true])
+    }
+}

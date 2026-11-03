@@ -78,7 +78,7 @@ enum InspectorMeters {
         if isRunning { await VoiceOver.sayOrLog(started) }
     }
 
-    /// Reads `meter` of the track under the VoiceOver cursor every `Monitors.pollInterval` until cancelled, calling `changed` with each reading that differs from the one before. Moving the cursor to another track compares with the last reading, so a different level there is reported. The first reading, and the first after a failed one, only sets the baseline (passed to `first`), as in the JXA.
+    /// Reads `meter` of the track under the VoiceOver cursor every `Watches.pollInterval` until cancelled, calling `changed` with each reading that differs from the one before. Moving the cursor to another track compares with the last reading, so a different level there is reported. The first reading, and the first after a failed one, only sets the baseline (passed to `first`), as in the JXA.
     /// Failed reads are expected while the cursor is on something that is not a track or Pro Tools is busy, so they only end the current baseline; the first failure of a run of them is logged. The watch ends when Pro Tools quits.
     static func watch(_ meter: TrackStrip.Meter, in app: ProToolsApp, first: @escaping @Sendable (String) async -> Void = { _ in }, changed: @escaping @Sendable (String) async -> Void) async {
         var track: TrackStrip?
