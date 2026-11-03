@@ -37,6 +37,11 @@ public final class FrontWindowObserver {
         return try window?.title
     }
 
+    /// Whether notifications from app `pid` arrive. While they do, polling that app is not needed.
+    public func isObserving(pid: pid_t) -> Bool {
+        observer != nil && observedPid == pid
+    }
+
     /// Detaches from the observed app for good. Call before dropping the instance.
     public func stop() {
         stopped = true

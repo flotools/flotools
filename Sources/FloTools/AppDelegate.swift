@@ -6,7 +6,8 @@ import FloSystem
 /// Menu bar app with no Dock icon. The menu shows status and lets the user turn Flo Tools off.
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
-    private let engine = FloMacros.makeEngine()
+    /// The app owns the input and context sources and hands them to the engine, which starts and stops them.
+    private let engine = FloMacros.makeEngine(hotKeys: HotKeyCenter(), contextMonitor: ContextMonitor())
     private var statusItem: NSStatusItem?
     private var accessibilityTask: Task<Void, Never>?
     private var launchObserver: NSObjectProtocol?

@@ -84,6 +84,8 @@ public final class ContextMonitor {
     private var reads = WindowTitleReads()
     private var activationObserver: NSObjectProtocol?
     private var poll: Task<Void, Never>?
+    /// Whether the last window read found the observer attached to the front app. While it is, the poll reads no windows: notifications report every change (checked live 2026-11-02: Mix/Edit, dialog, floating window, app switch), and a poll read blocks `AccessibilityActor` for up to the messaging timeout when Pro Tools is busy.
+    private var observing = false
 
     public init() {}
 
@@ -96,7 +98,7 @@ public final class ContextMonitor {
         activationObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated { self?.refresh() }
         }
-        // AX notifications can be missed, for example before Accessibility access is granted, so also poll slowly.
+        // AX notifications can be missing, for example before Accessibility access is granted, so also poll slowly.
         poll = Task { @MainActor [weak self] in
             while true {
                 // Stop at once when cancelled, so no poll runs after `stop()`.
@@ -110,6 +112,7 @@ public final class ContextMonitor {
     public func stop() {
         poll?.cancel()
         poll = nil
+        observing = false
         reads.reset()
         if let activationObserver { NSWorkspace.shared.notificationCenter.removeObserver(activationObserver) }
         activationObserver = nil
@@ -130,6 +133,7 @@ public final class ContextMonitor {
         guard poll != nil else { return }
         if frontAppChanged {
             let front = NSWorkspace.shared.frontmostApplication
+            observing = false
             publish(FrontContext(bundleID: front?.bundleIdentifier, windowTitle: nil, processID: front?.processIdentifier ?? 0))
         }
         if let id = reads.changeReported() { readWindowTitle(id: id) }
@@ -137,8 +141,9 @@ public final class ContextMonitor {
 
     private func pollTicked() {
         if frontAppChanged {
+            Log.info(.context, "the poll found a front app change no notification reported")
             refresh()
-        } else if let id = reads.pollTicked() {
+        } else if !observing, let id = reads.pollTicked() {
             readWindowTitle(id: id)
         }
     }
@@ -151,18 +156,21 @@ public final class ContextMonitor {
         guard let observer = windowObserver else { return }
         let context = current
         Task { @MainActor in
-            let title: String?? = await Task { @AccessibilityActor in
-                guard context.processID > 0 else { return .some(nil) }
+            let (title, observing): (String??, Bool) = await Task { @AccessibilityActor in
+                guard context.processID > 0 else { return (.some(nil), false) }
                 do {
-                    return .some(try observer.focusedWindowTitle(pid: context.processID))
+                    let title = try observer.focusedWindowTitle(pid: context.processID)
+                    return (.some(title), observer.isObserving(pid: context.processID))
                 } catch {
                     // Keep the last title; the poll or the next notification tries again.
                     Log.debug(.context, "window read failed: \(error)")
-                    return .none
+                    return (.none, observer.isObserving(pid: context.processID))
                 }
             }.value
             switch self.reads.readEnded(id: id) {
             case .publish:
+                // Only for the app the read was for; a read for an app no longer in front says nothing about the new one.
+                if context.processID == self.current.processID { self.observing = observing }
                 if let title {
                     var updated = context
                     updated.windowTitle = title
