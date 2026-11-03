@@ -120,12 +120,12 @@
 | Flo Tools | [Speak Solo Safe Tracks](<Flo Tools/Speak Solo Safe Tracks.md>) | Opt+Shift+Cmd+S | True | 9C5DEED2-1FDD-425C-90BE-0F2F8533FB16 |  |
 | Flo Tools | [Speak Soloed Tracks, Unsolo All Tracks](<Flo Tools/Speak Soloed Tracks_ Unsolo All Tracks.md>) | Opt+Shift+S | True | 2727205D-51F2-49D2-B1B0-66BA8D4D6F06 | yes |
 | Flo Tools | [Speak Tracks With 0DB Level](<Flo Tools/Speak Tracks With 0DB Level.md>) | Opt+Shift+0 | True | 7053D5DD-60A3-444A-AB18-A54AA32DF625 |  |
-| Flo Tools | [Speak/Edit Attack Velocity for Selected Note](<Flo Tools/Speak_Edit Attack Velocity for Selected Note.md>) | Opt+A | True | A09642E3-1015-4049-8788-0D827A6565FB |  |
+| Flo Tools | [Speak/Edit Attack Velocity for Selected Note](<Flo Tools/Speak_Edit Attack Velocity for Selected Note.md>) | Opt+A | True | A09642E3-1015-4049-8788-0D827A6565FB | yes |
 | Flo Tools | [Speak/Edit Nudge Value](<Flo Tools/Speak_Edit Nudge Value.md>) | Cmd+F7 | True | 347B48AC-0E8F-4631-90C1-D3AB3617AEDA | yes |
-| Flo Tools | [Speak/Edit Pitch for Selected Note](<Flo Tools/Speak_Edit Pitch for Selected Note.md>) | Opt+P | True | E5D2500D-0E04-494C-A049-94A51C5A6519 |  |
+| Flo Tools | [Speak/Edit Pitch for Selected Note](<Flo Tools/Speak_Edit Pitch for Selected Note.md>) | Opt+P | True | E5D2500D-0E04-494C-A049-94A51C5A6519 | yes |
 | Flo Tools | [Speak/Edit Post-Roll Amount](<Flo Tools/Speak_Edit Post-Roll Amount.md>) | Cmd+F10 | True | 04803258-2062-4496-A1DD-213752CBCAF4 | yes |
 | Flo Tools | [Speak/Edit Pre-Roll Amount](<Flo Tools/Speak_Edit Pre-Roll Amount.md>) | Cmd+F9 | True | A274B37A-CA55-44D9-8307-C150BCB1C37B | yes |
-| Flo Tools | [Speak/Edit Release Velocity for Selected Note](<Flo Tools/Speak_Edit Release Velocity for Selected Note.md>) | Opt+E | True | 24F69B79-B025-4395-82E6-7B032E6121AA |  |
+| Flo Tools | [Speak/Edit Release Velocity for Selected Note](<Flo Tools/Speak_Edit Release Velocity for Selected Note.md>) | Opt+E | True | 24F69B79-B025-4395-82E6-7B032E6121AA | yes |
 | Flo Tools | [Speak/Edit Selection End](<Flo Tools/Speak_Edit Selection End.md>) | Cmd+F2 | True | BA15DD35-8B44-4294-BBB7-C8E49835ED91 | yes |
 | Flo Tools | [Speak/Edit Selection Length](<Flo Tools/Speak_Edit Selection Length.md>) | Cmd+F3 | True | 6D81DB50-0CF7-4A66-89BD-5BBE50F6CF2A | yes |
 | Flo Tools | [Speak/Edit Sub Counter](<Flo Tools/Speak_Edit Sub Counter.md>) | Cmd+F6 | True | D6541BED-44E6-43BA-8217-A482DBF46C3D | yes |

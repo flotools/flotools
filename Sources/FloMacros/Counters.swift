@@ -2,7 +2,7 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// Flo Tools macros for the Edit window's counters and time values: the main and sub counters, the edit selection, pre- and post-roll, nudge, grid and tempo. They speak a value in words, open it for typing, open its selector menu, or step the grid or nudge value.
+/// Flo Tools macros for the Edit window's counters and time values: the main and sub counters, the edit selection, pre- and post-roll, nudge, grid, tempo and the selected MIDI note. They speak a value in words, open it for typing, open its selector menu, or step the grid or nudge value.
 enum Counters {
     @MainActor
     static var macros: [Macro] { [
@@ -15,6 +15,9 @@ enum Counters {
         speakEdit("floTools.speakEditPostRollAmount", "Speak/Edit Post-Roll Amount", key: "Cmd+F10", transport("Post-roll Amount"), .duration, label: ". Post-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Post-Roll amount", other: "Type Post-Roll Amount.")),
         speakEdit("floTools.speakEditNudgeValue", "Speak/Edit Nudge Value", key: "Cmd+F7", nudgeValue, .duration, label: ". Nudge.", prompts: Prompts(time: "Press Delete, then type Nudge value", other: "Type nudge value.")),
         speakEditTempo,
+        speakEdit("floTools.speakEditPitchForSelectedNote", "Speak/Edit Pitch for Selected Note", key: "Opt+P", counter("MIDI Note Pitch"), .notePitch, label: ". Pitch", prompts: Prompts("Type note pitch")),
+        speakEdit("floTools.speakEditAttackVelocityForSelectedNote", "Speak/Edit Attack Velocity for Selected Note", key: "Opt+A", counter("MIDI Note Attack Velocity"), .asShown, label: ". Attack", prompts: Prompts("Type attack velocity")),
+        speakEdit("floTools.speakEditReleaseVelocityForSelectedNote", "Speak/Edit Release Velocity for Selected Note", key: "Opt+E", counter("MIDI Note Release Velocity"), .asShown, label: ". Release", prompts: Prompts("Type release velocity")),
         Macro("floTools.speakGridValue", "Speak Grid Value", group: .floTools, triggers: [.key("Cmd+F8")]) { _ in
             try await VoiceOver.say(read(gridValue, .duration) + ". grid.")
         },
@@ -55,6 +58,16 @@ enum Counters {
     struct Prompts: Sendable {
         let time: String
         let other: String
+
+        init(time: String, other: String) {
+            self.time = time
+            self.other = other
+        }
+
+        /// One prompt for a field that never shows minutes and seconds.
+        init(_ prompt: String) {
+            self.init(time: prompt, other: prompt)
+        }
     }
 
     /// Single press speaks the value in words followed by `label`; double press clicks the field, so typing replaces the value, and says what to type.
@@ -127,27 +140,44 @@ enum CounterText {
         case position
         /// A length: "1 bar, 2 beats, 240 ticks", or "0 ticks".
         case duration
+        /// A note name such as "C#3" or "Bbb2", with its accidental in words.
+        case notePitch
+        /// A plain number, such as a velocity.
+        case asShown
     }
 
     /// Parts are joined with ", ". The JXA left a trailing ", " when the ticks were 0, and ran minutes, seconds and milliseconds together ("1 minute30 seconds", "2minutes").
     static func spoken(_ value: String, as format: Format) -> String {
         let value = value.trimmingCharacters(in: .whitespaces)
+        switch format {
+        case .notePitch: return notePitch(value)
+        case .asShown: return value
+        case .position: return time(value) { bars, beats, ticks in
+            ["Bar \(bars)", "Beat \(beats)", ticks.isEmpty ? nil : "Tick \(ticks)"].compactMap { $0 }.joined(separator: ", ")
+        }
+        case .duration: return time(value) { bars, beats, ticks in
+            let parts = [count(withoutLeadingZeros(bars), "bar"), count(withoutLeadingZeros(beats), "beat"), count(ticks, "tick")].compactMap { $0 }
+            return parts.isEmpty ? "0 ticks" : parts.joined(separator: ", ")
+        }
+        }
+    }
+
+    /// A bars and beats value goes to `barsBeats` with the leading zeros of the ticks removed; minutes and seconds are spoken as a length for both formats, as in the JXA.
+    private static func time(_ value: String, barsBeats: (_ bars: String, _ beats: String, _ ticks: String) -> String) -> String {
         let bbt = value.split(separator: "|").map { $0.trimmingCharacters(in: .whitespaces) }
-        if bbt.count == 3 { return barsBeats(bars: bbt[0], beats: bbt[1], ticks: bbt[2], format) }
+        if bbt.count == 3 { return barsBeats(bbt[0], bbt[1], withoutLeadingZeros(bbt[2])) }
         let time = value.split(separator: ":")
         if time.count == 2, time[1].contains(".") { return minutesSeconds(minutes: String(time[0]), seconds: String(time[1])) }
         return value
     }
 
-    private static func barsBeats(bars: String, beats: String, ticks: String, _ format: Format) -> String {
-        let ticks = withoutLeadingZeros(ticks)
-        switch format {
-        case .position:
-            return ["Bar \(bars)", "Beat \(beats)", ticks.isEmpty ? nil : "Tick \(ticks)"].compactMap { $0 }.joined(separator: ", ")
-        case .duration:
-            let parts = [count(withoutLeadingZeros(bars), "bar"), count(withoutLeadingZeros(beats), "beat"), count(ticks, "tick")].compactMap { $0 }
-            return parts.isEmpty ? "0 ticks" : parts.joined(separator: ", ")
+    /// Pro Tools writes accidentals as "#", "x", "b" and "bb". Like the JXA, only the first of each is replaced, double before single: "C#3" is "C-Sharp 3".
+    private static func notePitch(_ value: String) -> String {
+        var text = value
+        for (mark, words) in [("x", "-DOUBLE Sharp"), ("#", "-Sharp "), ("bb", "-DOUBLE Flat"), ("b", "-Flat ")] {
+            if let range = text.range(of: mark) { text.replaceSubrange(range, with: words) }
         }
+        return text
     }
 
     private static func minutesSeconds(minutes: String, seconds: String) -> String {

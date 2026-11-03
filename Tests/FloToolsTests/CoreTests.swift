@@ -747,6 +747,15 @@ import Testing
         #expect(CounterText.spoken("  12:30.000", as: .duration) == "12 minutes, 30 seconds")
     }
 
+    @Test func notePitchesLikeJXA() {
+        #expect(CounterText.spoken("C3", as: .notePitch) == "C3")
+        #expect(CounterText.spoken("C#3", as: .notePitch) == "C-Sharp 3")
+        #expect(CounterText.spoken("Fx2", as: .notePitch) == "F-DOUBLE Sharp2")
+        #expect(CounterText.spoken("Bb-1", as: .notePitch) == "B-Flat -1")
+        #expect(CounterText.spoken("Bbb4", as: .notePitch) == "B-DOUBLE Flat4")
+        #expect(CounterText.spoken(" 100", as: .asShown) == "100")
+    }
+
     @Test func otherFormatsAsShown() {
         #expect(CounterText.spoken(" 00:00:01:12", as: .position) == "00:00:01:12")
         #expect(CounterText.spoken("  48000", as: .duration) == "48000")
