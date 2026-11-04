@@ -51,6 +51,9 @@ public final class Engine {
     /// App state that decides which keys apply, such as whether the Inspector is on. Starts with the Inspector off.
     public private(set) var mode = Mode()
 
+    /// Read at each press of a repeating command, so a change in System Settings applies at once. Tests set their own.
+    var keyRepeat: @MainActor () -> KeyRepeat = { .system }
+
     private let hotKeys: HotKeyCenter
     private let contextMonitor: ContextMonitor
     private var commandIndex: [CommandID: Int] = [:]
@@ -64,13 +67,13 @@ public final class Engine {
     private var doublePress = DoublePressDecider(timeout: .milliseconds(Preferences().timeout))
     private var pendingSingles: [CommandID: Task<Void, Never>] = [:]
     /// The last queued top-level run; the next one waits for it.
-    private var queueTail: Task<Void, Never>?
+    private var queueTail: Task<Bool, Never>?
     /// Queued and running top-level runs, so `stop` can cancel them. Keyed by queue position, not run number, because a delayed single press joins the queue after later runs.
-    private var runs: [Int: Task<Void, Never>] = [:]
+    private var runs: [Int: Task<Bool, Never>] = [:]
     private var queuedCount = 0
     /// Numbers command runs for the log's invocation IDs.
     private var runCount = 0
-    /// Keys whose hold has started and not ended, with the run that started it and its invocation ID.
+    /// Keys whose hold or repeating has started and not ended, with the run that started it and its invocation ID.
     private var holds: [KeyCombo: (run: CommandRun, release: HoldRelease, invocation: String)] = [:]
 
     public init(hotKeys: HotKeyCenter, contextMonitor: ContextMonitor) {
@@ -137,7 +140,7 @@ public final class Engine {
         cancelledRuns.forEach { $0.cancel() }
         let watchesEnded = watches.stopAll()
         return Task { @MainActor in
-            for run in cancelledRuns { await run.value }
+            for run in cancelledRuns { _ = await run.value }
             await watchesEnded.value
         }
     }
@@ -313,6 +316,21 @@ public final class Engine {
                 // Only a press starts a hold; a release reaching here belongs to a press that did not.
                 guard case .hotKey(let combo, .pressed) = origin else { return }
                 if press(run) { holds[combo] = (run, release, invocation) }
+            case .repeating(let body):
+                let first = enqueue(run, body)
+                guard case .hotKey(let combo, .pressed) = origin else { return }
+                let timing = keyRepeat()
+                let repeats = Task { @MainActor [weak self] in
+                    var step = first
+                    try? await Task.sleep(for: timing.delay)
+                    // The key-down check also stops a repeat whose release never arrived, which would otherwise move a fader to its end.
+                    while await step.value, !Task.isCancelled, timing.isHeld(combo), let self {
+                        Log.info(.engine, "repeat")
+                        step = self.enqueue(run, body)
+                        try? await Task.sleep(for: timing.interval)
+                    }
+                }
+                holds[combo] = (run, { _ in repeats.cancel() }, invocation)
             case .singleOrDouble(let single, let double, let doneSound):
                 switch doublePress.press(command.id, at: .now) {
                 case .double:
@@ -351,33 +369,36 @@ public final class Engine {
         }
     }
 
-    /// Adds a top-level run to the serial queue. Its errors end here: logged, and spoken through `SpokenError`.
-    private func enqueue(_ run: CommandRun, _ body: @escaping CommandBody) {
+    /// Adds a top-level run to the serial queue. Its errors end here: logged, and spoken through `SpokenError`. The task tells whether the run finished, for a repeating command's next run.
+    @discardableResult
+    private func enqueue(_ run: CommandRun, _ body: @escaping CommandBody) -> Task<Bool, Never> {
         queuedCount += 1
         let number = queuedCount
         let previous = queueTail
         let task = Task { @MainActor [weak self] in
-            await previous?.value
+            _ = await previous?.value
             let start = ContinuousClock.now
+            defer { self?.runs[number] = nil }
             if let reason = self?.invalidReason(run) {
                 Log.info(.engine, "\(run.command.id) dropped: \(reason)")
-                self?.runs[number] = nil
-                return
+                return false
             }
             do {
                 try Task.checkCancellation()
                 try await body(run)
                 Log.info(.engine, "\(run.command.id) finished (\(Log.elapsed(since: start)))")
+                return true
             } catch is CancellationError {
                 Log.info(.engine, "\(run.command.id) cancelled (\(Log.elapsed(since: start)))")
             } catch {
                 Log.error(.engine, "\(run.command.id) failed: \(error) (\(Log.elapsed(since: start)))")
                 if let text = SpokenError.text(for: error) { await VoiceOver.sayOrLog(text) }
             }
-            self?.runs[number] = nil
+            return false
         }
         runs[number] = task
         queueTail = task
+        return task
     }
 
     /// Why a queued hotkey or event run must not start any more, or nil if it may. Checked when it reaches the front of the queue, because Flo Tools, the command or the front app may have changed while it waited. Of the mode, only the Inspector turning on is checked, because the keys of an Inspector-off command (track view) now pan. An Inspector-on command is not dropped when the Inspector turns off: a single press of S accepted while the temporary Inspector key was held must still speak after the release.
@@ -412,7 +433,7 @@ public final class Engine {
     /// Waits until pending single presses have run and the queue is empty. Lets tests check results without guessing durations.
     func waitUntilIdle() async {
         for single in Array(pendingSingles.values) { await single.value }
-        while let tail = queueTail, runs.isEmpty == false { await tail.value }
+        while let tail = queueTail, runs.isEmpty == false { _ = await tail.value }
     }
 
     /// Sends a key Carbon took from the front app on to it, from the hotkey callback, without waiting. Posted to the process, so the key is not caught as a hotkey again.

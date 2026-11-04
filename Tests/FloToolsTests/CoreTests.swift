@@ -494,6 +494,66 @@ private actor Flag {
         #expect(events.list == ["press", "release", "slow start", "slow end"])
     }
 
+    /// Counts the key-down checks of a repeating command and answers "held" for the first `heldChecks` of them.
+    final class HeldKey: @unchecked Sendable {
+        private let lock = NSLock()
+        private var checks = 0
+        let heldChecks: Int
+        init(heldChecks: Int) { self.heldChecks = heldChecks }
+        func isHeld() -> Bool {
+            lock.lock()
+            defer { lock.unlock() }
+            checks += 1
+            return checks <= heldChecks
+        }
+    }
+
+    func repeatingEngine(_ events: Events, held: HeldKey, fails: Bool = false) -> Engine {
+        let engine = engine([Command.repeatingWhileHeld("test.repeat", "Repeat", scope: .anyProToolsWindow, triggers: [.key("F4")]) { @MainActor _ in
+            events.list.append("step")
+            if fails { throw CancellationError() }
+        }])
+        engine.keyRepeat = { KeyRepeat(delay: .milliseconds(5), interval: .milliseconds(5)) { _ in held.isHeld() } }
+        return engine
+    }
+
+    /// Waits until `events` has `count` entries, then a little longer, so a run too many would show.
+    func settle(_ events: Events, at count: Int) async throws {
+        let start = ContinuousClock.now
+        while events.list.count < count, ContinuousClock.now - start < .seconds(2) { try await Task.sleep(for: .milliseconds(5)) }
+        try await Task.sleep(for: .milliseconds(60))
+    }
+
+    @Test func repeatingRunsUntilTheKeyIsNoLongerDown() async throws {
+        let events = Events()
+        let engine = repeatingEngine(events, held: HeldKey(heldChecks: 2))
+        engine.dispatch(KeyCombo("F4")!, .pressed, in: mix)
+        try await settle(events, at: 3)
+        // The press, then one run per check that found the key down.
+        #expect(events.list == ["step", "step", "step"])
+    }
+
+    @Test func repeatingStopsOnRelease() async throws {
+        let events = Events()
+        let engine = repeatingEngine(events, held: HeldKey(heldChecks: .max))
+        engine.dispatch(KeyCombo("F4")!, .pressed, in: mix)
+        try await settle(events, at: 2)
+        engine.dispatch(KeyCombo("F4")!, .released, in: mix)
+        await engine.waitUntilIdle()
+        let afterRelease = events.list.count
+        try await Task.sleep(for: .milliseconds(60))
+        #expect(afterRelease >= 2)
+        #expect(events.list.count == afterRelease)
+    }
+
+    @Test func repeatingStopsAfterARunThatDidNotFinish() async throws {
+        let events = Events()
+        let engine = repeatingEngine(events, held: HeldKey(heldChecks: .max), fails: true)
+        engine.dispatch(KeyCombo("F4")!, .pressed, in: mix)
+        try await settle(events, at: 1)
+        #expect(events.list == ["step"])
+    }
+
     @Test func declinedHoldGetsNoRelease() {
         let events = Events()
         let engine = engine([holdCommand(events, accepts: false)])

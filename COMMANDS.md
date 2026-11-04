@@ -55,12 +55,12 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `R` | Speak/Toggle Record State | Mix, Edit, Inspector on | Single press speaks the track's record arm state; double press switches it and speaks the new state. |
 | `K` | Speak/Toggle Input Monitor | Mix, Edit, Inspector on | Single press speaks the track's input monitor state; double press switches it and speaks the new state. |
 | `Opt+M` | Speak/Toggle Instrument Mute | Mix, Edit, Inspector on | Single press speaks the track's instrument mute state; double press switches it and speaks the new state. |
-| `Ctrl+Cmd+Right` | pan right on mono/Left channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step right and speaks it. |
-| `Ctrl+Cmd+Left` | pan left on mono/Left channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step left and speaks it. |
-| `Ctrl+Shift+Cmd+Right` | pan right on right channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track one step right and speaks it. |
-| `Ctrl+Shift+Cmd+Left` | pan left on right channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track one step left and speaks it. |
-| `Ctrl+Opt+Right` | pan Instrument Right | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step right and speaks it. |
-| `Ctrl+Opt+Left` | pan Instrument left | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step left and speaks it. |
+| `Ctrl+Cmd+Right` (hold to repeat) | pan right on mono/Left channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step right and speaks it. |
+| `Ctrl+Cmd+Left` (hold to repeat) | pan left on mono/Left channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step left and speaks it. |
+| `Ctrl+Shift+Cmd+Right` (hold to repeat) | pan right on right channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track one step right and speaks it. |
+| `Ctrl+Shift+Cmd+Left` (hold to repeat) | pan left on right channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track one step left and speaks it. |
+| `Ctrl+Opt+Right` (hold to repeat) | pan Instrument Right | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step right and speaks it. |
+| `Ctrl+Opt+Left` (hold to repeat) | pan Instrument left | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step left and speaks it. |
 | `A` | Speak/Select Automation Mode | Mix, Edit, Inspector on | Single press speaks the track's automation mode; double press opens its menu. |
 | `G` | Speak/Select Group | Mix, Edit, Inspector on | Single press speaks the track's group, or "No Group"; double press opens the group menu. |
 | `I` | Speak/Select Track Input | Mix, Edit, Inspector on | Single press speaks the track's input; double press opens its menu. |
@@ -80,10 +80,10 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `P` | Speak/Reset Peak Meter | Mix, Edit, Inspector on | Single press speaks the track's peak hold; double press clears it. |
 | `N` | Speak/Reset Pan | Mix, Edit, Inspector on | Single press speaks the position of each of the track's pan knobs; double press centers them. |
 | `Opt+N` | Speak/Reset Instrument Pan | Mix, Edit, Inspector on | Single press speaks the instrument track's MIDI pan; double press centers it. |
-| `Ctrl+Cmd+Up` | Increase Volume | Mix, Edit, Inspector on | Moves the volume fader one step up and speaks it. |
-| `Ctrl+Cmd+Down` | Decrease Volume | Mix, Edit, Inspector on | Moves the volume fader one step down and speaks it. |
-| `Ctrl+Opt+Up` | Increase Instrument Volume | Mix, Edit, Inspector on | Moves the instrument track's MIDI volume one step up and speaks it. |
-| `Ctrl+Opt+Down` | Decrease Instrument Volume | Mix, Edit, Inspector on | Moves the instrument track's MIDI volume one step down and speaks it. |
+| `Ctrl+Cmd+Up` (hold to repeat) | Increase Volume | Mix, Edit, Inspector on | Moves the volume fader one step up and speaks it. |
+| `Ctrl+Cmd+Down` (hold to repeat) | Decrease Volume | Mix, Edit, Inspector on | Moves the volume fader one step down and speaks it. |
+| `Ctrl+Opt+Up` (hold to repeat) | Increase Instrument Volume | Mix, Edit, Inspector on | Moves the instrument track's MIDI volume one step up and speaks it. |
+| `Ctrl+Opt+Down` (hold to repeat) | Decrease Instrument Volume | Mix, Edit, Inspector on | Moves the instrument track's MIDI volume one step down and speaks it. |
 | `L` | Speak Level Meter, Toggle Level Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's level meter. Double press starts or stops a watch that speaks each new level, following the VoiceOver cursor from track to track. |
 | `;` | Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's gain reduction meter. Double press starts or stops a watch that plays the progress sound on each change and remembers the deepest reduction, following the VoiceOver cursor from track to track. |
 | `Shift+;` | Speak Gain Reduction Meter Maximum Value | Mix, Edit, Inspector on | Speaks the deepest gain reduction since the watch started or since this was last spoken, then starts over from 0. |

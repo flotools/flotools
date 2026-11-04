@@ -25,6 +25,12 @@ enum Inspector {
         Command(id, name, summary: summary, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], body: body)
     }
 
+    /// An Inspector command that runs again while its key is held, for controls that move one step per run.
+    @MainActor
+    static func repeatingCommand(_ id: CommandID, _ name: String, summary: String, key: String, body: @escaping CommandBody) -> Command {
+        Command.repeatingWhileHeld(id, name, summary: summary, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], body: body)
+    }
+
     /// An Inspector command with a single and a double press.
     @MainActor
     static func command(_ id: CommandID, _ name: String, summary: String, key: String, doneSound: DoneSoundTiming = .beforeDouble, single: @escaping CommandBody, double: @escaping CommandBody) -> Command {
@@ -103,7 +109,7 @@ enum Inspector {
     /// Moves one pan control a step and speaks its new position.
     @MainActor
     static func pan(_ id: CommandID, _ name: String, key: String, _ control: TrackStrip.PanControl, _ direction: SliderStep, _ summary: String) -> Command {
-        Inspector.command(id, name, summary: summary, key: key) { _ in
+        Inspector.repeatingCommand(id, name, summary: summary, key: key) { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(step(control, direction, on: track))
         }

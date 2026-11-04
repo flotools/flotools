@@ -149,6 +149,7 @@ import Testing
         switch action {
         case .body: "run"
         case .hold: "hold"
+        case .repeating: "repeats while held"
         case .singleOrDouble(_, _, let sound):
             switch sound {
             case .beforeDouble: "single/double, sound before double"

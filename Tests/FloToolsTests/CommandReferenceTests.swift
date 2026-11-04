@@ -43,14 +43,15 @@ import Testing
         return lines.joined(separator: "\n") + "\n"
     }
 
-    /// The keys as code spans; a held key once, as "(hold)", and a status menu item as words.
+    /// The keys as code spans; a held key once, as "(hold)", a key that repeats while held with "(hold to repeat)", and a status menu item as words.
     static func keys(_ command: Command) -> String {
         var parts: [String] = []
+        let repeats = if case .repeating = command.action { true } else { false }
         for trigger in command.triggers {
             switch trigger {
             case .hotKey(let combo, .pressed):
                 let held = command.triggers.contains(.hotKey(combo, .released))
-                parts.append(code("\(combo)") + (held ? " (hold)" : ""))
+                parts.append(code("\(combo)") + (held ? " (hold)" : "") + (repeats ? " (hold to repeat)" : ""))
             case .hotKey(_, .released):
                 break
             case .statusMenu:

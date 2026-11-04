@@ -208,7 +208,7 @@ enum InspectorControls {
     /// Increase and Decrease Volume and Instrument Volume: moves the fader one step and speaks its value, as in the JXA.
     @MainActor
     static func volumeStep(_ id: CommandID, _ name: String, key: String, _ fader: TrackStrip.Fader, _ step: SliderStep, _ summary: String) -> Command {
-        Inspector.command(id, name, summary: summary, key: key) { _ in
+        Inspector.repeatingCommand(id, name, summary: summary, key: key) { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             try await VoiceOver.say(move(fader, step, on: track))
         }

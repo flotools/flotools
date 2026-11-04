@@ -1,6 +1,6 @@
+import AppKit
 import Carbon.HIToolbox
 import CoreGraphics
-import Foundation
 
 /// A key code plus modifiers. Modifier bits are the Carbon ones, which Keyboard Maestro also uses: Cmd 256, Shift 512, Option 2048, Control 4096.
 public struct KeyCombo: Hashable, Sendable, CustomStringConvertible {
@@ -24,6 +24,30 @@ public struct KeyCombo: Hashable, Sendable, CustomStringConvertible {
         if modifiers & Self.option != 0 { flags.insert(.maskAlternate) }
         if modifiers & Self.control != 0 { flags.insert(.maskControl) }
         return flags
+    }
+}
+
+/// How a held key repeats, for commands that run again while their key is held. Carbon hotkeys do not repeat by themselves.
+public struct KeyRepeat: Sendable {
+    /// From the press to the first repeat.
+    public let delay: Duration
+    /// Between repeats.
+    public let interval: Duration
+    /// Whether the key and its modifiers are still physically down.
+    public let isHeld: @Sendable (KeyCombo) -> Bool
+
+    public init(delay: Duration, interval: Duration, isHeld: @escaping @Sendable (KeyCombo) -> Bool) {
+        self.delay = delay
+        self.interval = interval
+        self.isHeld = isHeld
+    }
+
+    /// The user's Key repeat rate and Delay until repeat from System Settings, read now so a change applies at the next press.
+    public static var system: KeyRepeat {
+        KeyRepeat(delay: .seconds(NSEvent.keyRepeatDelay), interval: .seconds(NSEvent.keyRepeatInterval)) { combo in
+            CGEventSource.keyState(.combinedSessionState, key: CGKeyCode(combo.keyCode))
+                && CGEventSource.flagsState(.combinedSessionState).isSuperset(of: combo.cgFlags)
+        }
     }
 }
 

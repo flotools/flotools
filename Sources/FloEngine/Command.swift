@@ -51,6 +51,8 @@ public enum CommandAction: Sendable {
     case singleOrDouble(single: CommandBody, double: CommandBody, doneSound: DoneSoundTiming)
     /// Changes only Flo Tools state while a key is held, like the temporary Inspector. Both closures run on the main actor as soon as the key event arrives, outside the command queue, so a busy Pro Tools cannot delay them. If `press` returns true, `release` runs when the key is released, or when the key stops being a hotkey (another app in front, Flo Tools disabled or stopped), so a hold always ends.
     case hold(press: HoldPress, release: HoldRelease)
+    /// Runs when its key is pressed and again while the key is held, at the system key repeat rate, like a held arrow key. Each run goes through the queue and the next waits for it to finish, so runs never pile up behind a busy Pro Tools. Repeating stops when the key is released or stops being a hotkey (as for a hold), when the key is no longer down, and when a run fails or is dropped.
+    case repeating(CommandBody)
 }
 
 /// A command: where and when it runs, and what it does.
@@ -79,6 +81,11 @@ public struct Command: Sendable {
 
     public init(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, enabledByDefault: Bool = true, triggers: [Trigger], press: @escaping HoldPress, release: @escaping HoldRelease) {
         self.init(id, name, summary: summary, scope: scope, mode: mode, enabledByDefault: enabledByDefault, triggers: triggers, action: .hold(press: press, release: release))
+    }
+
+    /// A command that runs again while its key is held; see `CommandAction.repeating`. A static function, because an initializer would make every trailing-closure `Command(...) { }` ambiguous.
+    public static func repeatingWhileHeld(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, triggers: [Trigger], body: @escaping CommandBody) -> Command {
+        Command(id, name, summary: summary, scope: scope, mode: mode, enabledByDefault: true, triggers: triggers, action: .repeating(body))
     }
 
     private init(_ id: CommandID, _ name: String, summary: String, scope: Scope, mode: ModeCondition, enabledByDefault: Bool, triggers: [Trigger], action: CommandAction) {
