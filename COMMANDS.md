@@ -55,12 +55,12 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `R` | Speak/Toggle Record State | Mix, Edit, Inspector on | Single press speaks the track's record arm state; double press switches it and speaks the new state. |
 | `K` | Speak/Toggle Input Monitor | Mix, Edit, Inspector on | Single press speaks the track's input monitor state; double press switches it and speaks the new state. |
 | `Opt+M` | Speak/Toggle Instrument Mute | Mix, Edit, Inspector on | Single press speaks the track's instrument mute state; double press switches it and speaks the new state. |
-| `Ctrl+Cmd+Right` (hold to repeat) | pan right on mono/Left channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step right and speaks it. |
-| `Ctrl+Cmd+Left` (hold to repeat) | pan left on mono/Left channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step left and speaks it. |
-| `Ctrl+Shift+Cmd+Right` (hold to repeat) | pan right on right channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track, or the pan of a mono track, one step right and speaks it. |
-| `Ctrl+Shift+Cmd+Left` (hold to repeat) | pan left on right channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track, or the pan of a mono track, one step left and speaks it. |
-| `Ctrl+Opt+Right` (hold to repeat) | pan Instrument Right | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step right and speaks it. |
-| `Ctrl+Opt+Left` (hold to repeat) | pan Instrument left | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step left and speaks it. |
+| `Ctrl+Cmd+Right` (hold to repeat) | Pan Right on Mono/Left Channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step right and speaks it. |
+| `Ctrl+Cmd+Left` (hold to repeat) | Pan Left on Mono/Left Channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step left and speaks it. |
+| `Ctrl+Shift+Cmd+Right` (hold to repeat) | Pan Right on Right Channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track, or the pan of a mono track, one step right and speaks it. |
+| `Ctrl+Shift+Cmd+Left` (hold to repeat) | Pan Left on Right Channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track, or the pan of a mono track, one step left and speaks it. |
+| `Ctrl+Opt+Right` (hold to repeat) | Pan Instrument Right | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step right and speaks it. |
+| `Ctrl+Opt+Left` (hold to repeat) | Pan Instrument Left | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step left and speaks it. |
 | `A` | Speak/Select Automation Mode | Mix, Edit, Inspector on | Single press speaks the track's automation mode; double press opens its menu. |
 | `G` | Speak/Select Group | Mix, Edit, Inspector on | Single press speaks the track's group, or "No Group"; double press opens the group menu. |
 | `I` | Speak/Select Track Input | Mix, Edit, Inspector on | Single press speaks the track's input; double press opens its menu. |
@@ -72,7 +72,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `W` | Speak/Select Track View | Mix, Edit, Inspector on | Single press speaks the track's view; double press opens its menu. |
 | `E` | Speak/Select Elastic Audio Plugin | Mix, Edit, Inspector on | Single press speaks the track's Elastic Audio plug-in, or "None"; double press opens the Elastic Audio menu. |
 | `H` | Track Options Menu | Mix, Edit, Inspector on | Single press speaks the name of the track options button; double press opens the track options menu. |
-| `T` | Speak And Select Track/Show Right-Click Menu | Mix, Edit, Inspector on | Single press selects the track and says so; double press opens the track name's right-click menu. |
+| `T` | Speak and Select Track/Show Right-Click Menu | Mix, Edit, Inspector on | Single press selects the track and says so; double press opens the track name's right-click menu. |
 | `C` | Speak/Edit Comments | Mix, Edit, Inspector on | Single press speaks the track's comment, or "No Comment"; double press puts the cursor in the comments field for typing. |
 | `F` | Speak/Toggle Freeze Status | Mix, Edit, Inspector on | Single press speaks whether the track is frozen. Double press freezes or unfreezes it, plays a progress sound while Pro Tools works, and speaks the new state. |
 | `V` | Speak/Reset Volume Fader | Mix, Edit, Inspector on | Single press speaks the track's volume; double press resets it to 0 dB. |
@@ -98,7 +98,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+F12` | Speak/Toggle Conductor | Any | Single press speaks whether the conductor track is on; double press switches it. |
 | `Opt+Keypad 8` | Speak/Toggle Count In | Any | Single press speaks whether count in is on; double press switches it. |
 | `Opt+Keypad 7` | Speak/Toggle Metronome | Any | Single press speaks whether the metronome is on; double press switches it. |
-| `Opt+Keypad 9` | Speak/Toggle Midi Merge | Any | Single press speaks whether MIDI merge is on; double press switches it. |
+| `Opt+Keypad 9` | Speak/Toggle MIDI Merge | Any | Single press speaks whether MIDI merge is on; double press switches it. |
 | `Opt+F11` | Speak/Toggle Wait for Note | Any | Single press speaks whether wait for note is on; double press switches it. |
 | `Ctrl+N` | Speak/Toggle Insertion Follows Playback | Any | Single press speaks whether Insertion Follows Playback is on; double press switches it. |
 | `Opt+Cmd+Tab` | Speak/Toggle Tab to Transients | Any | Single press speaks whether Tab to Transients is on; double press switches it. |
@@ -111,17 +111,17 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Shift+Cmd+T` | Speak/Toggle Track Punch | Any | Single press speaks whether Options > TrackPunch is checked; double press switches it. |
 | `Cmd+J` | Speak/Toggle Transport Online | Any | Single press speaks whether Options > Transport Online is checked; double press switches it. |
 | `Opt+Cmd+M` | Speak/Toggle Narrow Mix | Any | Single press speaks whether View > Narrow Mix is checked; double press switches it. |
-| `Shift+/` | Toggle And Speak Link Timeline And Edit Selection | Any | Passes the key to Pro Tools, which switches Options > Link Timeline and Edit Selection, then speaks the new state. In text fields and some dialogs, such as Save and Open, it stays silent. |
-| `Shift+T` | Toggle And Speak Link Track and Edit Selection | Any | Passes the key to Pro Tools, which switches Options > Link Track and Edit Selection, then speaks the new state. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+/` | Toggle and Speak Link Timeline and Edit Selection | Any | Passes the key to Pro Tools, which switches Options > Link Timeline and Edit Selection, then speaks the new state. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+T` | Toggle and Speak Link Track and Edit Selection | Any | Passes the key to Pro Tools, which switches Options > Link Track and Edit Selection, then speaks the new state. In text fields and some dialogs, such as Save and Open, it stays silent. |
 | `Opt+K` | Toggle Input Monitor | Any | Switches Track > Set Record Tracks to Input Only or Auto Input, and speaks the new mode. |
 
 ## Counters
 
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
-| `Cmd+F4` | Speak/Edit main counter | Any | Single press speaks the main counter in words; double press opens it for typing a new value. |
+| `Cmd+F4` | Speak/Edit Main Counter | Any | Single press speaks the main counter in words; double press opens it for typing a new value. |
 | `Cmd+F6` | Speak/Edit Sub Counter | Any | Single press speaks the sub counter in words; double press opens it for typing a new value. |
-| `Cmd+F1` | speak/Edit selection start | Any | Single press speaks the edit selection start in words; double press opens it for typing a new value. |
+| `Cmd+F1` | Speak/Edit Selection Start | Any | Single press speaks the edit selection start in words; double press opens it for typing a new value. |
 | `Cmd+F2` | Speak/Edit Selection End | Any | Single press speaks the edit selection end in words; double press opens it for typing a new value. |
 | `Cmd+F3` | Speak/Edit Selection Length | Any | Single press speaks the edit selection length in words; double press opens it for typing a new value. |
 | `Cmd+F9` | Speak/Edit Pre-Roll Amount | Any | Single press speaks the pre-roll amount in words; double press opens it for typing a new value. |
@@ -132,7 +132,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+A` | Speak/Edit Attack Velocity for Selected Note | Any | Single press speaks the attack velocity of the selected MIDI note in words; double press opens it for typing a new value. |
 | `Opt+E` | Speak/Edit Release Velocity for Selected Note | Any | Single press speaks the release velocity of the selected MIDI note in words; double press opens it for typing a new value. |
 | `Cmd+F8` | Speak Grid Value | Any | Speaks the grid value. |
-| `Opt+Cmd+F4` | Select main counter | Any | Opens the main counter selector menu. |
+| `Opt+Cmd+F4` | Select Main Counter | Any | Opens the main counter selector menu. |
 | `Opt+Cmd+F6` | Select Sub Counter | Any | Opens the sub counter selector menu. |
 | `Opt+Cmd+F7` | Select Nudge Value | Any | Opens the nudge value menu. |
 | `Opt+Cmd+F8` | Select Grid Value | Any | Opens the grid value menu. |
@@ -141,7 +141,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Ctrl+Opt+Keypad -` | Decrease Grid Value | Any | Changes the grid value to the previous one and speaks it. In text fields and dialogs it stays silent. |
 | `Shift+-` | Decrease Grid Value with Qwerty | Any | Changes the grid value to the previous one and speaks it. In text fields and dialogs it stays silent. |
 | `Opt+Cmd+Keypad +` | Increase Nudge Value | Any | Changes the nudge value to the next one and speaks it. |
-| `Opt+Shift+=` | Increase Nudge Value With Qwerty | Any | Changes the nudge value to the next one and speaks it. In text fields and dialogs it stays silent. |
+| `Opt+Shift+=` | Increase Nudge Value with Qwerty | Any | Changes the nudge value to the next one and speaks it. In text fields and dialogs it stays silent. |
 | `Opt+Cmd+Keypad -` | Decrease Nudge Value | Any | Changes the nudge value to the previous one and speaks it. |
 | `Opt+Shift+-` | Decrease Nudge Value with Qwerty | Any | Changes the nudge value to the previous one and speaks it. In text fields and dialogs it stays silent. |
 
@@ -151,11 +151,11 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | --- | --- | --- | --- |
 | `Opt+Shift+S` | Speak Soloed Tracks, Unsolo All Tracks | Any | Single press speaks the soloed tracks; double press unsolos them all. Hidden, inactive, master and solo safe tracks are left out. |
 | `Opt+Shift+M` | Speak Muted Tracks, Unmute All Tracks | Any | Single press speaks the muted tracks; double press unmutes them all. Hidden, inactive and master tracks, and tracks muted only by another track's solo, are left out. |
-| `Opt+Shift+K` | Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks | Any | Single press speaks the audio tracks with input monitoring on; double press turns it off on all of them. Hidden and inactive tracks are left out. |
+| `Opt+Shift+K` | Speak Input Monitor-Enabled Tracks, Disable Input Monitor on All Tracks | Any | Single press speaks the audio tracks with input monitoring on; double press turns it off on all of them. Hidden and inactive tracks are left out. |
 | `Opt+Shift+R` | Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks | Any | Single press speaks the record-armed tracks, and says when only hidden tracks are armed; double press disarms the shown tracks, and says when hidden tracks stay armed. |
 | `Opt+Shift+Cmd+R` | Speak Record Safe Tracks | Any | Speaks the shown, active tracks that are record safe. |
 | `Opt+Shift+Cmd+S` | Speak Solo Safe Tracks | Any | Speaks the shown, active tracks that are solo safe. |
-| `Opt+Shift+0` | Speak Tracks With 0DB Level | Any | Speaks the shown tracks whose peak hold reached 0 dB or more. MIDI tracks are left out. |
+| `Opt+Shift+0` | Speak Tracks with 0 dB Level | Any | Speaks the shown tracks whose peak hold reached 0 dB or more. MIDI tracks are left out. |
 | `Opt+Shift+L` | Speak Selected Tracks, Deselect All Tracks | Any | Single press speaks the selected tracks; double press deselects them all. |
 | `Opt+Shift+H` | Speak Hidden Tracks, Show Track List Pop-up Menu | Any | Single press speaks the hidden tracks; double press opens the Track List menu. |
 | `Opt+Shift+W` | Speak Shown Tracks, Show Track List Pop-up Menu | Any | Single press speaks the shown tracks; double press opens the Track List menu. |
@@ -180,13 +180,13 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+Right` | Next Crossfade In Shape Curve | Crossfade | Passes the key to the dialog, which selects the next curve in the "In Shape" section, and speaks it. |
 | `Opt+Down` | Next Crossfade In Shape Parameter | Crossfade | Passes the key to the dialog, which selects the next option in the "In Shape" section, and speaks it. |
 | `Cmd+Right` | Next Crossfade Out Shape Curve | Crossfade | Passes the key to the dialog, which selects the next curve in the "Out Shape" section, and speaks it. |
-| `Down` | Next Link Out / In | Crossfade | Passes the key to the dialog, which selects the next option in the "Slope" section, and speaks it. |
-| `Cmd+Down` | Next crossfade Out Shape Parameter | Crossfade | Passes the key to the dialog, which selects the next option in the "Out Shape" section, and speaks it. |
+| `Down` | Next Link Out/In | Crossfade | Passes the key to the dialog, which selects the next option in the "Slope" section, and speaks it. |
+| `Cmd+Down` | Next Crossfade Out Shape Parameter | Crossfade | Passes the key to the dialog, which selects the next option in the "Out Shape" section, and speaks it. |
 | `Opt+Left` | Previous Crossfade In Shape Curve | Crossfade | Passes the key to the dialog, which selects the previous curve in the "In Shape" section, and speaks it. |
 | `Opt+Up` | Previous Crossfade In Shape Parameter | Crossfade | Passes the key to the dialog, which selects the previous option in the "In Shape" section, and speaks it. |
 | `Cmd+Left` | Previous Crossfade Out Shape Curve | Crossfade | Passes the key to the dialog, which selects the previous curve in the "Out Shape" section, and speaks it. |
 | `Cmd+Up` | Previous Crossfade Out Shape Parameter | Crossfade | Passes the key to the dialog, which selects the previous option in the "Out Shape" section, and speaks it. |
-| `Up` | Previous Link Out / In | Crossfade | Passes the key to the dialog, which selects the previous option in the "Slope" section, and speaks it. |
+| `Up` | Previous Link Out/In | Crossfade | Passes the key to the dialog, which selects the previous option in the "Slope" section, and speaks it. |
 | `Opt+Right` | Next Crossfade In Shape Curve | Batch Fades | Passes the key to the dialog, which selects the next curve in the "In Shape" section, and speaks it. |
 | `Opt+Down` | Next Crossfade In Shape Parameter | Batch Fades | Passes the key to the dialog, which selects the next option in the "In Shape" section, and speaks it. |
 | `Opt+Cmd+Down` | Next Crossfade Link | Batch Fades | Passes the key to the dialog, which selects the next option in the "<<- Link ->>" section, and speaks it. |
@@ -267,18 +267,18 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
-| `Shift+Down` | Speak And Select Next Playlist | Any | Passes the key to Pro Tools, which selects the next playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
-| `Shift+Up` | Speak And Select Previous Playlist | Any | Passes the key to Pro Tools, which selects the previous playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
-| `Shift+Page Down` | Speak And Move Ahead 5 Playlists | Any | Passes the key to Pro Tools, which selects the playlist 5 ahead on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
-| `Shift+Page Up` | Speak And Move Back 5 Playlists | Any | Passes the key to Pro Tools, which selects the playlist 5 back on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
-| `Shift+Home` | Speak And Navigate to First Playlist | Any | Passes the key to Pro Tools, which selects the first playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
-| `Shift+End` | Speak And Navigate to Last Playlist | Any | Passes the key to Pro Tools, which selects the last playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
-| `Ctrl+Cmd+Right` | Next track view on selected tracks | Any, Inspector off | Passes the key to Pro Tools, which switches the selected tracks to the next track view, and says so. |
-| `Ctrl+Cmd+Left` | Previous track view on selected tracks | Any, Inspector off | Passes the key to Pro Tools, which switches the selected tracks to the previous track view, and says so. |
-| `Ctrl+Opt+Cmd+Right` | Next track view on All tracks | Any | Passes the key to Pro Tools, which switches all tracks to the next track view, and says so. |
-| `Ctrl+Opt+Cmd+Left` | Previous track view on All tracks | Any | Passes the key to Pro Tools, which switches all tracks to the previous track view, and says so. |
-| `Opt+-` | Track view toggled on all tracks | Any | Sends Ctrl+Opt+- to Pro Tools, which toggles the track view of all tracks, and says so. In text fields and some dialogs, such as Save and Open, it stays silent. |
-| `Ctrl+Opt+Cmd+Up`, `Ctrl+Opt+Cmd+Down` | Adjust all track heights to fit in Edit window | Any | Sends Ctrl+Opt+Cmd+Down to Pro Tools, which fits all track heights in the Edit window, and says so. |
+| `Shift+Down` | Speak and Select Next Playlist | Any | Passes the key to Pro Tools, which selects the next playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+Up` | Speak and Select Previous Playlist | Any | Passes the key to Pro Tools, which selects the previous playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+Page Down` | Speak and Move Ahead 5 Playlists | Any | Passes the key to Pro Tools, which selects the playlist 5 ahead on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+Page Up` | Speak and Move Back 5 Playlists | Any | Passes the key to Pro Tools, which selects the playlist 5 back on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+Home` | Speak and Navigate to First Playlist | Any | Passes the key to Pro Tools, which selects the first playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+End` | Speak and Navigate to Last Playlist | Any | Passes the key to Pro Tools, which selects the last playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Ctrl+Cmd+Right` | Next Track View on Selected Tracks | Any, Inspector off | Passes the key to Pro Tools, which switches the selected tracks to the next track view, and says so. |
+| `Ctrl+Cmd+Left` | Previous Track View on Selected Tracks | Any, Inspector off | Passes the key to Pro Tools, which switches the selected tracks to the previous track view, and says so. |
+| `Ctrl+Opt+Cmd+Right` | Next Track View on All Tracks | Any | Passes the key to Pro Tools, which switches all tracks to the next track view, and says so. |
+| `Ctrl+Opt+Cmd+Left` | Previous Track View on All Tracks | Any | Passes the key to Pro Tools, which switches all tracks to the previous track view, and says so. |
+| `Opt+-` | Track View Toggled on All Tracks | Any | Sends Ctrl+Opt+- to Pro Tools, which toggles the track view of all tracks, and says so. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Ctrl+Opt+Cmd+Up`, `Ctrl+Opt+Cmd+Down` | Adjust All Track Heights to Fit in Edit Window | Any | Sends Ctrl+Opt+Cmd+Down to Pro Tools, which fits all track heights in the Edit window, and says so. |
 | `Opt+Cmd+1` | Select Edit Keyboard Focus | Any | Passes the key to Pro Tools, which gives the keyboard focus to the Edit window, and says so. It speaks only with the Edit window in front. |
 | `Opt+Cmd+2` | Select Clips Keyboard Focus | Any | Passes the key to Pro Tools, which gives the keyboard focus to the clip list, and says so. It speaks only with the Edit window in front. |
 | `Opt+Cmd+3` | Select Groups Keyboard Focus | Any | Passes the key to Pro Tools, which gives the keyboard focus to the group list, and says so. It speaks only with the Edit window in front. |

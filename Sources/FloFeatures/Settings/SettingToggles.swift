@@ -18,7 +18,7 @@ enum SettingToggles {
         button("floTools.speakToggleConductor", "Speak/Toggle Conductor", key: "Opt+F12", .midi, "Conductor Track", "the conductor track", Wording(on: "Conductor On", off: "Conductor off")),
         button("floTools.speakToggleCountIn", "Speak/Toggle Count In", key: "Opt+Keypad 8", .midi, "Count in toggle", "count in", Wording(on: "Countin On", off: "Countin off")),
         button("floTools.speakToggleMetronome", "Speak/Toggle Metronome", key: "Opt+Keypad 7", .midi, "Metronome", "the metronome", Wording(on: "Metronome On", off: "Metronome off")),
-        button("floTools.speakToggleMidiMerge", "Speak/Toggle Midi Merge", key: "Opt+Keypad 9", .midi, "MIDI Merge", "MIDI merge", Wording(on: "Midi merge On", off: "Midi merge off")),
+        button("floTools.speakToggleMidiMerge", "Speak/Toggle MIDI Merge", key: "Opt+Keypad 9", .midi, "MIDI Merge", "MIDI merge", Wording(on: "Midi merge On", off: "Midi merge off")),
         button("floTools.speakToggleWaitForNote", "Speak/Toggle Wait for Note", key: "Opt+F11", .midi, "Wait for Note", "wait for note", Wording(on: "Wait for note On", off: "Wait for note off")),
         button("floTools.speakToggleInsertionFollowsPlayback", "Speak/Toggle Insertion Follows Playback", key: "Ctrl+N", .cursorTool, "Insertion Follows Playback", "Insertion Follows Playback", Wording(on: "Insertion Follows Playback, On", off: "Insertion Follows Playback, Off")),
         button("floTools.speakToggleTabToTransients", "Speak/Toggle Tab to Transients", key: "Opt+Cmd+Tab", .cursorTool, "Tab to Transients", "Tab to Transients", Wording(on: "Tab to Transients, On", off: "Tab to Transients, Off")),
@@ -31,8 +31,8 @@ enum SettingToggles {
         menuItem("floTools.speakToggleTrackPunch", "Speak/Toggle Track Punch", key: "Shift+Cmd+T", "Options", "TrackPunch", Wording(on: "Track Punch, Checked", off: "Track Punch")),
         menuItem("floTools.speakToggleTransportOnline", "Speak/Toggle Transport Online", key: "Cmd+J", "Options", "Transport Online", Wording(on: "Transport Online, Checked", off: "Transport Online")),
         menuItem("floTools.speakToggleNarrowMix", "Speak/Toggle Narrow Mix", key: "Opt+Cmd+M", "View", "Narrow Mix", Wording(on: "Narrow Mix, Checked", off: "Narrow Mix")),
-        link("floTools.toggleAndSpeakLinkTimelineAndEditSelection", "Toggle And Speak Link Timeline And Edit Selection", key: "Shift+/", "Link Timeline and Edit Selection", Wording(on: "Timeline and Edit Selection Linked", off: "Timeline and Edit Selection Unlinked")),
-        link("floTools.toggleAndSpeakLinkTrackAndEditSelection", "Toggle And Speak Link Track and Edit Selection", key: "Shift+T", "Link Track and Edit Selection", Wording(on: "Track and Edit Selection Linked", off: "Track and Edit Selection Unlinked")),
+        link("floTools.toggleAndSpeakLinkTimelineAndEditSelection", "Toggle and Speak Link Timeline and Edit Selection", key: "Shift+/", "Link Timeline and Edit Selection", Wording(on: "Timeline and Edit Selection Linked", off: "Timeline and Edit Selection Unlinked")),
+        link("floTools.toggleAndSpeakLinkTrackAndEditSelection", "Toggle and Speak Link Track and Edit Selection", key: "Shift+T", "Link Track and Edit Selection", Wording(on: "Track and Edit Selection Linked", off: "Track and Edit Selection Unlinked")),
         toggleInputMonitor,
     ] }
 

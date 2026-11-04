@@ -79,10 +79,10 @@ enum InspectorControls {
         }
     }
 
-    /// Speak And Select Track/Show Right-Click Menu: single press presses the track name button, which selects the track, and says so; double press opens the track name's context menu. No done sound, as in the JXA.
+    /// Speak and Select Track/Show Right-Click Menu: single press presses the track name button, which selects the track, and says so; double press opens the track name's context menu. No done sound, as in the JXA.
     @MainActor
     static var selectTrack: Command {
-        Inspector.command("inspector.speakAndSelectTrackShowRightClickMenu", "Speak And Select Track/Show Right-Click Menu", summary: "Single press selects the track and says so; double press opens the track name's right-click menu.", key: "T", doneSound: .none, single: { _ in
+        Inspector.command("inspector.speakAndSelectTrackShowRightClickMenu", "Speak and Select Track/Show Right-Click Menu", summary: "Single press selects the track and says so; double press opens the track name's right-click menu.", key: "T", doneSound: .none, single: { _ in
             let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
             let name = try await press(.trackName, of: track)
             try await VoiceOver.say(name + " selected")

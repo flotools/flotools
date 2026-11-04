@@ -9,21 +9,21 @@ enum KeyAnnouncements {
 
     @MainActor
     static var commands: [Command] { [
-        speakSelectedTracks("floTools.speakAndSelectNextPlaylist", "Speak And Select Next Playlist", key: "Shift+Down", "the next playlist"),
-        speakSelectedTracks("floTools.speakAndSelectPreviousPlaylist", "Speak And Select Previous Playlist", key: "Shift+Up", "the previous playlist"),
-        speakSelectedTracks("floTools.speakAndMoveAhead5Playlists", "Speak And Move Ahead 5 Playlists", key: "Shift+Page Down", "the playlist 5 ahead"),
-        speakSelectedTracks("floTools.speakAndMoveBack5Playlists", "Speak And Move Back 5 Playlists", key: "Shift+Page Up", "the playlist 5 back"),
-        speakSelectedTracks("floTools.speakAndNavigateToFirstPlaylist", "Speak And Navigate to First Playlist", key: "Shift+Home", "the first playlist"),
-        speakSelectedTracks("floTools.speakAndNavigateToLastPlaylist", "Speak And Navigate to Last Playlist", key: "Shift+End", "the last playlist"),
+        speakSelectedTracks("floTools.speakAndSelectNextPlaylist", "Speak and Select Next Playlist", key: "Shift+Down", "the next playlist"),
+        speakSelectedTracks("floTools.speakAndSelectPreviousPlaylist", "Speak and Select Previous Playlist", key: "Shift+Up", "the previous playlist"),
+        speakSelectedTracks("floTools.speakAndMoveAhead5Playlists", "Speak and Move Ahead 5 Playlists", key: "Shift+Page Down", "the playlist 5 ahead"),
+        speakSelectedTracks("floTools.speakAndMoveBack5Playlists", "Speak and Move Back 5 Playlists", key: "Shift+Page Up", "the playlist 5 back"),
+        speakSelectedTracks("floTools.speakAndNavigateToFirstPlaylist", "Speak and Navigate to First Playlist", key: "Shift+Home", "the first playlist"),
+        speakSelectedTracks("floTools.speakAndNavigateToLastPlaylist", "Speak and Navigate to Last Playlist", key: "Shift+End", "the last playlist"),
         // The Inspector pans with these keys, so they reach Pro Tools only while it is off. The KM version enabled them only after `/` was pressed once; here they work from launch (changed on purpose, 2026-11-03).
-        announce(nextTrackViewOnSelectedTracks, "Next track view on selected tracks", does: "switches the selected tracks to the next track view", keys: ["Ctrl+Cmd+Right"], "Next track view on selected tracks.", when: .always, mode: .inspectorOff),
-        announce(previousTrackViewOnSelectedTracks, "Previous track view on selected tracks", does: "switches the selected tracks to the previous track view", keys: ["Ctrl+Cmd+Left"], "Previous track view on selected tracks.", when: .always, mode: .inspectorOff),
-        announce("floTools.nextTrackViewOnAllTracks", "Next track view on All tracks", does: "switches all tracks to the next track view", keys: ["Ctrl+Opt+Cmd+Right"], "Next track view on All tracks.", when: .always),
-        announce("floTools.previousTrackViewOnAllTracks", "Previous track view on All tracks", does: "switches all tracks to the previous track view", keys: ["Ctrl+Opt+Cmd+Left"], "Previous track view on All tracks.", when: .always),
+        announce(nextTrackViewOnSelectedTracks, "Next Track View on Selected Tracks", does: "switches the selected tracks to the next track view", keys: ["Ctrl+Cmd+Right"], "Next Track View on Selected Tracks.", when: .always, mode: .inspectorOff),
+        announce(previousTrackViewOnSelectedTracks, "Previous Track View on Selected Tracks", does: "switches the selected tracks to the previous track view", keys: ["Ctrl+Cmd+Left"], "Previous Track View on Selected Tracks.", when: .always, mode: .inspectorOff),
+        announce("floTools.nextTrackViewOnAllTracks", "Next Track View on All Tracks", does: "switches all tracks to the next track view", keys: ["Ctrl+Opt+Cmd+Right"], "Next Track View on All Tracks.", when: .always),
+        announce("floTools.previousTrackViewOnAllTracks", "Previous Track View on All Tracks", does: "switches all tracks to the previous track view", keys: ["Ctrl+Opt+Cmd+Left"], "Previous Track View on All Tracks.", when: .always),
         // Pro Tools 26.10 toggles the view of all tracks with Ctrl+Opt+- and ignores the Opt+- the KM version sent (checked live 2026-11-03); the hotkey stays Opt+-.
-        announce("floTools.trackViewToggledOnAllTracks", "Track view toggled on all tracks", does: "toggles the track view of all tracks", keys: ["Opt+-"], sends: "Ctrl+Opt+-", "Track view toggled on all tracks.", when: .outsideListedDialogsAndText),
+        announce("floTools.trackViewToggledOnAllTracks", "Track View Toggled on All Tracks", does: "toggles the track view of all tracks", keys: ["Opt+-"], sends: "Ctrl+Opt+-", "Track View Toggled on All Tracks.", when: .outsideListedDialogsAndText),
         // Both keys send Down, as in the KM version.
-        announce("floTools.adjustAllTrackHeightsToFitInEditWindow", "Adjust all track heights to fit in Edit window", does: "fits all track heights in the Edit window", keys: ["Ctrl+Opt+Cmd+Up", "Ctrl+Opt+Cmd+Down"], sends: "Ctrl+Opt+Cmd+Down", "Adjust all track heights to fit in Edit window..", when: .always),
+        announce("floTools.adjustAllTrackHeightsToFitInEditWindow", "Adjust All Track Heights to Fit in Edit Window", does: "fits all track heights in the Edit window", keys: ["Ctrl+Opt+Cmd+Up", "Ctrl+Opt+Cmd+Down"], sends: "Ctrl+Opt+Cmd+Down", "Adjust All Track Heights to Fit in Edit Window..", when: .always),
         announce("floTools.selectEditKeyboardFocus", "Select Edit Keyboard Focus", does: "gives the keyboard focus to the Edit window", keys: ["Opt+Cmd+1"], "Edit Keyboard Focus", when: .inEditWindow),
         announce("floTools.selectClipsKeyboardFocus", "Select Clips Keyboard Focus", does: "gives the keyboard focus to the clip list", keys: ["Opt+Cmd+2"], "Clips Keyboard Focus", when: .inEditWindow),
         announce("floTools.selectGroupsKeyboardFocus", "Select Groups Keyboard Focus", does: "gives the keyboard focus to the group list", keys: ["Opt+Cmd+3"], "Groups Keyboard Focus", when: .inEditWindow),

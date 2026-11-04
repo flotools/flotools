@@ -6,9 +6,9 @@ import FloSystem
 enum Counters {
     @MainActor
     static var commands: [Command] { [
-        speakEdit("floTools.speakEditMainCounter", "Speak/Edit main counter", what: "main counter", key: "Cmd+F4", .mainCounter, label: ". main.", prompts: Prompts(time: "Press Delete, then type Main Counter value", other: "Type main counter value")),
+        speakEdit("floTools.speakEditMainCounter", "Speak/Edit Main Counter", what: "main counter", key: "Cmd+F4", .mainCounter, label: ". main.", prompts: Prompts(time: "Press Delete, then type Main Counter value", other: "Type main counter value")),
         speakEdit("floTools.speakEditSubCounter", "Speak/Edit Sub Counter", what: "sub counter", key: "Cmd+F6", .subCounter, label: ". Sub.", prompts: Prompts(time: "Press Delete, then type Sub Counter value", other: "Type sub counter value.")),
-        speakEdit("floTools.speakEditSelectionStart", "speak/Edit selection start", what: "edit selection start", key: "Cmd+F1", .selectionStart, label: ". start.", prompts: Prompts(time: "Press delete, then type Start value", other: "Type start value")),
+        speakEdit("floTools.speakEditSelectionStart", "Speak/Edit Selection Start", what: "edit selection start", key: "Cmd+F1", .selectionStart, label: ". start.", prompts: Prompts(time: "Press delete, then type Start value", other: "Type start value")),
         speakEdit("floTools.speakEditSelectionEnd", "Speak/Edit Selection End", what: "edit selection end", key: "Cmd+F2", .selectionEnd, label: ". end", prompts: Prompts(time: "Press Delete, then type End value", other: "Type end value")),
         speakEdit("floTools.speakEditSelectionLength", "Speak/Edit Selection Length", what: "edit selection length", key: "Cmd+F3", .selectionLength, label: ". length.", prompts: Prompts(time: "Press Delete, then type Length value", other: "Type length value")),
         speakEdit("floTools.speakEditPreRollAmount", "Speak/Edit Pre-Roll Amount", what: "pre-roll amount", key: "Cmd+F9", .preRoll, label: ". Pre-Roll Amount.", prompts: Prompts(time: "Press Delete, then type Pre-Roll amount", other: "Type Pre-Roll Amount.")),
@@ -21,7 +21,7 @@ enum Counters {
         Command("floTools.speakGridValue", "Speak Grid Value", summary: "Speaks the grid value.", scope: .anyProToolsWindow, triggers: [.key("Cmd+F8")]) { _ in
             try await VoiceOver.say(read(.gridValue) + ". grid.")
         },
-        openMenu("floTools.selectMainCounter", "Select main counter", what: "main counter selector", key: "Opt+Cmd+F4", .mainCounterSelector),
+        openMenu("floTools.selectMainCounter", "Select Main Counter", what: "main counter selector", key: "Opt+Cmd+F4", .mainCounterSelector),
         openMenu("floTools.selectSubCounter", "Select Sub Counter", what: "sub counter selector", key: "Opt+Cmd+F6", .subCounterSelector),
         openMenu("floTools.selectNudgeValue", "Select Nudge Value", what: "nudge value", key: "Opt+Cmd+F7", .nudgeSelector),
         openMenu("floTools.selectGridValue", "Select Grid Value", what: "grid value", key: "Opt+Cmd+F8", .gridValue),
@@ -30,7 +30,7 @@ enum Counters {
         step("floTools.decreaseGridValue", "Decrease Grid Value", what: "grid value", key: "Ctrl+Opt+Keypad -", sends: "Shift+-", .gridValue, when: .outsideDialogsAndText, label: ". Grid."),
         step("floTools.decreaseGridValueWithQwerty", "Decrease Grid Value with Qwerty", what: "grid value", key: "Shift+-", sends: "Shift+-", .gridValue, when: .outsideDialogsAndText, label: ". Grid."),
         step("floTools.increaseNudgeValue", "Increase Nudge Value", what: "nudge value", key: "Opt+Cmd+Keypad +", sends: "Opt+Cmd+Keypad +", .nudgeValue, when: .always, label: ". Nudge."),
-        step("floTools.increaseNudgeValueWithQwerty", "Increase Nudge Value With Qwerty", what: "nudge value", key: "Opt+Shift+=", sends: "Opt+Shift+=", .nudgeValue, when: .outsideDialogsAndText, label: ". Nudge."),
+        step("floTools.increaseNudgeValueWithQwerty", "Increase Nudge Value with Qwerty", what: "nudge value", key: "Opt+Shift+=", sends: "Opt+Shift+=", .nudgeValue, when: .outsideDialogsAndText, label: ". Nudge."),
         step("floTools.decreaseNudgeValue", "Decrease Nudge Value", what: "nudge value", key: "Opt+Cmd+Keypad -", sends: "Opt+Cmd+Keypad -", .nudgeValue, when: .always, label: ". Nudge."),
         step("floTools.decreaseNudgeValueWithQwerty", "Decrease Nudge Value with Qwerty", what: "nudge value", key: "Opt+Shift+-", sends: "Opt+Shift+-", .nudgeValue, when: .outsideDialogsAndText, label: ". Nudge."),
     ] }
