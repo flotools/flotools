@@ -12,6 +12,7 @@
 ],
 
 [
+["Empty", 0, 0],
 ["Cmp Knee", 192, 445],
 ["Cmp Release Time", 303, 445],
 ["Cmp Gain Makeup", 414, 445]
