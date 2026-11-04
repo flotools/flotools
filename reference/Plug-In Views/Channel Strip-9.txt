@@ -8,7 +8,8 @@
 [
 ["Filter 2 Type", 37, 744],
 ["Filter 2 Frequency", 311, 744],
-["Filter 2 Slope 12/24dB", 396, 744]
+["Filter 2 Slope 12/24dB", 396, 744],
+["Filter 2 Q", 425, 744]
 ]
 
 ]}
