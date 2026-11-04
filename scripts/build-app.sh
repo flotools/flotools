@@ -28,7 +28,12 @@ if [ -z "$IDENTITY" ]; then
 fi
 # Inside out, as Sparkle's documentation says: its helpers, then the framework, then the app. The Downloader keeps its own entitlements.
 SPARKLE="$APP/Contents/Frameworks/Sparkle.framework/Versions/B"
-sign() { codesign --force --options runtime --timestamp=none --sign "$IDENTITY" "$@"; }
+# Notarization needs a secure timestamp; development builds skip the round trip to Apple's server.
+case "$IDENTITY" in
+    "Developer ID Application"*) TIMESTAMP=--timestamp ;;
+    *) TIMESTAMP=--timestamp=none ;;
+esac
+sign() { codesign --force --options runtime "$TIMESTAMP" --sign "$IDENTITY" "$@"; }
 sign "$SPARKLE/XPCServices/Installer.xpc"
 sign --preserve-metadata=entitlements "$SPARKLE/XPCServices/Downloader.xpc"
 sign "$SPARKLE/Autoupdate"
