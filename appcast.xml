@@ -6,5 +6,38 @@
         <link>https://flotools.org/flotools/appcast.xml</link>
         <description>Flo Tools updates</description>
         <language>en</language>
+        <item>
+            <title>Flo Tools 2027.1.0-beta.1</title>
+            <pubDate>Wed, 04 Nov 2026 00:15:28 +0000</pubDate>
+            <sparkle:channel>beta</sparkle:channel>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>2027.1.0-beta.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0.0</sparkle:minimumSystemVersion>
+            <description sparkle:format="markdown"><![CDATA[
+Flo Tools is now a native Mac app. It no longer needs Keyboard Maestro. This is the first beta of the new app.
+
+## What is new
+
+- Flo Tools runs as its own app in the menu bar, with no Dock icon. It needs macOS 13 or later.
+- Every command of the Keyboard Maestro version is here except Flo Mouse, 243 commands in all, with the same keys and in the same windows. The full list of commands is in [COMMANDS.md](https://github.com/flotools/flotools/blob/swift/COMMANDS.md).
+- Flo Tools pauses itself while VoiceOver is off and while the Pro Tools Keyboard Shortcuts window is open. The menu bar menu says when it is paused.
+- Updates are built in. The Updates submenu in the menu bar menu shows the version and has Check for Updates, plus settings to check, download and install updates automatically and to include beta versions.
+- Turn On Log in the menu bar menu records a diagnostic log. Turn Off Log shows the file in Finder, so you can send it with a bug report. Logging is off until you turn it on, and nothing is sent automatically.
+- The plug-in view files that come with Flo Tools are copied to `~/Library/Application Support/Flo Tools/Plug-In Views/` on first launch. Files you already have there are not replaced.
+
+## Changes from the Keyboard Maestro version
+
+- Flo Mouse is not part of this app. It will become a separate project.
+- Preferences start at their defaults. Settings from the Keyboard Maestro version are not carried over.
+
+## Before you start
+
+- Turn off the Flo Tools macros in Keyboard Maestro, or quit Keyboard Maestro Engine. Otherwise both versions respond to the same keys.
+- Move Flo Tools to the Applications folder and open it. Allow Accessibility access when macOS asks, and allow Flo Tools to control VoiceOver.
+
+Please report problems at [github.com/flotools/flotools/issues](https://github.com/flotools/flotools/issues), with a diagnostic log if you can.
+]]></description>
+            <enclosure url="https://flotools.org/flotools/downloads/FloTools-2027.1.0-beta.1.zip" sparkle:edSignature="h0XWJfQ3yzM87YqCkWq1iJBI4+EHhvY7qaory5NIIUjunhIPa7XsFytCBNNblupZijrfCQ6W9yLjlCWU5EcXAg==" length="2508714" type="application/octet-stream"/>
+        </item>
     </channel>
 </rss>
