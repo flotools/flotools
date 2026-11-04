@@ -27,7 +27,7 @@ enum MidiEvents {
                 }
                 await startWatch(column, in: run.engine)
             },
-            Command("floTools.editEvent", "Edit Event", summary: "Opens the MIDI note value that Next Column and Previous Column moved to, start at first, for typing, and says what to type.", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Cmd+Return")]) { _ in
+            Command("floTools.editEvent", "Edit Event", summary: "Opens the MIDI note value that Next Column and Previous Column are on, which is start until they move, for typing, and says what to type. Does nothing after Previous Column has moved past the first value.", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Cmd+Return")]) { _ in
                 // Before the first column there is nothing to edit, and the JXA said nothing.
                 guard let column = await cursor.column else { return }
                 _ = try await ProToolsApp.running().openForTyping(column.control)

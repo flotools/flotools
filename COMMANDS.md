@@ -69,9 +69,9 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+O` | Speak/Select Instrument Output | Mix, Edit, Inspector on | Single press speaks the track's instrument output; double press opens its menu. |
 | `\` | Speak/Select Playlist | Mix, Edit, Inspector on | Single press speaks the track name, which is its playlist's name; double press opens the playlist menu in the Edit window. |
 | `B` | Speak/Select Timebase | Mix, Edit, Inspector on | Single press speaks the track's timebase; double press opens its menu. |
-| `W` | Speak/Select Track View | Mix, Edit, Inspector on | Single press speaks the track's track view; double press opens its menu. |
+| `W` | Speak/Select Track View | Mix, Edit, Inspector on | Single press speaks the track's view; double press opens its menu. |
 | `E` | Speak/Select Elastic Audio Plugin | Mix, Edit, Inspector on | Single press speaks the track's Elastic Audio plug-in, or "None"; double press opens the Elastic Audio menu. |
-| `H` | Track Options Menu | Mix, Edit, Inspector on | Single press speaks the track options button; double press opens the track options menu. |
+| `H` | Track Options Menu | Mix, Edit, Inspector on | Single press speaks the name of the track options button; double press opens the track options menu. |
 | `T` | Speak And Select Track/Show Right-Click Menu | Mix, Edit, Inspector on | Single press selects the track and says so; double press opens the track name's right-click menu. |
 | `C` | Speak/Edit Comments | Mix, Edit, Inspector on | Single press speaks the track's comment, or "No Comment"; double press puts the cursor in the comments field for typing. |
 | `F` | Speak/Toggle Freeze Status | Mix, Edit, Inspector on | Single press speaks whether the track is frozen. Double press freezes or unfreezes it, plays a progress sound while Pro Tools works, and speaks the new state. |
@@ -84,8 +84,8 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Ctrl+Cmd+Down` (hold to repeat) | Decrease Volume | Mix, Edit, Inspector on | Moves the volume fader one step down and speaks it. |
 | `Ctrl+Opt+Up` (hold to repeat) | Increase Instrument Volume | Mix, Edit, Inspector on | Moves the instrument track's MIDI volume one step up and speaks it. |
 | `Ctrl+Opt+Down` (hold to repeat) | Decrease Instrument Volume | Mix, Edit, Inspector on | Moves the instrument track's MIDI volume one step down and speaks it. |
-| `L` | Speak Level Meter, Toggle Level Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's level meter. Double press starts or stops a watch that speaks each new level, following the VoiceOver cursor from track to track, until another Pro Tools window comes to front. |
-| `;` | Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's gain reduction meter. Double press starts or stops a watch that plays the progress sound on each change and remembers the deepest reduction, following the VoiceOver cursor from track to track, until another Pro Tools window comes to front. |
+| `L` | Speak Level Meter, Toggle Level Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's level meter. Double press starts or stops a watch that speaks each new level, following the VoiceOver cursor from track to track, until another Pro Tools window comes to the front. |
+| `;` | Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's gain reduction meter. Double press starts or stops a watch that plays the progress sound on each change and remembers the deepest reduction, following the VoiceOver cursor from track to track, until another Pro Tools window comes to the front. |
 | `Shift+;` | Speak Gain Reduction Meter Maximum Value | Mix, Edit, Inspector on | Speaks the deepest gain reduction, in whole dB, on any track the watch followed since it started or since this was last spoken, then starts over from 0. |
 
 ## Settings
@@ -237,9 +237,9 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Ctrl+Up` | Previous Row Parameter | Plug-in | Moves to the parameter in the previous row of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
 | `Ctrl+Right` | Next Column Parameter | Plug-in | Moves to the parameter in the next column of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
 | `Ctrl+Left` | Previous Column Parameter | Plug-in | Moves to the parameter in the previous column of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
-| `Ctrl+Cmd+Up` (hold to repeat) | Increase Parameter | Plug-in | Moves the parameter chosen with the view keys one step up and speaks its new value; hold the key to keep moving it. Works for parameters the plug-in shows as sliders. |
-| `Ctrl+Cmd+Down` (hold to repeat) | Decrease Parameter | Plug-in | Moves the parameter chosen with the view keys one step down and speaks its new value; hold the key to keep moving it. Works for parameters the plug-in shows as sliders. |
-| `Cmd+0` | Load Plugin Parameters for Default View | Plug-in | Loads the default view from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. Also runs when a plug-in window comes to front. |
+| `Ctrl+Cmd+Up` (hold to repeat) | Increase Parameter | Plug-in | Moves the parameter chosen with the view keys one step up and speaks its new value. Works for parameters the plug-in shows as sliders. |
+| `Ctrl+Cmd+Down` (hold to repeat) | Decrease Parameter | Plug-in | Moves the parameter chosen with the view keys one step down and speaks its new value. Works for parameters the plug-in shows as sliders. |
+| `Cmd+0` | Load Plugin Parameters for Default View | Plug-in | Loads the default view from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. Also runs when a plug-in window comes to the front. |
 | Flo Tools menu | Display Plugin View Template | Plug-in | Shows a view file template that lists the front plug-in's parameters shown as sliders, to arrange and save in the Plug-In Views folder. |
 | `Cmd+1` | Load Plugin Parameters for View 1 | Plug-in | Loads view 1 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
 | `Cmd+2` | Load Plugin Parameters for View 2 | Plug-in | Loads view 2 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
@@ -289,7 +289,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | --- | --- | --- | --- |
 | `Opt+Shift+]` | Next Column | Any | Moves to the next value of the selected MIDI note (start, pitch, attack velocity, release velocity, length, end; it begins on start) and speaks it, and again each time it changes. Says "End" after the last one. |
 | `Opt+Shift+[` | Previous Column | Any | Moves to the previous value of the selected MIDI note and speaks it, and again each time it changes. Before the first one, stops speaking changes and says "No report". |
-| `Ctrl+Cmd+Return` | Edit Event | Any | Opens the MIDI note value that Next Column and Previous Column moved to, start at first, for typing, and says what to type. |
+| `Ctrl+Cmd+Return` | Edit Event | Any | Opens the MIDI note value that Next Column and Previous Column are on, which is start until they move, for typing, and says what to type. Does nothing after Previous Column has moved past the first value. |
 
 ## Windows
 

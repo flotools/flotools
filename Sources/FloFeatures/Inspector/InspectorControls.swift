@@ -15,9 +15,9 @@ enum InspectorControls {
         // The JXA spoke the track name from the Mix window and opened the playlist selector in the Edit window, which is the only one that has it.
         menu("inspector.speakSelectPlaylist", "Speak/Select Playlist", key: "\\", .mix, .trackName, opening: (.edit, .playlist), "Single press speaks the track name, which is its playlist's name; double press opens the playlist menu in the Edit window."),
         menu("inspector.speakSelectTimebase", "Speak/Select Timebase", key: "B", .edit, .timebase, "Single press speaks the track's timebase; double press opens its menu."),
-        menu("inspector.speakSelectTrackView", "Speak/Select Track View", key: "W", .edit, .trackView, "Single press speaks the track's track view; double press opens its menu."),
+        menu("inspector.speakSelectTrackView", "Speak/Select Track View", key: "W", .edit, .trackView, "Single press speaks the track's view; double press opens its menu."),
         menu("inspector.speakSelectElasticAudioPlugin", "Speak/Select Elastic Audio Plugin", key: "E", .edit, .elasticAudioPlugIn, opening: (.edit, .elasticAudioSelector), "Single press speaks the track's Elastic Audio plug-in, or \"None\"; double press opens the Elastic Audio menu."),
-        menu("inspector.trackOptionsMenu", "Track Options Menu", key: "H", .edit, .trackOptions, "Single press speaks the track options button; double press opens the track options menu."),
+        menu("inspector.trackOptionsMenu", "Track Options Menu", key: "H", .edit, .trackOptions, "Single press speaks the name of the track options button; double press opens the track options menu."),
         selectTrack,
         comments,
         freeze,
