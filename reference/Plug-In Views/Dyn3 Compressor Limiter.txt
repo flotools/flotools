@@ -1,12 +1,23 @@
 {"view":"Default", "click":[-1,-1], "parameters":[
+
+[
+["High Filter Freq",450,160]
+],
+
+[
+["Low Filter Freq",450,210]
+],
+
 [
 ["Knee Width",200,290],
-["Ratio",200,356],
 ["Attack",324,290],
+["Gain",450,290]
+],
+
+[
+["Ratio",200,356],
 ["Release",324,356],
-["Gain",450,290],
-["Threshold",450,356],
-["High Filter Freq",450,160],
-["Low Filter Freq",450,210]
+["Threshold",450,356]
 ]
+
 ]}
