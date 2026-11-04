@@ -69,7 +69,7 @@ enum PlugIns {
     /// Starts or stops a watch of the plug-in window's parameters that speaks each one that changes, for example while automation plays. It ends by itself when the window closes.
     @MainActor
     static var toggleMonitor: Command {
-        Command(monitor, "Toggle Plugin Monitor", summary: "Starts or stops a watch that speaks each plug-in parameter shown as a slider that changes, for example while automation plays. It stops by itself when the window closes or its parameters cannot be read.", scope: .windows([.plugIn]), triggers: [.key("Opt+/")]) { run in
+        Command(monitor, "Toggle Plug-In Monitor", summary: "Starts or stops a watch that speaks each plug-in parameter shown as a slider that changes, for example while automation plays. It stops by itself when the window closes or its parameters cannot be read.", scope: .windows([.plugIn]), triggers: [.key("Opt+/")]) { run in
             let watches = await run.engine.watches
             if await watches.isRunning(monitor) {
                 await watches.stop(monitor)
@@ -116,11 +116,11 @@ enum PlugIns {
 
     // MARK: Plug-in views
 
-    /// Load Plugin Parameters for Default View (Cmd+0, and whenever a plug-in window comes to front) and for View 1 to 9 (Cmd+1 to Cmd+9): reads the plug-in's view file, speaks "<view> view for <plug-in>" and clicks the view's click point. Without a file the cursor is emptied silently, as in the JXA. The plug-in is spoken by its real name; the JXA spoke the file name form, with the first "/" as a space.
+    /// Load Plug-In Parameters for Default View (Cmd+0, and whenever a plug-in window comes to the front) and for View 1 to 9 (Cmd+1 to Cmd+9): reads the plug-in's view file, speaks "<view> view for <plug-in>" and clicks the view's click point. Without a file the cursor is emptied silently, as in the JXA. The plug-in is spoken by its real name; the JXA spoke the file name form, with the first "/" as a space.
     @MainActor
     static func loadView(_ number: Int?, _ cursor: PlugInViewCursor) -> Command {
         let id = number.map { CommandID("plugin.loadPluginParametersForView\($0)") } ?? loadDefaultView
-        let name = "Load Plugin Parameters for " + (number.map { "View \($0)" } ?? "Default View")
+        let name = "Load Plug-In Parameters for " + (number.map { "View \($0)" } ?? "Default View")
         let file = number.map { "view \($0)" } ?? "the default view"
         let summary = "Loads \(file) from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent." + (number == nil ? " Also runs when a plug-in window comes to the front." : "")
         return Command(id, name, summary: summary, scope: .windows([.plugIn]), triggers: [.key("Cmd+\(number ?? 0)")]) { _ in
@@ -176,7 +176,7 @@ enum PlugIns {
     /// A status menu item: shows a view file template for the front plug-in, listing its parameters, for the user to arrange and save in the Plug-In Views folder.
     @MainActor
     static var displayViewTemplate: Command {
-        Command("plugin.displayPluginViewTemplate", "Display Plugin View Template", summary: "Shows a view file template that lists the front plug-in's parameters shown as sliders, to arrange and save in the Plug-In Views folder.", scope: .windows([.plugIn]), triggers: [.statusMenu]) { _ in
+        Command("plugin.displayPluginViewTemplate", "Display Plug-In View Template", summary: "Shows a view file template that lists the front plug-in's parameters shown as sliders, to arrange and save in the Plug-In Views folder.", scope: .windows([.plugIn]), triggers: [.statusMenu]) { _ in
             let window = try await ProToolsApp.running().plugInWindow(.plugIn)
             let plugIn = try await window.plugInName
             let names = try await window.parameters().map(\.name)

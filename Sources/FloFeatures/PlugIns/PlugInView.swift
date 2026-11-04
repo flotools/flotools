@@ -110,7 +110,7 @@ struct PlugInView: Sendable, Equatable {
 
     // MARK: Template
 
-    /// The text of Display Plugin View Template: the file name to save as, then a default view listing every parameter in one row with placeholder positions, as in the JXA.
+    /// The text of Display Plug-In View Template: the file name to save as, then a default view listing every parameter in one row with placeholder positions, as in the JXA.
     static func template(plugIn: String, parameters: [String]) -> String {
         let entries = parameters.map { "[\(jsonString($0)),0,0]" }.joined(separator: ",\n")
         return "\(fileStem(plugIn: plugIn))\n{\"view\":\"Default\", \"click\":[-1,-1], \"parameters\":[\n[\n\(entries)\n]\n]}"

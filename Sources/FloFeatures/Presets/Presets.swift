@@ -10,7 +10,7 @@ enum Presets {
         let prefix: String, speakChooseID: String, speakChooseName: String
         switch kind {
         case .plugIn: (prefix, speakChooseID, speakChooseName) = ("plugin", "speakChoosePreset", "Speak/Choose Preset")
-        case .audioSuite: (prefix, speakChooseID, speakChooseName) = ("audioSuite", "speakChooseAudioSuitePreset", "Speak/Choose Audio Suite Preset")
+        case .audioSuite: (prefix, speakChooseID, speakChooseName) = ("audioSuite", "speakChooseAudioSuitePreset", "Speak/Choose AudioSuite Preset")
         }
         let scope: Scope = .windows([kind.windowKind])
         return [

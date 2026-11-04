@@ -73,7 +73,7 @@ import Testing
     }
 
     @Test func windowScopeWinsOverAnyWindow() {
-        // Cmd+1 is "Tab 1" in setup windows, "Assign Insert A" in the Inspector and "Load Plugin Parameters for View 1" in plug-in windows; here an any-window binding stands in for a general key.
+        // Cmd+1 is "Tab 1" in setup windows, "Assign Insert A" in the Inspector and "Load Plug-In Parameters for View 1" in plug-in windows; here an any-window binding stands in for a general key.
         let engine = FloFeatures.makeEngine(commands: [])
         engine.setInspector(true)
         for (id, scope, mode) in [("test.any", Scope.anyProToolsWindow, ModeCondition.any), ("test.inspector", .mixOrEdit, .inspectorOn), ("test.plugIn", .windows([.plugIn]), .any)] {

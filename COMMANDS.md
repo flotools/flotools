@@ -70,7 +70,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `\` | Speak/Select Playlist | Mix, Edit, Inspector on | Single press speaks the track name, which is its playlist's name; double press opens the playlist menu in the Edit window. |
 | `B` | Speak/Select Timebase | Mix, Edit, Inspector on | Single press speaks the track's timebase; double press opens its menu. |
 | `W` | Speak/Select Track View | Mix, Edit, Inspector on | Single press speaks the track's view; double press opens its menu. |
-| `E` | Speak/Select Elastic Audio Plugin | Mix, Edit, Inspector on | Single press speaks the track's Elastic Audio plug-in, or "None"; double press opens the Elastic Audio menu. |
+| `E` | Speak/Select Elastic Audio Plug-In | Mix, Edit, Inspector on | Single press speaks the track's Elastic Audio plug-in, or "None"; double press opens the Elastic Audio menu. |
 | `H` | Track Options Menu | Mix, Edit, Inspector on | Single press speaks the name of the track options button; double press opens the track options menu. |
 | `T` | Speak and Select Track/Show Right-Click Menu | Mix, Edit, Inspector on | Single press selects the track and says so; double press opens the track name's right-click menu. |
 | `C` | Speak/Edit Comments | Mix, Edit, Inspector on | Single press speaks the track's comment, or "No Comment"; double press puts the cursor in the comments field for typing. |
@@ -232,24 +232,24 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `[` | Previous Preset | Plug-in | Loads the previous preset and speaks its name. |
 | `Opt+Cmd+P` | Speak/Choose Preset | Plug-in | Single press speaks the preset; double press opens the preset menu. |
 | `Opt+B` | Speak/Toggle Bypass | Plug-in | Single press speaks whether the plug-in is bypassed; double press switches bypass and speaks the new state. |
-| `Opt+/` | Toggle Plugin Monitor | Plug-in | Starts or stops a watch that speaks each plug-in parameter shown as a slider that changes, for example while automation plays. It stops by itself when the window closes or its parameters cannot be read. |
+| `Opt+/` | Toggle Plug-In Monitor | Plug-in | Starts or stops a watch that speaks each plug-in parameter shown as a slider that changes, for example while automation plays. It stops by itself when the window closes or its parameters cannot be read. |
 | `Ctrl+Down` | Next Row Parameter | Plug-in | Moves to the parameter in the next row of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
 | `Ctrl+Up` | Previous Row Parameter | Plug-in | Moves to the parameter in the previous row of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
 | `Ctrl+Right` | Next Column Parameter | Plug-in | Moves to the parameter in the next column of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
 | `Ctrl+Left` | Previous Column Parameter | Plug-in | Moves to the parameter in the previous column of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
 | `Ctrl+Cmd+Up` (hold to repeat) | Increase Parameter | Plug-in | Moves the parameter chosen with the view keys one step up and speaks its new value. Works for parameters the plug-in shows as sliders. |
 | `Ctrl+Cmd+Down` (hold to repeat) | Decrease Parameter | Plug-in | Moves the parameter chosen with the view keys one step down and speaks its new value. Works for parameters the plug-in shows as sliders. |
-| `Cmd+0` | Load Plugin Parameters for Default View | Plug-in | Loads the default view from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. Also runs when a plug-in window comes to the front. |
-| Flo Tools menu | Display Plugin View Template | Plug-in | Shows a view file template that lists the front plug-in's parameters shown as sliders, to arrange and save in the Plug-In Views folder. |
-| `Cmd+1` | Load Plugin Parameters for View 1 | Plug-in | Loads view 1 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
-| `Cmd+2` | Load Plugin Parameters for View 2 | Plug-in | Loads view 2 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
-| `Cmd+3` | Load Plugin Parameters for View 3 | Plug-in | Loads view 3 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
-| `Cmd+4` | Load Plugin Parameters for View 4 | Plug-in | Loads view 4 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
-| `Cmd+5` | Load Plugin Parameters for View 5 | Plug-in | Loads view 5 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
-| `Cmd+6` | Load Plugin Parameters for View 6 | Plug-in | Loads view 6 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
-| `Cmd+7` | Load Plugin Parameters for View 7 | Plug-in | Loads view 7 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
-| `Cmd+8` | Load Plugin Parameters for View 8 | Plug-in | Loads view 8 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
-| `Cmd+9` | Load Plugin Parameters for View 9 | Plug-in | Loads view 9 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+0` | Load Plug-In Parameters for Default View | Plug-in | Loads the default view from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. Also runs when a plug-in window comes to the front. |
+| Flo Tools menu | Display Plug-In View Template | Plug-in | Shows a view file template that lists the front plug-in's parameters shown as sliders, to arrange and save in the Plug-In Views folder. |
+| `Cmd+1` | Load Plug-In Parameters for View 1 | Plug-in | Loads view 1 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+2` | Load Plug-In Parameters for View 2 | Plug-in | Loads view 2 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+3` | Load Plug-In Parameters for View 3 | Plug-in | Loads view 3 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+4` | Load Plug-In Parameters for View 4 | Plug-in | Loads view 4 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+5` | Load Plug-In Parameters for View 5 | Plug-in | Loads view 5 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+6` | Load Plug-In Parameters for View 6 | Plug-in | Loads view 6 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+7` | Load Plug-In Parameters for View 7 | Plug-in | Loads view 7 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+8` | Load Plug-In Parameters for View 8 | Plug-in | Loads view 8 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+9` | Load Plug-In Parameters for View 9 | Plug-in | Loads view 9 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
 
 ## AudioSuite
 
@@ -261,7 +261,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Ctrl+Opt+Shift+Cmd+R` | Render | AudioSuite | Presses the AudioSuite window's Render button and says so. |
 | `]` | Next Preset | AudioSuite | Loads the next preset and speaks its name. |
 | `[` | Previous Preset | AudioSuite | Loads the previous preset and speaks its name. |
-| `Opt+Cmd+P` | Speak/Choose Audio Suite Preset | AudioSuite | Single press speaks the preset; double press opens the preset menu. |
+| `Opt+Cmd+P` | Speak/Choose AudioSuite Preset | AudioSuite | Single press speaks the preset; double press opens the preset menu. |
 
 ## Key announcements
 
