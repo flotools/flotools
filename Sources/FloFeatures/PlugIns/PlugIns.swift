@@ -69,7 +69,7 @@ enum PlugIns {
     /// Starts or stops a watch of the plug-in window's parameters that speaks each one that changes, for example while automation plays. It ends by itself when the window closes.
     @MainActor
     static var toggleMonitor: Command {
-        Command(monitor, "Toggle Plugin Monitor", summary: "Starts or stops a watch that speaks each plug-in parameter that changes, for example while automation plays. It stops by itself when the window closes.", scope: .windows([.plugIn]), triggers: [.key("Opt+/")]) { run in
+        Command(monitor, "Toggle Plugin Monitor", summary: "Starts or stops a watch that speaks each plug-in parameter shown as a slider that changes, for example while automation plays. It stops by itself when the window closes or its parameters cannot be read.", scope: .windows([.plugIn]), triggers: [.key("Opt+/")]) { run in
             let watches = await run.engine.watches
             if await watches.isRunning(monitor) {
                 await watches.stop(monitor)
@@ -122,7 +122,7 @@ enum PlugIns {
         let id = number.map { CommandID("plugin.loadPluginParametersForView\($0)") } ?? loadDefaultView
         let name = "Load Plugin Parameters for " + (number.map { "View \($0)" } ?? "Default View")
         let file = number.map { "view \($0)" } ?? "the default view"
-        let summary = "Loads \(file) from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view." + (number == nil ? " Also runs when a plug-in window comes to front." : "")
+        let summary = "Loads \(file) from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent." + (number == nil ? " Also runs when a plug-in window comes to front." : "")
         return Command(id, name, summary: summary, scope: .windows([.plugIn]), triggers: [.key("Cmd+\(number ?? 0)")]) { _ in
             let proTools = try ProToolsApp.running()
             let window = try await proTools.plugInWindow(.plugIn)
@@ -149,7 +149,7 @@ enum PlugIns {
     /// Moves the parameter cursor, speaks "name: value" (just the name when the plug-in shows no slider of that name), and moves the mouse over the control.
     @MainActor
     static func moveParameter(_ id: CommandID, _ name: String, _ place: String, key: String, rows: Int, columns: Int, _ cursor: PlugInViewCursor) -> Command {
-        Command(id, name, summary: "Moves to the parameter in the \(place) of the loaded plug-in view, speaks its name and value, and moves the mouse over its control.", scope: .windows([.plugIn]), triggers: [.key(key)]) { _ in
+        Command(id, name, summary: "Moves to the parameter in the \(place) of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone.", scope: .windows([.plugIn]), triggers: [.key(key)]) { _ in
             let proTools = try ProToolsApp.running()
             let window = try await proTools.plugInWindow(.plugIn)
             let parameter = try await cursor.move(for: try await window.plugInName, rows: rows, columns: columns)
@@ -166,7 +166,7 @@ enum PlugIns {
     /// Steps the parameter the cursor is on and speaks its new value, like the Inspector's volume keys; held, it keeps stepping.
     @MainActor
     static func stepParameter(_ id: CommandID, _ name: String, _ direction: String, key: String, _ step: SliderStep, _ cursor: PlugInViewCursor) -> Command {
-        Command.repeatingWhileHeld(id, name, summary: "Moves the current parameter of the loaded plug-in view one step \(direction) and speaks its new value. Hold the key to keep moving it. Works for parameters the plug-in shows as sliders.", scope: .windows([.plugIn]), triggers: [.key(key)]) { _ in
+        Command.repeatingWhileHeld(id, name, summary: "Moves the parameter chosen with the view keys one step \(direction) and speaks its new value; hold the key to keep moving it. Works for parameters the plug-in shows as sliders.", scope: .windows([.plugIn]), triggers: [.key(key)]) { _ in
             let window = try await ProToolsApp.running().plugInWindow(.plugIn)
             let parameter = try await cursor.current(for: try await window.plugInName)
             try await VoiceOver.say(window.stepParameter(named: parameter.name, step))
@@ -176,7 +176,7 @@ enum PlugIns {
     /// A status menu item: shows a view file template for the front plug-in, listing its parameters, for the user to arrange and save in the Plug-In Views folder.
     @MainActor
     static var displayViewTemplate: Command {
-        Command("plugin.displayPluginViewTemplate", "Display Plugin View Template", summary: "Shows a view file template that lists the front plug-in's parameters, to arrange and save in the Plug-In Views folder.", scope: .windows([.plugIn]), triggers: [.statusMenu]) { _ in
+        Command("plugin.displayPluginViewTemplate", "Display Plugin View Template", summary: "Shows a view file template that lists the front plug-in's parameters shown as sliders, to arrange and save in the Plug-In Views folder.", scope: .windows([.plugIn]), triggers: [.statusMenu]) { _ in
             let window = try await ProToolsApp.running().plugInWindow(.plugIn)
             let plugIn = try await window.plugInName
             let names = try await window.parameters().map(\.name)

@@ -33,7 +33,8 @@ enum KeyAnnouncements {
     @MainActor
     private static func announce(_ id: CommandID, _ name: String, does effect: String, keys: [String], sends: String? = nil, _ text: String, when guarding: AnnouncementGuard, mode: ModeCondition = .any) -> Command {
         let replacement = sends.map { KeyCombo(literal: $0) }
-        return Command(id, name, summary: "Passes the key to Pro Tools, which \(effect), and says so.", scope: .anyProToolsWindow, mode: mode, triggers: keys.map { .key($0) }) { run in
+        let passing = sends.map { "Sends \($0) to Pro Tools" } ?? "Passes the key to Pro Tools"
+        return Command(id, name, summary: "\(passing), which \(effect), and says so." + summaryNote(guarding), scope: .anyProToolsWindow, mode: mode, triggers: keys.map { .key($0) }) { run in
             try await passOn(run, replacement: replacement)
             if try await speaks(after: guarding) { try await VoiceOver.say(text) }
         }
@@ -42,7 +43,7 @@ enum KeyAnnouncements {
     /// Sends the key, which in Pro Tools selects another playlist on the selected tracks, and speaks the selected tracks from the Mix window's Track List, as the JXA did.
     @MainActor
     private static func speakSelectedTracks(_ id: CommandID, _ name: String, key: String, _ playlist: String) -> Command {
-        Command(id, name, summary: "Passes the key to Pro Tools, which selects \(playlist) on the selected tracks, then speaks the selected tracks, which are named after their playlists.", scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
+        Command(id, name, summary: "Passes the key to Pro Tools, which selects \(playlist) on the selected tracks, then speaks the selected tracks, which are named after their playlists." + summaryNote(.outsideListedDialogsAndText), scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
             try await announceChange(run, when: .outsideListedDialogsAndText, within: ProToolsUpdate.passedKeyTimeout, find: { try ProToolsApp.running().mixWindow().trackList() }, read: selectedTracksText)
         }
     }
@@ -69,6 +70,16 @@ enum KeyAnnouncements {
     }
 
     /// Whether to speak after a shortcut went to Pro Tools, read now, after the key, as the KM versions did.
+    /// The sentence a command summary adds for `guarding`, so COMMANDS.md says when the key goes to Pro Tools without speech.
+    static func summaryNote(_ guarding: AnnouncementGuard) -> String {
+        switch guarding {
+        case .always: ""
+        case .outsideListedDialogsAndText: " In text fields and some dialogs, such as Save and Open, it stays silent."
+        case .outsideDialogsAndText: " In text fields and dialogs it stays silent."
+        case .inEditWindow: " It speaks only with the Edit window in front."
+        }
+    }
+
     static func speaks(after guarding: AnnouncementGuard) async throws -> Bool {
         guard guarding != .always else { return true }
         let app = try ProToolsApp.running()

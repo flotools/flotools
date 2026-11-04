@@ -7,16 +7,16 @@ import FloSystem
 enum TrackStatus {
     @MainActor
     static var commands: [Command] { [
-        flagCommand("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", key: "Opt+Shift+S", "Single press speaks the soloed tracks; double press unsolos them all.", .soloed, Wording(none: NoTracks.soloed, heading: "Soloed:"),
+        flagCommand("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", key: "Opt+Shift+S", "Single press speaks the soloed tracks; double press unsolos them all. Hidden, inactive, master and solo safe tracks are left out.", .soloed, Wording(none: NoTracks.soloed, heading: "Soloed:"),
                   reset: Reset(suspendsGroups: true, verb: "unsolo", partly: "Unsoloed", done: "unsoloed all tracks.")),
-        flagCommand("floTools.speakMutedTracksUnmuteAllTracks", "Speak Muted Tracks, Unmute All Tracks", key: "Opt+Shift+M", "Single press speaks the muted tracks; double press unmutes them all.", .muted, Wording(none: NoTracks.muted, heading: "Muted:"),
+        flagCommand("floTools.speakMutedTracksUnmuteAllTracks", "Speak Muted Tracks, Unmute All Tracks", key: "Opt+Shift+M", "Single press speaks the muted tracks; double press unmutes them all. Hidden, inactive and master tracks, and tracks muted only by another track's solo, are left out.", .muted, Wording(none: NoTracks.muted, heading: "Muted:"),
                   reset: Reset(suspendsGroups: true, verb: "unmute", partly: "Unmuted", done: "unmuted all tracks.")),
-        flagCommand("floTools.speakInputMonitorEnabledTracksDisableInputMonitorOnAllTracks", "Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks", key: "Opt+Shift+K", "Single press speaks the tracks with input monitoring on; double press turns it off on all of them.", .inputMonitored, Wording(none: "No track has input monitor on", heading: "Input on:"),
+        flagCommand("floTools.speakInputMonitorEnabledTracksDisableInputMonitorOnAllTracks", "Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks", key: "Opt+Shift+K", "Single press speaks the audio tracks with input monitoring on; double press turns it off on all of them. Hidden and inactive tracks are left out.", .inputMonitored, Wording(none: "No track has input monitor on", heading: "Input on:"),
                   reset: Reset(suspendsGroups: false, verb: "turn off input monitor on", partly: "Turned off input monitor on", done: "Turned Off Input Monitor for all tracks")),
         recordArmed,
-        flagCommand("floTools.speakRecordSafeTracks", "Speak Record Safe Tracks", key: "Opt+Shift+Cmd+R", "Speaks the tracks that are record safe.", .recordSafe, Wording(none: "No tracks are disarmed safe.", heading: "Disarmed safe:")),
-        flagCommand("floTools.speakSoloSafeTracks", "Speak Solo Safe Tracks", key: "Opt+Shift+Cmd+S", "Speaks the tracks that are solo safe.", .soloSafe, Wording(none: "No tracks are solo safe.", heading: "Solo safe:")),
-        Command("floTools.speakTracksWith0DbLevel", "Speak Tracks With 0DB Level", summary: "Speaks the tracks whose peak hold reached 0 dB or more. MIDI tracks are left out.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+0")]) { _ in
+        flagCommand("floTools.speakRecordSafeTracks", "Speak Record Safe Tracks", key: "Opt+Shift+Cmd+R", "Speaks the shown, active tracks that are record safe.", .recordSafe, Wording(none: "No tracks are disarmed safe.", heading: "Disarmed safe:")),
+        flagCommand("floTools.speakSoloSafeTracks", "Speak Solo Safe Tracks", key: "Opt+Shift+Cmd+S", "Speaks the shown, active tracks that are solo safe.", .soloSafe, Wording(none: "No tracks are solo safe.", heading: "Solo safe:")),
+        Command("floTools.speakTracksWith0DbLevel", "Speak Tracks With 0DB Level", summary: "Speaks the shown tracks whose peak hold reached 0 dB or more. MIDI tracks are left out.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+0")]) { _ in
             try await speakTracksAt0dB()
         },
         Command("floTools.speakSelectedTracksDeselectAllTracks", "Speak Selected Tracks, Deselect All Tracks", summary: "Single press speaks the selected tracks; double press deselects them all.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+L")], single: { _ in

@@ -22,7 +22,7 @@ enum SettingToggles {
         button("floTools.speakToggleWaitForNote", "Speak/Toggle Wait for Note", key: "Opt+F11", .midi, "Wait for Note", "wait for note", Wording(on: "Wait for note On", off: "Wait for note off")),
         button("floTools.speakToggleInsertionFollowsPlayback", "Speak/Toggle Insertion Follows Playback", key: "Ctrl+N", .cursorTool, "Insertion Follows Playback", "Insertion Follows Playback", Wording(on: "Insertion Follows Playback, On", off: "Insertion Follows Playback, Off")),
         button("floTools.speakToggleTabToTransients", "Speak/Toggle Tab to Transients", key: "Opt+Cmd+Tab", .cursorTool, "Tab to Transients", "Tab to Transients", Wording(on: "Tab to Transients, On", off: "Tab to Transients, Off")),
-        toggle("floTools.speakToggleGridMode", "Speak/Toggle Grid Mode", "Single press speaks whether Grid mode is on, and its kind; double press selects Grid mode.", key: "F4", .editWindowButton(.editMode, .contains("Grid")), spoken: gridModeText),
+        toggle("floTools.speakToggleGridMode", "Speak/Toggle Grid Mode", "Single press speaks the Grid mode kind, or that Grid mode is off; double press selects Grid mode and speaks the result.", key: "F4", .editWindowButton(.editMode, .contains("Grid")), spoken: gridModeText),
         menuItem("floTools.speakToggleDynamicTransport", "Speak/Toggle Dynamic Transport", key: "Ctrl+Cmd+P", "Options", "Dynamic Transport", Wording(on: "Dynamic Transport, Checked", off: "Dynamic Transport")),
         menuItem("floTools.speakToggleLoopPlayback", "Speak/Toggle Loop Playback", key: "Shift+Cmd+L", "Options", "Loop Playback", Wording(on: "Loop Playback , Checked", off: "Loop Playback")),
         menuItem("floTools.speakToggleLoopRecord", "Speak/Toggle Loop Record", key: "Opt+L", "Options", "Loop Record", Wording(on: "Loop Record , Checked", off: "Loop Record")),
@@ -79,7 +79,7 @@ enum SettingToggles {
     @MainActor
     private static func link(_ id: CommandID, _ name: String, key: String, _ item: String, _ wording: Wording) -> Command {
         let setting = ProToolsSetting.menuItem(menu: "Options", .is(item))
-        return Command(id, name, summary: "Passes the key to Pro Tools, which switches Options > \(item), then speaks the new state.", scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
+        return Command(id, name, summary: "Passes the key to Pro Tools, which switches Options > \(item), then speaks the new state." + KeyAnnouncements.summaryNote(.outsideListedDialogsAndText), scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
             try await KeyAnnouncements.announceChange(run, when: .outsideListedDialogsAndText, within: ProToolsUpdate.passedKeyTimeout, find: { try ProToolsApp.running().control(setting) }, read: { try wording.text($0.isOn) })
         }
     }

@@ -77,7 +77,7 @@ enum Counters {
     private static func step(_ id: CommandID, _ name: String, what: String, key: String, sends: String, _ control: EditWindowControl, when guarding: AnnouncementGuard, label: String) -> Command {
         let combo = KeyCombo(literal: sends)
         let direction = sends.hasSuffix("-") ? "previous" : "next"
-        return Command(id, name, summary: "Changes the \(what) to the \(direction) one and speaks it.", scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
+        return Command(id, name, summary: "Changes the \(what) to the \(direction) one and speaks it." + KeyAnnouncements.summaryNote(guarding), scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
             try await KeyAnnouncements.announceChange(run, sending: combo, when: guarding, find: { try ProToolsApp.running().element(control) }, read: { try $0.value ?? "" }, spoken: { CounterText.spoken($0, for: control) + label })
         }
     }

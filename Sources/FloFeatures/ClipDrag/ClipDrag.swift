@@ -22,7 +22,7 @@ enum ClipDrag {
                 defer { Mouse.releaseButton(at: point, modifiers: .maskAlternate) }
                 try await Keyboard.waitForModifiersReleased()
             },
-            Command("floTools.betaDragClip", "Beta: Drag Clip", summary: "Drags the marked clip onto the track under the VoiceOver cursor in the Edit window and says whether Pro Tools took it.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+.")]) { _ in
+            Command("floTools.betaDragClip", "Beta: Drag Clip", summary: "Drags the marked clip, which must be in view in the clip list, onto the track under the VoiceOver cursor in the Edit window. Says whether Pro Tools took it, or that it cannot tell.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+Cmd+.")]) { _ in
                 try await Keyboard.waitForModifiersReleased()
                 let app = try ProToolsApp.running()
                 guard let name = try await mark.clipName(in: app) else { throw FloError.notFound("a clip marked for drag") }

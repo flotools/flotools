@@ -57,8 +57,8 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+M` | Speak/Toggle Instrument Mute | Mix, Edit, Inspector on | Single press speaks the track's instrument mute state; double press switches it and speaks the new state. |
 | `Ctrl+Cmd+Right` (hold to repeat) | pan right on mono/Left channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step right and speaks it. |
 | `Ctrl+Cmd+Left` (hold to repeat) | pan left on mono/Left channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step left and speaks it. |
-| `Ctrl+Shift+Cmd+Right` (hold to repeat) | pan right on right channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track one step right and speaks it. |
-| `Ctrl+Shift+Cmd+Left` (hold to repeat) | pan left on right channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track one step left and speaks it. |
+| `Ctrl+Shift+Cmd+Right` (hold to repeat) | pan right on right channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track, or the pan of a mono track, one step right and speaks it. |
+| `Ctrl+Shift+Cmd+Left` (hold to repeat) | pan left on right channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track, or the pan of a mono track, one step left and speaks it. |
 | `Ctrl+Opt+Right` (hold to repeat) | pan Instrument Right | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step right and speaks it. |
 | `Ctrl+Opt+Left` (hold to repeat) | pan Instrument left | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step left and speaks it. |
 | `A` | Speak/Select Automation Mode | Mix, Edit, Inspector on | Single press speaks the track's automation mode; double press opens its menu. |
@@ -84,9 +84,9 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Ctrl+Cmd+Down` (hold to repeat) | Decrease Volume | Mix, Edit, Inspector on | Moves the volume fader one step down and speaks it. |
 | `Ctrl+Opt+Up` (hold to repeat) | Increase Instrument Volume | Mix, Edit, Inspector on | Moves the instrument track's MIDI volume one step up and speaks it. |
 | `Ctrl+Opt+Down` (hold to repeat) | Decrease Instrument Volume | Mix, Edit, Inspector on | Moves the instrument track's MIDI volume one step down and speaks it. |
-| `L` | Speak Level Meter, Toggle Level Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's level meter. Double press starts or stops a watch that speaks each new level, following the VoiceOver cursor from track to track. |
-| `;` | Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's gain reduction meter. Double press starts or stops a watch that plays the progress sound on each change and remembers the deepest reduction, following the VoiceOver cursor from track to track. |
-| `Shift+;` | Speak Gain Reduction Meter Maximum Value | Mix, Edit, Inspector on | Speaks the deepest gain reduction since the watch started or since this was last spoken, then starts over from 0. |
+| `L` | Speak Level Meter, Toggle Level Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's level meter. Double press starts or stops a watch that speaks each new level, following the VoiceOver cursor from track to track, until another Pro Tools window comes to front. |
+| `;` | Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's gain reduction meter. Double press starts or stops a watch that plays the progress sound on each change and remembers the deepest reduction, following the VoiceOver cursor from track to track, until another Pro Tools window comes to front. |
+| `Shift+;` | Speak Gain Reduction Meter Maximum Value | Mix, Edit, Inspector on | Speaks the deepest gain reduction, in whole dB, on any track the watch followed since it started or since this was last spoken, then starts over from 0. |
 
 ## Settings
 
@@ -102,7 +102,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+F11` | Speak/Toggle Wait for Note | Any | Single press speaks whether wait for note is on; double press switches it. |
 | `Ctrl+N` | Speak/Toggle Insertion Follows Playback | Any | Single press speaks whether Insertion Follows Playback is on; double press switches it. |
 | `Opt+Cmd+Tab` | Speak/Toggle Tab to Transients | Any | Single press speaks whether Tab to Transients is on; double press switches it. |
-| `F4` | Speak/Toggle Grid Mode | Any | Single press speaks whether Grid mode is on, and its kind; double press selects Grid mode. |
+| `F4` | Speak/Toggle Grid Mode | Any | Single press speaks the Grid mode kind, or that Grid mode is off; double press selects Grid mode and speaks the result. |
 | `Ctrl+Cmd+P` | Speak/Toggle Dynamic Transport | Any | Single press speaks whether Options > Dynamic Transport is checked; double press switches it. |
 | `Shift+Cmd+L` | Speak/Toggle Loop Playback | Any | Single press speaks whether Options > Loop Playback is checked; double press switches it. |
 | `Opt+L` | Speak/Toggle Loop Record | Any | Single press speaks whether Options > Loop Record is checked; double press switches it. |
@@ -111,8 +111,8 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Shift+Cmd+T` | Speak/Toggle Track Punch | Any | Single press speaks whether Options > TrackPunch is checked; double press switches it. |
 | `Cmd+J` | Speak/Toggle Transport Online | Any | Single press speaks whether Options > Transport Online is checked; double press switches it. |
 | `Opt+Cmd+M` | Speak/Toggle Narrow Mix | Any | Single press speaks whether View > Narrow Mix is checked; double press switches it. |
-| `Shift+/` | Toggle And Speak Link Timeline And Edit Selection | Any | Passes the key to Pro Tools, which switches Options > Link Timeline and Edit Selection, then speaks the new state. |
-| `Shift+T` | Toggle And Speak Link Track and Edit Selection | Any | Passes the key to Pro Tools, which switches Options > Link Track and Edit Selection, then speaks the new state. |
+| `Shift+/` | Toggle And Speak Link Timeline And Edit Selection | Any | Passes the key to Pro Tools, which switches Options > Link Timeline and Edit Selection, then speaks the new state. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+T` | Toggle And Speak Link Track and Edit Selection | Any | Passes the key to Pro Tools, which switches Options > Link Track and Edit Selection, then speaks the new state. In text fields and some dialogs, such as Save and Open, it stays silent. |
 | `Opt+K` | Toggle Input Monitor | Any | Switches Track > Set Record Tracks to Input Only or Auto Input, and speaks the new mode. |
 
 ## Counters
@@ -136,26 +136,26 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+Cmd+F6` | Select Sub Counter | Any | Opens the sub counter selector menu. |
 | `Opt+Cmd+F7` | Select Nudge Value | Any | Opens the nudge value menu. |
 | `Opt+Cmd+F8` | Select Grid Value | Any | Opens the grid value menu. |
-| `Ctrl+Opt+Keypad +` | Increase Grid Value | Any | Changes the grid value to the next one and speaks it. |
-| `Shift+=` | Increase Grid Value with Qwerty | Any | Changes the grid value to the next one and speaks it. |
-| `Ctrl+Opt+Keypad -` | Decrease Grid Value | Any | Changes the grid value to the previous one and speaks it. |
-| `Shift+-` | Decrease Grid Value with Qwerty | Any | Changes the grid value to the previous one and speaks it. |
+| `Ctrl+Opt+Keypad +` | Increase Grid Value | Any | Changes the grid value to the next one and speaks it. In text fields and dialogs it stays silent. |
+| `Shift+=` | Increase Grid Value with Qwerty | Any | Changes the grid value to the next one and speaks it. In text fields and dialogs it stays silent. |
+| `Ctrl+Opt+Keypad -` | Decrease Grid Value | Any | Changes the grid value to the previous one and speaks it. In text fields and dialogs it stays silent. |
+| `Shift+-` | Decrease Grid Value with Qwerty | Any | Changes the grid value to the previous one and speaks it. In text fields and dialogs it stays silent. |
 | `Opt+Cmd+Keypad +` | Increase Nudge Value | Any | Changes the nudge value to the next one and speaks it. |
-| `Opt+Shift+=` | Increase Nudge Value With Qwerty | Any | Changes the nudge value to the next one and speaks it. |
+| `Opt+Shift+=` | Increase Nudge Value With Qwerty | Any | Changes the nudge value to the next one and speaks it. In text fields and dialogs it stays silent. |
 | `Opt+Cmd+Keypad -` | Decrease Nudge Value | Any | Changes the nudge value to the previous one and speaks it. |
-| `Opt+Shift+-` | Decrease Nudge Value with Qwerty | Any | Changes the nudge value to the previous one and speaks it. |
+| `Opt+Shift+-` | Decrease Nudge Value with Qwerty | Any | Changes the nudge value to the previous one and speaks it. In text fields and dialogs it stays silent. |
 
 ## Tracks
 
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
-| `Opt+Shift+S` | Speak Soloed Tracks, Unsolo All Tracks | Any | Single press speaks the soloed tracks; double press unsolos them all. |
-| `Opt+Shift+M` | Speak Muted Tracks, Unmute All Tracks | Any | Single press speaks the muted tracks; double press unmutes them all. |
-| `Opt+Shift+K` | Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks | Any | Single press speaks the tracks with input monitoring on; double press turns it off on all of them. |
+| `Opt+Shift+S` | Speak Soloed Tracks, Unsolo All Tracks | Any | Single press speaks the soloed tracks; double press unsolos them all. Hidden, inactive, master and solo safe tracks are left out. |
+| `Opt+Shift+M` | Speak Muted Tracks, Unmute All Tracks | Any | Single press speaks the muted tracks; double press unmutes them all. Hidden, inactive and master tracks, and tracks muted only by another track's solo, are left out. |
+| `Opt+Shift+K` | Speak Input Monitor-Enabled Tracks, Disable Input Monitor On All Tracks | Any | Single press speaks the audio tracks with input monitoring on; double press turns it off on all of them. Hidden and inactive tracks are left out. |
 | `Opt+Shift+R` | Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks | Any | Single press speaks the record-armed tracks, and says when only hidden tracks are armed; double press disarms the shown tracks, and says when hidden tracks stay armed. |
-| `Opt+Shift+Cmd+R` | Speak Record Safe Tracks | Any | Speaks the tracks that are record safe. |
-| `Opt+Shift+Cmd+S` | Speak Solo Safe Tracks | Any | Speaks the tracks that are solo safe. |
-| `Opt+Shift+0` | Speak Tracks With 0DB Level | Any | Speaks the tracks whose peak hold reached 0 dB or more. MIDI tracks are left out. |
+| `Opt+Shift+Cmd+R` | Speak Record Safe Tracks | Any | Speaks the shown, active tracks that are record safe. |
+| `Opt+Shift+Cmd+S` | Speak Solo Safe Tracks | Any | Speaks the shown, active tracks that are solo safe. |
+| `Opt+Shift+0` | Speak Tracks With 0DB Level | Any | Speaks the shown tracks whose peak hold reached 0 dB or more. MIDI tracks are left out. |
 | `Opt+Shift+L` | Speak Selected Tracks, Deselect All Tracks | Any | Single press speaks the selected tracks; double press deselects them all. |
 | `Opt+Shift+H` | Speak Hidden Tracks, Show Track List Pop-up Menu | Any | Single press speaks the hidden tracks; double press opens the Track List menu. |
 | `Opt+Shift+W` | Speak Shown Tracks, Show Track List Pop-up Menu | Any | Single press speaks the shown tracks; double press opens the Track List menu. |
@@ -232,24 +232,24 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `[` | Previous Preset | Plug-in | Loads the previous preset and speaks its name. |
 | `Opt+Cmd+P` | Speak/Choose Preset | Plug-in | Single press speaks the preset; double press opens the preset menu. |
 | `Opt+B` | Speak/Toggle Bypass | Plug-in | Single press speaks whether the plug-in is bypassed; double press switches bypass and speaks the new state. |
-| `Opt+/` | Toggle Plugin Monitor | Plug-in | Starts or stops a watch that speaks each plug-in parameter that changes, for example while automation plays. It stops by itself when the window closes. |
-| `Ctrl+Down` | Next Row Parameter | Plug-in | Moves to the parameter in the next row of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. |
-| `Ctrl+Up` | Previous Row Parameter | Plug-in | Moves to the parameter in the previous row of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. |
-| `Ctrl+Right` | Next Column Parameter | Plug-in | Moves to the parameter in the next column of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. |
-| `Ctrl+Left` | Previous Column Parameter | Plug-in | Moves to the parameter in the previous column of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. |
-| `Ctrl+Cmd+Up` (hold to repeat) | Increase Parameter | Plug-in | Moves the current parameter of the loaded plug-in view one step up and speaks its new value. Hold the key to keep moving it. Works for parameters the plug-in shows as sliders. |
-| `Ctrl+Cmd+Down` (hold to repeat) | Decrease Parameter | Plug-in | Moves the current parameter of the loaded plug-in view one step down and speaks its new value. Hold the key to keep moving it. Works for parameters the plug-in shows as sliders. |
-| `Cmd+0` | Load Plugin Parameters for Default View | Plug-in | Loads the default view from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view. Also runs when a plug-in window comes to front. |
-| Flo Tools menu | Display Plugin View Template | Plug-in | Shows a view file template that lists the front plug-in's parameters, to arrange and save in the Plug-In Views folder. |
-| `Cmd+1` | Load Plugin Parameters for View 1 | Plug-in | Loads view 1 from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view. |
-| `Cmd+2` | Load Plugin Parameters for View 2 | Plug-in | Loads view 2 from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view. |
-| `Cmd+3` | Load Plugin Parameters for View 3 | Plug-in | Loads view 3 from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view. |
-| `Cmd+4` | Load Plugin Parameters for View 4 | Plug-in | Loads view 4 from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view. |
-| `Cmd+5` | Load Plugin Parameters for View 5 | Plug-in | Loads view 5 from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view. |
-| `Cmd+6` | Load Plugin Parameters for View 6 | Plug-in | Loads view 6 from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view. |
-| `Cmd+7` | Load Plugin Parameters for View 7 | Plug-in | Loads view 7 from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view. |
-| `Cmd+8` | Load Plugin Parameters for View 8 | Plug-in | Loads view 8 from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view. |
-| `Cmd+9` | Load Plugin Parameters for View 9 | Plug-in | Loads view 9 from the plug-in's view file in the Plug-In Views folder and speaks its name. The parameter keys then move through that view. |
+| `Opt+/` | Toggle Plugin Monitor | Plug-in | Starts or stops a watch that speaks each plug-in parameter shown as a slider that changes, for example while automation plays. It stops by itself when the window closes or its parameters cannot be read. |
+| `Ctrl+Down` | Next Row Parameter | Plug-in | Moves to the parameter in the next row of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
+| `Ctrl+Up` | Previous Row Parameter | Plug-in | Moves to the parameter in the previous row of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
+| `Ctrl+Right` | Next Column Parameter | Plug-in | Moves to the parameter in the next column of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
+| `Ctrl+Left` | Previous Column Parameter | Plug-in | Moves to the parameter in the previous column of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
+| `Ctrl+Cmd+Up` (hold to repeat) | Increase Parameter | Plug-in | Moves the parameter chosen with the view keys one step up and speaks its new value; hold the key to keep moving it. Works for parameters the plug-in shows as sliders. |
+| `Ctrl+Cmd+Down` (hold to repeat) | Decrease Parameter | Plug-in | Moves the parameter chosen with the view keys one step down and speaks its new value; hold the key to keep moving it. Works for parameters the plug-in shows as sliders. |
+| `Cmd+0` | Load Plugin Parameters for Default View | Plug-in | Loads the default view from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. Also runs when a plug-in window comes to front. |
+| Flo Tools menu | Display Plugin View Template | Plug-in | Shows a view file template that lists the front plug-in's parameters shown as sliders, to arrange and save in the Plug-In Views folder. |
+| `Cmd+1` | Load Plugin Parameters for View 1 | Plug-in | Loads view 1 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+2` | Load Plugin Parameters for View 2 | Plug-in | Loads view 2 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+3` | Load Plugin Parameters for View 3 | Plug-in | Loads view 3 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+4` | Load Plugin Parameters for View 4 | Plug-in | Loads view 4 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+5` | Load Plugin Parameters for View 5 | Plug-in | Loads view 5 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+6` | Load Plugin Parameters for View 6 | Plug-in | Loads view 6 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+7` | Load Plugin Parameters for View 7 | Plug-in | Loads view 7 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+8` | Load Plugin Parameters for View 8 | Plug-in | Loads view 8 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
+| `Cmd+9` | Load Plugin Parameters for View 9 | Plug-in | Loads view 9 from the plug-in's view file in the Plug-In Views folder, speaks its name and clicks the point the view names, such as its tab; without a file it is silent. |
 
 ## AudioSuite
 
@@ -267,29 +267,29 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
-| `Shift+Down` | Speak And Select Next Playlist | Any | Passes the key to Pro Tools, which selects the next playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. |
-| `Shift+Up` | Speak And Select Previous Playlist | Any | Passes the key to Pro Tools, which selects the previous playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. |
-| `Shift+Page Down` | Speak And Move Ahead 5 Playlists | Any | Passes the key to Pro Tools, which selects the playlist 5 ahead on the selected tracks, then speaks the selected tracks, which are named after their playlists. |
-| `Shift+Page Up` | Speak And Move Back 5 Playlists | Any | Passes the key to Pro Tools, which selects the playlist 5 back on the selected tracks, then speaks the selected tracks, which are named after their playlists. |
-| `Shift+Home` | Speak And Navigate to First Playlist | Any | Passes the key to Pro Tools, which selects the first playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. |
-| `Shift+End` | Speak And Navigate to Last Playlist | Any | Passes the key to Pro Tools, which selects the last playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. |
+| `Shift+Down` | Speak And Select Next Playlist | Any | Passes the key to Pro Tools, which selects the next playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+Up` | Speak And Select Previous Playlist | Any | Passes the key to Pro Tools, which selects the previous playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+Page Down` | Speak And Move Ahead 5 Playlists | Any | Passes the key to Pro Tools, which selects the playlist 5 ahead on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+Page Up` | Speak And Move Back 5 Playlists | Any | Passes the key to Pro Tools, which selects the playlist 5 back on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+Home` | Speak And Navigate to First Playlist | Any | Passes the key to Pro Tools, which selects the first playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Shift+End` | Speak And Navigate to Last Playlist | Any | Passes the key to Pro Tools, which selects the last playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
 | `Ctrl+Cmd+Right` | Next track view on selected tracks | Any, Inspector off | Passes the key to Pro Tools, which switches the selected tracks to the next track view, and says so. |
 | `Ctrl+Cmd+Left` | Previous track view on selected tracks | Any, Inspector off | Passes the key to Pro Tools, which switches the selected tracks to the previous track view, and says so. |
 | `Ctrl+Opt+Cmd+Right` | Next track view on All tracks | Any | Passes the key to Pro Tools, which switches all tracks to the next track view, and says so. |
 | `Ctrl+Opt+Cmd+Left` | Previous track view on All tracks | Any | Passes the key to Pro Tools, which switches all tracks to the previous track view, and says so. |
-| `Opt+-` | Track view toggled on all tracks | Any | Passes the key to Pro Tools, which toggles the track view of all tracks, and says so. |
-| `Ctrl+Opt+Cmd+Up`, `Ctrl+Opt+Cmd+Down` | Adjust all track heights to fit in Edit window | Any | Passes the key to Pro Tools, which fits all track heights in the Edit window, and says so. |
-| `Opt+Cmd+1` | Select Edit Keyboard Focus | Any | Passes the key to Pro Tools, which gives the keyboard focus to the Edit window, and says so. |
-| `Opt+Cmd+2` | Select Clips Keyboard Focus | Any | Passes the key to Pro Tools, which gives the keyboard focus to the clip list, and says so. |
-| `Opt+Cmd+3` | Select Groups Keyboard Focus | Any | Passes the key to Pro Tools, which gives the keyboard focus to the group list, and says so. |
+| `Opt+-` | Track view toggled on all tracks | Any | Sends Ctrl+Opt+- to Pro Tools, which toggles the track view of all tracks, and says so. In text fields and some dialogs, such as Save and Open, it stays silent. |
+| `Ctrl+Opt+Cmd+Up`, `Ctrl+Opt+Cmd+Down` | Adjust all track heights to fit in Edit window | Any | Sends Ctrl+Opt+Cmd+Down to Pro Tools, which fits all track heights in the Edit window, and says so. |
+| `Opt+Cmd+1` | Select Edit Keyboard Focus | Any | Passes the key to Pro Tools, which gives the keyboard focus to the Edit window, and says so. It speaks only with the Edit window in front. |
+| `Opt+Cmd+2` | Select Clips Keyboard Focus | Any | Passes the key to Pro Tools, which gives the keyboard focus to the clip list, and says so. It speaks only with the Edit window in front. |
+| `Opt+Cmd+3` | Select Groups Keyboard Focus | Any | Passes the key to Pro Tools, which gives the keyboard focus to the group list, and says so. It speaks only with the Edit window in front. |
 
 ## MIDI events
 
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
-| `Opt+Shift+]` | Next Column | Any | Moves to the next value of the selected MIDI note: start, pitch, attack velocity, release velocity, length, end. Speaks the value, and again each time it changes. Says "End" after the last one. |
+| `Opt+Shift+]` | Next Column | Any | Moves to the next value of the selected MIDI note (start, pitch, attack velocity, release velocity, length, end; it begins on start) and speaks it, and again each time it changes. Says "End" after the last one. |
 | `Opt+Shift+[` | Previous Column | Any | Moves to the previous value of the selected MIDI note and speaks it, and again each time it changes. Before the first one, stops speaking changes and says "No report". |
-| `Ctrl+Cmd+Return` | Edit Event | Any | Opens the MIDI note value that Next Column and Previous Column moved to for typing, and says what to type. |
+| `Ctrl+Cmd+Return` | Edit Event | Any | Opens the MIDI note value that Next Column and Previous Column moved to, start at first, for typing, and says what to type. |
 
 ## Windows
 
@@ -299,14 +299,14 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+Cmd+,` | Open Preferences Dialog | Any | Opens Setup > Preferences in Pro Tools. |
 | `Ctrl+Shift+Cmd+C` | Resize Clips Table | Any | Speaks the width of the Edit window's clip list and moves the mouse onto its resize edge, ready to drag. |
 | `Ctrl+Shift+Cmd+T` | Resize Track List Table | Any | Speaks the width of the front window's Track List and moves the mouse onto its resize edge, ready to drag. |
-| `Opt+Shift+,` | Speak Selected Clips | Any | Speaks the clips selected in the clip list. |
+| `Opt+Shift+,` | Speak Selected Clips | Any | Speaks the selected clips in view in the Edit window's clip list. |
 
 ## Clip drag
 
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
 | `Opt+Shift+Cmd+,` | Beta: Mark Clip for Drag | Any | Marks the clip under the VoiceOver cursor in the clip list for Drag Clip. |
-| `Opt+Shift+Cmd+.` | Beta: Drag Clip | Any | Drags the marked clip onto the track under the VoiceOver cursor in the Edit window and says whether Pro Tools took it. |
+| `Opt+Shift+Cmd+.` | Beta: Drag Clip | Any | Drags the marked clip, which must be in view in the clip list, onto the track under the VoiceOver cursor in the Edit window. Says whether Pro Tools took it, or that it cannot tell. |
 
 ## Preferences
 

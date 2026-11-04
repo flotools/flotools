@@ -12,7 +12,7 @@ enum MidiEvents {
     @MainActor
     static func commands(_ cursor: EventColumnCursor) -> [Command] {
         [
-            Command("floTools.nextColumn", "Next Column", summary: "Moves to the next value of the selected MIDI note: start, pitch, attack velocity, release velocity, length, end. Speaks the value, and again each time it changes. Says \"End\" after the last one.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+]")]) { run in
+            Command("floTools.nextColumn", "Next Column", summary: "Moves to the next value of the selected MIDI note (start, pitch, attack velocity, release velocity, length, end; it begins on start) and speaks it, and again each time it changes. Says \"End\" after the last one.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+]")]) { run in
                 guard let column = await cursor.next() else {
                     try await VoiceOver.say("End")
                     return
@@ -27,7 +27,7 @@ enum MidiEvents {
                 }
                 await startWatch(column, in: run.engine)
             },
-            Command("floTools.editEvent", "Edit Event", summary: "Opens the MIDI note value that Next Column and Previous Column moved to for typing, and says what to type.", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Cmd+Return")]) { _ in
+            Command("floTools.editEvent", "Edit Event", summary: "Opens the MIDI note value that Next Column and Previous Column moved to, start at first, for typing, and says what to type.", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Cmd+Return")]) { _ in
                 // Before the first column there is nothing to edit, and the JXA said nothing.
                 guard let column = await cursor.column else { return }
                 _ = try await ProToolsApp.running().openForTyping(column.control)

@@ -13,8 +13,8 @@ enum Inspector {
         toggle("inspector.speakToggleInstrumentMute", "Speak/Toggle Instrument Mute", key: "Opt+M", .instrumentMute, state: "instrument mute"),
         pan("inspector.panRightOnMonoLeftChannel", "pan right on mono/Left channel", key: "Ctrl+Cmd+Right", .monoOrLeft, .increase, "Moves the pan of a mono track, or the left pan of a stereo track, one step right and speaks it."),
         pan("inspector.panLeftOnMonoLeftChannel", "pan left on mono/Left channel", key: "Ctrl+Cmd+Left", .monoOrLeft, .decrease, "Moves the pan of a mono track, or the left pan of a stereo track, one step left and speaks it."),
-        pan("inspector.panRightOnRightChannel", "pan right on right channel", key: "Ctrl+Shift+Cmd+Right", .right, .increase, "Moves the right pan of a stereo track one step right and speaks it."),
-        pan("inspector.panLeftOnRightChannel", "pan left on right channel", key: "Ctrl+Shift+Cmd+Left", .right, .decrease, "Moves the right pan of a stereo track one step left and speaks it."),
+        pan("inspector.panRightOnRightChannel", "pan right on right channel", key: "Ctrl+Shift+Cmd+Right", .right, .increase, "Moves the right pan of a stereo track, or the pan of a mono track, one step right and speaks it."),
+        pan("inspector.panLeftOnRightChannel", "pan left on right channel", key: "Ctrl+Shift+Cmd+Left", .right, .decrease, "Moves the right pan of a stereo track, or the pan of a mono track, one step left and speaks it."),
         pan("inspector.panInstrumentRight", "pan Instrument Right", key: "Ctrl+Opt+Right", .instrument, .increase, "Moves the MIDI pan of an instrument track one step right and speaks it."),
         pan("inspector.panInstrumentLeft", "pan Instrument left", key: "Ctrl+Opt+Left", .instrument, .decrease, "Moves the MIDI pan of an instrument track one step left and speaks it."),
     ] }

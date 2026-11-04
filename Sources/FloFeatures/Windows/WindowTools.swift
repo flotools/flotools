@@ -15,7 +15,7 @@ enum WindowTools {
         },
         resizeTable("floTools.resizeClipsTable", "Resize Clips Table", "the Edit window's clip list", key: "Ctrl+Shift+Cmd+C", .editClips),
         resizeTable("floTools.resizeTrackListTable", "Resize Track List Table", "the front window's Track List", key: "Ctrl+Shift+Cmd+T", .frontTrackList),
-        Command("floTools.speakSelectedClips", "Speak Selected Clips", summary: "Speaks the clips selected in the clip list.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+,")]) { _ in
+        Command("floTools.speakSelectedClips", "Speak Selected Clips", summary: "Speaks the selected clips in view in the Edit window's clip list.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+,")]) { _ in
             try await VoiceOver.say(selectedClipsText(try await ProToolsApp.running().selectedClipNames()))
         },
     ] }
