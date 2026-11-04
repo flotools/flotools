@@ -116,6 +116,19 @@ import Testing
         await #expect(throws: FloError.self) { try await cursor.move(for: "Dyn3 Compressor/Limiter", rows: 1, columns: 0) }
     }
 
+    @Test func currentParameterNeedsAMoveFirst() async throws {
+        let cursor = PlugInViewCursor()
+        let plugIn = "Dyn3 Compressor/Limiter"
+        await cursor.load(try PlugInView(json: Data(Self.dyn3.utf8)), for: plugIn)
+        // Before the first move the step keys have no parameter.
+        await #expect(throws: FloError.self) { try await cursor.current(for: plugIn) }
+        _ = try await cursor.move(for: plugIn, rows: 0, columns: 1)
+        _ = try await cursor.move(for: plugIn, rows: 0, columns: 1)
+        #expect(try await cursor.current(for: plugIn).name == "Ratio")
+        #expect(try await cursor.current(for: plugIn).name == "Ratio")
+        await #expect(throws: FloError.self) { try await cursor.current(for: "EQ3 7-Band") }
+    }
+
     @Test func templateMatchesTheJXA() throws {
         let text = PlugInView.template(plugIn: "Dyn3 Compressor Limiter", parameters: ["Knee Width", "Ratio"])
         #expect(text == "Dyn3 Compressor Limiter\n{\"view\":\"Default\", \"click\":[-1,-1], \"parameters\":[\n[\n[\"Knee Width\",0,0],\n[\"Ratio\",0,0]\n]\n]}")

@@ -20,6 +20,8 @@ enum PlugIns {
             moveParameter("plugin.previousRowParameter", "Previous Row Parameter", "previous row", key: "Ctrl+Up", rows: -1, columns: 0, cursor),
             moveParameter("plugin.nextColumnParameter", "Next Column Parameter", "next column", key: "Ctrl+Right", rows: 0, columns: 1, cursor),
             moveParameter("plugin.previousColumnParameter", "Previous Column Parameter", "previous column", key: "Ctrl+Left", rows: 0, columns: -1, cursor),
+            stepParameter("plugin.increaseParameter", "Increase Parameter", "up", key: "Ctrl+Cmd+Up", .increase, cursor),
+            stepParameter("plugin.decreaseParameter", "Decrease Parameter", "down", key: "Ctrl+Cmd+Down", .decrease, cursor),
             loadView(nil, cursor),
             displayViewTemplate,
         ] + (1...9).map { loadView($0, cursor) }
@@ -158,6 +160,16 @@ enum PlugIns {
             if parameter.point != .zero {
                 try Mouse.move(to: try await window.origin.offset(by: parameter.point), ifFront: proTools.pid)
             }
+        }
+    }
+
+    /// Steps the parameter the cursor is on and speaks its new value, like the Inspector's volume keys; held, it keeps stepping.
+    @MainActor
+    static func stepParameter(_ id: CommandID, _ name: String, _ direction: String, key: String, _ step: SliderStep, _ cursor: PlugInViewCursor) -> Command {
+        Command.repeatingWhileHeld(id, name, summary: "Moves the current parameter of the loaded plug-in view one step \(direction) and speaks its new value. Hold the key to keep moving it. Works for parameters the plug-in shows as sliders.", scope: .windows([.plugIn]), triggers: [.key(key)]) { _ in
+            let window = try await ProToolsApp.running().plugInWindow(.plugIn)
+            let parameter = try await cursor.current(for: try await window.plugInName)
+            try await VoiceOver.say(window.stepParameter(named: parameter.name, step))
         }
     }
 

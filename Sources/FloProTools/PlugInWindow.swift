@@ -135,6 +135,12 @@ public struct PlugInWindow {
         try parameterSliders().first { try $0.name == name }?.valueDescription
     }
 
+    /// Steps the slider of the parameter called `name` up or down, like the arrow keys on it with VoiceOver, and returns what VoiceOver reads for it then. Waits for Pro Tools to show the change; at the end of the range the value stays the same. Throws `FloError.notFound` when the plug-in shows no such slider.
+    public func stepParameter(named name: String, _ direction: SliderStep) async throws -> String {
+        guard let slider = try parameterSliders().first(where: { try $0.name == name }) else { throw FloError.notFound("the \(name) slider") }
+        return try await ProToolsUpdate.reading(after: { try slider.step(direction) }) { try slider.valueDescription ?? "" }
+    }
+
     private func parameterSliders() throws -> [AXElement] {
         try element.required("the plug-in controls") { try $0.group("FXTDMEditView") }.sliders
     }

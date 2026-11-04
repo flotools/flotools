@@ -169,6 +169,14 @@ actor PlugInViewCursor {
         position = nil
     }
 
+    /// The parameter under the cursor, without moving. Throws when no view is loaded for `plugIn` or the cursor is not on a parameter yet.
+    func current(for plugIn: String) throws -> PlugInView.Parameter {
+        if self.plugIn != plugIn { clear() }
+        guard let view else { throw FloError.notFound("a plug-in view for this plug-in") }
+        guard let position else { throw FloError.notFound("a selected parameter in this plug-in view") }
+        return view[position]
+    }
+
     /// Moves and returns the parameter now under the cursor. Throws when no view is loaded for `plugIn`, and forgets a view loaded for another one.
     func move(for plugIn: String, rows: Int, columns: Int) throws -> PlugInView.Parameter {
         if self.plugIn != plugIn { clear() }
