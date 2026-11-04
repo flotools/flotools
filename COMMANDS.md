@@ -2,7 +2,7 @@
 
 Generated from the command declarations in `Sources/FloFeatures/` by `CommandReferenceTests`. Do not edit it by hand: change a command's summary in its declaration and run `FLO_WRITE_BASELINES=1 swift test --filter CommandReferenceTests`.
 
-Every key works only while Pro Tools is in front, and only in the windows listed for it. Inspector keys work on the track under the VoiceOver cursor while the Inspector is on (`/`). A double press is two presses of the key within the double-press timeout set in Flo Tools preferences.
+Every key works only while Pro Tools is in front, and only in the windows listed for it. Inspector keys work on the track under the VoiceOver cursor while the Inspector is on (`/`). A double press is two presses of the key within the double-press timeout set in Flo Tools preferences. With "Hold a key for a double press" on in preferences, holding the key for the hold time set there also counts as a double press.
 
 ## Inspector
 

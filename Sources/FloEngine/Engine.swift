@@ -51,7 +51,10 @@ public final class Engine {
     /// App state that decides which keys apply, such as whether the Inspector is on. Starts with the Inspector off.
     public private(set) var mode = Mode()
 
-    /// Read at each press of a repeating command, so a change in System Settings applies at once. Tests set their own.
+    /// How long a key must be held to run its double action, from the "hold for double press" preferences; nil when that is off.
+    public var doublePressHold: Duration?
+
+    /// Read at each press of a repeating command, so a change in System Settings applies at once, and for whether a key is still held. Tests set their own.
     var keyRepeat: @MainActor () -> KeyRepeat = { .system }
 
     private let hotKeys: HotKeyCenter
@@ -338,9 +341,18 @@ public final class Engine {
                     Log.info(.engine, "double press")
                     enqueue(run, Self.withDoneSound(double, doneSound))
                 case .single(let generation):
-                    let wait = doublePress.timeout
+                    let timeoutEnds = ContinuousClock.now + doublePress.timeout
+                    let holdEnds = doublePressHold.map { ContinuousClock.now + $0 }
                     pendingSingles[command.id] = Task { @MainActor [weak self] in
-                        try? await Task.sleep(for: wait)
+                        // A hold decides as soon as the hold time passes, also before the timeout. A release before then leaves the single, which still waits for the timeout so a second press can make a double.
+                        if let holdEnds, case .hotKey(let combo, .pressed) = origin, await self?.staysDown(combo, until: holdEnds) == true {
+                            guard let self, !Task.isCancelled, self.doublePress.singleIsDue(command.id, generation: generation) else { return }
+                            self.pendingSingles[command.id] = nil
+                            Log.info(.engine, "held for double press")
+                            self.enqueue(run, Self.withDoneSound(double, doneSound))
+                            return
+                        }
+                        try? await Task.sleep(until: timeoutEnds)
                         guard let self, !Task.isCancelled, self.doublePress.singleIsDue(command.id, generation: generation) else { return }
                         self.pendingSingles[command.id] = nil
                         Log.info(.engine, "single press")
@@ -350,6 +362,16 @@ public final class Engine {
             }
         }
         return invocation
+    }
+
+    /// Whether `combo` stays down until `deadline`, for holding a key for a double press. Checks every 20 ms, so a release and a new press in between count as released; false when cancelled.
+    private func staysDown(_ combo: KeyCombo, until deadline: ContinuousClock.Instant) async -> Bool {
+        let timing = keyRepeat()
+        while timing.isHeld(combo), !Task.isCancelled {
+            if ContinuousClock.now >= deadline { return true }
+            try? await Task.sleep(for: .milliseconds(20))
+        }
+        return false
     }
 
     private static func withDoneSound(_ double: @escaping CommandBody, _ doneSound: DoneSoundTiming) -> CommandBody {

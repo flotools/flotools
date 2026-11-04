@@ -1,7 +1,7 @@
 import FloSystem
 import Foundation
 
-/// The user's preferences, the three settings of the KM preferences dialog.
+/// The user's preferences: the three settings of the KM preferences dialog, and holding a key for a double press.
 public struct Preferences: Equatable, Sendable {
     /// Whether holding backtick turns the Inspector on while held (Toggle Temporary Inspector).
     public var temporaryInspector = false
@@ -9,9 +9,14 @@ public struct Preferences: Equatable, Sendable {
     public var startsWithInspector = false
     /// Double-press timeout in milliseconds, one of `timeoutChoices`.
     public var timeout = 200
+    /// Whether holding a key for `holdTime` does what a double press does. Double presses still work. Off by default, because someone who presses keys slowly could switch solo, mute or record arm by accident.
+    public var holdForDoublePress = false
+    /// How long a key must be held for a double press, in milliseconds, one of `holdTimeChoices`.
+    public var holdTime = 500
 
     /// The values the KM preferences dialog offered.
     public static let timeoutChoices = [200, 300, 400, 500]
+    public static let holdTimeChoices = [100, 200, 300, 400, 500]
 
     public init() {}
 }
@@ -27,6 +32,8 @@ public final class PreferencesStore {
         static let temporaryInspector = "temporaryInspector"
         static let startsWithInspector = "startsWithInspector"
         static let timeout = "doublePressTimeout"
+        static let holdForDoublePress = "holdForDoublePress"
+        static let holdTime = "holdTime"
         static let floToolsEnabled = "floToolsEnabled"
         static let plugInViewsInstalled = "plugInViewsInstalled"
         static let installsUpdatesAutomatically = "installsUpdatesAutomatically"
@@ -43,6 +50,8 @@ public final class PreferencesStore {
         defaults.set(preferences.temporaryInspector, forKey: Key.temporaryInspector)
         defaults.set(preferences.startsWithInspector, forKey: Key.startsWithInspector)
         defaults.set(preferences.timeout, forKey: Key.timeout)
+        defaults.set(preferences.holdForDoublePress, forKey: Key.holdForDoublePress)
+        defaults.set(preferences.holdTime, forKey: Key.holdTime)
         current = preferences
         Log.info(.preferences, "saved \(preferences)")
     }
@@ -80,19 +89,24 @@ public final class PreferencesStore {
         }
     }
 
-    /// Missing values are defaults. A timeout outside `timeoutChoices`, which only `defaults write` can set, is logged and replaced by the default, so double presses stay usable.
+    /// Missing values are defaults. A timeout or hold time outside its choices, which only `defaults write` can set, is logged and replaced by the default, so double presses stay usable.
     private static func read(_ defaults: UserDefaults) -> Preferences {
         var preferences = Preferences()
         preferences.temporaryInspector = defaults.bool(forKey: Key.temporaryInspector)
         preferences.startsWithInspector = defaults.bool(forKey: Key.startsWithInspector)
-        if defaults.object(forKey: Key.timeout) != nil {
-            let timeout = defaults.integer(forKey: Key.timeout)
-            if Preferences.timeoutChoices.contains(timeout) {
-                preferences.timeout = timeout
-            } else {
-                Log.warning(.preferences, "timeout \(timeout) is not one of \(Preferences.timeoutChoices), using \(preferences.timeout)")
-            }
-        }
+        preferences.holdForDoublePress = defaults.bool(forKey: Key.holdForDoublePress)
+        preferences.timeout = choice(Key.timeout, in: Preferences.timeoutChoices, default: preferences.timeout, defaults)
+        preferences.holdTime = choice(Key.holdTime, in: Preferences.holdTimeChoices, default: preferences.holdTime, defaults)
         return preferences
+    }
+
+    private static func choice(_ key: String, in choices: [Int], default value: Int, _ defaults: UserDefaults) -> Int {
+        guard defaults.object(forKey: key) != nil else { return value }
+        let stored = defaults.integer(forKey: key)
+        guard choices.contains(stored) else {
+            Log.warning(.preferences, "\(key) \(stored) is not one of \(choices), using \(value)")
+            return value
+        }
+        return stored
     }
 }

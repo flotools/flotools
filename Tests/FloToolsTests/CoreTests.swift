@@ -554,6 +554,69 @@ private actor Flag {
         #expect(events.list == ["step"])
     }
 
+    func heldDoubleEngine(_ events: Events, holdForDoublePress: Bool, held: Bool) -> Engine {
+        let engine = engine([doubleCommand(events)])
+        engine.doublePressHold = holdForDoublePress ? .milliseconds(80) : nil
+        engine.keyRepeat = { KeyRepeat(delay: .milliseconds(5), interval: .milliseconds(5)) { _ in held } }
+        return engine
+    }
+
+    @Test func heldKeyRunsTheDoubleWhenThePreferenceIsOn() async throws {
+        let events = Events()
+        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: true)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        try await settle(events, at: 1)
+        #expect(events.list == ["double"])
+    }
+
+    @Test func releasedKeyRunsTheSingleWhenThePreferenceIsOn() async throws {
+        let events = Events()
+        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: false)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        try await settle(events, at: 1)
+        #expect(events.list == ["single"])
+    }
+
+    @Test func holdShorterThanTheTimeoutDecidesBeforeTheTimeout() async throws {
+        let events = Events()
+        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: true)
+        engine.doublePressTimeout = .milliseconds(500)
+        engine.doublePressHold = .milliseconds(20)
+        let start = ContinuousClock.now
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        try await settle(events, at: 1)
+        #expect(events.list == ["double"])
+        #expect(ContinuousClock.now - start < .milliseconds(400))
+    }
+
+    @Test func keyReleasedBeforeTheHoldTimeRunsTheSingle() async throws {
+        let events = Events()
+        let engine = engine([doubleCommand(events)])
+        engine.doublePressHold = .milliseconds(150)
+        let key = HeldKey(heldChecks: 1)
+        engine.keyRepeat = { KeyRepeat(delay: .milliseconds(5), interval: .milliseconds(5)) { _ in key.isHeld() } }
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        try await settle(events, at: 1)
+        #expect(events.list == ["single"])
+    }
+
+    @Test func heldKeyRunsTheSingleWhenThePreferenceIsOff() async throws {
+        let events = Events()
+        let engine = heldDoubleEngine(events, holdForDoublePress: false, held: true)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        try await settle(events, at: 1)
+        #expect(events.list == ["single"])
+    }
+
+    @Test func doublePressStillWorksWhenThePreferenceIsOn() async throws {
+        let events = Events()
+        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: true)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        try await settle(events, at: 1)
+        #expect(events.list == ["double"])
+    }
+
     @Test func declinedHoldGetsNoRelease() {
         let events = Events()
         let engine = engine([holdCommand(events, accepts: false)])
@@ -810,12 +873,23 @@ private actor Flag {
         #expect(PreferencesStore(defaults: suite.defaults).current == Preferences())
     }
 
+    @Test func storedChoicesOutsideTheListUseTheDefaults() {
+        let defaults = suite.defaults
+        defaults.set(250, forKey: "doublePressTimeout")
+        defaults.set(250, forKey: "holdTime")
+        let current = PreferencesStore(defaults: defaults).current
+        #expect(current.timeout == Preferences().timeout)
+        #expect(current.holdTime == Preferences().holdTime)
+    }
+
     @Test func savedPreferencesAreReadBack() {
         let defaults = suite.defaults
         var preferences = Preferences()
         preferences.temporaryInspector = true
         preferences.startsWithInspector = true
         preferences.timeout = 400
+        preferences.holdForDoublePress = true
+        preferences.holdTime = 300
         PreferencesStore(defaults: defaults).save(preferences)
         #expect(PreferencesStore(defaults: defaults).current == preferences)
     }
