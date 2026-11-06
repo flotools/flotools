@@ -38,6 +38,7 @@ public final class PreferencesStore {
         static let plugInViewsInstalled = "plugInViewsInstalled"
         static let installsUpdatesAutomatically = "installsUpdatesAutomatically"
         static let includesBetaUpdates = "includesBetaUpdates"
+        static let launchOnLoginOffered = "launchOnLoginOffered"
     }
 
     public init(defaults: UserDefaults = .standard) {
@@ -87,6 +88,12 @@ public final class PreferencesStore {
             defaults.set(newValue, forKey: Key.includesBetaUpdates)
             Log.info(.preferences, "saved include beta updates \(newValue)")
         }
+    }
+
+    /// Whether Launch on Login was turned on by the first launch from an Applications folder, which happens once. After that it stays as the user leaves it. Off when never set.
+    public var launchOnLoginOffered: Bool {
+        get { defaults.bool(forKey: Key.launchOnLoginOffered) }
+        set { defaults.set(newValue, forKey: Key.launchOnLoginOffered) }
     }
 
     /// Missing values are defaults. A timeout or hold time outside its choices, which only `defaults write` can set, is logged and replaced by the default, so double presses stay usable.

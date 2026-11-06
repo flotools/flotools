@@ -7,7 +7,7 @@ import FloSystem
 /// No hardware identifiers, serial numbers or user name.
 @MainActor
 enum DiagnosticHeader {
-    static func text(engine: Engine, preferences: Preferences) -> String {
+    static func text(engine: Engine, preferences: Preferences, loginItem: LoginItem) -> String {
         let info = Bundle.main.infoDictionary ?? [:]
         let version = info["CFBundleShortVersionString"] as? String ?? "?"
         let build = info["CFBundleVersion"] as? String ?? "?"
@@ -22,6 +22,7 @@ enum DiagnosticHeader {
             "Suspended: \(engine.suspensions.isEmpty ? "no" : engine.suspensions.map(\.reason).sorted().joined(separator: "; "))",
             "Preferences: temporary inspector \(preferences.temporaryInspector), starts with Flo Tools inspector \(preferences.startsWithInspector), timeout \(preferences.timeout) ms, hold for double press \(preferences.holdForDoublePress), hold time \(preferences.holdTime) ms",
             "Inspector: \(engine.mode.inspector ? "on" : "off")",
+            "Launch on Login: \(loginItem.statusDescription)",
         ]).joined(separator: "\n") + "\n"
     }
 }

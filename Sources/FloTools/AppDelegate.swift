@@ -14,7 +14,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private lazy var engine: Engine = FloFeatures.makeEngine(session: session, hotKeys: HotKeyCenter(), contextMonitor: ContextMonitor(), openPreferences: { [weak self] in
         self?.preferencesPanel.show()
     })
-    private lazy var preferencesPanel: PreferencesPanel = PreferencesPanel(store: preferences) { [weak self] preferences in
+    private lazy var preferencesPanel: PreferencesPanel = PreferencesPanel(store: preferences, loginItem: loginItem) { [weak self] preferences in
         guard let self else { return }
         FloFeatures.apply(preferences, to: self.engine)
     }
@@ -22,6 +22,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         self?.preferences.current ?? Preferences()
     }
     private lazy var updater = Updater(preferences: preferences)
+    private lazy var loginItem = LoginItem(preferences: preferences)
     /// Whether `main` continued the log file of the last launch, which then still needs this launch's header.
     private let resumedLog: Bool
     private var statusItem: NSStatusItem?
@@ -37,9 +38,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         engine.isEnabled = preferences.floToolsEnabled
         lifecycle.start()
         // After start, so the header shows the suspension and Inspector state that start set; the entries of start are already in the file.
-        if resumedLog { Log.writeHeader(DiagnosticHeader.text(engine: engine, preferences: preferences.current)) }
+        if resumedLog { Log.writeHeader(DiagnosticHeader.text(engine: engine, preferences: preferences.current, loginItem: loginItem)) }
         Log.info(.app, "Flo Tools started")
         installPlugInViewsOnFirstLaunch()
+        loginItem.enableOnFirstLaunch()
         updater.start()
         engine.start()
         setUpStatusItem()
@@ -178,7 +180,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 NSWorkspace.shared.activateFileViewerSelecting([file])
             } else {
                 do {
-                    try await Log.startRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current))
+                    try await Log.startRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current, loginItem: loginItem))
                     Log.info(.app, "log turned on")
                     await VoiceOver.sayOrLog("Log turned on.")
                 } catch {
