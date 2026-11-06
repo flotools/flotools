@@ -16,6 +16,8 @@
             <description sparkle:format="markdown"><![CDATA[
 Flo Tools is now a native Mac app. It no longer needs Keyboard Maestro. This is the first public beta of the new app.
 
+This beta is highly experimental, and many features might not work as expected. Use it only where a problem will not cost you work, not for sessions or deadlines that matter.
+
 ## Before you start
 
 - Flo Tools runs as its own app in the menu bar, with no Dock icon.
