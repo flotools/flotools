@@ -60,7 +60,7 @@ Run from the repository root.
 
 ## Testing live in Pro Tools
 
-- Test `/Applications/Flo Tools.app`, installed from the current build as in Install and relaunch. Pro Tools must be running with a session open. Keyboard Maestro Engine must not be running, or its Flo Tools macros take the same keys.
+- Test `/Applications/Flo Tools.app`, installed from the current build as in Install and relaunch. Pro Tools must be running with the test session open: `~/Documents/Pro Tools/Demo Sessions/Can't Get Enough Pro Tools Demo/Can't Get Enough Pro Tools Intro Demo.ptx` (the Intro Demo, not the full Demo beside it). Never save the session: do not send Cmd+S or choose Save, Save As or Save Copy In, and answer Don't Save when Pro Tools asks on close, so tests never overwrite it. Keyboard Maestro Engine must not be running, or its Flo Tools macros take the same keys.
 - Front window: System Events `value of attribute "AXFocusedWindow"` of the Pro Tools process. VoiceOver cursor: `tell application "VoiceOver" to return text under cursor of vo cursor`.
 - `scripts/vo.sh` wraps VoiceOver's AppleScript dictionary: read the VoiceOver cursor, keyboard cursor and last phrase, move the VoiceOver cursor (`move right`, `seek "Tom1"`), act on the item, click, speak, open VoiceOver menus, and run any VoiceOver command by its lower-case English name (`run "move left"`; `commands` lists them). Run it without arguments for the full list. Move the VoiceOver cursor this way, not with Ctrl+Opt+arrows from System Events: those reach Flo Tools' Inspector keys, and the owner's VoiceOver modifier is Caps Lock.
 - Press a hotkey: `osascript -e 'tell application "System Events" to key code 19 using control down'`. For a double press, send two key codes 0.05 s apart in one script.
