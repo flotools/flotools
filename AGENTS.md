@@ -45,7 +45,7 @@ Run from the repository root.
 - Build: `swift build`
 - Test: `swift test`
 - App bundle: `scripts/build-app.sh` (universal release build, signed with the first "Apple Development" identity, or `FLO_SIGN_IDENTITY`). Always sign with the same identity, because Accessibility and Automation permissions are tied to the signature.
-- Relaunch: `pkill -x FloTools; scripts/build-app.sh && open "build/Flo Tools.app"`
+- Install and relaunch: `pkill -x FloTools; scripts/build-app.sh && rm -rf "/Applications/Flo Tools.app" && ditto "build/Flo Tools.app" "/Applications/Flo Tools.app" && open "/Applications/Flo Tools.app"`. Always copy a new build to `/Applications` before testing, and test and verify only that copy, never `build/Flo Tools.app`. The `/Applications` copy is the one the owner uses and the one Launch on Login starts, and opening a second copy quits the one already running. A release build signed with Developer ID (`build/dist/`) is not copied there, because its permissions are separate.
 - App log: turn on the diagnostic log from the menu bar menu ("Turn On Log") and read the newest file in `~/Library/Logs/Flo Tools/`. The unified log (`log show --last 1m --predicate 'subsystem == "com.chikim.FloTools"' --style compact`) has only warnings and errors.
 
 ## Adding or changing a command
@@ -54,12 +54,12 @@ Run from the repository root.
 2. Declare it in its feature folder in `Sources/FloFeatures/` with an ID, name, summary (one or two sentences for users, for `COMMANDS.md`), scope, mode condition and hotkeys (`.key("Ctrl+2")`). Share code with commands of the same pattern (send and insert slots, transport toggles, counters, track lists, fade dialogs and so on).
 3. Add unit tests for pure logic: message text, value parsing, filters.
 4. Regenerate the baselines and `COMMANDS.md` (`FLO_WRITE_BASELINES=1 swift test --filter "KeymapTests|CommandReferenceTests"`) and check that the diff shows only the intended bindings, routing and summaries.
-5. Build, run tests, rebuild the app and test it live (below).
+5. Build, run tests, rebuild the app, copy it to `/Applications` (Install and relaunch, above) and test that copy live (below).
 6. Update `.pi/HANDOFF.md` and commit, with a message that says what was tested live.
 
 ## Testing live in Pro Tools
 
-- Pro Tools must be running with a session open. Keyboard Maestro Engine must not be running, or its Flo Tools macros take the same keys.
+- Test `/Applications/Flo Tools.app`, installed from the current build as in Install and relaunch. Pro Tools must be running with a session open. Keyboard Maestro Engine must not be running, or its Flo Tools macros take the same keys.
 - Front window: System Events `value of attribute "AXFocusedWindow"` of the Pro Tools process. VoiceOver cursor: `tell application "VoiceOver" to return text under cursor of vo cursor`.
 - `scripts/vo.sh` wraps VoiceOver's AppleScript dictionary: read the VoiceOver cursor, keyboard cursor and last phrase, move the VoiceOver cursor (`move right`, `seek "Tom1"`), act on the item, click, speak, open VoiceOver menus, and run any VoiceOver command by its lower-case English name (`run "move left"`; `commands` lists them). Run it without arguments for the full list. Move the VoiceOver cursor this way, not with Ctrl+Opt+arrows from System Events: those reach Flo Tools' Inspector keys, and the owner's VoiceOver modifier is Caps Lock.
 - Press a hotkey: `osascript -e 'tell application "System Events" to key code 19 using control down'`. For a double press, send two key codes 0.05 s apart in one script.
