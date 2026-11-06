@@ -6,7 +6,7 @@ import FloSystem
 @MainActor
 final class PreferencesPanel: NSObject, NSWindowDelegate {
     private let store: PreferencesStore
-    /// Kept by macOS rather than in `store`, so OK sets it directly.
+    /// Kept as a launch agent file rather than in `store`, so OK sets it directly.
     private let loginItem: LoginItem
     private let onSave: (Preferences) -> Void
     private lazy var window = makeWindow()

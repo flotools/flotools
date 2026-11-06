@@ -95,8 +95,8 @@ public enum Log {
         }
     }
 
-    /// Home paths are written as `~`, so the user name does not appear in the log.
-    static func redactingHome(_ text: String) -> String {
+    /// Home paths are written as `~`, so the user name does not appear in the log. Public for the log header, which is written as given.
+    public static func redactingHome(_ text: String) -> String {
         text.replacingOccurrences(of: NSHomeDirectory(), with: "~")
     }
 }
