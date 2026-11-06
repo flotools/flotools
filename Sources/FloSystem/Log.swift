@@ -12,7 +12,7 @@ public enum LogLevel: String, Sendable {
 
 /// The one logger. All logging goes through here.
 ///
-/// Warnings and errors always go to the unified log (subsystem `com.chikim.FloTools`). While the user has turned on the diagnostic log, every entry also goes to a file in `~/Library/Logs/Flo Tools/` that they can send to the developer. See "Diagnostic log" in `AGENTS.md` for what may and may not be logged.
+/// Warnings and errors always go to the unified log (subsystem `com.chikim.FloTools`). While the user has turned on the diagnostic log, every entry also goes to a file in `~/Library/Logs/Flo Tools/` that they can send to the developer. See "Logger" in plan.md section 4 for what may and may not be logged.
 public enum Log {
     /// The current command run. The engine sets it around each run; tasks started by the run inherit it, so every line a run causes carries the same ID.
     @TaskLocal public static var invocation: String?
