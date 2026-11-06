@@ -7,6 +7,37 @@
         <description>Flo Tools updates</description>
         <language>en</language>
         <item>
+            <title>Flo Tools 2027.1.0-beta.2</title>
+            <pubDate>Fri, 06 Nov 2026 03:31:21 GMT</pubDate>
+            <sparkle:channel>beta</sparkle:channel>
+            <sparkle:version>2</sparkle:version>
+            <sparkle:shortVersionString>2027.1.0-beta.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0.0</sparkle:minimumSystemVersion>
+            <description sparkle:format="markdown"><![CDATA[
+Flo Tools is now a native Mac app. It no longer needs Keyboard Maestro. This is the first public beta of the new app.
+
+## Before you start
+
+- Flo Tools runs as its own app in the menu bar, with no Dock icon.
+- Every command of the Keyboard Maestro version is here except Flo Mouse, with the same keys and in the same windows, for 245 commands in all.
+- Turn off the Flo Tools macros in Keyboard Maestro, or quit Keyboard Maestro Engine. Otherwise both versions respond to the same keys.
+- Preferences start at their defaults. Settings from the Keyboard Maestro version are not carried over.
+- Move Flo Tools to the Applications folder and open it. Allow Accessibility access when macOS asks, and allow Flo Tools to control VoiceOver.
+
+## What is new
+
+- Flo Tools pauses itself while VoiceOver is off and while the Pro Tools Keyboard Shortcuts window is open. The menu bar menu says when it is paused.
+- Updates are built in. The Updates submenu in the menu bar menu shows the version and has Check for Updates, plus settings to check, download and install updates automatically and to include beta versions.
+- Turn On Log in the menu bar menu records a diagnostic log. Turn Off Log shows the file in Finder, so you can send it with a bug report. Logging is off until you turn it on, and nothing is sent automatically.
+- The Inspector pan and volume keys repeat while you hold them, at your Mac's key repeat speed.
+- New setting "Launch on Login" in Flo Tools Preferences.
+- A new preference, "Hold a key for a double press", lets you hold a key instead of pressing it twice. It is off by default, and the hold time can be set from 100 to 500 ms.
+- In plug-in windows, Ctrl+Cmd+Up and Ctrl+Cmd+Down change the current plug-in view parameter and speak the new value. They work for parameters the plug-in shows as sliders, and they repeat while held.
+- There is new Plug-in views for Pro Tools Channel Strip plugin.
+]]></description>
+            <enclosure url="https://github.com/flotools/flotools/releases/download/v2027.1.0-beta.2/Flo.Tools.v2027.1.0-beta.2.zip" sparkle:edSignature="E237r6fgsHyCVJdM4oU1jdWhAwVBkL6zuG0ABNG9hDcrcClHR7gUsi2pHh+rFKcCjSb1r4HWHpCfW2/wR4qjDg==" length="2554239" type="application/octet-stream"/>
+        </item>
+        <item>
             <title>Flo Tools 2027.1.0-beta.1</title>
             <pubDate>Wed, 04 Nov 2026 00:15:28 +0000</pubDate>
             <sparkle:channel>beta</sparkle:channel>
