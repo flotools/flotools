@@ -237,11 +237,16 @@ public struct AXElement {
         try perform(action, menuMayOpen: true)
     }
 
-    /// Whether this element's app has a pop-up menu window on screen. Window layer and owner are available without Screen Recording permission.
+    /// Whether this element's app has a pop-up menu window on screen.
     private func showsPopUpMenu() -> Bool {
         var pid: pid_t = 0
-        guard AXUIElementGetPid(ref, &pid) == .success,
-              let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [[String: Any]] else { return false }
+        guard AXUIElementGetPid(ref, &pid) == .success else { return false }
+        return Self.showsPopUpMenu(pid: pid)
+    }
+
+    /// Whether app `pid` has a pop-up menu window on screen. Window layer and owner are available without Screen Recording permission, and reading them sends the app nothing, so this never blocks on a busy app.
+    public nonisolated static func showsPopUpMenu(pid: pid_t) -> Bool {
+        guard pid > 0, let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [[String: Any]] else { return false }
         let menuLayer = Int(CGWindowLevelForKey(.popUpMenuWindow))
         return windows.contains { $0[kCGWindowOwnerPID as String] as? pid_t == pid && $0[kCGWindowLayer as String] as? Int == menuLayer }
     }

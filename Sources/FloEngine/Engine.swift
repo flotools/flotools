@@ -83,6 +83,8 @@ public final class Engine {
     var forwardInspectorKey: @MainActor (KeyCombo, FrontContext) -> Void = { combo, context in
         Keyboard.post(combo, pid: context.processID)
     }
+    /// Whether the app in `context` has a menu open. The VoiceOver cursor and the focused element still report the track behind a menu Pro Tools opened from it (checked live 2026-11-07), so detection alone would accept it.
+    var menuIsOpen: @MainActor (FrontContext) -> Bool
     @MainActor private final class Press {
         var released = false
     }
@@ -156,8 +158,10 @@ public final class Engine {
                     Log.info(.engine, "Auto Inspector dropped: stale detection")
                     return
                 }
-                guard let target, target.processID == original.processID else {
-                    Log.info(.engine, "Auto Inspector forwarding")
+                // Checked after detection, the latest moment before deciding, so a menu that opened during detection still counts.
+                let menuOpen = self.menuIsOpen(original)
+                guard !menuOpen, let target, target.processID == original.processID else {
+                    Log.info(.engine, menuOpen ? "Auto Inspector forwarding: a menu is open" : "Auto Inspector forwarding")
                     self.endHolds { self.holds[$0]?.run.inspectorTarget != nil }
                     self.cancelSingle(command.id)
                     self.setInspector(false)
@@ -217,6 +221,7 @@ public final class Engine {
     public init(hotKeys: HotKeyCenter, contextMonitor: ContextMonitor) {
         self.hotKeys = hotKeys
         self.contextMonitor = contextMonitor
+        menuIsOpen = { context in contextMonitor.menuIsOpen(pid: context.processID) }
     }
 
     // MARK: Setup

@@ -14,16 +14,26 @@ public struct FocusedWindow: Sendable, Equatable {
     }
 }
 
-/// Reads the focused window title of the front app and asks to be called again when it may have changed, through AX notifications.
+/// What an AX notification of the observed app said.
+public enum FrontWindowEvent: Sendable {
+    /// The focused window or its title may have changed.
+    case windowMayHaveChanged
+    /// The app opened a menu. Its window may also change by the time the menu closes.
+    case menuOpened
+    /// The app closed a menu.
+    case menuClosed
+}
+
+/// Reads the focused window title of the front app and asks to be called again when it may have changed, through AX notifications. Also reports when the app opens and closes menus.
 ///
 /// Everything here messages the observed app, so it runs on `AccessibilityActor`. The notifications arrive on the main run loop, in the common modes so they also arrive while a menu is open; they only call `onChange`, which must not touch AX itself.
 @AccessibilityActor
 public final class FrontWindowObserver {
     /// What the C callback reaches through its refcon. Kept apart from the observer so `stop()` can keep it alive until the main run loop has finished a callback that was already running.
     private final class Callback: Sendable {
-        /// Called on the main thread when the app's focused window or its title may have changed.
-        let onChange: @Sendable () -> Void
-        init(_ onChange: @escaping @Sendable () -> Void) { self.onChange = onChange }
+        /// Called on the main thread for each notification.
+        let onChange: @Sendable (FrontWindowEvent) -> Void
+        init(_ onChange: @escaping @Sendable (FrontWindowEvent) -> Void) { self.onChange = onChange }
     }
 
     private nonisolated let callback: Callback
@@ -42,7 +52,7 @@ public final class FrontWindowObserver {
     private var focusWatched = false
     /// Whether AXTitleChanged is registered on `watchedWindow`, or there is no window to watch. Retried on every read.
     private var titleWatched = true
-    /// Whether AXMenuClosed is registered on the observed app. Without it, a plug-in chosen from a plug-in window's menu changes the title unseen (see `observe`), so the context must keep polling. Retried on every read.
+    /// Whether AXMenuOpened and AXMenuClosed are registered on the observed app. Without AXMenuClosed, a plug-in chosen from a plug-in window's menu changes the title unseen (see `observe`), so the context must keep polling. Retried on every read.
     private var menuWatched = false
     /// So a registration that keeps failing is logged once per app, not on every poll.
     private var registrationFailureLogged = false
@@ -50,7 +60,7 @@ public final class FrontWindowObserver {
     private var windowNumber = 0
 
     /// Nonisolated so the main actor can create it; it only stores the callback.
-    public nonisolated init(onChange: @escaping @Sendable () -> Void) {
+    public nonisolated init(onChange: @escaping @Sendable (FrontWindowEvent) -> Void) {
         callback = Callback(onChange)
     }
 
@@ -65,7 +75,7 @@ public final class FrontWindowObserver {
         }
         if !isSame(window, watchedWindow) || !titleWatched { watchTitle(of: window) }
         if observer != nil, !focusWatched { focusWatched = watchApp(Self.focusChanged, pid: pid) }
-        if observer != nil, !menuWatched { menuWatched = watchApp(Self.menuClosed, pid: pid) }
+        if observer != nil, !menuWatched { menuWatched = watchMenus(pid: pid) }
         logRegistration()
         return FocusedWindow(title: try window?.title, number: windowNumber)
     }
@@ -99,9 +109,14 @@ public final class FrontWindowObserver {
         registrationFailureLogged = false
         guard pid > 0 else { return }
         var created: AXObserver?
-        let status = AXObserverCreate(pid, { _, _, _, refcon in
+        let status = AXObserverCreate(pid, { _, _, notification, refcon in
             guard let refcon else { return }
-            Unmanaged<Callback>.fromOpaque(refcon).takeUnretainedValue().onChange()
+            let event: FrontWindowEvent = switch notification as String {
+            case kAXMenuOpenedNotification: .menuOpened
+            case kAXMenuClosedNotification: .menuClosed
+            default: .windowMayHaveChanged
+            }
+            Unmanaged<Callback>.fromOpaque(refcon).takeUnretainedValue().onChange(event)
         }, &created)
         guard status == .success, let created else {
             attachFailed(pid: pid, "AXObserverCreate \(status.rawValue)")
@@ -118,10 +133,10 @@ public final class FrontWindowObserver {
             return
         }
         focusWatched = results[Self.focusChanged] == .success
-        // Pro Tools changes a plug-in or AudioSuite window's title in place, without AXTitleChanged, when another plug-in is chosen from a menu; by AXMenuClosed the title is new (checked live 2026-11-03).
-        menuWatched = app.addNotification(Self.menuClosed, to: created, refcon: refcon) == .success
         CFRunLoopAddSource(CFRunLoopGetMain(), AXObserverGetRunLoopSource(created), .commonModes)
         observer = created
+        // Pro Tools changes a plug-in or AudioSuite window's title in place, without AXTitleChanged, when another plug-in is chosen from a menu; by AXMenuClosed the title is new (checked live 2026-11-03).
+        menuWatched = watchMenus(pid: pid)
         observedPid = pid
         if failedPid == pid { Log.info(.context, "observing pid \(pid) after an earlier failure") }
         failedPid = 0
@@ -146,10 +161,16 @@ public final class FrontWindowObserver {
         titleWatched = window.addNotification(Self.titleChanged, to: observer, refcon: refcon) == .success
     }
 
-    /// Registers app notification `name` again after it failed; returns whether it worked.
+    /// Registers app notification `name`; returns whether it is registered now. One registered before, as when a retry follows a partial failure, counts.
     private func watchApp(_ name: String, pid: pid_t) -> Bool {
         guard let observer else { return false }
-        return AXElement.application(pid: pid).addNotification(name, to: observer, refcon: refcon) == .success
+        let status = AXElement.application(pid: pid).addNotification(name, to: observer, refcon: refcon)
+        return status == .success || status == .notificationAlreadyRegistered
+    }
+
+    /// Registers AXMenuOpened and AXMenuClosed; returns whether both are registered.
+    private func watchMenus(pid: pid_t) -> Bool {
+        [Self.menuOpened, Self.menuClosed].map { watchApp($0, pid: pid) }.allSatisfy { $0 }
     }
 
     /// Logs once when notifications do not cover every window change, and once when they do again.
@@ -158,7 +179,7 @@ public final class FrontWindowObserver {
         let covered = focusWatched && titleWatched && menuWatched
         if !covered, !registrationFailureLogged {
             registrationFailureLogged = true
-            let missing = [focusWatched ? nil : Self.focusChanged, titleWatched ? nil : Self.titleChanged, menuWatched ? nil : Self.menuClosed].compactMap { $0 }
+            let missing = [focusWatched ? nil : Self.focusChanged, titleWatched ? nil : Self.titleChanged, menuWatched ? nil : "\(Self.menuOpened) or \(Self.menuClosed)"].compactMap { $0 }
             Log.warning(.context, "pid \(observedPid): could not register \(missing.joined(separator: " and ")); polling instead, will retry")
         } else if covered, registrationFailureLogged {
             registrationFailureLogged = false
@@ -176,6 +197,7 @@ public final class FrontWindowObserver {
 
     private static let focusChanged = kAXFocusedWindowChangedNotification as String
     private static let titleChanged = kAXTitleChangedNotification as String
+    private static let menuOpened = kAXMenuOpenedNotification as String
     private static let menuClosed = kAXMenuClosedNotification as String
 
     /// How AX notifications reach `callback`, which lives at least as long as the observer is attached.

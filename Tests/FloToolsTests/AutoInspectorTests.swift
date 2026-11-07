@@ -290,6 +290,28 @@ import FloSystem
         #expect(probe.events == (manual ? ["press", "release"] : ["press", "release", "forward"]))
     }
 
+    /// The VoiceOver cursor still reports the track behind a menu opened from it, so an open menu must forward even when detection finds a track.
+    @Test func openMenuForwardsDespiteTrackTarget() async {
+        let probe = Probe()
+        let engine = engine(probe)
+        var menuOpen = true
+        engine.menuIsOpen = { _ in menuOpen }
+        engine.setInspector(true)
+        engine.dispatch(key, .pressed, in: mix)
+        await probe.waitForRequest()
+        probe.resolve(a)
+        await engine.waitUntilIdle()
+        #expect(probe.events == ["forward"])
+        #expect(!engine.mode.inspector)
+        menuOpen = false
+        engine.dispatch(key, .pressed, in: mix)
+        await probe.waitForRequest()
+        probe.resolve(a)
+        await engine.waitUntilIdle()
+        #expect(probe.events == ["forward", "single " + a.name])
+        #expect(engine.mode.inspector)
+    }
+
     @Test func suspendedEngineDoesNotProbe() async {
         let probe = Probe()
         let engine = engine(probe)

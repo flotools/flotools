@@ -98,14 +98,22 @@ public final class ContextMonitor {
     private var observing = false
     /// The app the last window read failed for, so a failure that the poll repeats every second, as while Pro Tools starts, is logged once, and its end once.
     private var failingReadPid: pid_t = 0
+    /// The front app that reported AXMenuOpened and no AXMenuClosed since, or 0. Cleared when another app comes to the front, which closes the menu.
+    private var menuOpenedPid: pid_t = 0
 
     public init() {}
 
+    /// Whether app `pid` has a menu open: it reported AXMenuOpened and no AXMenuClosed since, or it shows a pop-up menu window. The notification arrives before the window is on screen (27 ms before it, measured 2026-11-07), and the window check covers a menu that opened before the observer was attached. False while the monitor is stopped.
+    public func menuIsOpen(pid: pid_t) -> Bool {
+        guard poll != nil, pid > 0 else { return false }
+        return menuOpenedPid == pid || AXElement.showsPopUpMenu(pid: pid)
+    }
+
     public func start() {
         guard poll == nil else { return }
-        windowObserver = FrontWindowObserver { [weak self] in
+        windowObserver = FrontWindowObserver { [weak self] event in
             // AX notifications arrive on the main run loop.
-            MainActor.assumeIsolated { self?.refresh() }
+            MainActor.assumeIsolated { self?.observed(event) }
         }
         activationObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated { self?.refresh() }
@@ -126,6 +134,7 @@ public final class ContextMonitor {
         poll = nil
         observing = false
         failingReadPid = 0
+        menuOpenedPid = 0
         reads.reset()
         if let activationObserver { NSWorkspace.shared.notificationCenter.removeObserver(activationObserver) }
         activationObserver = nil
@@ -147,9 +156,25 @@ public final class ContextMonitor {
         if frontAppChanged {
             let front = NSWorkspace.shared.frontmostApplication
             observing = false
+            menuOpenedPid = 0
             publish(FrontContext(bundleID: front?.bundleIdentifier, windowTitle: nil, processID: front?.processIdentifier ?? 0))
         }
         if let id = reads.changeReported() { readWindowTitle(id: id) }
+    }
+
+    /// The observer only watches the front app, so an event is about the app `current` names.
+    private func observed(_ event: FrontWindowEvent) {
+        switch event {
+        case .menuOpened:
+            menuOpenedPid = current.processID
+            Log.info(.context, "menu opened")
+        case .menuClosed:
+            menuOpenedPid = 0
+            Log.info(.context, "menu closed")
+        case .windowMayHaveChanged:
+            break
+        }
+        refresh()
     }
 
     private func pollTicked() {
