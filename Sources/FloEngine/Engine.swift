@@ -83,8 +83,8 @@ public final class Engine {
     var forwardInspectorKey: @MainActor (KeyCombo, FrontContext) -> Void = { combo, context in
         Keyboard.post(combo, pid: context.processID)
     }
-    /// Whether the app in `context` has a menu open. The VoiceOver cursor and the focused element still report the track behind a menu Pro Tools opened from it (checked live 2026-11-07), so detection alone would accept it.
-    var menuIsOpen: @MainActor (FrontContext) -> Bool
+    /// What takes the keys of the app in `context`, if anything. The VoiceOver cursor still reports the track behind a menu Pro Tools opened from it and behind a counter opened for typing (checked live 2026-11-07), so detection alone would accept it.
+    var keyCapture: @MainActor (FrontContext) async -> KeyCapture?
     @MainActor private final class Press {
         var released = false
     }
@@ -158,10 +158,14 @@ public final class Engine {
                     Log.info(.engine, "Auto Inspector dropped: stale detection")
                     return
                 }
-                // Checked after detection, the latest moment before deciding, so a menu that opened during detection still counts.
-                let menuOpen = self.menuIsOpen(original)
-                guard !menuOpen, let target, target.processID == original.processID else {
-                    Log.info(.engine, menuOpen ? "Auto Inspector forwarding: a menu is open" : "Auto Inspector forwarding")
+                // Checked after detection, the latest moment before deciding, so a menu or field that opened during detection still counts.
+                let capture = await self.keyCapture(original)
+                guard self.inputIsValid(generation, original) else {
+                    Log.info(.engine, "Auto Inspector dropped: stale key capture check")
+                    return
+                }
+                guard capture == nil, let target, target.processID == original.processID else {
+                    Log.info(.engine, capture.map { "Auto Inspector forwarding: \($0)" } ?? "Auto Inspector forwarding")
                     self.endHolds { self.holds[$0]?.run.inspectorTarget != nil }
                     self.cancelSingle(command.id)
                     self.setInspector(false)
@@ -221,7 +225,7 @@ public final class Engine {
     public init(hotKeys: HotKeyCenter, contextMonitor: ContextMonitor) {
         self.hotKeys = hotKeys
         self.contextMonitor = contextMonitor
-        menuIsOpen = { context in contextMonitor.menuIsOpen(pid: context.processID) }
+        keyCapture = { context in await contextMonitor.keyCapture(pid: context.processID) }
     }
 
     // MARK: Setup

@@ -82,6 +82,19 @@ struct WindowTitleReads {
     }
 }
 
+/// What takes the front app's keys away from the control the VoiceOver cursor is on.
+public enum KeyCapture: Sendable, Equatable, CustomStringConvertible {
+    case menu
+    case textField
+
+    public var description: String {
+        switch self {
+        case .menu: "a menu is open"
+        case .textField: "a text field is open for typing"
+        }
+    }
+}
+
 /// Watches the front app and its focused window title and reports changes.
 ///
 /// The front app comes from NSWorkspace and is published at once. The window title needs AX calls, which can block while the app is busy, so it is read on `AccessibilityActor` and published when the read returns; meanwhile the title is unknown and window-specific keys pass through. The app owns one instance; `start()` and `stop()` bound the observers and the poll.
@@ -100,13 +113,32 @@ public final class ContextMonitor {
     private var failingReadPid: pid_t = 0
     /// The front app that reported AXMenuOpened and no AXMenuClosed since, or 0. Cleared when another app comes to the front, which closes the menu.
     private var menuOpenedPid: pid_t = 0
+    /// The element of the front app's last AXSelectedTextChanged, which may be a field open for typing. Cleared when another app comes to the front.
+    private var selectedTextSource: (pid: pid_t, element: AXElementHandle)?
 
     public init() {}
 
-    /// Whether app `pid` has a menu open: it reported AXMenuOpened and no AXMenuClosed since, or it shows a pop-up menu window. The notification arrives before the window is on screen (27 ms before it, measured 2026-11-07), and the window check covers a menu that opened before the observer was attached. False while the monitor is stopped.
-    public func menuIsOpen(pid: pid_t) -> Bool {
-        guard poll != nil, pid > 0 else { return false }
-        return menuOpenedPid == pid || AXElement.showsPopUpMenu(pid: pid)
+    /// What takes app `pid`'s keys now, nil when nothing does or the monitor is stopped.
+    ///
+    /// A menu is open when the app reported AXMenuOpened and no AXMenuClosed since, or shows a pop-up menu window. The notification arrives before the window is on screen (27 ms before it, measured 2026-11-07), and the window check covers a menu that opened before the observer was attached.
+    ///
+    /// A text field is open for typing when the element of the last AXSelectedTextChanged is a text field with its focus flag set. Its focus is read now rather than tracked, so a missed close cannot keep keys captured.
+    public func keyCapture(pid: pid_t) async -> KeyCapture? {
+        guard poll != nil, pid > 0 else { return nil }
+        if menuOpenedPid == pid || AXElement.showsPopUpMenu(pid: pid) { return .menu }
+        guard let source = selectedTextSource, source.pid == pid else { return nil }
+        return await Self.isOpenForTyping(source.element) ? .textField : nil
+    }
+
+    @AccessibilityActor
+    private static func isOpenForTyping(_ handle: AXElementHandle) -> Bool {
+        do {
+            return try ProToolsApp.isOpenForTyping(handle.element)
+        } catch {
+            // Usually a field whose window closed; it cannot be typed into.
+            Log.debug(.context, "could not read the last selected-text element: \(error)")
+            return false
+        }
     }
 
     public func start() {
@@ -135,6 +167,7 @@ public final class ContextMonitor {
         observing = false
         failingReadPid = 0
         menuOpenedPid = 0
+        selectedTextSource = nil
         reads.reset()
         if let activationObserver { NSWorkspace.shared.notificationCenter.removeObserver(activationObserver) }
         activationObserver = nil
@@ -157,6 +190,7 @@ public final class ContextMonitor {
             let front = NSWorkspace.shared.frontmostApplication
             observing = false
             menuOpenedPid = 0
+            selectedTextSource = nil
             publish(FrontContext(bundleID: front?.bundleIdentifier, windowTitle: nil, processID: front?.processIdentifier ?? 0))
         }
         if let id = reads.changeReported() { readWindowTitle(id: id) }
@@ -171,6 +205,10 @@ public final class ContextMonitor {
         case .menuClosed:
             menuOpenedPid = 0
             Log.info(.context, "menu closed")
+        case .selectedTextChanged(let element):
+            // Not logged and no window read: it fires on every typed character.
+            selectedTextSource = (current.processID, element)
+            return
         case .windowMayHaveChanged:
             break
         }

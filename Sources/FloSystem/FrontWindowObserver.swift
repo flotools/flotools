@@ -22,9 +22,11 @@ public enum FrontWindowEvent: Sendable {
     case menuOpened
     /// The app closed a menu.
     case menuClosed
+    /// The selected text or insertion point of `element` changed. Pro Tools sends this when it opens a counter or other value field for typing, a field that does not become the app's focused element (checked live 2026-11-07).
+    case selectedTextChanged(AXElementHandle)
 }
 
-/// Reads the focused window title of the front app and asks to be called again when it may have changed, through AX notifications. Also reports when the app opens and closes menus.
+/// Reads the focused window title of the front app and asks to be called again when it may have changed, through AX notifications. Also reports when the app opens and closes menus and when selected text changes.
 ///
 /// Everything here messages the observed app, so it runs on `AccessibilityActor`. The notifications arrive on the main run loop, in the common modes so they also arrive while a menu is open; they only call `onChange`, which must not touch AX itself.
 @AccessibilityActor
@@ -54,6 +56,8 @@ public final class FrontWindowObserver {
     private var titleWatched = true
     /// Whether AXMenuOpened and AXMenuClosed are registered on the observed app. Without AXMenuClosed, a plug-in chosen from a plug-in window's menu changes the title unseen (see `observe`), so the context must keep polling. Retried on every read.
     private var menuWatched = false
+    /// Whether AXSelectedTextChanged is registered on the observed app. Not needed for the window title, so it does not affect `isObserving`. Retried on every read.
+    private var selectedTextWatched = false
     /// So a registration that keeps failing is logged once per app, not on every poll.
     private var registrationFailureLogged = false
     /// Counts changes of the focused window, so two windows with the same title, such as two instances of one plug-in, still tell apart.
@@ -76,6 +80,7 @@ public final class FrontWindowObserver {
         if !isSame(window, watchedWindow) || !titleWatched { watchTitle(of: window) }
         if observer != nil, !focusWatched { focusWatched = watchApp(Self.focusChanged, pid: pid) }
         if observer != nil, !menuWatched { menuWatched = watchMenus(pid: pid) }
+        if observer != nil, !selectedTextWatched { selectedTextWatched = watchApp(Self.selectedTextChanged, pid: pid) }
         logRegistration()
         return FocusedWindow(title: try window?.title, number: windowNumber)
     }
@@ -106,14 +111,16 @@ public final class FrontWindowObserver {
         focusWatched = false
         titleWatched = true
         menuWatched = false
+        selectedTextWatched = false
         registrationFailureLogged = false
         guard pid > 0 else { return }
         var created: AXObserver?
-        let status = AXObserverCreate(pid, { _, _, notification, refcon in
+        let status = AXObserverCreate(pid, { _, element, notification, refcon in
             guard let refcon else { return }
             let event: FrontWindowEvent = switch notification as String {
             case kAXMenuOpenedNotification: .menuOpened
             case kAXMenuClosedNotification: .menuClosed
+            case kAXSelectedTextChangedNotification: .selectedTextChanged(AXElementHandle(element))
             default: .windowMayHaveChanged
             }
             Unmanaged<Callback>.fromOpaque(refcon).takeUnretainedValue().onChange(event)
@@ -137,6 +144,8 @@ public final class FrontWindowObserver {
         observer = created
         // Pro Tools changes a plug-in or AudioSuite window's title in place, without AXTitleChanged, when another plug-in is chosen from a menu; by AXMenuClosed the title is new (checked live 2026-11-03).
         menuWatched = watchMenus(pid: pid)
+        // Watched on the whole app, unlike titles: it fires when a field opens for typing and as typing moves the insertion point, not as counters run (checked live 2026-11-07: 3 s of playback sent none).
+        selectedTextWatched = watchApp(Self.selectedTextChanged, pid: pid)
         observedPid = pid
         if failedPid == pid { Log.info(.context, "observing pid \(pid) after an earlier failure") }
         failedPid = 0
@@ -176,11 +185,11 @@ public final class FrontWindowObserver {
     /// Logs once when notifications do not cover every window change, and once when they do again.
     private func logRegistration() {
         guard observer != nil else { return }
-        let covered = focusWatched && titleWatched && menuWatched
+        let covered = focusWatched && titleWatched && menuWatched && selectedTextWatched
         if !covered, !registrationFailureLogged {
             registrationFailureLogged = true
-            let missing = [focusWatched ? nil : Self.focusChanged, titleWatched ? nil : Self.titleChanged, menuWatched ? nil : "\(Self.menuOpened) or \(Self.menuClosed)"].compactMap { $0 }
-            Log.warning(.context, "pid \(observedPid): could not register \(missing.joined(separator: " and ")); polling instead, will retry")
+            let missing = [focusWatched ? nil : Self.focusChanged, titleWatched ? nil : Self.titleChanged, menuWatched ? nil : "\(Self.menuOpened) or \(Self.menuClosed)", selectedTextWatched ? nil : Self.selectedTextChanged].compactMap { $0 }
+            Log.warning(.context, "pid \(observedPid): could not register \(missing.joined(separator: " and ")); polling window changes meanwhile, will retry")
         } else if covered, registrationFailureLogged {
             registrationFailureLogged = false
             Log.info(.context, "pid \(observedPid): window notifications registered after an earlier failure")
@@ -199,6 +208,7 @@ public final class FrontWindowObserver {
     private static let titleChanged = kAXTitleChangedNotification as String
     private static let menuOpened = kAXMenuOpenedNotification as String
     private static let menuClosed = kAXMenuClosedNotification as String
+    private static let selectedTextChanged = kAXSelectedTextChangedNotification as String
 
     /// How AX notifications reach `callback`, which lives at least as long as the observer is attached.
     private var refcon: UnsafeMutableRawPointer { Unmanaged.passUnretained(callback).toOpaque() }

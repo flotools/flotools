@@ -18,6 +18,13 @@ extension ProToolsApp {
 
     /// Checked live 2026-11-03: the clip list filter, the Scroll to Track dialog and a Mix window comments field have an AXTextArea focused while typing goes to them. Elsewhere the focus is an AXGroup (a track) or AXUnknown ("View", "Mixer scroller"), and the Main Counter clicked for typing leaves it on "View". AXTextField is the standard role of a text field.
     static let textEntryRoles: Set<String> = ["AXTextArea", "AXTextField"]
+
+    /// Whether `element` is a text field with its own focus flag set. Pro Tools opens counters and other value fields for typing without making them the app's focused element, but sets their AXFocused, and clears it when they close (checked live 2026-11-07: Main Counter, Edit Selection Start, End and Length, Tempo, Nudge, Pre- and Post-roll). Only text roles count, because every Memory Locations and Track List cell reports AXFocused.
+    @AccessibilityActor
+    public static func isOpenForTyping(_ element: AXElement) throws -> Bool {
+        guard let role = try element.role, textEntryRoles.contains(role) else { return false }
+        return try element.isFocused
+    }
 }
 
 public struct FrontWindowFacts: Sendable, Equatable {

@@ -101,6 +101,8 @@ public struct AXElement {
     public var role: String? { get throws { try string("AXRole") } }
     public var title: String? { get throws { try string("AXTitle") } }
     public var roleDescription: String? { get throws { try string("AXRoleDescription") } }
+    /// The element's own keyboard focus flag, which can be set when the app's focused element is something else.
+    public var isFocused: Bool { get throws { try bool("AXFocused") ?? false } }
 
     /// What System Events calls `name`.
     public var name: String? { get throws { try title } }
@@ -336,4 +338,13 @@ public enum Accessibility {
 /// Which way `AXElement.step(_:)` moves a slider. For a pan knob, increase is to the right.
 public enum SliderStep: Sendable {
     case increase, decrease
+}
+
+/// The element an AX notification came from, carried from the main thread, where notifications arrive, to `AccessibilityActor`, where it is read. Unchecked because `AXUIElement` is not marked `Sendable`: CF retain and release are thread-safe, and the reference is only opened, and so only messaged, on `AccessibilityActor`.
+public struct AXElementHandle: @unchecked Sendable {
+    private let ref: AXUIElement
+
+    init(_ ref: AXUIElement) { self.ref = ref }
+
+    @AccessibilityActor public var element: AXElement { AXElement(ref) }
 }

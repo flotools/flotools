@@ -290,12 +290,12 @@ import FloSystem
         #expect(probe.events == (manual ? ["press", "release"] : ["press", "release", "forward"]))
     }
 
-    /// The VoiceOver cursor still reports the track behind a menu opened from it, so an open menu must forward even when detection finds a track.
-    @Test func openMenuForwardsDespiteTrackTarget() async {
+    /// The VoiceOver cursor still reports the track behind a menu opened from it or a counter opened for typing, so a capture must forward even when detection finds a track.
+    @Test(arguments: [KeyCapture.menu, .textField])
+    func keyCaptureForwardsDespiteTrackTarget(_ capture: KeyCapture) async {
         let probe = Probe()
         let engine = engine(probe)
-        var menuOpen = true
-        engine.menuIsOpen = { _ in menuOpen }
+        engine.keyCapture = { _ in capture }
         engine.setInspector(true)
         engine.dispatch(key, .pressed, in: mix)
         await probe.waitForRequest()
@@ -303,7 +303,7 @@ import FloSystem
         await engine.waitUntilIdle()
         #expect(probe.events == ["forward"])
         #expect(!engine.mode.inspector)
-        menuOpen = false
+        engine.keyCapture = { _ in nil }
         engine.dispatch(key, .pressed, in: mix)
         await probe.waitForRequest()
         probe.resolve(a)
