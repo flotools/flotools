@@ -1,10 +1,12 @@
 import FloSystem
 import Foundation
 
-/// The user's preferences: the three settings of the KM preferences dialog, and holding a key for a double press.
+/// The user's Inspector and double-press preferences.
 public struct Preferences: Equatable, Sendable {
     /// Whether holding backtick turns the Inspector on while held (Toggle Temporary Inspector).
     public var temporaryInspector = false
+    /// Route Inspector keys from the VoiceOver track-name cursor on each press.
+    public var autoInspector = false
     /// Whether the Inspector is on when Flo Tools or Pro Tools starts.
     public var startsWithInspector = false
     /// Double-press timeout in milliseconds, one of `timeoutChoices`.
@@ -30,6 +32,7 @@ public final class PreferencesStore {
 
     enum Key {
         static let temporaryInspector = "temporaryInspector"
+        static let autoInspector = "autoInspector"
         static let startsWithInspector = "startsWithInspector"
         static let timeout = "doublePressTimeout"
         static let holdForDoublePress = "holdForDoublePress"
@@ -49,6 +52,7 @@ public final class PreferencesStore {
 
     public func save(_ preferences: Preferences) {
         defaults.set(preferences.temporaryInspector, forKey: Key.temporaryInspector)
+        defaults.set(preferences.autoInspector, forKey: Key.autoInspector)
         defaults.set(preferences.startsWithInspector, forKey: Key.startsWithInspector)
         defaults.set(preferences.timeout, forKey: Key.timeout)
         defaults.set(preferences.holdForDoublePress, forKey: Key.holdForDoublePress)
@@ -100,6 +104,7 @@ public final class PreferencesStore {
     private static func read(_ defaults: UserDefaults) -> Preferences {
         var preferences = Preferences()
         preferences.temporaryInspector = defaults.bool(forKey: Key.temporaryInspector)
+        preferences.autoInspector = defaults.bool(forKey: Key.autoInspector)
         preferences.startsWithInspector = defaults.bool(forKey: Key.startsWithInspector)
         preferences.holdForDoublePress = defaults.bool(forKey: Key.holdForDoublePress)
         preferences.timeout = choice(Key.timeout, in: Preferences.timeoutChoices, default: preferences.timeout, defaults)

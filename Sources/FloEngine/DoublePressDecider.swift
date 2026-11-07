@@ -33,6 +33,8 @@ public struct DoublePressDecider: Sendable {
         return true
     }
 
+    mutating func cancel(_ id: CommandID) { pending[id] = nil }
+
     /// Voids every pending single.
     public mutating func cancelAll() {
         pending = [:]

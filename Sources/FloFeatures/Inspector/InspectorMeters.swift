@@ -25,8 +25,8 @@ enum InspectorMeters {
     /// Speak Level Meter, Toggle Level Meter Monitor: single press speaks the level or "No Signal"; double press starts or stops a watch that speaks each new level.
     @MainActor
     static var level: Command {
-        Inspector.command(levelCommand, "Speak Level Meter, Toggle Level Meter Monitor", summary: "Single press speaks the track's level meter. Double press starts or stops a watch that speaks each new level, following the VoiceOver cursor from track to track, until another Pro Tools window comes to the front.", key: "L", single: { _ in
-            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+        Inspector.command(levelCommand, "Speak Level Meter, Toggle Level Meter Monitor", summary: "Single press speaks the track's level meter. Double press starts or stops a watch that speaks each new level, following the VoiceOver cursor from track to track, until another Pro Tools window comes to the front.", key: "L", single: { run in
+            let track = try await run.inspectorTrack()
             try await VoiceOver.say(reading(.level, of: track).orIfEmpty("No Signal"))
         }, double: { run in
             let app = try ProToolsApp.running()
@@ -43,8 +43,8 @@ enum InspectorMeters {
     /// Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor: single press speaks the gain reduction; double press starts or stops a watch that plays the progress sound on each change and records the deepest reduction.
     @MainActor
     static func gainReduction(_ deepest: GainReductionPeak) -> Command {
-        Inspector.command(gainReductionCommand, "Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor", summary: "Single press speaks the track's gain reduction meter. Double press starts or stops a watch that plays the progress sound on each change and remembers the deepest reduction, following the VoiceOver cursor from track to track, until another Pro Tools window comes to the front.", key: ";", single: { _ in
-            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+        Inspector.command(gainReductionCommand, "Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor", summary: "Single press speaks the track's gain reduction meter. Double press starts or stops a watch that plays the progress sound on each change and remembers the deepest reduction, following the VoiceOver cursor from track to track, until another Pro Tools window comes to the front.", key: ";", single: { run in
+            let track = try await run.inspectorTrack()
             try await VoiceOver.say(reading(.gainReduction, of: track))
         }, double: { run in
             let app = try ProToolsApp.running()

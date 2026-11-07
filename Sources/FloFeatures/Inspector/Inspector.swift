@@ -42,11 +42,11 @@ enum Inspector {
     /// Single press speaks the toggle's state; double press presses the button and speaks the new state, then plays the done sound, as the JXA played Tink. The JXA waited a fixed 0.1 s before reading (Record State did not wait); this waits until the state changes.
     @MainActor
     static func toggle(_ id: CommandID, _ name: String, key: String, _ toggle: TrackStrip.Toggle, state: String) -> Command {
-        Inspector.command(id, name, summary: "Single press speaks the track's \(state) state; double press switches it and speaks the new state.", key: key, doneSound: .afterDouble, single: { _ in
-            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+        Inspector.command(id, name, summary: "Single press speaks the track's \(state) state; double press switches it and speaks the new state.", key: key, doneSound: .afterDouble, single: { run in
+            let track = try await run.inspectorTrack()
             try await VoiceOver.say(stateText(toggle, track.state(of: toggle)))
-        }, double: { _ in
-            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+        }, double: { run in
+            let track = try await run.inspectorTrack()
             // A track without an input and output cannot be armed or monitored; Pro Tools shows a dialog and the state stays as it was.
             let after = try await track.press(toggle)
             try await VoiceOver.say(stateText(toggle, after))
@@ -73,11 +73,11 @@ enum Inspector {
         let key = kind == .send ? "Ctrl+" + digit : digit
         let opens = kind == .insert ? "the plug-in window" : "the send window"
         let summary = "Single press speaks \(kind.rawValue.lowercased()) \(letter): whether it is active, and what is assigned. Double press opens \(opens)."
-        return Inspector.command(CommandID("inspector.speakOpen\(kind.rawValue)\(letter)"), "Speak/Open \(kind.rawValue) \(letter)", summary: summary, key: key, doneSound: .afterDouble, single: { _ in
-            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+        return Inspector.command(CommandID("inspector.speakOpen\(kind.rawValue)\(letter)"), "Speak/Open \(kind.rawValue) \(letter)", summary: summary, key: key, doneSound: .afterDouble, single: { run in
+            let track = try await run.inspectorTrack()
             try await VoiceOver.say(slotText(kind, slot, in: track))
-        }, double: { _ in
-            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+        }, double: { run in
+            let track = try await run.inspectorTrack()
             try await track.slotButtons(kind, slot: slot).assignment.pressOpeningMenu()
         })
     }
@@ -87,8 +87,8 @@ enum Inspector {
     static func assign(_ kind: TrackStrip.SlotKind, _ slot: Int) -> Command {
         let letter = TrackStrip.slotLetter(slot)
         let key = (kind == .send ? "Ctrl+Cmd+" : "Cmd+") + "\((slot + 1) % 10)"
-        return Inspector.command(CommandID("inspector.assign\(kind.rawValue)\(letter)"), "Assign \(kind.rawValue) \(letter)", summary: "Opens the menu to assign \(kind.rawValue.lowercased()) \(letter).", key: key) { _ in
-            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+        return Inspector.command(CommandID("inspector.assign\(kind.rawValue)\(letter)"), "Assign \(kind.rawValue) \(letter)", summary: "Opens the menu to assign \(kind.rawValue.lowercased()) \(letter).", key: key) { run in
+            let track = try await run.inspectorTrack()
             try await track.slotButtons(kind, slot: slot).selector.pressOpeningMenu()
         }
     }
@@ -109,8 +109,8 @@ enum Inspector {
     /// Moves one pan control a step and speaks its new position.
     @MainActor
     static func pan(_ id: CommandID, _ name: String, key: String, _ control: TrackStrip.PanControl, _ direction: SliderStep, _ summary: String) -> Command {
-        Inspector.repeatingCommand(id, name, summary: summary, key: key) { _ in
-            let track = try await ProToolsApp.running().trackUnderVoiceOverCursor()
+        Inspector.repeatingCommand(id, name, summary: summary, key: key) { run in
+            let track = try await run.inspectorTrack()
             try await VoiceOver.say(step(control, direction, on: track))
         }
     }

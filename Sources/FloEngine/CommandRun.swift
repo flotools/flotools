@@ -1,3 +1,4 @@
+import FloProTools
 import FloSystem
 
 /// One run of a command: what started it, the front context at that moment, and the engine. Command bodies get one of these.
@@ -15,6 +16,16 @@ public struct CommandRun: Sendable {
     public let origin: Origin
     public let context: FrontContext
     public let engine: Engine
+    public internal(set) var inspectorTarget: InspectorTarget? = nil
+    var inputGeneration: Int? = nil
+
+    /// Automatic runs keep the accepted name even after the cursor moves; manual runs retain cursor lookup. Watches intentionally keep their own cursor-following path.
+    public func inspectorTrack(in window: ProToolsApp.TrackWindow = .mix) async throws -> TrackStrip {
+        if let inspectorTarget {
+            return try await inspectorTarget.track(in: window)
+        }
+        return try await ProToolsApp.running().trackUnderVoiceOverCursor(in: window)
+    }
 
     /// Sends the hotkey that started this run on to the front app, and returns once it is posted, so what the command does next follows the key. Does nothing for other origins. Throws `FloError.couldNot` when the key cannot be sent.
     public func passThrough() async throws {

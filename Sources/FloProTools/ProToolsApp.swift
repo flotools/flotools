@@ -7,6 +7,8 @@ public struct ProToolsApp: Sendable {
 
     public let pid: pid_t
 
+    public init(pid: pid_t) { self.pid = pid }
+
     /// The running Pro Tools, or `FloError.notFound("Pro Tools")`. Steps of one command run use the same instance, so keys and clicks go to one process.
     public static func running() throws -> ProToolsApp {
         ProToolsApp(pid: try runningApplication.required("Pro Tools").processIdentifier)

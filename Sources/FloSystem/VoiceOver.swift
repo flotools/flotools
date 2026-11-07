@@ -42,6 +42,11 @@ public enum VoiceOver {
         return text
     }
 
+    /// Read together on this actor, without suspension between the two Apple events.
+    public static func cursorSnapshot() throws -> (text: String?, bounds: CGRect) {
+        (try cursorText(), try cursorBounds())
+    }
+
     /// The screen frame of the item in the VoiceOver cursor, like `vo.voCursor.bounds()`, in the global coordinates mouse events use. VoiceOver answers with a QuickDraw rectangle (`'qdrt'`), which does not coerce to a list (checked live 2026-11-03).
     public static func cursorBounds() throws -> CGRect {
         let reply = try cursorProperty("pbnd", doing: "read the VoiceOver cursor bounds")

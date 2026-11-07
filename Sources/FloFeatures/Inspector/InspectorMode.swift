@@ -24,9 +24,10 @@ enum InspectorMode {
         }),
     ] }
 
-    /// Preference effects, like the KM Refresh Preference macro: Toggle Temporary Inspector works only with "temporary inspector" set.
+    /// Apply automatic routing and enable the temporary Inspector only with its preference set.
     @MainActor
     static func apply(_ preferences: Preferences, to engine: Engine) {
+        engine.autoInspector = preferences.autoInspector
         engine.setCommand(toggleTemporaryInspector, enabled: preferences.temporaryInspector)
     }
 

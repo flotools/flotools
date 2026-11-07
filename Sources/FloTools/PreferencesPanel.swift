@@ -14,6 +14,7 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
     private var holdsFocus = false
 
     private let launchOnLogin = NSButton(checkboxWithTitle: "Launch on Login", target: nil, action: nil)
+    private let autoInspector = NSButton(checkboxWithTitle: "Auto Inspector", target: nil, action: nil)
     private let temporaryInspector = NSButton(checkboxWithTitle: "Use temporary inspector", target: nil, action: nil)
     private let startsWithInspector = NSButton(checkboxWithTitle: "Turn on the Flo Tools inspector when Pro Tools starts", target: nil, action: nil)
     private let timeout = NSPopUpButton()
@@ -31,6 +32,7 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
         _ = window
         let preferences = store.current
         launchOnLogin.state = loginItem.isEnabled ? .on : .off
+        autoInspector.state = preferences.autoInspector ? .on : .off
         temporaryInspector.state = preferences.temporaryInspector ? .on : .off
         startsWithInspector.state = preferences.startsWithInspector ? .on : .off
         timeout.selectItem(withTag: preferences.timeout)
@@ -49,6 +51,7 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
     @objc private func ok() {
         loginItem.setEnabled(launchOnLogin.state == .on)
         var preferences = Preferences()
+        preferences.autoInspector = autoInspector.state == .on
         preferences.temporaryInspector = temporaryInspector.state == .on
         preferences.startsWithInspector = startsWithInspector.state == .on
         preferences.timeout = timeout.selectedTag()
@@ -86,6 +89,7 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
 
         return NSWindow.floating(title: "Flo Tools Preferences", views: [
             launchOnLogin,
+            autoInspector,
             temporaryInspector,
             startsWithInspector,
             NSStackView(views: [timeoutLabel, timeout]),
