@@ -72,9 +72,13 @@ public final class Engine {
     }
     /// What takes the keys of the app in `context`, if anything. The VoiceOver cursor still reports the track behind a menu Pro Tools opened from it and behind a counter opened for typing (checked live 2026-11-07), so detection alone would accept it. Throws when that cannot be told.
     var keyCapture: @MainActor (FrontContext) async throws -> KeyCapture?
-    /// A key press that waits in the admission queue, so its release, which is not queued, can still be seen by it.
+    /// A key press whose release, which is not queued, must reach code still waiting on it: the admission queue and the hold decision.
     @MainActor private final class Press {
-        var released = false
+        var released = false {
+            didSet { if released { nap?.cancel() } }
+        }
+        /// The hold decision's current sleep, cut short by the release so a tap's single runs at once.
+        var nap: Task<Void, Never>?
     }
 
     /// How a run's start relates to the presses before it.
@@ -583,14 +587,26 @@ public final class Engine {
         pendingSingles[id] = PendingSingle(task: task, run: run, body: single, invocation: invocation)
     }
 
-    /// Whether `combo` stays down until `deadline`, for holding a key for a double press. Checks every 20 ms, so a release and a new press in between count as released; false when cancelled.
-    private func staysDown(_ combo: KeyCombo, press: Press?, until deadline: ContinuousClock.Instant) async -> Bool {
+    /// Whether `combo` stays down until `deadline`, for holding a key for a double press; false when cancelled. The key's release event ends the wait at once. The physical key state is also checked every 20 ms, for a release event that never arrives, so a release and a new press in between count as released.
+    private func staysDown(_ combo: KeyCombo, press admitted: Press?, until deadline: ContinuousClock.Instant) async -> Bool {
+        let press = admitted ?? trackRelease(of: combo)
         let timing = keyRepeat()
-        while press?.released != true, timing.isHeld(combo), !Task.isCancelled {
-            if ContinuousClock.now >= deadline { return true }
-            try? await Task.sleep(for: .milliseconds(20))
+        while !press.released, timing.isHeld(combo), !Task.isCancelled {
+            let now = ContinuousClock.now
+            if now >= deadline { return true }
+            let nap = Task { _ = try? await Task.sleep(until: min(now + .milliseconds(20), deadline)) }
+            press.nap = nap
+            await nap.value
         }
         return false
+    }
+
+    /// A press started with Auto Inspector off has no `Press` yet; registering one lets `dispatch` mark its release.
+    private func trackRelease(of combo: KeyCombo) -> Press {
+        let press = Press()
+        presses[combo]?.released = true
+        presses[combo] = press
+        return press
     }
 
     private static func withDoneSound(_ double: @escaping CommandBody, _ doneSound: DoneSoundTiming) -> CommandBody {

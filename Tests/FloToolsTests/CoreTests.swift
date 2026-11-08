@@ -603,6 +603,20 @@ private actor Flag {
         #expect(events.list == ["single"])
     }
 
+    /// The release event ends the hold decision at once, without waiting for the physical key check, which here still reports the key down.
+    @Test func releaseEventRunsTheSingleAtOnce() async throws {
+        let events = Events()
+        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: true)
+        engine.doubleActionTrigger = .hold(for: .milliseconds(500))
+        let start = ContinuousClock.now
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        try await Task.sleep(for: .milliseconds(30))
+        engine.dispatch(KeyCombo("F1")!, .released, in: mix)
+        try await settle(events, at: 1)
+        #expect(events.list == ["single"])
+        #expect(ContinuousClock.now - start < .milliseconds(300))
+    }
+
     @Test func heldKeyRunsTheSingleWhenThePreferenceIsOff() async throws {
         let events = Events()
         let engine = heldDoubleEngine(events, holdForDoublePress: false, held: true)
