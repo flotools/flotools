@@ -71,10 +71,25 @@ public enum VoiceOver {
         return CGRect(x: edges[1], y: edges[0], width: edges[3] - edges[1], height: edges[2] - edges[0])
     }
 
-    /// Whether macOS lets Flo Tools control VoiceOver with Apple events, checked without asking the user. For the diagnostic log header. Nonisolated so the synchronous header can call it: it sends no event to VoiceOver and does not ask the user, so it should return quickly, although the API does not promise that. It has its own target descriptor, which is not Sendable.
+    /// Whether macOS lets Flo Tools control VoiceOver with Apple events, checked without asking the user. For the diagnostic log header and the status menu. Nonisolated so synchronous callers can use it: it sends no event to VoiceOver and does not ask the user, so it should return quickly, although the API does not promise that. It has its own target descriptor, which is not Sendable.
     public nonisolated static func automationPermission() -> String {
-        guard let desc = NSAppleEventDescriptor(bundleIdentifier: bundleID).aeDesc else { return "unknown" }
-        let status = AEDeterminePermissionToAutomateTarget(desc, typeWildCard, typeWildCard, false)
+        describe(permissionStatus(eventClass: typeWildCard, id: typeWildCard, askUserIfNeeded: false))
+    }
+
+    /// Asks macOS to record whether Flo Tools may control VoiceOver, showing the consent dialog if the user has not answered yet. Without a recorded answer VoiceOver sometimes asks macOS itself while busy, and that dialog closes after 2 seconds (seen 2026-11-07, J-302). Blocks until the user answers, so it runs off the main actor. Asks about the speech event, a real event of VoiceOver's dictionary, rather than wildcards.
+    public nonisolated static func requestAutomationPermission() async -> String {
+        await Task.detached {
+            describe(permissionStatus(eventClass: fourCharCode("VOAS"), id: fourCharCode("outp"), askUserIfNeeded: true))
+        }.value
+    }
+
+    private nonisolated static func permissionStatus(eventClass: AEEventClass, id: AEEventID, askUserIfNeeded: Bool) -> OSStatus? {
+        guard let desc = NSAppleEventDescriptor(bundleIdentifier: bundleID).aeDesc else { return nil }
+        return AEDeterminePermissionToAutomateTarget(desc, eventClass, id, askUserIfNeeded)
+    }
+
+    private nonisolated static func describe(_ status: OSStatus?) -> String {
+        guard let status else { return "unknown" }
         switch status {
         case noErr: return "granted"
         case OSStatus(errAEEventNotPermitted): return "denied"
@@ -132,7 +147,7 @@ public enum VoiceOver {
         return specifier
     }
 
-    private static func fourCharCode(_ code: String) -> FourCharCode {
+    private nonisolated static func fourCharCode(_ code: String) -> FourCharCode {
         precondition(code.utf8.count == 4, "Apple event codes have four characters: \(code)")
         return code.utf8.reduce(0) { ($0 << 8) | FourCharCode($1) }
     }

@@ -49,7 +49,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if !Accessibility.isTrusted(prompt: true) {
             waitForAccessibility()
         }
-        // Also makes macOS ask for permission to control VoiceOver on first launch.
+        // Speech works without a recorded VoiceOver Automation answer but does not make macOS ask for one (seen 2026-11-07); the status menu item does.
         Task { await lifecycle.announceStartup() }
     }
 
@@ -124,6 +124,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         } else {
             menu.addItem(NSMenuItem(title: "Grant Accessibility Access…", action: #selector(grantAccessibility), keyEquivalent: ""))
         }
+        if VoiceOver.automationPermission() == "granted" {
+            menu.addItem(disabled("VoiceOver control allowed"))
+        } else {
+            menu.addItem(NSMenuItem(title: "Allow Control of VoiceOver…", action: #selector(allowVoiceOverControl), keyEquivalent: ""))
+        }
         menu.addItem(disabled("\(engine.commands.count) commands"))
         menu.addItem(NSMenuItem(title: "Preferences…", action: #selector(showPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem(title: Log.isRecording ? "Turn Off Log" : "Turn On Log", action: #selector(toggleLog), keyEquivalent: ""))
@@ -162,6 +167,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         Accessibility.isTrusted(prompt: true)
         NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
         waitForAccessibility()
+    }
+
+    /// macOS shows its consent dialog only if the user has not answered yet; after a Don't Allow the setting is in System Settings > Privacy & Security > Automation.
+    @objc private func allowVoiceOverControl() {
+        Task {
+            let result = await VoiceOver.requestAutomationPermission()
+            Log.info(.app, "VoiceOver automation permission after asking: \(result)")
+            await VoiceOver.sayOrLog("VoiceOver control \(result).")
+        }
     }
 
     @objc private func showPreferences() {
