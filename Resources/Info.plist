@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Flo Tools</string>
 	<key>CFBundleExecutable</key>
 	<string>FloTools</string>
 	<key>CFBundleIdentifier</key>
@@ -12,25 +14,23 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>Flo Tools</string>
-	<key>CFBundleDisplayName</key>
-	<string>Flo Tools</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>2027.1.0-beta.1</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>3</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>13.0</string>
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSAppleEventsUsageDescription</key>
 	<string>Flo Tools uses VoiceOver to speak information about Pro Tools and to read the VoiceOver cursor.</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © Chi Kim. GPL-3.0.</string>
 	<key>SUFeedURL</key>
 	<string>https://flotools.org/flotools/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>ofVGoHbzXlM0JFWqISYkWokIdXAtq9gJu7hMnbKLY0E=</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © Chi Kim. GPL-3.0.</string>
 </dict>
 </plist>
