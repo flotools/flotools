@@ -46,8 +46,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         engine.start()
         setUpStatusItem()
 
-        Task { await askForMissingPermissions() }
-        Task { await lifecycle.announceStartup() }
+        Task { await askForPermissionsAndAnnounce() }
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -192,11 +191,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     /// One dialog at a time: VoiceOver control first, because its dialog waits for the answer, then Accessibility, whose prompt sends the user to System Settings. Speech works without a recorded VoiceOver answer but does not make macOS ask for one (seen 2026-11-07), so it is asked for here. A recorded Don't Allow is kept: macOS returns it without a dialog, and only the menu item resets it.
-    private func askForMissingPermissions() async {
+    /// The startup announcement waits for the VoiceOver answer, so it reflects that answer: after a Don't Allow it can fail, and the system voice then says so.
+    private func askForPermissionsAndAnnounce() async {
         if VoiceOver.automationPermission() != "granted" {
             let result = await VoiceOver.requestAutomationPermission()
             Log.info(.app, "VoiceOver automation permission after asking at launch: \(result)")
         }
+        await lifecycle.announceStartup()
         if !Accessibility.isTrusted(prompt: true) {
             waitForAccessibility()
         }
