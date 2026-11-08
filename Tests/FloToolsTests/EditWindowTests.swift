@@ -113,6 +113,10 @@ import Testing
 }
 
 @Suite struct WindowChangeTests {
+    @Test @MainActor func startupWarningDoesNotAssumePermissionFailure() {
+        #expect(Lifecycle.startupSpeechFailed == "Flo Tools could not communicate with VoiceOver.")
+    }
+
     /// Like KM's focused window trigger: two instances of one plug-in have the same title but are different windows; coming back from another app is not a new window.
     @Test func focusChangesCountEvenWithTheSameTitle() {
         #expect(Lifecycle.isNewWindow("Plug-in: EQ3", number: 1, after: nil))

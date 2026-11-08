@@ -50,7 +50,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             waitForAccessibility()
         }
         // Also makes macOS ask for permission to control VoiceOver on first launch.
-        Task { await lifecycle.checkVoiceOver(saying: "Flo Tools started.") }
+        Task { await lifecycle.announceStartup() }
     }
 
     func applicationWillTerminate(_ notification: Notification) {

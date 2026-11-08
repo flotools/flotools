@@ -13,8 +13,8 @@ public final class Lifecycle {
     static let voiceOverOff = Suspension("VoiceOver is not running")
     /// Set while Pro Tools' Keyboard Shortcuts window is open, so the user can type any shortcut into it. As in KM, it holds while the window stays open behind another one.
     static let keyboardShortcuts = Suspension("the Pro Tools Keyboard Shortcuts window is open")
-    /// Spoken by the system voice, as in the KM Check for Automatic Update macro.
-    static let cannotControlVoiceOver = "Alert! Flo Tools cannot control VoiceOver. Please allow VoiceOver to be controlled with AppleScript in Voiceover Utility."
+    /// A failed reply does not establish that VoiceOver control is disabled.
+    static let startupSpeechFailed = "Flo Tools could not communicate with VoiceOver."
 
     private let engine: Engine
     private let session: SessionState
@@ -53,17 +53,17 @@ public final class Lifecycle {
         InspectorMode.applyStartState(preferences, to: engine)
     }
 
-    /// Speaks `text` and, if VoiceOver is on but does not take it, warns through the system voice that Flo Tools cannot control VoiceOver. An empty text only checks, as the KM version did with `vo.output("")`.
-    public func checkVoiceOver(saying text: String) async {
+    /// Uses the startup announcement itself to check communication, without a separate silent request.
+    public func announceStartup() async {
         guard WorkspaceEvents.isVoiceOverRunning else {
-            Log.info(.voiceover, "VoiceOver is off, not checking that Flo Tools can control it")
+            Log.info(.voiceover, "VoiceOver is off, skipping the startup announcement")
             return
         }
         do {
-            try await VoiceOver.say(text)
+            try await VoiceOver.say("Flo Tools started.")
         } catch {
-            Log.warning(.voiceover, "Flo Tools cannot control VoiceOver: \(error)")
-            SystemSpeech.say(Self.cannotControlVoiceOver)
+            Log.warning(.voiceover, "VoiceOver startup announcement failed: \(error)")
+            SystemSpeech.say(Self.startupSpeechFailed)
         }
     }
 
@@ -75,7 +75,6 @@ public final class Lifecycle {
             voiceOverChanged(running: running)
         case .launched(bundleID: ProToolsApp.bundleID):
             Log.info(.app, "Pro Tools launched")
-            Task { await checkVoiceOver(saying: "") }
             applyPreferences()
         case .quit(bundleID: ProToolsApp.bundleID):
             // Like KM Cancel Macros and Cleanup Variables: nothing that was going on in Pro Tools can go on, and nothing remembered about its session applies to the next. KM also cleaned up on launch because its variables outlived the engine; here they start empty with Flo Tools.
