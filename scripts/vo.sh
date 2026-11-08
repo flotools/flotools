@@ -11,10 +11,12 @@
 #   move <where>           move the VoiceOver cursor, then print the text under it.
 #                          <where>: left right up down in out first last
 #                          dock desktop menubar status spotlight linked
-#   walk <where> [n]       move n times (default 5), printing each item
+#   walk <where> [n]       move n times (default 5), printing each item; stops
+#                          early at the last item
 #   seek <text> [where] [n]
 #                          move (default right, at most n = 40 times) until the
 #                          text under the cursor contains <text>; fails if not found
+#                          or the cursor reaches the last item
 #   action                 VO+Space on the VoiceOver cursor
 #   select                 VO+Cmd+Space (select the item)
 #   click [1|2|3] [left|right]
@@ -70,6 +72,18 @@ move_once() {
     sleep 0.3
 }
 
+# Text and bounds of the VoiceOver cursor, to tell whether a move went anywhere.
+position() { vo 'return (text under cursor of vo cursor) & " @ " & ((bounds of vo cursor) as text)'; }
+
+# Moves once; fails when the cursor stays where it was, because it is on the last
+# item in that direction (VoiceOver does not wrap around).
+move_or_stop() {
+    local before
+    before=$(position)
+    move_once "$1"
+    [[ $(position) != "$before" ]]
+}
+
 case ${1:-} in
     cursor) cursor_text ;;
     bounds) vo 'return bounds of vo cursor' ;;
@@ -82,7 +96,10 @@ case ${1:-} in
     walk)
         where=${2:?walk needs a target}
         for _ in $(seq "${3:-5}"); do
-            move_once "$where"
+            if ! move_or_stop "$where"; then
+                echo "stopped: the last item moving $where" >&2
+                exit 0
+            fi
             cursor_text
         done
         ;;
@@ -92,7 +109,10 @@ case ${1:-} in
         for _ in $(seq "${4:-40}"); do
             current=$(cursor_text)
             if [[ $current == *"$text"* ]]; then echo "$current"; exit 0; fi
-            move_once "$where"
+            if ! move_or_stop "$where"; then
+                echo "not found: $text (reached the last item moving $where: $current)" >&2
+                exit 1
+            fi
         done
         current=$(cursor_text)
         if [[ $current == *"$text"* ]]; then echo "$current"; exit 0; fi
