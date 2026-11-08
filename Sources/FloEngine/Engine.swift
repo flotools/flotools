@@ -435,6 +435,13 @@ public final class Engine {
         // Route on the cached context: reading the window here would block every key while Pro Tools is busy. Only a change of front app, which needs no Accessibility call to notice, is checked first.
         let refreshed = contextMonitor.refreshIfFrontAppChanged()
         if refreshed != context { contextChanged(to: refreshed) }
+        // Every key is for Pro Tools, so a press while another process has the keyboard, such as the Dock or Spotlight, goes to that process untouched. Releases still go through `dispatch`, which ends holds started before the focus moved.
+        if phase == .pressed, let focus = contextMonitor.keyboardFocusElsewhere() {
+            // The key is not named: keys passed on must not appear in the log.
+            Log.info(.engine, "keyboard focus is in \(focus.bundleID ?? "pid \(focus.processID)"), not \(context), passing the key on")
+            passThrough(combo, to: focus)
+            return
+        }
         if dispatch(combo, phase, in: context) == nil {
             if phase == .pressed && candidates(for: combo, phase: .released, in: context).isEmpty {
                 // The key is not named: keys no command matched must not appear in the log.

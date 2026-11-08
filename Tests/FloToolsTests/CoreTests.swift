@@ -1245,6 +1245,16 @@ private actor Flag {
     }
 }
 
+@Suite struct KeyboardFocusTests {
+    /// A press goes to the app with keyboard focus only when that is a known app other than the known front app.
+    @Test func focusElsewhereOnlyWhenBothKnownAndDifferent() {
+        #expect(ContextMonitor.otherFocus(1375, front: 19240) == 1375)
+        #expect(ContextMonitor.otherFocus(19240, front: 19240) == nil)
+        #expect(ContextMonitor.otherFocus(0, front: 19240) == nil)
+        #expect(ContextMonitor.otherFocus(1375, front: 0) == nil)
+    }
+}
+
 @Suite struct FadeDialogTests {
     /// The JXA read the first "Slope" group for both; the second one belongs to the fade out.
     @Test func outSlopeReadsTheSecondSlopeGroup() {

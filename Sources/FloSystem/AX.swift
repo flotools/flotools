@@ -26,6 +26,17 @@ public struct AXElement {
         AXUIElementSetMessagingTimeout(AXUIElementCreateSystemWide(), seconds)
     }
 
+    /// The process that has keyboard focus. Usually the active app, but not always: the Dock under VoiceOver (VO+D) and Spotlight take the keyboard while the app behind them stays active (checked live 2026-11-08). Throws `FloError.accessibility` when it cannot be read. Answered in 0.4 to 17 ms in those checks; it is called from the hotkey callback, so a slow answer delays the key.
+    public nonisolated static func keyboardFocusProcess() throws -> pid_t {
+        var value: CFTypeRef?
+        let result = AXUIElementCopyAttributeValue(AXUIElementCreateSystemWide(), kAXFocusedApplicationAttribute as CFString, &value)
+        var pid: pid_t = 0
+        guard result == .success, let value, CFGetTypeID(value) == AXUIElementGetTypeID(), AXUIElementGetPid(value as! AXUIElement, &pid) == .success else {
+            throw FloError.accessibility(operation: "read the focused application", code: result.rawValue)
+        }
+        return pid
+    }
+
     /// Whether both wrap the same element. Not `Equatable`, because comparing needs the actor.
     public func isSame(as other: AXElement) -> Bool { CFEqual(ref, other.ref) }
 

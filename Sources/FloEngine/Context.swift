@@ -145,6 +145,22 @@ public final class ContextMonitor {
         return current
     }
 
+    /// The app with keyboard focus when that is not the front app, as while VoiceOver is in the Dock or Spotlight is open over Pro Tools; nil when it is the front app or cannot be told. Read at key time: the front app does not change for these, and only the Dock sends a notification.
+    public func keyboardFocusElsewhere() -> FrontContext? {
+        do {
+            guard let pid = Self.otherFocus(try AXElement.keyboardFocusProcess(), front: current.processID) else { return nil }
+            return FrontContext(bundleID: NSRunningApplication(processIdentifier: pid)?.bundleIdentifier, processID: pid)
+        } catch {
+            Log.warning(.context, "could not tell which app has keyboard focus, keys go by the front app: \(error)")
+            return nil
+        }
+    }
+
+    /// `focused` when it is a known process other than the known front app.
+    nonisolated static func otherFocus(_ focused: pid_t, front: pid_t) -> pid_t? {
+        focused > 0 && front > 0 && focused != front ? focused : nil
+    }
+
     /// Publishes a change of front app now and reads the window title in the background. A read already running is dropped and done again, because it may have started before this change.
     public func refresh() {
         guard poll != nil else { return }

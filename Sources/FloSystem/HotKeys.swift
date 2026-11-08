@@ -190,7 +190,8 @@ public enum Keyboard {
 
     /// Both events are made before either is posted, so a key down is never left without its key up. False when they cannot be made.
     private static func pressNow(_ combo: KeyCombo, pid: pid_t) -> Bool {
-        let source = CGEventSource(stateID: .hidSystemState)
+        // A private source, not the HID system state: a key posted from inside a hotkey press with the HID state source reached the Dock but made it select its first item instead of the typed letter's; with a private source it selected the letter's item (checked live 2026-11-08 with a probe app). Why is not known.
+        let source = CGEventSource(stateID: .privateState)
         guard let down = CGEvent(keyboardEventSource: source, virtualKey: CGKeyCode(combo.keyCode), keyDown: true),
               let up = CGEvent(keyboardEventSource: source, virtualKey: CGKeyCode(combo.keyCode), keyDown: false)
         else { return false }
