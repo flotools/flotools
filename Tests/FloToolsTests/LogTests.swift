@@ -45,23 +45,37 @@ import Testing
         #expect(lines[2].hasSuffix(" info engine - two\\nlines"))
     }
 
-    @Test func namesTheFileForTheDay() async throws {
+    @Test func namesTheFileForTheTime() async throws {
         let file = makeFile()
         try await file.start(header: "HEADER")
         let url = await file.stop()
-        #expect(url?.lastPathComponent == "Flo Tools 2026-11-07.log")
+        #expect(url?.lastPathComponent == "Flo Tools 2026-11-07 12-00-00.log")
     }
 
-    @Test func turningOnAgainTheSameDayAppends() async throws {
+    @Test func turningOnAgainOpensANewFile() async throws {
+        let first = makeFile()
+        try await first.start(header: "FIRST")
+        first.append(entry("first entry"))
+        let firstURL = await first.stop()
+        let second = makeFile(now: Self.day.addingTimeInterval(5))
+        try await second.start(header: "SECOND")
+        second.append(entry("second entry"))
+        let secondURL = await second.stop()
+        #expect(secondURL?.lastPathComponent == "Flo Tools 2026-11-07 12-00-05.log")
+        #expect(try text(secondURL).hasPrefix("SECOND\n"))
+        #expect(!(try text(secondURL).contains("first entry")))
+        #expect(try text(firstURL).contains("first entry"))
+    }
+
+    /// Two starts in the same second share a name; the second appends rather than erasing the first.
+    @Test func aFileWithTheSameNameIsAppendedTo() async throws {
         let file = makeFile()
         try await file.start(header: "FIRST")
         file.append(entry("first entry"))
-        let first = await file.stop()
+        _ = await file.stop()
         try await file.start(header: "SECOND")
         file.append(entry("second entry"))
-        let second = await file.stop()
-        #expect(first == second)
-        let lines = try text(second).split(separator: "\n", omittingEmptySubsequences: false).map(String.init)
+        let lines = try text(await file.stop()).split(separator: "\n", omittingEmptySubsequences: false).map(String.init)
         #expect(lines.first == "FIRST")
         #expect(lines[1].hasSuffix("first entry"))
         #expect(lines[2] == "", "a blank line separates the sessions")
@@ -69,43 +83,28 @@ import Testing
         #expect(lines[4].hasSuffix("second entry"))
     }
 
-    @Test func resumeOnANewDayStartsANewFile() async throws {
-        let first = makeFile()
-        try await first.start(header: "FIRST")
-        first.append(entry("yesterday"))
-        first.waitForWrites()
-        let second = makeFile(now: Self.day.addingTimeInterval(86_400))
-        #expect(second.resume())
-        second.append(entry("today"))
-        let url = await second.stop()
-        #expect(url?.lastPathComponent == "Flo Tools 2026-11-08.log")
-        let contents = try text(url)
-        #expect(contents.hasPrefix("Flo Tools started again while logging was on.\n"))
-        #expect(contents.contains("today"))
-        #expect(!contents.contains("yesterday"))
-        #expect(try text(logs.appendingPathComponent("Flo Tools 2026-11-07.log")).contains("yesterday"))
-    }
-
-    @Test func resumeContinuesTheSameFile() async throws {
+    @Test func resumeOpensANewFile() async throws {
         let first = makeFile()
         try await first.start(header: "FIRST")
         first.append(entry("before relaunch"))
         first.waitForWrites()
-        // A new instance with the same defaults stands in for the next launch.
-        let second = makeFile()
+        // A new instance with the same defaults stands in for the next launch, a minute later.
+        let second = makeFile(now: Self.day.addingTimeInterval(60))
         #expect(second.resume())
         second.append(entry("during startup"))
         second.writeHeader("SECOND")
         second.append(entry("after relaunch"))
-        let contents = try text(await second.stop())
-        #expect(contents.contains("FIRST"))
-        #expect(contents.contains("before relaunch"))
-        #expect(contents.contains("Flo Tools started again while logging was on.\n"))
+        let url = await second.stop()
+        #expect(url?.lastPathComponent == "Flo Tools 2026-11-07 12-01-00.log")
+        let contents = try text(url)
+        #expect(contents.hasPrefix("Flo Tools started again while logging was on.\n"))
         let startup = try #require(contents.range(of: "during startup"))
         let header = try #require(contents.range(of: "\nSECOND\n"))
         #expect(startup.upperBound <= header.lowerBound, "entries logged before the header are kept")
         #expect(contents.contains("after relaunch"))
-        #expect(!makeFile().resume(), "stop clears the remembered file")
+        #expect(!contents.contains("before relaunch"))
+        #expect(try text(logs.appendingPathComponent("Flo Tools 2026-11-07 12-00-00.log")).contains("before relaunch"))
+        #expect(!makeFile().resume(), "stop clears the remembered state")
     }
 
     @Test func dropsOldestEntriesPastTheCap() async throws {

@@ -49,12 +49,12 @@ public enum Log {
     /// Whether entries are being written to the diagnostic log file.
     public static var isRecording: Bool { file.isRecording }
 
-    /// Opens today's log file, appending when it exists, writes `header`, and remembers across launches that logging is on. The file work runs on the log queue, so the caller does not block.
+    /// Opens a new log file named for the current time, writes `header`, and remembers across launches that logging is on. The file work runs on the log queue, so the caller does not block.
     public static func startRecording(header: String) async throws {
         try await file.start(header: header)
     }
 
-    /// If logging was on when Flo Tools last quit or crashed, opens today's file, appending when it exists, with a note that Flo Tools started again. Returns whether it did. Synchronous on purpose: it runs first thing at launch, before the entries of startup, which would otherwise be lost. Write the header with `writeHeader` once startup has set the state it shows.
+    /// If logging was on when Flo Tools last quit or crashed, opens a new file named for the current time, with a note that Flo Tools started again. Returns whether it did. Synchronous on purpose: it runs first thing at launch, before the entries of startup, which would otherwise be lost. Write the header with `writeHeader` once startup has set the state it shows.
     public static func resumeRecording() -> Bool {
         file.resume()
     }
@@ -101,7 +101,7 @@ public enum Log {
     }
 }
 
-/// The diagnostic log file, one per day: turning logging on, or launching with it on, opens the file named for that day and appends to it when it exists. A file opened before midnight is used until logging is next turned on or Flo Tools next starts. Writes happen on a serial background queue so callers never wait for the disk.
+/// The diagnostic log file. Each launch with logging on, and each time logging is turned on, opens a new file named for the current time; the file of an earlier launch is left as it was. Writes happen on a serial background queue so callers never wait for the disk.
 ///
 /// Mutable state is owned by `queue`, except the recording flag, which callers read on every log call and is behind a lock. `UserDefaults` is thread-safe.
 final class LogFile: @unchecked Sendable {
@@ -124,7 +124,7 @@ final class LogFile: @unchecked Sendable {
     private let keepBytes: Int
     /// Remembers the open file across launches. `UserDefaults` is thread-safe.
     private let defaults: UserDefaults
-    /// The current date, which names the file. Tests pass their own.
+    /// The current time, which names the file. Tests pass their own.
     private let now: @Sendable () -> Date
 
     private let recording = OSAllocatedUnfairLock(initialState: false)
@@ -161,7 +161,7 @@ final class LogFile: @unchecked Sendable {
     var isRecording: Bool { recording.withLock { $0 } }
 
     func start(header: String) async throws {
-        let url = todaysFile()
+        let url = newFile()
         try await withCheckedThrowingContinuation { (done: CheckedContinuation<Void, Error>) in
             queue.async {
                 done.resume(with: Result { try self.open(url, header: header) })
@@ -173,7 +173,7 @@ final class LogFile: @unchecked Sendable {
 
     func resume() -> Bool {
         guard defaults.string(forKey: Self.fileKey) != nil else { return false }
-        let url = todaysFile()
+        let url = newFile()
         do {
             try queue.sync { try open(url, header: "Flo Tools started again while logging was on.\n") }
             defaults.set(url.path, forKey: Self.fileKey)
@@ -185,11 +185,11 @@ final class LogFile: @unchecked Sendable {
         }
     }
 
-    /// "Flo Tools 2026-11-07.log" in `directory`, for the current day.
-    private func todaysFile() -> URL {
+    /// "Flo Tools 2026-11-07 19-14-02.log" in `directory`, for the current time.
+    private func newFile() -> URL {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "yyyy-MM-dd HH-mm-ss"
         return directory.appendingPathComponent("Flo Tools \(formatter.string(from: now())).log")
     }
 
@@ -232,7 +232,7 @@ final class LogFile: @unchecked Sendable {
 
     // MARK: On the queue
 
-    /// Opens `url` for appending, creating it and its folder when missing, and writes `header`, after a blank line when the file already has entries.
+    /// Opens `url` for appending, creating it and its folder when missing, and writes `header`, after a blank line when the file already has entries, as it does when two starts fall in the same second.
     private func open(_ url: URL, header: String) throws {
         if !FileManager.default.fileExists(atPath: url.path) {
             try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
