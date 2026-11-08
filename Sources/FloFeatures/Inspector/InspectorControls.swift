@@ -106,28 +106,44 @@ enum InspectorControls {
 
     // MARK: Freeze
 
-    /// Freezing renders the track, which can take a while, so the wait has no short limit. Pro Tools may not answer Accessibility while it works.
-    static let freezeTimeout: Duration = .seconds(600)
+    static let freezeCommand: CommandID = "inspector.speakToggleFreezeStatus"
 
-    /// Speak/Toggle Freeze Status: single press speaks the freeze button's name, such as "Not Frozen". Double press presses it, plays the done sound, then plays the progress sound until the name changes and speaks the new name. The JXA waited without a limit and played Pop every 0.1 s; this plays it once a second, like Unsolo All, and gives up after `freezeTimeout`, because every other command waits in the queue meanwhile.
+    /// Speak/Toggle Freeze Status: single press speaks the freeze button's name, such as "Not Frozen". Double press presses it, plays the done sound, then starts a watch that plays the progress sound until the name changes and speaks the new name. Freezing renders the track, which can take many minutes, so the wait has no limit, as in the JXA; it is a watch rather than part of the run so other commands keep working meanwhile. The JXA played Pop every 0.1 s; this plays it once a second, like Unsolo All.
     @MainActor
     static var freeze: Command {
-        Inspector.command("inspector.speakToggleFreezeStatus", "Speak/Toggle Freeze Status", summary: "Single press speaks whether the track is frozen. Double press freezes or unfreezes it, plays a progress sound while Pro Tools works, and speaks the new state.", key: "F", doneSound: .none, single: { run in
+        Inspector.command(freezeCommand, "Speak/Toggle Freeze Status", summary: "Single press speaks whether the track is frozen. Double press freezes or unfreezes it, plays a progress sound while Pro Tools works, and speaks the new state.", key: "F", doneSound: .none, single: { run in
             let track = try await run.inspectorTrack(in: .edit)
             try await VoiceOver.say(readout(.freeze, of: track))
         }, double: { run in
             let track = try await run.inspectorTrack(in: .edit)
             let before = try await press(.freeze, of: track)
             await Sound.done.play()
-            let after = try await waitForFreeze(track, changedFrom: before)
-            try await VoiceOver.say(after)
+            // A new freeze replaces the wait for an earlier one, whose track no longer has the user's attention.
+            await startWatch(in: run.engine) { await speakWhenFrozen(track, changedFrom: before) }
         })
     }
 
-    /// Reads the freeze button's name until it differs from `before`. Pro Tools answers slowly or not at all while it renders, so a busy read (`cannotComplete`, which includes the messaging timeout) only means "not yet". Any other failure, such as a track that is gone, ends the wait rather than holding the queue for `freezeTimeout`.
+    @MainActor
+    private static func startWatch(in engine: Engine, _ body: @escaping Watches.Body) {
+        engine.watches.stop(freezeCommand)
+        engine.watches.toggle(freezeCommand, body)
+    }
+
+    /// Speaks the freeze button's new name once it changes. Ends quietly when the watch is stopped, for example because Pro Tools quit; any other failure is spoken like a command's.
+    private static func speakWhenFrozen(_ track: TrackStrip, changedFrom before: String) async {
+        do {
+            let after = try await waitForFreeze(track, changedFrom: before)
+            try await VoiceOver.say(after)
+        } catch is CancellationError {
+        } catch {
+            Log.error(.engine, "freeze wait failed: \(error)")
+            if let text = SpokenError.text(for: error) { await VoiceOver.sayOrLog(text) }
+        }
+    }
+
+    /// Reads the freeze button's name until it differs from `before`, without a time limit. Pro Tools answers slowly or not at all while it renders, so a busy read (`cannotComplete`, which includes the messaging timeout) only means "not yet". Any other failure, such as a track that is gone, ends the wait.
     private static func waitForFreeze(_ track: TrackStrip, changedFrom before: String) async throws -> String {
-        let start = ContinuousClock.now
-        var progress = ProgressTicker(startingAt: start)
+        var progress = ProgressTicker()
         var streak = ReadFailureStreak(reading: "the freeze button")
         while true {
             do {
@@ -137,7 +153,6 @@ enum InspectorControls {
             } catch let error as FloError where error.isBusyApp {
                 streak.failed(error)
             }
-            guard ContinuousClock.now - start < freezeTimeout else { throw FloError.couldNot("see the freeze finish") }
             await progress.tick()
             try await Task.sleep(for: .milliseconds(100))
         }
