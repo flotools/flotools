@@ -79,21 +79,49 @@ public final class Engine {
     }
     /// What takes the keys of the app in `context`, if anything. The VoiceOver cursor still reports the track behind a menu Pro Tools opened from it and behind a counter opened for typing (checked live 2026-11-07), so detection alone would accept it. Throws when that cannot be told.
     var keyCapture: @MainActor (FrontContext) async throws -> KeyCapture?
+    /// A key press that waits in the admission queue, so its release, which is not queued, can still be seen by it.
     @MainActor private final class Press {
         var released = false
     }
-    private struct AcceptedInput {
-        let invocation: String
-        let arrival: ContinuousClock.Instant
-        let press: Press
-        let generation: Int
-        var target: InspectorTarget? = nil
+
+    /// How a run's start relates to the presses before it.
+    private enum Ordering {
+        /// Started as it came: with Auto Inspector off, from the app or on an event.
+        case immediate
+        /// Admitted through the queue while Auto Inspector was on. `generation` voids it when what it was admitted under changes; `press` tells whether the key was let go while it waited.
+        case admitted(generation: Int, press: Press)
     }
+
+    /// One press, app request or event on its way to a command, with what the engine knows about it. Made once, in `newInvocation`.
+    private struct Invocation {
+        /// The log's invocation ID, for example "run12".
+        let id: String
+        /// When the key went down, which double presses and holds are timed from, even when admission makes the run start later.
+        let arrival: ContinuousClock.Instant
+        let ordering: Ordering
+        /// The track Auto Inspector accepted, nil for any other run.
+        var target: InspectorTarget? = nil
+
+        var press: Press? {
+            if case .admitted(_, let press) = ordering { press } else { nil }
+        }
+        var generation: Int? {
+            if case .admitted(let generation, _) = ordering { generation } else { nil }
+        }
+    }
+
+    /// A single press waiting for its double-press timeout. Kept with what it runs, so a press on another track or after the timeout can run it at once.
+    private struct PendingSingle {
+        let task: Task<Void, Never>
+        let run: CommandRun
+        let body: CommandBody
+        let invocation: Invocation
+    }
+
     private var presses: [KeyCombo: Press] = [:]
     private var inputGeneration = 0
     private var admissionTail: Task<Void, Never>?
     private var admissions = 0
-    private var autoSingles: [CommandID: (run: CommandRun, body: CommandBody, time: ContinuousClock.Instant, invocation: String)] = [:]
 
     /// Voids every press not yet run: admissions still deciding, single presses waiting for their timeout, and holds started on an Auto Inspector target. Called when what a press was accepted under changes.
     private func voidPendingInput() {
@@ -102,8 +130,7 @@ public final class Engine {
         presses = [:]
         endHolds { combo in holds[combo]?.run.inspectorTarget != nil }
         doublePress.cancelAll()
-        autoSingles = [:]
-        pendingSingles.values.forEach { $0.cancel() }
+        pendingSingles.values.forEach { $0.task.cancel() }
         pendingSingles = [:]
     }
 
@@ -121,27 +148,25 @@ public final class Engine {
 
     /// Queues the press behind earlier ones while Auto Inspector is on, so a later press, even of a key that needs no check, never runs before an earlier press's cursor check ends. Releases are not queued.
     private func admit(_ combo: KeyCombo, in original: FrontContext, at arrival: ContinuousClock.Instant) -> String {
-        runCount += 1
-        let invocation = "run\(runCount)"
         let generation = inputGeneration
         let press = Press()
         presses[combo]?.released = true
         presses[combo] = press
-        let input = AcceptedInput(invocation: invocation, arrival: arrival, press: press, generation: generation)
+        let input = newInvocation(at: arrival, .admitted(generation: generation, press: press))
         let previous = admissionTail
         admissions += 1
         admissionTail = Task { @MainActor [weak self] in
             await previous?.value
             guard let self else { return }
             defer { self.admissions -= 1 }
-            await Log.$invocation.withValue(invocation) {
+            await Log.$invocation.withValue(input.id) {
                 guard self.inputIsValid(generation, original) else {
                     Log.info(.engine, "input dropped: stale admission")
                     return
                 }
                 guard let command = self.inspectorCandidate(combo, in: original) else {
                     if let command = self.candidates(for: combo, phase: .pressed, in: original).first {
-                        _ = self.start(command, origin: .hotKey(combo, .pressed), context: original, reason: "\(combo) pressed in \(original)", input: input)
+                        _ = self.start(command, origin: .hotKey(combo, .pressed), context: original, reason: "\(combo) pressed in \(original)", invocation: input)
                     } else { self.passThrough(combo, to: original) }
                     return
                 }
@@ -159,7 +184,7 @@ public final class Engine {
                 }
                 // Whether a single press waiting for its double was on another track. Compared before the key capture check, so that check is the last wait before deciding.
                 var otherTrackPending = false
-                if let target, let previousTarget = self.autoSingles[command.id]?.run.inspectorTarget {
+                if let target, let previousTarget = self.pendingSingles[command.id]?.run.inspectorTarget {
                     otherTrackPending = !(await target.isSameTrack(as: previousTarget))
                 }
                 // Checked after detection, the latest moment before deciding, so a menu or field that opened during detection still counts. When it cannot be told, the key goes to Pro Tools, which is right if a field is open and harmless if not.
@@ -184,26 +209,32 @@ public final class Engine {
                     self.forwardInspectorKey(combo, original)
                     return
                 }
-                if otherTrackPending { self.flushAutoSingle(command.id) }
+                if otherTrackPending { self.flushSingle(command.id) }
                 Log.info(.engine, "Auto Inspector accepted \(target.name)")
                 self.setInspector(true)
                 var accepted = input
                 accepted.target = target
-                _ = self.start(command, origin: .hotKey(combo, .pressed), context: original, reason: "\(combo) pressed in \(original)", input: accepted)
+                _ = self.start(command, origin: .hotKey(combo, .pressed), context: original, reason: "\(combo) pressed in \(original)", invocation: accepted)
             }
         }
-        return invocation
+        return input.id
     }
 
-    private func flushAutoSingle(_ id: CommandID) {
-        guard let previous = autoSingles[id] else { return }
+    /// Numbers a run for the log and records when its key went down. The one place invocation IDs are made.
+    private func newInvocation(at arrival: ContinuousClock.Instant, _ ordering: Ordering) -> Invocation {
+        runCount += 1
+        return Invocation(id: "run\(runCount)", arrival: arrival, ordering: ordering)
+    }
+
+    /// Runs the pending single press of command `id` now, rather than at its timeout.
+    private func flushSingle(_ id: CommandID) {
+        guard let pending = pendingSingles[id] else { return }
         cancelSingle(id)
-        Log.$invocation.withValue(previous.invocation) { enqueue(previous.run, previous.body) }
+        Log.$invocation.withValue(pending.invocation.id) { enqueue(pending.run, pending.body) }
     }
 
     private func cancelSingle(_ id: CommandID) {
-        pendingSingles.removeValue(forKey: id)?.cancel()
-        autoSingles[id] = nil
+        pendingSingles.removeValue(forKey: id)?.task.cancel()
         doublePress.cancel(id)
     }
 
@@ -218,7 +249,7 @@ public final class Engine {
     private var endingHolds = false
 
     private var doublePress = DoublePressDecider(timeout: .milliseconds(Preferences().timeout))
-    private var pendingSingles: [CommandID: Task<Void, Never>] = [:]
+    private var pendingSingles: [CommandID: PendingSingle] = [:]
     /// The last queued top-level run; the next one waits for it.
     private var queueTail: Task<Bool, Never>?
     /// Queued and running top-level runs, so `stop` can cancel them. Keyed by queue position, not run number, because a delayed single press joins the queue after later runs.
@@ -434,7 +465,7 @@ public final class Engine {
             return admit(combo, in: context, at: arrival)
         }
         guard takesKeys, let command = candidates(for: combo, phase: phase, in: context).first else { return nil }
-        return start(command, origin: .hotKey(combo, phase), context: context, reason: "\(combo) \(phase) in \(context)")
+        return start(command, origin: .hotKey(combo, phase), context: context, reason: "\(combo) \(phase) in \(context)", invocation: newInvocation(at: arrival, .immediate))
     }
 
     /// The command with `id`, or nil after logging that it is missing. App code names commands by ID, so a missing one is a programming error, not a user's.
@@ -449,7 +480,7 @@ public final class Engine {
     /// Runs a command from the app, for example a status menu item. Errors are spoken like those of hotkey runs.
     public func run(_ id: CommandID) {
         guard let command = installedCommand(id) else { return }
-        _ = start(command, origin: .direct, context: context, reason: "run by the app")
+        _ = start(command, origin: .direct, context: context, reason: "run by the app", invocation: newInvocation(at: .now, .immediate))
     }
 
     /// Runs a command because `event` happened, if it could run from a hotkey now: Flo Tools is on and not suspended, and the command is on and its scope and mode apply. Checked again when the run reaches the front of the queue, like a hotkey run.
@@ -459,29 +490,27 @@ public final class Engine {
             Log.info(.engine, "\(event): \(id) is not active in \(context)")
             return
         }
-        _ = start(command, origin: .event(event), context: context, reason: event)
+        _ = start(command, origin: .event(event), context: context, reason: event, invocation: newInvocation(at: .now, .immediate))
     }
 
-    /// Gives the run an invocation ID and starts it, waiting first for a double press where the command has one.
-    private func start(_ command: Command, origin: CommandRun.Origin, context: FrontContext, reason: String, input: AcceptedInput? = nil) -> String {
-        if input == nil { runCount += 1 }
-        let invocation = input?.invocation ?? "run\(runCount)"
-        let arrival = input?.arrival ?? .now
-        let press = input?.press
-        let target = input?.target
+    /// Starts the run, waiting first for a double press where the command has one. Returns the invocation ID.
+    private func start(_ command: Command, origin: CommandRun.Origin, context: FrontContext, reason: String, invocation: Invocation) -> String {
+        let arrival = invocation.arrival
+        let press = invocation.press
+        let admitted = invocation.generation != nil
         // Tasks created in this scope inherit the invocation ID, so delayed single presses carry it too.
-        Log.$invocation.withValue(invocation) {
+        Log.$invocation.withValue(invocation.id) {
             Log.info(.engine, "\(reason) -> \(command.id) \"\(command.name)\"")
             var run = CommandRun(command: command, origin: origin, context: context, engine: self)
-            run.inspectorTarget = target
-            run.inputGeneration = input?.generation
+            run.inspectorTarget = invocation.target
+            run.inputGeneration = invocation.generation
             switch command.action {
             case .body(let body):
                 enqueue(run, body)
             case .hold(let onPress, let release):
                 // Only a press starts a hold; a release reaching here belongs to a press that did not.
                 guard case .hotKey(let combo, .pressed) = origin, press?.released != true else { return }
-                if onPress(run) { holds[combo] = (run, release, invocation) }
+                if onPress(run) { holds[combo] = (run, release, invocation.id) }
             case .repeating(let body):
                 let first = enqueue(run, body)
                 guard case .hotKey(let combo, .pressed) = origin, press?.released != true else { return }
@@ -502,46 +531,45 @@ public final class Engine {
                 holds[combo] = (run, { _ in
                     press?.released = true
                     repeats.cancel()
-                }, invocation)
+                }, invocation.id)
             case .singleOrDouble(let single, let double, let doneSound):
-                if let previous = autoSingles[command.id], arrival - previous.time >= doublePress.timeout {
-                    flushAutoSingle(command.id)
+                // A single whose timeout passed before this press arrived, but which has not run yet, as when admission held it back, runs now and first, rather than being lost to this press.
+                if let previous = pendingSingles[command.id], arrival - previous.invocation.arrival >= doublePress.timeout {
+                    flushSingle(command.id)
                 }
                 switch doublePress.press(command.id, at: arrival) {
                 case .double:
-                    pendingSingles.removeValue(forKey: command.id)?.cancel()
-                    autoSingles[command.id] = nil
+                    pendingSingles.removeValue(forKey: command.id)?.task.cancel()
                     Log.info(.engine, "double press")
                     enqueue(run, Self.withDoneSound(double, doneSound))
                 case .single(let generation):
                     let timeoutEnds = arrival + doublePress.timeout
                     let holdEnds = doublePressHold.map { arrival + $0 }
-                    if input != nil { autoSingles[command.id] = (run, single, arrival, invocation) }
-                    pendingSingles[command.id] = Task { @MainActor [weak self] in
+                    let task = Task { @MainActor [weak self] in
                         // A hold decides as soon as the hold time passes, also before the timeout. A release before then leaves the single, which still waits for the timeout so a second press can make a double.
                         if let holdEnds, case .hotKey(let combo, .pressed) = origin, await self?.staysDown(combo, press: press, until: holdEnds) == true {
-                            if input != nil { await self?.waitForAdmissions() }
+                            // An admitted press waits for the presses admitted before it, which may still make this a double.
+                            if admitted { await self?.waitForAdmissions() }
                             if press?.released != true, let self, !Task.isCancelled,
                                 self.doublePress.singleIsDue(command.id, generation: generation) {
                                 self.pendingSingles[command.id] = nil
-                                self.autoSingles[command.id] = nil
                                 Log.info(.engine, "held for double press")
                                 self.enqueue(run, Self.withDoneSound(double, doneSound))
                                 return
                             }
                         }
                         try? await Task.sleep(until: timeoutEnds)
-                        if input != nil { await self?.waitForAdmissions() }
+                        if admitted { await self?.waitForAdmissions() }
                         guard let self, !Task.isCancelled, self.doublePress.singleIsDue(command.id, generation: generation) else { return }
                         self.pendingSingles[command.id] = nil
-                        self.autoSingles[command.id] = nil
                         Log.info(.engine, "single press")
                         self.enqueue(run, single)
                     }
+                    pendingSingles[command.id] = PendingSingle(task: task, run: run, body: single, invocation: invocation)
                 }
             }
         }
-        return invocation
+        return invocation.id
     }
 
     /// Whether `combo` stays down until `deadline`, for holding a key for a double press. Checks every 20 ms, so a release and a new press in between count as released; false when cancelled.
@@ -640,7 +668,7 @@ public final class Engine {
     /// Waits for input decisions, pending singles and the command queue. Holds and watches end independently.
     func waitUntilIdle() async {
         await waitForAdmissions()
-        for single in Array(pendingSingles.values) { await single.value }
+        for single in Array(pendingSingles.values) { await single.task.value }
         while let tail = queueTail, runs.isEmpty == false { _ = await tail.value }
     }
 

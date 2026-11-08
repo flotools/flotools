@@ -349,6 +349,17 @@ private actor Flag {
         #expect(events.list == ["double"])
     }
 
+    /// A second press that arrives after the timeout is a new single, also when the main actor was too busy to run the first single on time: the first then runs before it rather than being lost.
+    @Test func lateSingleRunsBeforeTheNextPress() async throws {
+        let events = Events()
+        let engine = engine([doubleCommand(events)])
+        let start = ContinuousClock.now
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix, at: start)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix, at: start + .milliseconds(60))
+        await engine.waitUntilIdle()
+        #expect(events.list == ["single", "single"])
+    }
+
     @Test func disablingACommandVoidsPendingSingles() async throws {
         let events = Events()
         let engine = engine([doubleCommand(events), Command("test.other", "Other", scope: .anyProToolsWindow, triggers: []) { @MainActor _ in }])
