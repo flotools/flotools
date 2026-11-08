@@ -14,7 +14,7 @@ public final class Lifecycle {
     /// Set while Pro Tools' Keyboard Shortcuts window is open, so the user can type any shortcut into it. As in KM, it holds while the window stays open behind another one.
     static let keyboardShortcuts = Suspension("the Pro Tools Keyboard Shortcuts window is open")
     /// A failed reply does not establish that VoiceOver control is disabled.
-    static let startupSpeechFailed = "Flo Tools could not communicate with VoiceOver."
+    static let startupSpeechFailed = "Flo Tools could not communicate with VoiceOver. Allow VoiceOver to be controlled with AppleScript in VoiceOver Utility."
 
     private let engine: Engine
     private let session: SessionState

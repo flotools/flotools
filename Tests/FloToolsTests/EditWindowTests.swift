@@ -114,7 +114,7 @@ import Testing
 
 @Suite struct WindowChangeTests {
     @Test @MainActor func startupWarningDoesNotAssumePermissionFailure() {
-        #expect(Lifecycle.startupSpeechFailed == "Flo Tools could not communicate with VoiceOver.")
+        #expect(Lifecycle.startupSpeechFailed == "Flo Tools could not communicate with VoiceOver. Allow VoiceOver to be controlled with AppleScript in VoiceOver Utility.")
     }
 
     /// Like KM's focused window trigger: two instances of one plug-in have the same title but are different windows; coming back from another app is not a new window.
