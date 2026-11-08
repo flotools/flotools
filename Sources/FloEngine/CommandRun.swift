@@ -19,7 +19,7 @@ public struct CommandRun: Sendable {
     public internal(set) var inspectorTarget: InspectorTarget? = nil
     var inputGeneration: Int? = nil
 
-    /// Automatic runs keep the accepted name even after the cursor moves; manual runs retain cursor lookup. Watches intentionally keep their own cursor-following path.
+    /// The track the command acts on, shown in `window`. A press Auto Inspector accepted uses the track it accepted, even if the cursor has moved since; any other run uses the track under the VoiceOver cursor now. Meter watches follow the cursor themselves.
     public func inspectorTrack(in window: ProToolsApp.TrackWindow = .mix) async throws -> TrackStrip {
         if let inspectorTarget {
             return try await inspectorTarget.track(in: window)

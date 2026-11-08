@@ -8,8 +8,18 @@ import FloSystem
 @Suite @MainActor struct AutoInspectorTests {
     let mix = FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Mix: Session", windowNumber: 1, processID: 100)
     let key = KeyCombo(literal: "Ctrl+Cmd+Right")
-    let a = InspectorTarget(processID: 100, name: "A - Audio Track ")
-    let b = InspectorTarget(processID: 100, name: "B - Audio Track ")
+    let a: InspectorTarget
+    let b: InspectorTarget
+
+    init() async { (a, b) = await Self.targets() }
+
+    /// One element for both: these tests tell tracks apart by name only.
+    @AccessibilityActor
+    static func targets() -> (InspectorTarget, InspectorTarget) {
+        let element = AXElement.application(pid: 100)
+        return (InspectorTarget(processID: 100, name: "A - Audio Track ", source: element, window: .mix),
+                InspectorTarget(processID: 100, name: "B - Audio Track ", source: element, window: .mix))
+    }
 
     @MainActor final class Probe {
         var events: [String] = []

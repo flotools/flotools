@@ -26,7 +26,7 @@ public final class Engine {
     public var isEnabled = true {
         didSet {
             Log.info(.engine, isEnabled ? "Flo Tools enabled" : "Flo Tools disabled")
-            stateChanged(voidsPendingSingles: true)
+            stateChanged()
         }
     }
 
@@ -41,8 +41,7 @@ public final class Engine {
         get { doublePress.timeout }
         set {
             doublePress.timeout = newValue
-            invalidateInput()
-            cancelPendingSingles()
+            voidPendingInput()
         }
     }
 
@@ -55,10 +54,7 @@ public final class Engine {
     /// How long a key must be held to run its double action, from the "hold for double press" preferences; nil when that is off.
     public var doublePressHold: Duration? {
         didSet {
-            if oldValue != doublePressHold {
-                invalidateInput()
-                cancelPendingSingles()
-            }
+            if oldValue != doublePressHold { voidPendingInput() }
         }
     }
 
@@ -69,13 +65,11 @@ public final class Engine {
     public var autoInspector = false {
         didSet {
             guard oldValue != autoInspector else { return }
-            invalidateInput()
-            cancelPendingSingles()
-            updateHotKeys()
+            stateChanged()
         }
     }
 
-    // Narrow routing seams: production uses VO/AX and direct PID posting; tests can suspend a probe.
+    // What Auto Inspector does outside the engine: find the track under the VoiceOver cursor, and send a key on to Pro Tools. Tests replace both.
     var detectInspectorTarget: @Sendable (FrontContext) async throws -> InspectorTarget? = { context in
         let window: ProToolsApp.TrackWindow = context.proToolsWindowKind == .mix ? .mix : .edit
         return try await ProToolsApp(pid: context.processID).inspectorTargetUnderVoiceOverCursor(in: window)
@@ -101,11 +95,16 @@ public final class Engine {
     private var admissions = 0
     private var autoSingles: [CommandID: (run: CommandRun, body: CommandBody, time: ContinuousClock.Instant, invocation: String)] = [:]
 
-    private func invalidateInput() {
+    /// Voids every press not yet run: admissions still deciding, single presses waiting for their timeout, and holds started on an Auto Inspector target. Called when what a press was accepted under changes.
+    private func voidPendingInput() {
         inputGeneration += 1
         presses.values.forEach { $0.released = true }
         presses = [:]
         endHolds { combo in holds[combo]?.run.inspectorTarget != nil }
+        doublePress.cancelAll()
+        autoSingles = [:]
+        pendingSingles.values.forEach { $0.cancel() }
+        pendingSingles = [:]
     }
 
     private func inspectorCandidate(_ combo: KeyCombo, in context: FrontContext) -> Command? {
@@ -120,7 +119,7 @@ public final class Engine {
         generation == inputGeneration && takesKeys && context == original
     }
 
-    /// Ordered admission includes other intercepted presses, so a later manual toggle cannot overtake a probe. Releases always bypass this queue.
+    /// Queues the press behind earlier ones while Auto Inspector is on, so a later press, even of a key that needs no check, never runs before an earlier press's cursor check ends. Releases are not queued.
     private func admit(_ combo: KeyCombo, in original: FrontContext, at arrival: ContinuousClock.Instant) -> String {
         runCount += 1
         let invocation = "run\(runCount)"
@@ -282,8 +281,7 @@ public final class Engine {
     public func cancelAll() -> Task<Void, Never> {
         Log.info(.engine, "cancelling all commands")
         endHolds { _ in true }
-        invalidateInput()
-        cancelPendingSingles()
+        voidPendingInput()
         let cancelledRuns = Array(runs.values)
         cancelledRuns.forEach { $0.cancel() }
         let watchesEnded = watches.stopAll()
@@ -303,13 +301,13 @@ public final class Engine {
     public func suspend(_ suspension: Suspension) {
         guard suspensions.insert(suspension).inserted else { return }
         Log.info(.engine, "suspended: \(suspension)")
-        stateChanged(voidsPendingSingles: true)
+        stateChanged()
     }
 
     public func resume(_ suspension: Suspension) {
         guard suspensions.remove(suspension) != nil else { return }
         Log.info(.engine, "resumed: \(suspension)")
-        stateChanged(voidsPendingSingles: true)
+        stateChanged()
     }
 
     /// Whether hotkeys work at all: Flo Tools is on and nothing suspends it.
@@ -321,7 +319,7 @@ public final class Engine {
         mode.inspector = on
         if !on { endHolds { holds[$0]?.run.inspectorTarget != nil } }
         Log.info(.engine, on ? "Inspector on" : "Inspector off")
-        stateChanged(voidsPendingSingles: false)
+        updateHotKeys()
     }
 
     public func isCommandEnabled(_ id: CommandID) -> Bool { commandEnabled[id] ?? false }
@@ -330,7 +328,7 @@ public final class Engine {
         precondition(commandEnabled[id] != nil, "unknown command \(id)")
         commandEnabled[id] = enabled
         Log.info(.engine, "command \(id) \(enabled ? "enabled" : "disabled")")
-        stateChanged(voidsPendingSingles: true)
+        stateChanged()
     }
 
     /// The front app or window changed.
@@ -338,15 +336,13 @@ public final class Engine {
         Log.info(.context, "front: \(context)")
         self.context = context
         // A single press waiting for its timeout belongs to the window it was pressed in.
-        stateChanged(voidsPendingSingles: true)
+        stateChanged()
         onContextChange?(context)
     }
 
-    private func stateChanged(voidsPendingSingles: Bool) {
-        if voidsPendingSingles {
-            invalidateInput()
-            cancelPendingSingles()
-        }
+    /// What decides which keys apply changed: pending presses no longer hold, and the hotkeys are worked out again.
+    private func stateChanged() {
+        voidPendingInput()
         updateHotKeys()
     }
 
@@ -649,10 +645,4 @@ public final class Engine {
         Keyboard.post(combo, pid: context.processID)
     }
 
-    private func cancelPendingSingles() {
-        doublePress.cancelAll()
-        autoSingles = [:]
-        pendingSingles.values.forEach { $0.cancel() }
-        pendingSingles = [:]
-    }
 }

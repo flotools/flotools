@@ -24,7 +24,7 @@ enum InspectorMode {
         }),
     ] }
 
-    /// Apply automatic routing and enable the temporary Inspector only with its preference set.
+    /// Turns Auto Inspector on or off, and enables Toggle Temporary Inspector only when its preference is on.
     @MainActor
     static func apply(_ preferences: Preferences, to engine: Engine) {
         engine.autoInspector = preferences.autoInspector

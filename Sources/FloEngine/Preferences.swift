@@ -5,7 +5,7 @@ import Foundation
 public struct Preferences: Equatable, Sendable {
     /// Whether holding backtick turns the Inspector on while held (Toggle Temporary Inspector).
     public var temporaryInspector = false
-    /// Route Inspector keys from the VoiceOver track-name cursor on each press.
+    /// Whether each press of an Inspector key turns the Inspector on or off by itself, by checking whether the VoiceOver cursor is on a track name.
     public var autoInspector = false
     /// Whether the Inspector is on when Flo Tools or Pro Tools starts.
     public var startsWithInspector = false
@@ -16,7 +16,7 @@ public struct Preferences: Equatable, Sendable {
     /// How long a key must be held for a double press, in milliseconds, one of `holdTimeChoices`.
     public var holdTime = 500
 
-    /// Shorter choices reduce the wait before a single-press action; the default remains 200 ms.
+    /// A shorter timeout makes a single press act sooner but leaves less time for the second press of a double.
     public static let timeoutChoices = [100, 200, 300, 400, 500]
     public static let holdTimeChoices = [100, 200, 300, 400, 500]
 

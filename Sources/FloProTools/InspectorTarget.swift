@@ -1,61 +1,39 @@
 import FloSystem
 import Foundation
 
-/// A track name accepted for one process. The routing context separately pins its front window.
+/// The track the VoiceOver cursor was on when Auto Inspector accepted a press: its name, the group the cursor was on and the window that group is in. The engine also pins the front window the press came from.
 public struct InspectorTarget: Sendable {
     public let processID: pid_t
     public let name: String
+    /// The track's group in `window`. Compared by AX identity, so a strip removed and recreated with the same name is another track.
+    private let source: AXElement
+    private let window: ProToolsApp.TrackWindow
 
-    private let source: AXElement?
-    private let window: ProToolsApp.TrackWindow?
-
-    init(processID: pid_t, name: String) {
-        self.processID = processID
-        self.name = name
-        source = nil
-        window = nil
-    }
-
-    fileprivate init(processID: pid_t, name: String, source: AXElement, window: ProToolsApp.TrackWindow) {
+    init(processID: pid_t, name: String, source: AXElement, window: ProToolsApp.TrackWindow) {
         self.processID = processID
         self.name = name
         self.source = source
         self.window = window
     }
 
-    /// AX identity distinguishes a removed and recreated strip with the same name.
     @AccessibilityActor
     public func isSameTrack(as other: Self) -> Bool {
-        guard processID == other.processID, name == other.name else { return false }
-        switch (source, other.source) {
-        case (.some(let first), .some(let second)): return first.isSame(as: second)
-        case (nil, nil): return true
-        default: return false
-        }
+        processID == other.processID && name == other.name && source.isSame(as: other.source)
     }
 
-    /// Validate the accepted source identity before mapping its exact name into the command's window. Missing or duplicate names fail rather than choose another track.
+    /// The accepted track as shown in `requestedWindow`. Throws when the accepted group is gone or its name is no longer unique, rather than run on another track.
     @AccessibilityActor
     public func track(in requestedWindow: ProToolsApp.TrackWindow) throws -> TrackStrip {
         let app = ProToolsApp(pid: processID)
-        if let source, let window {
-            let current = try Self.uniqueGroup(name: name, in: app.trackWindow(window))
-            guard current.isSame(as: source) else { throw FloError.couldNot("find the accepted Inspector track") }
-            if window == requestedWindow { return TrackStrip(name: name, element: source) }
-        }
-        return TrackStrip(name: name, element: try Self.uniqueGroup(name: name, in: app.trackWindow(requestedWindow)))
-    }
-
-    @AccessibilityActor
-    private static func uniqueGroup(name: String, in window: AXElement) throws -> AXElement {
-        let matches = try window.groups.filter { try $0.name == name }
-        guard matches.count == 1, let group = matches.first else { throw FloError.notFound("the unique track \(name)") }
-        return group
+        let current = try ProToolsApp.uniqueGroup(named: name, in: app.trackWindow(window)).required("the unique track \(name)")
+        guard current.isSame(as: source) else { throw FloError.couldNot("find the accepted Inspector track") }
+        if window == requestedWindow { return TrackStrip(name: name, element: source) }
+        return TrackStrip(name: name, element: try ProToolsApp.uniqueGroup(named: name, in: app.trackWindow(requestedWindow)).required("the unique track \(name)"))
     }
 }
 
 extension ProToolsApp {
-    /// Conservative baseline: only the named immediate track group with exactly the cursor's text and frame. A child control inside the strip is not a track-name cursor. Name pop-ups await live validation.
+    /// The track whose name the VoiceOver cursor is on in `window`, or nil when the cursor is on anything else. Only a track's own group counts, matched by exactly the cursor's text and frame, so a control inside the strip is not taken for the track. Throws when `window` is not in front.
     public func inspectorTargetUnderVoiceOverCursor(in window: TrackWindow) async throws -> InspectorTarget? {
         let cursor = try await VoiceOver.cursorSnapshot()
         return try await inspectorTarget(text: cursor.text, bounds: cursor.bounds, in: window)
@@ -68,13 +46,19 @@ extension ProToolsApp {
             throw FloError.couldNot("identify the front Inspector window")
         }
         guard let text, !text.isEmpty else { return nil }
-        let groups = try focused.groups.filter { try $0.name == text }
-        guard groups.count == 1, let group = groups.first, let frame = try group.frame,
+        guard let group = try Self.uniqueGroup(named: text, in: focused), let frame = try group.frame,
             Self.isInspectorName(text: text, bounds: bounds, name: text, frame: frame) else { return nil }
         return InspectorTarget(processID: pid, name: text, source: group, window: window)
     }
 
-    /// Exact equality deliberately rejects containment, partial names and invalid geometry.
+    /// The only group named `name` among the window's immediate children, or nil when there is none or more than one. Auto Inspector needs the name to point at one track.
+    @AccessibilityActor
+    static func uniqueGroup(named name: String, in window: AXElement) throws -> AXElement? {
+        let matches = try window.groups.filter { try $0.name == name }
+        return matches.count == 1 ? matches.first : nil
+    }
+
+    /// Whether the cursor (`text`, `bounds`) is exactly on a track name group (`name`, `frame`). Equality rather than containment, so a partial name or a control inside the strip does not count, nor does a frame that is empty or not finite.
     nonisolated static func isInspectorName(text: String?, bounds: CGRect, name: String, frame: CGRect) -> Bool {
         name.range(of: #" - (?:\w+ )+track\s*$"#, options: [.regularExpression, .caseInsensitive]) != nil
             && text == name && validNameFrame(bounds) && validNameFrame(frame) && bounds == frame
