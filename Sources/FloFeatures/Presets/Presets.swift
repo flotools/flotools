@@ -2,7 +2,7 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// The preset keys, which plug-in and AudioSuite windows share: `]` and `[` step through the presets and speak the new one; Opt+Cmd+P speaks the preset, and on a double press opens the preset menu.
+/// The preset keys, which plug-in and AudioSuite windows share: `]` and `[` step through the presets and speak the new one; Opt+Cmd+P speaks the preset, and when held opens the preset menu.
 enum Presets {
     /// The three preset commands for one kind of window, with the IDs and names they had in each KM group.
     @MainActor
@@ -16,10 +16,10 @@ enum Presets {
         return [
             step(CommandID("\(prefix).nextPreset"), "Next Preset", "Loads the next preset and speaks its name.", kind, scope, .next, key: "]"),
             step(CommandID("\(prefix).previousPreset"), "Previous Preset", "Loads the previous preset and speaks its name.", kind, scope, .previous, key: "["),
-            Command(CommandID("\(prefix).\(speakChooseID)"), speakChooseName, summary: "Single press speaks the preset; double press opens the preset menu.", scope: scope, triggers: [.key("Opt+Cmd+P")], single: { _ in
+            Command(CommandID("\(prefix).\(speakChooseID)"), speakChooseName, summary: "Tap speaks the preset; hold opens the preset menu.", scope: scope, triggers: [.key("Opt+Cmd+P")], tap: { _ in
                 let preset = try await ProToolsApp.running().plugInWindow(kind).preset
                 try await VoiceOver.say(preset)
-            }, double: { _ in
+            }, hold: { _ in
                 try await ProToolsApp.running().plugInWindow(kind).openPresetMenu()
             }),
         ]

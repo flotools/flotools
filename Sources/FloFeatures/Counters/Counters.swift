@@ -37,7 +37,7 @@ enum Counters {
 
     // MARK: Commands
 
-    /// What the double press of Speak/Edit says after opening the value for typing: a value in minutes and seconds must be cleared first.
+    /// What the hold of Speak/Edit says after opening the value for typing: a value in minutes and seconds must be cleared first.
     struct Prompts: Sendable {
         let time: String
         let other: String
@@ -53,12 +53,12 @@ enum Counters {
         }
     }
 
-    /// Single press speaks the value in words followed by `label`; double press clicks the field, so typing replaces the value, and says what to type.
+    /// Tap speaks the value in words followed by `label`; hold clicks the field, so typing replaces the value, and says what to type.
     @MainActor
     private static func speakEdit(_ id: CommandID, _ name: String, what: String, key: String, _ control: EditWindowControl, label: String, prompts: Prompts) -> Command {
-        Command(id, name, summary: "Single press speaks the \(what) in words; double press opens it for typing a new value.", scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
+        Command(id, name, summary: "Tap speaks the \(what) in words; hold opens it for typing a new value.", scope: .anyProToolsWindow, triggers: [.key(key)], tap: { _ in
             try await VoiceOver.say(read(control) + label)
-        }, double: { _ in
+        }, hold: { _ in
             let value = try await ProToolsApp.running().openForTyping(control)
             try await VoiceOver.say(value.contains(".") ? prompts.time : prompts.other)
         })

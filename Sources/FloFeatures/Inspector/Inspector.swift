@@ -2,7 +2,7 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// The Flo Tools Inspector keys work on the Mix window track under the VoiceOver cursor.
+/// The Inspector keys work on the track whose name the VoiceOver cursor is on, in the Mix or Edit window. Off a track, the key goes to the next command that has it, or on to Pro Tools.
 enum Inspector {
     @MainActor
     static var commands: [Command] { [TrackStrip.SlotKind.insert, .send].flatMap { kind in (0..<10).map { slot(kind, $0) } + (0..<10).map { assign(kind, $0) } } + [
@@ -19,33 +19,33 @@ enum Inspector {
         pan("inspector.panInstrumentLeft", "Pan Instrument Left", key: "Ctrl+Opt+Left", .instrument, .decrease, "Moves the MIDI pan of an instrument track one step left and speaks it."),
     ] }
 
-    /// An Inspector command: it works in the Mix and Edit windows while the Inspector is on.
+    /// An Inspector command: it works on the track under the VoiceOver cursor.
     @MainActor
     static func command(_ id: CommandID, _ name: String, summary: String, key: String, body: @escaping CommandBody) -> Command {
-        Command(id, name, summary: summary, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], body: body)
+        Command(id, name, summary: summary, scope: .trackUnderVoiceOverCursor, triggers: [.key(key)], body: body)
     }
 
     /// An Inspector command that runs again while its key is held, for controls that move one step per run.
     @MainActor
     static func repeatingCommand(_ id: CommandID, _ name: String, summary: String, key: String, body: @escaping CommandBody) -> Command {
-        Command.repeatingWhileHeld(id, name, summary: summary, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], body: body)
+        Command.repeatingWhileHeld(id, name, summary: summary, scope: .trackUnderVoiceOverCursor, triggers: [.key(key)], body: body)
     }
 
-    /// An Inspector command with a single and a double press.
+    /// An Inspector command with a tap and a hold action.
     @MainActor
-    static func command(_ id: CommandID, _ name: String, summary: String, key: String, doneSound: DoneSoundTiming = .beforeDouble, single: @escaping CommandBody, double: @escaping CommandBody) -> Command {
-        Command(id, name, summary: summary, scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], doneSound: doneSound, single: single, double: double)
+    static func command(_ id: CommandID, _ name: String, summary: String, key: String, doneSound: DoneSoundTiming = .beforeHold, tap: @escaping CommandBody, hold: @escaping CommandBody) -> Command {
+        Command(id, name, summary: summary, scope: .trackUnderVoiceOverCursor, triggers: [.key(key)], doneSound: doneSound, tap: tap, hold: hold)
     }
 
     // MARK: Toggles
 
-    /// Single press speaks the toggle's state; double press presses the button and speaks the new state, then plays the done sound, as the JXA played Tink. The JXA waited a fixed 0.1 s before reading (Record State did not wait); this waits until the state changes.
+    /// Tap speaks the toggle's state; hold presses the button and speaks the new state, then plays the done sound, as the JXA played Tink. The JXA waited a fixed 0.1 s before reading (Record State did not wait); this waits until the state changes.
     @MainActor
     static func toggle(_ id: CommandID, _ name: String, key: String, _ toggle: TrackStrip.Toggle, state: String) -> Command {
-        Inspector.command(id, name, summary: "Single press speaks the track's \(state) state; double press switches it and speaks the new state.", key: key, doneSound: .afterDouble, single: { run in
+        Inspector.command(id, name, summary: "Tap speaks the track's \(state) state; hold switches it and speaks the new state.", key: key, doneSound: .afterHold, tap: { run in
             let track = try await run.inspectorTrack()
             try await VoiceOver.say(stateText(toggle, track.state(of: toggle)))
-        }, double: { run in
+        }, hold: { run in
             let track = try await run.inspectorTrack()
             // A track without an input and output cannot be armed or monitored; Pro Tools shows a dialog and the state stays as it was.
             let after = try await track.press(toggle)
@@ -65,18 +65,18 @@ enum Inspector {
 
     // MARK: Inserts and sends
 
-    /// Speak/Open Insert A to J on 1 to 0, and Speak/Open Send A to J on Ctrl+1 to Ctrl+0; `slot` counts from 0. Single press speaks the slot and its assignment. Double press clicks the assignment button, then plays the done sound, as the JXA played Tink. The KM names spelled H "h"; here it is "H".
+    /// Speak/Open Insert A to J on 1 to 0, and Speak/Open Send A to J on Ctrl+1 to Ctrl+0; `slot` counts from 0. Tap speaks the slot and its assignment. Hold clicks the assignment button, then plays the done sound, as the JXA played Tink. The KM names spelled H "h"; here it is "H".
     @MainActor
     static func slot(_ kind: TrackStrip.SlotKind, _ slot: Int) -> Command {
         let letter = TrackStrip.slotLetter(slot)
         let digit = "\((slot + 1) % 10)"
         let key = kind == .send ? "Ctrl+" + digit : digit
         let opens = kind == .insert ? "the plug-in window" : "the send window"
-        let summary = "Single press speaks \(kind.rawValue.lowercased()) \(letter): whether it is active, and what is assigned. Double press opens \(opens)."
-        return Inspector.command(CommandID("inspector.speakOpen\(kind.rawValue)\(letter)"), "Speak/Open \(kind.rawValue) \(letter)", summary: summary, key: key, doneSound: .afterDouble, single: { run in
+        let summary = "Tap speaks \(kind.rawValue.lowercased()) \(letter): whether it is active, and what is assigned. Hold opens \(opens)."
+        return Inspector.command(CommandID("inspector.speakOpen\(kind.rawValue)\(letter)"), "Speak/Open \(kind.rawValue) \(letter)", summary: summary, key: key, doneSound: .afterHold, tap: { run in
             let track = try await run.inspectorTrack()
             try await VoiceOver.say(slotText(kind, slot, in: track))
-        }, double: { run in
+        }, hold: { run in
             let track = try await run.inspectorTrack()
             try await track.slotButtons(kind, slot: slot).assignment.pressOpeningMenu()
         })
@@ -93,7 +93,7 @@ enum Inspector {
         }
     }
 
-    /// What a single press says. Absent names and values are empty, as in the JXA; failed reads throw.
+    /// What a tap says. Absent names and values are empty, as in the JXA; failed reads throw.
     @AccessibilityActor
     static func slotText(_ kind: TrackStrip.SlotKind, _ slot: Int, in track: TrackStrip) throws -> String {
         slotMessage(try track.slotReading(kind, slot: slot))

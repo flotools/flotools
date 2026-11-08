@@ -2,116 +2,114 @@
 
 Generated from the command declarations in `Sources/FloFeatures/` by `CommandReferenceTests`. Do not edit it by hand: change a command's summary in its declaration and run `FLO_WRITE_BASELINES=1 swift test --filter CommandReferenceTests`.
 
-Every key works only while Pro Tools is in front, and only in the windows listed for it. Inspector keys work on the track under the VoiceOver cursor while the Inspector is on (`/`). A double press is two presses of the key within the double-press timeout set in Flo Tools preferences. With "Hold a key for a double press" on in preferences, holding the key for the hold time set there counts as a double press instead, and a single press acts as soon as the key is let go.
+Every key works only while Pro Tools is in front, and only in the windows listed for it. Inspector keys work on the track whose name the VoiceOver cursor is on, in the Mix or Edit window. When the cursor is not on a track name, the key does what it does without the Inspector: another command listed for it runs, or the key goes to Pro Tools. Where a command has a tap and a hold action, holding the key down for the hold time set in Flo Tools preferences (200 ms unless changed) runs the hold action, and letting go sooner runs the tap action at once.
 
 ## Inspector
 
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
-| `/` | Toggle Inspector | Mix, Edit | Turns the Inspector on or off and says which. |
-| `` ` `` (hold) | Toggle Temporary Inspector | Mix, Edit | Turns the Inspector on while the key is held, and off when it is released. Works only with the "temporary inspector" preference on. |
-| `1` | Speak/Open Insert A | Mix, Edit, Inspector on | Single press speaks insert A: whether it is active, and what is assigned. Double press opens the plug-in window. |
-| `2` | Speak/Open Insert B | Mix, Edit, Inspector on | Single press speaks insert B: whether it is active, and what is assigned. Double press opens the plug-in window. |
-| `3` | Speak/Open Insert C | Mix, Edit, Inspector on | Single press speaks insert C: whether it is active, and what is assigned. Double press opens the plug-in window. |
-| `4` | Speak/Open Insert D | Mix, Edit, Inspector on | Single press speaks insert D: whether it is active, and what is assigned. Double press opens the plug-in window. |
-| `5` | Speak/Open Insert E | Mix, Edit, Inspector on | Single press speaks insert E: whether it is active, and what is assigned. Double press opens the plug-in window. |
-| `6` | Speak/Open Insert F | Mix, Edit, Inspector on | Single press speaks insert F: whether it is active, and what is assigned. Double press opens the plug-in window. |
-| `7` | Speak/Open Insert G | Mix, Edit, Inspector on | Single press speaks insert G: whether it is active, and what is assigned. Double press opens the plug-in window. |
-| `8` | Speak/Open Insert H | Mix, Edit, Inspector on | Single press speaks insert H: whether it is active, and what is assigned. Double press opens the plug-in window. |
-| `9` | Speak/Open Insert I | Mix, Edit, Inspector on | Single press speaks insert I: whether it is active, and what is assigned. Double press opens the plug-in window. |
-| `0` | Speak/Open Insert J | Mix, Edit, Inspector on | Single press speaks insert J: whether it is active, and what is assigned. Double press opens the plug-in window. |
-| `Cmd+1` | Assign Insert A | Mix, Edit, Inspector on | Opens the menu to assign insert A. |
-| `Cmd+2` | Assign Insert B | Mix, Edit, Inspector on | Opens the menu to assign insert B. |
-| `Cmd+3` | Assign Insert C | Mix, Edit, Inspector on | Opens the menu to assign insert C. |
-| `Cmd+4` | Assign Insert D | Mix, Edit, Inspector on | Opens the menu to assign insert D. |
-| `Cmd+5` | Assign Insert E | Mix, Edit, Inspector on | Opens the menu to assign insert E. |
-| `Cmd+6` | Assign Insert F | Mix, Edit, Inspector on | Opens the menu to assign insert F. |
-| `Cmd+7` | Assign Insert G | Mix, Edit, Inspector on | Opens the menu to assign insert G. |
-| `Cmd+8` | Assign Insert H | Mix, Edit, Inspector on | Opens the menu to assign insert H. |
-| `Cmd+9` | Assign Insert I | Mix, Edit, Inspector on | Opens the menu to assign insert I. |
-| `Cmd+0` | Assign Insert J | Mix, Edit, Inspector on | Opens the menu to assign insert J. |
-| `Ctrl+1` | Speak/Open Send A | Mix, Edit, Inspector on | Single press speaks send A: whether it is active, and what is assigned. Double press opens the send window. |
-| `Ctrl+2` | Speak/Open Send B | Mix, Edit, Inspector on | Single press speaks send B: whether it is active, and what is assigned. Double press opens the send window. |
-| `Ctrl+3` | Speak/Open Send C | Mix, Edit, Inspector on | Single press speaks send C: whether it is active, and what is assigned. Double press opens the send window. |
-| `Ctrl+4` | Speak/Open Send D | Mix, Edit, Inspector on | Single press speaks send D: whether it is active, and what is assigned. Double press opens the send window. |
-| `Ctrl+5` | Speak/Open Send E | Mix, Edit, Inspector on | Single press speaks send E: whether it is active, and what is assigned. Double press opens the send window. |
-| `Ctrl+6` | Speak/Open Send F | Mix, Edit, Inspector on | Single press speaks send F: whether it is active, and what is assigned. Double press opens the send window. |
-| `Ctrl+7` | Speak/Open Send G | Mix, Edit, Inspector on | Single press speaks send G: whether it is active, and what is assigned. Double press opens the send window. |
-| `Ctrl+8` | Speak/Open Send H | Mix, Edit, Inspector on | Single press speaks send H: whether it is active, and what is assigned. Double press opens the send window. |
-| `Ctrl+9` | Speak/Open Send I | Mix, Edit, Inspector on | Single press speaks send I: whether it is active, and what is assigned. Double press opens the send window. |
-| `Ctrl+0` | Speak/Open Send J | Mix, Edit, Inspector on | Single press speaks send J: whether it is active, and what is assigned. Double press opens the send window. |
-| `Ctrl+Cmd+1` | Assign Send A | Mix, Edit, Inspector on | Opens the menu to assign send A. |
-| `Ctrl+Cmd+2` | Assign Send B | Mix, Edit, Inspector on | Opens the menu to assign send B. |
-| `Ctrl+Cmd+3` | Assign Send C | Mix, Edit, Inspector on | Opens the menu to assign send C. |
-| `Ctrl+Cmd+4` | Assign Send D | Mix, Edit, Inspector on | Opens the menu to assign send D. |
-| `Ctrl+Cmd+5` | Assign Send E | Mix, Edit, Inspector on | Opens the menu to assign send E. |
-| `Ctrl+Cmd+6` | Assign Send F | Mix, Edit, Inspector on | Opens the menu to assign send F. |
-| `Ctrl+Cmd+7` | Assign Send G | Mix, Edit, Inspector on | Opens the menu to assign send G. |
-| `Ctrl+Cmd+8` | Assign Send H | Mix, Edit, Inspector on | Opens the menu to assign send H. |
-| `Ctrl+Cmd+9` | Assign Send I | Mix, Edit, Inspector on | Opens the menu to assign send I. |
-| `Ctrl+Cmd+0` | Assign Send J | Mix, Edit, Inspector on | Opens the menu to assign send J. |
-| `S` | Speak/Toggle Solo | Mix, Edit, Inspector on | Single press speaks the track's solo state; double press switches it and speaks the new state. |
-| `M` | Speak/Toggle Mute | Mix, Edit, Inspector on | Single press speaks the track's mute state; double press switches it and speaks the new state. |
-| `R` | Speak/Toggle Record State | Mix, Edit, Inspector on | Single press speaks the track's record arm state; double press switches it and speaks the new state. |
-| `K` | Speak/Toggle Input Monitor | Mix, Edit, Inspector on | Single press speaks the track's input monitor state; double press switches it and speaks the new state. |
-| `Opt+M` | Speak/Toggle Instrument Mute | Mix, Edit, Inspector on | Single press speaks the track's instrument mute state; double press switches it and speaks the new state. |
-| `Ctrl+Cmd+Right` (hold to repeat) | Pan Right on Mono/Left Channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step right and speaks it. |
-| `Ctrl+Cmd+Left` (hold to repeat) | Pan Left on Mono/Left Channel | Mix, Edit, Inspector on | Moves the pan of a mono track, or the left pan of a stereo track, one step left and speaks it. |
-| `Ctrl+Shift+Cmd+Right` (hold to repeat) | Pan Right on Right Channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track, or the pan of a mono track, one step right and speaks it. |
-| `Ctrl+Shift+Cmd+Left` (hold to repeat) | Pan Left on Right Channel | Mix, Edit, Inspector on | Moves the right pan of a stereo track, or the pan of a mono track, one step left and speaks it. |
-| `Ctrl+Opt+Right` (hold to repeat) | Pan Instrument Right | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step right and speaks it. |
-| `Ctrl+Opt+Left` (hold to repeat) | Pan Instrument Left | Mix, Edit, Inspector on | Moves the MIDI pan of an instrument track one step left and speaks it. |
-| `A` | Speak/Select Automation Mode | Mix, Edit, Inspector on | Single press speaks the track's automation mode; double press opens its menu. |
-| `G` | Speak/Select Group | Mix, Edit, Inspector on | Single press speaks the track's group, or "No Group"; double press opens the group menu. |
-| `I` | Speak/Select Track Input | Mix, Edit, Inspector on | Single press speaks the track's input; double press opens its menu. |
-| `O` | Speak/Select Track Output | Mix, Edit, Inspector on | Single press speaks the track's output; double press opens its menu. |
-| `Opt+I` | Speak/Select Instrument Input | Mix, Edit, Inspector on | Single press speaks the track's instrument input; double press opens its menu. |
-| `Opt+O` | Speak/Select Instrument Output | Mix, Edit, Inspector on | Single press speaks the track's instrument output; double press opens its menu. |
-| `\` | Speak/Select Playlist | Mix, Edit, Inspector on | Single press speaks the track name, which is its playlist's name; double press opens the playlist menu in the Edit window. |
-| `B` | Speak/Select Timebase | Mix, Edit, Inspector on | Single press speaks the track's timebase; double press opens its menu. |
-| `W` | Speak/Select Track View | Mix, Edit, Inspector on | Single press speaks the track's view; double press opens its menu. |
-| `E` | Speak/Select Elastic Audio Plug-In | Mix, Edit, Inspector on | Single press speaks the track's Elastic Audio plug-in, or "None"; double press opens the Elastic Audio menu. |
-| `H` | Track Options Menu | Mix, Edit, Inspector on | Single press speaks the name of the track options button; double press opens the track options menu. |
-| `T` | Speak and Select Track/Show Right-Click Menu | Mix, Edit, Inspector on | Single press selects the track and says so; double press opens the track name's right-click menu. |
-| `C` | Speak/Edit Comments | Mix, Edit, Inspector on | Single press speaks the track's comment, or "No Comment"; double press puts the cursor in the comments field for typing. |
-| `F` | Speak/Toggle Freeze Status | Mix, Edit, Inspector on | Single press speaks whether the track is frozen. Double press freezes or unfreezes it, plays a progress sound while Pro Tools works, and speaks the new state. |
+| `1` | Speak/Open Insert A | Mix, Edit, on a track | Tap speaks insert A: whether it is active, and what is assigned. Hold opens the plug-in window. |
+| `2` | Speak/Open Insert B | Mix, Edit, on a track | Tap speaks insert B: whether it is active, and what is assigned. Hold opens the plug-in window. |
+| `3` | Speak/Open Insert C | Mix, Edit, on a track | Tap speaks insert C: whether it is active, and what is assigned. Hold opens the plug-in window. |
+| `4` | Speak/Open Insert D | Mix, Edit, on a track | Tap speaks insert D: whether it is active, and what is assigned. Hold opens the plug-in window. |
+| `5` | Speak/Open Insert E | Mix, Edit, on a track | Tap speaks insert E: whether it is active, and what is assigned. Hold opens the plug-in window. |
+| `6` | Speak/Open Insert F | Mix, Edit, on a track | Tap speaks insert F: whether it is active, and what is assigned. Hold opens the plug-in window. |
+| `7` | Speak/Open Insert G | Mix, Edit, on a track | Tap speaks insert G: whether it is active, and what is assigned. Hold opens the plug-in window. |
+| `8` | Speak/Open Insert H | Mix, Edit, on a track | Tap speaks insert H: whether it is active, and what is assigned. Hold opens the plug-in window. |
+| `9` | Speak/Open Insert I | Mix, Edit, on a track | Tap speaks insert I: whether it is active, and what is assigned. Hold opens the plug-in window. |
+| `0` | Speak/Open Insert J | Mix, Edit, on a track | Tap speaks insert J: whether it is active, and what is assigned. Hold opens the plug-in window. |
+| `Cmd+1` | Assign Insert A | Mix, Edit, on a track | Opens the menu to assign insert A. |
+| `Cmd+2` | Assign Insert B | Mix, Edit, on a track | Opens the menu to assign insert B. |
+| `Cmd+3` | Assign Insert C | Mix, Edit, on a track | Opens the menu to assign insert C. |
+| `Cmd+4` | Assign Insert D | Mix, Edit, on a track | Opens the menu to assign insert D. |
+| `Cmd+5` | Assign Insert E | Mix, Edit, on a track | Opens the menu to assign insert E. |
+| `Cmd+6` | Assign Insert F | Mix, Edit, on a track | Opens the menu to assign insert F. |
+| `Cmd+7` | Assign Insert G | Mix, Edit, on a track | Opens the menu to assign insert G. |
+| `Cmd+8` | Assign Insert H | Mix, Edit, on a track | Opens the menu to assign insert H. |
+| `Cmd+9` | Assign Insert I | Mix, Edit, on a track | Opens the menu to assign insert I. |
+| `Cmd+0` | Assign Insert J | Mix, Edit, on a track | Opens the menu to assign insert J. |
+| `Ctrl+1` | Speak/Open Send A | Mix, Edit, on a track | Tap speaks send A: whether it is active, and what is assigned. Hold opens the send window. |
+| `Ctrl+2` | Speak/Open Send B | Mix, Edit, on a track | Tap speaks send B: whether it is active, and what is assigned. Hold opens the send window. |
+| `Ctrl+3` | Speak/Open Send C | Mix, Edit, on a track | Tap speaks send C: whether it is active, and what is assigned. Hold opens the send window. |
+| `Ctrl+4` | Speak/Open Send D | Mix, Edit, on a track | Tap speaks send D: whether it is active, and what is assigned. Hold opens the send window. |
+| `Ctrl+5` | Speak/Open Send E | Mix, Edit, on a track | Tap speaks send E: whether it is active, and what is assigned. Hold opens the send window. |
+| `Ctrl+6` | Speak/Open Send F | Mix, Edit, on a track | Tap speaks send F: whether it is active, and what is assigned. Hold opens the send window. |
+| `Ctrl+7` | Speak/Open Send G | Mix, Edit, on a track | Tap speaks send G: whether it is active, and what is assigned. Hold opens the send window. |
+| `Ctrl+8` | Speak/Open Send H | Mix, Edit, on a track | Tap speaks send H: whether it is active, and what is assigned. Hold opens the send window. |
+| `Ctrl+9` | Speak/Open Send I | Mix, Edit, on a track | Tap speaks send I: whether it is active, and what is assigned. Hold opens the send window. |
+| `Ctrl+0` | Speak/Open Send J | Mix, Edit, on a track | Tap speaks send J: whether it is active, and what is assigned. Hold opens the send window. |
+| `Ctrl+Cmd+1` | Assign Send A | Mix, Edit, on a track | Opens the menu to assign send A. |
+| `Ctrl+Cmd+2` | Assign Send B | Mix, Edit, on a track | Opens the menu to assign send B. |
+| `Ctrl+Cmd+3` | Assign Send C | Mix, Edit, on a track | Opens the menu to assign send C. |
+| `Ctrl+Cmd+4` | Assign Send D | Mix, Edit, on a track | Opens the menu to assign send D. |
+| `Ctrl+Cmd+5` | Assign Send E | Mix, Edit, on a track | Opens the menu to assign send E. |
+| `Ctrl+Cmd+6` | Assign Send F | Mix, Edit, on a track | Opens the menu to assign send F. |
+| `Ctrl+Cmd+7` | Assign Send G | Mix, Edit, on a track | Opens the menu to assign send G. |
+| `Ctrl+Cmd+8` | Assign Send H | Mix, Edit, on a track | Opens the menu to assign send H. |
+| `Ctrl+Cmd+9` | Assign Send I | Mix, Edit, on a track | Opens the menu to assign send I. |
+| `Ctrl+Cmd+0` | Assign Send J | Mix, Edit, on a track | Opens the menu to assign send J. |
+| `S` | Speak/Toggle Solo | Mix, Edit, on a track | Tap speaks the track's solo state; hold switches it and speaks the new state. |
+| `M` | Speak/Toggle Mute | Mix, Edit, on a track | Tap speaks the track's mute state; hold switches it and speaks the new state. |
+| `R` | Speak/Toggle Record State | Mix, Edit, on a track | Tap speaks the track's record arm state; hold switches it and speaks the new state. |
+| `K` | Speak/Toggle Input Monitor | Mix, Edit, on a track | Tap speaks the track's input monitor state; hold switches it and speaks the new state. |
+| `Opt+M` | Speak/Toggle Instrument Mute | Mix, Edit, on a track | Tap speaks the track's instrument mute state; hold switches it and speaks the new state. |
+| `Ctrl+Cmd+Right` (hold to repeat) | Pan Right on Mono/Left Channel | Mix, Edit, on a track | Moves the pan of a mono track, or the left pan of a stereo track, one step right and speaks it. |
+| `Ctrl+Cmd+Left` (hold to repeat) | Pan Left on Mono/Left Channel | Mix, Edit, on a track | Moves the pan of a mono track, or the left pan of a stereo track, one step left and speaks it. |
+| `Ctrl+Shift+Cmd+Right` (hold to repeat) | Pan Right on Right Channel | Mix, Edit, on a track | Moves the right pan of a stereo track, or the pan of a mono track, one step right and speaks it. |
+| `Ctrl+Shift+Cmd+Left` (hold to repeat) | Pan Left on Right Channel | Mix, Edit, on a track | Moves the right pan of a stereo track, or the pan of a mono track, one step left and speaks it. |
+| `Ctrl+Opt+Right` (hold to repeat) | Pan Instrument Right | Mix, Edit, on a track | Moves the MIDI pan of an instrument track one step right and speaks it. |
+| `Ctrl+Opt+Left` (hold to repeat) | Pan Instrument Left | Mix, Edit, on a track | Moves the MIDI pan of an instrument track one step left and speaks it. |
+| `A` | Speak/Select Automation Mode | Mix, Edit, on a track | Tap speaks the track's automation mode; hold opens its menu. |
+| `G` | Speak/Select Group | Mix, Edit, on a track | Tap speaks the track's group, or "No Group"; hold opens the group menu. |
+| `I` | Speak/Select Track Input | Mix, Edit, on a track | Tap speaks the track's input; hold opens its menu. |
+| `O` | Speak/Select Track Output | Mix, Edit, on a track | Tap speaks the track's output; hold opens its menu. |
+| `Opt+I` | Speak/Select Instrument Input | Mix, Edit, on a track | Tap speaks the track's instrument input; hold opens its menu. |
+| `Opt+O` | Speak/Select Instrument Output | Mix, Edit, on a track | Tap speaks the track's instrument output; hold opens its menu. |
+| `\` | Speak/Select Playlist | Mix, Edit, on a track | Tap speaks the track name, which is its playlist's name; hold opens the playlist menu in the Edit window. |
+| `B` | Speak/Select Timebase | Mix, Edit, on a track | Tap speaks the track's timebase; hold opens its menu. |
+| `W` | Speak/Select Track View | Mix, Edit, on a track | Tap speaks the track's view; hold opens its menu. |
+| `E` | Speak/Select Elastic Audio Plug-In | Mix, Edit, on a track | Tap speaks the track's Elastic Audio plug-in, or "None"; hold opens the Elastic Audio menu. |
+| `H` | Track Options Menu | Mix, Edit, on a track | Tap speaks the name of the track options button; hold opens the track options menu. |
+| `T` | Speak and Select Track/Show Right-Click Menu | Mix, Edit, on a track | Tap selects the track and says so; hold opens the track name's right-click menu. |
+| `C` | Speak/Edit Comments | Mix, Edit, on a track | Tap speaks the track's comment, or "No Comment"; hold puts the cursor in the comments field for typing. |
+| `F` | Speak/Toggle Freeze Status | Mix, Edit, on a track | Tap speaks whether the track is frozen. Hold freezes or unfreezes it, plays a progress sound while Pro Tools works, and speaks the new state. |
 | `Cmd+.` | Cancel | Any | Passes the key to Pro Tools, which cancels what it is doing, such as a freeze, and stops the progress sound of a freeze in progress. |
-| `V` | Speak/Reset Volume Fader | Mix, Edit, Inspector on | Single press speaks the track's volume; double press resets it to 0 dB. |
-| `Opt+V` | Speak/Reset Instrument Volume | Mix, Edit, Inspector on | Single press speaks the instrument track's MIDI volume; double press resets it. |
-| `P` | Speak/Reset Peak Meter | Mix, Edit, Inspector on | Single press speaks the track's peak hold; double press clears it. |
-| `N` | Speak/Reset Pan | Mix, Edit, Inspector on | Single press speaks the position of each of the track's pan knobs; double press centers them. |
-| `Opt+N` | Speak/Reset Instrument Pan | Mix, Edit, Inspector on | Single press speaks the instrument track's MIDI pan; double press centers it. |
-| `Ctrl+Cmd+Up` (hold to repeat) | Increase Volume | Mix, Edit, Inspector on | Moves the volume fader one step up and speaks it. |
-| `Ctrl+Cmd+Down` (hold to repeat) | Decrease Volume | Mix, Edit, Inspector on | Moves the volume fader one step down and speaks it. |
-| `Ctrl+Opt+Up` (hold to repeat) | Increase Instrument Volume | Mix, Edit, Inspector on | Moves the instrument track's MIDI volume one step up and speaks it. |
-| `Ctrl+Opt+Down` (hold to repeat) | Decrease Instrument Volume | Mix, Edit, Inspector on | Moves the instrument track's MIDI volume one step down and speaks it. |
-| `L` | Speak Level Meter, Toggle Level Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's level meter. Double press starts or stops a watch that speaks each new level, following the VoiceOver cursor from track to track, until another Pro Tools window comes to the front. |
-| `;` | Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor | Mix, Edit, Inspector on | Single press speaks the track's gain reduction meter. Double press starts or stops a watch that plays the progress sound on each change and remembers the deepest reduction, following the VoiceOver cursor from track to track, until another Pro Tools window comes to the front. |
-| `Shift+;` | Speak Gain Reduction Meter Maximum Value | Mix, Edit, Inspector on | Speaks the deepest gain reduction, in whole dB, on any track the watch followed since it started or since this was last spoken, then starts over from 0. |
+| `V` | Speak/Reset Volume Fader | Mix, Edit, on a track | Tap speaks the track's volume; hold resets it to 0 dB. |
+| `Opt+V` | Speak/Reset Instrument Volume | Mix, Edit, on a track | Tap speaks the instrument track's MIDI volume; hold resets it. |
+| `P` | Speak/Reset Peak Meter | Mix, Edit, on a track | Tap speaks the track's peak hold; hold clears it. |
+| `N` | Speak/Reset Pan | Mix, Edit, on a track | Tap speaks the position of each of the track's pan knobs; hold centers them. |
+| `Opt+N` | Speak/Reset Instrument Pan | Mix, Edit, on a track | Tap speaks the instrument track's MIDI pan; hold centers it. |
+| `Ctrl+Cmd+Up` (hold to repeat) | Increase Volume | Mix, Edit, on a track | Moves the volume fader one step up and speaks it. |
+| `Ctrl+Cmd+Down` (hold to repeat) | Decrease Volume | Mix, Edit, on a track | Moves the volume fader one step down and speaks it. |
+| `Ctrl+Opt+Up` (hold to repeat) | Increase Instrument Volume | Mix, Edit, on a track | Moves the instrument track's MIDI volume one step up and speaks it. |
+| `Ctrl+Opt+Down` (hold to repeat) | Decrease Instrument Volume | Mix, Edit, on a track | Moves the instrument track's MIDI volume one step down and speaks it. |
+| `L` | Speak Level Meter, Toggle Level Meter Monitor | Mix, Edit, on a track | Tap speaks the track's level meter. Hold starts or stops a watch that speaks each new level, following the VoiceOver cursor from track to track, until another Pro Tools window comes to the front. |
+| `;` | Speak Gain Reduction Meter, Toggle Gain Reduction Meter Monitor | Mix, Edit, on a track | Tap speaks the track's gain reduction meter. Hold starts or stops a watch that plays the progress sound on each change and remembers the deepest reduction, following the VoiceOver cursor from track to track, until another Pro Tools window comes to the front. |
+| `Shift+;` | Speak Gain Reduction Meter Maximum Value | Mix, Edit, on a track | Speaks the deepest gain reduction, in whole dB, on any track the watch followed since it started or since this was last spoken, then starts over from 0. |
 
 ## Settings
 
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
-| `F1` | Speak/Select Shuffle Mode | Any | Single press speaks whether Shuffle mode is on; double press selects it. |
-| `F2` | Speak/Select Slip Mode | Any | Single press speaks whether Slip mode is on; double press selects it. |
-| `F3` | Speak/Select Spot Mode | Any | Single press speaks whether Spot mode is on; double press selects it. |
-| `Opt+F12` | Speak/Toggle Conductor | Any | Single press speaks whether the conductor track is on; double press switches it. |
-| `Opt+Keypad 8` | Speak/Toggle Count In | Any | Single press speaks whether count in is on; double press switches it. |
-| `Opt+Keypad 7` | Speak/Toggle Metronome | Any | Single press speaks whether the metronome is on; double press switches it. |
-| `Opt+Keypad 9` | Speak/Toggle MIDI Merge | Any | Single press speaks whether MIDI merge is on; double press switches it. |
-| `Opt+F11` | Speak/Toggle Wait for Note | Any | Single press speaks whether wait for note is on; double press switches it. |
-| `Ctrl+N` | Speak/Toggle Insertion Follows Playback | Any | Single press speaks whether Insertion Follows Playback is on; double press switches it. |
-| `Opt+Cmd+Tab` | Speak/Toggle Tab to Transients | Any | Single press speaks whether Tab to Transients is on; double press switches it. |
-| `F4` | Speak/Toggle Grid Mode | Any | Single press speaks the Grid mode kind, or that Grid mode is off; double press selects Grid mode and speaks the result. |
-| `Ctrl+Cmd+P` | Speak/Toggle Dynamic Transport | Any | Single press speaks whether Options > Dynamic Transport is checked; double press switches it. |
-| `Shift+Cmd+L` | Speak/Toggle Loop Playback | Any | Single press speaks whether Options > Loop Playback is checked; double press switches it. |
-| `Opt+L` | Speak/Toggle Loop Record | Any | Single press speaks whether Options > Loop Record is checked; double press switches it. |
-| `Cmd+K` | Speak/Toggle Pre/Post Roll | Any | Single press speaks whether Options > Pre/Post-Roll is checked; double press switches it. |
-| `Shift+Cmd+P` | Speak/Toggle Quick Punch | Any | Single press speaks whether Options > QuickPunch is checked; double press switches it. |
-| `Shift+Cmd+T` | Speak/Toggle Track Punch | Any | Single press speaks whether Options > TrackPunch is checked; double press switches it. |
-| `Cmd+J` | Speak/Toggle Transport Online | Any | Single press speaks whether Options > Transport Online is checked; double press switches it. |
-| `Opt+Cmd+M` | Speak/Toggle Narrow Mix | Any | Single press speaks whether View > Narrow Mix is checked; double press switches it. |
+| `F1` | Speak/Select Shuffle Mode | Any | Tap speaks whether Shuffle mode is on; hold selects it. |
+| `F2` | Speak/Select Slip Mode | Any | Tap speaks whether Slip mode is on; hold selects it. |
+| `F3` | Speak/Select Spot Mode | Any | Tap speaks whether Spot mode is on; hold selects it. |
+| `Opt+F12` | Speak/Toggle Conductor | Any | Tap speaks whether the conductor track is on; hold switches it. |
+| `Opt+Keypad 8` | Speak/Toggle Count In | Any | Tap speaks whether count in is on; hold switches it. |
+| `Opt+Keypad 7` | Speak/Toggle Metronome | Any | Tap speaks whether the metronome is on; hold switches it. |
+| `Opt+Keypad 9` | Speak/Toggle MIDI Merge | Any | Tap speaks whether MIDI merge is on; hold switches it. |
+| `Opt+F11` | Speak/Toggle Wait for Note | Any | Tap speaks whether wait for note is on; hold switches it. |
+| `Ctrl+N` | Speak/Toggle Insertion Follows Playback | Any | Tap speaks whether Insertion Follows Playback is on; hold switches it. |
+| `Opt+Cmd+Tab` | Speak/Toggle Tab to Transients | Any | Tap speaks whether Tab to Transients is on; hold switches it. |
+| `F4` | Speak/Toggle Grid Mode | Any | Tap speaks the Grid mode kind, or that Grid mode is off; hold selects Grid mode and speaks the result. |
+| `Ctrl+Cmd+P` | Speak/Toggle Dynamic Transport | Any | Tap speaks whether Options > Dynamic Transport is checked; hold switches it. |
+| `Shift+Cmd+L` | Speak/Toggle Loop Playback | Any | Tap speaks whether Options > Loop Playback is checked; hold switches it. |
+| `Opt+L` | Speak/Toggle Loop Record | Any | Tap speaks whether Options > Loop Record is checked; hold switches it. |
+| `Cmd+K` | Speak/Toggle Pre/Post Roll | Any | Tap speaks whether Options > Pre/Post-Roll is checked; hold switches it. |
+| `Shift+Cmd+P` | Speak/Toggle Quick Punch | Any | Tap speaks whether Options > QuickPunch is checked; hold switches it. |
+| `Shift+Cmd+T` | Speak/Toggle Track Punch | Any | Tap speaks whether Options > TrackPunch is checked; hold switches it. |
+| `Cmd+J` | Speak/Toggle Transport Online | Any | Tap speaks whether Options > Transport Online is checked; hold switches it. |
+| `Opt+Cmd+M` | Speak/Toggle Narrow Mix | Any | Tap speaks whether View > Narrow Mix is checked; hold switches it. |
 | `Shift+/` | Toggle and Speak Link Timeline and Edit Selection | Any | Passes the key to Pro Tools, which switches Options > Link Timeline and Edit Selection, then speaks the new state. In text fields and some dialogs, such as Save and Open, it stays silent. |
 | `Shift+T` | Toggle and Speak Link Track and Edit Selection | Any | Passes the key to Pro Tools, which switches Options > Link Track and Edit Selection, then speaks the new state. In text fields and some dialogs, such as Save and Open, it stays silent. |
 | `Opt+K` | Toggle Input Monitor | Any | Switches Track > Set Record Tracks to Input Only or Auto Input, and speaks the new mode. |
@@ -120,18 +118,18 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
-| `Cmd+F4` | Speak/Edit Main Counter | Any | Single press speaks the main counter in words; double press opens it for typing a new value. |
-| `Cmd+F6` | Speak/Edit Sub Counter | Any | Single press speaks the sub counter in words; double press opens it for typing a new value. |
-| `Cmd+F1` | Speak/Edit Selection Start | Any | Single press speaks the edit selection start in words; double press opens it for typing a new value. |
-| `Cmd+F2` | Speak/Edit Selection End | Any | Single press speaks the edit selection end in words; double press opens it for typing a new value. |
-| `Cmd+F3` | Speak/Edit Selection Length | Any | Single press speaks the edit selection length in words; double press opens it for typing a new value. |
-| `Cmd+F9` | Speak/Edit Pre-Roll Amount | Any | Single press speaks the pre-roll amount in words; double press opens it for typing a new value. |
-| `Cmd+F10` | Speak/Edit Post-Roll Amount | Any | Single press speaks the post-roll amount in words; double press opens it for typing a new value. |
-| `Cmd+F7` | Speak/Edit Nudge Value | Any | Single press speaks the nudge value in words; double press opens it for typing a new value. |
-| `Cmd+F11` | Speak/Edit Tempo | Any | Single press speaks the tempo in words; double press opens it for typing a new value. |
-| `Opt+P` | Speak/Edit Pitch for Selected Note | Any | Single press speaks the pitch of the selected MIDI note in words; double press opens it for typing a new value. |
-| `Opt+A` | Speak/Edit Attack Velocity for Selected Note | Any | Single press speaks the attack velocity of the selected MIDI note in words; double press opens it for typing a new value. |
-| `Opt+E` | Speak/Edit Release Velocity for Selected Note | Any | Single press speaks the release velocity of the selected MIDI note in words; double press opens it for typing a new value. |
+| `Cmd+F4` | Speak/Edit Main Counter | Any | Tap speaks the main counter in words; hold opens it for typing a new value. |
+| `Cmd+F6` | Speak/Edit Sub Counter | Any | Tap speaks the sub counter in words; hold opens it for typing a new value. |
+| `Cmd+F1` | Speak/Edit Selection Start | Any | Tap speaks the edit selection start in words; hold opens it for typing a new value. |
+| `Cmd+F2` | Speak/Edit Selection End | Any | Tap speaks the edit selection end in words; hold opens it for typing a new value. |
+| `Cmd+F3` | Speak/Edit Selection Length | Any | Tap speaks the edit selection length in words; hold opens it for typing a new value. |
+| `Cmd+F9` | Speak/Edit Pre-Roll Amount | Any | Tap speaks the pre-roll amount in words; hold opens it for typing a new value. |
+| `Cmd+F10` | Speak/Edit Post-Roll Amount | Any | Tap speaks the post-roll amount in words; hold opens it for typing a new value. |
+| `Cmd+F7` | Speak/Edit Nudge Value | Any | Tap speaks the nudge value in words; hold opens it for typing a new value. |
+| `Cmd+F11` | Speak/Edit Tempo | Any | Tap speaks the tempo in words; hold opens it for typing a new value. |
+| `Opt+P` | Speak/Edit Pitch for Selected Note | Any | Tap speaks the pitch of the selected MIDI note in words; hold opens it for typing a new value. |
+| `Opt+A` | Speak/Edit Attack Velocity for Selected Note | Any | Tap speaks the attack velocity of the selected MIDI note in words; hold opens it for typing a new value. |
+| `Opt+E` | Speak/Edit Release Velocity for Selected Note | Any | Tap speaks the release velocity of the selected MIDI note in words; hold opens it for typing a new value. |
 | `Cmd+F8` | Speak Grid Value | Any | Speaks the grid value. |
 | `Opt+Cmd+F4` | Select Main Counter | Any | Opens the main counter selector menu. |
 | `Opt+Cmd+F6` | Select Sub Counter | Any | Opens the sub counter selector menu. |
@@ -150,16 +148,16 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 
 | Keys | Command | Windows | What it does |
 | --- | --- | --- | --- |
-| `Opt+Shift+S` | Speak Soloed Tracks, Unsolo All Tracks | Any | Single press speaks the soloed tracks; double press unsolos them all. Hidden, inactive, master and solo safe tracks are left out. |
-| `Opt+Shift+M` | Speak Muted Tracks, Unmute All Tracks | Any | Single press speaks the muted tracks; double press unmutes them all. Hidden, inactive and master tracks, and tracks muted only by another track's solo, are left out. |
-| `Opt+Shift+K` | Speak Input Monitor-Enabled Tracks, Disable Input Monitor on All Tracks | Any | Single press speaks the audio tracks with input monitoring on; double press turns it off on all of them. Hidden and inactive tracks are left out. |
-| `Opt+Shift+R` | Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks | Any | Single press speaks the record-armed tracks, and says when only hidden tracks are armed; double press disarms the shown tracks, and says when hidden tracks stay armed. |
+| `Opt+Shift+S` | Speak Soloed Tracks, Unsolo All Tracks | Any | Tap speaks the soloed tracks; hold unsolos them all. Hidden, inactive, master and solo safe tracks are left out. |
+| `Opt+Shift+M` | Speak Muted Tracks, Unmute All Tracks | Any | Tap speaks the muted tracks; hold unmutes them all. Hidden, inactive and master tracks, and tracks muted only by another track's solo, are left out. |
+| `Opt+Shift+K` | Speak Input Monitor-Enabled Tracks, Disable Input Monitor on All Tracks | Any | Tap speaks the audio tracks with input monitoring on; hold turns it off on all of them. Hidden and inactive tracks are left out. |
+| `Opt+Shift+R` | Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks | Any | Tap speaks the record-armed tracks, and says when only hidden tracks are armed; hold disarms the shown tracks, and says when hidden tracks stay armed. |
 | `Opt+Shift+Cmd+R` | Speak Record Safe Tracks | Any | Speaks the shown, active tracks that are record safe. |
 | `Opt+Shift+Cmd+S` | Speak Solo Safe Tracks | Any | Speaks the shown, active tracks that are solo safe. |
 | `Opt+Shift+0` | Speak Tracks with 0 dB Level | Any | Speaks the shown tracks whose peak hold reached 0 dB or more. MIDI tracks are left out. |
-| `Opt+Shift+L` | Speak Selected Tracks, Deselect All Tracks | Any | Single press speaks the selected tracks; double press deselects them all. |
-| `Opt+Shift+H` | Speak Hidden Tracks, Show Track List Pop-up Menu | Any | Single press speaks the hidden tracks; double press opens the Track List menu. |
-| `Opt+Shift+W` | Speak Shown Tracks, Show Track List Pop-up Menu | Any | Single press speaks the shown tracks; double press opens the Track List menu. |
+| `Opt+Shift+L` | Speak Selected Tracks, Deselect All Tracks | Any | Tap speaks the selected tracks; hold deselects them all. |
+| `Opt+Shift+H` | Speak Hidden Tracks, Show Track List Pop-up Menu | Any | Tap speaks the hidden tracks; hold opens the Track List menu. |
+| `Opt+Shift+W` | Speak Shown Tracks, Show Track List Pop-up Menu | Any | Tap speaks the shown tracks; hold opens the Track List menu. |
 | `Ctrl+Opt+Shift+L` | List Tracks with Flo Tools | Any | Opens a chooser of track lists, such as soloed or unmuted tracks. The chosen list opens in a second chooser, where the chosen tracks can be changed, for example unsoloed or muted. |
 
 ## Fade dialogs
@@ -231,8 +229,8 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | --- | --- | --- | --- |
 | `]` | Next Preset | Plug-in | Loads the next preset and speaks its name. |
 | `[` | Previous Preset | Plug-in | Loads the previous preset and speaks its name. |
-| `Opt+Cmd+P` | Speak/Choose Preset | Plug-in | Single press speaks the preset; double press opens the preset menu. |
-| `Opt+B` | Speak/Toggle Bypass | Plug-in | Single press speaks whether the plug-in is bypassed; double press switches bypass and speaks the new state. |
+| `Opt+Cmd+P` | Speak/Choose Preset | Plug-in | Tap speaks the preset; hold opens the preset menu. |
+| `Opt+B` | Speak/Toggle Bypass | Plug-in | Tap speaks whether the plug-in is bypassed; hold switches bypass and speaks the new state. |
 | `Opt+/` | Toggle Plug-In Monitor | Plug-in | Starts or stops a watch that speaks each plug-in parameter shown as a slider that changes, for example while automation plays. It stops by itself when the window closes or its parameters cannot be read. |
 | `Ctrl+Down` | Next Row Parameter | Plug-in | Moves to the parameter in the next row of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
 | `Ctrl+Up` | Previous Row Parameter | Plug-in | Moves to the parameter in the previous row of the loaded plug-in view, speaks its name and value, and moves the mouse over its control. A parameter that is not a slider is spoken by name only, and one without a position leaves the mouse alone. |
@@ -262,7 +260,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Ctrl+Opt+Shift+Cmd+R` | Render | AudioSuite | Presses the AudioSuite window's Render button and says so. |
 | `]` | Next Preset | AudioSuite | Loads the next preset and speaks its name. |
 | `[` | Previous Preset | AudioSuite | Loads the previous preset and speaks its name. |
-| `Opt+Cmd+P` | Speak/Choose AudioSuite Preset | AudioSuite | Single press speaks the preset; double press opens the preset menu. |
+| `Opt+Cmd+P` | Speak/Choose AudioSuite Preset | AudioSuite | Tap speaks the preset; hold opens the preset menu. |
 
 ## Key announcements
 
@@ -274,8 +272,8 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Shift+Page Up` | Speak and Move Back 5 Playlists | Any | Passes the key to Pro Tools, which selects the playlist 5 back on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
 | `Shift+Home` | Speak and Navigate to First Playlist | Any | Passes the key to Pro Tools, which selects the first playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
 | `Shift+End` | Speak and Navigate to Last Playlist | Any | Passes the key to Pro Tools, which selects the last playlist on the selected tracks, then speaks the selected tracks, which are named after their playlists. In text fields and some dialogs, such as Save and Open, it stays silent. |
-| `Ctrl+Cmd+Right` | Next Track View on Selected Tracks | Any, Inspector off | Passes the key to Pro Tools, which switches the selected tracks to the next track view, and says so. |
-| `Ctrl+Cmd+Left` | Previous Track View on Selected Tracks | Any, Inspector off | Passes the key to Pro Tools, which switches the selected tracks to the previous track view, and says so. |
+| `Ctrl+Cmd+Right` | Next Track View on Selected Tracks | Any | Passes the key to Pro Tools, which switches the selected tracks to the next track view, and says so. |
+| `Ctrl+Cmd+Left` | Previous Track View on Selected Tracks | Any | Passes the key to Pro Tools, which switches the selected tracks to the previous track view, and says so. |
 | `Ctrl+Opt+Cmd+Right` | Next Track View on All Tracks | Any | Passes the key to Pro Tools, which switches all tracks to the next track view, and says so. |
 | `Ctrl+Opt+Cmd+Left` | Previous Track View on All Tracks | Any | Passes the key to Pro Tools, which switches all tracks to the previous track view, and says so. |
 | `Opt+-` | Track View Toggled on All Tracks | Any | Sends Ctrl+Opt+- to Pro Tools, which toggles the track view of all tracks, and says so. In text fields and some dialogs, such as Save and Open, it stays silent. |

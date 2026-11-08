@@ -31,13 +31,13 @@ enum PlugIns {
 
     static func bypassText(_ isBypassed: Bool) -> String { isBypassed ? "On" : "Off" }
 
-    /// Single press speaks whether the plug-in is bypassed ("On" or "Off"); double press switches it and speaks the new state.
+    /// Tap speaks whether the plug-in is bypassed ("On" or "Off"); hold switches it and speaks the new state.
     @MainActor
     static var speakToggleBypass: Command {
-        Command("plugin.speakToggleBypass", "Speak/Toggle Bypass", summary: "Single press speaks whether the plug-in is bypassed; double press switches bypass and speaks the new state.", scope: .windows([.plugIn]), triggers: [.key("Opt+B")], single: { _ in
+        Command("plugin.speakToggleBypass", "Speak/Toggle Bypass", summary: "Tap speaks whether the plug-in is bypassed; hold switches bypass and speaks the new state.", scope: .windows([.plugIn]), triggers: [.key("Opt+B")], tap: { _ in
             let bypassed = try await ProToolsApp.running().plugInWindow(.plugIn).isBypassed
             try await VoiceOver.say(bypassText(bypassed))
-        }, double: { _ in
+        }, hold: { _ in
             let bypassed = try await ProToolsApp.running().plugInWindow(.plugIn).toggleBypass()
             try await VoiceOver.say(bypassText(bypassed))
         })

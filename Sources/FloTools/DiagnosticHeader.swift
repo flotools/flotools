@@ -21,7 +21,6 @@ enum DiagnosticHeader {
             "Flo Tools enabled: \(engine.isEnabled ? "yes" : "no")",
             "Suspended: \(engine.suspensions.isEmpty ? "no" : engine.suspensions.map(\.reason).sorted().joined(separator: "; "))",
             "Preferences: \(preferences)",
-            "Inspector: \(engine.mode.inspector ? "on" : "off")",
             "Launch on Login: \(loginItem.statusDescription)",
         ]).joined(separator: "\n") + "\n"
     }

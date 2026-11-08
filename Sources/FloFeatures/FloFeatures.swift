@@ -13,7 +13,7 @@ public enum FloFeatures {
     /// The commands grouped by feature, in the order `COMMANDS.md` lists them.
     @MainActor
     static func sections(session: SessionState = SessionState(), openPreferences: @escaping @MainActor @Sendable () -> Void = {}) -> [(title: String, commands: [Command])] { [
-        ("Inspector", InspectorMode.commands + Inspector.commands + InspectorControls.commands + InspectorMeters.commands(session.gainReduction)),
+        ("Inspector", Inspector.commands + InspectorControls.commands + InspectorMeters.commands(session.gainReduction)),
         ("Settings", SettingToggles.commands),
         ("Counters", Counters.commands),
         ("Tracks", TrackStatus.commands + TrackLists.commands),
@@ -28,11 +28,10 @@ public enum FloFeatures {
         ("Preferences", PreferenceCommands.commands(openPreferences: openPreferences)),
     ] }
 
-    /// Applies what the preferences control, like the KM Refresh Preference macro: the double-press timeout or holding for a double press, Auto Inspector, and whether Toggle Temporary Inspector works. Called at launch and after the preferences panel saves.
+    /// Applies what the preferences control, like the KM Refresh Preference macro: the hold time. Called at launch, at Pro Tools launch and after the preferences panel saves.
     @MainActor
     public static func apply(_ preferences: Preferences, to engine: Engine) {
-        engine.doubleActionTrigger = preferences.doubleActionTrigger
-        InspectorMode.apply(preferences, to: engine)
+        engine.holdTime = .milliseconds(preferences.holdTime)
     }
 
     /// An engine with all commands installed, using the app's hotkeys and context monitor.

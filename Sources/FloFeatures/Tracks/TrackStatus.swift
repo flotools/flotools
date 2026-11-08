@@ -3,15 +3,15 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// Flo Tools commands that speak which tracks have a state, and on a double press reset it on all of them: solo, mute, record arm, input monitoring, the safe states, selection, shown and hidden tracks, and tracks that reached 0 dB.
+/// Flo Tools commands that speak which tracks have a state, and when the key is held, reset it on all of them: solo, mute, record arm, input monitoring, the safe states, selection, shown and hidden tracks, and tracks that reached 0 dB.
 enum TrackStatus {
     @MainActor
     static var commands: [Command] { [
-        flagCommand("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", key: "Opt+Shift+S", "Single press speaks the soloed tracks; double press unsolos them all. Hidden, inactive, master and solo safe tracks are left out.", .soloed, Wording(none: NoTracks.soloed, heading: "Soloed:"),
+        flagCommand("floTools.speakSoloedTracksUnsoloAllTracks", "Speak Soloed Tracks, Unsolo All Tracks", key: "Opt+Shift+S", "Tap speaks the soloed tracks; hold unsolos them all. Hidden, inactive, master and solo safe tracks are left out.", .soloed, Wording(none: NoTracks.soloed, heading: "Soloed:"),
                   reset: Reset(suspendsGroups: true, verb: "unsolo", partly: "Unsoloed", done: "unsoloed all tracks.")),
-        flagCommand("floTools.speakMutedTracksUnmuteAllTracks", "Speak Muted Tracks, Unmute All Tracks", key: "Opt+Shift+M", "Single press speaks the muted tracks; double press unmutes them all. Hidden, inactive and master tracks, and tracks muted only by another track's solo, are left out.", .muted, Wording(none: NoTracks.muted, heading: "Muted:"),
+        flagCommand("floTools.speakMutedTracksUnmuteAllTracks", "Speak Muted Tracks, Unmute All Tracks", key: "Opt+Shift+M", "Tap speaks the muted tracks; hold unmutes them all. Hidden, inactive and master tracks, and tracks muted only by another track's solo, are left out.", .muted, Wording(none: NoTracks.muted, heading: "Muted:"),
                   reset: Reset(suspendsGroups: true, verb: "unmute", partly: "Unmuted", done: "unmuted all tracks.")),
-        flagCommand("floTools.speakInputMonitorEnabledTracksDisableInputMonitorOnAllTracks", "Speak Input Monitor-Enabled Tracks, Disable Input Monitor on All Tracks", key: "Opt+Shift+K", "Single press speaks the audio tracks with input monitoring on; double press turns it off on all of them. Hidden and inactive tracks are left out.", .inputMonitored, Wording(none: "No track has input monitor on", heading: "Input on:"),
+        flagCommand("floTools.speakInputMonitorEnabledTracksDisableInputMonitorOnAllTracks", "Speak Input Monitor-Enabled Tracks, Disable Input Monitor on All Tracks", key: "Opt+Shift+K", "Tap speaks the audio tracks with input monitoring on; hold turns it off on all of them. Hidden and inactive tracks are left out.", .inputMonitored, Wording(none: "No track has input monitor on", heading: "Input on:"),
                   reset: Reset(suspendsGroups: false, verb: "turn off input monitor on", partly: "Turned off input monitor on", done: "Turned Off Input Monitor for all tracks")),
         recordArmed,
         flagCommand("floTools.speakRecordSafeTracks", "Speak Record Safe Tracks", key: "Opt+Shift+Cmd+R", "Speaks the shown, active tracks that are record safe.", .recordSafe, Wording(none: "No tracks are disarmed safe.", heading: "Disarmed safe:")),
@@ -19,21 +19,21 @@ enum TrackStatus {
         Command("floTools.speakTracksWith0DbLevel", "Speak Tracks with 0 dB Level", summary: "Speaks the shown tracks whose peak hold reached 0 dB or more. MIDI tracks are left out.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+0")]) { _ in
             try await speakTracksAt0dB()
         },
-        Command("floTools.speakSelectedTracksDeselectAllTracks", "Speak Selected Tracks, Deselect All Tracks", summary: "Single press speaks the selected tracks; double press deselects them all.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+L")], single: { _ in
+        Command("floTools.speakSelectedTracksDeselectAllTracks", "Speak Selected Tracks, Deselect All Tracks", summary: "Tap speaks the selected tracks; hold deselects them all.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+L")], tap: { _ in
             try await speak(.trackList(.selected, on: true), Wording(none: NoTracks.selected, heading: "selected."))
-        }, double: { _ in
+        }, hold: { _ in
             try await deselectAll()
         }),
         visibilityCommand("floTools.speakHiddenTracksShowTrackListPopUpMenu", "Speak Hidden Tracks, Show Track List Pop-up Menu", which: "hidden", key: "Opt+Shift+H", shown: false, Wording(none: NoTracks.hidden, heading: "Hidden:")),
         visibilityCommand("floTools.speakShownTracksShowTrackListPopUpMenu", "Speak Shown Tracks, Show Track List Pop-up Menu", which: "shown", key: "Opt+Shift+W", shown: true, Wording(none: NoTracks.shown, heading: "Shown:")),
     ] }
 
-    /// Speak Hidden Tracks and Speak Shown Tracks: a single press speaks the tracks whose Track List show button is `shown`, a double press opens the Track List menu.
+    /// Speak Hidden Tracks and Speak Shown Tracks: a tap speaks the tracks whose Track List show button is `shown`, a hold opens the Track List menu.
     @MainActor
     private static func visibilityCommand(_ id: CommandID, _ name: String, which: String, key: String, shown: Bool, _ wording: Wording) -> Command {
-        Command(id, name, summary: "Single press speaks the \(which) tracks; double press opens the Track List menu.", scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
+        Command(id, name, summary: "Tap speaks the \(which) tracks; hold opens the Track List menu.", scope: .anyProToolsWindow, triggers: [.key(key)], tap: { _ in
             try await speak(.trackList(.shown, on: shown), wording)
-        }, double: { _ in
+        }, hold: { _ in
             try await ProToolsApp.running().mixWindow().openTrackListMenu()
         })
     }
@@ -58,7 +58,7 @@ enum TrackStatus {
 
     // MARK: Strip flags
 
-    /// What a double press does: set the flag off on every track that has it.
+    /// What a hold does: set the flag off on every track that has it.
     struct Reset: Sendable {
         /// Solo and mute suspend the mix groups meanwhile, as the JXA did, so one click does not change a whole group.
         let suspendsGroups: Bool
@@ -76,7 +76,7 @@ enum TrackStatus {
         guard let reset else {
             return Command(id, name, summary: summary, scope: .anyProToolsWindow, triggers: [.key(key)], body: speak)
         }
-        return Command(id, name, summary: summary, scope: .anyProToolsWindow, triggers: [.key(key)], single: speak, double: { _ in
+        return Command(id, name, summary: summary, scope: .anyProToolsWindow, triggers: [.key(key)], tap: speak, hold: { _ in
             try await resetAll(flag, reset)
             try await VoiceOver.say(reset.done)
         })
@@ -90,11 +90,11 @@ enum TrackStatus {
     /// Record arm has two extra cases: armed tracks can be hidden, which only the Edit window's record status shows, as the JXA checked. The JXA disarmed in a loop until that status cleared, which never ended while a hidden track was armed; this disarms the shown tracks once and says when hidden ones stay armed.
     @MainActor
     private static var recordArmed: Command {
-        Command("floTools.speakRecordEnabledTracksDisarmAllRecordEnabledTracks", "Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks", summary: "Single press speaks the record-armed tracks, and says when only hidden tracks are armed; double press disarms the shown tracks, and says when hidden tracks stay armed.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+R")], single: { _ in
+        Command("floTools.speakRecordEnabledTracksDisarmAllRecordEnabledTracks", "Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks", summary: "Tap speaks the record-armed tracks, and says when only hidden tracks are armed; hold disarms the shown tracks, and says when hidden tracks stay armed.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+R")], tap: { _ in
             let proTools = try ProToolsApp.running()
             let names = try await proTools.mixWindow().names(.strips(.recordArmed, on: true))
             try await VoiceOver.say(names.isEmpty ? noArmedTracksText(proTools) : message(names: names, armed))
-        }, double: { _ in
+        }, hold: { _ in
             let reset = Reset(suspendsGroups: false, verb: "disarm", partly: "Disarmed", done: "Disarmed all tracks.")
             try await resetAll(.recordArmed, reset)
             let hiddenStillArmed = try await ProToolsApp.running().hasArmedTracks()

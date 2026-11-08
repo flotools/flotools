@@ -2,7 +2,7 @@ import Foundation
 import Testing
 @testable import FloProTools
 
-@Suite struct AutoInspectorNameTests {
+@Suite struct InspectorTargetNameTests {
     @Test(arguments: [
         "Kick - Audio Track ",
         "Bass - Inst Track ",

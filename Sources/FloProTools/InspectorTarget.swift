@@ -1,7 +1,7 @@
 import FloSystem
 import Foundation
 
-/// The track the VoiceOver cursor was on when Auto Inspector accepted a press: its name, the group the cursor was on and the window that group is in. The engine also pins the front window the press came from.
+/// The track the VoiceOver cursor was on when the engine accepted a press of a command for that track: its name, the group the cursor was on and the window that group is in. The engine also pins the front window the press came from.
 public struct InspectorTarget: Sendable {
     public let processID: pid_t
     public let name: String
@@ -14,11 +14,6 @@ public struct InspectorTarget: Sendable {
         self.name = name
         self.source = source
         self.window = window
-    }
-
-    @AccessibilityActor
-    public func isSameTrack(as other: Self) -> Bool {
-        processID == other.processID && name == other.name && source.isSame(as: other.source)
     }
 
     /// The accepted track as shown in `requestedWindow`. Throws when the accepted group is gone or renamed, or, for the other window, when the name does not point at one track there, rather than run on another track.
@@ -65,7 +60,7 @@ extension ProToolsApp {
         return InspectorTarget(processID: pid, name: text, source: group, window: window)
     }
 
-    /// The only group named `name` among the window's immediate children, or nil when there is none or more than one. Auto Inspector needs the name to point at one track.
+    /// The only group named `name` among the window's immediate children, or nil when there is none or more than one. A press is accepted only when the name points at one track.
     ///
     /// Names are read first and roles only for matches, so a window of N children costs about N reads rather than 2N.
     @AccessibilityActor

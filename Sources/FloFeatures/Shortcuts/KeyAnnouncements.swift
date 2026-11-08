@@ -15,9 +15,9 @@ enum KeyAnnouncements {
         speakSelectedTracks("floTools.speakAndMoveBack5Playlists", "Speak and Move Back 5 Playlists", key: "Shift+Page Up", "the playlist 5 back"),
         speakSelectedTracks("floTools.speakAndNavigateToFirstPlaylist", "Speak and Navigate to First Playlist", key: "Shift+Home", "the first playlist"),
         speakSelectedTracks("floTools.speakAndNavigateToLastPlaylist", "Speak and Navigate to Last Playlist", key: "Shift+End", "the last playlist"),
-        // The Inspector pans with these keys, so they reach Pro Tools only while it is off. The KM version enabled them only after `/` was pressed once; here they work from launch (changed on purpose, 2026-11-03).
-        announce(nextTrackViewOnSelectedTracks, "Next Track View on Selected Tracks", does: "switches the selected tracks to the next track view", keys: ["Ctrl+Cmd+Right"], "Next Track View on Selected Tracks.", when: .always, mode: .inspectorOff),
-        announce(previousTrackViewOnSelectedTracks, "Previous Track View on Selected Tracks", does: "switches the selected tracks to the previous track view", keys: ["Ctrl+Cmd+Left"], "Previous Track View on Selected Tracks.", when: .always, mode: .inspectorOff),
+        // The Inspector pans with these keys while the VoiceOver cursor is on a track, so these run only off a track. The KM version enabled them only after `/` was pressed once; here they work from launch (changed on purpose, 2026-11-03).
+        announce(nextTrackViewOnSelectedTracks, "Next Track View on Selected Tracks", does: "switches the selected tracks to the next track view", keys: ["Ctrl+Cmd+Right"], "Next Track View on Selected Tracks.", when: .always),
+        announce(previousTrackViewOnSelectedTracks, "Previous Track View on Selected Tracks", does: "switches the selected tracks to the previous track view", keys: ["Ctrl+Cmd+Left"], "Previous Track View on Selected Tracks.", when: .always),
         announce("floTools.nextTrackViewOnAllTracks", "Next Track View on All Tracks", does: "switches all tracks to the next track view", keys: ["Ctrl+Opt+Cmd+Right"], "Next Track View on All Tracks.", when: .always),
         announce("floTools.previousTrackViewOnAllTracks", "Previous Track View on All Tracks", does: "switches all tracks to the previous track view", keys: ["Ctrl+Opt+Cmd+Left"], "Previous Track View on All Tracks.", when: .always),
         // Pro Tools 26.10 toggles the view of all tracks with Ctrl+Opt+- and ignores the Opt+- the KM version sent (checked live 2026-11-03); the hotkey stays Opt+-.
@@ -31,10 +31,10 @@ enum KeyAnnouncements {
 
     /// Sends the key, or `sends` instead, to Pro Tools and speaks `text` if the guard allows it.
     @MainActor
-    private static func announce(_ id: CommandID, _ name: String, does effect: String, keys: [String], sends: String? = nil, _ text: String, when guarding: AnnouncementGuard, mode: ModeCondition = .any) -> Command {
+    private static func announce(_ id: CommandID, _ name: String, does effect: String, keys: [String], sends: String? = nil, _ text: String, when guarding: AnnouncementGuard) -> Command {
         let replacement = sends.map { KeyCombo(literal: $0) }
         let passing = sends.map { "Sends \($0) to Pro Tools" } ?? "Passes the key to Pro Tools"
-        return Command(id, name, summary: "\(passing), which \(effect), and says so." + summaryNote(guarding), scope: .anyProToolsWindow, mode: mode, triggers: keys.map { .key($0) }) { run in
+        return Command(id, name, summary: "\(passing), which \(effect), and says so." + summaryNote(guarding), scope: .anyProToolsWindow, triggers: keys.map { .key($0) }) { run in
             try await passOn(run, replacement: replacement)
             if try await speaks(after: guarding) { try await VoiceOver.say(text) }
         }

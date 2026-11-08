@@ -5,7 +5,7 @@ import FloSystem
 /// The run's invocation ID for the log is `Log.invocation`, which tasks started by the run inherit, also across actor hops.
 public struct CommandRun: Sendable {
     public enum Origin: Sendable, Equatable {
-        case hotKey(KeyCombo, KeyPhase)
+        case hotKey(KeyCombo)
         /// Run by the app, for example from the status menu.
         case direct
         /// Started by something that happened rather than a key, such as a plug-in window coming to front, like Keyboard Maestro's window triggers. Checked like a hotkey run.
@@ -17,9 +17,10 @@ public struct CommandRun: Sendable {
     public let context: FrontContext
     public let engine: Engine
     public internal(set) var inspectorTarget: InspectorTarget? = nil
+    /// For a run on the track found at its press: the input generation then, so the queue drops it once that track may be out of date.
     var inputGeneration: Int? = nil
 
-    /// The track the command acts on, shown in `window`. A press Auto Inspector accepted uses the track it accepted, even if the cursor has moved since; any other run uses the track under the VoiceOver cursor now. Meter watches follow the cursor themselves.
+    /// The track the command acts on, shown in `window`. A key press uses the track the engine found under the cursor when it accepted the press, even if the cursor has moved since; any other run uses the track under the VoiceOver cursor now. Meter watches follow the cursor themselves.
     public func inspectorTrack(in window: ProToolsApp.TrackWindow = .mix) async throws -> TrackStrip {
         if let inspectorTarget {
             return try await inspectorTarget.track(in: window)
@@ -29,7 +30,7 @@ public struct CommandRun: Sendable {
 
     /// Sends the hotkey that started this run on to the front app, and returns once it is posted, so what the command does next follows the key. Does nothing for other origins. Throws `FloError.couldNot` when the key cannot be sent.
     public func passThrough() async throws {
-        guard case .hotKey(let combo, .pressed) = origin else { return }
+        guard case .hotKey(let combo) = origin else { return }
         guard context.processID > 0 else { throw FloError.couldNot("send a key to Pro Tools") }
         try await Keyboard.press(combo, pid: context.processID)
     }

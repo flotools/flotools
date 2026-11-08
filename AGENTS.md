@@ -19,7 +19,7 @@ Flo Tools makes Pro Tools more efficient to use with the VoiceOver screen reader
 - Spoken text matches the JXA unless there is a stated reason. Unit tests pin it.
 - Target macOS 13 (`Package.swift`, `Resources/Info.plist`), Swift 6 language mode, strict concurrency.
 - Edit only this repository's `swift` branch. Exceptions: a release updates `appcast.xml` on `gh-pages`, and testing installs the app in `/Applications`.
-- Updates use Sparkle (`Sources/FloTools/Updater.swift`). Do not port the KM update scripts. Of "Check for Automatic Update", keep only the Pro Tools launch duties: warn when VoiceOver cannot be controlled by AppleScript, reset session state, reload preferences, and set the Inspector from the "starts with Flo Tools inspector" preference.
+- Updates use Sparkle (`Sources/FloTools/Updater.swift`). Do not port the KM update scripts. Of "Check for Automatic Update", keep only the Pro Tools launch duties: warn when VoiceOver cannot be controlled by AppleScript, reset session state, and reload preferences. The Inspector mode and its start preference are gone (plan.md section 9).
 
 ## Layout
 
@@ -27,7 +27,7 @@ Targets, with dependencies pointing one way (`FloTools` -> `FloFeatures` -> `Flo
 
 - `Sources/FloSystem/`: generic macOS infrastructure (Accessibility, VoiceOver, hotkeys, synthetic input, own windows, window observer, workspace events, sounds, privacy permission resets, `Log`, `FloError`). Knows nothing about Pro Tools or commands.
 - `Sources/FloProTools/`: Pro Tools knowledge (app, windows, tracks, settings, key capture by menus and text fields, waiting for changes). `ProToolsWindowKind` classifies each window title as one kind.
-- `Sources/FloEngine/`: command model and runtime: `Command`, `Scope`/`Mode`, `CommandRun`, `Engine` (key routing, double press, serial queue), `Watches`, `SpokenError` (the one failure wording table), `Context`, `Preferences`.
+- `Sources/FloEngine/`: command model and runtime: `Command`, `Scope`, `CommandRun`, `Engine` (key routing, track-under-cursor check, tap and hold, serial queue), `Watches`, `SpokenError` (the one failure wording table), `Context`, `Preferences`.
 - `Sources/FloFeatures/`: the commands, one folder per feature, plus `FloFeatures.all`, `SessionState`, `SpokenList` and `Lifecycle` (replaces the KM Global group).
 - `Sources/FloTools/`: the app: status menu, permissions, preferences panel, log header, `LoginItem`, `Updater`. Only this target links Sparkle.
 - `Tests/FloToolsTests/`: Swift Testing. `Tests/Baselines/` holds the keymap baselines; `CommandReferenceTests` generates `COMMANDS.md`.
@@ -59,7 +59,7 @@ Run from the repository root.
 ## Testing live in Pro Tools
 
 - Open the test session `~/Documents/Pro Tools/Demo Sessions/Can't Get Enough Pro Tools Demo/Can't Get Enough Pro Tools Intro Demo.ptx` (the Intro Demo). Never save it: no Cmd+S, Save, Save As or Save Copy In; answer Don't Save on close. Keyboard Maestro Engine must not be running.
-- Press a hotkey: `osascript -e 'tell application "System Events" to key code 19 using control down'`. For a double press, send two key codes 0.05 s apart in one script.
+- Press a hotkey: `osascript -e 'tell application "System Events" to key code 19 using control down'`. For a hold, send `key down "s"`, `delay 0.45` and `key up "s"` in one System Events block; the engine sees the key as held (checked 2026-11-08).
 - Check speech: `osascript -e 'tell application "VoiceOver" to return content of last phrase'`. Check the routed command in the diagnostic log (`<combo> pressed in <context> -> <command ID>`). Front window: System Events `value of attribute "AXFocusedWindow"` of the Pro Tools process.
 - Move and read the VoiceOver cursor with `scripts/vo.sh` (run without arguments for usage), not Ctrl+Opt+arrows, which hit Flo Tools' Inspector keys.
 - Restore any session state a test changes and record it in the journal. Say when a result was not checked with a physical keyboard.
@@ -69,7 +69,7 @@ Run from the repository root.
 The goal is a codebase good enough to teach from: each part has a clear job, and a reader can follow what happens without reading everything.
 
 - Design: simple and cohesive over clever or abstract. One responsibility per module, type and function. Keep Pro Tools knowledge, command behavior, the engine, macOS infrastructure and app UI apart. Pass dependencies explicitly; justify any shared instance. Add an abstraction only when it reduces duplication, coupling or testing difficulty now: no single-implementation protocols, factories, managers, forwarding wrappers or speculative extension points.
-- One source of truth: one representation per concept (command, hotkey, window condition, double press, track lookup, preferences). App code finds commands by `CommandID`; KM UIDs appear only in `reference/`. No duplicate constants, parsing or formatting.
+- One source of truth: one representation per concept (command, hotkey, window condition, tap and hold, track lookup, preferences). App code finds commands by `CommandID`; KM UIDs appear only in `reference/`. No duplicate constants, parsing or formatting.
 - Implement shared command patterns once, parameterized. When the same logic appears a second time, move it into one shared function.
 - One current implementation: no old code beside new, fallbacks, compatibility aliases, migration code or version branches. Preferences live in UserDefaults (`com.chikim.FloTools`) via `PreferencesStore`; KM's `flotools.json` is not read. Remove dead code and stale comments as you find them.
 - Interfaces: narrow, with domain types where they prevent mistakes. Avoid boolean flags and long optional parameter lists. Keep the flow traceable: trigger -> context check -> command logic -> side effect -> spoken result. Validate at boundaries (command install, reference generation, preferences loading, Accessibility reads).

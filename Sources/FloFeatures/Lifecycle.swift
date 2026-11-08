@@ -32,7 +32,7 @@ public final class Lifecycle {
         self.preferences = preferences
     }
 
-    /// Applies the preferences and start state and begins following VoiceOver, Pro Tools and the front window.
+    /// Applies the preferences and begins following VoiceOver, Pro Tools and the front window.
     public func start() {
         workspace.onChange = { [weak self] change in self?.handle(change) }
         engine.onContextChange = { [weak self] context in self?.contextChanged(context) }
@@ -46,11 +46,9 @@ public final class Lifecycle {
         engine.onContextChange = nil
     }
 
-    /// Applies what the preferences control and the start state, like KM Refresh Preference and the Inspector step of Check for Automatic Update. At Flo Tools start and Pro Tools launch.
+    /// Applies what the preferences control, like KM Refresh Preference. At Flo Tools start and Pro Tools launch.
     private func applyPreferences() {
-        let preferences = preferences()
-        FloFeatures.apply(preferences, to: engine)
-        InspectorMode.applyStartState(preferences, to: engine)
+        FloFeatures.apply(preferences(), to: engine)
     }
 
     /// Uses the startup announcement itself to check communication, without a separate silent request.

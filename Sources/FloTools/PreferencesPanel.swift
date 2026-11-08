@@ -2,7 +2,7 @@ import AppKit
 import FloEngine
 import FloSystem
 
-/// The preferences window: Launch on Login, the settings of the KM preferences dialog and holding for a double press, with OK and Cancel. Opened from the menu and by the Flo Tools Preferences command. OK saves to the store, then calls `onSave` so the app applies the new values.
+/// The preferences window: Launch on Login and the hold time, with OK and Cancel. Opened from the menu and by the Flo Tools Preferences command. OK saves to the store, then calls `onSave` so the app applies the new values.
 @MainActor
 final class PreferencesPanel: NSObject, NSWindowDelegate {
     private let store: PreferencesStore
@@ -14,13 +14,8 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
     private var holdsFocus = false
 
     private let launchOnLogin = NSButton(checkboxWithTitle: "Launch on Login", target: nil, action: nil)
-    private let autoInspector = NSButton(checkboxWithTitle: "Auto Inspector", target: nil, action: nil)
-    private let temporaryInspector = NSButton(checkboxWithTitle: "Use temporary inspector", target: nil, action: nil)
-    private let startsWithInspector = NSButton(checkboxWithTitle: "Turn on the Flo Tools inspector when Pro Tools starts", target: nil, action: nil)
-    private let timeout = NSPopUpButton()
-    private let holdForDoublePress = NSButton(checkboxWithTitle: "Hold a key for a double press", target: nil, action: nil)
-    /// Named by `timeoutLabel`, which says what the time means for the checkbox's current state.
-    private let timeoutLabel = NSTextField(labelWithString: "")
+    private let holdTime = NSPopUpButton()
+    private let holdTimeLabel = NSTextField(labelWithString: "Hold time:")
 
     init(store: PreferencesStore, loginItem: LoginItem, onSave: @escaping (Preferences) -> Void) {
         self.store = store
@@ -29,16 +24,11 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
     }
 
     func show() {
-        // Make the window first: it adds the timeout choices, and selecting one before they exist selects nothing, so OK would save the first choice.
+        // Make the window first: it adds the hold time choices, and selecting one before they exist selects nothing, so OK would save the first choice.
         _ = window
         let preferences = store.current
         launchOnLogin.state = loginItem.isEnabled ? .on : .off
-        autoInspector.state = preferences.autoInspector ? .on : .off
-        temporaryInspector.state = preferences.temporaryInspector ? .on : .off
-        startsWithInspector.state = preferences.startsWithInspector ? .on : .off
-        timeout.selectItem(withTag: preferences.timeout)
-        holdForDoublePress.state = preferences.holdForDoublePress ? .on : .off
-        updateTimeoutLabel()
+        holdTime.selectItem(withTag: preferences.holdTime)
         if holdsFocus {
             BorrowedFocus.bringToFront()
         } else {
@@ -52,19 +42,10 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
     @objc private func ok() {
         loginItem.setEnabled(launchOnLogin.state == .on)
         var preferences = Preferences()
-        preferences.autoInspector = autoInspector.state == .on
-        preferences.temporaryInspector = temporaryInspector.state == .on
-        preferences.startsWithInspector = startsWithInspector.state == .on
-        preferences.timeout = timeout.selectedTag()
-        preferences.holdForDoublePress = holdForDoublePress.state == .on
+        preferences.holdTime = holdTime.selectedTag()
         store.save(preferences)
         onSave(preferences)
         window.close()
-    }
-
-    /// One time serves both ways of asking for a double action, so its label follows the checkbox.
-    @objc private func updateTimeoutLabel() {
-        timeoutLabel.stringValue = holdForDoublePress.state == .on ? "Hold time:" : "Double-press timeout:"
     }
 
     @objc private func cancel() {
@@ -78,20 +59,14 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
     }
 
     private func makeWindow() -> NSWindow {
-        for choice in Preferences.timeoutChoices {
-            timeout.addItem(withTitle: "\(choice) ms")
-            timeout.lastItem?.tag = choice
+        for choice in Preferences.holdTimeChoices {
+            holdTime.addItem(withTitle: "\(choice) ms")
+            holdTime.lastItem?.tag = choice
         }
-        timeout.setAccessibilityTitleUIElement(timeoutLabel)
-        holdForDoublePress.target = self
-        holdForDoublePress.action = #selector(updateTimeoutLabel)
+        holdTime.setAccessibilityTitleUIElement(holdTimeLabel)
         return NSWindow.floating(title: "Flo Tools Preferences", views: [
             launchOnLogin,
-            autoInspector,
-            temporaryInspector,
-            startsWithInspector,
-            holdForDoublePress,
-            NSStackView(views: [timeoutLabel, timeout]),
+            NSStackView(views: [holdTimeLabel, holdTime]),
             NSStackView.confirmationButtons(okTitle: "OK", target: self, confirm: #selector(ok), cancel: #selector(cancel)),
         ], alignment: .leading, delegate: self)
     }

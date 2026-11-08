@@ -32,7 +32,7 @@ import Testing
             "",
             "Generated from the command declarations in `Sources/FloFeatures/` by `CommandReferenceTests`. Do not edit it by hand: change a command's summary in its declaration and run `FLO_WRITE_BASELINES=1 swift test --filter CommandReferenceTests`.",
             "",
-            "Every key works only while Pro Tools is in front, and only in the windows listed for it. Inspector keys work on the track under the VoiceOver cursor while the Inspector is on (`/`). A double press is two presses of the key within the double-press timeout set in Flo Tools preferences. With \"Hold a key for a double press\" on in preferences, holding the key for the hold time set there counts as a double press instead, and a single press acts as soon as the key is let go.",
+            "Every key works only while Pro Tools is in front, and only in the windows listed for it. Inspector keys work on the track whose name the VoiceOver cursor is on, in the Mix or Edit window. When the cursor is not on a track name, the key does what it does without the Inspector: another command listed for it runs, or the key goes to Pro Tools. Where a command has a tap and a hold action, holding the key down for the hold time set in Flo Tools preferences (200 ms unless changed) runs the hold action, and letting go sooner runs the tap action at once.",
         ]
         for section in sections {
             lines += ["", "## \(section.title)", "", "| Keys | Command | Windows | What it does |", "| --- | --- | --- | --- |"]
@@ -43,17 +43,14 @@ import Testing
         return lines.joined(separator: "\n") + "\n"
     }
 
-    /// The keys as code spans; a held key once, as "(hold)", a key that repeats while held with "(hold to repeat)", and a status menu item as words.
+    /// The keys as code spans, a key that repeats while held with "(hold to repeat)", and a status menu item as words.
     static func keys(_ command: Command) -> String {
         var parts: [String] = []
         let repeats = if case .repeating = command.action { true } else { false }
         for trigger in command.triggers {
             switch trigger {
-            case .hotKey(let combo, .pressed):
-                let held = command.triggers.contains(.hotKey(combo, .released))
-                parts.append(code("\(combo)") + (held ? " (hold)" : "") + (repeats ? " (hold to repeat)" : ""))
-            case .hotKey(_, .released):
-                break
+            case .hotKey(let combo):
+                parts.append(code("\(combo)") + (repeats ? " (hold to repeat)" : ""))
             case .statusMenu:
                 parts.append("Flo Tools menu")
             }
@@ -67,14 +64,10 @@ import Testing
     }
 
     static func windows(_ command: Command) -> String {
-        let scope = switch command.scope {
+        switch command.scope {
         case .anyProToolsWindow: "Any"
         case .windows(let kinds): KeymapTests.ordered(kinds).map(windowName).joined(separator: ", ")
-        }
-        return switch command.mode {
-        case .any: scope
-        case .inspectorOn: scope + ", Inspector on"
-        case .inspectorOff: scope + ", Inspector off"
+        case .trackUnderVoiceOverCursor: "Mix, Edit, on a track"
         }
     }
 

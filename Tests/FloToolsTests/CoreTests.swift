@@ -22,26 +22,25 @@ import Testing
         #expect(!Scope.anyProToolsWindow.applies(to: FrontContext(bundleID: "com.apple.finder")))
     }
 
-    @Test func modeConditions() {
-        #expect(ModeCondition.inspectorOn.holds(in: Mode(inspector: true)))
-        #expect(!ModeCondition.inspectorOn.holds(in: Mode(inspector: false)))
-        #expect(ModeCondition.inspectorOff.holds(in: Mode(inspector: false)))
-        #expect(ModeCondition.any.holds(in: Mode(inspector: true)))
+    @Test func trackScopeAppliesInMixAndEdit() {
+        #expect(Scope.trackUnderVoiceOverCursor.applies(to: FrontContext(bundleID: proTools, windowTitle: "Mix: I Trust")))
+        #expect(Scope.trackUnderVoiceOverCursor.applies(to: FrontContext(bundleID: proTools, windowTitle: "Edit: I Trust")))
+        #expect(!Scope.trackUnderVoiceOverCursor.applies(to: FrontContext(bundleID: proTools, windowTitle: "Plug-in: EQ3")))
+        #expect(!Scope.trackUnderVoiceOverCursor.applies(to: FrontContext(bundleID: proTools)))
     }
 
     /// Two commands may share a key only if one has the higher precedence or they can never apply together.
     @MainActor @Test func tiesAreFound() {
-        func command(_ id: CommandID, _ scope: Scope, _ mode: ModeCondition = .any, key: String = "Cmd+1") -> Command {
-            Command(id, "Test", scope: scope, mode: mode, triggers: [.key(key)]) { _ in }
+        func command(_ id: CommandID, _ scope: Scope, key: String = "Cmd+1") -> Command {
+            Command(id, "Test", scope: scope, triggers: [.key(key)]) { _ in }
         }
-        let engine = FloFeatures.makeEngine(commands: [command("test.any", .anyProToolsWindow), command("test.plugIn", .windows([.plugIn])), command("test.inspector", .mixOrEdit, .inspectorOn)])
+        let engine = FloFeatures.makeEngine(commands: [command("test.any", .anyProToolsWindow), command("test.plugIn", .windows([.plugIn])), command("test.track", .trackUnderVoiceOverCursor)])
         #expect(engine.tie(with: command("test.any2", .anyProToolsWindow)) != nil)
         #expect(engine.tie(with: command("test.plugIn2", .windows([.plugIn, .audioSuite]))) != nil)
-        #expect(engine.tie(with: command("test.edit", .windows([.edit]))) != nil, "overlaps the Inspector command in Edit, and .any overlaps .inspectorOn")
-        #expect(engine.tie(with: command("test.trackView", .mixOrEdit, .inspectorOff)) == nil, "the Inspector is either on or off")
+        #expect(engine.tie(with: command("test.track2", .trackUnderVoiceOverCursor)) != nil)
+        #expect(engine.tie(with: command("test.trackView", .mixOrEdit)) == nil, "the track command comes first, and this one runs off a track")
         #expect(engine.tie(with: command("test.audioSuite", .windows([.audioSuite]))) == nil)
         #expect(engine.tie(with: command("test.otherKey", .anyProToolsWindow, key: "Cmd+2")) == nil)
-        #expect(engine.tie(with: Command("test.released", "Test", scope: .anyProToolsWindow, triggers: [.key("Cmd+1", .released)]) { _ in }) == nil)
     }
 }
 
@@ -53,37 +52,33 @@ import Testing
     @Test func allCommandsInstall() {
         let engine = FloFeatures.makeEngine()
         #expect(engine.commands.count == FloFeatures.all().count)
-        #expect(engine.command("inspector.speakOpenSendB")?.hotKeys.map(\.combo.description) == ["Ctrl+2"])
+        #expect(engine.command("inspector.speakOpenSendB")?.hotKeys.map(\.description) == ["Ctrl+2"])
     }
 
     @Test func onlyCommandsInMatchingContextAreActive() {
         let engine = FloFeatures.makeEngine(commands: [])
-        engine.setInspector(true)
         let ctrl2 = KeyCombo(keyCode: 19, modifiers: KeyCombo.control)
         #expect(engine.activeCombos(in: mix).isEmpty)
 
-        engine.install(Command("test.sendB", "Send B", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Ctrl+2")]) { _ in })
+        engine.install(Command("test.sendB", "Send B", scope: .trackUnderVoiceOverCursor, triggers: [.key("Ctrl+2")]) { _ in })
         #expect(engine.activeCombos(in: mix) == [ctrl2])
-        #expect(engine.candidates(for: ctrl2, phase: .pressed, in: mix).map(\.id) == ["test.sendB"])
-        #expect(engine.candidates(for: ctrl2, phase: .released, in: mix).isEmpty)
+        #expect(engine.candidates(for: ctrl2, in: mix).map(\.id) == ["test.sendB"])
         #expect(engine.activeCombos(in: plugin).isEmpty)
 
         engine.setCommand("test.sendB", enabled: false)
         #expect(engine.activeCombos(in: mix).isEmpty)
     }
 
-    @Test func windowScopeWinsOverAnyWindow() {
+    /// The more specific scope comes first; a track command keeps the next one as what the key does off a track.
+    @Test func narrowerScopesComeFirst() {
         // Cmd+1 is "Tab 1" in setup windows, "Assign Insert A" in the Inspector and "Load Plug-In Parameters for View 1" in plug-in windows; here an any-window binding stands in for a general key.
         let engine = FloFeatures.makeEngine(commands: [])
-        engine.setInspector(true)
-        for (id, scope, mode) in [("test.any", Scope.anyProToolsWindow, ModeCondition.any), ("test.inspector", .mixOrEdit, .inspectorOn), ("test.plugIn", .windows([.plugIn]), .any)] {
-            engine.install(Command(CommandID(id), "Cmd+1", scope: scope, mode: mode, triggers: [.key("Cmd+1")]) { _ in })
+        for (id, scope) in [("test.any", Scope.anyProToolsWindow), ("test.track", .trackUnderVoiceOverCursor), ("test.plugIn", .windows([.plugIn]))] {
+            engine.install(Command(CommandID(id), "Cmd+1", scope: scope, triggers: [.key("Cmd+1")]) { _ in })
         }
         let cmd1 = KeyCombo(keyCode: 18, modifiers: KeyCombo.command)
-        #expect(engine.candidates(for: cmd1, phase: .pressed, in: plugin).first?.id == "test.plugIn")
-        #expect(engine.candidates(for: cmd1, phase: .pressed, in: mix).first?.id == "test.inspector")
-        engine.setInspector(false)
-        #expect(engine.candidates(for: cmd1, phase: .pressed, in: mix).map(\.id) == ["test.any"])
+        #expect(engine.candidates(for: cmd1, in: plugin).map(\.id) == ["test.plugIn", "test.any"])
+        #expect(engine.candidates(for: cmd1, in: mix).map(\.id) == ["test.track", "test.any"])
     }
 
     /// While the window is not known yet, a key that some window gives to its own command is not taken, so the any-window command cannot run in the wrong window; a key no window overrides still works.
@@ -94,58 +89,37 @@ import Testing
         engine.install(Command("test.grid", "Cmd+F8", scope: .anyProToolsWindow, triggers: [.key("Cmd+F8")]) { _ in })
         let unknown = FrontContext(bundleID: Self.proTools, windowTitle: nil)
         let shiftUp = KeyCombo("Shift+Up")!, cmdF8 = KeyCombo("Cmd+F8")!
-        #expect(engine.candidates(for: shiftUp, phase: .pressed, in: unknown).isEmpty)
+        #expect(engine.candidates(for: shiftUp, in: unknown).isEmpty)
         #expect(engine.activeCombos(in: unknown) == [cmdF8])
-        #expect(engine.candidates(for: shiftUp, phase: .pressed, in: mix).map(\.id) == ["test.playlist"])
-        #expect(engine.candidates(for: shiftUp, phase: .pressed, in: FrontContext(bundleID: Self.proTools, windowTitle: "Batch Fades")).first?.id == "test.batchFades")
+        #expect(engine.candidates(for: shiftUp, in: mix).map(\.id) == ["test.playlist"])
+        #expect(engine.candidates(for: shiftUp, in: FrontContext(bundleID: Self.proTools, windowTitle: "Batch Fades")).first?.id == "test.batchFades")
         // A disabled window command decides nothing.
         engine.setCommand("test.batchFades", enabled: false)
         #expect(engine.activeCombos(in: unknown) == [cmdF8, shiftUp])
-        #expect(engine.candidates(for: shiftUp, phase: .pressed, in: unknown).map(\.id) == ["test.playlist"])
-        // Nor does one whose mode does not hold.
-        engine.install(Command("test.inspectorF8", "Cmd+F8", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Cmd+F8")]) { _ in })
-        #expect(engine.candidates(for: cmdF8, phase: .pressed, in: unknown).map(\.id) == ["test.grid"])
-        engine.setInspector(true)
-        #expect(engine.candidates(for: cmdF8, phase: .pressed, in: unknown).isEmpty)
+        #expect(engine.candidates(for: shiftUp, in: unknown).map(\.id) == ["test.playlist"])
+        // A track command also decides by window.
+        engine.install(Command("test.trackF8", "Cmd+F8", scope: .trackUnderVoiceOverCursor, triggers: [.key("Cmd+F8")]) { _ in })
+        #expect(engine.candidates(for: cmdF8, in: unknown).isEmpty)
     }
 
-    @Test func inspectorModeGatesKeys() {
-        let engine = FloFeatures.makeEngine(commands: [])
-        engine.install(Command("test.solo", "Solo", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("S")]) { _ in })
-        let s = KeyCombo("S")!
-        #expect(engine.activeCombos(in: mix).isEmpty, "the Inspector starts off")
-        engine.setInspector(true)
-        #expect(engine.activeCombos(in: mix) == [s])
-        engine.setInspector(false)
-        #expect(engine.activeCombos(in: mix).isEmpty)
+    @Test func trackKeysRegisterInMixAndEdit() {
+        let engine = FloFeatures.makeEngine()
+        let solo = KeyCombo(literal: "S")
+        #expect(engine.activeCombos(in: mix).contains(solo))
+        #expect(engine.activeCombos(in: FrontContext(bundleID: Self.proTools, windowTitle: "Edit: Session")).contains(solo))
+        #expect(!engine.activeCombos(in: plugin).contains(solo))
+        #expect(!engine.activeCombos(in: FrontContext(bundleID: Self.proTools)).contains(solo))
+        engine.setCommand("inspector.speakToggleSolo", enabled: false)
+        #expect(!engine.activeCombos(in: mix).contains(solo))
     }
 
-    @Test func inspectorSwapsCtrlCmdArrowsWithTrackView() {
+    /// On a track, Ctrl+Cmd+Right pans; off a track it is Pro Tools' track view key.
+    @Test func ctrlCmdArrowsPanOnATrackAndChangeTrackViewOffIt() {
         let engine = FloFeatures.makeEngine()
         let right = KeyCombo("Ctrl+Cmd+Right")!
         let edit = FrontContext(bundleID: Self.proTools, windowTitle: "Edit: Session")
-        #expect(engine.candidates(for: right, phase: .pressed, in: edit).map(\.id) == [KeyAnnouncements.nextTrackViewOnSelectedTracks])
-        #expect(engine.candidates(for: KeyCombo("S")!, phase: .pressed, in: edit).isEmpty)
-        engine.setInspector(true)
-        #expect(engine.candidates(for: right, phase: .pressed, in: edit).map(\.id) == ["inspector.panRightOnMonoLeftChannel"])
-        #expect(engine.candidates(for: KeyCombo("S")!, phase: .pressed, in: edit).map(\.id) == ["inspector.speakToggleSolo"])
-    }
-
-    static let backtick = KeyCombo("`")!
-
-    @Test func preferencesControlInspectorCommands() {
-        let engine = FloFeatures.makeEngine()
-        var preferences = Preferences()
-        FloFeatures.apply(preferences, to: engine)
-        InspectorMode.applyStartState(preferences, to: engine)
-        #expect(engine.candidates(for: Self.backtick, phase: .pressed, in: mix).isEmpty)
-        #expect(!engine.mode.inspector)
-        preferences.temporaryInspector = true
-        preferences.startsWithInspector = true
-        FloFeatures.apply(preferences, to: engine)
-        InspectorMode.applyStartState(preferences, to: engine)
-        #expect(engine.candidates(for: Self.backtick, phase: .pressed, in: mix).map(\.id) == [InspectorMode.toggleTemporaryInspector])
-        #expect(engine.mode.inspector)
+        #expect(engine.candidates(for: right, in: edit).map(\.id) == ["inspector.panRightOnMonoLeftChannel", KeyAnnouncements.nextTrackViewOnSelectedTracks])
+        #expect(engine.candidates(for: KeyCombo("S")!, in: edit).map(\.id) == ["inspector.speakToggleSolo"])
     }
 }
 
@@ -268,53 +242,6 @@ private actor Flag {
     func set() { isSet = true }
 }
 
-@Suite struct DoublePressDeciderTests {
-    let start = ContinuousClock.now
-
-    @Test func secondPressInTimeIsDouble() {
-        var decider = DoublePressDecider(timeout: .milliseconds(200))
-        let first = decider.press("a", at: start)
-        let second = decider.press("a", at: start + .milliseconds(150))
-        // The voided single does not run when its timer ends.
-        let voidedSingleRuns = decider.singleIsDue("a", generation: 1)
-        #expect(first == .single(generation: 1))
-        #expect(second == .double)
-        #expect(!voidedSingleRuns)
-    }
-
-    @Test func lateSecondPressIsANewSingle() {
-        var decider = DoublePressDecider(timeout: .milliseconds(200))
-        _ = decider.press("a", at: start)
-        let second = decider.press("a", at: start + .milliseconds(250))
-        let firstRuns = decider.singleIsDue("a", generation: 1)
-        let secondRuns = decider.singleIsDue("a", generation: 2)
-        let secondRunsAgain = decider.singleIsDue("a", generation: 2)
-        #expect(second == .single(generation: 2))
-        #expect(!firstRuns)
-        #expect(secondRuns)
-        #expect(!secondRunsAgain)
-    }
-
-    @Test func differentCommandsDoNotCombine() {
-        var decider = DoublePressDecider(timeout: .milliseconds(200))
-        _ = decider.press("a", at: start)
-        let other = decider.press("b", at: start + .milliseconds(10))
-        let firstRuns = decider.singleIsDue("a", generation: 1)
-        #expect(other == .single(generation: 2))
-        #expect(firstRuns)
-    }
-
-    @Test func cancelAllVoidsPendingSingles() {
-        var decider = DoublePressDecider(timeout: .milliseconds(200))
-        _ = decider.press("a", at: start)
-        decider.cancelAll()
-        let cancelledRuns = decider.singleIsDue("a", generation: 1)
-        let next = decider.press("a", at: start + .milliseconds(10))
-        #expect(!cancelledRuns)
-        #expect(next == .single(generation: 2))
-    }
-}
-
 /// Runs commands through the engine without hotkeys: `dispatch` is what a hotkey press calls after reading the context.
 @MainActor @Suite struct CommandRunTests {
     let mix = FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Mix: Session")
@@ -323,52 +250,36 @@ private actor Flag {
         var list: [String] = []
     }
 
-    func engine(_ commands: [Command]) -> Engine {
+    /// An engine whose passed-on keys are recorded as "passed on" rather than posted.
+    func engine(_ commands: [Command], events: Events? = nil) -> Engine {
         let engine = FloFeatures.makeEngine(commands: commands)
-        engine.doubleActionTrigger = .secondPress(within: .milliseconds(50))
+        engine.postKey = { _, _ in events?.list.append("passed on") }
         return engine
     }
 
-    func doubleCommand(_ events: Events) -> Command {
-        Command("test.speak", "Speak", scope: .anyProToolsWindow, triggers: [.key("F1")], single: { @MainActor _ in events.list.append("single") }, double: { @MainActor _ in events.list.append("double") })
+    func tapOrHoldCommand(_ events: Events) -> Command {
+        Command("test.speak", "Speak", scope: .anyProToolsWindow, triggers: [.key("F1")], tap: { @MainActor _ in events.list.append("tap") }, hold: { @MainActor _ in events.list.append("hold") })
     }
 
-    @Test func singlePressRunsAfterTimeout() async throws {
+    /// A change of what decides the keys voids a press still telling a tap from a hold.
+    @Test func disablingACommandVoidsAPendingTap() async throws {
         let events = Events()
-        let engine = engine([doubleCommand(events)])
-        #expect(engine.dispatch(KeyCombo("F1")!, .pressed, in: mix) != nil)
-        #expect(events.list.isEmpty)
-        await engine.waitUntilIdle()
-        #expect(events.list == ["single"])
-    }
-
-    @Test func secondPressInTimeRunsDoubleOnly() async throws {
-        let events = Events()
-        let engine = engine([doubleCommand(events)])
+        let engine = tapOrHoldEngine(events, holdTime: .milliseconds(80), held: .down)
+        engine.install(Command("test.other", "Other", scope: .anyProToolsWindow, triggers: []) { @MainActor _ in })
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        await engine.waitUntilIdle()
-        #expect(events.list == ["double"])
-    }
-
-    /// A second press that arrives after the timeout is a new single, also when the main actor was too busy to run the first single on time: the first then runs before it rather than being lost.
-    @Test func lateSingleRunsBeforeTheNextPress() async throws {
-        let events = Events()
-        let engine = engine([doubleCommand(events)])
-        let start = ContinuousClock.now
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix, at: start)
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix, at: start + .milliseconds(60))
-        await engine.waitUntilIdle()
-        #expect(events.list == ["single", "single"])
-    }
-
-    @Test func disablingACommandVoidsPendingSingles() async throws {
-        let events = Events()
-        let engine = engine([doubleCommand(events), Command("test.other", "Other", scope: .anyProToolsWindow, triggers: []) { @MainActor _ in }])
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        await engine.waitForAdmissions()
         engine.setCommand("test.other", enabled: false)
         await engine.waitUntilIdle()
         #expect(events.list.isEmpty)
+    }
+
+    /// A key that no command takes goes on to the front app.
+    @Test func unboundKeyIsPassedOn() async {
+        let events = Events()
+        let engine = engine([], events: events)
+        engine.dispatch(KeyCombo("F9")!, .pressed, in: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Mix: Session", processID: 100))
+        await engine.waitUntilIdle()
+        #expect(events.list == ["passed on"])
     }
 
     /// A queued command for some windows is dropped when another window of the same kind comes to front before it starts, such as a second instance of one plug-in with the same title; an any-window command still runs.
@@ -381,6 +292,8 @@ private actor Flag {
         engine.dispatch(KeyCombo("F1")!, .pressed, in: first)
         engine.dispatch(KeyCombo("F3")!, .pressed, in: first)
         engine.dispatch(KeyCombo("F2")!, .pressed, in: first)
+        // Admitted first, as presses are within moments when no cursor check is needed; a change during admission voids them.
+        await engine.waitForAdmissions()
         engine.contextChanged(to: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: nextTitle, windowNumber: 2, processID: 100))
         await engine.waitUntilIdle()
         #expect(events.list == ["slow start", "slow end", "fast"])
@@ -444,20 +357,8 @@ private actor Flag {
         let engine = engine(slowThenFast(events))
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
+        await engine.waitForAdmissions()
         engine.setCommand("test.fast", enabled: false)
-        await engine.waitUntilIdle()
-        #expect(events.list == ["slow start", "slow end"])
-    }
-
-    /// A track view press queued while the Inspector was off must not run after `/` turned it on, because its key now pans.
-    @Test func queuedInspectorOffRunIsDroppedWhenTheInspectorTurnsOn() async throws {
-        let events = Events()
-        var commands = slowThenFast(events)
-        commands[1] = Command("test.trackView", "Track View", scope: .anyProToolsWindow, mode: .inspectorOff, triggers: [.key("F2")]) { @MainActor _ in events.list.append("track view") }
-        let engine = engine(commands)
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        engine.dispatch(KeyCombo("F2")!, .pressed, in: mix)
-        engine.setInspector(true)
         await engine.waitUntilIdle()
         #expect(events.list == ["slow start", "slow end"])
     }
@@ -473,38 +374,17 @@ private actor Flag {
                 events.list.append("slow")
             },
             Command("test.fast", "Fast", scope: .anyProToolsWindow, triggers: [.key("F2")]) { @MainActor _ in events.list.append("fast") },
-        ])
+        ], events: events)
         let proTools = FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Mix: Session", processID: 100)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: proTools)
         engine.dispatch(KeyCombo("F2")!, .pressed, in: proTools)
         for await _ in started { break }
         // While the slow command runs, Finder comes to front and a key no command takes is pressed.
-        #expect(engine.dispatch(KeyCombo("F9")!, .pressed, in: FrontContext(bundleID: "com.apple.finder", processID: 200)) == nil)
+        engine.dispatch(KeyCombo("F9")!, .pressed, in: FrontContext(bundleID: "com.apple.finder", processID: 200))
+        await engine.waitForAdmissions()
         signalFinish.yield()
         await engine.waitUntilIdle()
-        #expect(events.list == ["slow"])
-    }
-
-    func holdCommand(_ events: Events, accepts: Bool = true) -> Command {
-        Command("test.hold", "Hold", scope: .anyProToolsWindow, triggers: [.key("F3"), .key("F3", .released)], press: { _ in
-            events.list.append("press")
-            return accepts
-        }, release: { _ in
-            events.list.append("release")
-        })
-    }
-
-    @Test func holdEndsOnReleaseWithoutTheQueue() async throws {
-        let events = Events()
-        let engine = engine(slowThenFast(events) + [holdCommand(events)])
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
-        engine.dispatch(KeyCombo("F3")!, .released, in: mix)
-        // Both ran at once, before the queued slow command started.
-        #expect(events.list == ["press", "release"])
-        await engine.waitUntilIdle()
-        engine.dispatch(KeyCombo("F3")!, .released, in: mix)
-        #expect(events.list == ["press", "release", "slow start", "slow end"])
+        #expect(events.list == ["passed on", "slow"])
     }
 
     /// Counts the key-down checks of a repeating command and answers "held" for the first `heldChecks` of them.
@@ -576,158 +456,91 @@ private actor Flag {
         #expect(events.list == ["step"])
     }
 
-    /// An engine with one single-or-double command on F1. With `holdTime`, holding the key for it runs the double; without, a second press does.
-    func heldDoubleEngine(_ events: Events, holdTime: Duration?, held: HeldKey) -> Engine {
-        let engine = engine([doubleCommand(events)])
-        if let holdTime { engine.doubleActionTrigger = .hold(for: holdTime) }
+    /// A repeating command on F4 and an F4 command for the Batch Fades window, so F4 stops being a hotkey while the window is unknown.
+    func repeatingEngineWithWindowKey(_ events: Events) -> Engine {
+        let engine = repeatingEngine(events, held: .down)
+        engine.install(Command("test.batchFadesF4", "F4", scope: .windows([.fade(.batchFades)]), triggers: [.key("F4")]) { _ in })
+        return engine
+    }
+
+    /// A held key that stops being a hotkey never reports its release, so the engine ends its repeating itself.
+    @Test(arguments: ["window unknown", "stopped"]) func repeatingEndsWhenItsKeyStopsBeingAHotkey(_ cause: String) async throws {
+        let events = Events()
+        let engine = repeatingEngineWithWindowKey(events)
+        engine.dispatch(KeyCombo("F4")!, .pressed, in: mix)
+        try await settle(events, at: 2)
+        if cause == "stopped" { engine.stop() } else { engine.contextChanged(to: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: nil)) }
+        await engine.waitUntilIdle()
+        let afterEnd = events.list.count
+        try await Task.sleep(for: .milliseconds(60))
+        #expect(events.list.count == afterEnd)
+    }
+
+    /// An engine with one tap-or-hold command on F1, holding for `holdTime`.
+    func tapOrHoldEngine(_ events: Events, holdTime: Duration, held: HeldKey) -> Engine {
+        let engine = engine([tapOrHoldCommand(events)])
+        engine.holdTime = holdTime
         checkKey(of: engine, with: held)
         return engine
     }
 
-    @Test func heldKeyRunsTheDoubleWhenThePreferenceIsOn() async throws {
+    @Test func heldKeyRunsTheHold() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdTime: .milliseconds(80), held: .down)
+        let engine = tapOrHoldEngine(events, holdTime: .milliseconds(80), held: .down)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await settle(events, at: 1)
-        #expect(events.list == ["double"])
+        #expect(events.list == ["hold"])
     }
 
-    /// With holding on, a tap does not wait for a second press: its single runs as soon as the key is up, long before the hold time.
-    @Test func tapRunsItsSingleAtOnceWhenThePreferenceIsOn() async throws {
+    /// A tap runs as soon as the key is up, long before the hold time.
+    @Test func tapRunsAtOnce() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdTime: .milliseconds(500), held: .up)
+        let engine = tapOrHoldEngine(events, holdTime: .milliseconds(500), held: .up)
         let start = ContinuousClock.now
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await settle(events, at: 1)
-        #expect(events.list == ["single"])
+        #expect(events.list == ["tap"])
         #expect(ContinuousClock.now - start < .milliseconds(400))
     }
 
-    @Test func keyReleasedBeforeTheHoldTimeRunsTheSingle() async throws {
+    @Test func keyReleasedBeforeTheHoldTimeRunsTheTap() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdTime: .milliseconds(150), held: HeldKey(heldChecks: 1))
+        let engine = tapOrHoldEngine(events, holdTime: .milliseconds(150), held: HeldKey(heldChecks: 1))
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await settle(events, at: 1)
-        #expect(events.list == ["single"])
+        #expect(events.list == ["tap"])
     }
 
     /// The release event ends the hold decision at once, without waiting for the physical key check, which here still reports the key down.
-    @Test func releaseEventRunsTheSingleAtOnce() async throws {
+    @Test func releaseEventRunsTheTapAtOnce() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdTime: .milliseconds(500), held: .down)
+        let engine = tapOrHoldEngine(events, holdTime: .milliseconds(500), held: .down)
         let start = ContinuousClock.now
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await Task.sleep(for: .milliseconds(30))
         engine.dispatch(KeyCombo("F1")!, .released, in: mix)
         try await settle(events, at: 1)
-        #expect(events.list == ["single"])
+        #expect(events.list == ["tap"])
         #expect(ContinuousClock.now - start < .milliseconds(300))
     }
 
-    @Test func heldKeyRunsTheSingleWhenThePreferenceIsOff() async throws {
+    /// Two quick taps are two taps.
+    @Test func twoTapsRunTwice() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdTime: nil, held: .down)
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        try await settle(events, at: 1)
-        #expect(events.list == ["single"])
-    }
-
-    /// With holding on, two quick taps are two singles: a second press no longer makes a double.
-    @Test func twoTapsRunTwoSinglesWhenThePreferenceIsOn() async throws {
-        let events = Events()
-        let engine = heldDoubleEngine(events, holdTime: .milliseconds(80), held: .up)
+        let engine = tapOrHoldEngine(events, holdTime: .milliseconds(80), held: .up)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await settle(events, at: 2)
-        #expect(events.list == ["single", "single"])
+        #expect(events.list == ["tap", "tap"])
     }
 
-    /// A run from the status menu has no key to hold, so with holding on it runs its single at once.
-    @Test func appRunRunsTheSingleWhenThePreferenceIsOn() async throws {
+    /// A run from the status menu has no key to hold, so it runs its tap at once.
+    @Test func appRunRunsTheTap() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdTime: .milliseconds(80), held: .down)
+        let engine = tapOrHoldEngine(events, holdTime: .milliseconds(80), held: .down)
         engine.run("test.speak")
         try await settle(events, at: 1)
-        #expect(events.list == ["single"])
-    }
-
-    @Test func declinedHoldGetsNoRelease() {
-        let events = Events()
-        let engine = engine([holdCommand(events, accepts: false)])
-        engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
-        engine.dispatch(KeyCombo("F3")!, .released, in: mix)
-        #expect(events.list == ["press"])
-    }
-
-    @Test func inspectorSingleStillRunsAfterTheTemporaryHoldEnds() async throws {
-        let events = Events()
-        let engine = engine(InspectorMode.commands + [
-            Command("test.inspectorKey", "Inspector key", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("F1")], single: { @MainActor _ in events.list.append("single") }, double: { @MainActor _ in events.list.append("double") }),
-        ])
-        #expect(engine.dispatch(KeyCombo("`")!, .pressed, in: mix) != nil)
-        #expect(engine.mode.inspector)
-        #expect(engine.dispatch(KeyCombo("F1")!, .pressed, in: mix) != nil)
-        // Released within the double-press timeout: the accepted single press must still run.
-        engine.dispatch(KeyCombo("`")!, .released, in: mix)
-        #expect(!engine.mode.inspector)
-        await engine.waitUntilIdle()
-        #expect(events.list == ["single"])
-    }
-
-    /// With the Inspector off, Ctrl+Cmd+Right is Pro Tools' track view key; while the temporary Inspector is held it pans, and after release it is the track view key again.
-    @Test func temporaryInspectorHoldPansWithCtrlCmdArrows() {
-        let engine = engine(InspectorMode.commands + Inspector.commands + KeyAnnouncements.commands)
-        let right = KeyCombo("Ctrl+Cmd+Right")!
-        #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == [KeyAnnouncements.nextTrackViewOnSelectedTracks])
-        #expect(engine.dispatch(KeyCombo("`")!, .pressed, in: mix) != nil)
-        #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == ["inspector.panRightOnMonoLeftChannel"])
-        engine.dispatch(KeyCombo("`")!, .released, in: mix)
-        #expect(engine.candidates(for: right, phase: .pressed, in: mix).map(\.id) == [KeyAnnouncements.nextTrackViewOnSelectedTracks])
-    }
-
-    /// A held key that stops being a hotkey never reports its release, so the engine ends the hold itself: when Flo Tools is suspended or turned off, when the command is turned off, and when the front window is one where the key does not apply. The temporary Inspector then turns off.
-    @Test(arguments: ["suspended", "disabled", "command turned off", "window changed"])
-    func temporaryInspectorEndsWhenItsKeyStopsBeingAHotkey(_ cause: String) {
-        let engine = engine(InspectorMode.commands)
-        engine.dispatch(KeyCombo("`")!, .pressed, in: mix)
-        #expect(engine.mode.inspector)
-        switch cause {
-        case "suspended": engine.suspend(Suspension("test"))
-        case "disabled": engine.isEnabled = false
-        case "command turned off": engine.setCommand(InspectorMode.toggleTemporaryInspector, enabled: false)
-        default: engine.contextChanged(to: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Memory Locations"))
-        }
-        #expect(!engine.mode.inspector)
-    }
-
-    @Test func holdOutlivesChangesThatKeepItsKey() {
-        let events = Events()
-        let engine = engine([holdCommand(events)])
-        engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
-        engine.contextChanged(to: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Edit: Session"))
-        #expect(events.list == ["press"])
-        engine.dispatch(KeyCombo("F3")!, .released, in: mix)
-        #expect(events.list == ["press", "release"])
-    }
-
-    /// A held key that some window overrides stops being a hotkey when the window becomes unknown, so its hold ends then, once, and the later release finds no hold.
-    @Test func holdEndsOnceWhenTheWindowBecomesUnknown() {
-        let events = Events()
-        let engine = engine([holdCommand(events), Command("test.batchFadesF3", "F3", scope: .windows([.fade(.batchFades)]), triggers: [.key("F3")]) { _ in }])
-        engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
-        engine.contextChanged(to: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: nil))
-        #expect(events.list == ["press", "release"])
-        engine.dispatch(KeyCombo("F3")!, .released, in: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: nil))
-        #expect(events.list == ["press", "release"])
-    }
-
-    @Test func stopEndsHolds() {
-        let events = Events()
-        let engine = engine([holdCommand(events)])
-        engine.dispatch(KeyCombo("F3")!, .pressed, in: mix)
-        engine.stop()
-        engine.dispatch(KeyCombo("F3")!, .released, in: mix)
-        #expect(events.list == ["press", "release"])
+        #expect(events.list == ["tap"])
     }
 
     /// A command on F1 that signals `started` when its body runs, then sleeps 5 s and records whether it finished or was cancelled.
@@ -827,12 +640,12 @@ private actor Flag {
     @Test func doneSoundTimingMatchesJXA() throws {
         func doneSound(_ id: CommandID) throws -> DoneSoundTiming? {
             let command = try #require(FloFeatures.all().first { $0.id == id })
-            guard case .singleOrDouble(_, _, let doneSound) = command.action else { return nil }
+            guard case .tapOrHold(_, _, let doneSound) = command.action else { return nil }
             return doneSound
         }
-        #expect(try doneSound("inspector.speakOpenSendB") == .afterDouble)
-        #expect(try doneSound("inspector.speakToggleSolo") == .afterDouble)
-        #expect(try doneSound("floTools.speakSoloedTracksUnsoloAllTracks") == .beforeDouble)
+        #expect(try doneSound("inspector.speakOpenSendB") == .afterHold)
+        #expect(try doneSound("inspector.speakToggleSolo") == .afterHold)
+        #expect(try doneSound("floTools.speakSoloedTracksUnsoloAllTracks") == .beforeHold)
     }
 }
 
@@ -907,30 +720,22 @@ private actor Flag {
         #expect(PreferencesStore(defaults: suite.defaults).current == Preferences())
     }
 
-    /// Uses the literal stored key, so a renamed `Key.timeout` that would lose saved values fails here.
+    /// Uses the literal stored key, so a renamed `Key.holdTime` that would lose saved values fails here.
     @Test(arguments: [9, 250])
-    func unsupportedTimeoutUsesTheDefault(_ stored: Int) {
+    func unsupportedHoldTimeUsesTheDefault(_ stored: Int) {
         let defaults = suite.defaults
         defaults.set(stored, forKey: "doublePressTimeout")
-        #expect(PreferencesStore(defaults: defaults).current.timeout == Preferences().timeout)
+        #expect(PreferencesStore(defaults: defaults).current.holdTime == Preferences().holdTime)
     }
 
-    /// The log describes every preference, including both meanings of the timeout.
     @Test func descriptionNamesEveryPreference() {
-        var preferences = Preferences()
-        #expect(preferences.description == "temporary inspector false, auto inspector false, starts with Flo Tools inspector false, hold for double press false, timeout 200 ms")
-        preferences.holdForDoublePress = true
-        preferences.timeout = 300
-        #expect(preferences.description.hasSuffix("hold for double press true, hold time 300 ms"))
+        #expect(Preferences().description == "hold time 200 ms")
     }
 
     @Test func savedPreferencesAreReadBack() {
         let defaults = suite.defaults
         var preferences = Preferences()
-        preferences.temporaryInspector = true
-        preferences.startsWithInspector = true
-        preferences.timeout = 400
-        preferences.holdForDoublePress = true
+        preferences.holdTime = 400
         PreferencesStore(defaults: defaults).save(preferences)
         #expect(PreferencesStore(defaults: defaults).current == preferences)
     }
@@ -954,30 +759,20 @@ private actor Flag {
         #expect(PreferencesStore(defaults: defaults).includesBetaUpdates)
     }
 
-    @Test(arguments: Preferences.timeoutChoices)
-    func timeoutChoicesSurviveRelaunch(_ timeout: Int) {
+    @Test(arguments: Preferences.holdTimeChoices)
+    func holdTimeChoicesSurviveRelaunchAndApply(_ holdTime: Int) {
         var preferences = Preferences()
-        preferences.timeout = timeout
+        preferences.holdTime = holdTime
         PreferencesStore(defaults: suite.defaults).save(preferences)
-        #expect(PreferencesStore(defaults: suite.defaults).current.timeout == timeout)
+        #expect(PreferencesStore(defaults: suite.defaults).current.holdTime == holdTime)
         let engine = FloFeatures.makeEngine()
         FloFeatures.apply(preferences, to: engine)
-        #expect(engine.doubleActionTrigger == .secondPress(within: .milliseconds(timeout)))
+        #expect(engine.holdTime == .milliseconds(holdTime))
     }
 
-    @Test func timeoutChoiceBounds() {
-        #expect(Preferences.timeoutChoices == [100, 200, 300, 400, 500])
-        #expect(Preferences().timeout == 200)
-    }
-
-    /// The one time setting is the double-press timeout, or the hold time when holding is on.
-    @Test(arguments: [false, true]) func applySetsTheDoubleActionTrigger(_ hold: Bool) {
-        let engine = FloFeatures.makeEngine()
-        var preferences = Preferences()
-        preferences.timeout = 500
-        preferences.holdForDoublePress = hold
-        FloFeatures.apply(preferences, to: engine)
-        #expect(engine.doubleActionTrigger == (hold ? .hold(for: .milliseconds(500)) : .secondPress(within: .milliseconds(500))))
+    @Test func holdTimeChoiceBounds() {
+        #expect(Preferences.holdTimeChoices == [100, 200, 300, 400, 500])
+        #expect(Preferences().holdTime == 200)
     }
 }
 

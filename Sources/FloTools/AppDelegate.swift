@@ -37,7 +37,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         AXElement.setGlobalMessagingTimeout(1.0)
         engine.isEnabled = preferences.floToolsEnabled
         lifecycle.start()
-        // After start, so the header shows the suspension and Inspector state that start set; the entries of start are already in the file.
+        // After start, so the header shows the suspension that start set; the entries of start are already in the file.
         if resumedLog { Log.writeHeader(DiagnosticHeader.text(engine: engine, preferences: preferences.current, loginItem: loginItem)) }
         Log.info(.app, "Flo Tools started")
         installPlugInViewsOnFirstLaunch()

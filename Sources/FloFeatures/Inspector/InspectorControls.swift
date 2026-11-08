@@ -6,25 +6,25 @@ import FloSystem
 enum InspectorControls {
     @MainActor
     static var commands: [Command] { [
-        menu("inspector.speakSelectAutomationMode", "Speak/Select Automation Mode", key: "A", .mix, .automationMode, "Single press speaks the track's automation mode; double press opens its menu."),
-        menu("inspector.speakSelectGroup", "Speak/Select Group", key: "G", .mix, .group, "Single press speaks the track's group, or \"No Group\"; double press opens the group menu."),
-        menu("inspector.speakSelectTrackInput", "Speak/Select Track Input", key: "I", .mix, .input, "Single press speaks the track's input; double press opens its menu."),
-        menu("inspector.speakSelectTrackOutput", "Speak/Select Track Output", key: "O", .mix, .output, "Single press speaks the track's output; double press opens its menu."),
-        menu("inspector.speakSelectInstrumentInput", "Speak/Select Instrument Input", key: "Opt+I", .mix, .instrumentInput, "Single press speaks the track's instrument input; double press opens its menu."),
-        menu("inspector.speakSelectInstrumentOutput", "Speak/Select Instrument Output", key: "Opt+O", .mix, .instrumentOutput, "Single press speaks the track's instrument output; double press opens its menu."),
+        menu("inspector.speakSelectAutomationMode", "Speak/Select Automation Mode", key: "A", .mix, .automationMode, "Tap speaks the track's automation mode; hold opens its menu."),
+        menu("inspector.speakSelectGroup", "Speak/Select Group", key: "G", .mix, .group, "Tap speaks the track's group, or \"No Group\"; hold opens the group menu."),
+        menu("inspector.speakSelectTrackInput", "Speak/Select Track Input", key: "I", .mix, .input, "Tap speaks the track's input; hold opens its menu."),
+        menu("inspector.speakSelectTrackOutput", "Speak/Select Track Output", key: "O", .mix, .output, "Tap speaks the track's output; hold opens its menu."),
+        menu("inspector.speakSelectInstrumentInput", "Speak/Select Instrument Input", key: "Opt+I", .mix, .instrumentInput, "Tap speaks the track's instrument input; hold opens its menu."),
+        menu("inspector.speakSelectInstrumentOutput", "Speak/Select Instrument Output", key: "Opt+O", .mix, .instrumentOutput, "Tap speaks the track's instrument output; hold opens its menu."),
         // The JXA spoke the track name from the Mix window and opened the playlist selector in the Edit window, which is the only one that has it.
-        menu("inspector.speakSelectPlaylist", "Speak/Select Playlist", key: "\\", .mix, .trackName, opening: (.edit, .playlist), "Single press speaks the track name, which is its playlist's name; double press opens the playlist menu in the Edit window."),
-        menu("inspector.speakSelectTimebase", "Speak/Select Timebase", key: "B", .edit, .timebase, "Single press speaks the track's timebase; double press opens its menu."),
-        menu("inspector.speakSelectTrackView", "Speak/Select Track View", key: "W", .edit, .trackView, "Single press speaks the track's view; double press opens its menu."),
-        menu("inspector.speakSelectElasticAudioPlugin", "Speak/Select Elastic Audio Plug-In", key: "E", .edit, .elasticAudioPlugIn, opening: (.edit, .elasticAudioSelector), "Single press speaks the track's Elastic Audio plug-in, or \"None\"; double press opens the Elastic Audio menu."),
-        menu("inspector.trackOptionsMenu", "Track Options Menu", key: "H", .edit, .trackOptions, "Single press speaks the name of the track options button; double press opens the track options menu."),
+        menu("inspector.speakSelectPlaylist", "Speak/Select Playlist", key: "\\", .mix, .trackName, opening: (.edit, .playlist), "Tap speaks the track name, which is its playlist's name; hold opens the playlist menu in the Edit window."),
+        menu("inspector.speakSelectTimebase", "Speak/Select Timebase", key: "B", .edit, .timebase, "Tap speaks the track's timebase; hold opens its menu."),
+        menu("inspector.speakSelectTrackView", "Speak/Select Track View", key: "W", .edit, .trackView, "Tap speaks the track's view; hold opens its menu."),
+        menu("inspector.speakSelectElasticAudioPlugin", "Speak/Select Elastic Audio Plug-In", key: "E", .edit, .elasticAudioPlugIn, opening: (.edit, .elasticAudioSelector), "Tap speaks the track's Elastic Audio plug-in, or \"None\"; hold opens the Elastic Audio menu."),
+        menu("inspector.trackOptionsMenu", "Track Options Menu", key: "H", .edit, .trackOptions, "Tap speaks the name of the track options button; hold opens the track options menu."),
         selectTrack,
         comments,
         freeze,
         cancel,
-        fader("inspector.speakResetVolumeFader", "Speak/Reset Volume Fader", key: "V", .volume, "Single press speaks the track's volume; double press resets it to 0 dB."),
-        fader("inspector.speakResetInstrumentVolume", "Speak/Reset Instrument Volume", key: "Opt+V", .instrumentVolume, "Single press speaks the instrument track's MIDI volume; double press resets it."),
-        fader("inspector.speakResetPeakMeter", "Speak/Reset Peak Meter", key: "P", .peak, "Single press speaks the track's peak hold; double press clears it."),
+        fader("inspector.speakResetVolumeFader", "Speak/Reset Volume Fader", key: "V", .volume, "Tap speaks the track's volume; hold resets it to 0 dB."),
+        fader("inspector.speakResetInstrumentVolume", "Speak/Reset Instrument Volume", key: "Opt+V", .instrumentVolume, "Tap speaks the instrument track's MIDI volume; hold resets it."),
+        fader("inspector.speakResetPeakMeter", "Speak/Reset Peak Meter", key: "P", .peak, "Tap speaks the track's peak hold; hold clears it."),
         resetPan,
         resetInstrumentPan,
         volumeStep("inspector.increaseVolume", "Increase Volume", key: "Ctrl+Cmd+Up", .volume, .increase, "Moves the volume fader one step up and speaks it."),
@@ -37,14 +37,14 @@ enum InspectorControls {
 
     // MARK: Menus
 
-    /// Single press speaks the control's `spokenText`. Double press presses the control in `opening` (the same control by default), which opens its Pro Tools menu; VoiceOver reads the menu, so there is no done sound, as in the JXA.
+    /// Tap speaks the control's `spokenText`. Hold presses the control in `opening` (the same control by default), which opens its Pro Tools menu; VoiceOver reads the menu, so there is no done sound, as in the JXA.
     @MainActor
     static func menu(_ id: CommandID, _ name: String, key: String, _ window: ProToolsApp.TrackWindow, _ control: TrackStrip.Control, opening: Place? = nil, _ summary: String) -> Command {
         let open = opening ?? (window, control)
-        return Inspector.command(id, name, summary: summary, key: key, doneSound: .none, single: { run in
+        return Inspector.command(id, name, summary: summary, key: key, doneSound: .none, tap: { run in
             let track = try await run.inspectorTrack(in: window)
             try await VoiceOver.say(readout(control, of: track))
-        }, double: { run in
+        }, hold: { run in
             let track = try await run.inspectorTrack(in: open.window)
             try await track.control(open.control).pressOpeningMenu()
         })
@@ -55,7 +55,7 @@ enum InspectorControls {
         try readout(control, of: track.control(control))
     }
 
-    /// Presses the track's `control` and returns what a single press said just before, so a wait for the change compares two readouts made the same way.
+    /// Presses the track's `control` and returns what a tap said just before, so a wait for the change compares two readouts made the same way.
     @AccessibilityActor
     private static func press(_ control: TrackStrip.Control, of track: TrackStrip) throws -> String {
         let element = try track.control(control)
@@ -69,7 +69,7 @@ enum InspectorControls {
         spokenText(control, name: try element.name ?? "", value: try element.value ?? "")
     }
 
-    /// What a single press says for a control, from its name and value: the setting it shows (`TrackStrip.shownSetting`), with words for an empty group, Elastic Audio plug-in or comment, as in the JXA.
+    /// What a tap says for a control, from its name and value: the setting it shows (`TrackStrip.shownSetting`), with words for an empty group, Elastic Audio plug-in or comment, as in the JXA.
     static func spokenText(_ control: TrackStrip.Control, name: String, value: String) -> String {
         let shown = TrackStrip.shownSetting(control, name: name, value: value)
         return switch control {
@@ -80,26 +80,26 @@ enum InspectorControls {
         }
     }
 
-    /// Speak and Select Track/Show Right-Click Menu: single press presses the track name button, which selects the track, and says so; double press opens the track name's context menu. No done sound, as in the JXA.
+    /// Speak and Select Track/Show Right-Click Menu: tap presses the track name button, which selects the track, and says so; hold opens the track name's context menu. No done sound, as in the JXA.
     @MainActor
     static var selectTrack: Command {
-        Inspector.command("inspector.speakAndSelectTrackShowRightClickMenu", "Speak and Select Track/Show Right-Click Menu", summary: "Single press selects the track and says so; double press opens the track name's right-click menu.", key: "T", doneSound: .none, single: { run in
+        Inspector.command("inspector.speakAndSelectTrackShowRightClickMenu", "Speak and Select Track/Show Right-Click Menu", summary: "Tap selects the track and says so; hold opens the track name's right-click menu.", key: "T", doneSound: .none, tap: { run in
             let track = try await run.inspectorTrack()
             let name = try await press(.trackName, of: track)
             try await VoiceOver.say(name + " selected")
-        }, double: { run in
+        }, hold: { run in
             let track = try await run.inspectorTrack()
             try await track.control(.trackName).showMenu()
         })
     }
 
-    /// Speak/Edit Comments: single press speaks the comment or "No Comment"; double press clicks the comments field so it can be typed into, then plays the done sound, as in the JXA.
+    /// Speak/Edit Comments: tap speaks the comment or "No Comment"; hold clicks the comments field so it can be typed into, then plays the done sound, as in the JXA.
     @MainActor
     static var comments: Command {
-        Inspector.command("inspector.speakEditComments", "Speak/Edit Comments", summary: "Single press speaks the track's comment, or \"No Comment\"; double press puts the cursor in the comments field for typing.", key: "C", doneSound: .afterDouble, single: { run in
+        Inspector.command("inspector.speakEditComments", "Speak/Edit Comments", summary: "Tap speaks the track's comment, or \"No Comment\"; hold puts the cursor in the comments field for typing.", key: "C", doneSound: .afterHold, tap: { run in
             let track = try await run.inspectorTrack()
             try await VoiceOver.say(readout(.comments, of: track))
-        }, double: { run in
+        }, hold: { run in
             let track = try await run.inspectorTrack()
             try await track.control(.comments).press()
         })
@@ -109,13 +109,13 @@ enum InspectorControls {
 
     static let freezeCommand: CommandID = "inspector.speakToggleFreezeStatus"
 
-    /// Speak/Toggle Freeze Status: single press speaks the freeze button's name, such as "Not Frozen". Double press presses it, plays the done sound, then starts a watch that plays the progress sound until the name changes and speaks the new name. Freezing renders the track, which can take many minutes, so the wait has no limit, as in the JXA; it is a watch rather than part of the run so other commands keep working meanwhile. The JXA played Pop every 0.1 s; this plays it once a second, like Unsolo All.
+    /// Speak/Toggle Freeze Status: tap speaks the freeze button's name, such as "Not Frozen". Hold presses it, plays the done sound, then starts a watch that plays the progress sound until the name changes and speaks the new name. Freezing renders the track, which can take many minutes, so the wait has no limit, as in the JXA; it is a watch rather than part of the run so other commands keep working meanwhile. The JXA played Pop every 0.1 s; this plays it once a second, like Unsolo All.
     @MainActor
     static var freeze: Command {
-        Inspector.command(freezeCommand, "Speak/Toggle Freeze Status", summary: "Single press speaks whether the track is frozen. Double press freezes or unfreezes it, plays a progress sound while Pro Tools works, and speaks the new state.", key: "F", doneSound: .none, single: { run in
+        Inspector.command(freezeCommand, "Speak/Toggle Freeze Status", summary: "Tap speaks whether the track is frozen. Hold freezes or unfreezes it, plays a progress sound while Pro Tools works, and speaks the new state.", key: "F", doneSound: .none, tap: { run in
             let track = try await run.inspectorTrack(in: .edit)
             try await VoiceOver.say(readout(.freeze, of: track))
-        }, double: { run in
+        }, hold: { run in
             let track = try await run.inspectorTrack(in: .edit)
             let before = try await press(.freeze, of: track)
             await Sound.done.play()
@@ -164,7 +164,7 @@ enum InspectorControls {
 
     // MARK: Faders and pan
 
-    /// Speak/Reset commands for one slider: single press speaks its value; double press clicks it, which resets it in Pro Tools (unity gain, peak hold cleared), speaks the new value and plays the done sound, as in the JXA.
+    /// Speak/Reset commands for one slider: tap speaks its value; hold clicks it, which resets it in Pro Tools (unity gain, peak hold cleared), speaks the new value and plays the done sound, as in the JXA.
     @MainActor
     static func fader(_ id: CommandID, _ name: String, key: String, _ fader: TrackStrip.Fader, _ summary: String) -> Command {
         sliderReset(id, name, summary, key: key, .value) { track in [try track.fader(fader)] }
@@ -173,20 +173,20 @@ enum InspectorControls {
     /// Speak/Reset Pan: every pan knob of the track, "Centered. " on a mono track and two values on a stereo one.
     @MainActor
     static var resetPan: Command {
-        sliderReset("inspector.speakResetPan", "Speak/Reset Pan", "Single press speaks the position of each of the track's pan knobs; double press centers them.", key: "N", .panList) { track in try track.panKnobs() }
+        sliderReset("inspector.speakResetPan", "Speak/Reset Pan", "Tap speaks the position of each of the track's pan knobs; hold centers them.", key: "N", .panList) { track in try track.panKnobs() }
     }
 
     /// Speak/Reset Instrument Pan: the MIDI pan of an instrument track, spoken without the ". " that Speak/Reset Pan puts after each knob, as in the JXA.
     @MainActor
     static var resetInstrumentPan: Command {
-        sliderReset("inspector.speakResetInstrumentPan", "Speak/Reset Instrument Pan", "Single press speaks the instrument track's MIDI pan; double press centers it.", key: "Opt+N", .value) { track in [try track.pan(.instrument)] }
+        sliderReset("inspector.speakResetInstrumentPan", "Speak/Reset Instrument Pan", "Tap speaks the instrument track's MIDI pan; hold centers it.", key: "Opt+N", .value) { track in [try track.pan(.instrument)] }
     }
 
     /// How Speak/Reset speaks its sliders' values.
     enum SliderReadout: Sendable {
         /// The one slider's value.
         case value
-        /// Each value followed by ". ", with "No Pan" for an empty one on a single press, as in the JXA's Speak/Reset Pan.
+        /// Each value followed by ". ", with "No Pan" for an empty one on a tap, as in the JXA's Speak/Reset Pan.
         case panList
     }
 
@@ -194,11 +194,11 @@ enum InspectorControls {
     @MainActor
     private static func sliderReset(_ id: CommandID, _ name: String, _ summary: String, key: String, _ readout: SliderReadout, sliders: @escaping @AccessibilityActor @Sendable (TrackStrip) throws -> [AXElement]) -> Command {
         let isPan = readout == .panList
-        return Inspector.command(id, name, summary: summary, key: key, doneSound: .afterDouble, single: { run in
+        return Inspector.command(id, name, summary: summary, key: key, doneSound: .afterHold, tap: { run in
             let track = try await run.inspectorTrack()
             let values = try await values(of: sliders(track))
             try await VoiceOver.say(isPan ? SpokenList.sentences(values.map { $0.orIfEmpty("No Pan") }) : values.joined())
-        }, double: { run in
+        }, hold: { run in
             let track = try await run.inspectorTrack()
             var values: [String] = []
             for slider in try await sliders(track) {

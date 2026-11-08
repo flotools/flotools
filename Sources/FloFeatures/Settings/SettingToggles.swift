@@ -22,7 +22,7 @@ enum SettingToggles {
         button("floTools.speakToggleWaitForNote", "Speak/Toggle Wait for Note", key: "Opt+F11", .midi, "Wait for Note", "wait for note", Wording(on: "Wait for note On", off: "Wait for note off")),
         button("floTools.speakToggleInsertionFollowsPlayback", "Speak/Toggle Insertion Follows Playback", key: "Ctrl+N", .cursorTool, "Insertion Follows Playback", "Insertion Follows Playback", Wording(on: "Insertion Follows Playback, On", off: "Insertion Follows Playback, Off")),
         button("floTools.speakToggleTabToTransients", "Speak/Toggle Tab to Transients", key: "Opt+Cmd+Tab", .cursorTool, "Tab to Transients", "Tab to Transients", Wording(on: "Tab to Transients, On", off: "Tab to Transients, Off")),
-        toggle("floTools.speakToggleGridMode", "Speak/Toggle Grid Mode", "Single press speaks the Grid mode kind, or that Grid mode is off; double press selects Grid mode and speaks the result.", key: "F4", .editWindowButton(.editMode, .contains("Grid")), spoken: gridModeText),
+        toggle("floTools.speakToggleGridMode", "Speak/Toggle Grid Mode", "Tap speaks the Grid mode kind, or that Grid mode is off; hold selects Grid mode and speaks the result.", key: "F4", .editWindowButton(.editMode, .contains("Grid")), spoken: gridModeText),
         menuItem("floTools.speakToggleDynamicTransport", "Speak/Toggle Dynamic Transport", key: "Ctrl+Cmd+P", "Options", "Dynamic Transport", Wording(on: "Dynamic Transport, Checked", off: "Dynamic Transport")),
         menuItem("floTools.speakToggleLoopPlayback", "Speak/Toggle Loop Playback", key: "Shift+Cmd+L", "Options", "Loop Playback", Wording(on: "Loop Playback , Checked", off: "Loop Playback")),
         menuItem("floTools.speakToggleLoopRecord", "Speak/Toggle Loop Record", key: "Opt+L", "Options", "Loop Record", Wording(on: "Loop Record , Checked", off: "Loop Record")),
@@ -40,22 +40,22 @@ enum SettingToggles {
     private static func button(_ id: CommandID, _ name: String, key: String, _ cluster: EditWindowControl.Cluster, _ button: String, _ setting: String, _ wording: Wording) -> Command {
         // Pressing an edit mode button selects that mode; the other buttons switch on and off.
         let pressing = cluster == .editMode ? "selects it" : "switches it"
-        let summary = "Single press speaks whether \(setting) is on; double press \(pressing)."
+        let summary = "Tap speaks whether \(setting) is on; hold \(pressing)."
         return toggle(id, name, summary, key: key, .editWindowButton(cluster, .is(button)), spoken: wording.text(of:))
     }
 
     @MainActor
     private static func menuItem(_ id: CommandID, _ name: String, key: String, _ menu: String, _ item: String, _ wording: Wording) -> Command {
-        toggle(id, name, "Single press speaks whether \(menu) > \(item) is checked; double press switches it.", key: key, .menuItem(menu: menu, .is(item)), spoken: wording.text(of:))
+        toggle(id, name, "Tap speaks whether \(menu) > \(item) is checked; hold switches it.", key: key, .menuItem(menu: menu, .is(item)), spoken: wording.text(of:))
     }
 
-    /// Single press speaks the setting; double press plays the done sound, switches it and speaks the new state. The JXA waited a fixed 0.1 s before reading the new state of a button and spoke nothing after choosing a menu item; this waits until the state changes, and speaks menu items too, so every double press confirms what it did. A dimmed control is refused: Pro Tools ignores the press, and speaking the unchanged state would sound like success. Pro Tools dims its menus while a modal window such as the About splash is open.
+    /// Tap speaks the setting; hold plays the done sound, switches it and speaks the new state. The JXA waited a fixed 0.1 s before reading the new state of a button and spoke nothing after choosing a menu item; this waits until the state changes, and speaks menu items too, so every hold confirms what it did. A dimmed control is refused: Pro Tools ignores the press, and speaking the unchanged state would sound like success. Pro Tools dims its menus while a modal window such as the About splash is open.
     @MainActor
     private static func toggle(_ id: CommandID, _ name: String, _ summary: String, key: String, _ setting: ProToolsSetting, spoken: @escaping @Sendable @AccessibilityActor (SettingControl) throws -> String) -> Command {
-        Command(id, name, summary: summary, scope: .anyProToolsWindow, triggers: [.key(key)], single: { _ in
+        Command(id, name, summary: summary, scope: .anyProToolsWindow, triggers: [.key(key)], tap: { _ in
             let control = try await ProToolsApp.running().control(setting)
             try await VoiceOver.say(spoken(control))
-        }, double: { _ in
+        }, hold: { _ in
             let control = try await ProToolsApp.running().control(setting)
             guard try await control.isEnabled else {
                 let name = try await control.name

@@ -5,9 +5,9 @@ import Testing
 @testable import FloProTools
 @testable import FloSystem
 
-/// The keymap baseline: every binding, and which command each contested key runs in each window and Inspector state. Both are compared with text files in `Tests/Baselines/`, so any change to keys, scopes, defaults or precedence shows up as a diff there. A change on purpose is made by running the tests with `FLO_WRITE_BASELINES=1` and committing the new files with the reason.
+/// The keymap baseline: every binding, and which commands each contested key runs in each window, best first. Both are compared with text files in `Tests/Baselines/`, so any change to keys, scopes, defaults or precedence shows up as a diff there. A change on purpose is made by running the tests with `FLO_WRITE_BASELINES=1` and committing the new files with the reason.
 ///
-/// The descriptions use the app's vocabulary (scope, mode, command), not how the engine stores it, so the files stay the same while the engine changes shape.
+/// The descriptions use the app's vocabulary (scope, command), not how the engine stores it, so the files stay the same while the engine changes shape.
 @MainActor @Suite struct KeymapTests {
     static let baselines = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("Baselines")
     static let proTools = ProToolsApp.bundleID
@@ -39,77 +39,50 @@ import Testing
         try Self.compare(Self.bindingLines(FloFeatures.makeEngine()), with: "Keymap.txt")
     }
 
+    /// A key whose first command is for the track under the VoiceOver cursor lists the next one too, which runs off a track, as "first else next".
     @Test func routingMatchesBaseline() throws {
+        let engine = FloFeatures.makeEngine()
         var lines: [String] = []
-        for state in Self.inspectorStates {
-            let engine = FloFeatures.makeEngine()
-            Self.prepare(engine, state)
-            for (combo, phase) in Self.contestedKeys(engine) {
-                var winners: [String: [String]] = [:]
-                for (label, context) in Self.contexts {
-                    let winner = engine.candidates(for: combo, phase: phase, in: context).first?.id.description ?? "pass"
-                    winners[winner, default: []].append(label)
-                }
-                let columns = winners.keys.sorted { ($0 == "pass" ? 1 : 0, $0) < ($1 == "pass" ? 1 : 0, $1) }.map { "\($0): \(winners[$0]!.joined(separator: ", "))" }
-                lines.append("\(state) | \(Self.keyText(combo, phase)) | " + columns.joined(separator: " | "))
+        for combo in Self.contestedKeys(engine) {
+            var winners: [String: [String]] = [:]
+            for (label, context) in Self.contexts {
+                let candidates = engine.candidates(for: combo, in: context)
+                let firstTwo = candidates.first?.scope == .trackUnderVoiceOverCursor ? candidates.prefix(2) : candidates.prefix(1)
+                let winner = firstTwo.isEmpty ? "pass" : firstTwo.map(\.id.description).joined(separator: " else ")
+                winners[winner, default: []].append(label)
             }
+            let columns = winners.keys.sorted { ($0 == "pass" ? 1 : 0, $0) < ($1 == "pass" ? 1 : 0, $1) }.map { "\($0): \(winners[$0]!.joined(separator: ", "))" }
+            lines.append("\(combo) | " + columns.joined(separator: " | "))
         }
         try Self.compare(lines, with: "Routing.txt")
     }
 
     // MARK: Describing today's engine
 
-    /// Inspector states to route in. Each starts from launch with "starts with Flo Tools inspector" off and "temporary inspector" on.
-    static let inspectorStates = ["launch, Inspector off", "Inspector on by /", "Inspector off by /", "backtick held"]
-
-    static func prepare(_ engine: Engine, _ state: String) {
-        var preferences = Preferences()
-        preferences.startsWithInspector = false
-        preferences.temporaryInspector = true
-        FloFeatures.apply(preferences, to: engine)
-        InspectorMode.applyStartState(preferences, to: engine)
-        switch state {
-        case "Inspector on by /":
-            engine.setInspector(true)
-        case "Inspector off by /":
-            engine.setInspector(true)
-            engine.setInspector(false)
-        case "backtick held":
-            engine.dispatch(KeyCombo("`")!, .pressed, in: FrontContext(bundleID: proTools, windowTitle: "Mix: S"))
-        default:
-            break
-        }
-    }
-
-    /// Keys bound by more than one command, and the keys that change the Inspector.
-    static func contestedKeys(_ engine: Engine) -> [(KeyCombo, KeyPhase)] {
-        var count: [String: (key: (KeyCombo, KeyPhase), commands: Int)] = [:]
+    /// Keys bound by more than one command, and keys whose windows changed on purpose.
+    static func contestedKeys(_ engine: Engine) -> [KeyCombo] {
+        var count: [String: (combo: KeyCombo, commands: Int)] = [:]
         for command in engine.commands {
-            for (combo, phase) in command.hotKeys {
-                let text = keyText(combo, phase)
-                count[text] = ((combo, phase), (count[text]?.commands ?? 0) + 1)
+            for combo in command.hotKeys {
+                count["\(combo)"] = (combo, (count["\(combo)"]?.commands ?? 0) + 1)
             }
         }
-        // Also keys whose windows changed on purpose: the Inspector keys, and the AudioSuite buttons, which KM also took in Mix and plug-in windows with "Audio Suite:" in the title.
-        let watched: Set<String> = ["/", "`", "` released", "S", "Ctrl+Opt+Shift+Cmd+B", "Ctrl+Opt+Shift+Cmd+N", "Ctrl+Opt+Shift+Cmd+P", "Ctrl+Opt+Shift+Cmd+R"]
-        return count.filter { $0.value.commands > 1 || watched.contains($0.key) }.sorted { $0.key < $1.key }.map(\.value.key)
+        // The watched keys: an Inspector key, and the AudioSuite buttons, which KM also took in Mix and plug-in windows with "Audio Suite:" in the title.
+        let watched: Set<String> = ["S", "Ctrl+Opt+Shift+Cmd+B", "Ctrl+Opt+Shift+Cmd+N", "Ctrl+Opt+Shift+Cmd+P", "Ctrl+Opt+Shift+Cmd+R"]
+        return count.filter { $0.value.commands > 1 || watched.contains($0.key) }.sorted { $0.key < $1.key }.map(\.value.combo)
     }
 
     static func bindingLines(_ engine: Engine) -> [String] {
         engine.commands.flatMap { command -> [String] in
-            let rest = "\(scope(command.scope)) | \(mode(command.mode)) | \(command.id) | \(action(command.action)) | \"\(command.name)\""
+            let rest = "\(scope(command.scope)) | \(command.id) | \(action(command.action)) | \"\(command.name)\""
             let triggers = command.triggers.map { trigger in
                 switch trigger {
-                case .hotKey(let combo, let phase): keyText(combo, phase)
+                case .hotKey(let combo): "\(combo)"
                 case .statusMenu: "status menu"
                 }
             }
             return (triggers.isEmpty ? ["no key"] : triggers).map { "\($0) | \(rest)" }
         }.sorted()
-    }
-
-    static func keyText(_ combo: KeyCombo, _ phase: KeyPhase) -> String {
-        phase == .released ? "\(combo) released" : "\(combo)"
     }
 
     /// Window kinds in a fixed order, so a scope reads the same every run.
@@ -134,27 +107,19 @@ import Testing
         switch scope {
         case .anyProToolsWindow: "any Pro Tools window"
         case .windows(let kinds): ordered(kinds).map(\.description).joined(separator: ", ")
-        }
-    }
-
-    static func mode(_ mode: ModeCondition) -> String {
-        switch mode {
-        case .any: "-"
-        case .inspectorOn: "Inspector on"
-        case .inspectorOff: "Inspector off"
+        case .trackUnderVoiceOverCursor: "track under VoiceOver cursor"
         }
     }
 
     static func action(_ action: CommandAction) -> String {
         switch action {
         case .body: "run"
-        case .hold: "hold"
         case .repeating: "repeats while held"
-        case .singleOrDouble(_, _, let sound):
+        case .tapOrHold(_, _, let sound):
             switch sound {
-            case .beforeDouble: "single/double, sound before double"
-            case .afterDouble: "single/double, sound after double"
-            case .none: "single/double, no sound"
+            case .beforeHold: "tap/hold, sound before hold"
+            case .afterHold: "tap/hold, sound after hold"
+            case .none: "tap/hold, no sound"
             }
         }
     }

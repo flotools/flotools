@@ -1,26 +1,13 @@
 import FloSystem
 import Foundation
 
-/// The user's Inspector and double-press preferences.
+/// The preferences that change how keys work.
 public struct Preferences: Equatable, Sendable {
-    /// Whether holding backtick turns the Inspector on while held (Toggle Temporary Inspector).
-    public var temporaryInspector = false
-    /// Whether each press of an Inspector key turns the Inspector on or off by itself, by checking whether the VoiceOver cursor is on a track name.
-    public var autoInspector = false
-    /// Whether the Inspector is on when Flo Tools or Pro Tools starts.
-    public var startsWithInspector = false
-    /// In milliseconds, one of `timeoutChoices`: the double-press timeout, or with `holdForDoublePress` the hold time.
-    public var timeout = 200
-    /// Whether holding a key for `timeout` runs its double action instead of a second press. Double presses then do not work, and a tap acts as soon as the key is let go. Off by default, because someone who presses keys slowly could switch solo, mute or record arm by accident.
-    public var holdForDoublePress = false
+    /// In milliseconds, one of `holdTimeChoices`: how long a key with a tap and a hold action must stay down to count as held.
+    public var holdTime = 200
 
-    /// A shorter time makes a single press act sooner, or a hold shorter, but leaves less time for the second press of a double, or for letting go of a tap.
-    public static let timeoutChoices = [100, 200, 300, 400, 500]
-
-    /// What these preferences make the double action of a key.
-    public var doubleActionTrigger: DoubleActionTrigger {
-        holdForDoublePress ? .hold(for: .milliseconds(timeout)) : .secondPress(within: .milliseconds(timeout))
-    }
+    /// A shorter time makes a hold shorter, but leaves less time to let go of a tap.
+    public static let holdTimeChoices = [100, 200, 300, 400, 500]
 
     public init() {}
 }
@@ -28,7 +15,7 @@ public struct Preferences: Equatable, Sendable {
 /// The one wording of the preferences for the log, used by the diagnostic header and when preferences are loaded or saved.
 extension Preferences: CustomStringConvertible {
     public var description: String {
-        "temporary inspector \(temporaryInspector), auto inspector \(autoInspector), starts with Flo Tools inspector \(startsWithInspector), hold for double press \(holdForDoublePress), \(holdForDoublePress ? "hold time" : "timeout") \(timeout) ms"
+        "hold time \(holdTime) ms"
     }
 }
 
@@ -40,12 +27,8 @@ public final class PreferencesStore {
     public private(set) var current: Preferences
 
     enum Key {
-        static let temporaryInspector = "temporaryInspector"
-        static let autoInspector = "autoInspector"
-        static let startsWithInspector = "startsWithInspector"
-        /// Also the hold time with `holdForDoublePress`; the key keeps its older name so the saved value stays.
-        static let timeout = "doublePressTimeout"
-        static let holdForDoublePress = "holdForDoublePress"
+        /// The key keeps its name from when the time was a double-press timeout, so the saved value stays.
+        static let holdTime = "doublePressTimeout"
         static let floToolsEnabled = "floToolsEnabled"
         static let plugInViewsInstalled = "plugInViewsInstalled"
         static let installsUpdatesAutomatically = "installsUpdatesAutomatically"
@@ -60,11 +43,7 @@ public final class PreferencesStore {
     }
 
     public func save(_ preferences: Preferences) {
-        defaults.set(preferences.temporaryInspector, forKey: Key.temporaryInspector)
-        defaults.set(preferences.autoInspector, forKey: Key.autoInspector)
-        defaults.set(preferences.startsWithInspector, forKey: Key.startsWithInspector)
-        defaults.set(preferences.timeout, forKey: Key.timeout)
-        defaults.set(preferences.holdForDoublePress, forKey: Key.holdForDoublePress)
+        defaults.set(preferences.holdTime, forKey: Key.holdTime)
         current = preferences
         Log.info(.preferences, "saved \(preferences)")
     }
@@ -108,14 +87,10 @@ public final class PreferencesStore {
         set { defaults.set(newValue, forKey: Key.launchOnLoginOffered) }
     }
 
-    /// Missing values are defaults. A timeout outside its choices, which only `defaults write` can set, is logged and replaced by the default, so double presses stay usable.
+    /// Missing values are defaults. A hold time outside its choices, which only `defaults write` can set, is logged and replaced by the default, so holds stay usable.
     private static func read(_ defaults: UserDefaults) -> Preferences {
         var preferences = Preferences()
-        preferences.temporaryInspector = defaults.bool(forKey: Key.temporaryInspector)
-        preferences.autoInspector = defaults.bool(forKey: Key.autoInspector)
-        preferences.startsWithInspector = defaults.bool(forKey: Key.startsWithInspector)
-        preferences.holdForDoublePress = defaults.bool(forKey: Key.holdForDoublePress)
-        preferences.timeout = choice(Key.timeout, in: Preferences.timeoutChoices, default: preferences.timeout, defaults)
+        preferences.holdTime = choice(Key.holdTime, in: Preferences.holdTimeChoices, default: preferences.holdTime, defaults)
         return preferences
     }
 
