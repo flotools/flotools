@@ -38,6 +38,12 @@ public final class Watches {
         return true
     }
 
+    /// Stops the watch of `id`, if it runs, and starts `body` as its new watch. The old body hears its cancellation while the new one starts; it is not waited for.
+    public func replace(_ id: CommandID, _ body: @escaping Body) {
+        stop(id)
+        toggle(id, body)
+    }
+
     /// Stops the watch of `id`, if it runs. Its task stays in `unfinished` until its body returns.
     public func stop(_ id: CommandID) {
         guard let number = active.removeValue(forKey: id) else { return }

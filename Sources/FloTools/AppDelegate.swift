@@ -129,6 +129,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: "Quit Flo Tools", action: #selector(quit), keyEquivalent: "q"))
 
+        target(menu)
+    }
+
+    /// Sends the actions of `menu`'s items to this delegate.
+    private func target(_ menu: NSMenu) {
         for item in menu.items where item.action != nil { item.target = self }
     }
 
@@ -139,14 +144,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         } else {
             submenu.addItem(NSMenuItem(title: "Grant Accessibility Access…", action: #selector(grantAccessibility), keyEquivalent: ""))
         }
-        if VoiceOver.automationPermission() == "granted" {
+        if VoiceOver.automationPermission() == .granted {
             submenu.addItem(disabled("VoiceOver control allowed"))
         } else {
             submenu.addItem(NSMenuItem(title: "Allow Control of VoiceOver…", action: #selector(allowVoiceOverControl), keyEquivalent: ""))
         }
         submenu.addItem(.separator())
         submenu.addItem(NSMenuItem(title: "Reset All Permissions…", action: #selector(resetAllPermissions), keyEquivalent: ""))
-        for item in submenu.items where item.action != nil { item.target = self }
+        target(submenu)
         let item = NSMenuItem(title: "Permissions", action: nil, keyEquivalent: "")
         item.submenu = submenu
         return item
@@ -183,7 +188,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     /// macOS shows its consent dialog only if the user has not answered yet, so a Don't Allow is reset first.
     @objc private func allowVoiceOverControl() {
         Task {
-            if VoiceOver.automationPermission() == "denied" { await resetOwnAnswer(.appleEvents) }
+            if VoiceOver.automationPermission() == .denied { await resetOwnAnswer(.appleEvents) }
             let result = await VoiceOver.requestAutomationPermission()
             Log.info(.app, "VoiceOver automation permission after asking: \(result)")
             await VoiceOver.sayOrLog("VoiceOver control \(result).")
@@ -193,12 +198,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     /// One dialog at a time: VoiceOver control first, because its dialog waits for the answer, then Accessibility, whose prompt sends the user to System Settings. Speech works without a recorded VoiceOver answer but does not make macOS ask for one (seen 2026-11-07), so it is asked for here. A recorded Don't Allow is kept: macOS returns it without a dialog, and only the menu item resets it.
     /// The startup announcement waits for the VoiceOver answer. After a Don't Allow, VoiceOver speech still mostly works (seen 2026-11-07), so it cannot be relied on to report the refusal; the system voice says it instead of the announcement.
     private func askForPermissionsAndAnnounce() async {
-        var voiceOverControl = "granted"
-        if VoiceOver.automationPermission() != "granted" {
+        var voiceOverControl = AutomationPermission.granted
+        if VoiceOver.automationPermission() != .granted {
             voiceOverControl = await VoiceOver.requestAutomationPermission()
             Log.info(.app, "VoiceOver automation permission after asking at launch: \(voiceOverControl)")
         }
-        if voiceOverControl == "denied" {
+        if voiceOverControl == .denied {
             SystemSpeech.say("Flo Tools is not allowed to control VoiceOver. Choose Allow Control of VoiceOver in the Permissions menu of Flo Tools.")
         } else {
             await lifecycle.announceStartup()

@@ -8,8 +8,8 @@ public enum Chooser {
         public var title: String
         public var prompt: String
         public var items: [String]
-        public var okTitle = "OK"
-        public var allowsMultipleSelection = true
+        public var okTitle: String
+        public var allowsMultipleSelection: Bool
 
         public init(title: String, prompt: String, items: [String], okTitle: String = "OK", allowsMultipleSelection: Bool = true) {
             self.title = title

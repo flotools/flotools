@@ -9,7 +9,7 @@ extension ProToolsApp {
         let app = AXElement.application(pid: pid)
         var pressed = 0
         for window in try app.windows {
-            let title = try window.title ?? ""
+            let title = try window.name ?? ""
             guard !ProToolsWindowKind(title: title).isTrackWindow, let close = try window.closeButton else { continue }
             try close.press()
             pressed += 1

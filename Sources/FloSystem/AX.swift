@@ -99,13 +99,12 @@ public struct AXElement {
     }
 
     public var role: String? { get throws { try string("AXRole") } }
-    public var title: String? { get throws { try string("AXTitle") } }
     public var roleDescription: String? { get throws { try string("AXRoleDescription") } }
     /// The element's own keyboard focus flag, which can be set when the app's focused element is something else.
     public var isFocused: Bool { get throws { try bool("AXFocused") ?? false } }
 
-    /// What System Events calls `name`.
-    public var name: String? { get throws { try title } }
+    /// The element's AXTitle, which System Events and the JXA call its name.
+    public var name: String? { get throws { try string("AXTitle") } }
 
     /// `AXValue` as text; numbers are converted. An empty string stays empty, which for a Solo button means off.
     public var value: String? {

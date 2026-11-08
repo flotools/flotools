@@ -97,7 +97,7 @@ import Testing
 
     static func bindingLines(_ engine: Engine) -> [String] {
         engine.commands.flatMap { command -> [String] in
-            let rest = "\(scope(command.scope)) | \(mode(command.mode)) | \(command.id) | \(action(command.action)) | \"\(command.name)\"" + (command.enabledByDefault ? "" : " | off by default")
+            let rest = "\(scope(command.scope)) | \(mode(command.mode)) | \(command.id) | \(action(command.action)) | \"\(command.name)\""
             let triggers = command.triggers.map { trigger in
                 switch trigger {
                 case .hotKey(let combo, let phase): keyText(combo, phase)

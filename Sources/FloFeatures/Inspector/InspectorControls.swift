@@ -120,7 +120,7 @@ enum InspectorControls {
             let before = try await press(.freeze, of: track)
             await Sound.done.play()
             // A new freeze replaces the wait for an earlier one, whose track no longer has the user's attention.
-            await startWatch(in: run.engine) { await speakWhenFrozen(track, changedFrom: before) }
+            await run.engine.watches.replace(freezeCommand) { await speakWhenFrozen(track, changedFrom: before) }
         })
     }
 
@@ -131,12 +131,6 @@ enum InspectorControls {
             try await run.passThrough()
             await run.engine.watches.stop(freezeCommand)
         }
-    }
-
-    @MainActor
-    private static func startWatch(in engine: Engine, _ body: @escaping Watches.Body) {
-        engine.watches.stop(freezeCommand)
-        engine.watches.toggle(freezeCommand, body)
     }
 
     /// Speaks the freeze button's new name once it changes. Ends quietly when the watch is stopped, for example because Pro Tools quit; any other failure is spoken like a command's.
@@ -203,14 +197,14 @@ enum InspectorControls {
         return Inspector.command(id, name, summary: summary, key: key, doneSound: .afterDouble, single: { run in
             let track = try await run.inspectorTrack()
             let values = try await values(of: sliders(track))
-            try await VoiceOver.say(isPan ? panList(values.map { $0.orIfEmpty("No Pan") }) : values.joined())
+            try await VoiceOver.say(isPan ? SpokenList.sentences(values.map { $0.orIfEmpty("No Pan") }) : values.joined())
         }, double: { run in
             let track = try await run.inspectorTrack()
             var values: [String] = []
             for slider in try await sliders(track) {
                 values.append(try await reset(slider))
             }
-            try await VoiceOver.say(isPan ? panList(values) : values.joined())
+            try await VoiceOver.say(isPan ? SpokenList.sentences(values) : values.joined())
         })
     }
 
@@ -223,11 +217,6 @@ enum InspectorControls {
     @AccessibilityActor
     private static func reset(_ slider: AXElement) async throws -> String {
         try await ProToolsUpdate.reading(after: { try slider.press() }) { try slider.valueDescription ?? "" }
-    }
-
-    /// Same text as the JXA version, for example "100 to the left. 100 to the right. ".
-    static func panList(_ values: [String]) -> String {
-        SpokenList.sentences(values)
     }
 
     /// Increase and Decrease Volume and Instrument Volume: moves the fader one step and speaks its value, as in the JXA.
@@ -245,9 +234,4 @@ enum InspectorControls {
         try slider.step(step)
         return try slider.valueDescription ?? ""
     }
-}
-
-extension String {
-    /// `replacement` when the string is empty, like the JXA's `if (value == "") value = "None"`.
-    func orIfEmpty(_ replacement: String) -> String { isEmpty ? replacement : self }
 }

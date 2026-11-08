@@ -25,6 +25,13 @@ public struct Preferences: Equatable, Sendable {
     public init() {}
 }
 
+/// The one wording of the preferences for the log, used by the diagnostic header and when preferences are loaded or saved.
+extension Preferences: CustomStringConvertible {
+    public var description: String {
+        "temporary inspector \(temporaryInspector), auto inspector \(autoInspector), starts with Flo Tools inspector \(startsWithInspector), hold for double press \(holdForDoublePress), \(holdForDoublePress ? "hold time" : "timeout") \(timeout) ms"
+    }
+}
+
 /// Preferences kept in UserDefaults, and the ones now in effect. The app creates one and passes it to whoever needs the values. Main actor: the menu, the preferences panel and command setup read and change it.
 @MainActor
 public final class PreferencesStore {

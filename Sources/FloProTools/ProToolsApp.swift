@@ -94,7 +94,7 @@ public struct ProToolsApp: Sendable {
         }
     }
 
-    /// The track whose name is under the VoiceOver cursor, as shown in `window`, like `mix.groups.byName(vo.voCursor.textUnderCursor())` in the JXA. Both windows name a track's group the same way, so the cursor can be in either. The one place the VoiceOver cursor is joined to a track.
+    /// The track whose name is under the VoiceOver cursor, as shown in `window`, like `mix.groups.byName(vo.voCursor.textUnderCursor())` in the JXA. Both windows name a track's group the same way, so the cursor can be in either. Used by commands pressed with Auto Inspector off; Auto Inspector checks the cursor itself before the press is accepted (`InspectorTarget`).
     public func trackUnderVoiceOverCursor(in window: TrackWindow = .mix) async throws -> TrackStrip {
         let element = try await trackWindow(window)
         let name = try await VoiceOver.cursorText().required("the VoiceOver cursor")
@@ -133,6 +133,6 @@ public struct ProToolsApp: Sendable {
     /// The one title rule behind `window(_:_:)` and `hasWindow`.
     @AccessibilityActor
     private func firstWindow(_ kind: ProToolsWindowKind, in app: AXElement) throws -> AXElement? {
-        try app.windows.first { try $0.title.map(ProToolsWindowKind.init(title:)) == kind }
+        try app.windows.first { try $0.name.map(ProToolsWindowKind.init(title:)) == kind }
     }
 }

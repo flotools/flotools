@@ -1,5 +1,5 @@
 /// A yes-or-no state of a track that the track list commands report and change, read from one of the strip's toggle buttons. Each flag also decides which tracks take part: the JXA left out tracks that cannot have the state (a master track cannot be armed) and tracks whose button shows something else (solo safe, inactive).
-public enum TrackFlag: Sendable, CaseIterable {
+public enum TrackFlag: Sendable {
     case soloed, muted, recordArmed, inputMonitored, soloSafe, recordSafe
 
     /// The button that shows the flag.

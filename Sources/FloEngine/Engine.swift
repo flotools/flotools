@@ -125,7 +125,7 @@ public final class Engine {
         inputGeneration += 1
         presses.values.forEach { $0.released = true }
         presses = [:]
-        endHolds { combo in holds[combo]?.run.inspectorTarget != nil }
+        endInspectorHolds()
         doublePress.cancelAll()
         pendingSingles.values.forEach { $0.task.cancel() }
         pendingSingles = [:]
@@ -146,9 +146,7 @@ public final class Engine {
     /// Queues the press behind earlier ones while Auto Inspector is on, so a later press, even of a key that needs no check, never runs before an earlier press's cursor check ends. Releases are not queued.
     private func admit(_ combo: KeyCombo, in original: FrontContext, at arrival: ContinuousClock.Instant) -> String {
         let generation = inputGeneration
-        let press = Press()
-        presses[combo]?.released = true
-        presses[combo] = press
+        let press = trackRelease(of: combo)
         let input = newInvocation(at: arrival, .admitted(generation: generation, press: press))
         let previous = admissionTail
         admissions += 1
@@ -163,7 +161,7 @@ public final class Engine {
                 }
                 guard let command = self.inspectorCandidate(combo, in: original) else {
                     if let command = self.candidates(for: combo, phase: .pressed, in: original).first {
-                        _ = self.start(command, origin: .hotKey(combo, .pressed), context: original, reason: "\(combo) pressed in \(original)", invocation: input)
+                        _ = self.start(command, hotKey: combo, .pressed, in: original, invocation: input)
                     } else { self.passThrough(combo, to: original) }
                     return
                 }
@@ -200,7 +198,7 @@ public final class Engine {
                 }
                 guard capture == nil, !captureFailed, let target, target.processID == original.processID else {
                     Log.info(.engine, capture.map { "Auto Inspector forwarding: \($0)" } ?? "Auto Inspector forwarding")
-                    self.endHolds { self.holds[$0]?.run.inspectorTarget != nil }
+                    self.endInspectorHolds()
                     self.cancelSingle(command.id)
                     self.setInspector(false)
                     self.forwardInspectorKey(combo, original)
@@ -211,7 +209,7 @@ public final class Engine {
                 self.setInspector(true)
                 var accepted = input
                 accepted.target = target
-                _ = self.start(command, origin: .hotKey(combo, .pressed), context: original, reason: "\(combo) pressed in \(original)", invocation: accepted)
+                _ = self.start(command, hotKey: combo, .pressed, in: original, invocation: accepted)
             }
         }
         return input.id
@@ -271,7 +269,7 @@ public final class Engine {
         if let tie = tie(with: command) { preconditionFailure(tie) }
         commandIndex[command.id] = commands.count
         commands.append(command)
-        commandEnabled[command.id] = command.enabledByDefault
+        commandEnabled[command.id] = true
         for combo in Set(command.hotKeys.map(\.combo)) { commandsByCombo[combo, default: []].append(command.id) }
         updateHotKeys()
     }
@@ -353,12 +351,10 @@ public final class Engine {
     public func setInspector(_ on: Bool) {
         guard mode.inspector != on else { return }
         mode.inspector = on
-        if !on { endHolds { holds[$0]?.run.inspectorTarget != nil } }
+        if !on { endInspectorHolds() }
         Log.info(.engine, on ? "Inspector on" : "Inspector off")
         updateHotKeys()
     }
-
-    public func isCommandEnabled(_ id: CommandID) -> Bool { commandEnabled[id] ?? false }
 
     public func setCommand(_ id: CommandID, enabled: Bool) {
         precondition(commandEnabled[id] != nil, "unknown command \(id)")
@@ -462,7 +458,7 @@ public final class Engine {
             return admit(combo, in: context, at: arrival)
         }
         guard takesKeys, let command = candidates(for: combo, phase: phase, in: context).first else { return nil }
-        return start(command, origin: .hotKey(combo, phase), context: context, reason: "\(combo) \(phase) in \(context)", invocation: newInvocation(at: arrival, .immediate))
+        return start(command, hotKey: combo, phase, in: context, invocation: newInvocation(at: arrival, .immediate))
     }
 
     /// The command with `id`, or nil after logging that it is missing. App code names commands by ID, so a missing one is a programming error, not a user's.
@@ -488,6 +484,11 @@ public final class Engine {
             return
         }
         _ = start(command, origin: .event(event), context: context, reason: event, invocation: newInvocation(at: .now, .immediate))
+    }
+
+    /// `start` for a hot key, with the log line live tests look for: `<combo> pressed in <context> -> <command ID>`.
+    private func start(_ command: Command, hotKey combo: KeyCombo, _ phase: KeyPhase, in context: FrontContext, invocation: Invocation) -> String {
+        start(command, origin: .hotKey(combo, phase), context: context, reason: "\(combo) \(phase) in \(context)", invocation: invocation)
     }
 
     /// Starts the run, waiting first to tell a single from a double where the command has both. Returns the invocation ID.
@@ -601,7 +602,7 @@ public final class Engine {
         return false
     }
 
-    /// A press started with Auto Inspector off has no `Press` yet; registering one lets `dispatch` mark its release.
+    /// Registers a new `Press` for `combo`, marking any earlier one released, so `dispatch` can mark this one's release.
     private func trackRelease(of combo: KeyCombo) -> Press {
         let press = Press()
         presses[combo]?.released = true
@@ -674,6 +675,11 @@ public final class Engine {
         if case .windows = run.command.scope, run.context.windowNumber != context.windowNumber { return "another window is in front: \(context)" }
         if run.command.mode == .inspectorOff && mode.inspector { return "the Inspector is on" }
         return nil
+    }
+
+    /// Ends the holds started on an Auto Inspector target, whose track may no longer be the one under the cursor.
+    private func endInspectorHolds() {
+        endHolds { holds[$0]?.run.inspectorTarget != nil }
     }
 
     /// Ends the holds whose key matches, running their release with the current context.

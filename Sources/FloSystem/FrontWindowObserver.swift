@@ -84,13 +84,15 @@ public final class FrontWindowObserver {
         if observer != nil, !menuWatched { menuWatched = watchMenus(pid: pid) }
         if observer != nil, !typingWatched { typingWatched = watchTyping(pid: pid) }
         logRegistration()
-        return FocusedWindow(title: try window?.title, number: windowNumber)
+        return FocusedWindow(title: try window?.name, number: windowNumber)
     }
 
     /// Whether every notification is registered on app `pid`: focus, title, menu and typing. Only then is polling that app not needed. Typing does not change the window title, but its registrations are retried only on a read, so a failed one keeps the poll going.
     public func isObserving(pid: pid_t) -> Bool {
-        observer != nil && observedPid == pid && focusWatched && titleWatched && menuWatched && typingWatched
+        observer != nil && observedPid == pid && notificationsRegistered
     }
+
+    private var notificationsRegistered: Bool { focusWatched && titleWatched && menuWatched && typingWatched }
 
     /// Detaches from the observed app for good. Call before dropping the instance.
     public func stop() {
@@ -195,7 +197,7 @@ public final class FrontWindowObserver {
     /// Logs once when notifications do not cover every window change, and once when they do again.
     private func logRegistration() {
         guard observer != nil else { return }
-        let covered = focusWatched && titleWatched && menuWatched && typingWatched
+        let covered = notificationsRegistered
         if !covered, !registrationFailureLogged {
             registrationFailureLogged = true
             let missing = [focusWatched ? nil : Self.focusChanged, titleWatched ? nil : Self.titleChanged, menuWatched ? nil : "\(Self.menuOpened) or \(Self.menuClosed)", typingWatched ? nil : "\(Self.selectedTextChanged) or \(Self.focusedElementChanged)"].compactMap { $0 }

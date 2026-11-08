@@ -56,7 +56,7 @@ extension ProToolsApp {
     @AccessibilityActor
     private func inspectorTarget(text: String?, bounds: CGRect, in window: TrackWindow) throws -> InspectorTarget? {
         let focused = try frontWindow()
-        guard try focused.title.map(ProToolsWindowKind.init(title:)) == window.kind else {
+        guard try focused.name.map(ProToolsWindowKind.init(title:)) == window.kind else {
             throw FloError.couldNot("identify the front Inspector window")
         }
         guard let text, !text.isEmpty else { return nil }

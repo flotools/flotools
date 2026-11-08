@@ -69,7 +69,6 @@ enum KeyAnnouncements {
         }
     }
 
-    /// Whether to speak after a shortcut went to Pro Tools, read now, after the key, as the KM versions did.
     /// The sentence a command summary adds for `guarding`, so COMMANDS.md says when the key goes to Pro Tools without speech.
     static func summaryNote(_ guarding: AnnouncementGuard) -> String {
         switch guarding {
@@ -80,6 +79,7 @@ enum KeyAnnouncements {
         }
     }
 
+    /// Whether to speak after a shortcut went to Pro Tools, read now, after the key, as the KM versions did.
     static func speaks(after guarding: AnnouncementGuard) async throws -> Bool {
         guard guarding != .always else { return true }
         let app = try ProToolsApp.running()

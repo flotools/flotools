@@ -131,18 +131,20 @@ import Testing
         #expect(engine.candidates(for: KeyCombo("S")!, phase: .pressed, in: edit).map(\.id) == ["inspector.speakToggleSolo"])
     }
 
+    static let backtick = KeyCombo("`")!
+
     @Test func preferencesControlInspectorCommands() {
         let engine = FloFeatures.makeEngine()
         var preferences = Preferences()
         FloFeatures.apply(preferences, to: engine)
         InspectorMode.applyStartState(preferences, to: engine)
-        #expect(!engine.isCommandEnabled(InspectorMode.toggleTemporaryInspector))
+        #expect(engine.candidates(for: Self.backtick, phase: .pressed, in: mix).isEmpty)
         #expect(!engine.mode.inspector)
         preferences.temporaryInspector = true
         preferences.startsWithInspector = true
         FloFeatures.apply(preferences, to: engine)
         InspectorMode.applyStartState(preferences, to: engine)
-        #expect(engine.isCommandEnabled(InspectorMode.toggleTemporaryInspector))
+        #expect(engine.candidates(for: Self.backtick, phase: .pressed, in: mix).map(\.id) == [InspectorMode.toggleTemporaryInspector])
         #expect(engine.mode.inspector)
     }
 }
@@ -517,6 +519,15 @@ private actor Flag {
             checks += 1
             return checks <= heldChecks
         }
+
+        /// A key that stays down, or one that is already up at the first check.
+        static var down: HeldKey { HeldKey(heldChecks: .max) }
+        static var up: HeldKey { HeldKey(heldChecks: 0) }
+    }
+
+    /// Checks the physical key through `held` every 5 ms, so held-key tests run fast.
+    func checkKey(of engine: Engine, with held: HeldKey) {
+        engine.keyRepeat = { KeyRepeat(delay: .milliseconds(5), interval: .milliseconds(5)) { _ in held.isHeld() } }
     }
 
     func repeatingEngine(_ events: Events, held: HeldKey, fails: Bool = false) -> Engine {
@@ -524,7 +535,7 @@ private actor Flag {
             events.list.append("step")
             if fails { throw CancellationError() }
         }])
-        engine.keyRepeat = { KeyRepeat(delay: .milliseconds(5), interval: .milliseconds(5)) { _ in held.isHeld() } }
+        checkKey(of: engine, with: held)
         return engine
     }
 
@@ -546,7 +557,7 @@ private actor Flag {
 
     @Test func repeatingStopsOnRelease() async throws {
         let events = Events()
-        let engine = repeatingEngine(events, held: HeldKey(heldChecks: .max))
+        let engine = repeatingEngine(events, held: .down)
         engine.dispatch(KeyCombo("F4")!, .pressed, in: mix)
         try await settle(events, at: 2)
         engine.dispatch(KeyCombo("F4")!, .released, in: mix)
@@ -559,22 +570,23 @@ private actor Flag {
 
     @Test func repeatingStopsAfterARunThatDidNotFinish() async throws {
         let events = Events()
-        let engine = repeatingEngine(events, held: HeldKey(heldChecks: .max), fails: true)
+        let engine = repeatingEngine(events, held: .down, fails: true)
         engine.dispatch(KeyCombo("F4")!, .pressed, in: mix)
         try await settle(events, at: 1)
         #expect(events.list == ["step"])
     }
 
-    func heldDoubleEngine(_ events: Events, holdForDoublePress: Bool, held: Bool) -> Engine {
+    /// An engine with one single-or-double command on F1. With `holdTime`, holding the key for it runs the double; without, a second press does.
+    func heldDoubleEngine(_ events: Events, holdTime: Duration?, held: HeldKey) -> Engine {
         let engine = engine([doubleCommand(events)])
-        if holdForDoublePress { engine.doubleActionTrigger = .hold(for: .milliseconds(80)) }
-        engine.keyRepeat = { KeyRepeat(delay: .milliseconds(5), interval: .milliseconds(5)) { _ in held } }
+        if let holdTime { engine.doubleActionTrigger = .hold(for: holdTime) }
+        checkKey(of: engine, with: held)
         return engine
     }
 
     @Test func heldKeyRunsTheDoubleWhenThePreferenceIsOn() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: true)
+        let engine = heldDoubleEngine(events, holdTime: .milliseconds(80), held: .down)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await settle(events, at: 1)
         #expect(events.list == ["double"])
@@ -583,8 +595,7 @@ private actor Flag {
     /// With holding on, a tap does not wait for a second press: its single runs as soon as the key is up, long before the hold time.
     @Test func tapRunsItsSingleAtOnceWhenThePreferenceIsOn() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: false)
-        engine.doubleActionTrigger = .hold(for: .milliseconds(500))
+        let engine = heldDoubleEngine(events, holdTime: .milliseconds(500), held: .up)
         let start = ContinuousClock.now
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await settle(events, at: 1)
@@ -594,10 +605,7 @@ private actor Flag {
 
     @Test func keyReleasedBeforeTheHoldTimeRunsTheSingle() async throws {
         let events = Events()
-        let engine = engine([doubleCommand(events)])
-        engine.doubleActionTrigger = .hold(for: .milliseconds(150))
-        let key = HeldKey(heldChecks: 1)
-        engine.keyRepeat = { KeyRepeat(delay: .milliseconds(5), interval: .milliseconds(5)) { _ in key.isHeld() } }
+        let engine = heldDoubleEngine(events, holdTime: .milliseconds(150), held: HeldKey(heldChecks: 1))
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await settle(events, at: 1)
         #expect(events.list == ["single"])
@@ -606,8 +614,7 @@ private actor Flag {
     /// The release event ends the hold decision at once, without waiting for the physical key check, which here still reports the key down.
     @Test func releaseEventRunsTheSingleAtOnce() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: true)
-        engine.doubleActionTrigger = .hold(for: .milliseconds(500))
+        let engine = heldDoubleEngine(events, holdTime: .milliseconds(500), held: .down)
         let start = ContinuousClock.now
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await Task.sleep(for: .milliseconds(30))
@@ -619,7 +626,7 @@ private actor Flag {
 
     @Test func heldKeyRunsTheSingleWhenThePreferenceIsOff() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdForDoublePress: false, held: true)
+        let engine = heldDoubleEngine(events, holdTime: nil, held: .down)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await settle(events, at: 1)
         #expect(events.list == ["single"])
@@ -628,7 +635,7 @@ private actor Flag {
     /// With holding on, two quick taps are two singles: a second press no longer makes a double.
     @Test func twoTapsRunTwoSinglesWhenThePreferenceIsOn() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: false)
+        let engine = heldDoubleEngine(events, holdTime: .milliseconds(80), held: .up)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await settle(events, at: 2)
@@ -638,7 +645,7 @@ private actor Flag {
     /// A run from the status menu has no key to hold, so with holding on it runs its single at once.
     @Test func appRunRunsTheSingleWhenThePreferenceIsOn() async throws {
         let events = Events()
-        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: true)
+        let engine = heldDoubleEngine(events, holdTime: .milliseconds(80), held: .down)
         engine.run("test.speak")
         try await settle(events, at: 1)
         #expect(events.list == ["single"])
@@ -900,11 +907,21 @@ private actor Flag {
         #expect(PreferencesStore(defaults: suite.defaults).current == Preferences())
     }
 
-    @Test func storedChoicesOutsideTheListUseTheDefaults() {
+    /// Uses the literal stored key, so a renamed `Key.timeout` that would lose saved values fails here.
+    @Test(arguments: [9, 250])
+    func unsupportedTimeoutUsesTheDefault(_ stored: Int) {
         let defaults = suite.defaults
-        defaults.set(250, forKey: "doublePressTimeout")
-        let current = PreferencesStore(defaults: defaults).current
-        #expect(current.timeout == Preferences().timeout)
+        defaults.set(stored, forKey: "doublePressTimeout")
+        #expect(PreferencesStore(defaults: defaults).current.timeout == Preferences().timeout)
+    }
+
+    /// The log describes every preference, including both meanings of the timeout.
+    @Test func descriptionNamesEveryPreference() {
+        var preferences = Preferences()
+        #expect(preferences.description == "temporary inspector false, auto inspector false, starts with Flo Tools inspector false, hold for double press false, timeout 200 ms")
+        preferences.holdForDoublePress = true
+        preferences.timeout = 300
+        #expect(preferences.description.hasSuffix("hold for double press true, hold time 300 ms"))
     }
 
     @Test func savedPreferencesAreReadBack() {
@@ -935,12 +952,6 @@ private actor Flag {
         PreferencesStore(defaults: defaults).includesBetaUpdates = true
         #expect(PreferencesStore(defaults: defaults).installsUpdatesAutomatically)
         #expect(PreferencesStore(defaults: defaults).includesBetaUpdates)
-    }
-
-    @Test func unsupportedTimeoutFallsBackToDefault() {
-        let defaults = suite.defaults
-        defaults.set(9, forKey: PreferencesStore.Key.timeout)
-        #expect(PreferencesStore(defaults: defaults).current.timeout == 200)
     }
 
     @Test(arguments: Preferences.timeoutChoices)
@@ -1125,7 +1136,6 @@ private actor Flag {
         #expect(InspectorControls.spokenText(.elasticAudioPlugIn, name: "Current Elastic Audio or ARA Plugin", value: "") == "None")
         #expect(InspectorControls.spokenText(.comments, name: "Comments \"\"", value: "") == "No Comment")
         #expect(InspectorControls.spokenText(.freeze, name: "Not Frozen", value: "") == "Not Frozen")
-        #expect(InspectorControls.panList(["100 to the left", "100 to the right"]) == "100 to the left. 100 to the right. ")
     }
 
     /// Every item ends with ". ", the last one too; an empty list is empty.

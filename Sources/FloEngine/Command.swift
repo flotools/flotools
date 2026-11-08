@@ -66,35 +66,32 @@ public struct Command: Sendable {
     public let scope: Scope
     /// The mode its keys need.
     public let mode: ModeCondition
-    /// Off only for a command that a preference turns on, such as Toggle Temporary Inspector.
-    public let enabledByDefault: Bool
     public let triggers: [Trigger]
     public let action: CommandAction
 
-    public init(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, enabledByDefault: Bool = true, triggers: [Trigger], body: @escaping CommandBody) {
-        self.init(id, name, summary: summary, scope: scope, mode: mode, enabledByDefault: enabledByDefault, triggers: triggers, action: .body(body))
+    public init(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, triggers: [Trigger], body: @escaping CommandBody) {
+        self.init(id, name, summary: summary, scope: scope, mode: mode, triggers: triggers, action: .body(body))
     }
 
-    public init(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, enabledByDefault: Bool = true, triggers: [Trigger], doneSound: DoneSoundTiming = .beforeDouble, single: @escaping CommandBody, double: @escaping CommandBody) {
-        self.init(id, name, summary: summary, scope: scope, mode: mode, enabledByDefault: enabledByDefault, triggers: triggers, action: .singleOrDouble(single: single, double: double, doneSound: doneSound))
+    public init(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, triggers: [Trigger], doneSound: DoneSoundTiming = .beforeDouble, single: @escaping CommandBody, double: @escaping CommandBody) {
+        self.init(id, name, summary: summary, scope: scope, mode: mode, triggers: triggers, action: .singleOrDouble(single: single, double: double, doneSound: doneSound))
     }
 
-    public init(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, enabledByDefault: Bool = true, triggers: [Trigger], press: @escaping HoldPress, release: @escaping HoldRelease) {
-        self.init(id, name, summary: summary, scope: scope, mode: mode, enabledByDefault: enabledByDefault, triggers: triggers, action: .hold(press: press, release: release))
+    public init(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, triggers: [Trigger], press: @escaping HoldPress, release: @escaping HoldRelease) {
+        self.init(id, name, summary: summary, scope: scope, mode: mode, triggers: triggers, action: .hold(press: press, release: release))
     }
 
     /// A command that runs again while its key is held; see `CommandAction.repeating`. A static function, because an initializer would make every trailing-closure `Command(...) { }` ambiguous.
     public static func repeatingWhileHeld(_ id: CommandID, _ name: String, summary: String = "", scope: Scope, mode: ModeCondition = .any, triggers: [Trigger], body: @escaping CommandBody) -> Command {
-        Command(id, name, summary: summary, scope: scope, mode: mode, enabledByDefault: true, triggers: triggers, action: .repeating(body))
+        Command(id, name, summary: summary, scope: scope, mode: mode, triggers: triggers, action: .repeating(body))
     }
 
-    private init(_ id: CommandID, _ name: String, summary: String, scope: Scope, mode: ModeCondition, enabledByDefault: Bool, triggers: [Trigger], action: CommandAction) {
+    private init(_ id: CommandID, _ name: String, summary: String, scope: Scope, mode: ModeCondition, triggers: [Trigger], action: CommandAction) {
         self.id = id
         self.name = name
         self.summary = summary
         self.scope = scope
         self.mode = mode
-        self.enabledByDefault = enabledByDefault
         self.triggers = triggers
         self.action = action
     }

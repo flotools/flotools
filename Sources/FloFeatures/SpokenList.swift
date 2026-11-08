@@ -4,3 +4,8 @@ enum SpokenList {
         items.map { $0 + ". " }.joined()
     }
 }
+
+extension String {
+    /// `replacement` when the string is empty, like the JXA's `if (value == "") value = "None"`.
+    func orIfEmpty(_ replacement: String) -> String { isEmpty ? replacement : self }
+}

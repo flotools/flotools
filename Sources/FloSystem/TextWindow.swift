@@ -27,8 +27,9 @@ private final class TextWindowController: NSObject, NSWindowDelegate {
         textView.setAccessibilityLabel(title)
 
         textView.autoresizingMask = [.width]
-        textView.frame = NSRect(x: 0, y: 0, width: 520, height: 360)
-        let scroll = NSScrollView.fixed(document: textView, size: CGSize(width: 520, height: 360))
+        let size = CGSize(width: 520, height: 360)
+        textView.frame = NSRect(origin: .zero, size: size)
+        let scroll = NSScrollView.fixed(document: textView, size: size)
 
         let close = NSButton(title: "Close", target: self, action: #selector(closeWindow))
         close.keyEquivalent = "\u{1b}"

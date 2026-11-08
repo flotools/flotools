@@ -7,6 +7,33 @@ public actor VoiceOverActor {
     public static let shared = VoiceOverActor()
 }
 
+/// Whether macOS lets Flo Tools control VoiceOver with Apple events. Its description is the wording for the log and the menu's spoken answer.
+public enum AutomationPermission: Sendable, Equatable, CustomStringConvertible {
+    case granted, denied, notAskedYet
+    /// The status that could not be read as an answer, nil when there was none.
+    case unknown(OSStatus?)
+
+    init(_ status: OSStatus?) {
+        switch status {
+        case noErr: self = .granted
+        case OSStatus(errAEEventNotPermitted): self = .denied
+        case OSStatus(errAEEventWouldRequireUserConsent): self = .notAskedYet
+        default: self = .unknown(status)
+        }
+    }
+
+    public var description: String {
+        switch self {
+        case .granted: "granted"
+        case .denied: "denied"
+        case .notAskedYet: "not asked yet"
+        case .unknown(nil): "unknown"
+        case .unknown(OSStatus(procNotFound)): "unknown (VoiceOver not running)"
+        case .unknown(let status?): "unknown (OSStatus \(status))"
+        }
+    }
+}
+
 /// VoiceOver through the Apple events of its scripting dictionary, sent directly rather than through AppleScript source.
 /// There is no public API for the VoiceOver cursor, and VoiceOver does not speak accessibility announcements from a background app (tested 2026-11-02), so `output` is the way to speak.
 /// Sending the events directly takes about 3 ms instead of about 30 ms for compiling and running AppleScript, passes text as a parameter so nothing needs escaping, and sets a timeout per call.
@@ -72,31 +99,20 @@ public enum VoiceOver {
     }
 
     /// Whether macOS lets Flo Tools control VoiceOver with Apple events, checked without asking the user. For the diagnostic log header and the status menu. Nonisolated so synchronous callers can use it: it sends no event to VoiceOver and does not ask the user, so it should return quickly, although the API does not promise that. It has its own target descriptor, which is not Sendable.
-    public nonisolated static func automationPermission() -> String {
-        describe(permissionStatus(eventClass: typeWildCard, id: typeWildCard, askUserIfNeeded: false))
+    public nonisolated static func automationPermission() -> AutomationPermission {
+        AutomationPermission(permissionStatus(eventClass: typeWildCard, id: typeWildCard, askUserIfNeeded: false))
     }
 
     /// Asks macOS to record whether Flo Tools may control VoiceOver, showing the consent dialog if the user has not answered yet. Without a recorded answer VoiceOver sometimes asks macOS itself while busy, and that dialog closes after 2 seconds (seen 2026-11-07, J-302). Blocks until the user answers, so it runs off the main actor. Asks about the speech event, a real event of VoiceOver's dictionary, rather than wildcards.
-    public nonisolated static func requestAutomationPermission() async -> String {
+    public nonisolated static func requestAutomationPermission() async -> AutomationPermission {
         await Task.detached {
-            describe(permissionStatus(eventClass: fourCharCode("VOAS"), id: fourCharCode("outp"), askUserIfNeeded: true))
+            AutomationPermission(permissionStatus(eventClass: fourCharCode("VOAS"), id: fourCharCode("outp"), askUserIfNeeded: true))
         }.value
     }
 
     private nonisolated static func permissionStatus(eventClass: AEEventClass, id: AEEventID, askUserIfNeeded: Bool) -> OSStatus? {
         guard let desc = NSAppleEventDescriptor(bundleIdentifier: bundleID).aeDesc else { return nil }
         return AEDeterminePermissionToAutomateTarget(desc, eventClass, id, askUserIfNeeded)
-    }
-
-    private nonisolated static func describe(_ status: OSStatus?) -> String {
-        guard let status else { return "unknown" }
-        switch status {
-        case noErr: return "granted"
-        case OSStatus(errAEEventNotPermitted): return "denied"
-        case OSStatus(errAEEventWouldRequireUserConsent): return "not asked yet"
-        case OSStatus(procNotFound): return "unknown (VoiceOver not running)"
-        default: return "unknown (OSStatus \(status))"
-        }
     }
 
     /// Why an Apple event to VoiceOver failed, in words for the log. `status` is the Apple Event Manager error code.
@@ -122,14 +138,15 @@ public enum VoiceOver {
     /// Sends an event and waits for the reply. A failure in sending or an error number in the reply throws `FloError.voiceOver`.
     @discardableResult
     private static func send(_ event: NSAppleEventDescriptor, doing action: String) throws -> NSAppleEventDescriptor {
+        func failure(_ status: Int) -> FloError { .voiceOver("could not \(action): \(failureReason(status: status))") }
         let reply: NSAppleEventDescriptor
         do {
             reply = try event.sendEvent(options: [.waitForReply], timeout: timeout)
         } catch let error as NSError {
-            throw FloError.voiceOver("could not \(action): \(failureReason(status: error.code))")
+            throw failure(error.code)
         }
         if let number = reply.paramDescriptor(forKeyword: keyErrorNumber)?.int32Value, number != noErr {
-            throw FloError.voiceOver("could not \(action): \(failureReason(status: Int(number)))")
+            throw failure(Int(number))
         }
         return reply
     }

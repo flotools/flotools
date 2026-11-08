@@ -95,12 +95,17 @@ public struct TrackStrip {
     }
 
     private nonisolated static func buttonDescription(_ toggle: Toggle) -> String {
+        exactName(of: toggle).map { "the \($0) button" } ?? "the input monitoring button"
+    }
+
+    /// The button's name, used both to find it and to say it is missing. Nil for input monitoring, whose name describes its state.
+    private nonisolated static func exactName(of toggle: Toggle) -> String? {
         switch toggle {
-        case .solo: "the Solo button"
-        case .mute: "the Mute button"
-        case .recordEnable: "the Track Record Enable button"
-        case .inputMonitor: "the input monitoring button"
-        case .instrumentMute: "the MIDI Mute button"
+        case .solo: "Solo"
+        case .mute: "Mute"
+        case .recordEnable: "Track Record Enable"
+        case .inputMonitor: nil
+        case .instrumentMute: "MIDI Mute"
         }
     }
 
@@ -115,16 +120,10 @@ public struct TrackStrip {
 
     /// `findButton(_:)` that tries the child at `position` first and sets it to where the button was, for scans of many strips. Only buttons found by their exact name use it.
     private func findButton(_ toggle: Toggle, position: inout Int?) throws -> AXElement? {
-        let name: String
-        switch toggle {
-        case .solo: name = "Solo"
-        case .mute: name = "Mute"
-        case .recordEnable: name = "Track Record Enable"
-        case .inputMonitor:
+        guard let name = Self.exactName(of: toggle) else {
             return try element.buttons.first { try $0.name?.contains(Self.inputMonitoringName) == true } ?? element.button("TrackInput Monitor")
-        case .instrumentMute:
-            return try instrumentSection().button("MIDI Mute")
         }
+        if toggle == .instrumentMute { return try instrumentSection().button(name) }
         guard let found = try element.child(role: "AXButton", name: name, tryingFirst: position) else { return nil }
         position = found.index
         return found.element
@@ -296,7 +295,7 @@ public struct TrackStrip {
     public func meter(_ meter: Meter) throws -> AXElement {
         switch meter {
         case .level:
-            try element.required("the level meter") { try $0.buttons.first { try $0.roleDescription == "Level Meter" && $0.title != Self.gainReductionTitle } }
+            try element.required("the level meter") { try $0.buttons.first { try $0.roleDescription == "Level Meter" && $0.name != Self.gainReductionTitle } }
         case .gainReduction:
             try element.required("the gain reduction meter") { try $0.button(Self.gainReductionTitle) }
         }

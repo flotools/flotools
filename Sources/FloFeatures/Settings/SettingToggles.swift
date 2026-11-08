@@ -41,12 +41,12 @@ enum SettingToggles {
         // Pressing an edit mode button selects that mode; the other buttons switch on and off.
         let pressing = cluster == .editMode ? "selects it" : "switches it"
         let summary = "Single press speaks whether \(setting) is on; double press \(pressing)."
-        return toggle(id, name, summary, key: key, .editWindowButton(cluster, .is(button))) { control in try wording.text(control.isOn) }
+        return toggle(id, name, summary, key: key, .editWindowButton(cluster, .is(button)), spoken: wording.text(of:))
     }
 
     @MainActor
     private static func menuItem(_ id: CommandID, _ name: String, key: String, _ menu: String, _ item: String, _ wording: Wording) -> Command {
-        toggle(id, name, "Single press speaks whether \(menu) > \(item) is checked; double press switches it.", key: key, .menuItem(menu: menu, .is(item))) { control in try wording.text(control.isOn) }
+        toggle(id, name, "Single press speaks whether \(menu) > \(item) is checked; double press switches it.", key: key, .menuItem(menu: menu, .is(item)), spoken: wording.text(of:))
     }
 
     /// Single press speaks the setting; double press plays the done sound, switches it and speaks the new state. The JXA waited a fixed 0.1 s before reading the new state of a button and spoke nothing after choosing a menu item; this waits until the state changes, and speaks menu items too, so every double press confirms what it did. A dimmed control is refused: Pro Tools ignores the press, and speaking the unchanged state would sound like success. Pro Tools dims its menus while a modal window such as the About splash is open.
@@ -80,7 +80,7 @@ enum SettingToggles {
     private static func link(_ id: CommandID, _ name: String, key: String, _ item: String, _ wording: Wording) -> Command {
         let setting = ProToolsSetting.menuItem(menu: "Options", .is(item))
         return Command(id, name, summary: "Passes the key to Pro Tools, which switches Options > \(item), then speaks the new state." + KeyAnnouncements.summaryNote(.outsideListedDialogsAndText), scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
-            try await KeyAnnouncements.announceChange(run, when: .outsideListedDialogsAndText, within: ProToolsUpdate.passedKeyTimeout, find: { try ProToolsApp.running().control(setting) }, read: { try wording.text($0.isOn) })
+            try await KeyAnnouncements.announceChange(run, when: .outsideListedDialogsAndText, within: ProToolsUpdate.passedKeyTimeout, find: { try ProToolsApp.running().control(setting) }, read: wording.text(of:))
         }
     }
 
@@ -109,4 +109,7 @@ enum SettingToggles {
 
 extension SettingToggles.Wording {
     func text(_ isOn: Bool) -> String { isOn ? on : off }
+
+    @AccessibilityActor
+    func text(of control: SettingControl) throws -> String { try text(control.isOn) }
 }

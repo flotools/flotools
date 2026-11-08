@@ -17,7 +17,7 @@ enum MidiEvents {
                     try await VoiceOver.say("End")
                     return
                 }
-                await startWatch(column, in: run.engine)
+                await run.engine.watches.replace(watch) { await follow(column) }
             },
             Command("floTools.previousColumn", "Previous Column", summary: "Moves to the previous value of the selected MIDI note and speaks it, and again each time it changes. Before the first one, stops speaking changes and says \"No report\".", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+[")]) { run in
                 guard let column = await cursor.previous() else {
@@ -25,7 +25,7 @@ enum MidiEvents {
                     try await VoiceOver.say("No report")
                     return
                 }
-                await startWatch(column, in: run.engine)
+                await run.engine.watches.replace(watch) { await follow(column) }
             },
             Command("floTools.editEvent", "Edit Event", summary: "Opens the MIDI note value that Next Column and Previous Column are on, which is start until they move, for typing, and says what to type. Does nothing after Previous Column has moved past the first value.", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Cmd+Return")]) { _ in
                 // Before the first column there is nothing to edit, and the JXA said nothing.
@@ -37,7 +37,7 @@ enum MidiEvents {
     }
 
     /// One of the six values, in the order the columns are walked.
-    enum Column: Int, CaseIterable, Sendable {
+    enum Column: Int, Sendable {
         case start, pitch, attack, release, length, end
 
         var control: EditWindowControl {
@@ -77,13 +77,6 @@ enum MidiEvents {
             case .end: "Type end value."
             }
         }
-    }
-
-    /// Replaces the watch with one for `column`.
-    @MainActor
-    private static func startWatch(_ column: Column, in engine: Engine) {
-        engine.watches.stop(watch)
-        engine.watches.toggle(watch) { await follow(column) }
     }
 
     /// How many reads a kept field serves before it is found again: one second of polls.

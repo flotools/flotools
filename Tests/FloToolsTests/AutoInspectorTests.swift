@@ -60,11 +60,24 @@ import Testing
             command = Command("test.inspector", "Inspector", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key(key)], body: body)
         }
         let conflict = Command("test.trackView", "Track view", scope: .mixOrEdit, mode: .inspectorOff, triggers: [.key(key)]) { @MainActor _ in probe.events.append("track view") }
-        let engine = FloFeatures.makeEngine(commands: [command, conflict])
+        return autoInspectorEngine(probe, [command, conflict])
+    }
+
+    /// An engine with Auto Inspector on that asks `probe` for each target and records a forwarded key as "forward".
+    func autoInspectorEngine(_ probe: Probe, _ commands: [Command]) -> Engine {
+        let engine = FloFeatures.makeEngine(commands: commands)
         engine.autoInspector = true
         engine.detectInspectorTarget = { _ in try await probe.detect() }
         engine.forwardInspectorKey = { _, _ in probe.events.append("forward") }
         return engine
+    }
+
+    /// A hold command on S and M, recording its press and release.
+    static func holdCommand(_ probe: Probe) -> Command {
+        Command("test.hold", "Hold", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("S"), .key("M")], press: { _ in
+            probe.events.append("press")
+            return true
+        }, release: { _ in probe.events.append("release") })
     }
 
     @Test func defaultPersistenceAndApplication() {
@@ -234,10 +247,7 @@ import Testing
                 await withCheckedContinuation { gate = $0; started?.resume() }
             }
         }
-        let engine = FloFeatures.makeEngine(commands: [command])
-        engine.autoInspector = true
-        engine.detectInspectorTarget = { _ in try await probe.detect() }
-        engine.forwardInspectorKey = { _, _ in probe.events.append("forward") }
+        let engine = autoInspectorEngine(probe, [command])
         engine.dispatch(key, .pressed, in: mix)
         await probe.waitForRequest()
         await withCheckedContinuation { continuation in
@@ -262,10 +272,8 @@ import Testing
         let command = double
             ? Command("test.inspector", "Inspector", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Ctrl+Cmd+Right")], doneSound: .none, single: body, double: body)
             : Command("test.inspector", "Inspector", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Ctrl+Cmd+Right")], body: body)
-        let engine = FloFeatures.makeEngine(commands: [command])
-        engine.autoInspector = true
+        let engine = autoInspectorEngine(probe, [command])
         engine.doubleActionTrigger = .secondPress(within: .milliseconds(20))
-        engine.detectInspectorTarget = { _ in try await probe.detect() }
         let id = engine.dispatch(key, .pressed, in: mix)
         await probe.waitForRequest()
         probe.resolve(a)
@@ -281,10 +289,8 @@ import Testing
         let command = Command.repeatingWhileHeld("test.inspector", "Inspector", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Ctrl+Cmd+Right")]) { @MainActor _ in
             times.append(.now)
         }
-        let engine = FloFeatures.makeEngine(commands: [command])
-        engine.autoInspector = true
+        let engine = autoInspectorEngine(probe, [command])
         engine.keyRepeat = { KeyRepeat(delay: .milliseconds(150), interval: .seconds(10)) { _ in true } }
-        engine.detectInspectorTarget = { _ in try await probe.detect() }
         engine.dispatch(key, .pressed, in: mix)
         await probe.waitForRequest()
         try await Task.sleep(for: .milliseconds(300))
@@ -347,10 +353,7 @@ import Testing
             probe.events.append("regular double")
         })
         let inspector = Command("test.inspector", "Inspector", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("S")]) { _ in }
-        let engine = FloFeatures.makeEngine(commands: [regular, inspector])
-        engine.autoInspector = true
-        engine.detectInspectorTarget = { _ in try await probe.detect() }
-        engine.forwardInspectorKey = { _, _ in probe.events.append("forward") }
+        let engine = autoInspectorEngine(probe, [regular, inspector])
         let first = ContinuousClock.now - .seconds(2)
         engine.dispatch(regularKey, .pressed, in: mix, at: first)
         engine.dispatch(KeyCombo(literal: "S"), .pressed, in: mix, at: first + .milliseconds(20))
@@ -392,13 +395,7 @@ import Testing
 
     @Test func pendingProbeDoesNotDelayAnExistingHoldRelease() async {
         let probe = Probe()
-        let engine = FloFeatures.makeEngine(commands: [Command("test.hold", "Hold", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("S"), .key("M")], press: { _ in
-            probe.events.append("press")
-            return true
-        }, release: { _ in probe.events.append("release") })])
-        engine.autoInspector = true
-        engine.detectInspectorTarget = { _ in try await probe.detect() }
-        engine.forwardInspectorKey = { _, _ in probe.events.append("forward") }
+        let engine = autoInspectorEngine(probe, [Self.holdCommand(probe)])
         engine.dispatch(KeyCombo(literal: "S"), .pressed, in: mix)
         await probe.waitForRequest()
         probe.resolve(a)
@@ -414,13 +411,7 @@ import Testing
 
     @Test(arguments: [false, true]) func inspectorOffEndsHoldDespiteContinuedRegistration(_ manual: Bool) async {
         let probe = Probe()
-        let engine = FloFeatures.makeEngine(commands: [Command("test.hold", "Hold", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("S"), .key("M")], press: { _ in
-            probe.events.append("press")
-            return true
-        }, release: { _ in probe.events.append("release") })])
-        engine.autoInspector = true
-        engine.detectInspectorTarget = { _ in try await probe.detect() }
-        engine.forwardInspectorKey = { _, _ in probe.events.append("forward") }
+        let engine = autoInspectorEngine(probe, [Self.holdCommand(probe)])
         engine.dispatch(KeyCombo(literal: "S"), .pressed, in: mix)
         await probe.waitForRequest()
         probe.resolve(a)
@@ -499,13 +490,8 @@ import Testing
 
     /// A removed strip's element can no longer be read, so the command fails rather than looking the name up again, which could find a strip recreated with that name.
     @Test func removedAcceptedTrackThrows() async {
-        await #expect(throws: FloError.self) { try await Self.removedTarget().track(in: .mix) }
-    }
-
-    @AccessibilityActor
-    static func removedTarget() -> InspectorTarget {
         // No process has this ID, so reads of the element fail as they do for a removed strip.
-        InspectorTarget(processID: 99_999, name: "A - Audio Track ", source: AXElement.application(pid: 99_999), window: .mix)
+        await #expect(throws: FloError.self) { try await Self.target(inProcess: 99_999).track(in: .mix) }
     }
 
     @Test func exactNameGeometryRejectsNeighborAndInvalidFrames() {

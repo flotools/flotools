@@ -72,7 +72,7 @@ public struct PlugInWindow {
         self.element = element
     }
 
-    public var title: String { get throws { try element.title ?? "" } }
+    public var title: String { get throws { try element.name ?? "" } }
 
     /// The plug-in's name: the window title without "Plug-in: ".
     public var plugInName: String {
@@ -132,17 +132,22 @@ public struct PlugInWindow {
 
     /// What VoiceOver reads for the parameter called `name`, nil when the plug-in shows no such slider.
     public func parameterValue(named name: String) throws -> String? {
-        try parameterSliders().first { try $0.name == name }?.valueDescription
+        try parameterSlider(named: name)?.valueDescription
     }
 
     /// Steps the slider of the parameter called `name` up or down, like the arrow keys on it with VoiceOver, and returns what VoiceOver reads for it then. Waits for Pro Tools to show the change; at the end of the range the value stays the same. Throws `FloError.notFound` when the plug-in shows no such slider.
     public func stepParameter(named name: String, _ direction: SliderStep) async throws -> String {
-        guard let slider = try parameterSliders().first(where: { try $0.name == name }) else { throw FloError.notFound("the \(name) slider") }
+        guard let slider = try parameterSlider(named: name) else { throw FloError.notFound("the \(name) slider") }
         return try await ProToolsUpdate.reading(after: { try slider.step(direction) }) { try slider.valueDescription ?? "" }
     }
 
     private func parameterSliders() throws -> [AXElement] {
         try element.required("the plug-in controls") { try $0.group("FXTDMEditView") }.sliders
+    }
+
+    /// The first slider called `name`, nil when the plug-in shows none.
+    private func parameterSlider(named name: String) throws -> AXElement? {
+        try parameterSliders().first { try $0.name == name }
     }
 
     private func button(_ name: String) throws -> AXElement {
@@ -161,7 +166,7 @@ extension ProToolsApp {
     @AccessibilityActor
     public func plugInWindow(_ kind: PlugInWindow.Kind) throws -> PlugInWindow {
         let front = try frontWindow(kind.what)
-        guard ProToolsWindowKind(title: try front.title ?? "") == kind.windowKind else { throw FloError.notFound(kind.what) }
+        guard ProToolsWindowKind(title: try front.name ?? "") == kind.windowKind else { throw FloError.notFound(kind.what) }
         return PlugInWindow(kind, front)
     }
 }
