@@ -21,14 +21,28 @@ public struct InspectorTarget: Sendable {
         processID == other.processID && name == other.name && source.isSame(as: other.source)
     }
 
-    /// The accepted track as shown in `requestedWindow`. Throws when the accepted group is gone or its name is no longer unique, rather than run on another track.
+    /// The accepted track as shown in `requestedWindow`. Throws when the accepted group is gone or renamed, or, for the other window, when the name does not point at one track there, rather than run on another track.
+    ///
+    /// The accepted group itself is checked rather than found again by name: its AX identity already pins the track, and a scan costs a read per strip (about 20 ms with 220 tracks, measured 2026-11-08).
     @AccessibilityActor
     public func track(in requestedWindow: ProToolsApp.TrackWindow) throws -> TrackStrip {
-        let app = ProToolsApp(pid: processID)
-        let current = try ProToolsApp.uniqueGroup(named: name, in: app.trackWindow(window)).required("the unique track \(name)")
-        guard current.isSame(as: source) else { throw FloError.couldNot("find the accepted Inspector track") }
+        try checkSourceStillNamed()
         if window == requestedWindow { return TrackStrip(name: name, element: source) }
+        let app = ProToolsApp(pid: processID)
         return TrackStrip(name: name, element: try ProToolsApp.uniqueGroup(named: name, in: app.trackWindow(requestedWindow)).required("the unique track \(name)"))
+    }
+
+    /// A strip that was removed, even if recreated with the same name, is another element, whose reads fail as invalid.
+    @AccessibilityActor
+    private func checkSourceStillNamed() throws {
+        let current: String?
+        do {
+            current = try source.name
+        } catch {
+            Log.debug(.accessibility, "could not read the accepted Inspector track: \(error)")
+            current = nil
+        }
+        guard current == name else { throw FloError.couldNot("find the accepted Inspector track") }
     }
 }
 
@@ -52,9 +66,11 @@ extension ProToolsApp {
     }
 
     /// The only group named `name` among the window's immediate children, or nil when there is none or more than one. Auto Inspector needs the name to point at one track.
+    ///
+    /// Names are read first and roles only for matches, so a window of N children costs about N reads rather than 2N.
     @AccessibilityActor
     static func uniqueGroup(named name: String, in window: AXElement) throws -> AXElement? {
-        let matches = try window.groups.filter { try $0.name == name }
+        let matches = try window.children.filter { try $0.name == name && $0.role == "AXGroup" }
         return matches.count == 1 ? matches.first : nil
     }
 

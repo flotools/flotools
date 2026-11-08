@@ -497,6 +497,17 @@ import Testing
         #expect(engine.mode.inspector)
     }
 
+    /// A removed strip's element can no longer be read, so the command fails rather than looking the name up again, which could find a strip recreated with that name.
+    @Test func removedAcceptedTrackThrows() async {
+        await #expect(throws: FloError.self) { try await Self.removedTarget().track(in: .mix) }
+    }
+
+    @AccessibilityActor
+    static func removedTarget() -> InspectorTarget {
+        // No process has this ID, so reads of the element fail as they do for a removed strip.
+        InspectorTarget(processID: 99_999, name: "A - Audio Track ", source: AXElement.application(pid: 99_999), window: .mix)
+    }
+
     @Test func exactNameGeometryRejectsNeighborAndInvalidFrames() {
         let frame = CGRect(x: 10, y: 20, width: 100, height: 300)
         #expect(ProToolsApp.isInspectorName(text: a.name, bounds: frame, name: a.name, frame: frame))
