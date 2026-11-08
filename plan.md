@@ -74,7 +74,7 @@ Unsolo All Tracks is the model for multi-step changes: check the window and proc
 
 - Unit tests are deterministic, with no sleeps for synchronization. They cover routing and precedence, the tie check, enable and suspension state, double-press decisions, the queue and cancellation, error wording, preferences, window classification, title read ordering, the log file, and per-feature text and parsing.
 - `KeymapTests` pins every binding and the routing of shared keys in `Tests/Baselines/Keymap.txt` and `Routing.txt`. `CommandReferenceTests` generates `COMMANDS.md` and fails when it is out of date. Both regenerate with `FLO_WRITE_BASELINES=1`.
-- `scripts/build-app.sh` fails when no signing identity is found instead of falling back to ad hoc; `FLO_SIGN_IDENTITY=-` asks for ad hoc explicitly.
+- `scripts/build-app.sh` fails when no signing identity is found instead of falling back to ad hoc; `FLO_SIGN_IDENTITY=-` asks for ad hoc explicitly. `--release` raises `CFBundleVersion` by one and commits it before building, and only with a Developer ID identity and no uncommitted changes to tracked files, so every published build has a new number and matches a commit. Test builds keep the number, because Flo Tools is rebuilt many times a day and a bump on every build would change a tracked file each time.
 - Live tests in Pro Tools follow `AGENTS.md`. `scripts/vo.sh` reads and moves the VoiceOver cursor through VoiceOver's AppleScript dictionary and invokes VoiceOver commands by name.
 
 ## 8. Decisions and their reasons
