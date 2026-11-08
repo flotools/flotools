@@ -46,10 +46,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         engine.start()
         setUpStatusItem()
 
-        if !Accessibility.isTrusted(prompt: true) {
-            waitForAccessibility()
-        }
-        // Speech works without a recorded VoiceOver Automation answer but does not make macOS ask for one (seen 2026-11-07); the status menu item does.
+        Task { await askForMissingPermissions() }
         Task { await lifecycle.announceStartup() }
     }
 
@@ -194,6 +191,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
     }
 
+    /// One dialog at a time: VoiceOver control first, because its dialog waits for the answer, then Accessibility, whose prompt sends the user to System Settings. Speech works without a recorded VoiceOver answer but does not make macOS ask for one (seen 2026-11-07), so it is asked for here. A recorded Don't Allow is kept: macOS returns it without a dialog, and only the menu item resets it.
+    private func askForMissingPermissions() async {
+        if VoiceOver.automationPermission() != "granted" {
+            let result = await VoiceOver.requestAutomationPermission()
+            Log.info(.app, "VoiceOver automation permission after asking at launch: \(result)")
+        }
+        if !Accessibility.isTrusted(prompt: true) {
+            waitForAccessibility()
+        }
+    }
+
     /// A failed reset is logged and the request goes ahead: macOS then shows the old answer, which the user can still change in System Settings.
     private func resetOwnAnswer(_ permission: PrivacyPermission) async {
         do {
@@ -203,12 +211,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
     }
 
-    /// Clears every privacy answer macOS has for Flo Tools, then relaunches it: a running process keeps its Accessibility trust until it quits (seen 2026-11-07), and the new copy asks for Accessibility at launch. The new copy quits this one (`quitOlderCopies` in main.swift).
+    /// Clears every privacy answer macOS has for Flo Tools, then relaunches it: a running process keeps its Accessibility trust until it quits (seen 2026-11-07), and the new copy asks for VoiceOver control and Accessibility at launch. The new copy quits this one (`quitOlderCopies` in main.swift).
     @objc private func resetAllPermissions() {
         NSApp.activate(ignoringOtherApps: true)
         let alert = NSAlert()
         alert.messageText = "Reset all permissions for Flo Tools?"
-        alert.informativeText = "Flo Tools will relaunch. Then turn on Accessibility access for Flo Tools in System Settings, and choose Allow Control of VoiceOver in the Permissions menu."
+        alert.informativeText = "Flo Tools will relaunch and ask for permission to control VoiceOver, then for Accessibility access, which you turn on in System Settings."
         alert.addButton(withTitle: "Reset and Relaunch")
         alert.addButton(withTitle: "Cancel")
         guard alert.runModal() == .alertFirstButtonReturn else { return }

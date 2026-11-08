@@ -14,13 +14,19 @@ func olderCopies() -> [NSRunningApplication] {
     }
 }
 
+/// `isTerminated` alone can stay false for a copy that quit just after this one started, as when Flo Tools
+/// relaunches itself (seen 2026-11-07), so the process is also looked up directly.
+func hasQuit(_ copy: NSRunningApplication) -> Bool {
+    copy.isTerminated || (kill(copy.processIdentifier, 0) == -1 && errno == ESRCH)
+}
+
 /// Spins the run loop, which updates `isTerminated`, until every copy has quit or the deadline passes.
 func waitUntilQuit(_ copies: [NSRunningApplication], seconds: TimeInterval) -> Bool {
     let deadline = Date().addingTimeInterval(seconds)
-    while copies.contains(where: { !$0.isTerminated }), Date() < deadline {
+    while !copies.allSatisfy(hasQuit), Date() < deadline {
         RunLoop.current.run(until: Date().addingTimeInterval(0.05))
     }
-    return copies.allSatisfy(\.isTerminated)
+    return copies.allSatisfy(hasQuit)
 }
 
 /// Two copies would both take every hotkey. The newly launched copy is the one the user wants, so it asks the
@@ -31,7 +37,7 @@ func quitOlderCopies() -> Bool {
     guard !copies.isEmpty else { return true }
     copies.forEach { $0.terminate() }
     if waitUntilQuit(copies, seconds: 3) { return true }
-    copies.filter { !$0.isTerminated }.forEach { $0.forceTerminate() }
+    copies.filter { !hasQuit($0) }.forEach { $0.forceTerminate() }
     return waitUntilQuit(copies, seconds: 2)
 }
 
