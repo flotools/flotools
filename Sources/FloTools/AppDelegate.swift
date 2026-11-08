@@ -163,18 +163,32 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         engine.run(id)
     }
 
+    /// The menu offers this only while not trusted, so any entry Flo Tools has is off or stale (from an earlier signature); resetting it makes macOS add a fresh one that the user turns on.
     @objc private func grantAccessibility() {
-        Accessibility.isTrusted(prompt: true)
-        NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
-        waitForAccessibility()
+        Task {
+            await resetOwnAnswer(.accessibility)
+            Accessibility.isTrusted(prompt: true)
+            NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!)
+            waitForAccessibility()
+        }
     }
 
-    /// macOS shows its consent dialog only if the user has not answered yet; after a Don't Allow the setting is in System Settings > Privacy & Security > Automation.
+    /// macOS shows its consent dialog only if the user has not answered yet, so a Don't Allow is reset first.
     @objc private func allowVoiceOverControl() {
         Task {
+            if VoiceOver.automationPermission() == "denied" { await resetOwnAnswer(.appleEvents) }
             let result = await VoiceOver.requestAutomationPermission()
             Log.info(.app, "VoiceOver automation permission after asking: \(result)")
             await VoiceOver.sayOrLog("VoiceOver control \(result).")
+        }
+    }
+
+    /// A failed reset is logged and the request goes ahead: macOS then shows the old answer, which the user can still change in System Settings.
+    private func resetOwnAnswer(_ permission: PrivacyPermission) async {
+        do {
+            try await Task.detached { try permission.resetOwnAnswer() }.value
+        } catch {
+            Log.error(.app, "\(error)")
         }
     }
 
