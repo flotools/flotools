@@ -35,9 +35,9 @@ public enum FrontWindowEvent: Sendable {
 public final class FrontWindowObserver {
     /// What the C callback reaches through its refcon. Kept apart from the observer so `stop()` can keep it alive until the main run loop has finished a callback that was already running.
     private final class Callback: Sendable {
-        /// Called on the main thread for each notification.
-        let onChange: @Sendable (FrontWindowEvent) -> Void
-        init(_ onChange: @escaping @Sendable (FrontWindowEvent) -> Void) { self.onChange = onChange }
+        /// Called on the main thread for each notification, with the process it came from.
+        let onChange: @Sendable (pid_t, FrontWindowEvent) -> Void
+        init(_ onChange: @escaping @Sendable (pid_t, FrontWindowEvent) -> Void) { self.onChange = onChange }
     }
 
     private nonisolated let callback: Callback
@@ -58,7 +58,7 @@ public final class FrontWindowObserver {
     private var titleWatched = true
     /// Whether AXMenuOpened and AXMenuClosed are registered on the observed app. Without AXMenuClosed, a plug-in chosen from a plug-in window's menu changes the title unseen (see `observe`), so the context must keep polling. Retried on every read.
     private var menuWatched = false
-    /// Whether AXSelectedTextChanged and AXFocusedUIElementChanged are registered on the observed app. Not needed for the window title, so they do not affect `isObserving`. Retried on every read.
+    /// Whether AXSelectedTextChanged and AXFocusedUIElementChanged are registered on the observed app. Retried on every read; counted in `isObserving` so the poll keeps reading, and so retrying, until they are.
     private var typingWatched = false
     /// So a registration that keeps failing is logged once per app, not on every poll.
     private var registrationFailureLogged = false
@@ -66,7 +66,7 @@ public final class FrontWindowObserver {
     private var windowNumber = 0
 
     /// Nonisolated so the main actor can create it; it only stores the callback.
-    public nonisolated init(onChange: @escaping @Sendable (FrontWindowEvent) -> Void) {
+    public nonisolated init(onChange: @escaping @Sendable (pid_t, FrontWindowEvent) -> Void) {
         callback = Callback(onChange)
     }
 
@@ -87,9 +87,9 @@ public final class FrontWindowObserver {
         return FocusedWindow(title: try window?.title, number: windowNumber)
     }
 
-    /// Whether notifications from app `pid` cover every change of the focused window and its title: focus, title and menu. Only then is polling that app not needed.
+    /// Whether every notification is registered on app `pid`: focus, title, menu and typing. Only then is polling that app not needed. Typing does not change the window title, but its registrations are retried only on a read, so a failed one keeps the poll going.
     public func isObserving(pid: pid_t) -> Bool {
-        observer != nil && observedPid == pid && focusWatched && titleWatched && menuWatched
+        observer != nil && observedPid == pid && focusWatched && titleWatched && menuWatched && typingWatched
     }
 
     /// Detaches from the observed app for good. Call before dropping the instance.
@@ -126,7 +126,10 @@ public final class FrontWindowObserver {
             case kAXFocusedUIElementChangedNotification: .focusedElementChanged
             default: .windowMayHaveChanged
             }
-            Unmanaged<Callback>.fromOpaque(refcon).takeUnretainedValue().onChange(event)
+            // The source's process, read locally without messaging the app; 0 if that fails.
+            var pid: pid_t = 0
+            _ = AXUIElementGetPid(element, &pid)
+            Unmanaged<Callback>.fromOpaque(refcon).takeUnretainedValue().onChange(pid, event)
         }, &created)
         guard status == .success, let created else {
             attachFailed(pid: pid, "AXObserverCreate \(status.rawValue)")

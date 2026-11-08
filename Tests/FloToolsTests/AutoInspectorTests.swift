@@ -1,9 +1,10 @@
+import ApplicationServices
 import Foundation
 import Testing
 @testable import FloEngine
 @testable import FloFeatures
 @testable import FloProTools
-import FloSystem
+@testable import FloSystem
 
 @Suite @MainActor struct AutoInspectorTests {
     let mix = FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Mix: Session", windowNumber: 1, processID: 100)
@@ -322,6 +323,20 @@ import FloSystem
         #expect(engine.mode.inspector)
     }
 
+    /// When the check for a menu or field fails, as while Pro Tools is busy, nobody knows whether a field is open, so the key goes to Pro Tools.
+    @Test func failedKeyCaptureCheckForwards() async {
+        let probe = Probe()
+        let engine = engine(probe)
+        engine.keyCapture = { _ in throw FloError.accessibility(operation: "AXFocusedUIElement", code: AXError.cannotComplete.rawValue) }
+        engine.setInspector(true)
+        engine.dispatch(key, .pressed, in: mix)
+        await probe.waitForRequest()
+        probe.resolve(a)
+        await engine.waitUntilIdle()
+        #expect(probe.events == ["forward"])
+        #expect(!engine.mode.inspector)
+    }
+
     @Test func suspendedEngineDoesNotProbe() async {
         let probe = Probe()
         let engine = engine(probe)
@@ -353,5 +368,44 @@ import FloSystem
         #expect(!ProToolsApp.isInspectorName(text: "Solo", bounds: frame, name: a.name, frame: frame))
         #expect(!ProToolsApp.isInspectorName(text: a.name, bounds: .zero, name: a.name, frame: .zero))
         #expect(!ProToolsApp.isInspectorName(text: a.name, bounds: .infinite, name: a.name, frame: .infinite))
+    }
+}
+
+@Suite struct KeyCaptureEventsTests {
+    let front: pid_t = 100
+    let field = AXElementHandle(AXUIElementCreateApplication(100))
+
+    /// While the observer moves to a new front app, the old app can still send events; they must not count for the new one.
+    @Test func eventsFromAnotherAppAreIgnored() {
+        var events = KeyCaptureEvents()
+        events.record(.menuOpened, from: 200, front: front)
+        events.record(.selectedTextChanged(field), from: 200, front: front)
+        #expect(events.menuOpenedPid == 0)
+        #expect(events.counter(of: front) == nil)
+        #expect(events.revision == 0)
+    }
+
+    @Test func menuAndFieldFollowTheirNotifications() {
+        var events = KeyCaptureEvents()
+        events.record(.menuOpened, from: front, front: front)
+        #expect(events.menuOpenedPid == front)
+        events.record(.menuClosed, from: front, front: front)
+        #expect(events.menuOpenedPid == 0)
+        events.record(.selectedTextChanged(field), from: front, front: front)
+        #expect(events.counter(of: front) != nil)
+        #expect(events.counter(of: 200) == nil)
+        events.record(.focusedElementChanged, from: front, front: front)
+        #expect(events.counter(of: front) == nil)
+    }
+
+    /// The revision tells a check that waited on a read whether anything changed meanwhile; window events do not count.
+    @Test func revisionCountsCaptureChangesOnly() {
+        var events = KeyCaptureEvents()
+        events.record(.windowMayHaveChanged, from: front, front: front)
+        #expect(events.revision == 0)
+        events.record(.menuOpened, from: front, front: front)
+        events.reset()
+        #expect(events.revision == 2)
+        #expect(events.menuOpenedPid == 0)
     }
 }

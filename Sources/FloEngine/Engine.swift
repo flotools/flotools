@@ -77,8 +77,8 @@ public final class Engine {
     var forwardInspectorKey: @MainActor (KeyCombo, FrontContext) -> Void = { combo, context in
         Keyboard.post(combo, pid: context.processID)
     }
-    /// What takes the keys of the app in `context`, if anything. The VoiceOver cursor still reports the track behind a menu Pro Tools opened from it and behind a counter opened for typing (checked live 2026-11-07), so detection alone would accept it.
-    var keyCapture: @MainActor (FrontContext) async -> KeyCapture?
+    /// What takes the keys of the app in `context`, if anything. The VoiceOver cursor still reports the track behind a menu Pro Tools opened from it and behind a counter opened for typing (checked live 2026-11-07), so detection alone would accept it. Throws when that cannot be told.
+    var keyCapture: @MainActor (FrontContext) async throws -> KeyCapture?
     @MainActor private final class Press {
         var released = false
     }
@@ -157,13 +157,26 @@ public final class Engine {
                     Log.info(.engine, "Auto Inspector dropped: stale detection")
                     return
                 }
-                // Checked after detection, the latest moment before deciding, so a menu or field that opened during detection still counts.
-                let capture = await self.keyCapture(original)
+                // Whether a single press waiting for its double was on another track. Compared before the key capture check, so that check is the last wait before deciding.
+                var otherTrackPending = false
+                if let target, let previousTarget = self.autoSingles[command.id]?.run.inspectorTarget {
+                    otherTrackPending = !(await target.isSameTrack(as: previousTarget))
+                }
+                // Checked after detection, the latest moment before deciding, so a menu or field that opened during detection still counts. When it cannot be told, the key goes to Pro Tools, which is right if a field is open and harmless if not.
+                let capture: KeyCapture?
+                var captureFailed = false
+                do {
+                    capture = try await self.keyCapture(original)
+                } catch {
+                    Log.error(.engine, "Auto Inspector could not check for an open menu or text field: \(error)")
+                    capture = nil
+                    captureFailed = true
+                }
                 guard self.inputIsValid(generation, original) else {
                     Log.info(.engine, "Auto Inspector dropped: stale key capture check")
                     return
                 }
-                guard capture == nil, let target, target.processID == original.processID else {
+                guard capture == nil, !captureFailed, let target, target.processID == original.processID else {
                     Log.info(.engine, capture.map { "Auto Inspector forwarding: \($0)" } ?? "Auto Inspector forwarding")
                     self.endHolds { self.holds[$0]?.run.inspectorTarget != nil }
                     self.cancelSingle(command.id)
@@ -171,12 +184,7 @@ public final class Engine {
                     self.forwardInspectorKey(combo, original)
                     return
                 }
-                if let previous = self.autoSingles[command.id], let previousTarget = previous.run.inspectorTarget,
-                    !(await target.isSameTrack(as: previousTarget)) {
-                    guard self.inputIsValid(generation, original) else { return }
-                    self.flushAutoSingle(command.id)
-                }
-                guard self.inputIsValid(generation, original) else { return }
+                if otherTrackPending { self.flushAutoSingle(command.id) }
                 Log.info(.engine, "Auto Inspector accepted \(target.name)")
                 self.setInspector(true)
                 var accepted = input
@@ -224,7 +232,7 @@ public final class Engine {
     public init(hotKeys: HotKeyCenter, contextMonitor: ContextMonitor) {
         self.hotKeys = hotKeys
         self.contextMonitor = contextMonitor
-        keyCapture = { context in await contextMonitor.keyCapture(pid: context.processID) }
+        keyCapture = { context in try await contextMonitor.keyCapture(pid: context.processID) }
     }
 
     // MARK: Setup

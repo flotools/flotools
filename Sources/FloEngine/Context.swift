@@ -95,6 +95,40 @@ public enum KeyCapture: Sendable, Equatable, CustomStringConvertible {
     }
 }
 
+/// What the front app's notifications said about menus and fields open for typing. Pure, so the rules are tested without AX.
+struct KeyCaptureEvents {
+    /// The front app that reported AXMenuOpened and no AXMenuClosed since, or 0.
+    private(set) var menuOpenedPid: pid_t = 0
+    /// The element of the front app's last AXSelectedTextChanged, which may be a counter open for typing. Cleared when the app's focused element changes, which closing a counter causes and opening one does not. A Mix comments field kept AXFocused set after its editor closed (seen live 2026-11-07), so the flag alone could keep keys captured.
+    private(set) var selectedTextSource: (pid: pid_t, element: AXElementHandle)?
+    /// Counts changes, so a check that waited on a read can tell whether a menu or field opened meanwhile.
+    private(set) var revision = 0
+
+    /// Records `event` from app `pid`. Events from any app but `front` are ignored: while the observer moves to a new front app, the old one can still send some.
+    mutating func record(_ event: FrontWindowEvent, from pid: pid_t, front: pid_t) {
+        guard pid == front, pid > 0 else { return }
+        switch event {
+        case .menuOpened: menuOpenedPid = pid
+        case .menuClosed: menuOpenedPid = 0
+        case .selectedTextChanged(let element): selectedTextSource = (pid, element)
+        case .focusedElementChanged: selectedTextSource = nil
+        case .windowMayHaveChanged: return
+        }
+        revision += 1
+    }
+
+    /// Another app came to the front, which closes its menus, or monitoring stopped.
+    mutating func reset() {
+        menuOpenedPid = 0
+        selectedTextSource = nil
+        revision += 1
+    }
+
+    func counter(of pid: pid_t) -> AXElementHandle? {
+        selectedTextSource.flatMap { $0.pid == pid ? $0.element : nil }
+    }
+}
+
 /// Watches the front app and its focused window title and reports changes.
 ///
 /// The front app comes from NSWorkspace and is published at once. The window title needs AX calls, which can block while the app is busy, so it is read on `AccessibilityActor` and published when the read returns; meanwhile the title is unknown and window-specific keys pass through. The app owns one instance; `start()` and `stop()` bound the observers and the poll.
@@ -111,10 +145,7 @@ public final class ContextMonitor {
     private var observing = false
     /// The app the last window read failed for, so a failure that the poll repeats every second, as while Pro Tools starts, is logged once, and its end once.
     private var failingReadPid: pid_t = 0
-    /// The front app that reported AXMenuOpened and no AXMenuClosed since, or 0. Cleared when another app comes to the front, which closes the menu.
-    private var menuOpenedPid: pid_t = 0
-    /// The element of the front app's last AXSelectedTextChanged, which may be a counter open for typing. Cleared when the app's focused element changes, which closing a counter causes and opening one does not, and when another app comes to the front. A Mix comments field kept AXFocused set after its editor closed (seen live 2026-11-07), so the flag alone could keep keys captured.
-    private var selectedTextSource: (pid: pid_t, element: AXElementHandle)?
+    private var captureEvents = KeyCaptureEvents()
 
     public init() {}
 
@@ -123,31 +154,39 @@ public final class ContextMonitor {
     /// A menu is open when the app reported AXMenuOpened and no AXMenuClosed since, or shows a pop-up menu window. The notification arrives before the window is on screen (27 ms before it, measured 2026-11-07), and the window check covers a menu that opened before the observer was attached.
     ///
     /// A text field is open for typing when the app's focused element is a text entry, as the editor a Mix comments field opens is, or when the element of the last AXSelectedTextChanged, with no focus change since, is a text field with its focus flag set, as a counter opened for typing is. Both are read now rather than tracked.
-    public func keyCapture(pid: pid_t) async -> KeyCapture? {
+    ///
+    /// Throws when the app's focused element cannot be read, as while Pro Tools is busy, because then nobody knows whether a field is open; and when menus or fields keep changing during the check.
+    public func keyCapture(pid: pid_t) async throws -> KeyCapture? {
         guard poll != nil, pid > 0 else { return nil }
-        if menuOpenedPid == pid || AXElement.showsPopUpMenu(pid: pid) { return .menu }
-        let counter = selectedTextSource.flatMap { $0.pid == pid ? $0.element : nil }
-        return await Self.isTyping(pid: pid, counter: counter) ? .textField : nil
+        // A menu or field can open while the focus is read, so the check starts over when a notification came meanwhile.
+        for _ in 0..<3 {
+            let revision = captureEvents.revision
+            if captureEvents.menuOpenedPid == pid || AXElement.showsPopUpMenu(pid: pid) { return .menu }
+            let typing = try await Self.isTyping(pid: pid, counter: captureEvents.counter(of: pid))
+            if typing { return .textField }
+            if captureEvents.revision == revision { return nil }
+        }
+        throw FloError.couldNot("check for an open menu or text field, which kept changing")
     }
 
     @AccessibilityActor
-    private static func isTyping(pid: pid_t, counter: AXElementHandle?) -> Bool {
+    private static func isTyping(pid: pid_t, counter: AXElementHandle?) throws -> Bool {
+        if try ProToolsApp(pid: pid).hasTextEntryFocus() { return true }
+        guard let counter else { return false }
         do {
-            if try ProToolsApp(pid: pid).hasTextEntryFocus() { return true }
-            guard let counter else { return false }
             return try ProToolsApp.isOpenForTyping(counter.element)
         } catch {
             // Usually a field whose window closed; it cannot be typed into.
-            Log.debug(.context, "could not read text focus: \(error)")
+            Log.debug(.context, "could not read the last selected text field: \(error)")
             return false
         }
     }
 
     public func start() {
         guard poll == nil else { return }
-        windowObserver = FrontWindowObserver { [weak self] event in
+        windowObserver = FrontWindowObserver { [weak self] pid, event in
             // AX notifications arrive on the main run loop.
-            MainActor.assumeIsolated { self?.observed(event) }
+            MainActor.assumeIsolated { self?.observed(event, from: pid) }
         }
         activationObserver = NSWorkspace.shared.notificationCenter.addObserver(forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main) { [weak self] _ in
             MainActor.assumeIsolated { self?.refresh() }
@@ -168,8 +207,7 @@ public final class ContextMonitor {
         poll = nil
         observing = false
         failingReadPid = 0
-        menuOpenedPid = 0
-        selectedTextSource = nil
+        captureEvents.reset()
         reads.reset()
         if let activationObserver { NSWorkspace.shared.notificationCenter.removeObserver(activationObserver) }
         activationObserver = nil
@@ -191,29 +229,24 @@ public final class ContextMonitor {
         if frontAppChanged {
             let front = NSWorkspace.shared.frontmostApplication
             observing = false
-            menuOpenedPid = 0
-            selectedTextSource = nil
+            captureEvents.reset()
             publish(FrontContext(bundleID: front?.bundleIdentifier, windowTitle: nil, processID: front?.processIdentifier ?? 0))
         }
         if let id = reads.changeReported() { readWindowTitle(id: id) }
     }
 
-    /// The observer only watches the front app, so an event is about the app `current` names.
-    private func observed(_ event: FrontWindowEvent) {
+    private func observed(_ event: FrontWindowEvent, from pid: pid_t) {
+        captureEvents.record(event, from: pid, front: current.processID)
         switch event {
         case .menuOpened:
-            menuOpenedPid = current.processID
-            Log.info(.context, "menu opened")
+            Log.info(.context, "menu opened in pid \(pid)")
         case .menuClosed:
-            menuOpenedPid = 0
-            Log.info(.context, "menu closed")
-        case .selectedTextChanged(let element):
+            Log.info(.context, "menu closed in pid \(pid)")
+        case .selectedTextChanged:
             // Not logged and no window read: it fires on every typed character.
-            selectedTextSource = (current.processID, element)
             return
         case .focusedElementChanged:
             // Not logged and no window read: it fires on every focus move.
-            selectedTextSource = nil
             return
         case .windowMayHaveChanged:
             break
