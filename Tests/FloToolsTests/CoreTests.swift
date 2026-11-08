@@ -915,8 +915,24 @@ private actor Flag {
 
     @Test func unsupportedTimeoutFallsBackToDefault() {
         let defaults = suite.defaults
-        defaults.set(50, forKey: PreferencesStore.Key.timeout)
+        defaults.set(9, forKey: PreferencesStore.Key.timeout)
         #expect(PreferencesStore(defaults: defaults).current.timeout == 200)
+    }
+
+    @Test(arguments: Preferences.timeoutChoices)
+    func timeoutChoicesSurviveRelaunch(_ timeout: Int) {
+        var preferences = Preferences()
+        preferences.timeout = timeout
+        PreferencesStore(defaults: suite.defaults).save(preferences)
+        #expect(PreferencesStore(defaults: suite.defaults).current.timeout == timeout)
+        let engine = FloFeatures.makeEngine()
+        FloFeatures.apply(preferences, to: engine)
+        #expect(engine.doublePressTimeout == .milliseconds(timeout))
+    }
+
+    @Test func timeoutChoiceBounds() {
+        #expect(Preferences.timeoutChoices == [100, 200, 300, 400, 500])
+        #expect(Preferences().timeout == 200)
     }
 
     @Test func applySetsDoublePressTimeout() {

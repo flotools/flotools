@@ -16,8 +16,8 @@ public struct Preferences: Equatable, Sendable {
     /// How long a key must be held for a double press, in milliseconds, one of `holdTimeChoices`.
     public var holdTime = 500
 
-    /// The values the KM preferences dialog offered.
-    public static let timeoutChoices = [200, 300, 400, 500]
+    /// Shorter choices reduce the wait before a single-press action; the default remains 200 ms.
+    public static let timeoutChoices = [100, 200, 300, 400, 500]
     public static let holdTimeChoices = [100, 200, 300, 400, 500]
 
     public init() {}
