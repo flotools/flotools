@@ -139,12 +139,10 @@ import Testing
         #expect(engine.mode.inspector)
     }
 
-    @Test(arguments: ["context", "preference", "disable", "suspend", "cancel", "timeout"])
-    func staleDetectionDoesNothing(_ change: String) async {
-        let probe = Probe()
-        let engine = engine(probe)
-        engine.dispatch(key, .pressed, in: mix)
-        await probe.waitForRequest()
+    nonisolated static let invalidatingChanges = ["context", "preference", "disable", "suspend", "cancel", "timeout"]
+
+    /// Makes one of the changes that void a press still being decided.
+    static func invalidate(_ engine: Engine, by change: String) {
         switch change {
         case "context": engine.contextChanged(to: FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Mix: Session", windowNumber: 2, processID: 100))
         case "preference": engine.autoInspector = false
@@ -153,10 +151,148 @@ import Testing
         case "timeout": engine.doubleActionTrigger = .secondPress(within: .milliseconds(100))
         default: engine.cancelAll()
         }
+    }
+
+    @Test(arguments: invalidatingChanges)
+    func staleDetectionDoesNothing(_ change: String) async {
+        let probe = Probe()
+        let engine = engine(probe)
+        engine.dispatch(key, .pressed, in: mix)
+        await probe.waitForRequest()
+        Self.invalidate(engine, by: change)
         probe.resolve(a)
         await engine.waitUntilIdle()
         #expect(probe.events.isEmpty)
         #expect(!engine.mode.inspector)
+    }
+
+    /// A change while the key capture check waits voids the press, like one during detection.
+    @Test(arguments: invalidatingChanges)
+    func staleKeyCaptureCheckDoesNothing(_ change: String) async {
+        let probe = Probe()
+        let engine = engine(probe)
+        engine.keyCapture = { [weak engine] _ in
+            if let engine { Self.invalidate(engine, by: change) }
+            return nil
+        }
+        engine.dispatch(key, .pressed, in: mix)
+        await probe.waitForRequest()
+        probe.resolve(a)
+        await engine.waitUntilIdle()
+        #expect(probe.events.isEmpty)
+        #expect(!engine.mode.inspector)
+    }
+
+    /// Tracks are told apart by AX identity, so two strips with one name are two tracks and their presses two singles.
+    @Test func sameNameOnDifferentElementsIsNoDouble() async {
+        let (first, second) = await Self.sameNameTargets()
+        let probe = Probe()
+        let engine = engine(probe, double: true)
+        let arrival = ContinuousClock.now
+        engine.dispatch(key, .pressed, in: mix, at: arrival)
+        await probe.waitForRequest()
+        engine.dispatch(key, .pressed, in: mix, at: arrival + .milliseconds(10))
+        probe.resolve(first)
+        await probe.waitForRequest()
+        probe.resolve(second)
+        await engine.waitUntilIdle()
+        #expect(probe.events == ["single " + a.name, "single " + a.name])
+    }
+
+    @AccessibilityActor
+    static func sameNameTargets() -> (InspectorTarget, InspectorTarget) {
+        (InspectorTarget(processID: 100, name: "A - Audio Track ", source: AXElement.application(pid: 100), window: .mix),
+         InspectorTarget(processID: 100, name: "A - Audio Track ", source: AXElement.application(pid: 101), window: .mix))
+    }
+
+    @AccessibilityActor
+    static func target(inProcess pid: pid_t) -> InspectorTarget {
+        InspectorTarget(processID: pid, name: "A - Audio Track ", source: AXElement.application(pid: pid), window: .mix)
+    }
+
+    /// A track of another app than the one the key was pressed in is not a target there.
+    @Test func targetInAnotherProcessForwards() async {
+        let other = await Self.target(inProcess: 200)
+        let probe = Probe()
+        let engine = engine(probe)
+        engine.dispatch(key, .pressed, in: mix)
+        await probe.waitForRequest()
+        probe.resolve(other)
+        await engine.waitUntilIdle()
+        #expect(probe.events == ["forward"])
+        #expect(!engine.mode.inspector)
+    }
+
+    /// An accepted run waiting behind a slow one is dropped when what it was accepted under changes before it starts. Changing the double-press timeout leaves every other queue check passing, so only the input generation can drop it.
+    @Test func queuedAcceptedRunIsDroppedWhenInputIsVoided() async {
+        let probe = Probe()
+        var gate: CheckedContinuation<Void, Never>?
+        var started: CheckedContinuation<Void, Never>?
+        let command = Command("test.inspector", "Inspector", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Ctrl+Cmd+Right")]) { @MainActor run in
+            probe.events.append("start " + (run.inspectorTarget?.name ?? "manual"))
+            if probe.events.count == 1 {
+                await withCheckedContinuation { gate = $0; started?.resume() }
+            }
+        }
+        let engine = FloFeatures.makeEngine(commands: [command])
+        engine.autoInspector = true
+        engine.detectInspectorTarget = { _ in try await probe.detect() }
+        engine.forwardInspectorKey = { _, _ in probe.events.append("forward") }
+        engine.dispatch(key, .pressed, in: mix)
+        await probe.waitForRequest()
+        await withCheckedContinuation { continuation in
+            started = continuation
+            probe.resolve(a)
+        }
+        engine.dispatch(key, .pressed, in: mix)
+        await probe.waitForRequest()
+        probe.resolve(b)
+        await engine.waitForAdmissions()
+        engine.doubleActionTrigger = .secondPress(within: .milliseconds(100))
+        gate?.resume()
+        await engine.waitUntilIdle()
+        #expect(probe.events == ["start " + a.name])
+    }
+
+    /// Every line a press causes carries the ID `dispatch` returned, including a single run after its timeout.
+    @Test(arguments: [false, true]) func runsKeepTheirInvocationID(_ double: Bool) async {
+        let probe = Probe()
+        var seen: [String?] = []
+        let body: CommandBody = { @MainActor _ in seen.append(Log.invocation) }
+        let command = double
+            ? Command("test.inspector", "Inspector", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Ctrl+Cmd+Right")], doneSound: .none, single: body, double: body)
+            : Command("test.inspector", "Inspector", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Ctrl+Cmd+Right")], body: body)
+        let engine = FloFeatures.makeEngine(commands: [command])
+        engine.autoInspector = true
+        engine.doubleActionTrigger = .secondPress(within: .milliseconds(20))
+        engine.detectInspectorTarget = { _ in try await probe.detect() }
+        let id = engine.dispatch(key, .pressed, in: mix)
+        await probe.waitForRequest()
+        probe.resolve(a)
+        await engine.waitUntilIdle()
+        #expect(id != nil)
+        #expect(seen == [id])
+    }
+
+    /// A repeat's delay starts when its first run starts, after detection, not when the key went down; otherwise a slow check would make it repeat at once.
+    @Test func repeatDelayStartsAfterASlowProbe() async throws {
+        let probe = Probe()
+        var times: [ContinuousClock.Instant] = []
+        let command = Command.repeatingWhileHeld("test.inspector", "Inspector", scope: .mixOrEdit, mode: .inspectorOn, triggers: [.key("Ctrl+Cmd+Right")]) { @MainActor _ in
+            times.append(.now)
+        }
+        let engine = FloFeatures.makeEngine(commands: [command])
+        engine.autoInspector = true
+        engine.keyRepeat = { KeyRepeat(delay: .milliseconds(150), interval: .seconds(10)) { _ in true } }
+        engine.detectInspectorTarget = { _ in try await probe.detect() }
+        engine.dispatch(key, .pressed, in: mix)
+        await probe.waitForRequest()
+        try await Task.sleep(for: .milliseconds(300))
+        probe.resolve(a)
+        while times.count < 2 { try await Task.sleep(for: .milliseconds(10)) }
+        engine.dispatch(key, .released, in: mix)
+        await engine.waitUntilIdle()
+        #expect(times[1] - times[0] >= .milliseconds(120))
     }
 
     @Test func orderedProbesAndCapturedTargets() async {

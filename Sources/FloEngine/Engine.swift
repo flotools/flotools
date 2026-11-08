@@ -672,7 +672,7 @@ public final class Engine {
         }
     }
 
-    private func waitForAdmissions() async {
+    func waitForAdmissions() async {
         while admissions > 0 { await admissionTail?.value }
     }
 
