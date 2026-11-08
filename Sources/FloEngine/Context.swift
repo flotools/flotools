@@ -113,7 +113,7 @@ public final class ContextMonitor {
     private var failingReadPid: pid_t = 0
     /// The front app that reported AXMenuOpened and no AXMenuClosed since, or 0. Cleared when another app comes to the front, which closes the menu.
     private var menuOpenedPid: pid_t = 0
-    /// The element of the front app's last AXSelectedTextChanged, which may be a field open for typing. Cleared when another app comes to the front.
+    /// The element of the front app's last AXSelectedTextChanged, which may be a counter open for typing. Cleared when the app's focused element changes, which closing a counter causes and opening one does not, and when another app comes to the front. A Mix comments field kept AXFocused set after its editor closed (seen live 2026-11-07), so the flag alone could keep keys captured.
     private var selectedTextSource: (pid: pid_t, element: AXElementHandle)?
 
     public init() {}
@@ -122,21 +122,23 @@ public final class ContextMonitor {
     ///
     /// A menu is open when the app reported AXMenuOpened and no AXMenuClosed since, or shows a pop-up menu window. The notification arrives before the window is on screen (27 ms before it, measured 2026-11-07), and the window check covers a menu that opened before the observer was attached.
     ///
-    /// A text field is open for typing when the element of the last AXSelectedTextChanged is a text field with its focus flag set. Its focus is read now rather than tracked, so a missed close cannot keep keys captured.
+    /// A text field is open for typing when the app's focused element is a text entry, as the editor a Mix comments field opens is, or when the element of the last AXSelectedTextChanged, with no focus change since, is a text field with its focus flag set, as a counter opened for typing is. Both are read now rather than tracked.
     public func keyCapture(pid: pid_t) async -> KeyCapture? {
         guard poll != nil, pid > 0 else { return nil }
         if menuOpenedPid == pid || AXElement.showsPopUpMenu(pid: pid) { return .menu }
-        guard let source = selectedTextSource, source.pid == pid else { return nil }
-        return await Self.isOpenForTyping(source.element) ? .textField : nil
+        let counter = selectedTextSource.flatMap { $0.pid == pid ? $0.element : nil }
+        return await Self.isTyping(pid: pid, counter: counter) ? .textField : nil
     }
 
     @AccessibilityActor
-    private static func isOpenForTyping(_ handle: AXElementHandle) -> Bool {
+    private static func isTyping(pid: pid_t, counter: AXElementHandle?) -> Bool {
         do {
-            return try ProToolsApp.isOpenForTyping(handle.element)
+            if try ProToolsApp(pid: pid).hasTextEntryFocus() { return true }
+            guard let counter else { return false }
+            return try ProToolsApp.isOpenForTyping(counter.element)
         } catch {
             // Usually a field whose window closed; it cannot be typed into.
-            Log.debug(.context, "could not read the last selected-text element: \(error)")
+            Log.debug(.context, "could not read text focus: \(error)")
             return false
         }
     }
@@ -208,6 +210,10 @@ public final class ContextMonitor {
         case .selectedTextChanged(let element):
             // Not logged and no window read: it fires on every typed character.
             selectedTextSource = (current.processID, element)
+            return
+        case .focusedElementChanged:
+            // Not logged and no window read: it fires on every focus move.
+            selectedTextSource = nil
             return
         case .windowMayHaveChanged:
             break
