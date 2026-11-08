@@ -75,6 +75,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `T` | Speak and Select Track/Show Right-Click Menu | Mix, Edit, Inspector on | Single press selects the track and says so; double press opens the track name's right-click menu. |
 | `C` | Speak/Edit Comments | Mix, Edit, Inspector on | Single press speaks the track's comment, or "No Comment"; double press puts the cursor in the comments field for typing. |
 | `F` | Speak/Toggle Freeze Status | Mix, Edit, Inspector on | Single press speaks whether the track is frozen. Double press freezes or unfreezes it, plays a progress sound while Pro Tools works, and speaks the new state. |
+| `Cmd+.` | Cancel | Any | Passes the key to Pro Tools, which cancels what it is doing, such as a freeze, and stops the progress sound of a freeze in progress. |
 | `V` | Speak/Reset Volume Fader | Mix, Edit, Inspector on | Single press speaks the track's volume; double press resets it to 0 dB. |
 | `Opt+V` | Speak/Reset Instrument Volume | Mix, Edit, Inspector on | Single press speaks the instrument track's MIDI volume; double press resets it. |
 | `P` | Speak/Reset Peak Meter | Mix, Edit, Inspector on | Single press speaks the track's peak hold; double press clears it. |

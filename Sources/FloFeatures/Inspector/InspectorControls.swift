@@ -21,6 +21,7 @@ enum InspectorControls {
         selectTrack,
         comments,
         freeze,
+        cancel,
         fader("inspector.speakResetVolumeFader", "Speak/Reset Volume Fader", key: "V", .volume, "Single press speaks the track's volume; double press resets it to 0 dB."),
         fader("inspector.speakResetInstrumentVolume", "Speak/Reset Instrument Volume", key: "Opt+V", .instrumentVolume, "Single press speaks the instrument track's MIDI volume; double press resets it."),
         fader("inspector.speakResetPeakMeter", "Speak/Reset Peak Meter", key: "P", .peak, "Single press speaks the track's peak hold; double press clears it."),
@@ -121,6 +122,15 @@ enum InspectorControls {
             // A new freeze replaces the wait for an earlier one, whose track no longer has the user's attention.
             await startWatch(in: run.engine) { await speakWhenFrozen(track, changedFrom: before) }
         })
+    }
+
+    /// Cancel (Cmd+.): Pro Tools' own cancel shortcut, caught so that cancelling a freeze also ends the freeze wait. A cancelled freeze leaves the button name unchanged, so the wait cannot see it end. Silent: VoiceOver does not answer while Pro Tools renders (J-299), and the progress sound stopping says it worked.
+    @MainActor
+    static var cancel: Command {
+        Command("floTools.cancel", "Cancel", summary: "Passes the key to Pro Tools, which cancels what it is doing, such as a freeze, and stops the progress sound of a freeze in progress.", scope: .anyProToolsWindow, triggers: [.key("Cmd+.")]) { run in
+            try await run.passThrough()
+            await run.engine.watches.stop(freezeCommand)
+        }
     }
 
     @MainActor

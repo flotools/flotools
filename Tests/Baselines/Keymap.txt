@@ -13,6 +13,7 @@
 A | Mix, Edit | Inspector on | inspector.speakSelectAutomationMode | single/double, no sound | "Speak/Select Automation Mode"
 B | Mix, Edit | Inspector on | inspector.speakSelectTimebase | single/double, no sound | "Speak/Select Timebase"
 C | Mix, Edit | Inspector on | inspector.speakEditComments | single/double, sound after double | "Speak/Edit Comments"
+Cmd+. | any Pro Tools window | - | floTools.cancel | run | "Cancel"
 Cmd+0 | Mix, Edit | Inspector on | inspector.assignInsertJ | run | "Assign Insert J"
 Cmd+0 | Plug-in | - | plugin.loadPluginParametersForDefaultView | run | "Load Plug-In Parameters for Default View"
 Cmd+1 | Mix, Edit | Inspector on | inspector.assignInsertA | run | "Assign Insert A"

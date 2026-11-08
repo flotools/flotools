@@ -97,6 +97,8 @@ Unsolo All Tracks is the model for multi-step changes: check the window and proc
 
 - VoiceOver communication (owner, 2026-11-07): use only the “Flo Tools started.” announcement as the startup check; remove the silent request on Pro Tools launch. A failed startup request says “Flo Tools could not communicate with VoiceOver.” rather than claiming AppleScript control is disabled. VoiceOver may speak even if its reply fails.
 
+- Freeze wait and Cancel (owner, 2026-11-07): the wait after a double press of F has no time limit and runs as a watch, so other keys work meanwhile. Flo Tools now catches Cmd+. in Pro Tools, passes it on, and ends the freeze wait, because a cancelled freeze leaves the button name unchanged and the wait could not otherwise end. A double press of F cannot cancel: VoiceOver does not answer while Pro Tools renders, so Auto Inspector cannot find the track.
+
 The port kept every shortcut's behavior except these, which the keymap baselines show.
 
 - Ctrl+Cmd+Left and Right switch track views from launch whenever the Inspector is off (`292a877`); the KM version needed one `/` first.
