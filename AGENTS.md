@@ -26,7 +26,7 @@ Flo Tools makes Pro Tools more efficient to use with the VoiceOver screen reader
 Targets, with dependencies pointing one way (`FloTools` -> `FloFeatures` -> `FloEngine` -> `FloProTools` -> `FloSystem`). plan.md section 2 lists what each owns.
 
 - `Sources/FloSystem/`: generic macOS infrastructure (Accessibility, VoiceOver, hotkeys, synthetic input, own windows, window observer, workspace events, sounds, privacy permission resets, `Log`, `FloError`). Knows nothing about Pro Tools or commands.
-- `Sources/FloProTools/`: Pro Tools knowledge (app, windows, tracks, settings, waiting for changes). `ProToolsWindowKind` classifies each window title as one kind.
+- `Sources/FloProTools/`: Pro Tools knowledge (app, windows, tracks, settings, key capture by menus and text fields, waiting for changes). `ProToolsWindowKind` classifies each window title as one kind.
 - `Sources/FloEngine/`: command model and runtime: `Command`, `Scope`/`Mode`, `CommandRun`, `Engine` (key routing, double press, serial queue), `Watches`, `SpokenError` (the one failure wording table), `Context`, `Preferences`.
 - `Sources/FloFeatures/`: the commands, one folder per feature, plus `FloFeatures.all`, `SessionState`, `SpokenList` and `Lifecycle` (replaces the KM Global group).
 - `Sources/FloTools/`: the app: status menu, permissions, preferences panel, log header, `LoginItem`, `Updater`. Only this target links Sparkle.

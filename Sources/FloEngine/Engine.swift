@@ -256,7 +256,7 @@ public final class Engine {
     public init(hotKeys: HotKeyCenter, contextMonitor: ContextMonitor) {
         self.hotKeys = hotKeys
         self.contextMonitor = contextMonitor
-        keyCapture = { context in try await contextMonitor.keyCapture(pid: context.processID) }
+        keyCapture = { context in try await contextMonitor.keyCapture.check(pid: context.processID) }
     }
 
     // MARK: Setup
