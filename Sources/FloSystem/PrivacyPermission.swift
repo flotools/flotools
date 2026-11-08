@@ -4,6 +4,8 @@ import Foundation
 public enum PrivacyPermission: String, Sendable {
     case accessibility = "Accessibility"
     case appleEvents = "AppleEvents"
+    /// Every privacy list at once.
+    case all = "All"
 
     /// Clears this app's recorded answer, so macOS asks again instead of keeping a refusal, or an entry left from an earlier signature that shows as allowed but does not work.
     /// There is no public API for this; `tccutil` resets an unsandboxed app's own entries without administrator rights (tested 2026-11-07, J-306). For `appleEvents` it clears the answers for every app Flo Tools sends Apple events to, which today is only VoiceOver.

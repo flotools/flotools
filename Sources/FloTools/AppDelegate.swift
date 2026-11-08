@@ -119,16 +119,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         if !commandItems.isEmpty { menu.addItem(.separator()) }
 
-        if Accessibility.isTrusted() {
-            menu.addItem(disabled("Accessibility access granted"))
-        } else {
-            menu.addItem(NSMenuItem(title: "Grant Accessibility Access…", action: #selector(grantAccessibility), keyEquivalent: ""))
-        }
-        if VoiceOver.automationPermission() == "granted" {
-            menu.addItem(disabled("VoiceOver control allowed"))
-        } else {
-            menu.addItem(NSMenuItem(title: "Allow Control of VoiceOver…", action: #selector(allowVoiceOverControl), keyEquivalent: ""))
-        }
+        menu.addItem(permissionsItem())
         menu.addItem(disabled("\(engine.commands.count) commands"))
         menu.addItem(NSMenuItem(title: "Preferences…", action: #selector(showPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem(title: Log.isRecording ? "Turn Off Log" : "Turn On Log", action: #selector(toggleLog), keyEquivalent: ""))
@@ -143,6 +134,26 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         menu.addItem(NSMenuItem(title: "Quit Flo Tools", action: #selector(quit), keyEquivalent: "q"))
 
         for item in menu.items where item.action != nil { item.target = self }
+    }
+
+    private func permissionsItem() -> NSMenuItem {
+        let submenu = NSMenu(title: "Permissions")
+        if Accessibility.isTrusted() {
+            submenu.addItem(disabled("Accessibility access granted"))
+        } else {
+            submenu.addItem(NSMenuItem(title: "Grant Accessibility Access…", action: #selector(grantAccessibility), keyEquivalent: ""))
+        }
+        if VoiceOver.automationPermission() == "granted" {
+            submenu.addItem(disabled("VoiceOver control allowed"))
+        } else {
+            submenu.addItem(NSMenuItem(title: "Allow Control of VoiceOver…", action: #selector(allowVoiceOverControl), keyEquivalent: ""))
+        }
+        submenu.addItem(.separator())
+        submenu.addItem(NSMenuItem(title: "Reset All Permissions…", action: #selector(resetAllPermissions), keyEquivalent: ""))
+        for item in submenu.items where item.action != nil { item.target = self }
+        let item = NSMenuItem(title: "Permissions", action: nil, keyEquivalent: "")
+        item.submenu = submenu
+        return item
     }
 
     private func disabled(_ title: String) -> NSMenuItem {
@@ -189,6 +200,32 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             try await Task.detached { try permission.resetOwnAnswer() }.value
         } catch {
             Log.error(.app, "\(error)")
+        }
+    }
+
+    /// Clears every privacy answer macOS has for Flo Tools, then relaunches it: a running process keeps its Accessibility trust until it quits (seen 2026-11-07), and the new copy asks for Accessibility at launch. The new copy quits this one (`quitOlderCopies` in main.swift).
+    @objc private func resetAllPermissions() {
+        NSApp.activate(ignoringOtherApps: true)
+        let alert = NSAlert()
+        alert.messageText = "Reset all permissions for Flo Tools?"
+        alert.informativeText = "Flo Tools will relaunch. Then turn on Accessibility access for Flo Tools in System Settings, and choose Allow Control of VoiceOver in the Permissions menu."
+        alert.addButton(withTitle: "Reset and Relaunch")
+        alert.addButton(withTitle: "Cancel")
+        guard alert.runModal() == .alertFirstButtonReturn else { return }
+        Task {
+            do {
+                try await Task.detached { try PrivacyPermission.all.resetOwnAnswer() }.value
+            } catch {
+                Log.error(.app, "\(error)")
+                await VoiceOver.sayOrLog("Could not reset the permissions.")
+                return
+            }
+            await VoiceOver.sayOrLog("Permissions reset. Relaunching Flo Tools.")
+            let configuration = NSWorkspace.OpenConfiguration()
+            configuration.createsNewApplicationInstance = true
+            NSWorkspace.shared.openApplication(at: Bundle.main.bundleURL, configuration: configuration) { _, error in
+                if let error { Log.error(.app, "could not relaunch after resetting the permissions: \(error)") }
+            }
         }
     }
 
