@@ -49,12 +49,12 @@ public enum Log {
     /// Whether entries are being written to the diagnostic log file.
     public static var isRecording: Bool { file.isRecording }
 
-    /// Starts a new log file that begins with `header`, and remembers across launches that logging is on. The file work runs on the log queue, so the caller does not block.
+    /// Opens today's log file, appending when it exists, writes `header`, and remembers across launches that logging is on. The file work runs on the log queue, so the caller does not block.
     public static func startRecording(header: String) async throws {
         try await file.start(header: header)
     }
 
-    /// If logging was on when Flo Tools last quit or crashed, continues the same file with a note that Flo Tools started again. Returns whether it did. Synchronous on purpose: it runs first thing at launch, before the entries of startup, which would otherwise be lost. Write the header with `writeHeader` once startup has set the state it shows.
+    /// If logging was on when Flo Tools last quit or crashed, opens today's file, appending when it exists, with a note that Flo Tools started again. Returns whether it did. Synchronous on purpose: it runs first thing at launch, before the entries of startup, which would otherwise be lost. Write the header with `writeHeader` once startup has set the state it shows.
     public static func resumeRecording() -> Bool {
         file.resume()
     }
@@ -101,7 +101,7 @@ public enum Log {
     }
 }
 
-/// The diagnostic log file. Writes happen on a serial background queue so callers never wait for the disk.
+/// The diagnostic log file, one per day: turning logging on, or launching with it on, opens the file named for that day and appends to it when it exists. A file opened before midnight is used until logging is next turned on or Flo Tools next starts. Writes happen on a serial background queue so callers never wait for the disk.
 ///
 /// Mutable state is owned by `queue`, except the recording flag, which callers read on every log call and is behind a lock. `UserDefaults` is thread-safe.
 final class LogFile: @unchecked Sendable {
@@ -113,17 +113,19 @@ final class LogFile: @unchecked Sendable {
         let message: String
     }
 
-    /// UserDefaults keys that keep logging on across launches.
+    /// UserDefaults keys that keep logging on across launches: the file being written, and when logging was turned on, for crash reports.
     private static let fileKey = "diagnosticLogFile"
     private static let startedKey = "diagnosticLogStarted"
 
     private let directory: URL
     private let crashReportDirectory: URL
-    /// When the file grows past `capBytes`, the oldest entries are dropped down to `keepBytes`.
+    /// When the file grows past `capBytes`, the oldest entries are dropped down to `keepBytes`. Dropped in a batch rather than one entry at a time, because each drop rewrites the whole file.
     private let capBytes: Int
     private let keepBytes: Int
     /// Remembers the open file across launches. `UserDefaults` is thread-safe.
     private let defaults: UserDefaults
+    /// The current date, which names the file. Tests pass their own.
+    private let now: @Sendable () -> Date
 
     private let recording = OSAllocatedUnfairLock(initialState: false)
     private let queue = DispatchQueue(label: "com.chikim.FloTools.log")
@@ -139,60 +141,56 @@ final class LogFile: @unchecked Sendable {
         return formatter
     }()
 
-    /// The defaults are the real locations and a cap of about 20 MB; tests pass their own.
+    /// The defaults are the real locations, the clock and a cap of 20 MB; tests pass their own.
     init(
         directory: URL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Logs/Flo Tools"),
         crashReportDirectory: URL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Logs/DiagnosticReports"),
         capBytes: Int = 20_000_000,
-        keepBytes: Int = 10_000_000,
-        defaults: UserDefaults = .standard
+        keepBytes: Int = 19_000_000,
+        defaults: UserDefaults = .standard,
+        now: @escaping @Sendable () -> Date = Date.init
     ) {
         self.directory = directory
         self.crashReportDirectory = crashReportDirectory
         self.capBytes = capBytes
         self.keepBytes = keepBytes
         self.defaults = defaults
+        self.now = now
     }
 
     var isRecording: Bool { recording.withLock { $0 } }
 
     func start(header: String) async throws {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd 'at' HH.mm.ss"
-        let url = directory.appendingPathComponent("Flo Tools \(formatter.string(from: Date())).log")
+        let url = todaysFile()
         try await withCheckedThrowingContinuation { (done: CheckedContinuation<Void, Error>) in
             queue.async {
-                done.resume(with: Result {
-                    try Self.createEmptyFile(at: url)
-                    try self.open(url, header: header)
-                })
+                done.resume(with: Result { try self.open(url, header: header) })
             }
         }
         defaults.set(url.path, forKey: Self.fileKey)
         defaults.set(Date(), forKey: Self.startedKey)
     }
 
-    /// A new empty log file, with its folder if that is missing.
-    private static func createEmptyFile(at url: URL) throws {
-        try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
-        try Data().write(to: url)
-    }
-
     func resume() -> Bool {
-        guard let path = defaults.string(forKey: Self.fileKey) else { return false }
-        let url = URL(fileURLWithPath: path)
+        guard defaults.string(forKey: Self.fileKey) != nil else { return false }
+        let url = todaysFile()
         do {
-            try queue.sync {
-                if !FileManager.default.fileExists(atPath: path) { try Self.createEmptyFile(at: url) }
-                try open(url, header: "\nFlo Tools started again while logging was on.\n")
-            }
+            try queue.sync { try open(url, header: "Flo Tools started again while logging was on.\n") }
+            defaults.set(url.path, forKey: Self.fileKey)
             return true
         } catch {
-            Log.error(.log, "could not continue the log file \(path): \(error)")
+            Log.error(.log, "could not continue logging in \(url.path): \(error)")
             defaults.removeObject(forKey: Self.fileKey)
             return false
         }
+    }
+
+    /// "Flo Tools 2026-11-07.log" in `directory`, for the current day.
+    private func todaysFile() -> URL {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        return directory.appendingPathComponent("Flo Tools \(formatter.string(from: now())).log")
     }
 
     func stop() async -> URL? {
@@ -234,11 +232,16 @@ final class LogFile: @unchecked Sendable {
 
     // MARK: On the queue
 
+    /// Opens `url` for appending, creating it and its folder when missing, and writes `header`, after a blank line when the file already has entries.
     private func open(_ url: URL, header: String) throws {
+        if !FileManager.default.fileExists(atPath: url.path) {
+            try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try Data().write(to: url)
+        }
         try openForAppending(url)
         self.url = url
         self.header = header
-        write(header + "\n")
+        write((size > 0 ? "\n" : "") + header + "\n")
         recording.withLock { $0 = true }
     }
 

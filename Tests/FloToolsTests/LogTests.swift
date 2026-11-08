@@ -13,8 +13,11 @@ import Testing
         try? FileManager.default.removeItem(at: root)
     }
 
-    func makeFile(capBytes: Int = 20_000_000, keepBytes: Int = 10_000_000) -> LogFile {
-        LogFile(directory: logs, crashReportDirectory: crashes, capBytes: capBytes, keepBytes: keepBytes, defaults: suite.defaults)
+    /// 2026-11-07 12:00 local time.
+    static let day = Calendar.current.date(from: DateComponents(year: 2026, month: 11, day: 7, hour: 12))!
+
+    func makeFile(capBytes: Int = 20_000_000, keepBytes: Int = 19_000_000, now: Date = day) -> LogFile {
+        LogFile(directory: logs, crashReportDirectory: crashes, capBytes: capBytes, keepBytes: keepBytes, defaults: suite.defaults, now: { now })
     }
 
     func entry(_ message: String, invocation: String? = "run1") -> LogFile.Entry {
@@ -40,6 +43,47 @@ import Testing
         // "2026-11-02 19:02:17.931 info engine run1 message"
         #expect(lines[1].range(of: #"^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d\.\d{3} info engine run1 S pressed -> inspector\.speakToggleSolo$"#, options: .regularExpression) != nil)
         #expect(lines[2].hasSuffix(" info engine - two\\nlines"))
+    }
+
+    @Test func namesTheFileForTheDay() async throws {
+        let file = makeFile()
+        try await file.start(header: "HEADER")
+        let url = await file.stop()
+        #expect(url?.lastPathComponent == "Flo Tools 2026-11-07.log")
+    }
+
+    @Test func turningOnAgainTheSameDayAppends() async throws {
+        let file = makeFile()
+        try await file.start(header: "FIRST")
+        file.append(entry("first entry"))
+        let first = await file.stop()
+        try await file.start(header: "SECOND")
+        file.append(entry("second entry"))
+        let second = await file.stop()
+        #expect(first == second)
+        let lines = try text(second).split(separator: "\n", omittingEmptySubsequences: false).map(String.init)
+        #expect(lines.first == "FIRST")
+        #expect(lines[1].hasSuffix("first entry"))
+        #expect(lines[2] == "", "a blank line separates the sessions")
+        #expect(lines[3] == "SECOND")
+        #expect(lines[4].hasSuffix("second entry"))
+    }
+
+    @Test func resumeOnANewDayStartsANewFile() async throws {
+        let first = makeFile()
+        try await first.start(header: "FIRST")
+        first.append(entry("yesterday"))
+        first.waitForWrites()
+        let second = makeFile(now: Self.day.addingTimeInterval(86_400))
+        #expect(second.resume())
+        second.append(entry("today"))
+        let url = await second.stop()
+        #expect(url?.lastPathComponent == "Flo Tools 2026-11-08.log")
+        let contents = try text(url)
+        #expect(contents.hasPrefix("Flo Tools started again while logging was on.\n"))
+        #expect(contents.contains("today"))
+        #expect(!contents.contains("yesterday"))
+        #expect(try text(logs.appendingPathComponent("Flo Tools 2026-11-07.log")).contains("yesterday"))
     }
 
     @Test func resumeContinuesTheSameFile() async throws {
