@@ -20,7 +20,7 @@ enum DiagnosticHeader {
             "VoiceOver automation permission: \(VoiceOver.automationPermission())",
             "Flo Tools enabled: \(engine.isEnabled ? "yes" : "no")",
             "Suspended: \(engine.suspensions.isEmpty ? "no" : engine.suspensions.map(\.reason).sorted().joined(separator: "; "))",
-            "Preferences: temporary inspector \(preferences.temporaryInspector), starts with Flo Tools inspector \(preferences.startsWithInspector), timeout \(preferences.timeout) ms, hold for double press \(preferences.holdForDoublePress), hold time \(preferences.holdTime) ms",
+            "Preferences: temporary inspector \(preferences.temporaryInspector), starts with Flo Tools inspector \(preferences.startsWithInspector), hold for double press \(preferences.holdForDoublePress), \(preferences.holdForDoublePress ? "hold time" : "timeout") \(preferences.timeout) ms",
             "Inspector: \(engine.mode.inspector ? "on" : "off")",
             "Launch on Login: \(loginItem.statusDescription)",
         ]).joined(separator: "\n") + "\n"

@@ -1,3 +1,11 @@
+/// How a key with a single and a double action asks for the double. The two exclude each other: with holding, a tap runs its single as soon as the key is let go, because no second press can follow.
+public enum DoubleActionTrigger: Equatable, Sendable {
+    /// A second press within `timeout`; a single press waits that long first.
+    case secondPress(within: Duration)
+    /// Holding the key down for the hold time; letting go sooner runs the single.
+    case hold(for: Duration)
+}
+
 /// Tells a single press of a command's key from a double press, given the time of each press. Pure, so it is tested with explicit instants; the engine owns the timer and the runs.
 ///
 /// The Keyboard Maestro version stored "command.timestamp" in a shared variable and polled it. Here the first press becomes a pending single with a generation number. A second press within the timeout turns it into a double; otherwise the engine's timer finds the single still due and runs it.

@@ -28,11 +28,10 @@ public enum FloFeatures {
         ("Preferences", PreferenceCommands.commands(openPreferences: openPreferences)),
     ] }
 
-    /// Applies what the preferences control, like the KM Refresh Preference macro: the double-press timeout, holding for a double press, Auto Inspector, and whether Toggle Temporary Inspector works. Called at launch and after the preferences panel saves.
+    /// Applies what the preferences control, like the KM Refresh Preference macro: the double-press timeout or holding for a double press, Auto Inspector, and whether Toggle Temporary Inspector works. Called at launch and after the preferences panel saves.
     @MainActor
     public static func apply(_ preferences: Preferences, to engine: Engine) {
-        engine.doublePressTimeout = .milliseconds(preferences.timeout)
-        engine.doublePressHold = preferences.holdForDoublePress ? .milliseconds(preferences.holdTime) : nil
+        engine.doubleActionTrigger = preferences.doubleActionTrigger
         InspectorMode.apply(preferences, to: engine)
     }
 

@@ -323,7 +323,7 @@ private actor Flag {
 
     func engine(_ commands: [Command]) -> Engine {
         let engine = FloFeatures.makeEngine(commands: commands)
-        engine.doublePressTimeout = .milliseconds(50)
+        engine.doubleActionTrigger = .secondPress(within: .milliseconds(50))
         return engine
     }
 
@@ -567,7 +567,7 @@ private actor Flag {
 
     func heldDoubleEngine(_ events: Events, holdForDoublePress: Bool, held: Bool) -> Engine {
         let engine = engine([doubleCommand(events)])
-        engine.doublePressHold = holdForDoublePress ? .milliseconds(80) : nil
+        if holdForDoublePress { engine.doubleActionTrigger = .hold(for: .milliseconds(80)) }
         engine.keyRepeat = { KeyRepeat(delay: .milliseconds(5), interval: .milliseconds(5)) { _ in held } }
         return engine
     }
@@ -580,30 +580,22 @@ private actor Flag {
         #expect(events.list == ["double"])
     }
 
-    @Test func releasedKeyRunsTheSingleWhenThePreferenceIsOn() async throws {
+    /// With holding on, a tap does not wait for a second press: its single runs as soon as the key is up, long before the hold time.
+    @Test func tapRunsItsSingleAtOnceWhenThePreferenceIsOn() async throws {
         let events = Events()
         let engine = heldDoubleEngine(events, holdForDoublePress: true, held: false)
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        try await settle(events, at: 1)
-        #expect(events.list == ["single"])
-    }
-
-    @Test func holdShorterThanTheTimeoutDecidesBeforeTheTimeout() async throws {
-        let events = Events()
-        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: true)
-        engine.doublePressTimeout = .milliseconds(500)
-        engine.doublePressHold = .milliseconds(20)
+        engine.doubleActionTrigger = .hold(for: .milliseconds(500))
         let start = ContinuousClock.now
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
         try await settle(events, at: 1)
-        #expect(events.list == ["double"])
+        #expect(events.list == ["single"])
         #expect(ContinuousClock.now - start < .milliseconds(400))
     }
 
     @Test func keyReleasedBeforeTheHoldTimeRunsTheSingle() async throws {
         let events = Events()
         let engine = engine([doubleCommand(events)])
-        engine.doublePressHold = .milliseconds(150)
+        engine.doubleActionTrigger = .hold(for: .milliseconds(150))
         let key = HeldKey(heldChecks: 1)
         engine.keyRepeat = { KeyRepeat(delay: .milliseconds(5), interval: .milliseconds(5)) { _ in key.isHeld() } }
         engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
@@ -619,13 +611,23 @@ private actor Flag {
         #expect(events.list == ["single"])
     }
 
-    @Test func doublePressStillWorksWhenThePreferenceIsOn() async throws {
+    /// With holding on, two quick taps are two singles: a second press no longer makes a double.
+    @Test func twoTapsRunTwoSinglesWhenThePreferenceIsOn() async throws {
+        let events = Events()
+        let engine = heldDoubleEngine(events, holdForDoublePress: true, held: false)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        try await settle(events, at: 2)
+        #expect(events.list == ["single", "single"])
+    }
+
+    /// A run from the status menu has no key to hold, so with holding on it runs its single at once.
+    @Test func appRunRunsTheSingleWhenThePreferenceIsOn() async throws {
         let events = Events()
         let engine = heldDoubleEngine(events, holdForDoublePress: true, held: true)
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
-        engine.dispatch(KeyCombo("F1")!, .pressed, in: mix)
+        engine.run("test.speak")
         try await settle(events, at: 1)
-        #expect(events.list == ["double"])
+        #expect(events.list == ["single"])
     }
 
     @Test func declinedHoldGetsNoRelease() {
@@ -887,10 +889,8 @@ private actor Flag {
     @Test func storedChoicesOutsideTheListUseTheDefaults() {
         let defaults = suite.defaults
         defaults.set(250, forKey: "doublePressTimeout")
-        defaults.set(250, forKey: "holdTime")
         let current = PreferencesStore(defaults: defaults).current
         #expect(current.timeout == Preferences().timeout)
-        #expect(current.holdTime == Preferences().holdTime)
     }
 
     @Test func savedPreferencesAreReadBack() {
@@ -900,7 +900,6 @@ private actor Flag {
         preferences.startsWithInspector = true
         preferences.timeout = 400
         preferences.holdForDoublePress = true
-        preferences.holdTime = 300
         PreferencesStore(defaults: defaults).save(preferences)
         #expect(PreferencesStore(defaults: defaults).current == preferences)
     }
@@ -938,7 +937,7 @@ private actor Flag {
         #expect(PreferencesStore(defaults: suite.defaults).current.timeout == timeout)
         let engine = FloFeatures.makeEngine()
         FloFeatures.apply(preferences, to: engine)
-        #expect(engine.doublePressTimeout == .milliseconds(timeout))
+        #expect(engine.doubleActionTrigger == .secondPress(within: .milliseconds(timeout)))
     }
 
     @Test func timeoutChoiceBounds() {
@@ -946,12 +945,14 @@ private actor Flag {
         #expect(Preferences().timeout == 200)
     }
 
-    @Test func applySetsDoublePressTimeout() {
+    /// The one time setting is the double-press timeout, or the hold time when holding is on.
+    @Test(arguments: [false, true]) func applySetsTheDoubleActionTrigger(_ hold: Bool) {
         let engine = FloFeatures.makeEngine()
         var preferences = Preferences()
         preferences.timeout = 500
+        preferences.holdForDoublePress = hold
         FloFeatures.apply(preferences, to: engine)
-        #expect(engine.doublePressTimeout == .milliseconds(500))
+        #expect(engine.doubleActionTrigger == (hold ? .hold(for: .milliseconds(500)) : .secondPress(within: .milliseconds(500))))
     }
 }
 

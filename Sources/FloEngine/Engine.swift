@@ -36,11 +36,11 @@ public final class Engine {
     /// Called after each change of the front app or window, once the engine has updated its hotkeys.
     public var onContextChange: ((FrontContext) -> Void)?
 
-    /// The double-press window, from the "timeout" preference. Changing it voids pending single presses. It starts at the preference default until the app applies the preferences.
-    public var doublePressTimeout: Duration {
-        get { doublePress.timeout }
-        set {
-            doublePress.timeout = newValue
+    /// How a key with a single and a double action chooses between them, from the preferences. Changing it voids pending single presses. It starts at the preference default until the app applies the preferences.
+    public var doubleActionTrigger = Preferences().doubleActionTrigger {
+        didSet {
+            guard oldValue != doubleActionTrigger else { return }
+            if case .secondPress(let timeout) = doubleActionTrigger { doublePress.timeout = timeout }
             voidPendingInput()
         }
     }
@@ -50,13 +50,6 @@ public final class Engine {
 
     /// App state that decides which keys apply, such as whether the Inspector is on. Starts with the Inspector off.
     public private(set) var mode = Mode()
-
-    /// How long a key must be held to run its double action, from the "hold for double press" preferences; nil when that is off.
-    public var doublePressHold: Duration? {
-        didSet {
-            if oldValue != doublePressHold { voidPendingInput() }
-        }
-    }
 
     /// Read at each press of a repeating command, so a change in System Settings applies at once, and for whether a key is still held. Tests set their own.
     var keyRepeat: @MainActor () -> KeyRepeat = { .system }
@@ -493,11 +486,9 @@ public final class Engine {
         _ = start(command, origin: .event(event), context: context, reason: event, invocation: newInvocation(at: .now, .immediate))
     }
 
-    /// Starts the run, waiting first for a double press where the command has one. Returns the invocation ID.
+    /// Starts the run, waiting first to tell a single from a double where the command has both. Returns the invocation ID.
     private func start(_ command: Command, origin: CommandRun.Origin, context: FrontContext, reason: String, invocation: Invocation) -> String {
-        let arrival = invocation.arrival
         let press = invocation.press
-        let admitted = invocation.generation != nil
         // Tasks created in this scope inherit the invocation ID, so delayed single presses carry it too.
         Log.$invocation.withValue(invocation.id) {
             Log.info(.engine, "\(reason) -> \(command.id) \"\(command.name)\"")
@@ -533,43 +524,63 @@ public final class Engine {
                     repeats.cancel()
                 }, invocation.id)
             case .singleOrDouble(let single, let double, let doneSound):
-                // A single whose timeout passed before this press arrived, but which has not run yet, as when admission held it back, runs now and first, rather than being lost to this press.
-                if let previous = pendingSingles[command.id], arrival - previous.invocation.arrival >= doublePress.timeout {
-                    flushSingle(command.id)
-                }
-                switch doublePress.press(command.id, at: arrival) {
-                case .double:
-                    pendingSingles.removeValue(forKey: command.id)?.task.cancel()
-                    Log.info(.engine, "double press")
-                    enqueue(run, Self.withDoneSound(double, doneSound))
-                case .single(let generation):
-                    let timeoutEnds = arrival + doublePress.timeout
-                    let holdEnds = doublePressHold.map { arrival + $0 }
-                    let task = Task { @MainActor [weak self] in
-                        // A hold decides as soon as the hold time passes, also before the timeout. A release before then leaves the single, which still waits for the timeout so a second press can make a double.
-                        if let holdEnds, case .hotKey(let combo, .pressed) = origin, await self?.staysDown(combo, press: press, until: holdEnds) == true {
-                            // An admitted press waits for the presses admitted before it, which may still make this a double.
-                            if admitted { await self?.waitForAdmissions() }
-                            if press?.released != true, let self, !Task.isCancelled,
-                                self.doublePress.singleIsDue(command.id, generation: generation) {
-                                self.pendingSingles[command.id] = nil
-                                Log.info(.engine, "held for double press")
-                                self.enqueue(run, Self.withDoneSound(double, doneSound))
-                                return
-                            }
-                        }
-                        try? await Task.sleep(until: timeoutEnds)
-                        if admitted { await self?.waitForAdmissions() }
-                        guard let self, !Task.isCancelled, self.doublePress.singleIsDue(command.id, generation: generation) else { return }
-                        self.pendingSingles[command.id] = nil
-                        Log.info(.engine, "single press")
-                        self.enqueue(run, single)
-                    }
-                    pendingSingles[command.id] = PendingSingle(task: task, run: run, body: single, invocation: invocation)
+                let double = Self.withDoneSound(double, doneSound)
+                switch doubleActionTrigger {
+                case .secondPress(let timeout): startSingleOrDouble(run, single: single, double: double, invocation: invocation, timeout: timeout)
+                case .hold(let holdTime): startTapOrHold(run, single: single, double: double, invocation: invocation, holdTime: holdTime)
                 }
             }
         }
         return invocation.id
+    }
+
+    /// With the second-press trigger: runs the double when a second press comes within the timeout, or the single once the timeout passes without one.
+    private func startSingleOrDouble(_ run: CommandRun, single: @escaping CommandBody, double: @escaping CommandBody, invocation: Invocation, timeout: Duration) {
+        let id = run.command.id
+        // A single whose timeout passed before this press arrived, but which has not run yet, as when admission held it back, runs now and first, rather than being lost to this press.
+        if let previous = pendingSingles[id], invocation.arrival - previous.invocation.arrival >= timeout {
+            flushSingle(id)
+        }
+        switch doublePress.press(id, at: invocation.arrival) {
+        case .double:
+            pendingSingles.removeValue(forKey: id)?.task.cancel()
+            Log.info(.engine, "double press")
+            enqueue(run, double)
+        case .single(let generation):
+            let timeoutEnds = invocation.arrival + timeout
+            let admitted = invocation.generation != nil
+            let task = Task { @MainActor [weak self] in
+                try? await Task.sleep(until: timeoutEnds)
+                // An admitted press waits for the presses admitted after it, which may still make this a double.
+                if admitted { await self?.waitForAdmissions() }
+                guard let self, !Task.isCancelled, self.doublePress.singleIsDue(id, generation: generation) else { return }
+                self.pendingSingles[id] = nil
+                Log.info(.engine, "single press")
+                self.enqueue(run, single)
+            }
+            pendingSingles[id] = PendingSingle(task: task, run: run, body: single, invocation: invocation)
+        }
+    }
+
+    /// With the hold trigger: runs the double once the key has stayed down for the hold time, or the single as soon as it is let go. A run not started by a key press runs its single at once.
+    private func startTapOrHold(_ run: CommandRun, single: @escaping CommandBody, double: @escaping CommandBody, invocation: Invocation, holdTime: Duration) {
+        let id = run.command.id
+        // A tap still waiting when its key goes down again was let go, so its single runs first.
+        flushSingle(id)
+        guard case .hotKey(let combo, .pressed) = run.origin else {
+            Log.info(.engine, "single press")
+            enqueue(run, single)
+            return
+        }
+        let holdEnds = invocation.arrival + holdTime
+        let task = Task { @MainActor [weak self] in
+            let held = await self?.staysDown(combo, press: invocation.press, until: holdEnds) == true
+            guard let self, !Task.isCancelled else { return }
+            self.pendingSingles[id] = nil
+            Log.info(.engine, held ? "held for double press" : "single press")
+            self.enqueue(run, held ? double : single)
+        }
+        pendingSingles[id] = PendingSingle(task: task, run: run, body: single, invocation: invocation)
     }
 
     /// Whether `combo` stays down until `deadline`, for holding a key for a double press. Checks every 20 ms, so a release and a new press in between count as released; false when cancelled.

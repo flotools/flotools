@@ -150,7 +150,7 @@ import Testing
         case "preference": engine.autoInspector = false
         case "disable": engine.isEnabled = false
         case "suspend": engine.suspend(Suspension("test"))
-        case "timeout": engine.doublePressTimeout = .milliseconds(100)
+        case "timeout": engine.doubleActionTrigger = .secondPress(within: .milliseconds(100))
         default: engine.cancelAll()
         }
         probe.resolve(a)
@@ -245,7 +245,7 @@ import Testing
     @Test(arguments: [true, false]) func releaseDuringProbeAllowsTapOnly(_ repeating: Bool) async {
         let probe = Probe()
         let engine = engine(probe, double: !repeating, repeating: repeating)
-        engine.doublePressHold = .zero
+        engine.doubleActionTrigger = .hold(for: .zero)
         engine.dispatch(key, .pressed, in: mix)
         await probe.waitForRequest()
         engine.dispatch(key, .released, in: mix)

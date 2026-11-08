@@ -19,7 +19,8 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
     private let startsWithInspector = NSButton(checkboxWithTitle: "Turn on the Flo Tools inspector when Pro Tools starts", target: nil, action: nil)
     private let timeout = NSPopUpButton()
     private let holdForDoublePress = NSButton(checkboxWithTitle: "Hold a key for a double press", target: nil, action: nil)
-    private let holdTime = NSPopUpButton()
+    /// Named by `timeoutLabel`, which says what the time means for the checkbox's current state.
+    private let timeoutLabel = NSTextField(labelWithString: "")
 
     init(store: PreferencesStore, loginItem: LoginItem, onSave: @escaping (Preferences) -> Void) {
         self.store = store
@@ -28,7 +29,7 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
     }
 
     func show() {
-        // Make the window first: it adds the timeout and hold time choices, and selecting one before they exist selects nothing, so OK would save the first choice.
+        // Make the window first: it adds the timeout choices, and selecting one before they exist selects nothing, so OK would save the first choice.
         _ = window
         let preferences = store.current
         launchOnLogin.state = loginItem.isEnabled ? .on : .off
@@ -37,7 +38,7 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
         startsWithInspector.state = preferences.startsWithInspector ? .on : .off
         timeout.selectItem(withTag: preferences.timeout)
         holdForDoublePress.state = preferences.holdForDoublePress ? .on : .off
-        holdTime.selectItem(withTag: preferences.holdTime)
+        updateTimeoutLabel()
         if holdsFocus {
             BorrowedFocus.bringToFront()
         } else {
@@ -56,10 +57,14 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
         preferences.startsWithInspector = startsWithInspector.state == .on
         preferences.timeout = timeout.selectedTag()
         preferences.holdForDoublePress = holdForDoublePress.state == .on
-        preferences.holdTime = holdTime.selectedTag()
         store.save(preferences)
         onSave(preferences)
         window.close()
+    }
+
+    /// One time serves both ways of asking for a double action, so its label follows the checkbox.
+    @objc private func updateTimeoutLabel() {
+        timeoutLabel.stringValue = holdForDoublePress.state == .on ? "Hold time:" : "Double-press timeout:"
     }
 
     @objc private func cancel() {
@@ -77,24 +82,16 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
             timeout.addItem(withTitle: "\(choice) ms")
             timeout.lastItem?.tag = choice
         }
-        let timeoutLabel = NSTextField(labelWithString: "Double-press timeout:")
         timeout.setAccessibilityTitleUIElement(timeoutLabel)
-        for choice in Preferences.holdTimeChoices {
-            holdTime.addItem(withTitle: "\(choice) ms")
-            holdTime.lastItem?.tag = choice
-        }
-        let holdTimeLabel = NSTextField(labelWithString: "Hold time:")
-        holdTime.setAccessibilityTitleUIElement(holdTimeLabel)
-
-
+        holdForDoublePress.target = self
+        holdForDoublePress.action = #selector(updateTimeoutLabel)
         return NSWindow.floating(title: "Flo Tools Preferences", views: [
             launchOnLogin,
             autoInspector,
             temporaryInspector,
             startsWithInspector,
-            NSStackView(views: [timeoutLabel, timeout]),
             holdForDoublePress,
-            NSStackView(views: [holdTimeLabel, holdTime]),
+            NSStackView(views: [timeoutLabel, timeout]),
             NSStackView.confirmationButtons(okTitle: "OK", target: self, confirm: #selector(ok), cancel: #selector(cancel)),
         ], alignment: .leading, delegate: self)
     }

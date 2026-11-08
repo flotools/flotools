@@ -9,16 +9,18 @@ public struct Preferences: Equatable, Sendable {
     public var autoInspector = false
     /// Whether the Inspector is on when Flo Tools or Pro Tools starts.
     public var startsWithInspector = false
-    /// Double-press timeout in milliseconds, one of `timeoutChoices`.
+    /// In milliseconds, one of `timeoutChoices`: the double-press timeout, or with `holdForDoublePress` the hold time.
     public var timeout = 200
-    /// Whether holding a key for `holdTime` does what a double press does. Double presses still work. Off by default, because someone who presses keys slowly could switch solo, mute or record arm by accident.
+    /// Whether holding a key for `timeout` runs its double action instead of a second press. Double presses then do not work, and a tap acts as soon as the key is let go. Off by default, because someone who presses keys slowly could switch solo, mute or record arm by accident.
     public var holdForDoublePress = false
-    /// How long a key must be held for a double press, in milliseconds, one of `holdTimeChoices`.
-    public var holdTime = 500
 
-    /// A shorter timeout makes a single press act sooner but leaves less time for the second press of a double.
+    /// A shorter time makes a single press act sooner, or a hold shorter, but leaves less time for the second press of a double, or for letting go of a tap.
     public static let timeoutChoices = [100, 200, 300, 400, 500]
-    public static let holdTimeChoices = [100, 200, 300, 400, 500]
+
+    /// What these preferences make the double action of a key.
+    public var doubleActionTrigger: DoubleActionTrigger {
+        holdForDoublePress ? .hold(for: .milliseconds(timeout)) : .secondPress(within: .milliseconds(timeout))
+    }
 
     public init() {}
 }
@@ -34,9 +36,9 @@ public final class PreferencesStore {
         static let temporaryInspector = "temporaryInspector"
         static let autoInspector = "autoInspector"
         static let startsWithInspector = "startsWithInspector"
+        /// Also the hold time with `holdForDoublePress`; the key keeps its older name so the saved value stays.
         static let timeout = "doublePressTimeout"
         static let holdForDoublePress = "holdForDoublePress"
-        static let holdTime = "holdTime"
         static let floToolsEnabled = "floToolsEnabled"
         static let plugInViewsInstalled = "plugInViewsInstalled"
         static let installsUpdatesAutomatically = "installsUpdatesAutomatically"
@@ -56,7 +58,6 @@ public final class PreferencesStore {
         defaults.set(preferences.startsWithInspector, forKey: Key.startsWithInspector)
         defaults.set(preferences.timeout, forKey: Key.timeout)
         defaults.set(preferences.holdForDoublePress, forKey: Key.holdForDoublePress)
-        defaults.set(preferences.holdTime, forKey: Key.holdTime)
         current = preferences
         Log.info(.preferences, "saved \(preferences)")
     }
@@ -100,7 +101,7 @@ public final class PreferencesStore {
         set { defaults.set(newValue, forKey: Key.launchOnLoginOffered) }
     }
 
-    /// Missing values are defaults. A timeout or hold time outside its choices, which only `defaults write` can set, is logged and replaced by the default, so double presses stay usable.
+    /// Missing values are defaults. A timeout outside its choices, which only `defaults write` can set, is logged and replaced by the default, so double presses stay usable.
     private static func read(_ defaults: UserDefaults) -> Preferences {
         var preferences = Preferences()
         preferences.temporaryInspector = defaults.bool(forKey: Key.temporaryInspector)
@@ -108,7 +109,6 @@ public final class PreferencesStore {
         preferences.startsWithInspector = defaults.bool(forKey: Key.startsWithInspector)
         preferences.holdForDoublePress = defaults.bool(forKey: Key.holdForDoublePress)
         preferences.timeout = choice(Key.timeout, in: Preferences.timeoutChoices, default: preferences.timeout, defaults)
-        preferences.holdTime = choice(Key.holdTime, in: Preferences.holdTimeChoices, default: preferences.holdTime, defaults)
         return preferences
     }
 
