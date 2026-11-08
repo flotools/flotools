@@ -17,8 +17,11 @@ public struct MixWindow {
     }
 
     /// The tracks that take part in `flag` and have it (`on`) or not, in window order. A failed read throws, so a busy Pro Tools is never reported as "no tracks soloed".
+    ///
+    /// Strips of one kind are laid out alike, so where one strip had the button is tried first in the next. With 220 tracks that halved the time to read every Solo button (239 to 112 ms, measured 2026-11-08). Layouts differ by kind and strip width, so the guess is always checked.
     public func tracks(_ flag: TrackFlag, on: Bool) throws -> [TrackStrip] {
-        try trackStrips().filter { try $0.has(flag) == on }
+        var buttonPosition: Int?
+        return try trackStrips().filter { try $0.has(flag, buttonPosition: &buttonPosition) == on }
     }
 
     /// The strip of the shown track named `name`, or nil when it is gone or hidden.
@@ -106,14 +109,25 @@ public struct TrackStrip {
 
     /// The button for `toggle`, or nil when the track has none. The input monitoring button is named for its state, for example "Input monitoring disabled" or, on an instrument track, "Input monitoring is enabled, but delay compensation is disabled. ..." (seen 2026-11-02); the JXA also handled a button named "TrackInput Monitor" that shows its state as its value.
     private func findButton(_ toggle: Toggle) throws -> AXElement? {
+        var noGuess: Int?
+        return try findButton(toggle, position: &noGuess)
+    }
+
+    /// `findButton(_:)` that tries the child at `position` first and sets it to where the button was, for scans of many strips. Only buttons found by their exact name use it.
+    private func findButton(_ toggle: Toggle, position: inout Int?) throws -> AXElement? {
+        let name: String
         switch toggle {
-        case .solo: try element.button("Solo")
-        case .mute: try element.button("Mute")
-        case .recordEnable: try element.button("Track Record Enable")
-        case .inputMonitor: try element.buttons.first { try $0.name?.contains(Self.inputMonitoringName) == true } ?? element.button("TrackInput Monitor")
+        case .solo: name = "Solo"
+        case .mute: name = "Mute"
+        case .recordEnable: name = "Track Record Enable"
+        case .inputMonitor:
+            return try element.buttons.first { try $0.name?.contains(Self.inputMonitoringName) == true } ?? element.button("TrackInput Monitor")
         case .instrumentMute:
-            try instrumentSection().button("MIDI Mute")
+            return try instrumentSection().button("MIDI Mute")
         }
+        guard let found = try element.child(role: "AXButton", name: name, tryingFirst: position) else { return nil }
+        position = found.index
+        return found.element
     }
 
     /// Presses the toggle's button and returns its state once Pro Tools shows the change. A track that cannot change, such as one without an input to arm, shows a dialog and keeps its state, which is returned after the bounded wait. The button is found once and then reread, as the bypass toggle does.
@@ -146,9 +160,9 @@ public struct TrackStrip {
         return try button.value ?? ""
     }
 
-    /// Whether the track has `flag` now, by `TrackFlag.state(of:track:buttonState:)`; nil when it does not take part, including when it lacks the button.
-    public func has(_ flag: TrackFlag) throws -> Bool? {
-        guard let button = try findButton(flag.toggle) else { return nil }
+    /// Whether the track has `flag` now, by `TrackFlag.state(of:track:buttonState:)`; nil when it does not take part, including when it lacks the button. `buttonPosition` is the button's position guess, as in `findButton(_:position:)`.
+    func has(_ flag: TrackFlag, buttonPosition: inout Int?) throws -> Bool? {
+        guard let button = try findButton(flag.toggle, position: &buttonPosition) else { return nil }
         return TrackFlag.state(of: flag, track: kind, buttonState: try Self.state(of: flag.toggle, button: button))
     }
 

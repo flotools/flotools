@@ -53,26 +53,37 @@ public struct TrackList {
 
     /// All rows in list order. A row without its two buttons, which a collapsed Track List may have, is an error, so a partial list is never spoken as the whole.
     public func rows() throws -> [Row] {
-        try element.rows.map { row in
-            let cells = try row.children
-            // The selection button first: its lookup checks that the row has both cells.
-            let select = try Self.selectionButton(in: cells)
-            guard let show = try cells[0].buttons.first else { throw FloError.notFound(Self.rowButtons) }
-            let selection = Self.selection(selectButtonName: try select.name ?? "")
-            return Row(name: selection.name,
-                       isSelected: selection.isSelected,
-                       isShown: try show.name?.hasPrefix("Shown") == true,
-                       showButton: show, selectButton: select)
-        }
+        try element.rows.map(Self.row)
+    }
+
+    /// The rows that have `property` (`on`) or not, in list order. Selected rows come from the table's own selection, which is one read rather than reads of every row (220 tracks: 0.8 ms instead of 70 ms). It matched the selection buttons live on 2026-11-08, with gaps in the selection and a hidden selected track. A row listed as selected whose button does not say so is left out.
+    public func rows(_ property: Property, on: Bool) throws -> [Row] {
+        guard property == .selected, on else { return try rows().filter { $0.has(property) == on } }
+        return try selectedRowElements().map(Self.row).filter(\.isSelected)
     }
 
     /// The names of the selected tracks in list order, read from the selection buttons alone, for polls that need neither the show buttons nor the elements. The rows and buttons are found again on each call, because a playlist switch may replace them. A row without its selection button is an error, as in `rows()`.
     public func selectedNames() throws -> [String] {
-        try element.rows.compactMap { row in
-            let cells = try row.children
-            let selection = Self.selection(selectButtonName: try Self.selectionButton(in: cells).name ?? "")
+        try selectedRowElements().compactMap { row in
+            let selection = Self.selection(selectButtonName: try Self.selectionButton(in: row.children).name ?? "")
             return selection.isSelected ? selection.name : nil
         }
+    }
+
+    private func selectedRowElements() throws -> [AXElement] {
+        try element.elements("AXSelectedRows")
+    }
+
+    private static func row(_ row: AXElement) throws -> Row {
+        let cells = try row.children
+        // The selection button first: its lookup checks that the row has both cells.
+        let select = try selectionButton(in: cells)
+        guard let show = try cells[0].buttons.first else { throw FloError.notFound(rowButtons) }
+        let selection = selection(selectButtonName: try select.name ?? "")
+        return Row(name: selection.name,
+                   isSelected: selection.isSelected,
+                   isShown: try show.name?.hasPrefix("Shown") == true,
+                   showButton: show, selectButton: select)
     }
 
     /// The selection button of a row with `cells`, the row's children: the first button of the second cell.

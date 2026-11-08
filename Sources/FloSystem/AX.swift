@@ -172,7 +172,15 @@ public struct AXElement {
     ///
     /// The name is read first and the role only for a match: in a window of track strips almost every child is a group, so role first would read nearly every child twice (Audio 200 of 220: 19 ms role first, 13 ms name first, measured 2026-11-08).
     public func child(role: String, name: String) throws -> AXElement? {
-        try children.first { try $0.name == name && $0.role == role }
+        try child(role: role, name: name, tryingFirst: nil)?.element
+    }
+
+    /// `child(role:name:)` that checks the child at `index` first, for scans of many containers laid out alike, such as the Solo button of every track strip: a right guess costs two reads instead of one per child before it. Returns the child's index, to guess with in the next container. If two children match, a right guess may return a later one than the search would.
+    public func child(role: String, name: String, tryingFirst index: Int?) throws -> (element: AXElement, index: Int)? {
+        let children = try self.children
+        func matches(_ child: AXElement) throws -> Bool { try child.name == name && child.role == role }
+        if let index, children.indices.contains(index), try matches(children[index]) { return (children[index], index) }
+        return try children.firstIndex(where: matches).map { (children[$0], $0) }
     }
 
     public var groups: [AXElement] { get throws { try children(role: "AXGroup") } }

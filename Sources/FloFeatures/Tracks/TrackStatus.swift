@@ -187,11 +187,11 @@ enum TrackStatus {
         let mix = try ProToolsApp.running().mixWindow()
         try mix.expandTrackList()
         let list = try mix.trackList()
-        for row in try list.rows() where row.isSelected {
+        for row in try list.rows(.selected, on: true) {
             try Task.checkCancellation()
             try row.toggle(.selected)
         }
-        let stillSelected = try await ProToolsUpdate.reading(changedFrom: true) { try list.rows().contains(where: \.isSelected) }
+        let stillSelected = try await ProToolsUpdate.reading(changedFrom: true) { try !list.selectedNames().isEmpty }
         // The JXA said "Please expand track list table." here, but the list was just expanded, so the cause is unknown.
         guard !stillSelected else { throw FloError.couldNot("deselect all tracks") }
         try await VoiceOver.say("Deselected All Tracks.")

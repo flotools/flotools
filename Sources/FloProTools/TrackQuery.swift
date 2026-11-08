@@ -13,7 +13,7 @@ extension MixWindow {
     public func names(_ query: TrackQuery) throws -> [String] {
         switch query {
         case .strips(let flag, let on): try tracks(flag, on: on).map(\.name)
-        case .trackList(let property, let on): try trackList().rows().filter { $0.has(property) == on }.map(\.name)
+        case .trackList(let property, let on): try trackList().rows(property, on: on).map(\.name)
         }
     }
 
@@ -28,10 +28,10 @@ extension MixWindow {
                 if try await !track.set(flag, to: !on) { unchanged.append(name) }
             }
         case .trackList(let property, let on):
-            let rows = try trackList().rows()
+            let rows = try trackList().rows(property, on: on)
             for name in names {
                 try Task.checkCancellation()
-                guard let row = rows.first(where: { $0.name == name }), row.has(property) == on else { continue }
+                guard let row = rows.first(where: { $0.name == name }) else { continue }
                 try row.toggle(property)
             }
         }
