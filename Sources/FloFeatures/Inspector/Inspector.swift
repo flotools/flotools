@@ -96,12 +96,12 @@ enum Inspector {
     /// What a tap says. Absent names and values are empty, as in the JXA; failed reads throw.
     @AccessibilityActor
     static func slotText(_ kind: TrackStrip.SlotKind, _ slot: Int, in track: TrackStrip) throws -> String {
-        slotMessage(try track.slotReading(kind, slot: slot))
+        slotMessage(kind, try track.slotReading(kind, slot: slot))
     }
 
-    /// Same text as the JXA version, for example " B. : unassigned" or " A. inactive: SSL Native Channelstrip v6".
-    static func slotMessage(_ reading: TrackStrip.SlotReading) -> String {
-        reading.letter + ". " + reading.state + ": " + reading.assignment
+    /// Name the slot kind before reading its state and assignment.
+    static func slotMessage(_ kind: TrackStrip.SlotKind, _ reading: TrackStrip.SlotReading) -> String {
+        kind.rawValue + reading.letter + ". " + reading.state + ": " + reading.assignment
     }
 
     // MARK: Pan
