@@ -24,6 +24,10 @@ enum TrackStatus {
         }, hold: { _ in
             try await deselectAll()
         }),
+        Command("floTools.speakShownFrozenTracks", "Speak Shown Frozen Tracks", summary: "Speaks the names of shown frozen tracks.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+F")]) { _ in
+            let names = try await ProToolsApp.running().shownFrozenTrackNames()
+            try await VoiceOver.say(message(names: names, Wording(none: "No shown tracks are frozen.", heading: "Frozen:")))
+        },
         visibilityCommand("floTools.speakHiddenTracksShowTrackListPopUpMenu", "Speak Hidden Tracks, Show Track List Pop-up Menu", which: "hidden", key: "Opt+Shift+H", shown: false, Wording(none: NoTracks.hidden, heading: "Hidden:")),
         visibilityCommand("floTools.speakShownTracksShowTrackListPopUpMenu", "Speak Shown Tracks, Show Track List Pop-up Menu", which: "shown", key: "Opt+Shift+W", shown: true, Wording(none: NoTracks.shown, heading: "Shown:")),
     ] }

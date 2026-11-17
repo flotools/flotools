@@ -102,6 +102,8 @@ Unsolo All Tracks is the model for multi-step changes: check the window and proc
 
 - Freeze wait and Cancel (owner, 2026-11-07): the wait after a hold of F has no time limit and runs as a watch, so other keys work meanwhile. Flo Tools now catches Cmd+. in Pro Tools, passes it on, and ends the freeze wait, because a cancelled freeze leaves the button name unchanged and the wait could not otherwise end. Holding F again cannot cancel: VoiceOver does not answer while Pro Tools renders, so the press cannot find the track.
 
+- Speak Shown Frozen Tracks (Option+Shift+F) uses the Track List to identify shown tracks and the Edit track freeze buttons to read their state. A missing freeze control on a track that can freeze surfaces as a read failure. The command only reads the session.
+
 The port kept every shortcut's behavior except these, which the keymap baselines show.
 
 - Ctrl+Cmd+Left and Right switch track views whenever the VoiceOver cursor is not on a track name, and pan when it is; the KM version needed one `/` before they switched track views.

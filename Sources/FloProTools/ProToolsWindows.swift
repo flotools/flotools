@@ -37,6 +37,32 @@ extension ProToolsApp {
         return try element.requiredFrame(of: "the table")
     }
 
+    /// Use the Track List to distinguish hidden tracks from shown tracks whose Edit controls cannot be read.
+    @AccessibilityActor
+    public func shownFrozenTrackNames() throws -> [String] {
+        let edit = try trackWindow(.edit)
+        let shown = try TrackList(TrackList.table(in: edit)).rows(.shown, on: true)
+        var strips: [String: TrackStrip] = [:]
+        for group in try edit.groups {
+            guard let name = try group.name else { continue }
+            strips[name] = TrackStrip(name: name, element: group)
+        }
+        return try shown.compactMap { row in
+            switch TrackKind(trackName: row.name) {
+            case .audio, .aux, .instrument: break
+            case .folder where row.name.trimmingCharacters(in: .whitespaces).hasSuffix(" - Routing Folder Track"): break
+            default: return nil
+            }
+
+            let strip = try strips[row.name].required("the track \(row.name) in the Edit window")
+            switch try strip.control(.freeze).name?.lowercased() {
+            case "frozen": return row.name
+            case "not frozen": return nil
+            default: throw FloError.unexpectedValue("the freeze status of \(row.name)")
+            }
+        }
+    }
+
     /// The names of the clips selected in the Edit window's clip list, quoted as Pro Tools shows them, for example "\"Kick_01\"".
     @AccessibilityActor
     public func selectedClipNames() throws -> [String] {
