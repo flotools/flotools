@@ -291,6 +291,16 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+Cmd+2` | Select Clips Keyboard Focus | Any | Passes the key to Pro Tools, which gives the keyboard focus to the clip list, and says so. It speaks only with the Edit window in front. |
 | `Opt+Cmd+3` | Select Groups Keyboard Focus | Any | Passes the key to Pro Tools, which gives the keyboard focus to the group list, and says so. It speaks only with the Edit window in front. |
 
+## Dashboard announcements
+
+| Keys | Command | Windows | What it does |
+| --- | --- | --- | --- |
+| `Cmd+R` | Announce Dashboard Sample Rate | Preferences, I/O Setup and other tabbed windows, other | Passes the key to Pro Tools and speaks the resulting sample rate in the New Session Dashboard. |
+| `Cmd+B` | Announce Dashboard Bit Depth | Preferences, I/O Setup and other tabbed windows, other | Passes the key to Pro Tools and speaks the resulting bit depth in the New Session Dashboard. |
+| `Cmd+F` | Announce Dashboard File Type | Preferences, I/O Setup and other tabbed windows, other | Passes the key to Pro Tools and speaks the resulting file type in the New Session Dashboard. |
+| `Cmd+I` | Announce Dashboard I/O Settings | Preferences, I/O Setup and other tabbed windows, other | Passes the key to Pro Tools and speaks the resulting i/o settings in the New Session Dashboard. |
+| `Cmd+G` | Announce Dashboard Interleaved | Preferences, I/O Setup and other tabbed windows, other | Passes the key to Pro Tools and speaks the resulting interleaved in the New Session Dashboard. |
+
 ## MIDI events
 
 | Keys | Command | Windows | What it does |
