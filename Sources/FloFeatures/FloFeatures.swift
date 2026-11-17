@@ -22,6 +22,7 @@ public enum FloFeatures {
         ("Plug-in windows", PlugIns.commands(session.plugInView)),
         ("AudioSuite", AudioSuite.commands),
         ("Key announcements", KeyAnnouncements.commands),
+        ("Dashboard announcements", DashboardAnnouncements.commands),
         ("MIDI events", MidiEvents.commands(session.eventColumn)),
         ("Windows", WindowTools.commands),
         ("Clip drag", ClipDrag.commands(session.clipMark)),
