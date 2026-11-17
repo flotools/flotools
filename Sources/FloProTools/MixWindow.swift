@@ -165,6 +165,27 @@ public struct TrackStrip {
         return TrackFlag.state(of: flag, track: kind, buttonState: try Self.state(of: flag.toggle, button: button))
     }
 
+    public func isFrozen() throws -> Bool {
+        try isFrozen(control(.freeze))
+    }
+
+    /// Recheck before pressing so a track that has already thawed stays unfrozen.
+    public func unfreeze() async throws -> Bool {
+        let button = try control(.freeze)
+        guard try isFrozen(button) else { return true }
+        try Task.checkCancellation()
+        try button.press()
+        return try await !ProToolsUpdate.reading(changedFrom: true) { try isFrozen(button) }
+    }
+
+    private func isFrozen(_ button: AXElement) throws -> Bool {
+        switch try button.name?.lowercased() {
+        case "frozen": true
+        case "not frozen": false
+        default: throw FloError.unexpectedValue("the freeze status of \(name)")
+        }
+    }
+
     // MARK: Inserts and sends
 
     /// The two kinds of slot rows in a strip. The raw value is the word Pro Tools uses in group and button names, for example "Inserts A-E" and "Send selector B".

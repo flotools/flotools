@@ -24,10 +24,7 @@ enum TrackStatus {
         }, hold: { _ in
             try await deselectAll()
         }),
-        Command("floTools.speakShownFrozenTracks", "Speak Shown Frozen Tracks", summary: "Speaks the names of shown frozen tracks.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+F")]) { _ in
-            let names = try await ProToolsApp.running().shownFrozenTrackNames()
-            try await VoiceOver.say(message(names: names, Wording(none: "No shown tracks are frozen.", heading: "Frozen:")))
-        },
+        frozenTracks,
         visibilityCommand("floTools.speakHiddenTracksShowTrackListPopUpMenu", "Speak Hidden Tracks, Show Track List Pop-up Menu", which: "hidden", key: "Opt+Shift+H", shown: false, Wording(none: NoTracks.hidden, heading: "Hidden:")),
         visibilityCommand("floTools.speakShownTracksShowTrackListPopUpMenu", "Speak Shown Tracks, Show Track List Pop-up Menu", which: "shown", key: "Opt+Shift+W", shown: true, Wording(none: NoTracks.shown, heading: "Shown:")),
     ] }
@@ -114,19 +111,23 @@ enum TrackStatus {
         try await proTools.hasArmedTracks() ? "Some tracks are armed." : NoTracks.armed
     }
 
-    /// Turns `flag` off on every track that has it, folders last, as the JXA did for solo. Each track is checked again before its click, because a click on a folder or a grouped track can change others, and the click waits for the button to change before the next one. A track whose flag stays on stops the loop with `FloError.couldNot`. Mix groups are suspended meanwhile if `reset` says so, and resumed however the loop ends: done, failed or cancelled. A failure part way says how far it got.
+    /// Turns `flag` off on every track that has it, folders last, as the JXA did for solo. Each track is checked again before its click, because a click on a folder or a grouped track can change others, and the click waits for the button to change before the next one. A track whose state stays on stops the loop with `FloError.couldNot`. Mix groups are suspended meanwhile if `reset` says so, and resumed however the loop ends: done, failed or cancelled. A failure part way says how far it got.
     static func resetAll(_ flag: TrackFlag, _ reset: Reset) async throws {
         let proTools = try ProToolsApp.running()
         let mix = try await proTools.mixWindow()
         let tracks = try await mix.tracks(flag, on: true)
+        try await resetAll(tracks, reset, proTools: proTools, mix: mix) { try await $0.set(flag, to: false) }
+    }
+
+    private static func resetAll(_ tracks: [TrackStrip], _ reset: Reset, proTools: ProToolsApp, mix: MixWindow? = nil, clear: (TrackStrip) async throws -> Bool) async throws {
         let ordered = tracks.filter { $0.kind != .folder } + tracks.filter { $0.kind == .folder }
-        let suspendGroups = reset.suspendsGroups && !ordered.isEmpty ? try await mix.hasActiveGroups() : false
+        let suspendGroups = reset.suspendsGroups && !ordered.isEmpty ? try await mix?.hasActiveGroups() == true : false
         // `defer` cannot await, so the loop's error is kept and thrown after the groups are resumed.
         var handled = 0
         var loopError: (any Error)?
         var groupsSuspended = false
         do {
-            if suspendGroups {
+            if suspendGroups, let mix {
                 do {
                     try await proTools.setGroups(suspended: true, in: mix)
                 } catch {
@@ -140,20 +141,20 @@ enum TrackStatus {
             for track in ordered {
                 // A stop request ends the loop between clicks.
                 try Task.checkCancellation()
-                // The click waits only so long for the button, so a track still soloed must not be counted, or success would be spoken.
-                guard try await track.set(flag, to: false) else { throw FloError.couldNot("\(reset.verb) \(track.name)") }
+                // Only count a track once Pro Tools confirms the change.
+                guard try await clear(track) else { throw FloError.couldNot("\(reset.verb) \(track.name)") }
                 handled += 1
                 await progress.tick()
             }
         } catch {
             loopError = error
         }
-        if groupsSuspended {
+        if groupsSuspended, let mix {
             do {
                 try await proTools.setGroups(suspended: false, in: mix)
             } catch {
                 // The loop's error is what the user hears; this one goes to the log.
-                if loopError == nil { loopError = error } else { Log.error(.engine, "after a failed reset of \(flag): \(error)") }
+                if loopError == nil { loopError = error } else { Log.error(.engine, "after a failed attempt to \(reset.verb) tracks: \(error)") }
             }
         }
         if let loopError {
@@ -164,6 +165,21 @@ enum TrackStatus {
         }
         // A stop request during the last click must not be announced as success.
         try Task.checkCancellation()
+    }
+
+    @MainActor
+    private static var frozenTracks: Command {
+        let wording = Wording(none: "No shown tracks are frozen.", heading: "Frozen:")
+        return Command("floTools.speakShownFrozenTracks", "Speak Shown Frozen Tracks, Unfreeze All Shown Tracks", summary: "Tap speaks the shown frozen tracks. Hold unfreezes all shown tracks.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+F")], tap: { _ in
+            let tracks = try await ProToolsApp.running().shownFrozenTracks()
+            try await VoiceOver.say(message(names: tracks.map(\.name), wording))
+        }, hold: { _ in
+            let proTools = try ProToolsApp.running()
+            let tracks = try await proTools.shownFrozenTracks()
+            let reset = Reset(suspendsGroups: false, verb: "unfreeze", partly: "Unfroze", done: "Unfroze all shown tracks.")
+            try await resetAll(tracks, reset, proTools: proTools) { try await $0.unfreeze() }
+            try await VoiceOver.say(tracks.isEmpty ? wording.none : reset.done)
+        })
     }
 
     // MARK: 0 dB

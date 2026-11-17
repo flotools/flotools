@@ -207,7 +207,7 @@ Opt+Shift+Cmd+. | any Pro Tools window | floTools.betaDragClip | run | "Beta: Dr
 Opt+Shift+Cmd+R | any Pro Tools window | floTools.speakRecordSafeTracks | run | "Speak Record Safe Tracks"
 Opt+Shift+Cmd+S | any Pro Tools window | floTools.speakSoloSafeTracks | run | "Speak Solo Safe Tracks"
 Opt+Shift+Down | Batch Fades | batchFades.nextCrossfadeOutShapeParameter | run | "Next Crossfade Out Shape Parameter"
-Opt+Shift+F | any Pro Tools window | floTools.speakShownFrozenTracks | run | "Speak Shown Frozen Tracks"
+Opt+Shift+F | any Pro Tools window | floTools.speakShownFrozenTracks | tap/hold, sound before hold | "Speak Shown Frozen Tracks, Unfreeze All Shown Tracks"
 Opt+Shift+H | any Pro Tools window | floTools.speakHiddenTracksShowTrackListPopUpMenu | tap/hold, sound before hold | "Speak Hidden Tracks, Show Track List Pop-up Menu"
 Opt+Shift+K | any Pro Tools window | floTools.speakInputMonitorEnabledTracksDisableInputMonitorOnAllTracks | tap/hold, sound before hold | "Speak Input Monitor-Enabled Tracks, Disable Input Monitor on All Tracks"
 Opt+Shift+L | any Pro Tools window | floTools.speakSelectedTracksDeselectAllTracks | tap/hold, sound before hold | "Speak Selected Tracks, Deselect All Tracks"
