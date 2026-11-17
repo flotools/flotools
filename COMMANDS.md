@@ -156,6 +156,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+Shift+Cmd+S` | Speak Solo Safe Tracks | Any | Speaks the shown, active tracks that are solo safe. |
 | `Opt+Shift+0` | Speak Tracks with 0 dB Level | Any | Speaks the shown tracks whose peak hold reached 0 dB or more. MIDI tracks are left out. |
 | `Opt+Shift+L` | Speak Selected Tracks, Deselect All Tracks | Any | Tap speaks the selected tracks; hold deselects them all. |
+| `Opt+Shift+F` | Speak Shown Frozen Tracks | Any | Speaks the names of shown frozen tracks. |
 | `Opt+Shift+H` | Speak Hidden Tracks, Show Track List Pop-up Menu | Any | Tap speaks the hidden tracks; hold opens the Track List menu. |
 | `Opt+Shift+W` | Speak Shown Tracks, Show Track List Pop-up Menu | Any | Tap speaks the shown tracks; hold opens the Track List menu. |
 | `Ctrl+Opt+Shift+L` | List Tracks with Flo Tools | Any | Opens a chooser of track lists, such as soloed or unmuted tracks. The chosen list opens in a second chooser, where the chosen tracks can be changed, for example unsoloed or muted. |
