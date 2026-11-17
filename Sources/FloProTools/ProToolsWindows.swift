@@ -39,7 +39,7 @@ extension ProToolsApp {
 
     /// Use the Track List to distinguish hidden tracks from shown tracks whose Edit controls cannot be read.
     @AccessibilityActor
-    public func shownFrozenTrackNames() throws -> [String] {
+    public func shownFrozenTracks() throws -> [TrackStrip] {
         let edit = try trackWindow(.edit)
         let shown = try TrackList(TrackList.table(in: edit)).rows(.shown, on: true)
         var strips: [String: TrackStrip] = [:]
@@ -55,11 +55,7 @@ extension ProToolsApp {
             }
 
             let strip = try strips[row.name].required("the track \(row.name) in the Edit window")
-            switch try strip.control(.freeze).name?.lowercased() {
-            case "frozen": return row.name
-            case "not frozen": return nil
-            default: throw FloError.unexpectedValue("the freeze status of \(row.name)")
-            }
+            return try strip.isFrozen() ? strip : nil
         }
     }
 
