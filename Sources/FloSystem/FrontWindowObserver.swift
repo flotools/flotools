@@ -119,20 +119,7 @@ public final class FrontWindowObserver {
         registrationFailureLogged = false
         guard pid > 0 else { return }
         var created: AXObserver?
-        let status = AXObserverCreate(pid, { _, element, notification, refcon in
-            guard let refcon else { return }
-            let event: FrontWindowEvent = switch notification as String {
-            case kAXMenuOpenedNotification: .menuOpened
-            case kAXMenuClosedNotification: .menuClosed
-            case kAXSelectedTextChangedNotification: .selectedTextChanged(AXElementHandle(element))
-            case kAXFocusedUIElementChangedNotification: .focusedElementChanged
-            default: .windowMayHaveChanged
-            }
-            // The source's process, read locally without messaging the app; 0 if that fails.
-            var pid: pid_t = 0
-            _ = AXUIElementGetPid(element, &pid)
-            Unmanaged<Callback>.fromOpaque(refcon).takeUnretainedValue().onChange(pid, event)
-        }, &created)
+        let status = AXObserverCreate(pid, Self.notificationCallback, &created)
         guard status == .success, let created else {
             attachFailed(pid: pid, "AXObserverCreate \(status.rawValue)")
             return
@@ -156,6 +143,22 @@ public final class FrontWindowObserver {
         observedPid = pid
         if failedPid == pid { Log.info(.context, "observing pid \(pid) after an earlier failure") }
         failedPid = 0
+    }
+
+    // AX invokes this on the main run loop, outside the AccessibilityActor executor.
+    private nonisolated static let notificationCallback: AXObserverCallback = { _, element, notification, refcon in
+        guard let refcon else { return }
+        let event: FrontWindowEvent = switch notification as String {
+        case kAXMenuOpenedNotification: .menuOpened
+        case kAXMenuClosedNotification: .menuClosed
+        case kAXSelectedTextChangedNotification: .selectedTextChanged(AXElementHandle(element))
+        case kAXFocusedUIElementChangedNotification: .focusedElementChanged
+        default: .windowMayHaveChanged
+        }
+        // The source's process, read locally without messaging the app; 0 if that fails.
+        var pid: pid_t = 0
+        _ = AXUIElementGetPid(element, &pid)
+        Unmanaged<Callback>.fromOpaque(refcon).takeUnretainedValue().onChange(pid, event)
     }
 
     private func attachFailed(pid: pid_t, _ reason: String) {
