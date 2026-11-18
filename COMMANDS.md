@@ -48,6 +48,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Ctrl+Cmd+8` | Assign Send H | Mix, Edit, on a track | Opens the menu to assign send H. |
 | `Ctrl+Cmd+9` | Assign Send I | Mix, Edit, on a track | Opens the menu to assign send I. |
 | `Ctrl+Cmd+0` | Assign Send J | Mix, Edit, on a track | Opens the menu to assign send J. |
+| `D` | Speak/Toggle DSP Mode | Mix, Edit, on a track | Tap speaks DSP, Native or Auto DSP for the track. Hold presses its DSP button; any Pro Tools routing warning remains open. |
 | `S` | Speak/Toggle Solo | Mix, Edit, on a track | Tap speaks the track's solo state; hold switches it and speaks the new state. |
 | `M` | Speak/Toggle Mute | Mix, Edit, on a track | Tap speaks the track's mute state; hold switches it and speaks the new state. |
 | `R` | Speak/Toggle Record State | Mix, Edit, on a track | Tap speaks the track's record arm state; hold switches it and speaks the new state. |

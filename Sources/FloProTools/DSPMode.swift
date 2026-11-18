@@ -26,9 +26,19 @@ extension TrackStrip {
         guard let button = try dspButton() else { return true }
         let before = try dspMode(button)
         guard before == .enabled else { return true }
+        return try await pressDSPMode(button, changedFrom: before) != before
+    }
+
+    /// Presses DSP in any state, including automatic DSP. Pro Tools may show its routing warning and leave the state unchanged.
+    public func pressDSPMode() async throws -> DSPMode {
+        let button = try dspButton().required("the DSP mode button of \(name)")
+        return try await pressDSPMode(button, changedFrom: dspMode(button))
+    }
+
+    private func pressDSPMode(_ button: AXElement, changedFrom before: DSPMode) async throws -> DSPMode {
         try Task.checkCancellation()
         try button.press()
-        return try await ProToolsUpdate.reading(changedFrom: before) { try dspMode(button) } != before
+        return try await ProToolsUpdate.reading(changedFrom: before) { try dspMode(button) }
     }
 
     private func dspMode(_ button: AXElement) throws -> DSPMode {

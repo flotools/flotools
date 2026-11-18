@@ -68,7 +68,7 @@ import Testing
             }
         }
         // The watched keys: an Inspector key, and the AudioSuite buttons, which KM also took in Mix and plug-in windows with "Audio Suite:" in the title.
-        let watched: Set<String> = ["S", "Ctrl+Opt+Shift+Cmd+B", "Ctrl+Opt+Shift+Cmd+N", "Ctrl+Opt+Shift+Cmd+P", "Ctrl+Opt+Shift+Cmd+R"]
+        let watched: Set<String> = ["D", "S", "Ctrl+Opt+Shift+Cmd+B", "Ctrl+Opt+Shift+Cmd+N", "Ctrl+Opt+Shift+Cmd+P", "Ctrl+Opt+Shift+Cmd+R"]
         return count.filter { $0.value.commands > 1 || watched.contains($0.key) }.sorted { $0.key < $1.key }.map(\.value.combo)
     }
 

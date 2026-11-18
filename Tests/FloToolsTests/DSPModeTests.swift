@@ -11,6 +11,12 @@ import FloSystem
         #expect(try DSPMode(reading: "DSP Mode is automatically enabled because one or more tracks routed to \"DSP Mode enabled\" are in DSP mode") == .automaticallyEnabled)
     }
 
+    @Test func inspectorSpeaksTheThreeDSPStates() {
+        #expect(Inspector.dspText(.enabled) == "DSP")
+        #expect(Inspector.dspText(.native) == "Native")
+        #expect(Inspector.dspText(.automaticallyEnabled) == "Auto DSP")
+    }
+
     @Test func unknownLabelsAreErrorsRatherThanNativeOrDSP() {
         for label in ["", "Selected", "Insert selector A - DSP plugin active", "DSP Mode unavailable"] {
             #expect(throws: FloError.unexpectedValue("the DSP mode: \(label)")) {

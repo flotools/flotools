@@ -117,6 +117,8 @@ The port kept every shortcut's behavior except these, which the keymap baselines
 
 - List DSP Tracks and List Auto-Enabled DSP Tracks (owner, 2026-11-18) are separate choices in Ctrl+Opt+Shift+L. Both use shown Mix track strips and the DSP button identifier dspm; exact labels distinguish Native, explicitly enabled DSP and routing-enabled automatic DSP, because AXValue is Selected for all three. The explicit DSP list offers Toggle DSP: a normal button press after rechecking each chosen track is still explicitly enabled, followed by state-change verification. Routing may leave a track in automatic DSP. The auto-enabled DSP list is read-only, explains the routing dependency, and offers Close. TrackQuery rejects changes through read-only DSP queries before reading Accessibility. Neither list changes DSP Safe, routing, record or input-monitor settings. Unknown DSP labels surface as read errors.
 
+- Inspector D (owner, 2026-11-18): tap speaks “DSP”, “Native” or “Auto DSP” for the track under the VoiceOver cursor. Hold presses the DSP button in any of those states, including automatic DSP, leaving any Pro Tools routing warning open for the user. The command speaks the resulting state only when a Mix or Edit window remains in front. Off a track name or while typing, D goes to Pro Tools through normal Inspector routing. The automatic DSP chooser remains read-only.
+
 ## 10. Not done on purpose
 
 No KM action interpreter, no plugin system for commands, no protocols for mocking Accessibility or VoiceOver, no shell commands at runtime except the `tccutil` permission reset (section 8), no telemetry. No buffering of keys pressed before the window title is read (section 3). No caching of watch elements (section 3).

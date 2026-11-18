@@ -6,6 +6,7 @@ import FloSystem
 enum Inspector {
     @MainActor
     static var commands: [Command] { [TrackStrip.SlotKind.insert, .send].flatMap { kind in (0..<10).map { slot(kind, $0) } + (0..<10).map { assign(kind, $0) } } + [
+        dsp,
         toggle("inspector.speakToggleSolo", "Speak/Toggle Solo", key: "S", .solo, state: "solo"),
         toggle("inspector.speakToggleMute", "Speak/Toggle Mute", key: "M", .mute, state: "mute"),
         toggle("inspector.speakToggleRecordState", "Speak/Toggle Record State", key: "R", .recordEnable, state: "record arm"),
@@ -51,6 +52,30 @@ enum Inspector {
             let after = try await track.press(toggle)
             try await VoiceOver.say(stateText(toggle, after))
         })
+    }
+
+    @MainActor
+    static var dsp: Command {
+        Inspector.command("inspector.speakToggleDSPMode", "Speak/Toggle DSP Mode", summary: "Tap speaks DSP, Native or Auto DSP for the track. Hold presses its DSP button; any Pro Tools routing warning remains open.", key: "D", doneSound: .afterHold, tap: { run in
+            let track = try await run.inspectorTrack()
+            let mode = try await track.dspMode().required("the DSP mode of \(track.name)")
+            try await VoiceOver.say(dspText(mode))
+        }, hold: { run in
+            let track = try await run.inspectorTrack()
+            let after = try await track.pressDSPMode()
+            // Let VoiceOver read a warning rather than interrupt it with the unchanged track state.
+            let app = ProToolsApp(pid: run.context.processID)
+            guard let window = try await app.frontWindowFacts(), ProToolsWindowKind(title: window.title).isTrackWindow else { return }
+            try await VoiceOver.say(dspText(after))
+        })
+    }
+
+    static func dspText(_ mode: DSPMode) -> String {
+        switch mode {
+        case .enabled: "DSP"
+        case .native: "Native"
+        case .automaticallyEnabled: "Auto DSP"
+        }
     }
 
     /// Same text as the JXA version. Off is an empty state; other states not listed (such as "off safe" or "armed") are spoken as Pro Tools shows them.
