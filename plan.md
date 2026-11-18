@@ -113,6 +113,8 @@ The port kept every shortcut's behavior except these, which the keymap baselines
 - New plug-in window keys Ctrl+Cmd+Up and Ctrl+Cmd+Down (owner's decision, 2026-11-03): step the current parameter of the loaded plug-in view through its Accessibility slider (AXIncrement, AXDecrement) and speak the new value; held, they repeat like the Inspector volume keys. They work only for parameters the plug-in shows as sliders. KM had no key that changed a parameter.
 - Track View Toggled on All Tracks (Opt+-) sends Ctrl+Opt+- to Pro Tools, because Pro Tools 26.10 ignores the Opt+- the KM version sent (checked live 2026-11-03). The hotkey stays Opt+-.
 
+- List Frozen Tracks (owner, 2026-11-18) is an option in List Tracks with Flo Tools (Ctrl+Opt+Shift+L). It lists the same shown frozen tracks as Option+Shift+F and offers Unfreeze for the chosen tracks, checking each result. Hidden tracks stay excluded; an empty list says “No shown tracks are frozen.” TrackQuery runs through ProToolsApp because its queries use both Mix and Edit.
+
 ## 10. Not done on purpose
 
 No KM action interpreter, no plugin system for commands, no protocols for mocking Accessibility or VoiceOver, no shell commands at runtime except the `tccutil` permission reset (section 8), no telemetry. No buffering of keys pressed before the window title is read (section 3). No caching of watch elements (section 3).
