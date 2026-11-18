@@ -6,6 +6,8 @@ public enum TrackQuery: Sendable, Equatable {
     case strips(TrackFlag, on: Bool)
     /// Shown frozen tracks, read through the Edit window.
     case shownFrozen
+    /// Shown tracks whose DSP button has this state.
+    case dsp(DSPMode)
     /// Track List rows, hidden tracks included, that are selected or shown (`on`) or not.
     case trackList(TrackList.Property, on: Bool)
 }
@@ -16,6 +18,7 @@ extension ProToolsApp {
     public func names(_ query: TrackQuery) throws -> [String] {
         switch query {
         case .shownFrozen: try shownFrozenTracks().map(\.name)
+        case .dsp(let mode): try mixWindow().trackStrips().filter { try $0.dspMode() == mode }.map(\.name)
         case .strips(let flag, let on): try mixWindow().tracks(flag, on: on).map(\.name)
         case .trackList(let property, let on): try mixWindow().trackList().rows(property, on: on).map(\.name)
         }
@@ -27,12 +30,11 @@ extension ProToolsApp {
         var unchanged: [String] = []
         switch query {
         case .shownFrozen:
-            let tracks = try shownFrozenTracks()
-            for name in names {
-                try Task.checkCancellation()
-                guard let track = tracks.first(where: { $0.name == name }) else { continue }
-                if try await !track.unfreeze() { unchanged.append(name) }
-            }
+            unchanged = try await change(names, among: shownFrozenTracks()) { try await $0.unfreeze() }
+        case .dsp(.enabled):
+            unchanged = try await change(names, among: mixWindow().trackStrips()) { try await $0.toggleDSPMode() }
+        case .dsp:
+            throw FloError.couldNot("change a read-only DSP list")
         case .strips(let flag, let on):
             let mix = try mixWindow()
             for name in names {
@@ -47,6 +49,18 @@ extension ProToolsApp {
                 guard let row = rows.first(where: { $0.name == name }) else { continue }
                 try row.toggle(property)
             }
+        }
+        return unchanged
+    }
+
+    /// Freeze and DSP read their candidates once, then recheck each chosen track before pressing its button.
+    @AccessibilityActor
+    private func change(_ names: [String], among tracks: [TrackStrip], using action: @AccessibilityActor (TrackStrip) async throws -> Bool) async throws -> [String] {
+        var unchanged: [String] = []
+        for name in names {
+            try Task.checkCancellation()
+            guard let track = tracks.first(where: { $0.name == name }) else { continue }
+            if try await !action(track) { unchanged.append(name) }
         }
         return unchanged
     }

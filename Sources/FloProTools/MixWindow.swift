@@ -186,6 +186,13 @@ public struct TrackStrip {
         }
     }
 
+    /// The DSP button is absent on tracks that do not support DSP mode.
+    func dspButton() throws -> AXElement? {
+        try element.children.first { child in
+            try child.role == "AXButton" && child.string("AXIdentifier") == "dspm"
+        }
+    }
+
     // MARK: Inserts and sends
 
     /// The two kinds of slot rows in a strip. The raw value is the word Pro Tools uses in group and button names, for example "Inserts A-E" and "Send selector B".

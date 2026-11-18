@@ -159,7 +159,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+Shift+F` | Speak Shown Frozen Tracks, Unfreeze All Shown Tracks | Any | Tap speaks the shown frozen tracks. Hold unfreezes all shown tracks. |
 | `Opt+Shift+H` | Speak Hidden Tracks, Show Track List Pop-up Menu | Any | Tap speaks the hidden tracks; hold opens the Track List menu. |
 | `Opt+Shift+W` | Speak Shown Tracks, Show Track List Pop-up Menu | Any | Tap speaks the shown tracks; hold opens the Track List menu. |
-| `Ctrl+Opt+Shift+L` | List Tracks with Flo Tools | Any | Opens a chooser of track lists, including shown frozen, soloed and unmuted tracks. The chosen list opens in a second chooser, where the chosen tracks can be changed, for example unfrozen, unsoloed or muted. |
+| `Ctrl+Opt+Shift+L` | List Tracks with Flo Tools | Any | Lists tracks by state, including explicitly enabled DSP, automatically enabled DSP and frozen tracks. The second chooser offers actions such as Toggle DSP or Unfreeze; the automatically enabled DSP list is read-only. |
 
 ## Fade dialogs
 

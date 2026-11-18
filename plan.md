@@ -115,6 +115,8 @@ The port kept every shortcut's behavior except these, which the keymap baselines
 
 - List Frozen Tracks (owner, 2026-11-18) is an option in List Tracks with Flo Tools (Ctrl+Opt+Shift+L). It lists the same shown frozen tracks as Option+Shift+F and offers Unfreeze for the chosen tracks, checking each result. Hidden tracks stay excluded; an empty list says “No shown tracks are frozen.” TrackQuery runs through ProToolsApp because its queries use both Mix and Edit.
 
+- List DSP Tracks and List Auto-Enabled DSP Tracks (owner, 2026-11-18) are separate choices in Ctrl+Opt+Shift+L. Both use shown Mix track strips and the DSP button identifier dspm; exact labels distinguish Native, explicitly enabled DSP and routing-enabled automatic DSP, because AXValue is Selected for all three. The explicit DSP list offers Toggle DSP: a normal button press after rechecking each chosen track is still explicitly enabled, followed by state-change verification. Routing may leave a track in automatic DSP. The auto-enabled DSP list is read-only, explains the routing dependency, and offers Close. TrackQuery rejects changes through read-only DSP queries before reading Accessibility. Neither list changes DSP Safe, routing, record or input-monitor settings. Unknown DSP labels surface as read errors.
+
 ## 10. Not done on purpose
 
 No KM action interpreter, no plugin system for commands, no protocols for mocking Accessibility or VoiceOver, no shell commands at runtime except the `tccutil` permission reset (section 8), no telemetry. No buffering of keys pressed before the window title is read (section 3). No caching of watch elements (section 3).
