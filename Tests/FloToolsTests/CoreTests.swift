@@ -985,6 +985,21 @@ private actor Flag {
         #expect(Chooser.firstMatch("Hid", in: items) == nil)
     }
 
+    @Test func frozenTrackListingUsesShownTracksAndOffersUnfreeze() throws {
+        let listing = try #require(TrackLists.listings.first { $0.name == "List Frozen Tracks" })
+        #expect(listing.source == .shownFrozen)
+        #expect(listing.heading == "Frozen")
+        #expect(listing.prompt == "Choose tracks to unfreeze.")
+        #expect(listing.okTitle == "Unfreeze")
+        guard case .says(let text) = listing.none else {
+            Issue.record("Frozen tracks must use their own empty-list message")
+            return
+        }
+        #expect(text == "No shown tracks are frozen.")
+        #expect(text == NoTracks.frozen)
+        #expect(SpokenError.text(for: FloError.couldNot(TrackLists.unchangedText(listing, ["Kick - Audio Track "]))) == "Could not unfreeze: Kick - Audio Track.")
+    }
+
     @Test func trackListingsAreDistinct() {
         let listings = TrackLists.listings
         #expect(Set(listings.map(\.name)).count == listings.count)

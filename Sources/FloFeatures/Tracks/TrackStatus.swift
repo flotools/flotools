@@ -84,7 +84,7 @@ enum TrackStatus {
     }
 
     static func speak(_ tracks: TrackQuery, _ wording: Wording) async throws {
-        let names = try await ProToolsApp.running().mixWindow().names(tracks)
+        let names = try await ProToolsApp.running().names(tracks)
         try await VoiceOver.say(message(names: names, wording))
     }
 
@@ -93,7 +93,7 @@ enum TrackStatus {
     private static var recordArmed: Command {
         Command("floTools.speakRecordEnabledTracksDisarmAllRecordEnabledTracks", "Speak Record-Enabled Tracks, Disarm All Record-Enabled Tracks", summary: "Tap speaks the record-armed tracks, and says when only hidden tracks are armed; hold disarms the shown tracks, and says when hidden tracks stay armed.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+R")], tap: { _ in
             let proTools = try ProToolsApp.running()
-            let names = try await proTools.mixWindow().names(.strips(.recordArmed, on: true))
+            let names = try await proTools.names(.strips(.recordArmed, on: true))
             try await VoiceOver.say(names.isEmpty ? noArmedTracksText(proTools) : message(names: names, armed))
         }, hold: { _ in
             let reset = Reset(suspendsGroups: false, verb: "disarm", partly: "Disarmed", done: "Disarmed all tracks.")
@@ -169,10 +169,9 @@ enum TrackStatus {
 
     @MainActor
     private static var frozenTracks: Command {
-        let wording = Wording(none: "No shown tracks are frozen.", heading: "Frozen:")
+        let wording = Wording(none: NoTracks.frozen, heading: "Frozen:")
         return Command("floTools.speakShownFrozenTracks", "Speak Shown Frozen Tracks, Unfreeze All Shown Tracks", summary: "Tap speaks the shown frozen tracks. Hold unfreezes all shown tracks.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+F")], tap: { _ in
-            let tracks = try await ProToolsApp.running().shownFrozenTracks()
-            try await VoiceOver.say(message(names: tracks.map(\.name), wording))
+            try await speak(.shownFrozen, wording)
         }, hold: { _ in
             let proTools = try ProToolsApp.running()
             let tracks = try await proTools.shownFrozenTracks()

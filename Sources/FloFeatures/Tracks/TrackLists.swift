@@ -3,9 +3,9 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// The track lists: each shows the tracks in one state in a chooser, and changes the chosen ones, for example List Muted Tracks unmutes the chosen tracks. "List Tracks with Flo Tools" (Ctrl+Opt+Shift+L) offers them in a chooser, as the KM version showed them in a palette. In the KM version each list was a command without a hotkey; here they are only the chooser's choices.
+/// The track lists: each shows the tracks in one state in a chooser, and changes the chosen ones, for example List Muted Tracks unmutes the chosen tracks. "List Tracks with Flo Tools" (Ctrl+Opt+Shift+L) offers them in a chooser, as the KM version showed them in a palette. The lists are chooser choices, including the frozen-track list added in Swift.
 enum TrackLists {
-    /// One list, named as its KM macro was. The words are the JXA's.
+    /// One track state and the action offered for its chosen tracks.
     struct Listing: Sendable {
         let name: String
         /// The listed tracks; choosing one switches the flag or presses the row's button.
@@ -26,6 +26,7 @@ enum TrackLists {
     }
 
     static let listings: [Listing] = [
+        Listing(name: "List Frozen Tracks", source: .shownFrozen, none: .says(NoTracks.frozen), heading: "Frozen", prompt: "Choose tracks to unfreeze.", okTitle: "Unfreeze"),
         Listing(name: "List Hidden Tracks", source: .trackList(.shown, on: false), none: .says(NoTracks.hidden), heading: "hidden", prompt: "Choose tracks to show.", okTitle: "Show"),
         Listing(name: "List Input Monitor-Disabled Tracks", source: .strips(.inputMonitored, on: false), none: .says("No tracks are input monitor disabled."), heading: "input monitor Disabled", prompt: "Choose tracks to enable input monitor.", okTitle: "Enable Input Monitor"),
         Listing(name: "List Input Monitor-Enabled Tracks", source: .strips(.inputMonitored, on: true), none: .says("No tracks are input monitor enabled."), heading: "Input Monitor Enabled.", prompt: "Choose tracks to disable input monitor.", okTitle: "Disable Input Monitor"),
@@ -48,7 +49,7 @@ enum TrackLists {
     /// The KM version spoke "Choose what to list.", paused 1 s and showed a palette. The chooser's prompt says the same and VoiceOver reads it when the window opens, so there is no separate speech or pause.
     @MainActor
     private static var chooseList: Command {
-        Command("floTools.listTracksWithFloTools", "List Tracks with Flo Tools", summary: "Opens a chooser of track lists, such as soloed or unmuted tracks. The chosen list opens in a second chooser, where the chosen tracks can be changed, for example unsoloed or muted.", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Opt+Shift+L")]) { _ in
+        Command("floTools.listTracksWithFloTools", "List Tracks with Flo Tools", summary: "Opens a chooser of track lists, including shown frozen, soloed and unmuted tracks. The chosen list opens in a second chooser, where the chosen tracks can be changed, for example unfrozen, unsoloed or muted.", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Opt+Shift+L")]) { _ in
             // Looked up while Pro Tools is in front. Right after a chooser closes, macOS can briefly report no running Pro Tools while the front app changes (checked live 2026-11-03: 3 of 19 runs said "Could not find Pro Tools.").
             let proTools = try ProToolsApp.running()
             let request = Chooser.Request(title: "List Tracks with Flo Tools", prompt: "Choose what to list.", items: listings.map(\.name), okTitle: "List", allowsMultipleSelection: false)
@@ -63,7 +64,7 @@ enum TrackLists {
 
     /// Shows the listed tracks in a chooser and changes the chosen ones, or says there are none.
     static func show(_ listing: Listing, in proTools: ProToolsApp) async throws {
-        let names = try await proTools.mixWindow().names(listing.source)
+        let names = try await proTools.names(listing.source)
         guard !names.isEmpty else {
             let text = switch listing.none {
             case .says(let text): text
@@ -76,7 +77,7 @@ enum TrackLists {
         let chosen = await Chooser.choose(request).map { names[$0] }
         try Task.checkCancellation()
         guard !chosen.isEmpty else { return }
-        let unchanged = try await proTools.mixWindow().change(chosen, outOf: listing.source)
+        let unchanged = try await proTools.change(chosen, outOf: listing.source)
         // The JXA did not check; a track Pro Tools refused, such as one without an input to arm, is named rather than passed over in silence.
         guard unchanged.isEmpty else { throw FloError.couldNot(unchangedText(listing, unchanged)) }
     }
