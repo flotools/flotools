@@ -80,7 +80,7 @@ enum SettingToggles {
     private static func link(_ id: CommandID, _ name: String, key: String, _ item: String, _ wording: Wording) -> Command {
         let setting = ProToolsSetting.menuItem(menu: "Options", .is(item))
         return Command(id, name, summary: "Passes the key to Pro Tools, which switches Options > \(item), then speaks the new state." + KeyAnnouncements.summaryNote(.outsideListedDialogsAndText), scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
-            try await KeyAnnouncements.announceChange(run, when: .outsideListedDialogsAndText, within: ProToolsUpdate.passedKeyTimeout, find: { try ProToolsApp.running().control(setting) }, read: wording.text(of:))
+            try await KeyAnnouncements.announceChange(run, when: .outsideListedDialogsAndText, within: ProToolsUpdate.passedKeyTimeout, find: { try ProToolsApp.running().control(setting) }, read: wording.text(of:), spoken: { _, after in after })
         }
     }
 

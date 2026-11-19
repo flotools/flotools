@@ -44,20 +44,22 @@ enum KeyAnnouncements {
     @MainActor
     private static func speakSelectedTracks(_ id: CommandID, _ name: String, key: String, _ playlist: String) -> Command {
         Command(id, name, summary: "Passes the key to Pro Tools, which selects \(playlist) on the selected tracks, then speaks the selected tracks, which are named after their playlists." + summaryNote(.outsideListedDialogsAndText), scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
-            try await announceChange(run, when: .outsideListedDialogsAndText, within: ProToolsUpdate.passedKeyTimeout, find: { try ProToolsApp.running().mixWindow().trackList() }, read: selectedTracksText)
+            try await announceChange(run, when: .outsideListedDialogsAndText, within: ProToolsUpdate.passedKeyTimeout, find: { try ProToolsApp.running().mixWindow().trackList() }, read: selectedTracksText, spoken: { _, after in after })
         }
     }
 
-    /// The shared order of a shortcut whose effect Flo Tools reads back, used by the counters, the setting links, the playlist keys and the fade dialogs: read the value, pass the run's key on to Pro Tools (or send `replacement`), and if the guard allows it, speak the value once Pro Tools shows a change, or as it is after `limit`.
+    /// The shared order of a shortcut whose effect Flo Tools reads back, used by the counters, the setting links, the playlist keys, the fade dialogs and New Tracks: read the value, pass the run's key on to Pro Tools (or send `replacement`), and if the guard allows it, speak the value once Pro Tools shows a change, or as it is after `limit`.
     /// The reading before the key is only for that wait, so its failure does not keep the key from Pro Tools. After the key, `find` locates the source once and `read` polls it.
     @AccessibilityActor
-    static func announceChange<Source>(_ run: CommandRun, sending replacement: KeyCombo? = nil, when guarding: AnnouncementGuard, within limit: Duration = ProToolsUpdate.timeout, find: @AccessibilityActor () throws -> Source, read: @AccessibilityActor (Source) throws -> String, spoken: (String) -> String = { $0 }) async throws {
+    static func announceChange<Source, Value: Equatable>(_ run: CommandRun, sending replacement: KeyCombo? = nil, when guarding: AnnouncementGuard, within limit: Duration = ProToolsUpdate.timeout, find: @AccessibilityActor () throws -> Source, read: @AccessibilityActor (Source) throws -> Value, spoken: @AccessibilityActor (Value?, Value) async throws -> String) async throws {
         let before = try? read(find())
         try await passOn(run, replacement: replacement)
         guard try await speaks(after: guarding) else { return }
         let source = try find()
-        let after = try await ProToolsUpdate.reading(changedFrom: before ?? "", within: limit) { try read(source) }
-        try await VoiceOver.say(spoken(after))
+        let initial = try read(source)
+        let after = try await ProToolsUpdate.reading(changedFrom: before ?? initial, within: limit) { try read(source) }
+        let text = try await spoken(before, after)
+        try await VoiceOver.say(text)
     }
 
     /// Sends `replacement` to Pro Tools, or passes the run's own key on when there is none.

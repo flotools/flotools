@@ -32,6 +32,7 @@ import Testing
         ("Preferences", FrontContext(bundleID: proTools, windowTitle: "Preferences")),
         ("Peripherals", FrontContext(bundleID: proTools, windowTitle: "Peripherals")),
         ("Dashboard", FrontContext(bundleID: proTools, windowTitle: "Dashboard")),
+        ("New Tracks", FrontContext(bundleID: proTools, windowTitle: "New Tracks")),
         ("Memory Locations", FrontContext(bundleID: proTools, windowTitle: "Memory Locations")),
     ]
 
@@ -67,8 +68,8 @@ import Testing
                 count["\(combo)"] = (combo, (count["\(combo)"]?.commands ?? 0) + 1)
             }
         }
-        // The watched keys: an Inspector key, and the AudioSuite buttons, which KM also took in Mix and plug-in windows with "Audio Suite:" in the title.
-        let watched: Set<String> = ["D", "S", "Ctrl+Opt+Shift+Cmd+B", "Ctrl+Opt+Shift+Cmd+N", "Ctrl+Opt+Shift+Cmd+P", "Ctrl+Opt+Shift+Cmd+R"]
+        // Watch Inspector, AudioSuite and New Tracks keys even when only one command uses them.
+        let watched: Set<String> = ["Shift+Cmd+=", "Cmd+-", "Cmd+Keypad +", "Cmd+Keypad -", "Shift+Cmd+Up", "Shift+Cmd+Down", "Opt+Cmd+Up", "Opt+Cmd+Down", "D", "S", "Ctrl+Opt+Shift+Cmd+B", "Ctrl+Opt+Shift+Cmd+N", "Ctrl+Opt+Shift+Cmd+P", "Ctrl+Opt+Shift+Cmd+R"]
         return count.filter { $0.value.commands > 1 || watched.contains($0.key) }.sorted { $0.key < $1.key }.map(\.value.combo)
     }
 
@@ -97,7 +98,8 @@ import Testing
             case .fade(let fade): 4 + FadeDialog.Kind.allCases.firstIndex(of: fade)!
             case .tabbedSetup: 10
             case .keyboardShortcuts: 11
-            case .other: 12
+            case .newTracks: 12
+            case .other: 13
             }
         }
         return kinds.sorted { position($0) < position($1) }
