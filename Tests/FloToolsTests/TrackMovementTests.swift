@@ -1,3 +1,4 @@
+import Foundation
 import Testing
 import FloSystem
 @testable import FloProTools
@@ -52,6 +53,17 @@ import FloSystem
         #expect(throws: FloError.unexpectedValue("the Track List number at position 4")) {
             try TrackMovePlan.name("5 Audio 5 - Audio Track ", at: 3, numbered: true)
         }
+    }
+
+    @Test func dragUsesNativeWindowAxisAndNeighborBoundary() {
+        let name = CGRect(x: 500, y: 900, width: 70, height: 16)
+        let left = CGRect(x: 400, y: 60, width: 80, height: 950)
+        let mix = TrackMovePlan.dragPoints(name: name, neighbor: left, direction: .earlier, layout: .mix)
+        #expect(mix.start == CGPoint(x: 535, y: 908))
+        #expect(mix.end == CGPoint(x: 401, y: 908))
+        let below = CGRect(x: 250, y: 920, width: 400, height: 100)
+        let edit = TrackMovePlan.dragPoints(name: name, neighbor: below, direction: .later, layout: .edit)
+        #expect(edit.end == CGPoint(x: 535, y: 1019))
     }
 
     @Test func speechFollowsWindowDirectionAndReportsBoundaries() {

@@ -1,3 +1,4 @@
+import Foundation
 import FloSystem
 
 public enum TrackMoveDirection: Sendable { case earlier, later }
@@ -32,6 +33,19 @@ struct TrackMovePlan: Equatable {
         self.expectedSelection = selected.map { $0 + offset }
     }
 
+    /// The name starts the gesture; the neighboring strip boundary is the insertion point.
+    static func dragPoints(name: CGRect, neighbor: CGRect, direction: TrackMoveDirection, layout: ProToolsApp.TrackWindow) -> (start: CGPoint, end: CGPoint) {
+        let start = CGPoint(x: name.midX, y: name.midY)
+        let end: CGPoint
+        switch layout {
+        case .mix:
+            end = CGPoint(x: direction == .earlier ? neighbor.minX + 1 : neighbor.maxX - 1, y: start.y)
+        case .edit:
+            end = CGPoint(x: start.x, y: direction == .earlier ? neighbor.minY + 1 : neighbor.maxY - 1)
+        }
+        return (start, end)
+    }
+
     /// Track List numbering changes after a reorder; the real name must not.
     static func name(_ label: String, at index: Int, numbered: Bool) throws -> String {
         guard numbered else { return label }
@@ -52,10 +66,13 @@ extension ProToolsApp {
     @AccessibilityActor
     public func moveSelectedTracks(_ direction: TrackMoveDirection) async throws -> TrackMoveResult {
         let window = try frontWindow()
-        guard try window.name.map(ProToolsWindowKind.init(title:))?.isTrackWindow == true else {
-            throw FloError.couldNot("move tracks outside the Mix or Edit window")
+        let layout: TrackWindow
+        switch try window.name.map(ProToolsWindowKind.init(title:)) {
+        case .mix: layout = .mix
+        case .edit: layout = .edit
+        default: throw FloError.couldNot("move tracks outside the Mix or Edit window")
         }
         let numbered = try control(.menuItem(menu: "View", .is("Track Number"))).isOn
-        return try await TrackList(TrackList.table(in: window)).moveSelected(direction, numbered: numbered, pid: pid, window: window)
+        return try await TrackList(TrackList.table(in: window)).moveSelected(direction, numbered: numbered, pid: pid, window: window, layout: layout)
     }
 }

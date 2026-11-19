@@ -12,7 +12,7 @@ enum TrackMovement {
     @MainActor
     private static func command(_ direction: TrackMoveDirection, id: CommandID, name: String, key: String) -> Command {
         Command(id, name,
-                summary: "Moves adjacent selected tracks one position \(direction == .earlier ? "earlier" : "later"), preserving their order and selection, and speaks the result. The selection and destination must be visible in a Track List without folders.",
+                summary: "Moves adjacent selected tracks one position \(direction == .earlier ? "earlier" : "later"), preserving their order and selection, and speaks the result. Reveals the source and destination with Scroll Into View. Requires a Track List without folders.",
                 scope: .windows([.mix, .edit]), triggers: [.key(key)]) { run in
             try await Keyboard.waitForModifiersReleased()
             let result = try await ProToolsApp.running().moveSelectedTracks(direction)
