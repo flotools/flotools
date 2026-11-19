@@ -31,17 +31,44 @@ import FloSystem
         }
     }
 
-    @Test func boundariesAreNoOpsAndNonadjacentSelectionIsRejected() throws {
+    @Test func boundariesAreNoOpsForAdjacentAndGappedSelections() throws {
         #expect(try TrackMovePlan(count: 4, selected: [0, 1], direction: .earlier) == nil)
         #expect(try TrackMovePlan(count: 4, selected: [2, 3], direction: .later) == nil)
-        #expect(throws: FloError.couldNot("move nonadjacent tracks; select adjacent tracks first")) {
-            try TrackMovePlan(count: 4, selected: [0, 2], direction: .later)
+        #expect(try TrackMovePlan(count: 4, selected: [0, 2], direction: .earlier) == nil)
+        #expect(try TrackMovePlan(count: 4, selected: [1, 3], direction: .later) == nil)
+    }
+
+    @Test func nonadjacentTracksGatherBeforeOrAfterTheOuterNeighbor() throws {
+        let up = try #require(try TrackMovePlan(count: 12, selected: [5, 7, 9], direction: .earlier))
+        #expect(up.expectedOrder == [0, 1, 2, 3, 5, 7, 9, 4, 6, 8, 10, 11])
+        #expect(up.expectedSelection == [4, 5, 6])
+        #expect(up.revealIndex == 4)
+        let down = try #require(try TrackMovePlan(count: 12, selected: [5, 7, 9], direction: .later))
+        #expect(down.expectedOrder == [0, 1, 2, 3, 4, 6, 8, 10, 5, 7, 9, 11])
+        #expect(down.expectedSelection == [8, 9, 10])
+        #expect(down.revealIndex == 9)
+    }
+
+    @Test func gatheringPreservesEveryTrackAndBothRelativeOrders() throws {
+        for count in 2...8 {
+            for mask in 1..<(1 << count) {
+                let selected = (0..<count).filter { mask & (1 << $0) != 0 }
+                let unselected = (0..<count).filter { !selected.contains($0) }
+                for direction: TrackMoveDirection in [.earlier, .later] {
+                    guard let move = try TrackMovePlan(count: count, selected: selected, direction: direction) else { continue }
+                    #expect(move.expectedOrder.sorted() == Array(0..<count))
+                    #expect(move.expectedSelection.map { move.expectedOrder[$0] } == selected)
+                    #expect(move.expectedOrder.filter { !selected.contains($0) } == unselected)
+                    let first = try #require(move.expectedSelection.first)
+                    #expect(move.expectedSelection == Array(first..<(first + selected.count)))
+                }
+            }
         }
     }
 
     @Test func invalidSelectionCannotConstructAnInvalidRange() {
         for selected in [[], [2, 0], [-1], [4], [1, 1]] {
-            #expect(throws: FloError.couldNot("move nonadjacent tracks; select adjacent tracks first")) {
+            #expect(throws: FloError.unexpectedValue("the selected Track List row indices")) {
                 try TrackMovePlan(count: 4, selected: selected, direction: .earlier)
             }
         }
@@ -72,7 +99,7 @@ import FloSystem
         #expect(TrackMovement.text(.moved(count: 1, position: 4), direction: .earlier, inMix: true) == "Moved 1 track left, position 4.")
         #expect(TrackMovement.text(.moved(count: 2, position: 6), direction: .later, inMix: false) == "Moved 2 tracks down, position 6.")
         #expect(TrackMovement.text(.noSelection, direction: .earlier, inMix: true) == NoTracks.selected)
-        #expect(TrackMovement.text(.atBoundary, direction: .earlier, inMix: false) == "Selected tracks are already at the beginning of the Track List.")
-        #expect(TrackMovement.text(.atBoundary, direction: .later, inMix: true) == "Selected tracks are already at the end of the Track List.")
+        #expect(TrackMovement.text(.atBoundary, direction: .earlier, inMix: false) == "The first selected track is already at the beginning of the Track List.")
+        #expect(TrackMovement.text(.atBoundary, direction: .later, inMix: true) == "The last selected track is already at the end of the Track List.")
     }
 }

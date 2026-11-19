@@ -161,8 +161,8 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+Shift+H` | Speak Hidden Tracks, Show Track List Pop-up Menu | Any | Tap speaks the hidden tracks; hold opens the Track List menu. |
 | `Opt+Shift+W` | Speak Shown Tracks, Show Track List Pop-up Menu | Any | Tap speaks the shown tracks; hold opens the Track List menu. |
 | `Ctrl+Opt+Shift+L` | List Tracks with Flo Tools | Any | Lists tracks by state, including explicitly enabled DSP, automatically enabled DSP and frozen tracks. The second chooser offers actions such as Toggle DSP or Unfreeze; the automatically enabled DSP list is read-only. |
-| `Ctrl+Shift+Cmd+P` | Move Selected Tracks Up or Left | Mix, Edit | Moves adjacent selected tracks one position earlier, preserving their order and selection, and speaks the result. Reveals the source and destination with Scroll Into View. Requires a Track List without folders. |
-| `Ctrl+Shift+Cmd+;` | Move Selected Tracks Down or Right | Mix, Edit | Moves adjacent selected tracks one position later, preserving their order and selection, and speaks the result. Reveals the source and destination with Scroll Into View. Requires a Track List without folders. |
+| `Ctrl+Shift+Cmd+P` | Move Selected Tracks Up or Left | Mix, Edit | Moves selected tracks one position earlier, preserving their order and selection, and speaks the result. Nonadjacent selections gather into one block. Reveals the source and destination with Scroll Into View. Requires a Track List without folders. |
+| `Ctrl+Shift+Cmd+;` | Move Selected Tracks Down or Right | Mix, Edit | Moves selected tracks one position later, preserving their order and selection, and speaks the result. Nonadjacent selections gather into one block. Reveals the source and destination with Scroll Into View. Requires a Track List without folders. |
 
 ## New Tracks dialog
 

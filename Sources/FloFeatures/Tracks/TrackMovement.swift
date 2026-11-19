@@ -12,7 +12,7 @@ enum TrackMovement {
     @MainActor
     private static func command(_ direction: TrackMoveDirection, id: CommandID, name: String, key: String) -> Command {
         Command(id, name,
-                summary: "Moves adjacent selected tracks one position \(direction == .earlier ? "earlier" : "later"), preserving their order and selection, and speaks the result. Reveals the source and destination with Scroll Into View. Requires a Track List without folders.",
+                summary: "Moves selected tracks one position \(direction == .earlier ? "earlier" : "later"), preserving their order and selection, and speaks the result. Nonadjacent selections gather into one block. Reveals the source and destination with Scroll Into View. Requires a Track List without folders.",
                 scope: .windows([.mix, .edit]), triggers: [.key(key)]) { run in
             try await Keyboard.waitForModifiersReleased()
             let result = try await ProToolsApp.running().moveSelectedTracks(direction)
@@ -24,7 +24,9 @@ enum TrackMovement {
         switch result {
         case .noSelection: return NoTracks.selected
         case .atBoundary:
-            return "Selected tracks are already at the \(direction == .earlier ? "beginning" : "end") of the Track List."
+            return direction == .earlier
+                ? "The first selected track is already at the beginning of the Track List."
+                : "The last selected track is already at the end of the Track List."
         case .moved(let count, let position):
             let movement = inMix ? (direction == .earlier ? "left" : "right") : (direction == .earlier ? "up" : "down")
             return "Moved \(count) \(count == 1 ? "track" : "tracks") \(movement), position \(position)."

@@ -9,7 +9,7 @@ public enum TrackMoveResult: Equatable, Sendable {
     case moved(count: Int, position: Int)
 }
 
-/// A single native drag can move an adjacent selection while preserving its order.
+/// A native drag gathers selected tracks into one block, preserving their relative order.
 struct TrackMovePlan: Equatable {
     let source: ClosedRange<Int>
     let neighbor: Int
@@ -18,19 +18,20 @@ struct TrackMovePlan: Equatable {
 
     init?(count: Int, selected: [Int], direction: TrackMoveDirection) throws {
         guard let first = selected.first, let last = selected.last,
-              first >= 0, last >= first, last < count, selected == Array(first...last) else {
-            throw FloError.couldNot("move nonadjacent tracks; select adjacent tracks first")
+              first >= 0, last >= first, last < count,
+              selected == selected.sorted(), Set(selected).count == selected.count else {
+            throw FloError.unexpectedValue("the selected Track List row indices")
         }
-        let offset = direction == .earlier ? -1 : 1
         let neighbor = direction == .earlier ? first - 1 : last + 1
         guard (0..<count).contains(neighbor) else { return nil }
         self.source = first...last
         self.neighbor = neighbor
-        var order = Array(0..<count)
-        order.removeSubrange(source)
-        order.insert(contentsOf: selected, at: first + offset)
+        let chosen = Set(selected)
+        var order = (0..<count).filter { !chosen.contains($0) }
+        let insertion = direction == .earlier ? neighbor : neighbor + 1 - selected.count
+        order.insert(contentsOf: selected, at: insertion)
         self.expectedOrder = order
-        self.expectedSelection = selected.map { $0 + offset }
+        self.expectedSelection = Array(insertion..<(insertion + selected.count))
     }
 
     /// Scroll Into View aligns its track at the leading edge, so reveal the earlier drag endpoint.
