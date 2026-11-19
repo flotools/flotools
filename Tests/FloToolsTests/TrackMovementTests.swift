@@ -10,10 +10,12 @@ import FloSystem
         #expect(up.expectedOrder == [1, 2, 0, 3, 4])
         #expect(up.expectedSelection == [0, 1])
         #expect(up.neighbor == 0)
+        #expect(up.revealIndex == 0)
         let down = try #require(try TrackMovePlan(count: 5, selected: [1, 2], direction: .later))
         #expect(down.expectedOrder == [0, 3, 1, 2, 4])
         #expect(down.expectedSelection == [2, 3])
         #expect(down.neighbor == 3)
+        #expect(down.revealIndex == 2)
     }
 
     @Test func movementAndItsReverseRestoreOrder() throws {

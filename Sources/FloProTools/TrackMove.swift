@@ -33,6 +33,9 @@ struct TrackMovePlan: Equatable {
         self.expectedSelection = selected.map { $0 + offset }
     }
 
+    /// Scroll Into View aligns its track at the leading edge, so reveal the earlier drag endpoint.
+    var revealIndex: Int { neighbor < source.lowerBound ? neighbor : source.upperBound }
+
     /// The name starts the gesture; the neighboring strip boundary is the insertion point.
     static func dragPoints(name: CGRect, neighbor: CGRect, direction: TrackMoveDirection, layout: ProToolsApp.TrackWindow) -> (start: CGPoint, end: CGPoint) {
         let start = CGPoint(x: name.midX, y: name.midY)

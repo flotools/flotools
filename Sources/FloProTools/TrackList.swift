@@ -135,17 +135,15 @@ extension TrackList {
         let source = direction == .earlier ? plan.source.lowerBound : plan.source.upperBound
         // Track List row frames ignore its scroll offset. Native track headers do not.
         do {
-            for index in [plan.neighbor, source] {
-                try requireWindow(window, pid: pid)
-                try before.buttons[index].showMenu()
-                let menu = try await AXElement.popUpMenu(pid: pid)
-                let reveal = try menu.required("Scroll Into View") { try $0.child(role: "AXMenuItem", name: "Scroll Into View") }
-                try reveal.press()
-                let menuOpen = try await ProToolsUpdate.reading(changedFrom: true, within: .seconds(1)) {
-                    AXElement.showsPopUpMenu(pid: pid)
-                }
-                guard !menuOpen else { throw FloError.couldNot("close the track context menu") }
+            try requireWindow(window, pid: pid)
+            try before.buttons[plan.revealIndex].showMenu()
+            let menu = try await AXElement.popUpMenu(pid: pid)
+            let reveal = try menu.required("Scroll Into View") { try $0.child(role: "AXMenuItem", name: "Scroll Into View") }
+            try reveal.press()
+            let menuOpen = try await ProToolsUpdate.reading(changedFrom: true, within: .seconds(1)) {
+                AXElement.showsPopUpMenu(pid: pid)
             }
+            guard !menuOpen else { throw FloError.couldNot("close the track context menu") }
         } catch {
             try restoreMoveSelection(before.state, numbered: numbered)
             throw error
