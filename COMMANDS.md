@@ -160,6 +160,15 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+Shift+W` | Speak Shown Tracks, Show Track List Pop-up Menu | Any | Tap speaks the shown tracks; hold opens the Track List menu. |
 | `Ctrl+Opt+Shift+L` | List Tracks with Flo Tools | Any | Opens a chooser of track lists, such as soloed or unmuted tracks. The chosen list opens in a second chooser, where the chosen tracks can be changed, for example unsoloed or muted. |
 
+## New Tracks dialog
+
+| Keys | Command | Windows | What it does |
+| --- | --- | --- | --- |
+| `Cmd+Left`, `Cmd+Right` | Announce New Tracks Format | New Tracks | Passes the key to New Tracks and speaks the resulting track format. With multiple rows, identifies the changed row. |
+| `Cmd+Up`, `Cmd+Down` | Announce New Tracks Type | New Tracks | Passes the key to New Tracks and speaks the resulting track type. With multiple rows, identifies the changed row. |
+| `Opt+Cmd+Up`, `Opt+Cmd+Down` | Announce New Tracks Timebase | New Tracks | Passes the key to New Tracks and speaks the resulting track timebase. With multiple rows, identifies the changed row. |
+| `Shift+Cmd+=`, `Cmd+-`, `Cmd+Keypad +`, `Cmd+Keypad -`, `Shift+Cmd+Up`, `Shift+Cmd+Down` | Announce New Tracks Row Count | New Tracks | Passes the add or remove row shortcut to New Tracks and speaks the resulting number of track-entry rows. |
+
 ## Fade dialogs
 
 | Keys | Command | Windows | What it does |

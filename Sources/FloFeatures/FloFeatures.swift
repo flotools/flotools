@@ -17,6 +17,7 @@ public enum FloFeatures {
         ("Settings", SettingToggles.commands),
         ("Counters", Counters.commands),
         ("Tracks", TrackStatus.commands + TrackLists.commands),
+        ("New Tracks dialog", NewTracksAnnouncements.commands),
         ("Fade dialogs", FadeDialogs.commands),
         ("Tabs", SelectedTab.commands),
         ("Plug-in windows", PlugIns.commands(session.plugInView)),

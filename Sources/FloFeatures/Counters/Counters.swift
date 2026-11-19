@@ -78,7 +78,7 @@ enum Counters {
         let combo = KeyCombo(literal: sends)
         let direction = sends.hasSuffix("-") ? "previous" : "next"
         return Command(id, name, summary: "Changes the \(what) to the \(direction) one and speaks it." + KeyAnnouncements.summaryNote(guarding), scope: .anyProToolsWindow, triggers: [.key(key)]) { run in
-            try await KeyAnnouncements.announceChange(run, sending: combo, when: guarding, find: { try ProToolsApp.running().element(control) }, read: { try $0.value ?? "" }, spoken: { CounterText.spoken($0, for: control) + label })
+            try await KeyAnnouncements.announceChange(run, sending: combo, when: guarding, find: { try ProToolsApp.running().element(control) }, read: { try $0.value ?? "" }, spoken: { _, after in CounterText.spoken(after, for: control) + label })
         }
     }
 

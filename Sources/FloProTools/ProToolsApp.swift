@@ -62,6 +62,11 @@ public struct ProToolsApp: Sendable {
         FadeDialog(try window(.fade(kind), "the \(kind.rawValue) dialog"))
     }
 
+    @AccessibilityActor
+    public func newTracksDialog() throws -> NewTracksDialog {
+        NewTracksDialog(try window(.newTracks, "the New Tracks dialog"))
+    }
+
     /// Presses tab `number` (from 1) of the focused window, such as Preferences or I/O Setup, whose tabs are its radio buttons, and returns the tab's name. The JXA used `windows[0]`, the front window.
     @AccessibilityActor
     public func selectTab(_ number: Int) throws -> String {

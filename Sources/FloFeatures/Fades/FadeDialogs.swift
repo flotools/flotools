@@ -70,7 +70,7 @@ enum FadeDialogs {
             try await KeyAnnouncements.announceChange(run, when: .always,
                 find: { try ProToolsApp.running().fadeDialog(setting.dialog) },
                 read: { try read(setting.reading, setting.section, in: $0) },
-                spoken: { $0 + setting.suffix })
+                spoken: { _, after in after + setting.suffix })
         }
     }
 
