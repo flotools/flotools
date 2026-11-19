@@ -16,7 +16,7 @@ public enum FloFeatures {
         ("Inspector", Inspector.commands + InspectorControls.commands + InspectorMeters.commands(session.gainReduction)),
         ("Settings", SettingToggles.commands),
         ("Counters", Counters.commands),
-        ("Tracks", TrackStatus.commands + TrackLists.commands),
+        ("Tracks", TrackStatus.commands + TrackLists.commands + TrackMovement.commands),
         ("New Tracks dialog", NewTracksAnnouncements.commands),
         ("Fade dialogs", FadeDialogs.commands),
         ("Tabs", SelectedTab.commands),

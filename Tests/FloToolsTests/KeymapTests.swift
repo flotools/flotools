@@ -69,7 +69,7 @@ import Testing
             }
         }
         // Watch Inspector, AudioSuite and New Tracks keys even when only one command uses them.
-        let watched: Set<String> = ["Shift+Cmd+=", "Cmd+-", "Cmd+Keypad +", "Cmd+Keypad -", "Shift+Cmd+Up", "Shift+Cmd+Down", "Opt+Cmd+Up", "Opt+Cmd+Down", "D", "S", "Ctrl+Opt+Shift+Cmd+B", "Ctrl+Opt+Shift+Cmd+N", "Ctrl+Opt+Shift+Cmd+P", "Ctrl+Opt+Shift+Cmd+R"]
+        let watched: Set<String> = ["Ctrl+Shift+Cmd+P", "Ctrl+Shift+Cmd+;", "Shift+Cmd+=", "Cmd+-", "Cmd+Keypad +", "Cmd+Keypad -", "Shift+Cmd+Up", "Shift+Cmd+Down", "Opt+Cmd+Up", "Opt+Cmd+Down", "D", "S", "Ctrl+Opt+Shift+Cmd+B", "Ctrl+Opt+Shift+Cmd+N", "Ctrl+Opt+Shift+Cmd+P", "Ctrl+Opt+Shift+Cmd+R"]
         return count.filter { $0.value.commands > 1 || watched.contains($0.key) }.sorted { $0.key < $1.key }.map(\.value.combo)
     }
 

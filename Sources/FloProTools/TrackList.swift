@@ -1,3 +1,4 @@
+import Foundation
 import FloSystem
 
 /// The Mix window's Track List table: one row per track, hidden ones included. Each row has two buttons: the first shows or hides the track ("Shown. Kick", "Hidden. Kick"), the second selects or deselects it ("Selected. Kick - Audio Track ", "Kick - Audio Track "). Pressing either toggles only that track (checked live 2026-11-02).
@@ -115,4 +116,88 @@ public struct TrackList {
 func secondCellContent(of cells: [AXElement], role: String? = nil) throws -> AXElement? {
     guard cells.count > 1 else { return nil }
     return try role.map { try cells[1].children(role: $0).first } ?? cells[1].children.first
+}
+
+extension TrackList {
+    /// Pro Tools needs intermediate drag events before it will accept a row drop.
+    func moveSelected(_ direction: TrackMoveDirection, numbered: Bool, pid: pid_t, window: AXElement) async throws -> TrackMoveResult {
+        let before = try moveSnapshot(numbered: numbered)
+        guard !before.state.selected.isEmpty else { return .noSelection }
+        guard !before.state.names.contains(where: { $0.contains("Folder Track") }) else {
+            throw FloError.couldNot("move tracks in a Track List containing folders")
+        }
+        guard Set(before.state.names).count == before.state.names.count else {
+            throw FloError.couldNot("verify track order because track names are duplicated")
+        }
+        guard let plan = try TrackMovePlan(count: before.state.names.count, selected: before.state.selected, direction: direction) else {
+            return .atBoundary
+        }
+        let source = direction == .earlier ? plan.source.lowerBound : plan.source.upperBound
+        let from = try before.buttons[source].requiredFrame(of: "the selected track name")
+        let target = try before.buttons[plan.neighbor].requiredFrame(of: "the adjacent track name")
+        let bounds = try element.requiredFrame(of: "the Track List")
+        let start = CGPoint(x: from.minX + min(25, from.width / 4), y: from.midY)
+        let end = CGPoint(x: start.x, y: direction == .earlier ? target.minY + 1 : target.maxY - 1)
+        guard bounds.contains(start), bounds.contains(end), from.height > 2, target.height > 2 else {
+            throw FloError.couldNot("move tracks; show the selected tracks and their adjacent row in the Track List first")
+        }
+        for index in plan.source {
+            let frame = try before.buttons[index].requiredFrame(of: "a selected track name")
+            guard bounds.contains(frame) else {
+                throw FloError.couldNot("move tracks; show all selected tracks in the Track List first")
+            }
+        }
+        let expected = TrackMoveState(names: plan.expectedOrder.map { before.state.names[$0] }, selected: plan.expectedSelection)
+        // Do not drag a stale selection after the geometry reads.
+        guard try moveSnapshot(numbered: numbered).state == before.state else {
+            throw FloError.couldNot("move tracks because the Track List changed")
+        }
+        try await dragName(from: start, to: end, pid: pid, window: window)
+        let verified = try await ProToolsUpdate.reading(changedFrom: false, within: .seconds(1)) {
+            try moveSnapshot(numbered: numbered).state == expected
+        }
+        guard verified else { throw FloError.couldNot("verify the track move; check the Track List order") }
+        return .moved(count: before.state.selected.count, position: plan.expectedSelection[0] + 1)
+    }
+
+    private func moveSnapshot(numbered: Bool) throws -> (state: TrackMoveState, buttons: [AXElement]) {
+        let rows = try element.rows
+        var names: [String] = []
+        var selected: [Int] = []
+        var buttons: [AXElement] = []
+        for (index, row) in rows.enumerated() {
+            let button = try Self.selectionButton(in: row.children)
+            let label = try button.name.required("a Track List track name")
+            let selection = Self.selection(selectButtonName: label)
+            names.append(try TrackMovePlan.name(selection.name, at: index, numbered: numbered))
+            if selection.isSelected { selected.append(index) }
+            buttons.append(button)
+        }
+        return (TrackMoveState(names: names, selected: selected), buttons)
+    }
+
+    private func dragName(from start: CGPoint, to end: CGPoint, pid: pid_t, window: AXElement) async throws {
+        func requireWindow() throws {
+            guard let front = try AXElement.application(pid: pid).focusedWindow, front.isSame(as: window) else {
+                throw CancellationError()
+            }
+        }
+        try requireWindow()
+        let middle = CGPoint(x: start.x, y: (start.y + end.y) / 2)
+        try Mouse.move(to: start, ifFront: pid)
+        try await Task.sleep(for: .milliseconds(150))
+        try Task.checkCancellation()
+        try requireWindow()
+        try Mouse.pressButton(at: start, ifFront: pid)
+        var release = start
+        defer { Mouse.releaseButton(at: release) }
+        try await Task.sleep(for: .milliseconds(150))
+        for point in [middle, end, end] {
+            try Task.checkCancellation()
+            try requireWindow()
+            try Mouse.dragButton(to: point, ifFront: pid)
+            release = point
+            try await Task.sleep(for: .milliseconds(150))
+        }
+    }
 }

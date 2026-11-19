@@ -37,6 +37,14 @@ public enum Mouse {
         Log.info(.hotkeys, "mouse button down at \(text(point))")
     }
 
+    /// Moves while the left button is held. Pair with pressButton and a deferred releaseButton.
+    public static func dragButton(to point: CGPoint, ifFront pid: pid_t) throws {
+        let motion = try event(.leftMouseDragged, at: point)
+        try requireFront(pid, "drag")
+        motion.post(tap: .cghidEventTap)
+        Log.info(.hotkeys, "mouse dragged to \(text(point))")
+    }
+
     /// Does not throw, so it can run in a `defer`; a failure is logged.
     public static func releaseButton(at point: CGPoint, modifiers: CGEventFlags = []) {
         do {
