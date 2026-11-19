@@ -277,6 +277,17 @@ public struct AXElement {
         !popUpMenuWindows(pid: pid).isEmpty
     }
 
+    /// The element under a screen point, only when it belongs to the intended app.
+    public static func at(_ point: CGPoint, pid: pid_t) throws -> AXElement? {
+        var ref: AXUIElement?
+        let result = AXUIElementCopyElementAtPosition(AXUIElementCreateSystemWide(), Float(point.x), Float(point.y), &ref)
+        guard result == .success else { throw FloError.accessibility(operation: "read the element under the pointer", code: result.rawValue) }
+        guard let ref else { return nil }
+        var owner: pid_t = 0
+        guard AXUIElementGetPid(ref, &owner) == .success, owner == pid else { return nil }
+        return AXElement(ref)
+    }
+
     /// Native context menus may be absent from the app's AX children. Hit-testing their own window finds the menu without guessing an item's position.
     public static func popUpMenu(pid: pid_t) async throws -> AXElement {
         let start = ContinuousClock.now
@@ -308,11 +319,7 @@ public struct AXElement {
     }
 
     private static func menu(at point: CGPoint, pid: pid_t) throws -> AXElement? {
-        var ref: AXUIElement?
-        let result = AXUIElementCopyElementAtPosition(AXUIElementCreateSystemWide(), Float(point.x), Float(point.y), &ref)
-        guard result == .success else { throw FloError.accessibility(operation: "find the pop-up menu", code: result.rawValue) }
-        guard let ref else { return nil }
-        let hit = AXElement(ref)
+        guard let hit = try at(point, pid: pid) else { return nil }
         let menu = try hit.role == "AXMenu" ? hit : hit.element("AXParent")
         guard let menu, try menu.role == "AXMenu" else { return nil }
         var owner: pid_t = 0

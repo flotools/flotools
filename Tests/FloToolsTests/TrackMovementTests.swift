@@ -10,12 +10,10 @@ import FloSystem
         #expect(up.expectedOrder == [1, 2, 0, 3, 4])
         #expect(up.expectedSelection == [0, 1])
         #expect(up.neighbor == 0)
-        #expect(up.revealIndex == 0)
         let down = try #require(try TrackMovePlan(count: 5, selected: [1, 2], direction: .later))
         #expect(down.expectedOrder == [0, 3, 1, 2, 4])
         #expect(down.expectedSelection == [2, 3])
         #expect(down.neighbor == 3)
-        #expect(down.revealIndex == 2)
     }
 
     @Test func movementAndItsReverseRestoreOrder() throws {
@@ -42,11 +40,9 @@ import FloSystem
         let up = try #require(try TrackMovePlan(count: 12, selected: [5, 7, 9], direction: .earlier))
         #expect(up.expectedOrder == [0, 1, 2, 3, 5, 7, 9, 4, 6, 8, 10, 11])
         #expect(up.expectedSelection == [4, 5, 6])
-        #expect(up.revealIndex == 4)
         let down = try #require(try TrackMovePlan(count: 12, selected: [5, 7, 9], direction: .later))
         #expect(down.expectedOrder == [0, 1, 2, 3, 4, 6, 8, 10, 5, 7, 9, 11])
         #expect(down.expectedSelection == [8, 9, 10])
-        #expect(down.revealIndex == 9)
     }
 
     @Test func gatheringPreservesEveryTrackAndBothRelativeOrders() throws {
@@ -74,25 +70,55 @@ import FloSystem
         }
     }
 
-    @Test func displayedNumbersAreRemovedWithoutChangingActualNames() throws {
-        #expect(try TrackMovePlan.name("4 Audio 5 - Audio Track ", at: 3, numbered: true) == "Audio 5 - Audio Track ")
-        #expect(try TrackMovePlan.name("5 Audio 5 - Audio Track ", at: 4, numbered: true) == "Audio 5 - Audio Track ")
-        #expect(try TrackMovePlan.name("12 Drums - Audio Track ", at: 2, numbered: false) == "12 Drums - Audio Track ")
-        #expect(try TrackMovePlan.name("4 12 Drums - Audio Track ", at: 3, numbered: true) == "12 Drums - Audio Track ")
-        #expect(throws: FloError.unexpectedValue("the Track List number at position 4")) {
-            try TrackMovePlan.name("5 Audio 5 - Audio Track ", at: 3, numbered: true)
+    @Test func displayedNumbersFollowVisibilityRatherThanListPosition() throws {
+        #expect(try TrackMovePlan.name("3 DrumVerb - Aux Track ", numbered: true, shown: true) == "DrumVerb - Aux Track ")
+        #expect(try TrackMovePlan.name("4 DrumVerb - Aux Track ", numbered: true, shown: true) == "DrumVerb - Aux Track ")
+        #expect(try TrackMovePlan.name(" Drums - Routing Folder Track ", numbered: true, shown: false) == "Drums - Routing Folder Track ")
+        #expect(try TrackMovePlan.name(" 12 Drums - Audio Track ", numbered: true, shown: false) == "12 Drums - Audio Track ")
+        #expect(try TrackMovePlan.name("4 12 Drums - Audio Track ", numbered: true, shown: true) == "12 Drums - Audio Track ")
+        #expect(try TrackMovePlan.name("12 Drums - Audio Track ", numbered: false, shown: false) == "12 Drums - Audio Track ")
+        #expect(throws: FloError.unexpectedValue("the shown track's number")) {
+            try TrackMovePlan.name("Drums - Audio Track ", numbered: true, shown: true)
+        }
+        #expect(throws: FloError.unexpectedValue("the hidden track's blank number column")) {
+            try TrackMovePlan.name("Drums - Audio Track ", numbered: true, shown: false)
         }
     }
 
-    @Test func dragUsesNativeWindowAxisAndNeighborBoundary() {
-        let name = CGRect(x: 500, y: 900, width: 70, height: 16)
-        let left = CGRect(x: 400, y: 60, width: 80, height: 950)
-        let mix = TrackMovePlan.dragPoints(name: name, neighbor: left, direction: .earlier, layout: .mix)
-        #expect(mix.start == CGPoint(x: 535, y: 908))
-        #expect(mix.end == CGPoint(x: 401, y: 908))
-        let below = CGRect(x: 250, y: 920, width: 400, height: 100)
-        let edit = TrackMovePlan.dragPoints(name: name, neighbor: below, direction: .later, layout: .edit)
-        #expect(edit.end == CGPoint(x: 535, y: 1019))
+    @Test func dragUsesScrolledTrackListRowsInEitherWindow() {
+        let viewport = CGRect(x: 4, y: 80, width: 222, height: 100)
+        let down = TrackMovePlan.dragPoints(source: 40, neighbor: 41, direction: .later, rowHeight: 11, viewport: viewport, offset: 440)
+        #expect(down.start == CGPoint(x: 115, y: 85.5))
+        #expect(down.end == CGPoint(x: 115, y: 101.25))
+        let up = TrackMovePlan.dragPoints(source: 41, neighbor: 40, direction: .earlier, rowHeight: 11, viewport: viewport, offset: 440)
+        #expect(up.start == CGPoint(x: 115, y: 96.5))
+        #expect(up.end == CGPoint(x: 115, y: 80.75))
+        #expect(viewport.insetBy(dx: 1, dy: 0.5).contains(up.end))
+    }
+
+    @Test func closingAndExpandingFolderMovesEveryMemberTogether() throws {
+        let folder = TrackMoveRow(name: "Folder", isShown: false, folder: .open)
+        let closed = TrackMoveRow(name: "Folder", isShown: false, folder: .closed)
+        let member = TrackMoveRow(name: "Member", isShown: false, folder: nil)
+        let aux = TrackMoveRow(name: "Aux", isShown: true, folder: nil)
+        let fold = try TrackMoveFold(before: [folder, member, aux], after: [closed, aux], name: "Folder")
+        #expect(fold.expanding([aux, closed]) == [aux, folder, member])
+        #expect(throws: FloError.couldNot("identify the closed folder's members")) {
+            try TrackMoveFold(before: [folder, member, aux], after: [aux, closed], name: "Folder")
+        }
+    }
+
+    @Test func emptyAndNestedFolderMembersRemainInOrder() throws {
+        let outer = TrackMoveRow(name: "Outer", isShown: true, folder: .open)
+        let closed = TrackMoveRow(name: "Outer", isShown: true, folder: .closed)
+        let inner = TrackMoveRow(name: "Inner", isShown: false, folder: .open)
+        let member = TrackMoveRow(name: "Member", isShown: false, folder: nil)
+        let fold = try TrackMoveFold(before: [outer, inner, member], after: [closed], name: "Outer")
+        #expect(fold.expanding([closed]) == [outer, inner, member])
+        #expect(try TrackMoveFold(before: [outer], after: [closed], name: "Outer").expanding([closed]) == [outer])
+        #expect(throws: FloError.couldNot("identify the closed folder's members")) {
+            try TrackMoveFold(before: [outer, inner, member], after: [closed, member, inner], name: "Outer")
+        }
     }
 
     @Test func speechFollowsWindowDirectionAndReportsBoundaries() {
