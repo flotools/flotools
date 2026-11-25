@@ -637,12 +637,11 @@ private actor Flag {
         #expect(engine.statusMenuCommands(in: plugIn).isEmpty)
     }
 
-    @Test func scopeTellsWhetherItIsLimitedToSomeWindowKinds() {
-        #expect(Scope.windows([.edit]).isLimited(toAnyOf: [.mix, .edit]))
-        #expect(Scope.trackUnderVoiceOverCursor.isLimited(toAnyOf: [.mix]))
-        #expect(Scope.windows([.plugIn, .mix]).isLimited(toAnyOf: [.mix, .edit]))
-        #expect(!Scope.windows([.plugIn]).isLimited(toAnyOf: [.mix, .edit]))
-        #expect(!Scope.anyProToolsWindow.isLimited(toAnyOf: [.mix, .edit]))
+    @Test func scopeTellsWhetherItIsLimitedToWindowKinds() {
+        #expect(Scope.windows([.edit]).isLimitedToWindowKinds)
+        #expect(Scope.windows([.plugIn]).isLimitedToWindowKinds)
+        #expect(Scope.trackUnderVoiceOverCursor.isLimitedToWindowKinds)
+        #expect(!Scope.anyProToolsWindow.isLimitedToWindowKinds)
     }
 
     @Test func commandSearchMatchesEveryWordInNameOrShortcuts() {

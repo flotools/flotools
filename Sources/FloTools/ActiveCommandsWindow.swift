@@ -1,9 +1,8 @@
 import AppKit
 import FloEngine
-import FloProTools
 import FloSystem
 
-/// A table of the commands that work in the front window, with their shortcuts, a search field that narrows it and a checkbox that hides the commands limited to the Mix or Edit window. Opened from the count in the status menu, with the commands the menu counted.
+/// A table of the commands that work in the front window, with their shortcuts, a search field that narrows it and a checkbox that shows only the commands for the current window, hiding those that work in any Pro Tools window. Opened from the count in the status menu, with the commands the menu counted.
 @MainActor
 final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate {
     private static let commandColumn = NSUserInterfaceItemIdentifier("command")
@@ -18,7 +17,7 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
     private let resultCount = NSTextField(labelWithString: "")
     private var speakResult: Task<Void, Never>?
     /// Kept between openings while Flo Tools runs.
-    private let mixAndEditCheckbox = NSButton(checkboxWithTitle: "Show Mix and Edit window commands", target: nil, action: nil)
+    private let currentWindowOnlyCheckbox = NSButton(checkboxWithTitle: "Show only commands for the current window", target: nil, action: nil)
     private let table = NSTableView()
     private lazy var window = makeWindow()
     private var focusLoan = FocusLoan()
@@ -52,9 +51,9 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
     private func updateShown() {
         let selected = shown.indices.contains(table.selectedRow) ? shown[table.selectedRow].id : nil
         let query = search.stringValue
-        let showsMixAndEdit = mixAndEditCheckbox.state == .on
+        let currentWindowOnly = currentWindowOnlyCheckbox.state == .on
         shown = allCommands.filter { command in
-            command.matches(search: query) && (showsMixAndEdit || !command.scope.isLimited(toAnyOf: [.mix, .edit]))
+            command.matches(search: query) && (!currentWindowOnly || command.scope.isLimitedToWindowKinds)
         }
         table.reloadData()
         resultCount.stringValue = resultText
@@ -113,14 +112,13 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
         search.translatesAutoresizingMaskIntoConstraints = false
         search.widthAnchor.constraint(equalToConstant: Self.width).isActive = true
 
-        mixAndEditCheckbox.state = .on
-        mixAndEditCheckbox.target = self
-        mixAndEditCheckbox.action = #selector(narrow)
+        currentWindowOnlyCheckbox.target = self
+        currentWindowOnlyCheckbox.action = #selector(narrow)
 
         let scroll = NSScrollView.fixed(document: table, size: CGSize(width: Self.width, height: 420))
         let closeButton = NSButton(title: "Close", target: self, action: #selector(closeWindow))
         // Escape closes the window. With text in the search field, the first Escape clears the field instead (checked live 2026-11-25).
         closeButton.keyEquivalent = "\u{1b}"
-        return NSWindow.floating(title: "Active Commands", views: [search, resultCount, mixAndEditCheckbox, scroll, closeButton], alignment: .leading, delegate: self)
+        return NSWindow.floating(title: "Active Commands", views: [search, resultCount, currentWindowOnlyCheckbox, scroll, closeButton], alignment: .leading, delegate: self)
     }
 }
