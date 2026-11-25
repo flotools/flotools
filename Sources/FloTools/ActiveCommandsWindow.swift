@@ -2,30 +2,40 @@ import AppKit
 import FloEngine
 import FloSystem
 
-/// A table of the commands that work in the front window, with their shortcuts. Opened from the count in the status menu. The list is a snapshot taken when the menu item is chosen, because once this window is in front, Pro Tools is not.
+/// A table of the commands that work in the front window, with their shortcuts, and a search field that narrows it. Opened from the count in the status menu. The list is a snapshot taken when the menu item is chosen, because once this window is in front, Pro Tools is not.
 @MainActor
 final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate {
     private struct Row {
         let name: String
         let shortcuts: String
+
+        /// Whether every word of `query` is in the name or the shortcuts, ignoring case and accents, so "solo" and "ctrl s" both narrow the list.
+        func matches(_ query: String) -> Bool {
+            let text = "\(name) \(shortcuts)"
+            return query.split(whereSeparator: \.isWhitespace).allSatisfy { word in
+                text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil
+            }
+        }
     }
 
     private static let commandColumn = NSUserInterfaceItemIdentifier("command")
     private static let shortcutColumn = NSUserInterfaceItemIdentifier("shortcut")
 
+    private var allRows: [Row] = []
+    /// The rows that match the search field.
     private var rows: [Row] = []
+    private let search = NSSearchField()
     private let table = NSTableView()
     private lazy var window = makeWindow()
     /// Whether the window holds a `BorrowedFocus` loan, so Pro Tools gets the focus back when it closes.
     private var holdsFocus = false
 
     func show(_ commands: [Command]) {
-        rows = commands.map { Row(name: $0.name, shortcuts: $0.triggers.map(\.description).joined(separator: ", ")) }
+        allRows = commands.map { Row(name: $0.name, shortcuts: $0.triggers.map(\.description).joined(separator: ", ")) }
         _ = window
-        window.title = "Active Commands (\(rows.count))"
-        table.reloadData()
-        if !rows.isEmpty { table.selectRowIndexes([0], byExtendingSelection: false) }
-        table.scrollRowToVisible(0)
+        window.title = "Active Commands (\(allRows.count))"
+        search.stringValue = ""
+        narrow()
         if holdsFocus {
             BorrowedFocus.bringToFront()
         } else {
@@ -33,7 +43,16 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
             holdsFocus = true
         }
         window.makeKeyAndOrderFront(nil)
-        window.makeFirstResponder(table)
+        window.makeFirstResponder(search)
+    }
+
+    /// Shows the rows that match the search field, with the first one selected, so Tab from the field lands on a match.
+    @objc private func narrow() {
+        let query = search.stringValue
+        rows = allRows.filter { $0.matches(query) }
+        table.reloadData()
+        if !rows.isEmpty { table.selectRowIndexes([0], byExtendingSelection: false) }
+        table.scrollRowToVisible(0)
     }
 
     @objc private func closeWindow() {
@@ -69,9 +88,16 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
         table.delegate = self
         table.setAccessibilityLabel("Active commands")
 
+        search.placeholderString = "Search commands and shortcuts"
+        search.setAccessibilityLabel("Search active commands")
+        search.target = self
+        search.action = #selector(narrow)
+        search.translatesAutoresizingMaskIntoConstraints = false
+        search.widthAnchor.constraint(equalToConstant: 560).isActive = true
+
         let scroll = NSScrollView.fixed(document: table, size: CGSize(width: 560, height: 420))
         let closeButton = NSButton(title: "Close", target: self, action: #selector(closeWindow))
         closeButton.keyEquivalent = "\u{1b}"
-        return NSWindow.floating(title: "Active Commands", views: [scroll, closeButton], alignment: .trailing, delegate: self)
+        return NSWindow.floating(title: "Active Commands", views: [search, scroll, closeButton], alignment: .trailing, delegate: self)
     }
 }
