@@ -114,12 +114,6 @@ public struct AXElement {
     /// The element's own keyboard focus flag, which can be set when the app's focused element is something else.
     public var isFocused: Bool { get throws { try bool("AXFocused") ?? false } }
 
-    /// Requests keyboard focus without opening a pop-up or moving the VoiceOver cursor.
-    public func requestKeyboardFocus() {
-        let result = AXUIElementSetAttributeValue(ref, kAXFocusedAttribute as CFString, kCFBooleanTrue)
-        Log.debug(.accessibility, "set AXFocused: AXError \(result.rawValue)")
-    }
-
     /// The element's AXTitle, which System Events and the JXA call its name.
     public var name: String? { get throws { try string("AXTitle") } }
 

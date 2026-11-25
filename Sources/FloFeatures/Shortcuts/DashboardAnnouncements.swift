@@ -2,6 +2,7 @@ import FloEngine
 import FloProTools
 import FloSystem
 
+/// The New Session Dashboard's own shortcuts, passed on to Pro Tools and announced because Pro Tools changes the settings silently. They work only while a setting has keyboard focus; Flo Tools leaves focus to the user.
 enum DashboardAnnouncements {
     @MainActor
     static var commands: [Command] { [
@@ -17,37 +18,33 @@ enum DashboardAnnouncements {
         Command(CommandID("dashboard.\(id)"), "Announce Dashboard \(label)",
                 summary: "Passes the key to Pro Tools and speaks the resulting \(label.lowercased()) in the New Session Dashboard.",
                 scope: .windows([.other, .tabbedSetup]), triggers: [.key(key)]) { run in
-            try await announce(run, label: label, identifier: identifier)
+            try await announce(run, identifier: identifier)
         }
     }
 
     @AccessibilityActor
-    private static func announce(_ run: CommandRun, label: String, identifier: String) async throws {
-        let app = try? ProToolsApp.running()
-        let previousControl = try? app?.newSessionSetting(identifier: identifier)
-        let before = try? previousControl.flatMap { try selection($0) }
-        if let previousControl, (try? previousControl.role) == "AXPopUpButton",
-           (try? previousControl.isFocused) != true {
-            previousControl.requestKeyboardFocus()
-        }
+    private static func announce(_ run: CommandRun, identifier: String) async throws {
+        let app = try ProToolsApp.running()
+        // The reading before the key is only for the wait, so its failure does not keep the key from Pro Tools.
+        let before = try? app.newSessionSetting(identifier: identifier).flatMap { try spokenValue($0) }
         try await run.passThrough()
-        guard let control = try app?.newSessionSetting(identifier: identifier) else { return }
+        guard let control = try app.newSessionSetting(identifier: identifier) else { return }
 
         // A newly opened Dashboard may expose the value only after processing the key.
         let after = try await ProToolsUpdate.reading(changedFrom: before, within: ProToolsUpdate.passedKeyTimeout) {
-            try selection(control)
+            try spokenValue(control)
         }
         if let after {
-            try await VoiceOver.say("\(label), \(after)")
+            try await VoiceOver.say(after)
         }
     }
 
+    /// A pop-up's selected item, or "Interleaved checked" for the check box.
     @AccessibilityActor
-    private static func selection(_ control: AXElement) throws -> String? {
-        if try control.role == "AXCheckBox" {
-            guard let checked = try control.bool("AXValue") else { return nil }
-            return checked ? "on" : "off"
-        }
-        return try control.name ?? control.value
+    private static func spokenValue(_ control: AXElement) throws -> String? {
+        guard try control.role == "AXCheckBox" else { return try control.name ?? control.value }
+        guard let checked = try control.bool("AXValue") else { return nil }
+        let state = checked ? "checked" : "unchecked"
+        return try control.name.map { "\($0) \(state)" } ?? state
     }
 }
