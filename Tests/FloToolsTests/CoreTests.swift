@@ -637,6 +637,13 @@ private actor Flag {
         #expect(engine.statusMenuCommands(in: plugIn).isEmpty)
     }
 
+    @Test func scopeTellsWhetherItIsLimitedToAWindowKind() {
+        #expect(Scope.mixOrEdit.isLimited(toInclude: .edit))
+        #expect(Scope.trackUnderVoiceOverCursor.isLimited(toInclude: .mix))
+        #expect(!Scope.windows([.plugIn]).isLimited(toInclude: .mix))
+        #expect(!Scope.anyProToolsWindow.isLimited(toInclude: .mix))
+    }
+
     @Test func activeCommandsAreThoseWhoseScopeApplies() {
         let engine = FloFeatures.makeEngine()
         let mix = FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Mix: Session")
