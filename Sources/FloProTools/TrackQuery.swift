@@ -15,7 +15,7 @@ extension ProToolsApp {
     @AccessibilityActor
     public func names(_ query: TrackQuery) throws -> [String] {
         switch query {
-        case .shownFrozen: try shownFrozenTracks().map(\.name)
+        case .shownFrozen: try shownFrozenTracks().frozen.map(\.name)
         case .strips(let flag, let on): try mixWindow().tracks(flag, on: on).map(\.name)
         case .trackList(let property, let on): try mixWindow().trackList().rows(property, on: on).map(\.name)
         }
@@ -27,7 +27,7 @@ extension ProToolsApp {
         var unchanged: [String] = []
         switch query {
         case .shownFrozen:
-            let tracks = try shownFrozenTracks()
+            let tracks = try shownFrozenTracks().frozen
             for name in names {
                 try Task.checkCancellation()
                 guard let track = tracks.first(where: { $0.name == name }) else { continue }

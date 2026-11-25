@@ -985,6 +985,12 @@ private actor Flag {
         #expect(Chooser.firstMatch("Hid", in: items) == nil)
     }
 
+    @Test func frozenReportCountsTracksWithoutAFreezeButton() {
+        #expect(TrackStatus.frozenText("No shown tracks are frozen.", unreadable: 0) == "No shown tracks are frozen.")
+        #expect(TrackStatus.frozenText("2 Frozen: Kick - Inst. Lead Vocal - Audio. ", unreadable: 17) == "2 Frozen: Kick - Inst. Lead Vocal - Audio. Frozen controls not shown in 17 tracks.")
+        #expect(TrackStatus.frozenText("Unfroze 1 track.", unreadable: 1) == "Unfroze 1 track. Frozen controls not shown in 1 track.")
+    }
+
     @Test func frozenTrackListingUsesShownTracksAndOffersUnfreeze() throws {
         let listing = try #require(TrackLists.listings.first { $0.name == "List Frozen Tracks" })
         #expect(listing.source == .shownFrozen)

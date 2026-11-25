@@ -37,9 +37,9 @@ extension ProToolsApp {
         return try element.requiredFrame(of: "the table")
     }
 
-    /// Use the Track List to distinguish hidden tracks from shown tracks whose Edit controls cannot be read.
+    /// The shown frozen tracks, and how many shown tracks that can freeze have no freeze button to read. Pro Tools shows the button only on Edit tracks of Medium height or taller. The Track List tells hidden tracks apart from shown tracks whose Edit controls cannot be read.
     @AccessibilityActor
-    public func shownFrozenTracks() throws -> [TrackStrip] {
+    public func shownFrozenTracks() throws -> (frozen: [TrackStrip], unreadable: Int) {
         let edit = try trackWindow(.edit)
         let shown = try TrackList(TrackList.table(in: edit)).rows(.shown, on: true)
         var strips: [String: TrackStrip] = [:]
@@ -47,16 +47,23 @@ extension ProToolsApp {
             guard let name = try group.name else { continue }
             strips[name] = TrackStrip(name: name, element: group)
         }
-        return try shown.compactMap { row in
+        var frozen: [TrackStrip] = []
+        var unreadable = 0
+        for row in shown {
             switch TrackKind(trackName: row.name) {
             case .audio, .aux, .instrument: break
             case .folder where row.name.trimmingCharacters(in: .whitespaces).hasSuffix(" - Routing Folder Track"): break
-            default: return nil
+            default: continue
             }
 
             let strip = try strips[row.name].required("the track \(row.name) in the Edit window")
-            return try strip.isFrozen() ? strip : nil
+            switch try strip.frozenState() {
+            case true?: frozen.append(strip)
+            case false?: break
+            case nil: unreadable += 1
+            }
         }
+        return (frozen, unreadable)
     }
 
     /// The names of the clips selected in the Edit window's clip list, quoted as Pro Tools shows them, for example "\"Kick_01\"".

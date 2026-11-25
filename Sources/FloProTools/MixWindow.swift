@@ -165,8 +165,12 @@ public struct TrackStrip {
         return TrackFlag.state(of: flag, track: kind, buttonState: try Self.state(of: flag.toggle, button: button))
     }
 
-    public func isFrozen() throws -> Bool {
-        try isFrozen(control(.freeze))
+    /// Whether the track is frozen; nil when it shows no freeze button, as Edit tracks shorter than Medium do.
+    public func frozenState() throws -> Bool? {
+        guard let button = try element.children.first(where: { child in
+            try child.role == "AXButton" && (try child.name?.lowercased().contains("frozen") ?? false)
+        }) else { return nil }
+        return try isFrozen(button)
     }
 
     /// Recheck before pressing so a track that has already thawed stays unfrozen.

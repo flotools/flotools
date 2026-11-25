@@ -170,15 +170,23 @@ enum TrackStatus {
     @MainActor
     private static var frozenTracks: Command {
         let wording = Wording(none: NoTracks.frozen, heading: "Frozen:")
-        return Command("floTools.speakShownFrozenTracks", "Speak Shown Frozen Tracks, Unfreeze All Shown Tracks", summary: "Tap speaks the shown frozen tracks. Hold unfreezes all shown tracks.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+F")], tap: { _ in
-            try await speak(.shownFrozen, wording)
+        return Command("floTools.speakShownFrozenTracks", "Speak Shown Frozen Tracks, Unfreeze All Shown Tracks", summary: "Tap speaks the shown frozen tracks. Hold unfreezes all shown tracks. Both say how many shown tracks are too short in the Edit window to show their freeze state.", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+F")], tap: { _ in
+            let scan = try await ProToolsApp.running().shownFrozenTracks()
+            try await VoiceOver.say(frozenText(message(names: scan.frozen.map(\.name), wording), unreadable: scan.unreadable))
         }, hold: { _ in
             let proTools = try ProToolsApp.running()
-            let tracks = try await proTools.shownFrozenTracks()
+            let scan = try await proTools.shownFrozenTracks()
             let reset = Reset(suspendsGroups: false, verb: "unfreeze", partly: "Unfroze", done: "Unfroze all shown tracks.")
-            try await resetAll(tracks, reset, proTools: proTools) { try await $0.unfreeze() }
-            try await VoiceOver.say(tracks.isEmpty ? wording.none : reset.done)
+            try await resetAll(scan.frozen, reset, proTools: proTools) { try await $0.unfreeze() }
+            let done = scan.frozen.isEmpty ? wording.none : scan.unreadable == 0 ? reset.done : "Unfroze \(scan.frozen.count) \(scan.frozen.count == 1 ? "track" : "tracks")."
+            try await VoiceOver.say(frozenText(done, unreadable: scan.unreadable))
         })
+    }
+
+    /// Adds how many shown tracks had no freeze button to read (owner's wording, 2026-11-25), so a frozen Small track is not passed over in silence.
+    static func frozenText(_ text: String, unreadable: Int) -> String {
+        guard unreadable > 0 else { return text }
+        return "\(text.trimmingCharacters(in: .whitespaces)) Frozen controls not shown in \(unreadable) \(unreadable == 1 ? "track" : "tracks")."
     }
 
     // MARK: 0 dB
