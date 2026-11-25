@@ -16,6 +16,20 @@ public enum Mouse {
         Log.info(.hotkeys, "mouse moved to \(text(point))")
     }
 
+    /// Scrolls the view under a screen point. Apps may scale or clamp the requested pixel distance.
+    public static func scroll(at point: CGPoint, verticalPixels: Int32, ifFront pid: pid_t) throws {
+        guard let scroll = CGEvent(scrollWheelEvent2Source: CGEventSource(stateID: .hidSystemState), units: .pixel,
+                                   wheelCount: 1, wheel1: verticalPixels, wheel2: 0, wheel3: 0) else {
+            throw FloError.couldNot("make a scroll event")
+        }
+        scroll.location = point
+        scroll.flags = []
+        scroll.setIntegerValueField(.eventSourceUserData, value: Keyboard.syntheticMarker)
+        try requireFront(pid, "scroll")
+        scroll.post(tap: .cghidEventTap)
+        Log.info(.hotkeys, "scrolled \(verticalPixels) pixels at \(text(point))")
+    }
+
     /// Moves the pointer and clicks the left button there, with `modifiers` held, such as `.maskControl`. Throws `CancellationError` without clicking when the caller is already cancelled, because mouse events go to whatever window is under the pointer. All events are made before the first is posted, so a failure to make one never leaves the button down.
     public static func click(at point: CGPoint, modifiers: CGEventFlags = [], ifFront pid: pid_t) async throws {
         try Task.checkCancellation()
@@ -35,6 +49,14 @@ public enum Mouse {
         try requireFront(pid, "press the mouse button")
         for event in events { event.post(tap: .cghidEventTap) }
         Log.info(.hotkeys, "mouse button down at \(text(point))")
+    }
+
+    /// Moves while the left button is held. Pair with pressButton and a deferred releaseButton.
+    public static func dragButton(to point: CGPoint, ifFront pid: pid_t) throws {
+        let motion = try event(.leftMouseDragged, at: point)
+        try requireFront(pid, "drag")
+        motion.post(tap: .cghidEventTap)
+        Log.info(.hotkeys, "mouse dragged to \(text(point))")
     }
 
     /// Does not throw, so it can run in a `defer`; a failure is logged.

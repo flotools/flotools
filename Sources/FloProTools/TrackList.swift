@@ -25,7 +25,7 @@ public struct TrackList {
         public nonisolated let isSelected: Bool
         public nonisolated let isShown: Bool
         private let showButton: AXElement
-        private let selectButton: AXElement
+        let selectButton: AXElement
 
         init(name: String, isSelected: Bool, isShown: Bool, showButton: AXElement, selectButton: AXElement) {
             self.name = name
@@ -74,7 +74,7 @@ public struct TrackList {
         try element.elements("AXSelectedRows")
     }
 
-    private static func row(_ row: AXElement) throws -> Row {
+    static func row(_ row: AXElement) throws -> Row {
         let cells = try row.children
         // The selection button first: its lookup checks that the row has both cells.
         let select = try selectionButton(in: cells)

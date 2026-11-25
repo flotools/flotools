@@ -268,9 +268,63 @@ public struct AXElement {
 
     /// Whether app `pid` has a pop-up menu window on screen. Window layer and owner are available without Screen Recording permission, and reading them sends the app nothing, so this never blocks on a busy app.
     public nonisolated static func showsPopUpMenu(pid: pid_t) -> Bool {
-        guard pid > 0, let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [[String: Any]] else { return false }
-        let menuLayer = Int(CGWindowLevelForKey(.popUpMenuWindow))
-        return windows.contains { $0[kCGWindowOwnerPID as String] as? pid_t == pid && $0[kCGWindowLayer as String] as? Int == menuLayer }
+        !popUpMenuWindows(pid: pid).isEmpty
+    }
+
+    /// The element under a screen point, only when it belongs to the intended app.
+    public static func at(_ point: CGPoint, pid: pid_t) throws -> AXElement? {
+        var ref: AXUIElement?
+        let result = AXUIElementCopyElementAtPosition(AXUIElementCreateSystemWide(), Float(point.x), Float(point.y), &ref)
+        guard result == .success else { throw FloError.accessibility(operation: "read the element under the pointer", code: result.rawValue) }
+        guard let ref else { return nil }
+        var owner: pid_t = 0
+        guard AXUIElementGetPid(ref, &owner) == .success, owner == pid else { return nil }
+        return AXElement(ref)
+    }
+
+    /// Native context menus may be absent from the app's AX children. Hit-testing their own window finds the menu without guessing an item's position.
+    public static func popUpMenu(pid: pid_t) async throws -> AXElement {
+        let start = ContinuousClock.now
+        while true {
+            do {
+                var busy: FloError?
+                for window in popUpMenuWindows(pid: pid) {
+                    guard let bounds = window[kCGWindowBounds as String] as? [String: Any],
+                          let frame = CGRect(dictionaryRepresentation: bounds as CFDictionary), frame.height > 10 else { continue }
+                    let points = [CGPoint(x: frame.midX, y: frame.midY),
+                                  CGPoint(x: frame.midX, y: frame.minY + 10),
+                                  CGPoint(x: frame.midX, y: frame.maxY - 10)]
+                    for point in points {
+                        do {
+                            if let menu = try menu(at: point, pid: pid) { return menu }
+                        } catch let error as FloError where error.isBusyApp {
+                            // VoiceOver's caption panel can obscure a point in the menu.
+                            busy = error
+                        }
+                    }
+                }
+                if let busy { throw busy }
+                throw FloError.notFound("the pop-up menu")
+            } catch let error as FloError where error.isBusyApp && ContinuousClock.now - start < .seconds(1) {
+                // A menu window can exist before its Accessibility objects answer.
+                try await Task.sleep(for: .milliseconds(50))
+            }
+        }
+    }
+
+    private static func menu(at point: CGPoint, pid: pid_t) throws -> AXElement? {
+        guard let hit = try at(point, pid: pid) else { return nil }
+        let menu = try hit.role == "AXMenu" ? hit : hit.element("AXParent")
+        guard let menu, try menu.role == "AXMenu" else { return nil }
+        var owner: pid_t = 0
+        guard AXUIElementGetPid(menu.ref, &owner) == .success, owner == pid else { return nil }
+        return menu
+    }
+
+    private nonisolated static func popUpMenuWindows(pid: pid_t) -> [[String: Any]] {
+        guard pid > 0, let windows = CGWindowListCopyWindowInfo([.optionOnScreenOnly], kCGNullWindowID) as? [[String: Any]] else { return [] }
+        let layer = Int(CGWindowLevelForKey(.popUpMenuWindow))
+        return windows.filter { $0[kCGWindowOwnerPID as String] as? pid_t == pid && $0[kCGWindowLayer as String] as? Int == layer }
     }
 
     /// Moves a slider one step, as `increment()` and `decrement()` on a System Events slider.

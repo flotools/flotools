@@ -160,6 +160,8 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+Shift+H` | Speak Hidden Tracks, Show Track List Pop-up Menu | Any | Tap speaks the hidden tracks; hold opens the Track List menu. |
 | `Opt+Shift+W` | Speak Shown Tracks, Show Track List Pop-up Menu | Any | Tap speaks the shown tracks; hold opens the Track List menu. |
 | `Ctrl+Opt+Shift+L` | List Tracks with Flo Tools | Any | Opens a chooser of track lists, including shown frozen, soloed and unmuted tracks. The chosen list opens in a second chooser, where the chosen tracks can be changed, for example unfrozen, unsoloed or muted. |
+| `Ctrl+Shift+Cmd+P` | Move Selected Tracks Up or Left | Mix, Edit | Moves selected tracks one position earlier in the Track List, including hidden tracks and folders, and speaks the result. Nonadjacent selections gather into one block; folders carry their members, and folder membership follows native dragging. |
+| `Ctrl+Shift+Cmd+;` | Move Selected Tracks Down or Right | Mix, Edit | Moves selected tracks one position later in the Track List, including hidden tracks and folders, and speaks the result. Nonadjacent selections gather into one block; folders carry their members, and folder membership follows native dragging. |
 
 ## New Tracks dialog
 
