@@ -135,6 +135,7 @@ Ctrl+Shift+Cmd+P | Mix, Edit | tracks.moveEarlier | run | "Move Selected Tracks 
 Ctrl+Shift+Cmd+Right | track under VoiceOver cursor | inspector.panRightOnRightChannel | repeats while held | "Pan Right on Right Channel"
 Ctrl+Shift+Cmd+T | any Pro Tools window | floTools.resizeTrackListTable | run | "Resize Track List Table"
 Ctrl+Up | Plug-in | plugin.previousRowParameter | run | "Previous Row Parameter"
+D | track under VoiceOver cursor | inspector.speakToggleDSPMode | tap/hold, sound after hold | "Speak/Toggle DSP Mode"
 Down | Crossfade | crossfade.nextLinkOutIn | run | "Next Link Out/In"
 Down | Fade In | fadeIn.nextFadeInShapeParameter | run | "Next Fade In Shape Parameter"
 Down | Fade Out | fadeOut.nextFadeOutShapeParameter | run | "Next Fade Out Shape Parameter"

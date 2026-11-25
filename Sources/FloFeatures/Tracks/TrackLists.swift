@@ -3,19 +3,32 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// The track lists: each shows the tracks in one state in a chooser, and changes the chosen ones, for example List Muted Tracks unmutes the chosen tracks. "List Tracks with Flo Tools" (Ctrl+Opt+Shift+L) offers them in a chooser, as the KM version showed them in a palette. The lists are chooser choices, including the frozen-track list added in Swift.
+/// The track lists: each shows the tracks in one state in a chooser, with an action when the state can be changed, for example List Muted Tracks unmutes the chosen tracks. "List Tracks with Flo Tools" (Ctrl+Opt+Shift+L) offers them in a chooser, as the KM version showed them in a palette. The lists are chooser choices, including the frozen-track list added in Swift.
 enum TrackLists {
     /// One track state and the action offered for its chosen tracks.
     struct Listing: Sendable {
         let name: String
-        /// The listed tracks; choosing one switches the flag or presses the row's button.
+        /// The listed tracks.
         let source: TrackQuery
         /// Spoken instead of opening an empty list.
         let none: Empty
         /// Follows the number of tracks in the window title, for example "3 Muted".
         let heading: String
         let prompt: String
-        let okTitle: String
+        let action: Action
+        var okTitle: String { action.title }
+    }
+
+    enum Action: Sendable, Equatable {
+        case change(String)
+        case readOnly
+
+        var title: String {
+            switch self {
+            case .change(let title): title
+            case .readOnly: "Close"
+            }
+        }
     }
 
     /// What an empty list says.
@@ -26,21 +39,23 @@ enum TrackLists {
     }
 
     static let listings: [Listing] = [
-        Listing(name: "List Frozen Tracks", source: .shownFrozen, none: .says(NoTracks.frozen), heading: "Frozen", prompt: "Choose tracks to unfreeze.", okTitle: "Unfreeze"),
-        Listing(name: "List Hidden Tracks", source: .trackList(.shown, on: false), none: .says(NoTracks.hidden), heading: "hidden", prompt: "Choose tracks to show.", okTitle: "Show"),
-        Listing(name: "List Input Monitor-Disabled Tracks", source: .strips(.inputMonitored, on: false), none: .says("No tracks are input monitor disabled."), heading: "input monitor Disabled", prompt: "Choose tracks to enable input monitor.", okTitle: "Enable Input Monitor"),
-        Listing(name: "List Input Monitor-Enabled Tracks", source: .strips(.inputMonitored, on: true), none: .says("No tracks are input monitor enabled."), heading: "Input Monitor Enabled.", prompt: "Choose tracks to disable input monitor.", okTitle: "Disable Input Monitor"),
-        Listing(name: "List Muted Tracks", source: .strips(.muted, on: true), none: .says(NoTracks.muted), heading: "Muted", prompt: "Choose tracks to unmute.", okTitle: "Unmute"),
+        Listing(name: "List Auto-Enabled DSP Tracks", source: .dsp(.automaticallyEnabled), none: .says("No shown tracks have automatically enabled DSP."), heading: "Auto-Enabled DSP", prompt: "DSP is automatically enabled on these tracks because of routing.", action: .readOnly),
+        Listing(name: "List DSP Tracks", source: .dsp(.enabled), none: .says("No shown tracks have explicitly enabled DSP."), heading: "DSP", prompt: "Choose tracks to toggle DSP mode.", action: .change("Toggle DSP")),
+        Listing(name: "List Frozen Tracks", source: .shownFrozen, none: .says(NoTracks.frozen), heading: "Frozen", prompt: "Choose tracks to unfreeze.", action: .change("Unfreeze")),
+        Listing(name: "List Hidden Tracks", source: .trackList(.shown, on: false), none: .says(NoTracks.hidden), heading: "hidden", prompt: "Choose tracks to show.", action: .change("Show")),
+        Listing(name: "List Input Monitor-Disabled Tracks", source: .strips(.inputMonitored, on: false), none: .says("No tracks are input monitor disabled."), heading: "input monitor Disabled", prompt: "Choose tracks to enable input monitor.", action: .change("Enable Input Monitor")),
+        Listing(name: "List Input Monitor-Enabled Tracks", source: .strips(.inputMonitored, on: true), none: .says("No tracks are input monitor enabled."), heading: "Input Monitor Enabled.", prompt: "Choose tracks to disable input monitor.", action: .change("Disable Input Monitor")),
+        Listing(name: "List Muted Tracks", source: .strips(.muted, on: true), none: .says(NoTracks.muted), heading: "Muted", prompt: "Choose tracks to unmute.", action: .change("Unmute")),
         // The JXA put "<n> disarmed. Choose tracks to arm." in the prompt, with no title or OK name, and spoke nothing for an empty list; this follows the other lists.
-        Listing(name: "List Record-Disabled Tracks", source: .strips(.recordArmed, on: false), none: .says("No tracks are disarmed."), heading: "disarmed", prompt: "Choose tracks to arm.", okTitle: "Arm"),
-        Listing(name: "List Record-Enabled Tracks", source: .strips(.recordArmed, on: true), none: .armedCheck, heading: "armed", prompt: "Choose tracks to disarm.", okTitle: "Disarm"),
-        Listing(name: "List Selected Tracks", source: .trackList(.selected, on: true), none: .says(NoTracks.selected), heading: "Selected", prompt: "Choose tracks to deselect.", okTitle: "Deselect"),
-        Listing(name: "List Shown Tracks", source: .trackList(.shown, on: true), none: .says(NoTracks.shown), heading: "Shown", prompt: "Choose tracks to hide.", okTitle: "Hide"),
-        Listing(name: "List Soloed Tracks", source: .strips(.soloed, on: true), none: .says(NoTracks.soloed), heading: "Soloed", prompt: "Choose tracks to unsolo.", okTitle: "Unsolo"),
+        Listing(name: "List Record-Disabled Tracks", source: .strips(.recordArmed, on: false), none: .says("No tracks are disarmed."), heading: "disarmed", prompt: "Choose tracks to arm.", action: .change("Arm")),
+        Listing(name: "List Record-Enabled Tracks", source: .strips(.recordArmed, on: true), none: .armedCheck, heading: "armed", prompt: "Choose tracks to disarm.", action: .change("Disarm")),
+        Listing(name: "List Selected Tracks", source: .trackList(.selected, on: true), none: .says(NoTracks.selected), heading: "Selected", prompt: "Choose tracks to deselect.", action: .change("Deselect")),
+        Listing(name: "List Shown Tracks", source: .trackList(.shown, on: true), none: .says(NoTracks.shown), heading: "Shown", prompt: "Choose tracks to hide.", action: .change("Hide")),
+        Listing(name: "List Soloed Tracks", source: .strips(.soloed, on: true), none: .says(NoTracks.soloed), heading: "Soloed", prompt: "Choose tracks to unsolo.", action: .change("Unsolo")),
         // The JXA showed the list but did not mute the chosen tracks; this mutes them.
-        Listing(name: "List Unmuted Tracks", source: .strips(.muted, on: false), none: .says("No tracks are unmuted."), heading: "Unmuted", prompt: "Choose tracks to mute.", okTitle: "Mute"),
-        Listing(name: "List Unselected Tracks", source: .trackList(.selected, on: false), none: .says("No tracks are unselected."), heading: "Unselected", prompt: "Choose tracks to select.", okTitle: "Select"),
-        Listing(name: "List Unsoloed Tracks", source: .strips(.soloed, on: false), none: .says("No tracks are unsoloed."), heading: "Unsoloed", prompt: "Choose tracks to solo.", okTitle: "Solo"),
+        Listing(name: "List Unmuted Tracks", source: .strips(.muted, on: false), none: .says("No tracks are unmuted."), heading: "Unmuted", prompt: "Choose tracks to mute.", action: .change("Mute")),
+        Listing(name: "List Unselected Tracks", source: .trackList(.selected, on: false), none: .says("No tracks are unselected."), heading: "Unselected", prompt: "Choose tracks to select.", action: .change("Select")),
+        Listing(name: "List Unsoloed Tracks", source: .strips(.soloed, on: false), none: .says("No tracks are unsoloed."), heading: "Unsoloed", prompt: "Choose tracks to solo.", action: .change("Solo")),
     ]
 
     @MainActor
@@ -49,7 +64,7 @@ enum TrackLists {
     /// The KM version spoke "Choose what to list.", paused 1 s and showed a palette. The chooser's prompt says the same and VoiceOver reads it when the window opens, so there is no separate speech or pause.
     @MainActor
     private static var chooseList: Command {
-        Command("floTools.listTracksWithFloTools", "List Tracks with Flo Tools", summary: "Opens a chooser of track lists, including shown frozen, soloed and unmuted tracks. The chosen list opens in a second chooser, where the chosen tracks can be changed, for example unfrozen, unsoloed or muted.", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Opt+Shift+L")]) { _ in
+        Command("floTools.listTracksWithFloTools", "List Tracks with Flo Tools", summary: "Lists tracks by state, including explicitly enabled DSP, automatically enabled DSP and frozen tracks. The second chooser offers actions such as Toggle DSP or Unfreeze; the automatically enabled DSP list is read-only.", scope: .anyProToolsWindow, triggers: [.key("Ctrl+Opt+Shift+L")]) { _ in
             // Looked up while Pro Tools is in front. Right after a chooser closes, macOS can briefly report no running Pro Tools while the front app changes (checked live 2026-11-03: 3 of 19 runs said "Could not find Pro Tools.").
             let proTools = try ProToolsApp.running()
             let request = Chooser.Request(title: "List Tracks with Flo Tools", prompt: "Choose what to list.", items: listings.map(\.name), okTitle: "List", allowsMultipleSelection: false)
@@ -73,8 +88,10 @@ enum TrackLists {
             try await VoiceOver.say(text)
             return
         }
-        let request = Chooser.Request(title: "\(names.count) \(listing.heading)", prompt: listing.prompt, items: names.map(displayName), okTitle: listing.okTitle)
-        let chosen = await Chooser.choose(request).map { names[$0] }
+        let request = Chooser.Request(title: "\(names.count) \(listing.heading)", prompt: listing.prompt, items: names.map(displayName), okTitle: listing.okTitle, allowsMultipleSelection: listing.action != .readOnly)
+        let indices = await Chooser.choose(request)
+        guard case .change = listing.action else { return }
+        let chosen = indices.map { names[$0] }
         try Task.checkCancellation()
         guard !chosen.isEmpty else { return }
         let unchanged = try await proTools.change(chosen, outOf: listing.source)

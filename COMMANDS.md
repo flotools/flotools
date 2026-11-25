@@ -48,6 +48,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Ctrl+Cmd+8` | Assign Send H | Mix, Edit, on a track | Opens the menu to assign send H. |
 | `Ctrl+Cmd+9` | Assign Send I | Mix, Edit, on a track | Opens the menu to assign send I. |
 | `Ctrl+Cmd+0` | Assign Send J | Mix, Edit, on a track | Opens the menu to assign send J. |
+| `D` | Speak/Toggle DSP Mode | Mix, Edit, on a track | Tap speaks DSP, Native or Auto DSP for the track. Hold presses its DSP button; any Pro Tools routing warning remains open. |
 | `S` | Speak/Toggle Solo | Mix, Edit, on a track | Tap speaks the track's solo state; hold switches it and speaks the new state. |
 | `M` | Speak/Toggle Mute | Mix, Edit, on a track | Tap speaks the track's mute state; hold switches it and speaks the new state. |
 | `R` | Speak/Toggle Record State | Mix, Edit, on a track | Tap speaks the track's record arm state; hold switches it and speaks the new state. |
@@ -159,7 +160,7 @@ Every key works only while Pro Tools is in front, and only in the windows listed
 | `Opt+Shift+F` | Speak Shown Frozen Tracks, Unfreeze All Shown Tracks | Any | Tap speaks the shown frozen tracks. Hold unfreezes all shown tracks. Both say how many shown tracks are too short in the Edit window to show their freeze state. |
 | `Opt+Shift+H` | Speak Hidden Tracks, Show Track List Pop-up Menu | Any | Tap speaks the hidden tracks; hold opens the Track List menu. |
 | `Opt+Shift+W` | Speak Shown Tracks, Show Track List Pop-up Menu | Any | Tap speaks the shown tracks; hold opens the Track List menu. |
-| `Ctrl+Opt+Shift+L` | List Tracks with Flo Tools | Any | Opens a chooser of track lists, including shown frozen, soloed and unmuted tracks. The chosen list opens in a second chooser, where the chosen tracks can be changed, for example unfrozen, unsoloed or muted. |
+| `Ctrl+Opt+Shift+L` | List Tracks with Flo Tools | Any | Lists tracks by state, including explicitly enabled DSP, automatically enabled DSP and frozen tracks. The second chooser offers actions such as Toggle DSP or Unfreeze; the automatically enabled DSP list is read-only. |
 | `Ctrl+Shift+Cmd+P` | Move Selected Tracks Up or Left | Mix, Edit | Moves selected tracks one position earlier in the Track List, including hidden tracks and folders, and speaks the result. Nonadjacent selections gather into one block; folders carry their members, and folder membership follows native dragging. |
 | `Ctrl+Shift+Cmd+;` | Move Selected Tracks Down or Right | Mix, Edit | Moves selected tracks one position later in the Track List, including hidden tracks and folders, and speaks the result. Nonadjacent selections gather into one block; folders carry their members, and folder membership follows native dragging. |
 
