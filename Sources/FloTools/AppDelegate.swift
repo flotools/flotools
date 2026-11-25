@@ -21,6 +21,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private lazy var lifecycle = Lifecycle(engine: engine, session: session, workspace: WorkspaceEvents()) { [weak self] in
         self?.preferences.current ?? Preferences()
     }
+    private lazy var activeCommandsWindow = ActiveCommandsWindow()
     private lazy var updater = Updater(preferences: preferences)
     private lazy var loginItem = LoginItem(preferences: preferences)
     /// Whether `main` continued the log file of the last launch, which then still needs this launch's header.
@@ -116,7 +117,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if !commandItems.isEmpty { menu.addItem(.separator()) }
 
         menu.addItem(permissionsItem())
-        menu.addItem(disabled("\(engine.commands.count) commands"))
+        let active = engine.activeCommands(in: engine.context).count
+        menu.addItem(NSMenuItem(title: "\(active)/\(engine.commands.count) active commands", action: #selector(showActiveCommands), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Preferences…", action: #selector(showPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem(title: Log.isRecording ? "Turn Off Log" : "Turn On Log", action: #selector(toggleLog), keyEquivalent: ""))
         let updates = NSMenuItem(title: "Updates", action: nil, keyEquivalent: "")
@@ -246,6 +248,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 if let error { Log.error(.app, "could not relaunch after resetting the permissions: \(error)") }
             }
         }
+    }
+
+    /// Lists the commands of the context the menu was opened in, which is still the front app's: the status menu does not bring Flo Tools to the front.
+    @objc private func showActiveCommands() {
+        activeCommandsWindow.show(engine.activeCommands(in: engine.context))
     }
 
     @objc private func showPreferences() {

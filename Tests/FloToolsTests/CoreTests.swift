@@ -637,6 +637,19 @@ private actor Flag {
         #expect(engine.statusMenuCommands(in: plugIn).isEmpty)
     }
 
+    @Test func activeCommandsAreThoseWhoseScopeApplies() {
+        let engine = FloFeatures.makeEngine()
+        let mix = FrontContext(bundleID: ProToolsApp.bundleID, windowTitle: "Mix: Session")
+        let active = engine.activeCommands(in: mix)
+        #expect(!active.isEmpty && active.count < engine.commands.count)
+        #expect(active.allSatisfy { $0.scope.applies(to: mix) })
+        #expect(engine.activeCommands(in: FrontContext(bundleID: "com.apple.finder", windowTitle: "Desktop")).isEmpty)
+        engine.setCommand(active[0].id, enabled: false)
+        #expect(engine.activeCommands(in: mix).count == active.count - 1)
+        engine.isEnabled = false
+        #expect(engine.activeCommands(in: mix).isEmpty)
+    }
+
     @Test func doneSoundTimingMatchesJXA() throws {
         func doneSound(_ id: CommandID) throws -> DoneSoundTiming? {
             let command = try #require(FloFeatures.all().first { $0.id == id })

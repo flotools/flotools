@@ -366,8 +366,13 @@ public final class Engine {
 
     /// The commands that offer themselves in the status menu now, like Keyboard Maestro's status menu, which listed the commands of the groups active for the front window: those whose scope applies now.
     public func statusMenuCommands(in context: FrontContext) -> [Command] {
+        activeCommands(in: context).filter { $0.triggers.contains(.statusMenu) }
+    }
+
+    /// The commands that work in this context, in install order: Flo Tools takes keys, the command is enabled and its scope applies. Inspector commands count in the Mix and Edit windows, because only a press can tell whether the VoiceOver cursor is on a track.
+    public func activeCommands(in context: FrontContext) -> [Command] {
         guard takesKeys else { return [] }
-        return commands.filter { command in command.triggers.contains(.statusMenu) && isActive(command, in: context) }
+        return commands.filter { isActive($0, in: context) }
     }
 
     public func activeCombos(in context: FrontContext) -> Set<KeyCombo> {

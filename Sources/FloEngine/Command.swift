@@ -17,8 +17,8 @@ public struct CommandID: Hashable, Sendable, CustomStringConvertible, Expressibl
     public var description: String { value }
 }
 
-/// What starts a command.
-public enum Trigger: Sendable, Equatable {
+/// What starts a command. Its description is how users see it, for example "Ctrl+2" or "Flo Tools menu".
+public enum Trigger: Sendable, Equatable, CustomStringConvertible {
     /// A key press. Releases end repeating and tell a tap from a hold; they start nothing.
     case hotKey(KeyCombo)
     /// The command is listed in the status menu.
@@ -27,6 +27,13 @@ public enum Trigger: Sendable, Equatable {
     /// A hotkey written as in `KeyCombo.description`, for example `.key("Ctrl+2")`.
     public static func key(_ text: String) -> Trigger {
         .hotKey(KeyCombo(literal: text))
+    }
+
+    public var description: String {
+        switch self {
+        case .hotKey(let combo): "\(combo)"
+        case .statusMenu: "Flo Tools menu"
+        }
     }
 }
 

@@ -25,7 +25,7 @@ extension NSWindow {
 extension NSScrollView {
     /// A vertically scrolling view of `document` with a fixed size, as the chooser and the text window show their content.
     @MainActor
-    static func fixed(document: NSView, size: CGSize) -> NSScrollView {
+    public static func fixed(document: NSView, size: CGSize) -> NSScrollView {
         let scroll = NSScrollView()
         scroll.documentView = document
         scroll.hasVerticalScroller = true

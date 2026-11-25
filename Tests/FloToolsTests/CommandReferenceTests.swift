@@ -52,7 +52,7 @@ import Testing
             case .hotKey(let combo):
                 parts.append(code("\(combo)") + (repeats ? " (hold to repeat)" : ""))
             case .statusMenu:
-                parts.append("Flo Tools menu")
+                parts.append("\(trigger)")
             }
         }
         return parts.joined(separator: ", ")
