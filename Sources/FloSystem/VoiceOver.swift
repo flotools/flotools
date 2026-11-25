@@ -1,3 +1,4 @@
+import AppKit
 import Carbon
 import Foundation
 
@@ -111,7 +112,7 @@ public enum VoiceOver {
     }
 
     private nonisolated static func permissionStatus(eventClass: AEEventClass, id: AEEventID, askUserIfNeeded: Bool) -> OSStatus? {
-        guard let desc = NSAppleEventDescriptor(bundleIdentifier: bundleID).aeDesc else { return nil }
+        guard let desc = target().aeDesc else { return nil }
         return AEDeterminePermissionToAutomateTarget(desc, eventClass, id, askUserIfNeeded)
     }
 
@@ -128,10 +129,16 @@ public enum VoiceOver {
     // MARK: Apple events
 
     private nonisolated static let bundleID = "com.apple.VoiceOver"
-    private static let target = NSAppleEventDescriptor(bundleIdentifier: bundleID)
+    /// The running VoiceOver, addressed by its process ID and looked up for each event, so a VoiceOver restart is picked up. Not addressed by bundle ID: appleeventsd can keep a bundle-ID entry for a VoiceOver that has quit, and then every event and permission check waits on it (seen 2026-11-25). Falls back to the bundle ID when VoiceOver is not running, so sending fails with "not running" as before. Automation permission is recorded per app, not per process, so a new PID needs no new consent.
+    private nonisolated static func target() -> NSAppleEventDescriptor {
+        guard let pid = NSRunningApplication.runningApplications(withBundleIdentifier: bundleID).first?.processIdentifier else {
+            return NSAppleEventDescriptor(bundleIdentifier: bundleID)
+        }
+        return NSAppleEventDescriptor(processIdentifier: pid)
+    }
 
     private static func voiceOverEvent(eventClass: String, id: String) -> NSAppleEventDescriptor {
-        NSAppleEventDescriptor(eventClass: fourCharCode(eventClass), eventID: fourCharCode(id), targetDescriptor: target,
+        NSAppleEventDescriptor(eventClass: fourCharCode(eventClass), eventID: fourCharCode(id), targetDescriptor: target(),
                                returnID: AEReturnID(kAutoGenerateReturnID), transactionID: AETransactionID(kAnyTransactionID))
     }
 
