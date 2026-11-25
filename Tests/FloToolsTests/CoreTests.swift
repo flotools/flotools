@@ -637,11 +637,22 @@ private actor Flag {
         #expect(engine.statusMenuCommands(in: plugIn).isEmpty)
     }
 
-    @Test func scopeTellsWhetherItIsLimitedToAWindowKind() {
-        #expect(Scope.mixOrEdit.isLimited(toInclude: .edit))
-        #expect(Scope.trackUnderVoiceOverCursor.isLimited(toInclude: .mix))
-        #expect(!Scope.windows([.plugIn]).isLimited(toInclude: .mix))
-        #expect(!Scope.anyProToolsWindow.isLimited(toInclude: .mix))
+    @Test func scopeTellsWhetherItIsLimitedToSomeWindowKinds() {
+        #expect(Scope.windows([.edit]).isLimited(toAnyOf: [.mix, .edit]))
+        #expect(Scope.trackUnderVoiceOverCursor.isLimited(toAnyOf: [.mix]))
+        #expect(Scope.windows([.plugIn, .mix]).isLimited(toAnyOf: [.mix, .edit]))
+        #expect(!Scope.windows([.plugIn]).isLimited(toAnyOf: [.mix, .edit]))
+        #expect(!Scope.anyProToolsWindow.isLimited(toAnyOf: [.mix, .edit]))
+    }
+
+    @Test func commandSearchMatchesEveryWordInNameOrShortcuts() {
+        let command = Command("test.solo", "Speak Soloed Tracks, Unsolo All Tracks", scope: .anyProToolsWindow, triggers: [.key("Opt+Shift+S"), .statusMenu]) { _ in }
+        #expect(command.shortcutText == "Opt+Shift+S, Flo Tools menu")
+        #expect(command.matches(search: ""))
+        #expect(command.matches(search: "SOLO"))
+        #expect(command.matches(search: "sólo  opt+shift"))
+        #expect(command.matches(search: "unsolo menu"))
+        #expect(!command.matches(search: "solo ctrl"))
     }
 
     @Test func activeCommandsAreThoseWhoseScopeApplies() {
@@ -650,6 +661,9 @@ private actor Flag {
         let active = engine.activeCommands(in: mix)
         #expect(!active.isEmpty && active.count < engine.commands.count)
         #expect(active.allSatisfy { $0.scope.applies(to: mix) })
+        #expect(active.contains { $0.scope == .trackUnderVoiceOverCursor })
+        #expect(active.contains { $0.scope == .anyProToolsWindow })
+        #expect(!active.contains { $0.scope == .windows([.plugIn]) })
         #expect(engine.activeCommands(in: FrontContext(bundleID: "com.apple.finder", windowTitle: "Desktop")).isEmpty)
         engine.setCommand(active[0].id, enabled: false)
         #expect(engine.activeCommands(in: mix).count == active.count - 1)

@@ -3,7 +3,7 @@ import FloFeatures
 import FloEngine
 import FloSystem
 
-/// Menu bar app with no Dock icon. The menu shows status and lets the user turn Flo Tools off.
+/// Menu bar app with no Dock icon. The menu shows status, runs the commands offered there, counts and lists the active commands, and lets the user turn Flo Tools off.
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     /// Read once here and passed down; the preferences panel is the only writer.
@@ -27,6 +27,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     /// Whether `main` continued the log file of the last launch, which then still needs this launch's header.
     private let resumedLog: Bool
     private var statusItem: NSStatusItem?
+    /// The front app and window whose commands the menu counts and lists. Set each time the menu opens, except while Flo Tools itself is in front, for example with the active commands window open: its commands are those of the window the user came from.
+    private var listedContext = FrontContext()
     private var accessibilityTask: Task<Void, Never>?
     private var logToggle: Task<Void, Never>?
 
@@ -117,7 +119,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if !commandItems.isEmpty { menu.addItem(.separator()) }
 
         menu.addItem(permissionsItem())
-        let active = engine.activeCommands(in: engine.context).count
+        if engine.context.processID != ProcessInfo.processInfo.processIdentifier { listedContext = engine.context }
+        let active = engine.activeCommands(in: listedContext).count
         menu.addItem(NSMenuItem(title: "\(active)/\(engine.commands.count) active commands", action: #selector(showActiveCommands), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Preferences…", action: #selector(showPreferences), keyEquivalent: ","))
         menu.addItem(NSMenuItem(title: Log.isRecording ? "Turn Off Log" : "Turn On Log", action: #selector(toggleLog), keyEquivalent: ""))
@@ -250,9 +253,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
     }
 
-    /// Lists the commands of the context the menu was opened in, which is still the front app's: the status menu does not bring Flo Tools to the front.
+    /// Lists the commands the menu counted, of `listedContext`. The status menu does not bring Flo Tools to the front, so that is still the app the user was in.
     @objc private func showActiveCommands() {
-        activeCommandsWindow.show(engine.activeCommands(in: engine.context))
+        activeCommandsWindow.show(engine.activeCommands(in: listedContext))
     }
 
     @objc private func showPreferences() {

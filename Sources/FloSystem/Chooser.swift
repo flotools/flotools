@@ -115,6 +115,30 @@ private final class ChooserWindow: NSObject, NSWindowDelegate, NSTableViewDataSo
     }
 }
 
+/// The `BorrowedFocus` share of a window that stays alive and is shown again, such as the preferences panel: it takes the share the first time the window is shown and gives it back when the window closes.
+@MainActor
+public struct FocusLoan {
+    private var held = false
+
+    public init() {}
+
+    /// Brings Flo Tools to the front, taking the share if the window does not hold it yet.
+    public mutating func bringForward() {
+        if held {
+            BorrowedFocus.bringToFront()
+        } else {
+            BorrowedFocus.take()
+            held = true
+        }
+    }
+
+    /// Gives the share back, if held. Call it when the window closes.
+    public mutating func end() {
+        if held { BorrowedFocus.giveBack() }
+        held = false
+    }
+}
+
 /// Brings Flo Tools to the front for windows of its own and later gives the focus back to the app that was in front, usually Pro Tools. Focus belongs to the whole app, so the loan is one shared count: while windows follow each other, such as the two choosers of List Tracks with Flo Tools, the focus stays with Flo Tools and goes back once, when the last holder returns it.
 @MainActor
 public enum BorrowedFocus {

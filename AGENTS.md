@@ -29,7 +29,7 @@ Targets, with dependencies pointing one way (`FloTools` -> `FloFeatures` -> `Flo
 - `Sources/FloProTools/`: Pro Tools knowledge (app, windows, tracks, settings, key capture by menus and text fields, waiting for changes). `ProToolsWindowKind` classifies each window title as one kind.
 - `Sources/FloEngine/`: command model and runtime: `Command`, `Scope`, `CommandRun`, `Engine` (key routing, track-under-cursor check, tap and hold, serial queue), `Watches`, `SpokenError` (the one failure wording table), `Context`, `Preferences`.
 - `Sources/FloFeatures/`: the commands, one folder per feature, plus `FloFeatures.all`, `SessionState`, `SpokenList` and `Lifecycle` (replaces the KM Global group).
-- `Sources/FloTools/`: the app: status menu, permissions, preferences panel, log header, `LoginItem`, `Updater`. Only this target links Sparkle.
+- `Sources/FloTools/`: the app: status menu, active commands window, permissions, preferences panel, log header, `LoginItem`, `Updater`. Only this target links Sparkle.
 - `Tests/FloToolsTests/`: Swift Testing. `Tests/Baselines/` holds the keymap baselines; `CommandReferenceTests` generates `COMMANDS.md`.
 - `reference/`: frozen KM material, plus `Plug-In Views/`, which ship in the app and are copied to `~/Library/Application Support/Flo Tools/Plug-In Views/` on first launch without overwriting.
 - `scripts/build-app.sh` builds and signs the app; `scripts/vo.sh` drives VoiceOver for live tests. `Resources/` holds `Info.plist`, entitlements and `Sounds/`.

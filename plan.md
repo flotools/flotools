@@ -12,11 +12,11 @@ The rules in `AGENTS.md` ("Rules that must not change") apply: hotkeys and windo
 
 | Target | Owns | Depends on |
 |---|---|---|
-| `FloSystem` | Generic macOS infrastructure: `AXElement` and `AccessibilityActor`, `VoiceOver` and `VoiceOverActor`, `HotKeyCenter`, `KeyCombo` and the one key-name table, `Keyboard`, `Mouse`, `FrontWindowObserver`, `WorkspaceEvents`, `Sound`, `SystemSpeech`, Flo Tools' own windows (`Chooser`, `TextWindow`), `PrivacyPermission` (resetting Flo Tools' own privacy entries), `FloError`, `Log` | Apple frameworks |
+| `FloSystem` | Generic macOS infrastructure: `AXElement` and `AccessibilityActor`, `VoiceOver` and `VoiceOverActor`, `HotKeyCenter`, `KeyCombo` and the one key-name table, `Keyboard`, `Mouse`, `FrontWindowObserver`, `WorkspaceEvents`, `Sound`, `SystemSpeech`, Flo Tools' own windows (`Chooser`, `TextWindow`) and their focus loan (`BorrowedFocus`, `FocusLoan`), `PrivacyPermission` (resetting Flo Tools' own privacy entries), `FloError`, `Log` | Apple frameworks |
 | `FloProTools` | Pro Tools knowledge: `ProToolsApp`, `ProToolsWindowKind`, `MixWindow`, `TrackStrip`, `TrackList`, `EditWindowControl`, `ProToolsSetting`, `PlugInWindow`, `FadeDialog`, the front window facts and `AnnouncementGuard`, `ProToolsKeyCapture` (whether a menu or a field open for typing takes Pro Tools' keys), `ProToolsUpdate` (waiting for Pro Tools to show a change) | `FloSystem` |
 | `FloEngine` | The command model and runtime: `Command`, `CommandID`, `Trigger`, `Scope`, `CommandRun`, `Engine`, `Watches`, `SpokenError`, `FrontContext`, `Preferences` and `PreferencesStore` | `FloSystem`, `FloProTools` |
 | `FloFeatures` | The commands, one folder per feature; `FloFeatures.all`, `SessionState`, `Lifecycle`, the plug-in view installer | `FloSystem`, `FloEngine`, `FloProTools` |
-| `FloTools` | The app: `AppDelegate`, status menu, permission prompts, the preferences panel, the diagnostic log header, Launch on Login | all of the above |
+| `FloTools` | The app: `AppDelegate`, status menu (with the count of active commands, which opens `ActiveCommandsWindow`, a searchable table of them and their shortcuts), permission prompts, the preferences panel, the diagnostic log header, Launch on Login | all of the above |
 
 Nothing below `FloFeatures` knows a command by name. `FloEngine` imports `FloProTools` because a scope names Pro Tools window kinds; a protocol in the engine with one Pro Tools implementation would only add a layer, and Flo Tools drives only Pro Tools. There are no protocols for mocking: dependencies are concrete instances passed through initializers or captured by closures. The only shared instances are the two global actors, which Swift requires to have one.
 

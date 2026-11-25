@@ -90,6 +90,19 @@ public struct Command: Sendable {
         self.action = action
     }
 
+    /// The triggers as users see them, for example "Ctrl+2, Flo Tools menu".
+    public var shortcutText: String {
+        triggers.map(\.description).joined(separator: ", ")
+    }
+
+    /// Whether every word of `query` is in the name or the shortcuts, ignoring case and accents, so "solo" and "solo shift" both narrow a list. Words match anywhere, so "f1" also finds F10.
+    public func matches(search query: String) -> Bool {
+        let text = "\(name) \(shortcutText)"
+        return query.split(whereSeparator: \.isWhitespace).allSatisfy { word in
+            text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil
+        }
+    }
+
     public var hotKeys: [KeyCombo] {
         triggers.compactMap { trigger in
             if case .hotKey(let combo) = trigger { return combo }

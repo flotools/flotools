@@ -3,66 +3,71 @@ import FloEngine
 import FloProTools
 import FloSystem
 
-/// A table of the commands that work in the front window, with their shortcuts, a search field that narrows it and a checkbox that hides the commands limited to the Mix or Edit window. Opened from the count in the status menu. The list is a snapshot taken when the menu item is chosen, because once this window is in front, Pro Tools is not.
+/// A table of the commands that work in the front window, with their shortcuts, a search field that narrows it and a checkbox that hides the commands limited to the Mix or Edit window. Opened from the count in the status menu, with the commands the menu counted.
 @MainActor
 final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate {
-    private struct Row {
-        let name: String
-        let shortcuts: String
-        /// The command works only in windows that include Mix or Edit, as Inspector and track commands do.
-        let isForMixOrEdit: Bool
-
-        /// Whether every word of `query` is in the name or the shortcuts, ignoring case and accents, so "solo" and "ctrl s" both narrow the list.
-        func matches(_ query: String) -> Bool {
-            let text = "\(name) \(shortcuts)"
-            return query.split(whereSeparator: \.isWhitespace).allSatisfy { word in
-                text.range(of: word, options: [.caseInsensitive, .diacriticInsensitive]) != nil
-            }
-        }
-    }
-
     private static let commandColumn = NSUserInterfaceItemIdentifier("command")
     private static let shortcutColumn = NSUserInterfaceItemIdentifier("shortcut")
+    private static let width: CGFloat = 560
 
-    private var allRows: [Row] = []
-    /// The rows that match the search field.
-    private var rows: [Row] = []
+    private var allCommands: [Command] = []
+    /// The commands that pass the search field and the checkbox.
+    private var shown: [Command] = []
     private let search = NSSearchField()
+    /// How many commands are shown, also spoken when the search or the checkbox changes it, because the user is in the field, not the table.
+    private let resultCount = NSTextField(labelWithString: "")
+    private var speakResult: Task<Void, Never>?
     /// Kept between openings while Flo Tools runs.
-    private let showMixAndEdit = NSButton(checkboxWithTitle: "Show Mix and Edit window commands", target: nil, action: nil)
+    private let mixAndEditCheckbox = NSButton(checkboxWithTitle: "Show Mix and Edit window commands", target: nil, action: nil)
     private let table = NSTableView()
     private lazy var window = makeWindow()
-    /// Whether the window holds a `BorrowedFocus` loan, so Pro Tools gets the focus back when it closes.
-    private var holdsFocus = false
+    private var focusLoan = FocusLoan()
 
     func show(_ commands: [Command]) {
-        allRows = commands.map { command in
-            Row(name: command.name,
-                shortcuts: command.triggers.map(\.description).joined(separator: ", "),
-                isForMixOrEdit: command.scope.isLimited(toInclude: .mix) || command.scope.isLimited(toInclude: .edit))
-        }
+        allCommands = commands
+        // A new list starts at its first row.
+        shown = []
         _ = window
-        window.title = "Active Commands (\(allRows.count))"
+        window.title = "Active Commands (\(commands.count))"
         search.stringValue = ""
-        narrow()
-        if holdsFocus {
-            BorrowedFocus.bringToFront()
-        } else {
-            BorrowedFocus.take()
-            holdsFocus = true
-        }
+        updateShown()
+        focusLoan.bringForward()
         window.makeKeyAndOrderFront(nil)
         window.makeFirstResponder(search)
     }
 
-    /// Shows the rows that match the search field and the checkbox, with the first one selected, so Tab from the field lands on a match.
+    /// The search text or the checkbox changed. Speaks the count once typing pauses for a second: after half a second, VoiceOver's last phrase was still the typed letter. Spoken through VoiceOver's `output`, as elsewhere in Flo Tools, because an accessibility announcement posted here never became VoiceOver's last phrase (both checked live 2026-11-25).
     @objc private func narrow() {
+        updateShown()
+        let text = resultCount.stringValue
+        speakResult?.cancel()
+        speakResult = Task {
+            try? await Task.sleep(for: .seconds(1))
+            guard !Task.isCancelled else { return }
+            await VoiceOver.sayOrLog(text)
+        }
+    }
+
+    /// Filters the commands and keeps the selected one selected if it is still shown, else selects the first.
+    private func updateShown() {
+        let selected = shown.indices.contains(table.selectedRow) ? shown[table.selectedRow].id : nil
         let query = search.stringValue
-        let showsMixAndEdit = showMixAndEdit.state == .on
-        rows = allRows.filter { $0.matches(query) && (showsMixAndEdit || !$0.isForMixOrEdit) }
+        let showsMixAndEdit = mixAndEditCheckbox.state == .on
+        shown = allCommands.filter { command in
+            command.matches(search: query) && (showsMixAndEdit || !command.scope.isLimited(toAnyOf: [.mix, .edit]))
+        }
         table.reloadData()
-        if !rows.isEmpty { table.selectRowIndexes([0], byExtendingSelection: false) }
-        table.scrollRowToVisible(0)
+        resultCount.stringValue = resultText
+        guard !shown.isEmpty else { return }
+        let row = shown.firstIndex { $0.id == selected } ?? 0
+        table.selectRowIndexes([row], byExtendingSelection: false)
+        table.scrollRowToVisible(row)
+    }
+
+    private var resultText: String {
+        if allCommands.isEmpty { return "No commands are active in the front window." }
+        if shown.isEmpty { return "No commands match." }
+        return "\(shown.count) of \(allCommands.count) commands"
     }
 
     @objc private func closeWindow() {
@@ -70,19 +75,22 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
     }
 
     func windowWillClose(_ notification: Notification) {
-        if holdsFocus { BorrowedFocus.giveBack() }
-        holdsFocus = false
+        speakResult?.cancel()
+        focusLoan.end()
     }
 
-    func numberOfRows(in tableView: NSTableView) -> Int { rows.count }
+    func numberOfRows(in tableView: NSTableView) -> Int { shown.count }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         guard let column = tableColumn?.identifier else { return nil }
-        let text = column == Self.commandColumn ? rows[row].name : rows[row].shortcuts
-        let cell = tableView.makeView(withIdentifier: column, owner: self) as? NSTextField ?? NSTextField(labelWithString: "")
-        cell.identifier = column
+        let text = column == Self.commandColumn ? shown[row].name : shown[row].shortcutText
+        let cell = tableView.makeView(withIdentifier: column, owner: self) as? NSTextField ?? {
+            let label = NSTextField(labelWithString: "")
+            label.identifier = column
+            label.lineBreakMode = .byTruncatingTail
+            return label
+        }()
         cell.stringValue = text
-        cell.lineBreakMode = .byTruncatingTail
         return cell
     }
 
@@ -103,15 +111,16 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
         search.target = self
         search.action = #selector(narrow)
         search.translatesAutoresizingMaskIntoConstraints = false
-        search.widthAnchor.constraint(equalToConstant: 560).isActive = true
+        search.widthAnchor.constraint(equalToConstant: Self.width).isActive = true
 
-        showMixAndEdit.state = .on
-        showMixAndEdit.target = self
-        showMixAndEdit.action = #selector(narrow)
+        mixAndEditCheckbox.state = .on
+        mixAndEditCheckbox.target = self
+        mixAndEditCheckbox.action = #selector(narrow)
 
-        let scroll = NSScrollView.fixed(document: table, size: CGSize(width: 560, height: 420))
+        let scroll = NSScrollView.fixed(document: table, size: CGSize(width: Self.width, height: 420))
         let closeButton = NSButton(title: "Close", target: self, action: #selector(closeWindow))
+        // Escape closes the window. With text in the search field, the first Escape clears the field instead (checked live 2026-11-25).
         closeButton.keyEquivalent = "\u{1b}"
-        return NSWindow.floating(title: "Active Commands", views: [search, showMixAndEdit, scroll, closeButton], alignment: .leading, delegate: self)
+        return NSWindow.floating(title: "Active Commands", views: [search, resultCount, mixAndEditCheckbox, scroll, closeButton], alignment: .leading, delegate: self)
     }
 }

@@ -27,9 +27,9 @@ public enum Scope: Sendable, Equatable {
         return kinds.contains(kind)
     }
 
-    /// Whether the scope is limited to windows that include `kind`; false for a scope of any window.
-    public func isLimited(toInclude kind: ProToolsWindowKind) -> Bool {
-        windowKinds?.contains(kind) ?? false
+    /// Whether the scope is limited to windows that include one of `kinds`; false for a scope of any window.
+    public func isLimited(toAnyOf kinds: Set<ProToolsWindowKind>) -> Bool {
+        windowKinds.map { !$0.isDisjoint(with: kinds) } ?? false
     }
 
     /// The more specific scope wins when both have the key: a track over its window, a window kind over any window.

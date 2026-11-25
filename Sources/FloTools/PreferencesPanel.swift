@@ -10,8 +10,8 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
     private let loginItem: LoginItem
     private let onSave: (Preferences) -> Void
     private lazy var window = makeWindow()
-    /// Whether the panel holds a `BorrowedFocus` loan; the app that was in front before it opened, usually Pro Tools, gets the focus back when it closes, as after the KM prompt.
-    private var holdsFocus = false
+    /// The app that was in front before the panel opened, usually Pro Tools, gets the focus back when it closes, as after the KM prompt.
+    private var focusLoan = FocusLoan()
 
     private let launchOnLogin = NSButton(checkboxWithTitle: "Launch on Login", target: nil, action: nil)
     private let holdTime = NSPopUpButton()
@@ -29,12 +29,7 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
         let preferences = store.current
         launchOnLogin.state = loginItem.isEnabled ? .on : .off
         holdTime.selectItem(withTag: preferences.holdTime)
-        if holdsFocus {
-            BorrowedFocus.bringToFront()
-        } else {
-            BorrowedFocus.take()
-            holdsFocus = true
-        }
+        focusLoan.bringForward()
         window.makeKeyAndOrderFront(nil)
         window.makeFirstResponder(launchOnLogin)
     }
@@ -54,8 +49,7 @@ final class PreferencesPanel: NSObject, NSWindowDelegate {
 
     /// Covers OK, Cancel and the close button.
     func windowWillClose(_ notification: Notification) {
-        if holdsFocus { BorrowedFocus.giveBack() }
-        holdsFocus = false
+        focusLoan.end()
     }
 
     private func makeWindow() -> NSWindow {
