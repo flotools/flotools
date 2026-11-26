@@ -45,6 +45,18 @@ import Testing
         #expect(lines[2].hasSuffix(" info engine - two\\nlines"))
     }
 
+    /// The appendix comes last and is not cut or made room for, even past the cap.
+    @Test func appendixGoesAtTheEndPastTheCap() async throws {
+        let file = makeFile(capBytes: 200, keepBytes: 150)
+        try await file.start(header: "HEADER")
+        file.append(entry("last entry"))
+        let appendix = "--- tree ---\n" + String(repeating: "AXRole = \"AXGroup\"\n", count: 20)
+        let contents = try text(await file.stop(appendix: appendix))
+        #expect(contents.hasSuffix("\n" + appendix + "\n"))
+        #expect(contents.contains("last entry"))
+        #expect(contents.utf8.count > 200)
+    }
+
     @Test func namesTheFileForTheTime() async throws {
         let file = makeFile()
         try await file.start(header: "HEADER")

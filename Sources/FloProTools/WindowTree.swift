@@ -1,6 +1,6 @@
 import FloSystem
 
-/// Pro Tools' focused window as a full attribute tree, for the file written beside the diagnostic log when it is turned off. Failures are logged where they happen; this shows the rest of the window as it was.
+/// Pro Tools' focused window as a full attribute tree, added at the end of the diagnostic log when it is turned off. Failures are logged where they happen; this shows the rest of the window as it was.
 extension ProToolsApp {
     /// The tree of the focused window, without track strips and with at most three rows of each table. `FloError.notFound` when Pro Tools has no focused window.
     @AccessibilityActor

@@ -263,7 +263,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         preferencesPanel.show()
     }
 
-    /// Turning the log off first writes Pro Tools' focused window tree to a file beside the log, then shows both files in Finder, selected, so the user can send them as they are.
+    /// Turning the log off adds Pro Tools' focused window tree at the end of the log, then shows the file in Finder, selected, so the user can send it as it is.
     /// Ignores a second choice of the menu item while the first is still opening or closing the file.
     @objc private func toggleLog() {
         guard logToggle == nil else { return }
@@ -272,18 +272,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             if Log.isRecording {
                 let tree = await proToolsWindowTree()
                 Log.info(.app, "log turned off")
-                guard let file = await Log.stopRecording() else { return }
-                var files = [file]
-                if let tree {
-                    let treeFile = file.deletingLastPathComponent().appendingPathComponent(file.deletingPathExtension().lastPathComponent + " window tree.txt")
-                    do {
-                        try tree.write(to: treeFile, atomically: true, encoding: .utf8)
-                        files.append(treeFile)
-                    } catch {
-                        Log.error(.app, "could not write the window tree file: \(error)")
-                    }
-                }
-                NSWorkspace.shared.activateFileViewerSelecting(files)
+                guard let file = await Log.stopRecording(appendix: tree.map { "--- Pro Tools focused window tree ---\n" + $0 }) else { return }
+                NSWorkspace.shared.activateFileViewerSelecting([file])
             } else {
                 do {
                     try await Log.startRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current, loginItem: loginItem))

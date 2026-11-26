@@ -64,9 +64,9 @@ public enum Log {
         file.writeHeader(header)
     }
 
-    /// Stops logging, appends Flo Tools crash reports written while it was on, and returns the finished file. The file work runs on the log queue, so the caller does not block.
-    public static func stopRecording() async -> URL? {
-        await file.stop()
+    /// Stops logging, appends Flo Tools crash reports written while it was on and then `appendix`, such as a window tree, with home paths redacted as in entries, and returns the finished file. The appendix is written past the size cap rather than dropping entries for it: it is the last thing in the file, so it cannot grow further, and the entries before it are what it explains. The file work runs on the log queue, so the caller does not block.
+    public static func stopRecording(appendix: String? = nil) async -> URL? {
+        await file.stop(appendix: appendix.map(redactingHome))
     }
 
     // MARK: Writing
@@ -193,7 +193,7 @@ final class LogFile: @unchecked Sendable {
         return directory.appendingPathComponent("Flo Tools \(formatter.string(from: now())).log")
     }
 
-    func stop() async -> URL? {
+    func stop(appendix: String? = nil) async -> URL? {
         guard isRecording else { return nil }
         let started = defaults.object(forKey: Self.startedKey) as? Date ?? .distantPast
         defaults.removeObject(forKey: Self.fileKey)
@@ -202,6 +202,7 @@ final class LogFile: @unchecked Sendable {
         return await withCheckedContinuation { done in
             queue.async {
                 self.appendCrashReports(since: started)
+                if let appendix { self.write("\n" + appendix + "\n") }
                 try? self.handle?.close()
                 self.handle = nil
                 done.resume(returning: self.url)
