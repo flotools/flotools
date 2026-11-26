@@ -38,7 +38,7 @@ enum DashboardAnnouncements {
         if let after {
             try await VoiceOver.say(after)
         } else {
-            Log.debug(.accessibility, "Dashboard \(identifier) has no value to speak:\n\(control.dump(depth: 1))")
+            Log.debug(.accessibility, "Dashboard \(identifier) has no value to speak:\n\(control.attributeDump())")
         }
     }
 

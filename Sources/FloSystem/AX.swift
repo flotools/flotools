@@ -399,6 +399,99 @@ public struct AXElement {
         if let stopped { lines.append("(dump stopped: \(stopped))") }
         return lines.joined(separator: "\n")
     }
+
+    /// Every attribute of this element and of each of its children, with their parameterized attributes and actions, for the log where a lookup stopped at this element. `dump` shows the shape of a tree; this shows everything an app exposes on one level, such as an identifier or value that appears only later. Costs four messages per element, so it is bounded like `dump`.
+    public func attributeDump(maxChildren: Int = 40, maxCharacters: Int = 30_000, budget: Duration = .seconds(1)) -> String {
+        let deadline = ContinuousClock.now + budget
+        var lines: [String] = []
+        var stopped: String?
+        let children = attributeLines(into: &lines, indent: "", stopped: &stopped)
+        for (index, child) in children.prefix(maxChildren).enumerated() {
+            if stopped != nil { break }
+            guard ContinuousClock.now < deadline else { stopped = "time limit"; break }
+            guard lines.reduce(0, { $0 + $1.count }) < maxCharacters else { stopped = "\(maxCharacters) characters"; break }
+            lines.append("child \(index + 1) of \(children.count):")
+            _ = child.attributeLines(into: &lines, indent: "  ", stopped: &stopped)
+        }
+        if stopped == nil, children.count > maxChildren { stopped = "\(maxChildren) children" }
+        if let stopped { lines.append("(attribute dump stopped: \(stopped))") }
+        return String(lines.joined(separator: "\n").prefix(maxCharacters))
+    }
+
+    /// Appends one line per attribute, then the parameterized attributes and actions, and returns the children it read on the way.
+    private func attributeLines(into lines: inout [String], indent: String, stopped: inout String?) -> [AXElement] {
+        var names: CFArray?
+        let namesResult = AXUIElementCopyAttributeNames(ref, &names)
+        guard namesResult == .success, let names = names as? [String] else {
+            stopped = "AXError \(namesResult.rawValue) reading attribute names"
+            return []
+        }
+        // One message for all values; a value that could not be read comes back as an AXError value.
+        var values: CFArray?
+        let valuesResult = AXUIElementCopyMultipleAttributeValues(ref, names as CFArray, [], &values)
+        guard valuesResult == .success, let values = values as [AnyObject]?, values.count == names.count else {
+            stopped = "AXError \(valuesResult.rawValue) reading attribute values"
+            return []
+        }
+        var children: [AXElement] = []
+        for (name, value) in zip(names, values) {
+            if name == "AXChildren", let list = value as? [AXUIElement] { children = list.map(AXElement.init) }
+            lines.append("\(indent)\(name) = \(Self.fullDescription(value))")
+        }
+        var parameterized: CFArray?
+        if AXUIElementCopyParameterizedAttributeNames(ref, &parameterized) == .success, let list = parameterized as? [String], !list.isEmpty {
+            lines.append("\(indent)parameterized: \(list.joined(separator: ", "))")
+        }
+        var actions: CFArray?
+        if AXUIElementCopyActionNames(ref, &actions) == .success, let list = actions as? [String], !list.isEmpty {
+            lines.append("\(indent)actions: \(list.joined(separator: ", "))")
+        }
+        return children
+    }
+
+    /// An attribute value in full for the attribute dump, where `preview` would hide the detail being looked for. Elements are not read further, so describing one costs no message.
+    nonisolated static func fullDescription(_ value: AnyObject) -> String {
+        if let text = value as? String { return text.count > 300 ? "\"\(text.prefix(300))...\"" : "\"\(text)\"" }
+        if CFGetTypeID(value) == CFBooleanGetTypeID() { return (value as? Bool) == true ? "true" : "false" }
+        if let number = value as? NSNumber { return number.stringValue }
+        if CFGetTypeID(value) == AXUIElementGetTypeID() { return "an element" }
+        if CFGetTypeID(value) == AXValueGetTypeID() { return axValueDescription(unsafeDowncast(value, to: AXValue.self)) }
+        if let list = value as? [AnyObject] {
+            guard !list.isEmpty, list.count <= 20, list.allSatisfy({ CFGetTypeID($0) != AXUIElementGetTypeID() }) else {
+                return "\(list.count) items"
+            }
+            return "[" + list.map(fullDescription).joined(separator: ", ") + "]"
+        }
+        if let url = value as? URL { return url.absoluteString }
+        return String(describing: value)
+    }
+
+    private nonisolated static func axValueDescription(_ value: AXValue) -> String {
+        switch AXValueGetType(value) {
+        case .cgPoint:
+            var point = CGPoint.zero
+            AXValueGetValue(value, .cgPoint, &point)
+            return "point(\(point.x), \(point.y))"
+        case .cgSize:
+            var size = CGSize.zero
+            AXValueGetValue(value, .cgSize, &size)
+            return "size(\(size.width), \(size.height))"
+        case .cgRect:
+            var rect = CGRect.zero
+            AXValueGetValue(value, .cgRect, &rect)
+            return "rect(\(rect.origin.x), \(rect.origin.y), \(rect.width), \(rect.height))"
+        case .cfRange:
+            var range = CFRange()
+            AXValueGetValue(value, .cfRange, &range)
+            return "range(\(range.location), \(range.length))"
+        case .axError:
+            var error = AXError.success
+            AXValueGetValue(value, .axError, &error)
+            return "(AXError \(error.rawValue))"
+        default:
+            return "an AX value of another type"
+        }
+    }
 }
 
 public enum Accessibility {

@@ -715,6 +715,19 @@ private actor Flag {
         #expect(AXElement.preview([1, 2, 3] as CFArray) == "3 items")
         #expect(AXElement.preview(AXUIElementCreateSystemWide()) == "an element")
     }
+
+    @Test func attributeDumpValuesAreInFull() {
+        #expect(AXElement.fullDescription("Kick" as CFString) == "\"Kick\"")
+        #expect(AXElement.fullDescription(kCFBooleanTrue) == "true")
+        #expect(AXElement.fullDescription(NSNumber(value: 48000)) == "48000")
+        #expect(AXElement.fullDescription(["a", "b"] as CFArray) == "[\"a\", \"b\"]")
+        #expect(AXElement.fullDescription([AXUIElementCreateSystemWide()] as CFArray) == "1 items")
+        var point = CGPoint(x: 10, y: 20)
+        let value = AXValueCreate(.cgPoint, &point)!
+        #expect(AXElement.fullDescription(value) == "point(10.0, 20.0)")
+        var error = AXError.noValue
+        #expect(AXElement.fullDescription(AXValueCreate(.axError, &error)!) == "(AXError -25212)")
+    }
 }
 
 @MainActor @Suite struct VoiceOverTests {
