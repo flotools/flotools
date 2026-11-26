@@ -34,8 +34,11 @@ enum DashboardAnnouncements {
         let after = try await ProToolsUpdate.reading(changedFrom: before, within: ProToolsUpdate.passedKeyTimeout) {
             try spokenValue(control)
         }
+        Log.debug(.accessibility, "Dashboard \(identifier): before \(before ?? "none"), after \(after ?? "none")")
         if let after {
             try await VoiceOver.say(after)
+        } else {
+            Log.debug(.accessibility, "Dashboard \(identifier) has no value to speak:\n\(control.dump(depth: 1))")
         }
     }
 

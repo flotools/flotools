@@ -1,21 +1,37 @@
 import FloSystem
 
 extension ProToolsApp {
-    /// The setting control exists only on the Dashboard's New Session page. The
-    /// window title can be the Pro Tools version, so identify it by its controls.
+    /// The setting control exists only on the Dashboard's New Session page. The window title can be the Pro Tools version, so identify it by its controls.
+    /// Nil is normal in other windows, whose keys the Dashboard commands also take, so each step that finds nothing is logged at debug level with the part of the tree it searched: on macOS 15 the setting was not spoken unless the VoiceOver cursor had been on it, and the log shows which step fails.
     @AccessibilityActor
     public func newSessionSetting(identifier: String) throws -> AXElement? {
-        guard let window = try AXElement.application(pid: pid).focusedWindow else { return nil }
+        guard let window = try AXElement.application(pid: pid).focusedWindow else {
+            Log.debug(.accessibility, "Dashboard: no focused window")
+            return nil
+        }
         let children = try window.children
         guard let newTab = try children.first(where: {
             try $0.string("AXIdentifier") == "QGuiApplication.DashboardWnd.tabBarNewTabButton"
-        }), try newTab.value == "1",
-        let configuration = try children.first(where: {
-            try $0.string("AXIdentifier") == "QGuiApplication.DashboardWnd.sessionConfigContent"
-        }) else { return nil }
-
-        return try configuration.children.first {
-            try $0.string("AXIdentifier") == "QGuiApplication.DashboardWnd.sessionConfigContent.\(identifier)"
+        }) else {
+            Log.debug(.accessibility, "Dashboard: no New tab button in the focused window:\n\(window.dump(depth: 1))")
+            return nil
         }
+        guard try newTab.value == "1" else {
+            Log.debug(.accessibility, "Dashboard: New tab not selected, value \(String(describing: try? newTab.value))")
+            return nil
+        }
+        guard let configuration = try children.first(where: {
+            try $0.string("AXIdentifier") == "QGuiApplication.DashboardWnd.sessionConfigContent"
+        }) else {
+            Log.debug(.accessibility, "Dashboard: no session settings in the focused window:\n\(window.dump(depth: 1))")
+            return nil
+        }
+        guard let control = try configuration.children.first(where: {
+            try $0.string("AXIdentifier") == "QGuiApplication.DashboardWnd.sessionConfigContent.\(identifier)"
+        }) else {
+            Log.debug(.accessibility, "Dashboard: no \(identifier) in the session settings:\n\(configuration.dump(depth: 2))")
+            return nil
+        }
+        return control
     }
 }
