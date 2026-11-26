@@ -202,7 +202,7 @@ public struct AXElement {
     public func button(_ name: String) throws -> AXElement? { try child(role: "AXButton", name: name) }
     public func table(_ name: String) throws -> AXElement? { try child(role: "AXTable", name: name) }
 
-    /// The result of `find`, or `FloError.notFound(what)`. When it is missing and the diagnostic log is on, the log gets a bounded dump of this element, which shows what the app had in place of the expected element.
+    /// The result of `find`, or `FloError.notFound(what)`. When it is missing and the diagnostic log is on, the log gets the attributes of this element and its children, which show what the app had in place of the expected element.
     ///
     /// Every lookup that a command cannot continue without goes through here, so the debug line at its end names what the attribute reads before it were looking for.
     public func required(_ what: @autoclosure () -> String, _ find: (AXElement) throws -> AXElement?) throws -> AXElement {
@@ -220,7 +220,7 @@ public struct AXElement {
         }
         let what = what()
         // Not inside a watch's poll: a watch on a missing element would dump it ten times a second (seen live 2026-11-03: 1762 dumps in five minutes). The watch logs its own failures.
-        if Log.isRecording, !Log.skipsDebug { Log.info(.accessibility, "\(what) not found in:\n\(dump())") }
+        if Log.isRecording, !Log.skipsDebug { Log.info(.accessibility, "\(what) not found in:\n\(attributeDump())") }
         throw FloError.notFound(what)
     }
 
@@ -348,11 +348,8 @@ public struct AXElement {
 
     // MARK: Diagnostics
 
-    /// Role, title, description and value, for the log. Absent attributes are left out, so describing an element never throws.
-    public func summary() -> String { describe(until: nil).text }
-
-    /// Reads the summary's attributes until one read fails or `deadline` passes, so a busy app costs at most one messaging timeout. Returns why it stopped, if it did.
-    private func describe(until deadline: ContinuousClock.Instant?) -> (text: String, stopped: String?) {
+    /// Role, title, description and value, for the log. Absent attributes are left out, so describing an element never throws. Stops at the first read that fails, so a busy app costs at most one messaging timeout.
+    public func summary() -> String {
         let fields: [(name: String, format: (String) -> String)] = [
             ("AXRole", { $0 }),
             ("AXSubrole", { "(\($0))" }),
@@ -361,78 +358,92 @@ public struct AXElement {
             ("AXValue", { "value=\($0.debugDescription)" }),
         ]
         var parts: [String] = []
-        var stopped: String?
         for field in fields {
-            if let deadline, ContinuousClock.now >= deadline { stopped = "time limit"; break }
             var value: CFTypeRef?
             let result = AXUIElementCopyAttributeValue(ref, field.name as CFString, &value)
-            if Self.readOutcome(result) == .failure { stopped = "AXError \(result.rawValue) reading \(field.name)"; break }
+            if Self.readOutcome(result) == .failure { break }
             let text = (value as? String) ?? (value as? NSNumber)?.stringValue
             if let text, !text.isEmpty { parts.append(field.format(text)) }
         }
-        return (parts.isEmpty ? "?" : parts.joined(separator: " "), stopped)
+        return parts.isEmpty ? "?" : parts.joined(separator: " ")
     }
 
-    /// Indented tree of this element and its descendants, for the log and porting work. Bounded, because each node costs several messages to a possibly busy app: it stops at `depth` levels, `maxNodes` elements, `maxCharacters` of text or `budget` of time, and at the first read that fails. The time is checked before each read, so one read that is already running can overrun it.
-    public func dump(depth: Int = 3, maxNodes: Int = 80, maxCharacters: Int = 8_000, budget: Duration = .milliseconds(500)) -> String {
+    /// One child as `attributeDump` sees it before reading it in full, for a rule that picks which children to dump. Read in one message.
+    public struct DumpChild: Sendable, Equatable {
+        public let role: String?
+        public let identifier: String?
+        public let isSelected: Bool
+
+        init(role: String?, identifier: String?, isSelected: Bool) {
+            self.role = role
+            self.identifier = identifier
+            self.isSelected = isSelected
+        }
+
+        @AccessibilityActor fileprivate init(_ element: AXElement) {
+            let names = ["AXRole", "AXIdentifier", "AXSelected"]
+            var values: CFArray?
+            // A failed read leaves every field empty; the child is then dumped or left out by role alone, and its own dump shows the error.
+            let read = AXUIElementCopyMultipleAttributeValues(element.ref, names as CFArray, [], &values) == .success ? (values as [AnyObject]?) ?? [] : []
+            func value(_ index: Int) -> AnyObject? { read.indices.contains(index) ? read[index] : nil }
+            self.init(role: value(0) as? String, identifier: value(1) as? String, isSelected: (value(2) as? Bool) == true)
+        }
+    }
+
+    /// Every attribute with a value of this element and of its descendants down to `depth` levels, with their parameterized attributes and actions. Used for the log where a lookup stopped (one level), and for a whole window when the log is turned off. It shows everything an app exposes, such as an identifier or value that appears only later.
+    ///
+    /// `keep`, when given, gets an element and its children and returns the indices of the children to dump; each run of the others becomes one line saying they were left out. Without it, every child is dumped without the extra read. Bounded, because each element costs four messages to a possibly busy app: it stops at `maxCharacters` of text, at `budget` of time and at the first read that fails. The time is checked before each element, so one read that is already running can overrun it.
+    public func attributeDump(depth: Int = 1, maxCharacters: Int = 30_000, budget: Duration = .seconds(1), keep: ((_ parent: DumpChild, _ children: [DumpChild]) -> Set<Int>)? = nil) -> String {
+        let deadline = ContinuousClock.now + budget
         var lines: [String] = []
         var characters = 0
-        let deadline = ContinuousClock.now + budget
         var stopped: String?
-        func visit(_ element: AXElement, level: Int) {
-            guard stopped == nil else { return }
-            guard lines.count < maxNodes else { stopped = "\(maxNodes) elements"; return }
-            guard characters < maxCharacters else { stopped = "\(maxCharacters) characters"; return }
-            let description = element.describe(until: deadline)
-            let line = String((String(repeating: "  ", count: level) + description.text).prefix(maxCharacters - characters))
-            characters += line.count
-            lines.append(line)
-            if let reason = description.stopped { stopped = reason; return }
-            guard level < depth else { return }
-            guard ContinuousClock.now < deadline else { stopped = "time limit"; return }
-            var value: CFTypeRef?
-            let result = AXUIElementCopyAttributeValue(element.ref, "AXChildren" as CFString, &value)
-            guard Self.readOutcome(result) != .failure else { stopped = "AXError \(result.rawValue) reading children"; return }
-            for child in (value as? [AXUIElement]) ?? [] { visit(AXElement(child), level: level + 1) }
+        func visit(_ element: AXElement, _ seen: DumpChild?, level: Int) {
+            let indent = String(repeating: "  ", count: level)
+            let read = element.attributeLines(indent: indent)
+            lines += read.lines
+            characters += read.lines.reduce(0) { $0 + $1.count + 1 }
+            if let failure = read.failure { stopped = failure; return }
+            let children = read.children
+            guard level < depth, !children.isEmpty else { return }
+            let summaries = keep == nil ? [] : children.map(DumpChild.init)
+            let kept = keep.map { $0(seen ?? DumpChild(element), summaries) } ?? Set(children.indices)
+            var index = 0
+            while index < children.count {
+                guard stopped == nil else { return }
+                guard ContinuousClock.now < deadline else { stopped = "time limit"; return }
+                guard characters < maxCharacters else { stopped = "\(maxCharacters) characters"; return }
+                if kept.contains(index) {
+                    lines.append("\(indent)child \(index + 1) of \(children.count):")
+                    visit(children[index], summaries.isEmpty ? nil : summaries[index], level: level + 1)
+                    index += 1
+                } else {
+                    let first = index
+                    while index < children.count, !kept.contains(index) { index += 1 }
+                    let run = first + 1 == index ? "child \(index)" : "children \(first + 1) to \(index)"
+                    lines.append("\(indent)\(run) of \(children.count) left out")
+                }
+            }
         }
-        visit(self, level: 0)
-        if let stopped { lines.append("(dump stopped: \(stopped))") }
-        return lines.joined(separator: "\n")
-    }
-
-    /// Every attribute with a value of this element and of each of its children, with their parameterized attributes and actions, for the log where a lookup stopped at this element. `dump` shows the shape of a tree; this shows everything an app exposes on one level, such as an identifier or value that appears only later. Costs four messages per element, so it is bounded like `dump`.
-    public func attributeDump(maxChildren: Int = 40, maxCharacters: Int = 30_000, budget: Duration = .seconds(1)) -> String {
-        let deadline = ContinuousClock.now + budget
-        var lines: [String] = []
-        var stopped: String?
-        let children = attributeLines(into: &lines, indent: "", stopped: &stopped)
-        for (index, child) in children.prefix(maxChildren).enumerated() {
-            if stopped != nil { break }
-            guard ContinuousClock.now < deadline else { stopped = "time limit"; break }
-            guard lines.reduce(0, { $0 + $1.count }) < maxCharacters else { stopped = "\(maxCharacters) characters"; break }
-            lines.append("child \(index + 1) of \(children.count):")
-            _ = child.attributeLines(into: &lines, indent: "  ", stopped: &stopped)
-        }
-        if stopped == nil, children.count > maxChildren { stopped = "\(maxChildren) children" }
+        visit(self, nil, level: 0)
         if let stopped { lines.append("(attribute dump stopped: \(stopped))") }
         return String(lines.joined(separator: "\n").prefix(maxCharacters))
     }
 
-    /// Appends one line per attribute, then the parameterized attributes and actions, and returns the children it read on the way.
-    private func attributeLines(into lines: inout [String], indent: String, stopped: inout String?) -> [AXElement] {
+    /// One line per attribute, then the parameterized attributes and actions, and the children read on the way. `failure` says why the attributes could not be read.
+    private func attributeLines(indent: String) -> (lines: [String], children: [AXElement], failure: String?) {
         var names: CFArray?
         let namesResult = AXUIElementCopyAttributeNames(ref, &names)
         guard namesResult == .success, let names = names as? [String] else {
-            stopped = "AXError \(namesResult.rawValue) reading attribute names"
-            return []
+            return ([], [], "AXError \(namesResult.rawValue) reading attribute names")
         }
         // One message for all values; a value that could not be read comes back as an AXError value.
         var values: CFArray?
         let valuesResult = AXUIElementCopyMultipleAttributeValues(ref, names as CFArray, [], &values)
         guard valuesResult == .success, let values = values as [AnyObject]?, values.count == names.count else {
-            stopped = "AXError \(valuesResult.rawValue) reading attribute values"
-            return []
+            return ([], [], "AXError \(valuesResult.rawValue) reading attribute values")
         }
+        var lines: [String] = []
         var children: [AXElement] = []
         for (name, value) in zip(names, values) {
             if name == "AXChildren", let list = value as? [AXUIElement] { children = list.map(AXElement.init) }
@@ -447,7 +458,7 @@ public struct AXElement {
         if AXUIElementCopyActionNames(ref, &actions) == .success, let list = actions as? [String], !list.isEmpty {
             lines.append("\(indent)actions: \(list.joined(separator: ", "))")
         }
-        return children
+        return (lines, children, nil)
     }
 
     /// An attribute value in full for the attribute dump, where `preview` would hide the detail being looked for. Elements are not read further, so describing one costs no message.

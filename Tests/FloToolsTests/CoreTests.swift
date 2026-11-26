@@ -730,6 +730,24 @@ private actor Flag {
         #expect(AXElement.fullDescription(AXValueCreate(.axError, &error)!) == "(AXError -25212)")
     }
 
+    @Test func windowTreeLeavesOutTrackStripsAndMostRows() {
+        func child(_ role: String, _ identifier: String? = nil, selected: Bool = false) -> AXElement.DumpChild {
+            AXElement.DumpChild(role: role, identifier: identifier, isSelected: selected)
+        }
+        let window = child("AXWindow")
+        // A Mix window: tables and buttons stay, strips go.
+        #expect(WindowTree.kept(parent: window, children: [child("AXTable", "ShHd"), child("AXGroup", "CHdr"), child("AXGroup", "CHdr"), child("AXButton", "TGrw")]) == [0, 3])
+        // Edit window strips, and named groups that are not strips.
+        #expect(WindowTree.kept(parent: window, children: [child("AXGroup", "EdMC"), child("AXGroup", "LHdr")]) == [0])
+        // A table: first, last and first selected row, and its columns.
+        let table = [child("AXRow"), child("AXRow"), child("AXRow", selected: true), child("AXRow", selected: true), child("AXRow"), child("AXRow"), child("AXColumn")]
+        #expect(WindowTree.kept(parent: child("AXTable"), children: table) == [0, 2, 5, 6])
+        #expect(WindowTree.kept(parent: window, children: [child("AXRow")]) == [0])
+        // A column lists the table's rows again.
+        #expect(WindowTree.kept(parent: child("AXColumn"), children: [child("AXRow"), child("AXRow", selected: true), child("AXRow")]) == [])
+        #expect(WindowTree.kept(parent: window, children: []) == [])
+    }
+
     @Test func attributeDumpLeavesOutAbsentValuesOnly() {
         var noValue = AXError.noValue
         var unsupported = AXError.attributeUnsupported

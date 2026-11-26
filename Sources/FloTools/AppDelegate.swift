@@ -1,6 +1,7 @@
 import AppKit
 import FloFeatures
 import FloEngine
+import FloProTools
 import FloSystem
 
 /// Menu bar app with no Dock icon. The menu shows status, runs the commands offered there, counts and lists the active commands, and lets the user turn Flo Tools off.
@@ -262,16 +263,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         preferencesPanel.show()
     }
 
-    /// Turning the log off shows the finished file in Finder, selected, so the user can send it as is.
+    /// Turning the log off first writes Pro Tools' focused window tree to a file beside the log, then shows both files in Finder, selected, so the user can send them as they are.
     /// Ignores a second choice of the menu item while the first is still opening or closing the file.
     @objc private func toggleLog() {
         guard logToggle == nil else { return }
         logToggle = Task { @MainActor in
             defer { logToggle = nil }
             if Log.isRecording {
+                let tree = await proToolsWindowTree()
                 Log.info(.app, "log turned off")
                 guard let file = await Log.stopRecording() else { return }
-                NSWorkspace.shared.activateFileViewerSelecting([file])
+                var files = [file]
+                if let tree {
+                    let treeFile = file.deletingLastPathComponent().appendingPathComponent(file.deletingPathExtension().lastPathComponent + " window tree.txt")
+                    do {
+                        try tree.write(to: treeFile, atomically: true, encoding: .utf8)
+                        files.append(treeFile)
+                    } catch {
+                        Log.error(.app, "could not write the window tree file: \(error)")
+                    }
+                }
+                NSWorkspace.shared.activateFileViewerSelecting(files)
             } else {
                 do {
                     try await Log.startRecording(header: DiagnosticHeader.text(engine: engine, preferences: preferences.current, loginItem: loginItem))
@@ -282,6 +294,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                     await VoiceOver.sayOrLog("Could not start the log.")
                 }
             }
+        }
+    }
+
+    /// Pro Tools' focused window as an attribute tree, or nil when Pro Tools is not running or the read fails. Taken while the log is still on, so its time and any failure are in the log.
+    private func proToolsWindowTree() async -> String? {
+        let start = ContinuousClock.now
+        do {
+            let tree = try await ProToolsApp.running().focusedWindowTree()
+            Log.info(.app, "read Pro Tools' focused window tree: \(tree.utf8.count) bytes (\(Log.elapsed(since: start)))")
+            return tree
+        } catch {
+            Log.info(.app, "no Pro Tools window tree: \(error)")
+            return nil
         }
     }
 
