@@ -2,9 +2,9 @@ import AppKit
 import FloEngine
 import FloSystem
 
-/// A table of the commands that work in the front window, with their shortcuts, a search field that narrows it and a checkbox that shows only the commands for the current window, hiding those that work in any Pro Tools window. Opened from the count in the status menu, with the commands the menu counted.
+/// A table of the commands that work in the front window, with their shortcuts, a search field that narrows it and a checkbox that shows only the commands for the current window, hiding those that work in any Pro Tools window. Opened from the count in the status menu, with the commands the menu counted. Execute, the default button, closes the window and runs the selected command.
 @MainActor
-final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate {
+final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate, NSSearchFieldDelegate {
     private static let commandColumn = NSUserInterfaceItemIdentifier("command")
     private static let shortcutColumn = NSUserInterfaceItemIdentifier("shortcut")
     private static let width: CGFloat = 560
@@ -19,8 +19,15 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
     /// Kept between openings while Flo Tools runs.
     private let currentWindowOnlyCheckbox = NSButton(checkboxWithTitle: "Show only commands for the current window", target: nil, action: nil)
     private let table = NSTableView()
-    private lazy var window = makeWindow()
+    private let executeButton = NSButton(title: "Execute", target: nil, action: nil)
+    private lazy var window: NSWindow = makeWindow()
     private var focusLoan = FocusLoan()
+    /// Runs the chosen command, after the window has closed.
+    private let execute: (CommandID) -> Void
+
+    init(execute: @escaping (CommandID) -> Void) {
+        self.execute = execute
+    }
 
     func show(_ commands: [Command]) {
         allCommands = commands
@@ -57,6 +64,7 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
         }
         table.reloadData()
         resultCount.stringValue = resultText
+        updateExecuteButton()
         guard !shown.isEmpty else { return }
         let row = shown.firstIndex { $0.id == selected } ?? 0
         table.selectRowIndexes([row], byExtendingSelection: false)
@@ -69,8 +77,38 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
         return "\(shown.count) of \(allCommands.count) commands"
     }
 
-    @objc private func closeWindow() {
+    private var selectedCommand: Command? {
+        shown.indices.contains(table.selectedRow) ? shown[table.selectedRow] : nil
+    }
+
+    /// Execute is dimmed while no command is selected.
+    private func updateExecuteButton() {
+        executeButton.isEnabled = selectedCommand != nil
+    }
+
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        updateExecuteButton()
+    }
+
+    /// Closes the window first, so the focus goes back to the window the command acts on.
+    @objc private func executeSelected() {
+        guard let command = selectedCommand else { return }
         window.close()
+        execute(command.id)
+    }
+
+    /// Return in the search field executes too, and Escape in the empty field closes the window. The field takes both keys for itself before the default button or the window sees them (checked live 2026-11-26); Escape with text still clears the field.
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy selector: Selector) -> Bool {
+        switch selector {
+        case #selector(NSResponder.insertNewline(_:)):
+            executeSelected()
+            return true
+        case #selector(NSResponder.cancelOperation(_:)) where search.stringValue.isEmpty:
+            window.close()
+            return true
+        default:
+            return false
+        }
     }
 
     func windowWillClose(_ notification: Notification) {
@@ -93,7 +131,7 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
         return cell
     }
 
-    private func makeWindow() -> NSWindow {
+    private func makeWindow() -> EscapeClosingWindow {
         for (identifier, title, width) in [(Self.commandColumn, "Command", 320.0), (Self.shortcutColumn, "Shortcut", 200.0)] {
             let column = NSTableColumn(identifier: identifier)
             column.title = title
@@ -103,11 +141,14 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
         table.usesAlternatingRowBackgroundColors = true
         table.dataSource = self
         table.delegate = self
+        table.target = self
+        table.doubleAction = #selector(executeSelected)
         table.setAccessibilityLabel("Active commands")
 
         search.placeholderString = "Search commands and shortcuts"
         search.setAccessibilityLabel("Search active commands")
         search.target = self
+        search.delegate = self
         search.action = #selector(narrow)
         search.translatesAutoresizingMaskIntoConstraints = false
         search.widthAnchor.constraint(equalToConstant: Self.width).isActive = true
@@ -116,9 +157,17 @@ final class ActiveCommandsWindow: NSObject, NSWindowDelegate, NSTableViewDataSou
         currentWindowOnlyCheckbox.action = #selector(narrow)
 
         let scroll = NSScrollView.fixed(document: table, size: CGSize(width: Self.width, height: 420))
-        let closeButton = NSButton(title: "Close", target: self, action: #selector(closeWindow))
-        // Escape closes the window. With text in the search field, the first Escape clears the field instead (checked live 2026-11-25).
-        closeButton.keyEquivalent = "\u{1b}"
-        return NSWindow.floating(title: "Active Commands", views: [search, resultCount, currentWindowOnlyCheckbox, scroll, closeButton], alignment: .leading, delegate: self)
+        executeButton.target = self
+        executeButton.action = #selector(executeSelected)
+        // Return executes the selected command.
+        executeButton.keyEquivalent = "\r"
+        return EscapeClosingWindow.floating(title: "Active Commands", views: [search, resultCount, currentWindowOnlyCheckbox, scroll, executeButton], alignment: .leading, delegate: self)
+    }
+}
+
+/// Closes on Escape. The window has no Cancel or Close button to carry Escape as a key equivalent, so the key reaches the window through the responder chain, for example from the table (checked live 2026-11-26).
+private final class EscapeClosingWindow: NSWindow {
+    override func cancelOperation(_ sender: Any?) {
+        performClose(sender)
     }
 }

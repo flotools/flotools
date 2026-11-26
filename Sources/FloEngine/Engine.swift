@@ -453,6 +453,21 @@ public final class Engine {
         _ = start(command, origin: .direct, context: context, reason: "run by the app", invocation: newInvocation(at: .now, .immediate))
     }
 
+    /// Runs a command chosen in a window of Flo Tools once `context`, the window the user came from, is in front again, because the command acts on that window. Says so and runs nothing when it is not back within two seconds, for example because the user switched to another app.
+    public func run(_ id: CommandID, onceBackIn context: FrontContext) async {
+        let deadline = ContinuousClock.now + .seconds(2)
+        // Reading the cached context costs nothing; the context monitor updates it when the front window changes. The window number is not compared: it counts focus changes, so it is new when the window comes back (checked live 2026-11-26).
+        while self.context.processID != context.processID || self.context.windowTitle != context.windowTitle {
+            guard ContinuousClock.now < deadline else {
+                Log.warning(.engine, "\(id) not run: \(context) did not come back to the front, front is \(self.context)")
+                await VoiceOver.sayOrLog(SpokenError.text(for: FloError.couldNot("return to Pro Tools")) ?? "")
+                return
+            }
+            try? await Task.sleep(for: .milliseconds(50))
+        }
+        run(id)
+    }
+
     /// Runs a command because `event` happened, if it could run from a hotkey now: Flo Tools is on and not suspended, and the command is on and its scope applies. Checked again when the run reaches the front of the queue, like a hotkey run.
     public func fire(_ id: CommandID, on event: String) {
         guard let command = installedCommand(id) else { return }

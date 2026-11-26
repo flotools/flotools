@@ -22,7 +22,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private lazy var lifecycle = Lifecycle(engine: engine, session: session, workspace: WorkspaceEvents()) { [weak self] in
         self?.preferences.current ?? Preferences()
     }
-    private lazy var activeCommandsWindow = ActiveCommandsWindow()
+    /// Runs a command once the window the list was made for is back in front.
+    private lazy var activeCommandsWindow = ActiveCommandsWindow { [weak self] id in
+        guard let self else { return }
+        let context = self.listedContext
+        Task { await self.engine.run(id, onceBackIn: context) }
+    }
     private lazy var updater = Updater(preferences: preferences)
     private lazy var loginItem = LoginItem(preferences: preferences)
     /// Whether `main` continued the log file of the last launch, which then still needs this launch's header.
