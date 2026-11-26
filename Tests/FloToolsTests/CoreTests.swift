@@ -728,6 +728,18 @@ private actor Flag {
         var error = AXError.noValue
         #expect(AXElement.fullDescription(AXValueCreate(.axError, &error)!) == "(AXError -25212)")
     }
+
+    @Test func attributeDumpLeavesOutAbsentValuesOnly() {
+        var noValue = AXError.noValue
+        var unsupported = AXError.attributeUnsupported
+        var busy = AXError.cannotComplete
+        #expect(AXElement.isAbsent(AXValueCreate(.axError, &noValue)!))
+        #expect(AXElement.isAbsent(AXValueCreate(.axError, &unsupported)!))
+        #expect(!AXElement.isAbsent(AXValueCreate(.axError, &busy)!))
+        #expect(!AXElement.isAbsent("" as CFString))
+        var point = CGPoint.zero
+        #expect(!AXElement.isAbsent(AXValueCreate(.cgPoint, &point)!))
+    }
 }
 
 @MainActor @Suite struct VoiceOverTests {

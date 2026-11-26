@@ -400,7 +400,7 @@ public struct AXElement {
         return lines.joined(separator: "\n")
     }
 
-    /// Every attribute of this element and of each of its children, with their parameterized attributes and actions, for the log where a lookup stopped at this element. `dump` shows the shape of a tree; this shows everything an app exposes on one level, such as an identifier or value that appears only later. Costs four messages per element, so it is bounded like `dump`.
+    /// Every attribute with a value of this element and of each of its children, with their parameterized attributes and actions, for the log where a lookup stopped at this element. `dump` shows the shape of a tree; this shows everything an app exposes on one level, such as an identifier or value that appears only later. Costs four messages per element, so it is bounded like `dump`.
     public func attributeDump(maxChildren: Int = 40, maxCharacters: Int = 30_000, budget: Duration = .seconds(1)) -> String {
         let deadline = ContinuousClock.now + budget
         var lines: [String] = []
@@ -436,6 +436,7 @@ public struct AXElement {
         var children: [AXElement] = []
         for (name, value) in zip(names, values) {
             if name == "AXChildren", let list = value as? [AXUIElement] { children = list.map(AXElement.init) }
+            if Self.isAbsent(value) { continue }
             lines.append("\(indent)\(name) = \(Self.fullDescription(value))")
         }
         var parameterized: CFArray?
@@ -464,6 +465,15 @@ public struct AXElement {
         }
         if let url = value as? URL { return url.absoluteString }
         return String(describing: value)
+    }
+
+    /// Whether a value from a multiple-attribute read stands for an attribute with no value or one the element does not support, which the attribute dump leaves out. Other errors stay, because they mean the read failed.
+    nonisolated static func isAbsent(_ value: AnyObject) -> Bool {
+        guard CFGetTypeID(value) == AXValueGetTypeID() else { return false }
+        let axValue = unsafeDowncast(value, to: AXValue.self)
+        var error = AXError.success
+        guard AXValueGetType(axValue) == .axError, AXValueGetValue(axValue, .axError, &error) else { return false }
+        return readOutcome(error) == .absent
     }
 
     private nonisolated static func axValueDescription(_ value: AXValue) -> String {
