@@ -452,7 +452,11 @@ public struct AXElement {
 
     /// An attribute value in full for the attribute dump, where `preview` would hide the detail being looked for. Elements are not read further, so describing one costs no message.
     nonisolated static func fullDescription(_ value: AnyObject) -> String {
-        if let text = value as? String { return text.count > 300 ? "\"\(text.prefix(300))...\"" : "\"\(text)\"" }
+        if let text = value as? String {
+            // Line breaks are escaped so a value stays on its line and the indentation keeps showing the tree.
+            let shown = text.prefix(300).replacingOccurrences(of: "\n", with: "\\n")
+            return text.count > 300 ? "\"\(shown)...\"" : "\"\(shown)\""
+        }
         if CFGetTypeID(value) == CFBooleanGetTypeID() { return (value as? Bool) == true ? "true" : "false" }
         if let number = value as? NSNumber { return number.stringValue }
         if CFGetTypeID(value) == AXUIElementGetTypeID() { return "an element" }

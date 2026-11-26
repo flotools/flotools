@@ -718,6 +718,7 @@ private actor Flag {
 
     @Test func attributeDumpValuesAreInFull() {
         #expect(AXElement.fullDescription("Kick" as CFString) == "\"Kick\"")
+        #expect(AXElement.fullDescription("Insert Assignment A\n\"Click II\"" as CFString) == "\"Insert Assignment A\\n\"Click II\"\"")
         #expect(AXElement.fullDescription(kCFBooleanTrue) == "true")
         #expect(AXElement.fullDescription(NSNumber(value: 48000)) == "48000")
         #expect(AXElement.fullDescription(["a", "b"] as CFArray) == "[\"a\", \"b\"]")
