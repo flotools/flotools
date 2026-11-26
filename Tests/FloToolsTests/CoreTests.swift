@@ -748,6 +748,13 @@ private actor Flag {
         #expect(WindowTree.kept(parent: window, children: []) == [])
     }
 
+    @Test func attributeDumpNotesAnElementItCannotRead() async {
+        // No process has this ID, so every read fails at once.
+        let dump = await AXElement.application(pid: 999_999).attributeDump()
+        #expect(dump.hasPrefix("(could not read: AXError "))
+        #expect(!dump.contains("attribute dump stopped"))
+    }
+
     @Test func attributeDumpLeavesOutAbsentValuesOnly() {
         var noValue = AXError.noValue
         var unsupported = AXError.attributeUnsupported

@@ -390,20 +390,30 @@ public struct AXElement {
         }
     }
 
+    /// How many elements in a row `attributeDump` may fail to read before it stops.
+    static let maxFailuresInRow = 3
+
     /// Every attribute with a value of this element and of its descendants down to `depth` levels, with their parameterized attributes and actions. Used for the log where a lookup stopped (one level), and for a whole window when the log is turned off. It shows everything an app exposes, such as an identifier or value that appears only later.
     ///
-    /// `keep`, when given, gets an element and its children and returns the indices of the children to dump; each run of the others becomes one line saying they were left out. Without it, every child is dumped without the extra read. Bounded, because each element costs four messages to a possibly busy app: it stops at `maxCharacters` of text, at `budget` of time and at the first read that fails. The time is checked before each element, so one read that is already running can overrun it.
+    /// `keep`, when given, gets an element and its children and returns the indices of the children to dump; each run of the others becomes one line saying they were left out. Without it, every child is dumped without the extra read. Bounded, because each element costs four messages to a possibly busy app: it stops at `maxCharacters` of text, at `budget` of time and after `maxFailuresInRow` elements in a row could not be read. One element that cannot be read gets a line saying so, and the dump goes on with the next, because an element can vanish while a window is dumped, such as a row that scrolled away; several in a row mean the app has stopped answering, and each further read could wait out the messaging timeout. The time is checked before each element, so one read that is already running can overrun it.
     public func attributeDump(depth: Int = 1, maxCharacters: Int = 30_000, budget: Duration = .seconds(1), keep: ((_ parent: DumpChild, _ children: [DumpChild]) -> Set<Int>)? = nil) -> String {
         let deadline = ContinuousClock.now + budget
         var lines: [String] = []
         var characters = 0
         var stopped: String?
+        var failuresInRow = 0
         func visit(_ element: AXElement, _ seen: DumpChild?, level: Int) {
             let indent = String(repeating: "  ", count: level)
             let read = element.attributeLines(indent: indent)
             lines += read.lines
             characters += read.lines.reduce(0) { $0 + $1.count + 1 }
-            if let failure = read.failure { stopped = failure; return }
+            if let failure = read.failure {
+                lines.append("\(indent)(could not read: \(failure))")
+                failuresInRow += 1
+                if failuresInRow >= Self.maxFailuresInRow { stopped = "\(failuresInRow) elements in a row could not be read" }
+                return
+            }
+            failuresInRow = 0
             let children = read.children
             guard level < depth, !children.isEmpty else { return }
             let summaries = keep == nil ? [] : children.map(DumpChild.init)
